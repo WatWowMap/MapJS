@@ -3804,7 +3804,13 @@ function loadPokemonFilter () {
             zeroRecords: i18n('filter_pokemon_table_empty')
         },
         rowGroup: {
-            dataSrc: 'type'
+            dataSrc: 'type',
+            /*
+            startRender: function(rows, group, level) {
+                return $('<tr/>')
+                    .append('<td style="background-color: #1a1a1a;">' + group + '</td>');
+            }
+            */
         },
         autoWidth: false,
         columns: [
@@ -3859,6 +3865,8 @@ function loadPokemonFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true
@@ -3955,6 +3963,8 @@ function loadQuestFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true
@@ -4051,6 +4061,8 @@ function loadRaidFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true
@@ -4147,6 +4159,8 @@ function loadGymFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true
@@ -4243,6 +4257,8 @@ function loadPokestopFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true
@@ -4339,6 +4355,8 @@ function loadSpawnpointFilter () {
             if ('{{style}}' === 'dark') {
                 $(row).css('background-color', 'rgb(33, 37, 41)');
                 $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
             }
         },
         responsive: true

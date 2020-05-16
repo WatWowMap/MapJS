@@ -473,7 +473,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     } else if (pokemonFilterIV === null || pokemonFilterIV.length === 0 || !showIV) {
         sqlAdd = ` AND ${sqlExclude}`;
     } else {
-        /*
         let orPart = '';
         let andPart = '';
         const keys = Object.keys(pokemonFilterIV);
@@ -521,7 +520,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         } else {
             sqlAdd = '';
         }
-        */
     }
 
     const sql = `
@@ -533,7 +531,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             lon <= ? AND updated > ? ${sqlAdd}
     `;
     let args = [minLat, maxLat, minLon, maxLon, updated];
-    console.log('pokemonFilterExclude:', pokemonFilterExclude);
     for (let i = 0; i < pokemonFilterExclude.length; i++) {
         args.push(pokemonFilterExclude[i]);
     }
@@ -1168,7 +1165,7 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
     return weather;
 }
 
-function generateShowHideButtons(id, type, ivLabel = null) {
+function generateShowHideButtons(id, type, ivLabel = '') {
     const hideString = i18n.__('filter_hide');
     const showString = i18n.__('filter_show');
     const filter = `
