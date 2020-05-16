@@ -7,7 +7,7 @@ const config = require('../config.json');
 const query = require('../services/db.js');
 
 async function getData(filter) {
-    //console.log('Filter:', filter);
+    console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
     const minLon = filter.min_lon;
@@ -1216,58 +1216,58 @@ function sqlifyIvFilter(filter) {
     let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?"
     let sql = singleMatch.r?.replaceAll(in: filter) { match in
         if let firstGroup = match.group(at: 0) {
-            let firstGroupNumbers = firstGroup.replacingOccurrences(of: "A", with: "")
-            firstGroupNumbers = firstGroupNumbers.replacingOccurrences(of: "D", with: "")
-            firstGroupNumbers = firstGroupNumbers.replacingOccurrences(of: "S", with: "")
-            firstGroupNumbers = firstGroupNumbers.replacingOccurrences(of: "L", with: "")
+            let firstGroupNumbers = firstGroup.replace("A", "");
+            firstGroupNumbers = firstGroupNumbers.replace("D", "");
+            firstGroupNumbers = firstGroupNumbers.replace("S", "");
+            firstGroupNumbers = firstGroupNumbers.replace("L", "");
 
-            let column: String
-            if firstGroup.contains(string: "A") {
-                column = "atk_iv"
-            } else if firstGroup.contains(string: "D") {
-                column = "def_iv"
-            } else if firstGroup.contains(string: "S") {
-                column = "sta_iv"
-            } else if firstGroup.contains(string: "L") {
-                column = "level"
+            let column = '';
+            if (firstGroup.includes("A")) {
+                column = "atk_iv";
+            } else if (firstGroup.includes("D")) {
+                column = "def_iv";
+            } else if (firstGroup.includes("S")) {
+                column = "sta_iv";
+            } else if (firstGroup.includes("L")) {
+                column = "level";
             } else {
-                column = "iv"
+                column = "iv";
             }
 
-            if firstGroupNumbers.contains(string: "-") { // min max
-                let split = firstGroupNumbers.components(separatedBy: "-")
-                guard split.count == 2, let number0 = Float(split[0]), let number1 = Float(split[1]) else {
+            if (firstGroupNumbers.includes("-")) { // min max
+                let split = firstGroupNumbers.split("-");
+                if (split.count !== 2) { 
                     return nil
                 }
-
-                let min: Float
-                let max: Float
-                if number0 < number1 {
-                    min = number0
-                    max = number1
+                let number0 = parseFloat(split[0]);
+                let number1 = parseFloat(split[1]);
+                let min = 0;
+                let max = 0;
+                if (number0 < number1) {
+                    min = number0;
+                    max = number1;
                 } else {
-                    max = number1
-                    min = number0
+                    max = number1;
+                    min = number0;
                 }
-
-                return "\(column) >= \(min) AND \(column) <= \(max)"
+                return `${column} >= ${min} AND ${column} <= ${max}`;
             } else { // fixed
-                guard let number = Float(firstGroupNumbers) else {
-                    return nil
+                let number = parseFloat(firstGroupNumbers);
+                if (number === undefined || number === null) {
+                    return null;
                 }
-                return "\(column) = \(number)"
+                return `${column} = ${number}`;
             }
-
         }
-        return nil
-    } ?? ""
-    if sql == "" {
-        return nil
+        return null;
+    } || "";
+    if (sql === "") {
+        return null;
     }
 
-    sql = sql.replacingOccurrences(of: "&&", with: " AND ")
-    sql = sql.replacingOccurrences(of: "||", with: " OR ")
-    return sql
+    sql = sql.replace("&&", " AND ");
+    sql = sql.replace("||", " OR ");
+    return sql;
     */
     return '';
 }

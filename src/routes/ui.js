@@ -89,8 +89,7 @@ function handlePage(req, res) {
     const areas = [];
     const areaKeys = Object.keys(config.areas).sort();
     areaKeys.forEach(function(key) {
-        const name = key[0].toUpperCase() + key.slice(1).toLowerCase();
-        areas.push({ 'area': name });
+        areas.push({ 'area': key });
     });
     defaultData.areas = areas;
 

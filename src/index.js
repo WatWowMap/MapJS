@@ -1,6 +1,8 @@
 'use strict';
 
 const path = require('path');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const session = require('express-session');
 const app = express();
@@ -8,15 +10,14 @@ const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
 
 const config = require('./config.json');
+const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const uiRoutes = require('./routes/ui.js');
 
 // TODO: Discord auth
-// TODO: Fix Pokemon filter
-// TODO: Get city via url
-// TODO: Tileservers
+// TODO: Fix city with zoom
+// TODO: Finish pokemon iv filter
 // TODO: Permissions
-// TODO: CSRF
 
 // View engine
 app.set('view engine', 'mustache');
@@ -59,6 +60,19 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+// CSRF token middleware
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
+app.use(function(req, res, next) {
+    var csrf = req.csrfToken();
+    defaultData.csrf = csrf;
+    //console.log("CSRF Token:", csrf);
+    res.cookie('x-csrf-token', csrf);
+    res.cookie('TOKEN', csrf);
+    res.locals.csrftoken = csrf;
+    next();
+});
 
 if (config.discord.enabled) {
     //app.use('/api/discord', discordRoutes);
