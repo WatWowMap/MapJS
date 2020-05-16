@@ -3824,9 +3824,6 @@ function loadPokemonFilter () {
             url: '/api/get_data?show_pokemon_filter=true',
             dataSrc: 'data.pokemon_filters',
             async: true,
-            success: function(result) {
-                console.log('Pokemon filter results:', result);
-            }
         },
         info: false,
         order: [[2, 'asc']],
