@@ -13,7 +13,10 @@ const uiRoutes = require('./routes/ui.js');
 
 // TODO: Discord auth
 // TODO: Fix Pokemon filter
-// TODO: Get lat/lon/city/zoom etc via url
+// TODO: Get city via url
+// TODO: Tileservers
+// TODO: Permissions
+// TODO: CSRF
 
 // View engine
 app.set('view engine', 'mustache');
@@ -57,12 +60,11 @@ app.use(session({
     saveUninitialized: true
 }));
 
-/*
 if (config.discord.enabled) {
-    app.use('/api/discord', discordRoutes);
+    //app.use('/api/discord', discordRoutes);
 
     // Discord error middleware
-    // eslint-disable no-unused-vars //
+    /* eslint-disable no-unused-vars */
     app.use(function(err, req, res, next) {
         switch (err.message) {
         case 'NoCodeProvided':
@@ -77,9 +79,8 @@ if (config.discord.enabled) {
             });
         }
     });
-    // eslint-enable no-unused-vars //
+    /* eslint-enable no-unused-vars */
 }
-*/
 
 // Login middleware
 /*

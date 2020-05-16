@@ -1,13 +1,22 @@
 {
     "interface": "0.0.0.0",
     "port": 8080,
+    "title": "MapJS",
     "locale": "en",
-    "maxPokemonId": 651,
+    "style": "dark",
+    "maxPokemonId": 649,
     "startLat": 0,
     "startLon": 0,
     "startZoom": 12,
     "minZoom": 10,
     "maxZoom": 18,
+    "areas": {
+        "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
+    },
+    "tileservers": {
+        "Default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
+        "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>"
+    },
     "db": {
         "host": "127.0.0.1",
         "port": 3306,
@@ -17,6 +26,69 @@
         "charset": "utf8mb4"
     },
     "discord": {
-        "enabled": true
+        "enabled": true,
+        "guilds": [],
+        "perms": {
+            "map": {
+                "enabled": true,
+                "roles": []
+            },
+            "pokemon": {
+                "enabled": true,
+                "roles": []
+            },
+            "raids": {
+                "enabled": true,
+                "roles": []
+            },
+            "gyms": {
+                "enabled": true,
+                "roles": []
+            },
+            "pokestops": {
+                "enabled": true,
+                "roles": []
+            },
+            "quests": {
+                "enabled": true,
+                "roles": []
+            },
+            "lures": {
+                "enabled": true,
+                "roles": []
+            },
+            "invasions": {
+                "enabled": true,
+                "roles": []
+            },
+            "spawnpoints": {
+                "enabled": true,
+                "roles": []
+            },
+            "iv": {
+                "enabled": true,
+                "roles": []
+            },
+            "s2cells": {
+                "enabled": true,
+                "roles": []
+            },
+            "submissionCells": {
+                "enabled": true,
+                "roles": []
+            },
+            "nests": {
+                "enabled": true,
+                "roles": []
+            },
+            "weather": {
+                "enabled": true,
+                "roles": []
+            },
+            "devices": {
+                "enabled": true,
+                "roles": []
+            }
+        }
     }
 }

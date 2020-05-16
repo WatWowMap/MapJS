@@ -2,11 +2,12 @@
 
 const i18n = require('i18n');
 
+const InventoryItemId = require('./item.js');
 const config = require('../config.json');
 const query = require('../services/db.js');
 
 async function getData(filter) {
-    console.log('Filter:', filter);
+    //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
     const minLon = filter.min_lon;
@@ -54,10 +55,10 @@ async function getData(filter) {
         data['gyms'] = await getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
     if (showPokestops || showQuests) {
-        data['pokestops'] = await getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
+        data['pokestops'] = await getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
     }
     if (showPokemon) {
-        data['pokemon'] = await getPokemon(minLat, maxLat, minLon, maxLon, /*showIV*/true, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
+        data['pokemon'] = await getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
     }
     if (showSpawnpoints) {
         data['spawnpoints'] = await getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -80,16 +81,9 @@ async function getData(filter) {
     }
 
     if (permViewMap && showPokemonFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
         const onString = i18n.__('filter_on');
         const offString = i18n.__('filter_off');
         const ivString = i18n.__('filter_iv');
-    
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
     
         const pokemonTypeString = i18n.__('filter_pokemon');
         const generalTypeString = i18n.__('filter_general');
@@ -130,7 +124,7 @@ async function getData(filter) {
             }
         }
 
-        for (let i = 1; i < config.maxPokemonId; i++) {
+        for (let i = 1; i <= config.maxPokemonId; i++) {
             let ivLabel = '';
             if (permShowIV) {
                 ivLabel = `
@@ -141,90 +135,34 @@ async function getData(filter) {
             } else {
                 ivLabel = '';
             }
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="pokemon" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="pokemon" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-                ${ivLabel}
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokemon" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokemon" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokemon" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokemon" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'pokemon', ivLabel);
+            const size = generateSizeButtons(i, 'pokemon');
             pokemonData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
                     'sort': i + 1
                 },
-                'name': i18n.__(`poke_${i}`),
+                'name': i18n.__('poke_' + i),
                 'image': `<img class="lazy_load" data-src="/img/pokemon/${i}.png" style="height:50px; width:50px;">`,
                 'filter': filter,
                 'size': size,
                 'type': pokemonTypeString
             });
         }
+
         data['pokemon_filters'] = pokemonData;
         //console.log('Pokemon Filters:', pokemonData);
     }
 
     if (permViewMap && showRaidFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
-
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
-
         const generalString = i18n.__('filter_general');
         const raidLevelsString = i18n.__('filter_raid_levels');
         const pokemonString = i18n.__('filter_pokemon');
 
         const raidTimers = i18n.__('filter_raid_timers');
         let raidData = [];
-        const filter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="timers" data-type="raid-timers" data-info="hide">
-                <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="timers" data-type="raid-timers" data-info="show">
-                <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-        const size = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="timers" data-type="raid-timers" data-info="small" disabled>
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="timers" data-type="raid-timers" data-info="normal" disabled>
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="timers" data-type="raid-timers" data-info="large" disabled>
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="timers" data-type="raid-timers" data-info="huge" disabled>
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        const filter = generateShowHideButtons('timers', 'raid-timers');
+        const size = generateSizeButtons('timers', 'raid-timers');
         raidData.push({
             'id': {
                 'formatted': 0,//String(format: "%03d", 0),
@@ -240,32 +178,8 @@ async function getData(filter) {
         //Level
         for (let i = 1; i <= 5; i++) {
             const raidLevel = i18n.__('filter_raid_level_' + i);
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="raid-level" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="raid-level" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-level" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-level" data-info="normal">
-                  <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-level" data-info="large">
-                 <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-level" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'raid-level');
+            const size = generateSizeButtons(i, 'raid-level');
             raidData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -281,32 +195,8 @@ async function getData(filter) {
 
         //Pokemon
         for (let i = 1; i <= config.maxPokemonId; i++) {
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="raid-pokemon" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'raid-pokemon');
+            const size = generateSizeButtons(i, 'raid-pokemon');
             raidData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -323,48 +213,16 @@ async function getData(filter) {
     }
 
     if (permViewMap && showGymFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
-
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
-
         const gymTeamString = i18n.__('filter_gym_team');
         const gymOptionsString = i18n.__('filter_gym_options');
         const availableSlotsString = i18n.__('filter_gym_available_slots');
-
         let gymData = [];
+
         //Team
         for (let i = 0; i < 3; i++) {
             const gymTeam = i18n.__('filter_gym_team_' + i);
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="gym-team" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="gym-team" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-team" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-team" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-team" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-team" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'gym-team');
+            const size = generateSizeButtons(i, 'gym-team');
             gymData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -379,33 +237,8 @@ async function getData(filter) {
         }
 
         // EX raid eligible gyms
-        const exFilter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="ex" data-type="gym-ex" data-info="hide">
-                <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="ex" data-type="gym-ex" data-info="show">
-                <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-
-        const exSize = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="ex" data-type="gym-ex" data-info="small">
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="ex" data-type="gym-ex" data-info="normal">
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="ex" data-type="gym-ex" data-info="large">
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="ex" data-type="gym-ex" data-info="huge">
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        const exFilter = generateShowHideButtons('ex', 'gym-ex');
+        const exSize = generateSizeButtons('ex', 'gym-ex');
         gymData.push({
             'id': {
                 'formatted': 5,//String(format: "%03d", 5), //Need a better way to display, new section?
@@ -421,32 +254,8 @@ async function getData(filter) {
         //Available slots
         for (let i = 0; i <= 6; i++) {
             const availableSlots = i18n.__('filter_gym_available_slots_' + i);
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="gym-slots" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="gym-slots" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-slots" data-info="small" disabled>
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-slots" data-info="normal" disabled>
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-slots" data-info="large" disabled>
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="gym-slots" data-info="huge" disabled>
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'gym-slots');
+            const size = generateSizeButtons(i, 'gym-slots');
             const team = Math.round((Math.random() % 3) + 1);
             gymData.push({
                 'id': {
@@ -464,18 +273,9 @@ async function getData(filter) {
     }
 
     if (permViewMap && showQuestFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
-
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
-
         const pokemonTypeString = i18n.__('filter_pokemon');
         const miscTypeString = i18n.__('filter_misc');
         const itemsTypeString = i18n.__('filter_items');
-
         let questData = [];
 
         // Misc
@@ -492,32 +292,8 @@ async function getData(filter) {
                 itemName = i18n.__('filter_candy');
                 break;
             }
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="quest-misc" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="quest-misc" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-misc" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-misc" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-misc" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-misc" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'quest-misc');
+            const size = generateSizeButtons(i, 'quest-misc');
             questData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -537,32 +313,8 @@ async function getData(filter) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             const itemId = InventoryItemId[key];
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${itemId}" data-type="quest-item" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${itemId}" data-type="quest-item" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${itemId}" data-type="quest-item" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${itemId}" data-type="quest-item" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${itemId}" data-type="quest-item" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${itemId}" data-type="quest-item" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(itemId, 'quest-item');
+            const size = generateSizeButtons(itemId, 'quest-item');
             questData.push({
                 'id': {
                     'formatted': itemI,//String(format: "%03d", itemI),
@@ -579,32 +331,8 @@ async function getData(filter) {
 
         // Pokemon
         for (let i = 1; i <= config.maxPokemonId; i++) {
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="quest-pokemon" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'quest-pokemon');
+            const size = generateSizeButtons(i, 'quest-pokemon');
             questData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -621,46 +349,13 @@ async function getData(filter) {
     }
 
     if (permViewMap && showPokestopFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
-
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
-
         const pokestopOptionsString = i18n.__('filter_pokestop_options');
-
         let pokestopData = [];
 
         const pokestopNormal = i18n.__('filter_pokestop_normal');
         const pokestopInvasion = i18n.__('filter_pokestop_invasion');
-        const filter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="normal" data-type="pokestop-normal" data-info="hide">
-            <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="normal" data-type="pokestop-normal" data-info="show">
-            <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-        const size = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="normal" data-type="pokestop-normal" data-info="small">
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="normal" data-type="pokestop-normal" data-info="normal">
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="normal" data-type="pokestop-normal" data-info="large">
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="normal" data-type="pokestop-normal" data-info="huge">
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        const filter = generateShowHideButtons('normal', 'pokestop-normal');
+        const size = generateSizeButtons('normal', 'pokestop-normal');
         pokestopData.push({
             'id': {
                 'formatted': 0,//String(format: "%03d", 0),
@@ -675,32 +370,8 @@ async function getData(filter) {
 
         for (let i = 1; i <= 4; i++) {
             const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
-            const filter = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-off select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="hide">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-                </label>
-                <label class="btn btn-sm btn-on select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="show">
-                    <input type="radio" name="options" id="show" autocomplete="off">${showString}
-                </label>
-            </div>
-            `;
-            const size = `
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="small">
-                    <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="normal">
-                    <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="large">
-                    <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-                </label>
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokestop-lure" data-info="huge">
-                    <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-                </label>
-            </div>
-            `;
+            const filter = generateShowHideButtons(i, 'pokestop-lure');
+            const size = generateSizeButtons(i, 'pokestop-lure');
             pokestopData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
@@ -714,32 +385,8 @@ async function getData(filter) {
             });
         }
 
-        const trFilter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="hide">
-                <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="show">
-                <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-        const trSize = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="small">
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="normal">
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="large">
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="invasion" data-type="pokestop-invasion" data-info="huge">
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        const trFilter = generateShowHideButtons('invasion', 'pokestop-invasion');
+        const trSize = generateSizeButtons('invasion', 'pokestop-invasion');
         pokestopData.push({
             'id': {
                 'formatted': 5,//String(format: "%03d", 5),
@@ -755,45 +402,13 @@ async function getData(filter) {
     }
 
     if (permViewMap && showSpawnpointFilter) {
-        const hideString = i18n.__('filter_hide');
-        const showString = i18n.__('filter_show');
-
-        const smallString = i18n.__('filter_small');
-        const normalString = i18n.__('filter_normal');
-        const largeString = i18n.__('filter_large');
-        const hugeString = i18n.__('filter_huge');
-
         const spawnpointOptionsString = i18n.__('filter_spawnpoint_options');
         const spawnpointWithTimerString = i18n.__('filter_spawnpoint_with_timer');
         const spawnpointWithoutTimerString = i18n.__('filter_spawnpoint_without_timer');
 
         let spawnpointData = [];
-        let filter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="hide">
-                <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="show">
-                <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-        let size = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="small">
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="normal">
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="large">
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="no-timer" data-type="spawnpoint-timer" data-info="huge">
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        let filter = generateShowHideButtons('no-timer', 'spawnpoint-timer');
+        let size = generateSizeButtons('no-timer', 'spawnpoint-timer');
         spawnpointData.push({
             'id': {
                 'formatted': 0,//String(format: "%03d", 0),
@@ -806,32 +421,8 @@ async function getData(filter) {
             'type': spawnpointOptionsString
         });
 
-        filter = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-off select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="hide">
-                <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
-            </label>
-            <label class="btn btn-sm btn-on select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="show">
-                <input type="radio" name="options" id="show" autocomplete="off">${showString}
-            </label>
-        </div>
-        `;
-        size = `
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-size select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="small">
-                <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="normal">
-                <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="large">
-                <input type="radio" name="options" id="show" autocomplete="off">${largeString}
-            </label>
-            <label class="btn btn-sm btn-size select-button-new" data-id="with-timer" data-type="spawnpoint-timer" data-info="huge">
-                <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
-            </label>
-        </div>
-        `;
+        filter = generateShowHideButtons('with-timer', 'spawnpoint-timer');
+        size = generateSizeButtons('with-timer', 'spawnpoint-timer');
         spawnpointData.push({
             'id': {
                 'formatted': 1,//String(format: "%03d", 1),
@@ -850,8 +441,7 @@ async function getData(filter) {
 }
 
 async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) {
-    //let pokemonFilterExclude = pokemonFilterExclude || [];
-    let keys = Object.keys(pokemonFilterIV);
+    let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -870,7 +460,7 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         sqlExclude = '';
     } else {
         let sqlExcludeCreate = 'pokemon_id NOT IN (';
-        for (let i = 1; i <= pokemonFilterExclude.length; i++) {
+        for (let i = 1; i < pokemonFilterExclude.length; i++) {
             sqlExcludeCreate += '?, ';
         }
         sqlExcludeCreate += '?)';
@@ -1119,7 +709,7 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         excludeAllButExSQL = '';
     }
 
-    const sql = `
+    let sql = `
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
@@ -1316,7 +906,7 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
         excludePokestopSQL = '';
     }
 
-    const sql = `
+    let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR),
             CAST(quest_rewards AS CHAR), quest_template, cell_id, lure_id, pokestop_display,
@@ -1578,71 +1168,46 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
     return weather;
 }
 
-const InventoryItemId = {
-    //ITEM_UNKNOWN: 0,
-    ITEM_POKE_BALL: 1,
-    ITEM_GREAT_BALL: 2,
-    ITEM_ULTRA_BALL: 3,
-    //ITEM_MASTER_BALL: 4,
-    //ITEM_PREMIER_BALL: 5,
-    ITEM_POTION: 101,
-    ITEM_SUPER_POTION: 102,
-    ITEM_HYPER_POTION: 103,
-    ITEM_MAX_POTION: 104,
-    ITEM_REVIVE: 201,
-    ITEM_MAX_REVIVE: 202,
-    ITEM_LUCKY_EGG: 301,
-    ITEM_INCENSE_ORDINARY: 401,
-    //ITEM_INCENSE_SPICY: 402,
-    //ITEM_INCENSE_COOL: 403,
-    //ITEM_INCENSE_FLORAL: 404,
-    //ITEM_INCENSE_BELUGA_BOX: 405,
-    ITEM_TROY_DISK: 501,
-    ITEM_TROY_DISK_GLACIAL: 502,
-    ITEM_TROY_DISK_MOSSY: 503,
-    ITEM_TROY_DISK_MAGNETIC: 504,
-    //ITEM_X_ATTACK: 602,
-    //ITEM_X_DEFENSE: 603,
-    //ITEM_X_MIRACLE: 604,
-    ITEM_RAZZ_BERRY: 701,
-    //ITEM_BLUK_BERRY: 702,
-    ITEM_NANAB_BERRY: 703,
-    //ITEM_WEPAR_BERRY: 704,
-    ITEM_PINAP_BERRY: 705,
-    ITEM_GOLDEN_RAZZ_BERRY: 706,
-    //ITEM_GOLDEN_NANAB_BERRY: 707,
-    ITEM_GOLDEN_PINAP_BERRY: 708,
-    ITEM_POFFIN: 709,
-    //ITEM_SPECIAL_CAMERA: 801,
-    //ITEM_INCUBATOR_BASIC_UNLIMITED: 901,
-    //ITEM_INCUBATOR_BASIC: 902,
-    //ITEM_INCUBATOR_SUPER: 903,
-    //ITEM_POKEMON_STORAGE_UPGRADE: 1001,
-    //ITEM_ITEM_STORAGE_UPGRADE: 1002,
-    ITEM_SUN_STONE: 1101,
-    ITEM_KINGS_ROCK: 1102,
-    ITEM_METAL_COAT: 1103,
-    ITEM_DRAGON_SCALE: 1104,
-    ITEM_UP_GRADE: 1105,
-    ITEM_GEN4_EVOLUTION_STONE: 1106,
-    ITEM_GEN5_EVOLUTION_STONE: 1107,
-    ITEM_MOVE_REROLL_FAST_ATTACK: 1201,
-    ITEM_MOVE_REROLL_SPECIAL_ATTACK: 1202,
-    ITEM_MOVE_REROLL_ELITE_FAST_ATTACK: 1203,
-    ITEM_MOVE_REROLL_ELITE_SPECIAL_ATTACK: 1204,
-    ITEM_RARE_CANDY: 1301,
-    ITEM_FREE_RAID_TICKET: 1401,
-    //ITEM_PAID_RAID_TICKET: 1402,
-    //ITEM_LEGENDARY_RAID_TICKET: 1403,
-    ITEM_STAR_PIECE: 1404,
-    //ITEM_FRIEND_GIFT_BOX: 1405,
-    //ITEM_TEAM_CHANGE: 1406,
-    //ITEM_REMOTE_RAID_TICKET: 1408,
-    //ITEM_LEADER_MAP_FRAGMENT: 1501,
-    //ITEM_LEADER_MAP: 1502,
-    //ITEM_GIOVANNI_MAP: 1503,
-    //ITEM_GLOBAL_EVENT_TICKET: 1600
-};  
+function generateShowHideButtons(id, type, ivLabel = null) {
+    const hideString = i18n.__('filter_hide');
+    const showString = i18n.__('filter_show');
+    const filter = `
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="${type}" data-info="hide">
+            <input type="radio" name="options" id="hide" autocomplete="off">${hideString}
+        </label>
+        <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="${type}" data-info="show">
+            <input type="radio" name="options" id="show" autocomplete="off">${showString}
+        </label>
+        ${ivLabel}
+    </div>
+    `;
+    return filter;
+}
+
+function generateSizeButtons(id, type) {
+    const smallString = i18n.__('filter_small');
+    const normalString = i18n.__('filter_normal');
+    const largeString = i18n.__('filter_large');
+    const hugeString = i18n.__('filter_huge');
+    const size = `
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="small">
+            <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
+        </label>
+        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="normal">
+            <input type="radio" name="options" id="show" autocomplete="off">${normalString}
+        </label>
+        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="large">
+            <input type="radio" name="options" id="show" autocomplete="off">${largeString}
+        </label>
+        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="huge">
+            <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
+        </label>
+    </div>
+    `;
+    return size;
+}
 
 function sqlifyIvFilter(filter) {
     /*

@@ -1,38 +1,103 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const router = express.Router();
 
 const config = require('../config.json');
 const defaultData = require('../data/default.js');
-
-//response.setHeader(.accessControlAllowHeaders, value: "*")
-//response.setHeader(.accessControlAllowMethods, value: "GET")
-
-defaultData.avilable_forms_json = '{}',
-defaultData.avilable_items_json = '{}',
-//avilable_tileservers_json: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors']
+const InventoryItemId = require('../data/item.js');
 
 
 router.get(['/', '/index'], function(req, res) {
-    const tileserverString = `
-    Default;https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors
-    DarkMatter;https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors Â© <a href="https://carto.com/attributions">CARTO</a>
-    `;
-    let tileservers = {};
-    const tiles = tileserverString.split('\n');
-    for (let i = 0; i < tiles.length; i++) {
-        const split = tiles[i].split(';');
-        if (split.length === 3) {
-            const name = split[0].trim();
-            tileservers[name] = {
-                url: split[1].trim(),
-                attribution: split[2].trim()
+    const data = handlePage(req, res);
+    res.render('index', data);
+});
+
+router.get('/index.js', function(req, res) {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.render('index-js', defaultData);
+});
+
+router.get('/index.css', function(req, res) {
+    res.setHeader('Content-Type', 'text/css');
+    res.render('index-css', defaultData);
+});
+
+router.get('/@/:lat/:lon', function(req, res) {
+    const data = handlePage(req, res);
+    res.render('index', data);
+});
+
+router.get('/@/:lat/:lon/:zoom', function(req, res) {
+    const data = handlePage(req, res);
+    res.render('index', data);
+});
+
+router.get('/@/:city', function(req, res) {
+    const data = handlePage(req, res);
+    res.render('index', data);
+});
+
+router.get('/@/:city/:zoom', function(req, res) {
+    const data = handlePage(req, res);
+    res.render('index', data);
+});
+
+function handlePage(req, res) {
+    // Build available tile servers list
+    const tileservers = {};
+    const tileKeys = Object.keys(config.tileservers);
+    if (tileKeys) {
+        tileKeys.forEach(function(tileKey) {
+            const tileData = config.tileservers[tileKey].split(';');
+            tileservers[tileKey] = {
+                url: tileData[0],
+                attribution: tileData[1]
             };
-        }
+        });
     }
     defaultData.avilable_tileservers_json = JSON.stringify(tileservers);
-    defaultData.page_is_home = true
+
+    // Build available forms list
+    const availableForms = [];
+    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
+    const files = fs.readdirSync(pokemonIconsDir);
+    if (files) {
+        files.forEach(function(file) {
+            const split = file.replace('.png', '').split('-');
+            if (split.length === 2) {
+                const pokemonId = parseInt(split[0]);
+                const formId = parseInt(split[1]);
+                availableForms.push(`${pokemonId}-${formId}`);
+            }
+        });
+    }
+    defaultData.avilable_forms_json = JSON.stringify(availableForms);
+
+    // Build available items list
+    const availableItems = [-3, -2, -1];
+    const keys = Object.keys(InventoryItemId);
+    keys.forEach(function(key) {
+        const itemId = InventoryItemId[key];
+        availableItems.push(itemId);
+    });
+    defaultData.avilable_items_json = JSON.stringify(availableItems);    
+
+    // Build available areas list
+    const areas = [];
+    const areaKeys = Object.keys(config.areas).sort();
+    areaKeys.forEach(function(key) {
+        const name = key[0].toUpperCase() + key.slice(1).toLowerCase();
+        areas.push({ 'area': name });
+    });
+    defaultData.areas = areas;
+
+    defaultData.page_is_home = true;
+    defaultData.page_is_areas = true; // TODO: Perms
+    defaultData.show_areas = true;
+
     defaultData.hide_gyms = false;
     defaultData.hide_pokestops = false;
     defaultData.hide_raids= false;
@@ -51,8 +116,10 @@ router.get(['/', '/index'], function(req, res) {
     let lon = parseFloat(req.params.lon || config.startLon);
     let city = req.params.city || null;
     // City but in wrong route
+    // TODO: Fix city with zoom
     if (city === null) {
-        let tmpCity = req.params.lat;
+        //tmpCity.toDouble() == nil
+        const tmpCity = req.params.lat;
         city = tmpCity;
         const tmpZoom = parseInt(req.params.lon);
         if (tmpZoom > 0) {
@@ -61,10 +128,16 @@ router.get(['/', '/index'], function(req, res) {
     }
 
     if (city) {
-        lat = parseFloat(citySetting['lat']);
-        lon = parseFloat(citySetting['lon']);
-        if (zoom === null) {
-            zoom = parseInt(citySetting['zoom']);
+        for (var i = 0; i < areaKeys.length; i++) {
+            const key = areaKeys[i];
+            if (city.toLowerCase() === key.toLowerCase()) {
+                const area = config.areas[key];
+                lat = parseFloat(area.lat);
+                lon = parseFloat(area.lon);
+                if (zoom === null) {
+                    zoom = parseInt(area.zoom || config.startZoom);
+                }
+            }
         }
     }
 
@@ -76,37 +149,10 @@ router.get(['/', '/index'], function(req, res) {
 
     defaultData.start_lat = lat || 0;
     defaultData.start_lon = lon || 0;
-    defaultData.zoom = zoom || config.startZoom || 12;
+    defaultData.start_zoom = zoom || config.startZoom || 12;
     defaultData.min_zoom = config.minZoom || 10;
     defaultData.max_zoom = config.maxZoom || 18;
-
-    res.render('index', defaultData);
-});
-
-router.get('/index.js', function(req, res) {
-    res.setHeader('Content-Type', 'application/javascript');
-    res.render('index-js', defaultData);
-});
-
-router.get('/index.css', function(req, res) {
-    res.setHeader('Content-Type', 'text/css');
-    res.render('index-css', defaultData);
-});
-
-router.get('/@/:lat/:lon', function(req, res) {
-    //WebReqeustHandler.handle(request, response, .home, [.viewMap])
-});
-
-router.get('/@/:lat/:lon/:zoom', function(req, res) {
-    //WebReqeustHandler.handle(request, response, .home, [.viewMap])
-});
-
-router.get('/@/:city', function(req, res) {
-    //WebReqeustHandler.handle(request, response, .home, [.viewMap])
-});
-
-router.get('/@/:city/:zoom', function(req, res) {
-    //WebReqeustHandler.handle(request, response, .home, [.viewMap])
-});
+    return defaultData;
+}
 
 module.exports = router;

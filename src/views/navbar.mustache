@@ -1,13 +1,52 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="navbar-header">
-    <a class="navbar-brand" href="/">
-      <!--<img src="./static/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">-->
-      {{title}}
-    </a>
-  </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/"><img class="align-middle" src="/favicons/navbar.png" border="0" height="32px"></a>
+        <a class="navbar-brand" href="/">{{title}}</a>        
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+        {{#show_areas}}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="areasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{nav_areas}}{{#page_is_areas}}<span class="sr-only">(current)</span>{{/page_is_areas}}
+                </a>
+                <div class="dropdown-menu scrollable-menu" aria-labelledby="areasDropdown">
+                    <h6 class="dropdown-header">{{nav_areas}}</h6>
+                    {{#areas}}
+                        <a href="/@/{{area}}" class="dropdown-item">{{area}}</a>
+                    {{/areas}}
+                </div>
+            </li>
+        {{/show_areas}}
+        </ul>
+    <!--{{#logged_in}}-->
+        <ul class="navbar-nav ml-auto">
+        {{#map_url}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{map_url}}"><i class="fa fa-fw fa-map" aria-hidden="true"></i></a>
+            </li>
+        {{/map_url}}
+        {{#paypal_url}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{paypal_url}}"><i class="fa fa-fw fa-paypal" aria-hidden="true"></i></a>
+            </li>
+        {{/paypal_url}}
+        {{#username}}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>&nbsp;{{username}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/logout"><i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>&nbsp;{{Logout}}</a>
+                </div>
+            </li>
+        {{/username}}
+        </ul>
+    <!--{{/logged_in}}-->
+    </div>
 </nav>
 <br>
 <br>
