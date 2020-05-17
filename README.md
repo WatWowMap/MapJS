@@ -24,7 +24,7 @@ module.exports = {
   {
     name: 'RDM-opole2',
     script: 'index.js',
-    cwd: '/home/username/RDM-opole2/src/',
+    cwd: '/home/username/MapJS/src/',
     instances: 1,
     autorestart: true,
     watch: false,
