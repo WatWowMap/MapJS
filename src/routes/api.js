@@ -121,7 +121,7 @@ async function getData(filter) {
                 </div>
                 `;
                 const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${i}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
                 pokemonData.push({
                     'id': {
                         'formatted': andOrString,
