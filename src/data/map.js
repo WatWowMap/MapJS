@@ -7,7 +7,7 @@ const config = require('../config.json');
 const query = require('../services/db.js');
 
 async function getData(filter) {
-    console.log('Filter:', filter);
+    //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
     const minLon = filter.min_lon;

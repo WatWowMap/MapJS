@@ -9,6 +9,18 @@ const config = require('../config.json');
 const defaultData = require('../data/default.js');
 const InventoryItemId = require('../data/item.js');
 
+if (config.discord.enabled) {
+    router.get('/login', function(req, res) {
+        res.redirect('/api/discord/login');
+    });
+
+    router.get('/logout', function(req, res) {
+        req.session.destroy(function(err) {
+            if (err) throw err;
+            res.redirect('/login');
+        });
+    });
+}
 
 router.get(['/', '/index'], function(req, res) {
     const data = handlePage(req, res);

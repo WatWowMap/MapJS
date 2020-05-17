@@ -27,6 +27,10 @@
     },
     "discord": {
         "enabled": true,
+        "botToken": "",
+        "clientId": "",
+        "clientSecret": "",
+        "redirectUri": "http://localhost:8080/api/discord/callback",
         "guilds": [],
         "perms": {
             "map": {

@@ -12,9 +12,10 @@ const i18n = require('i18n');
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
+const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
+const utils = require('./services/utils.js');
 
-// TODO: Discord auth
 // TODO: Fix city with zoom
 // TODO: Finish pokemon iv filter
 // TODO: Permissions
@@ -56,7 +57,7 @@ i18n.setLocale(config.locale);
 
 // Sessions middleware
 app.use(session({
-    secret: 'kjdsfkljsdlfkjslfkjsdifuwoei2398j1!',//utils.generateString(),
+    secret: utils.generateString(),
     resave: true,
     saveUninitialized: true
 }));
@@ -75,7 +76,7 @@ app.use(function(req, res, next) {
 });
 
 if (config.discord.enabled) {
-    //app.use('/api/discord', discordRoutes);
+    app.use('/api/discord', discordRoutes);
 
     // Discord error middleware
     /* eslint-disable no-unused-vars */
@@ -97,7 +98,6 @@ if (config.discord.enabled) {
 }
 
 // Login middleware
-/*
 app.use(function(req, res, next) {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
@@ -105,17 +105,11 @@ app.use(function(req, res, next) {
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        defaultData.home_page = config.pages.home.enabled && utils.hasRole(req.roles, config.pages.home.roles);
-        defaultData.raids_page = config.pages.raids.enabled && utils.hasRole(req.roles, config.pages.raids.roles);
-        defaultData.gyms_page = config.pages.gyms.enabled && utils.hasRole(req.roles, config.pages.gyms.roles);
-        defaultData.quests_page = config.pages.quests.enabled && utils.hasRole(req.roles, config.pages.quests.roles);
-        defaultData.invasions_page = config.pages.quests.enabled && utils.hasRole(req.roles, config.pages.invasions.roles);
-        defaultData.nests_page = config.pages.nests.enabled && utils.hasRole(req.roles, config.pages.nests.roles);
+        //defaultData.home_page = config.pages.home.enabled && utils.hasRole(req.roles, config.pages.home.roles);
         return next();
     }
-    //res.redirect('/login');
+    res.redirect('/login');
 });
-*/
 
 // API routes
 app.use('/api', apiRoutes);
