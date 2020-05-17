@@ -30,12 +30,12 @@ async function getData(filter) {
     const showQuests = filter.show_quests || false;
     const questFilterExclude = filter.quest_filter_exclude ? JSON.parse(filter.quest_filter_exclude || {}) : []; //string 
     const showPokemon = filter.show_pokemon || false;
-    const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int JSON.parse(
-    const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary JSON.parse(
-    const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : []; //JSON.parse(
-    const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : []; // JSON.parse(
-    const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : []; //JSON.parse(
-    const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : []; //JSON.parse(
+    const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
+    const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
+    const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
+    const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
+    const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
+    const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints || false;
     const showCells = filter.show_cells || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells || false;
@@ -121,7 +121,7 @@ async function getData(filter) {
                 </div>
                 `;
                 const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${i}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
                 pokemonData.push({
                     'id': {
                         'formatted': andOrString,
@@ -135,6 +135,27 @@ async function getData(filter) {
                 });
             }
         }
+
+        const bigKarpString = i18n.__("filter_big_karp");
+        const tinyRatString = i18n.__("filter_tiny_rat");
+        for (var i = 0; i <= 1; i++) {
+            const id = i === 0 ? 'big_karp' : 'tiny_rat';            
+            const filter = generateShowHideButtons(id, 'pokemon-size');
+            const sizeString = i === 0 ? bigKarpString : tinyRatString;
+            const size = generateSizeButtons(id, 'pokemon-size');            
+            pokemonData.push({
+                "id": {
+                    "formatted": i,//String(format: "%03d", i),
+                    "sort": i + 2
+                },
+                "name": sizeString,
+                "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
+                "filter": filter,
+                "size": size,
+                "type": generalTypeString
+            });
+        }
+
 
         for (let i = 1; i <= config.map.maxPokemonId; i++) {
             let ivLabel = '';
@@ -152,7 +173,7 @@ async function getData(filter) {
             pokemonData.push({
                 'id': {
                     'formatted': i,//String(format: "%03d", i),
-                    'sort': i + 1
+                    'sort': i + 10
                 },
                 'name': i18n.__('poke_' + i),
                 'image': `<img class="lazy_load" data-src="/img/pokemon/${i}.png" style="height:50px; width:50px;">`,

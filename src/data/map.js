@@ -17,19 +17,40 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         }
     }
 
+    const onlyBigKarp = pokemonFilterExclude.includes('big_karp');
+    const onlyTinyRat = pokemonFilterExclude.includes('tiny_rat');
+
     let sqlExclude = '';
-    if (pokemonFilterExclude.length === 0) {
-        sqlExclude = '';
-    } else {
-        let sqlExcludeCreate = 'pokemon_id NOT IN (';
-        for (let i = 0; i < pokemonFilterExclude.length; i++) {
-            if (i === pokemonFilterExclude.length - 1) {
-                sqlExcludeCreate += '?)';
-            } else {
-                sqlExcludeCreate += '?, ';
-            }
+    if (onlyBigKarp || onlyTinyRat) {
+        let karpBaseHeight = 0.89999998;
+        let karpBaseWeight = 10;
+        let bigKarpSQL = `(pokemon_id = 129 AND weight IS NOT NULL AND ((weight / ${karpBaseWeight}) + (size / ${karpBaseHeight})) > 2.5)`;
+        let ratBaseHeight = 0.300000011920929;
+        let ratBaseWeight = 3.5; //Alolan - 3.79999995231628
+        let tinyRatSQL = `(pokemon_id = 19 AND weight IS NOT NULL AND ((weight / ${ratBaseWeight}) + (size / ${ratBaseHeight})) < 1.5)`;
+        if (onlyBigKarp && onlyTinyRat) {
+            sqlExclude = `(${bigKarpSQL} OR ${tinyRatSQL})`;
+        } else if (onlyBigKarp && !onlyTinyRat) {
+            sqlExclude = bigKarpSQL;
+        } else if (!onlyBigKarp && onlyTinyRat) {
+            sqlExclude = tinyRatSQL;
+        } else {
+            sqlExclude = '';
         }
-        sqlExclude = sqlExcludeCreate;
+    } else {
+        if (pokemonFilterExclude.length === 0) {
+            sqlExclude = '';
+        } else {
+            let sqlExcludeCreate = "pokemon_id NOT IN (";
+            for (let i = 0; i < pokemonFilterExclude.length; i++) {
+                if (i === pokemonFilterExclude.length - 1) {
+                    sqlExcludeCreate += '?)';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
+            }
+            sqlExclude = sqlExcludeCreate
+        }
     }
 
     let sqlAdd = '';
@@ -96,8 +117,13 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             lon <= ? AND updated > ? ${sqlAdd}
     `;
     let args = [minLat, maxLat, minLon, maxLon, updated];
-    for (let i = 0; i < pokemonFilterExclude.length; i++) {
-        args.push(pokemonFilterExclude[i]);
+    if (!(onlyBigKarp || onlyTinyRat)) {
+        for (let i = 0; i < pokemonFilterExclude.length; i++) {
+            const id = pokemonFilterExclude[i];
+            if (id !== 'big_karp' && id !== 'tiny_rat') {
+                args.push(id);
+            }
+        }
     }
     const results = await query(sql, args);
     let pokemons = [];
