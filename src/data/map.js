@@ -460,10 +460,13 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         sqlExclude = '';
     } else {
         let sqlExcludeCreate = 'pokemon_id NOT IN (';
-        for (let i = 0; i < pokemonFilterExclude.length - 1; i++) {
-            sqlExcludeCreate += '?, ';
+        for (let i = 0; i < pokemonFilterExclude.length; i++) {
+            if (i === pokemonFilterExclude.length - 1) {
+                sqlExcludeCreate += '?)';
+            } else {
+                sqlExcludeCreate += '?, ';
+            }
         }
-        sqlExcludeCreate += '?)';
         sqlExclude = sqlExcludeCreate;
     }
 
@@ -473,7 +476,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     } else if (pokemonFilterIV === null || pokemonFilterIV.length === 0 || !showIV) {
         sqlAdd = ` AND ${sqlExclude}`;
     } else {
-        /*
         let orPart = '';
         let andPart = '';
         const keys = Object.keys(pokemonFilterIV);
@@ -481,7 +483,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             const filter = pokemonFilterIV[key];
             const sql = sqlifyIvFilter(filter.value);
             if (sql && sql !== false && sql !== '') {
-                console.log("Filter:", filter);
                 if (filter.key === 'and') {
                     andPart += sql;
                 } else if (pokemonFilterExclude && pokemonFilterExclude.length > 0) {
@@ -511,7 +512,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             orPart += ')';
         }
 
-        console.log("orPart:", orPart, "andPart:", andPart);
         if (orPart && orPart !== '' && andPart && andPart !== '') {
             sqlAdd = ` AND (${orPart} AND ${andPart})`;
         } else if (orPart && orPart !== '') {
@@ -523,7 +523,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         } else {
             sqlAdd = '';
         }
-        */
     }
 
     const sql = `
@@ -538,8 +537,6 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     for (let i = 0; i < pokemonFilterExclude.length; i++) {
         args.push(pokemonFilterExclude[i]);
     }
-    console.log("Pokemon SQL:", sql);
-    console.log("Pokemon Args:", args);
     const results = await query(sql, args);
     let pokemons = [];
     if (results && results.length > 0) {

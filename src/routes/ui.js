@@ -134,7 +134,6 @@ function handlePage(req, res) {
             defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
         }
     }
-    console.log("Default data:", defaultData);
 
     let zoom = parseInt(req.params.zoom || config.map.startZoom);
     let lat = parseFloat(req.params.lat || config.map.startLat);

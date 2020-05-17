@@ -15,7 +15,7 @@ function getConnection() {
     
     conn.connect(function(err) {
         if (err) {
-            console.log('Error connecting to database');
+            console.error('Error connecting to database');
             return;
         }
     });
