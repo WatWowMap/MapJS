@@ -71,7 +71,7 @@ function handlePage(req, res) {
             };
         });
     }
-    defaultData.avilable_tileservers_json = JSON.stringify(tileservers);
+    defaultData.available_tileservers_json = JSON.stringify(tileservers);
 
     // Build available forms list
     const availableForms = [];
@@ -87,7 +87,7 @@ function handlePage(req, res) {
             }
         });
     }
-    defaultData.avilable_forms_json = JSON.stringify(availableForms);
+    defaultData.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
     const availableItems = [-3, -2, -1];
@@ -96,7 +96,7 @@ function handlePage(req, res) {
         const itemId = InventoryItemId[key];
         availableItems.push(itemId);
     });
-    defaultData.avilable_items_json = JSON.stringify(availableItems);    
+    defaultData.available_items_json = JSON.stringify(availableItems);    
 
     // Build available areas list
     const areas = [];
