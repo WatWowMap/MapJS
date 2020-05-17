@@ -23,6 +23,7 @@ const utils = require('./services/utils.js');
 // TODO: submission_placement_cells
 // TODO: submission_placement_rings
 // TODO: submission_type_cells
+// TODO: Set default pokemon filter (disable crap pokemon, make map go vroom)
 
 // View engine
 app.set('view engine', 'mustache');
