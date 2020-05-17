@@ -53,6 +53,7 @@ let showGyms;
 let showRaids;
 let showPokemon;
 let showSpawnpoints;
+let showNests;
 let showCells;
 let showWeathers;
 let showDevices;
@@ -75,9 +76,11 @@ let deviceOnlineIcon;
 let deviceOfflineIcon;
 
 let tileLayer;
+let nestLayer = new L.LayerGroup();
 
 let pokemonDb = {};
 let weatherTypes = {};
+let nestsDb = {};
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -251,6 +254,7 @@ $(function () {
             show_quests: showQuests,
             show_pokestops: showPokestops,
             show_spawnpoints: showSpawnpoints,
+            show_nests: showNests,
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
             show_weathers: showWeathers,
@@ -370,6 +374,14 @@ function loadStorage () {
         showSpawnpoints = false;
     } else {
         showSpawnpoints = (showSpawnpointsValue === 'true');
+    }
+
+    const showNestsValue = retrieve('show_nests');
+    if (showNestsValue === null) {
+        store('show_nests', false);
+        showNests = false;
+    } else {
+        showNests = (showNestsValue === 'true');
     }
 
     const showPokemonValue = retrieve('show_pokemon');
@@ -610,7 +622,8 @@ function initMap () {
     map = L.map('map', {
         preferCanvas: true,
         updateWhenIdle: true,
-        updateWhenZooming: false
+        updateWhenZooming: false,
+        layers: [nestLayer]
     }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
 
     let scale = '';
@@ -830,6 +843,7 @@ function initMap () {
         const newShowQuests = $('#show-quests').hasClass('active');
         const newShowPokemon = $('#show-pokemon').hasClass('active');
         const newShowSpawnpoints = $('#show-spawnpoints').hasClass('active');
+        const newShowNests = $('#show-nests').hasClass('active');
         const newShowCells = $('#show-cells').hasClass('active');
         const newShowSubmissionCells = $('#show-submission-cells').hasClass('active');
         const newShowWeathers = $('#show-weathers').hasClass('active');
@@ -886,6 +900,11 @@ function initMap () {
                 map.removeLayer(spawnpoint.marker);
             });
             spawnpointMarkers = [];
+        }
+        if (newShowNests !== showNests && newShowNests === false) {
+            nestLayer.clearLayers();
+        } else {
+            loadNestPolygons();
         }
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
@@ -994,6 +1013,8 @@ function initMap () {
         store('show_pokemon', newShowPokemon);
         showSpawnpoints = newShowSpawnpoints;
         store('show_spawnpoints', newShowSpawnpoints);
+        showNests = newShowNests;
+        store('show_nests', newShowNests);
         store('pokemon_filter', JSON.stringify(pokemonFilter));
         store('quest_filter', JSON.stringify(questFilter));
         store('raid_filter', JSON.stringify(raidFilter));
@@ -1069,6 +1090,14 @@ function initMap () {
                 } else {
                     $('#hide-spawnpoints').addClass('active');
                     $('#show-spawnpoints').removeClass('active');
+                }
+
+                if (retrieve('show_nests') == 'true') {
+                    $('#show-nests').addClass('active');
+                    $('#hide-nests').removeClass('active');
+                } else {
+                    $('#hide-nests').addClass('active');
+                    $('#show-nests').removeClass('active');
                 }
 
                 if (retrieve('show_cells') === 'true') {
@@ -1152,6 +1181,13 @@ function initMap () {
     setInterval(updateCellsLoop, 10000);
     setInterval(updateDevicesLoop, 10000);
     setInterval(updateMapTimers, 1000);
+
+    $.getJSON( "/custom/nests.json", function( data ) {
+        nestsDb = data;
+        if (showNests) {
+            loadNestPolygons();
+        }
+    });
 }
 
 // MARK: - Date Loading
@@ -1284,6 +1320,7 @@ function loadData () {
         pokestop_filter_exclude: JSON.stringify(pokestopFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
         show_spawnpoints: showSpawnpoints,
+        show_nests: showNests,
         show_cells: showCells && map.getZoom() >= 13,
         show_submission_placement_cells: showSubmissionCells && map.getZoom() >= 16,
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
@@ -1655,6 +1692,22 @@ function loadData () {
             isLoading = false;
         }
     });
+}
+
+function loadNestPolygons() {
+    if (nestsDb == null) {
+        return;
+    }
+    try {
+        var nestGeoPolys = L.geoJson(nestsDb, {
+            onEachFeature: function(features, featureLayer) {
+                featureLayer.bindPopup(getNestPopupContent(features.properties.name));
+            }
+        });
+        nestLayer.addLayer(nestGeoPolys);
+    } catch (err) {
+        console.log("Failed to load nest.json file.\r\nError:", err);
+    }
 }
 
 // MARK: - Filters
@@ -2416,6 +2469,14 @@ function getWeatherPopupContent (weather) {
     content += '</center>';
     return content;
 }
+
+function getNestPopupContent(name) {
+    let content = '<center>';
+    content += '<h6>Park: <b>'+name+'</b></h6>';
+    content += '</center>';
+    return content;
+}
+
 
 // MARK: - Translation
 
@@ -4437,6 +4498,9 @@ function loadFilterSettings (e) {
         store('show_spawnpoints', showSpawnpoints);
         store('spawnpoint_filter', JSON.stringify(spawnpointFilterNew));
 
+        showNests = obj.show_nests;
+        store('show_nests', showNests);
+
         showCells = obj.show_cells;
         store('show_cells', showCells);
 
@@ -4492,6 +4556,14 @@ function loadFilterSettings (e) {
         } else {
             $('#hide-spawnpoints').addClass('active');
             $('#show-spawnpoints').removeClass('active');
+        }
+
+        if (showNests) {
+            $('#show-nests').addClass('active');
+            $('#hide-nests').removeClass('active');
+        } else {
+            $('#hide-nests').addClass('active');
+            $('#show-nests').removeClass('active');
         }
 
         if (showCells) {
