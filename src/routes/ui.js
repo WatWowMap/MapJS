@@ -8,6 +8,7 @@ const router = express.Router();
 const config = require('../config.json');
 const defaultData = require('../data/default.js');
 const InventoryItemId = require('../data/item.js');
+const utils = require('../services/utils.js');
 
 if (config.discord.enabled) {
     router.get('/login', function(req, res) {
@@ -109,18 +110,28 @@ function handlePage(req, res) {
     defaultData.page_is_areas = true; // TODO: Perms
     defaultData.show_areas = true;
 
-    defaultData.hide_gyms = false;
-    defaultData.hide_pokestops = false;
-    defaultData.hide_raids= false;
-    defaultData.hide_pokemon = false;
-    defaultData.hide_spawnpoints = false;
-    defaultData.hide_quests = false;
-    defaultData.hide_lures = false;
-    defaultData.hide_invasions = false;
-    defaultData.hide_cells = false;
-    defaultData.hide_submission_cells = false;
-    defaultData.hide_weathers = false;
-    defaultData.hide_devices = false;
+    defaultData.username = req.session.username;
+    //const id = req.session.user_id;
+    const guilds = req.session.guilds;
+    const roles = req.session.roles;
+    if (utils.hasGuild(guilds)) {
+        defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
+        defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
+        defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
+        defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
+        defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
+        defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
+        defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
+        defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
+        defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
+        defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
+        defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
+        defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
+        defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
+        defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
+        defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+    }
+    console.log("Default data:", defaultData);
 
     let zoom = parseInt(req.params.zoom || config.startZoom);
     let lat = parseFloat(req.params.lat || config.startLat);

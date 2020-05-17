@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('../config.json');
+const utils = require('./utils.js');
 
 const DiscordOauth2 = require('discord-oauth2');
 const oauth = new DiscordOauth2();
@@ -37,6 +38,17 @@ class DiscordClient {
         const rolemgr = user.presence.member.roles;
         const roles = rolemgr.member._roles;
         return roles;
+    }
+    async isValid(configItem) {
+        if (configItem.enabled && configItem.roles.length === 0) {
+            return true;
+        }
+        const user = await this.getUser();
+        const roles = await this.getUserRoles(user.id);
+        const guilds = await this.getGuilds();
+        const guildResult = utils.hasGuild(guilds);
+        const roleResult = utils.hasRole(roles, configItem.roles);
+        return guildResult && roleResult;
     }
 }
 

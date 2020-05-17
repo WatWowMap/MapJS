@@ -102,10 +102,33 @@ app.use(function(req, res, next) {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }
+    if (req.session.user_id && req.session.username && req.session.guilds && req.session.roles) {
+        console.log("Previous discord auth still active for user id:", req.session.user_id);
+        return next();
+    }
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        //defaultData.home_page = config.pages.home.enabled && utils.hasRole(req.roles, config.pages.home.roles);
+        //const id = req.session.user_id;
+        const guilds = req.session.guilds;
+        const roles = req.session.roles;
+        if (utils.hasGuild(guilds)) {
+            defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
+            defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
+            defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
+            defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
+            defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
+            defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
+            defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
+            defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
+            defaultData.hide_spawnpoints = true;//!utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
+            defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
+            defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
+            defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
+            defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
+            defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
+            defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+        }
         return next();
     }
     res.redirect('/login');

@@ -43,8 +43,10 @@ router.get('/callback', catchAsyncErrors(async function(req, res) {
     const roles = await client.getUserRoles(user.id);
 
     req.session.logged_in = true;
+    req.session.user_id = user.id;
     req.session.username = `${user.username}#${user.discriminator}`;
     req.session.roles = roles;
+    req.session.guilds = guilds;
     if (utils.hasGuild(guilds)) {
         res.redirect(`/?token=${json.access_token}`);
     } else {
