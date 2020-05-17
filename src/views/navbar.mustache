@@ -22,19 +22,9 @@
             </li>
         {{/show_areas}}
         </ul>
-    <!--{{#logged_in}}-->
+    {{#logged_in}}
         <ul class="navbar-nav ml-auto">
-        {{#map_url}}
-            <li class="nav-item">
-                <a class="nav-link" href="{{map_url}}"><i class="fa fa-fw fa-map" aria-hidden="true"></i></a>
-            </li>
-        {{/map_url}}
-        {{#paypal_url}}
-            <li class="nav-item">
-                <a class="nav-link" href="{{paypal_url}}"><i class="fa fa-fw fa-paypal" aria-hidden="true"></i></a>
-            </li>
-        {{/paypal_url}}
-        {{#username}}
+         {{#username}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-user" aria-hidden="true"></i>&nbsp;{{username}}
@@ -45,7 +35,7 @@
             </li>
         {{/username}}
         </ul>
-    <!--{{/logged_in}}-->
+    {{/logged_in}}
     </div>
 </nav>
 <br>

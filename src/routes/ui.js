@@ -110,32 +110,35 @@ function handlePage(req, res) {
     defaultData.page_is_areas = true; // TODO: Perms
     defaultData.show_areas = true;
 
-    defaultData.username = req.session.username;
-    //const id = req.session.user_id;
-    const guilds = req.session.guilds;
-    const roles = req.session.roles;
-    if (utils.hasGuild(guilds)) {
-        defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
-        defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
-        defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
-        defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
-        defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
-        defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
-        defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
-        defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
-        defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
-        defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
-        defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
-        defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
-        defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
-        defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
-        defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+    if (!config.discord.enabled || req.session.logged_in) {
+        defaultData.logged_in = true;
+        defaultData.username = req.session.username;
+        //const id = req.session.user_id;
+        const guilds = req.session.guilds;
+        const roles = req.session.roles;
+        if (utils.hasGuild(guilds)) {
+            defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
+            defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
+            defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
+            defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
+            defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
+            defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
+            defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
+            defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
+            defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
+            defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
+            defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
+            defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
+            defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
+            defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
+            defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+        }
     }
     console.log("Default data:", defaultData);
 
-    let zoom = parseInt(req.params.zoom || config.startZoom);
-    let lat = parseFloat(req.params.lat || config.startLat);
-    let lon = parseFloat(req.params.lon || config.startLon);
+    let zoom = parseInt(req.params.zoom || config.map.startZoom);
+    let lat = parseFloat(req.params.lat || config.map.startLat);
+    let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;
     // City but in wrong route
     // TODO: Fix city with zoom
@@ -157,23 +160,23 @@ function handlePage(req, res) {
                 lat = parseFloat(area.lat);
                 lon = parseFloat(area.lon);
                 if (zoom === null) {
-                    zoom = parseInt(area.zoom || config.startZoom);
+                    zoom = parseInt(area.zoom || config.map.startZoom);
                 }
             }
         }
     }
 
-    if ((zoom || config.startZoom) > config.maxZoom) {
-        zoom = config.maxZoom;
-    } else if ((zoom || config.startZoom) < config.minZoom) {
-        zoom = config.minZoom;
+    if ((zoom || config.map.startZoom) > config.map.maxZoom) {
+        zoom = config.map.maxZoom;
+    } else if ((zoom || config.map.startZoom) < config.map.minZoom) {
+        zoom = config.map.minZoom;
     }
 
     defaultData.start_lat = lat || 0;
     defaultData.start_lon = lon || 0;
-    defaultData.start_zoom = zoom || config.startZoom || 12;
-    defaultData.min_zoom = config.minZoom || 10;
-    defaultData.max_zoom = config.maxZoom || 18;
+    defaultData.start_zoom = zoom || config.map.startZoom || 12;
+    defaultData.min_zoom = config.map.minZoom || 10;
+    defaultData.max_zoom = config.map.maxZoom || 18;
     return defaultData;
 }
 

@@ -4,12 +4,14 @@
     "title": "MapJS",
     "locale": "en",
     "style": "dark",
-    "maxPokemonId": 649,
-    "startLat": 0,
-    "startLon": 0,
-    "startZoom": 12,
-    "minZoom": 10,
-    "maxZoom": 18,
+    "map": {
+        "maxPokemonId": 649,
+        "startLat": 0,
+        "startLon": 0,
+        "startZoom": 12,
+        "minZoom": 10,
+        "maxZoom": 18,
+    }
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
     },

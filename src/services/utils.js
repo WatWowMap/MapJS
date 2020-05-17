@@ -7,8 +7,14 @@ function generateString() {
 }
 
 function hasGuild(guilds) {
+    if (!config.discord.enabled) {
+        return true;
+    }
     if (config.discord.guilds.length === 0) {
         return true;
+    }
+    if (guilds.length === 0) {
+        return false;
     }
     for (let i = 0; i < guilds.length; i++) {
         const guild = guilds[i];
@@ -20,8 +26,14 @@ function hasGuild(guilds) {
 }
 
 function hasRole(userRoles, requiredRoles) {
+    if (!config.discord.enabled) {
+        return true;
+    }
     if (requiredRoles.length === 0) {
         return true;
+    }
+    if (userRoles.length === 0) {
+        return false;
     }
     for (let i = 0; i < userRoles.length; i++) {
         const role = userRoles[i];

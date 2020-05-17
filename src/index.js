@@ -19,6 +19,10 @@ const utils = require('./services/utils.js');
 // TODO: Fix city with zoom
 // TODO: Finish pokemon iv filter
 // TODO: Permissions
+// TODO: Fix pokemon filters
+// TODO: submission_placement_cells
+// TODO: submission_placement_rings
+// TODO: submission_type_cells
 
 // View engine
 app.set('view engine', 'mustache');
@@ -103,7 +107,7 @@ app.use(function(req, res, next) {
         return next();
     }
     if (req.session.user_id && req.session.username && req.session.guilds && req.session.roles) {
-        console.log("Previous discord auth still active for user id:", req.session.user_id);
+        //console.log("Previous discord auth still active for user id:", req.session.user_id);
         return next();
     }
     if (!config.discord.enabled || req.session.logged_in) {

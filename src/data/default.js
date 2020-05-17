@@ -5,6 +5,6 @@ const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
 data.locale = config.locale;
 data.style = config.style == 'dark' ? 'dark' : '';
-data.max_pokemon_id = config.maxPokemonId;
+data.max_pokemon_id = config.map.maxPokemonId;
 
 module.exports = data;

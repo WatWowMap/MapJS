@@ -16,14 +16,14 @@ async function getData(filter) {
     const showRaids = filter.show_raids || false;
     const showPokestops = filter.show_pokestops || false;
     const showQuests = filter.show_quests || false;
-    const questFilterExclude = filter.quest_filter_exclude || []; //string JSON.parse(
+    const questFilterExclude = filter.quest_filter_exclude ? JSON.parse(filter.quest_filter_exclude || {}) : []; //string 
     const showPokemon = filter.show_pokemon || false;
-    const pokemonFilterExclude = filter.pokemon_filter_exclude || []; //int JSON.parse(
-    const pokemonFilterIV = filter.pokemon_filter_iv || []; //dictionary JSON.parse(
-    const raidFilterExclude = filter.raid_filter_exclude || []; //JSON.parse(
-    const gymFilterExclude = filter.gym_filter_exclude || []; // JSON.parse(
-    const pokestopFilterExclude = filter.pokestop_filter_exclude || []; //JSON.parse(
-    const spawnpointFilterExclude = filter.spawnpoint_filter_exclude || []; //JSON.parse(
+    const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int JSON.parse(
+    const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary JSON.parse(
+    const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : []; //JSON.parse(
+    const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : []; // JSON.parse(
+    const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : []; //JSON.parse(
+    const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : []; //JSON.parse(
     const showSpawnpoints = filter.show_spawnpoints || false;
     const showCells = filter.show_cells || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells || false;
@@ -124,7 +124,7 @@ async function getData(filter) {
             }
         }
 
-        for (let i = 1; i <= config.maxPokemonId; i++) {
+        for (let i = 1; i <= config.map.maxPokemonId; i++) {
             let ivLabel = '';
             if (permShowIV) {
                 ivLabel = `
@@ -194,7 +194,7 @@ async function getData(filter) {
         }
 
         //Pokemon
-        for (let i = 1; i <= config.maxPokemonId; i++) {
+        for (let i = 1; i <= config.map.maxPokemonId; i++) {
             const filter = generateShowHideButtons(i, 'raid-pokemon');
             const size = generateSizeButtons(i, 'raid-pokemon');
             raidData.push({
@@ -219,7 +219,7 @@ async function getData(filter) {
         let gymData = [];
 
         //Team
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i <= 3; i++) {
             const gymTeam = i18n.__('filter_gym_team_' + i);
             const filter = generateShowHideButtons(i, 'gym-team');
             const size = generateSizeButtons(i, 'gym-team');
@@ -330,7 +330,7 @@ async function getData(filter) {
         }
 
         // Pokemon
-        for (let i = 1; i <= config.maxPokemonId; i++) {
+        for (let i = 1; i <= config.map.maxPokemonId; i++) {
             const filter = generateShowHideButtons(i, 'quest-pokemon');
             const size = generateSizeButtons(i, 'quest-pokemon');
             questData.push({
@@ -443,7 +443,7 @@ async function getData(filter) {
 async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) {
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
-        for (let i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length - 1; i++) {
             const key = keys[i];
             const ivFilter = pokemonFilterIV[key];
             const id = parseInt(ivFilter.key);
@@ -460,7 +460,7 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         sqlExclude = '';
     } else {
         let sqlExcludeCreate = 'pokemon_id NOT IN (';
-        for (let i = 1; i < pokemonFilterExclude.length; i++) {
+        for (let i = 0; i < pokemonFilterExclude.length - 1; i++) {
             sqlExcludeCreate += '?, ';
         }
         sqlExcludeCreate += '?)';
@@ -473,23 +473,25 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     } else if (pokemonFilterIV === null || pokemonFilterIV.length === 0 || !showIV) {
         sqlAdd = ` AND ${sqlExclude}`;
     } else {
+        /*
         let orPart = '';
         let andPart = '';
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(function(key) {
             const filter = pokemonFilterIV[key];
             const sql = sqlifyIvFilter(filter.value);
-            if (sql) {
+            if (sql && sql !== false && sql !== '') {
+                console.log("Filter:", filter);
                 if (filter.key === 'and') {
                     andPart += sql;
-                } else if (pokemonFilterExclude.length > 0) {
-                    if (orPart === '') {
+                } else if (pokemonFilterExclude && pokemonFilterExclude.length > 0) {
+                    if (orPart && orPart === '') {
                         orPart += '(';
                     } else {
                         orPart += ' OR ';
                     }
-                    if (filter.key == 'or') {
-                        orPart += `(${sq})`;
+                    if (filter.key === 'or') {
+                        orPart += `${sq}`;
                     } else {
                         const id = parseInt(filter.key) || 0;
                         orPart += ` (pokemon_id = ${id} AND ${sql})`;
@@ -497,7 +499,7 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 }
             }
         });
-        if (sqlExclude !== '') {
+        if (sqlExclude && sqlExclude !== '') {
             if (orPart === '') {
                 orPart += '(';
             } else {
@@ -505,21 +507,23 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             }
             orPart += `(${sqlExclude})`;
         }
-        if (orPart !== '') {
+        if (orPart && orPart !== '') {
             orPart += ')';
         }
 
-        if (orPart !== '' && andPart !== '') {
+        console.log("orPart:", orPart, "andPart:", andPart);
+        if (orPart && orPart !== '' && andPart && andPart !== '') {
             sqlAdd = ` AND (${orPart} AND ${andPart})`;
-        } else if (orPart !== '') {
+        } else if (orPart && orPart !== '') {
             sqlAdd = ` AND (${orPart})`;
-        } else if (andPart !== '') {
+        } else if (andPart && andPart !== '') {
             sqlAdd = ` AND (${andPart})`;
-        } else if (sqlExclude !== '') {
+        } else if (sqlExclude && sqlExclude !== '') {
             sqlAdd = ` AND (${sqlExclude})`;
         } else {
             sqlAdd = '';
         }
+        */
     }
 
     const sql = `
@@ -534,6 +538,8 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     for (let i = 0; i < pokemonFilterExclude.length; i++) {
         args.push(pokemonFilterExclude[i]);
     }
+    console.log("Pokemon SQL:", sql);
+    console.log("Pokemon Args:", args);
     const results = await query(sql, args);
     let pokemons = [];
     if (results && results.length > 0) {
@@ -655,7 +661,11 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         } else {
             let sqlExcludeCreate = 'AND (raid_level NOT IN (';
             for (let i = 0; i < excludedLevels.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedLevels.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
             sqlExcludeCreate += '?))';
             excludeLevelSQL = sqlExcludeCreate;
@@ -666,7 +676,11 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         } else {
             let sqlExcludeCreate = 'AND (raid_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedPokemon.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
             sqlExcludeCreate += '?))';
             excludePokemonSQL = sqlExcludeCreate;
@@ -680,7 +694,7 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     } else {
         let sqlExcludeCreate = 'AND (team_id NOT IN (';
         for (let i = 0; i < excludedTeams.length; i++) {
-            if (i == excludedTeams.count - 1) {
+            if (i === excludedTeams.length - 1) {
                 sqlExcludeCreate += '?))';
             } else {
                 sqlExcludeCreate += '?, ';
@@ -694,9 +708,12 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     } else {
         let sqlExcludeCreate = 'AND (availble_slots NOT IN (';
         for (let i = 0; i < excludedAvailableSlots.length; i++) {
-            sqlExcludeCreate += '?, ';
+            if (i === excludedTeams.length - 1) {
+                sqlExcludeCreate += '?))';
+            } else {
+                sqlExcludeCreate += '?, ';
+            }
         }
-        sqlExcludeCreate += '?))';
         excludeAvailableSlotsSQL = sqlExcludeCreate;
     }
 
@@ -839,9 +856,12 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
         } else {
             let sqlExcludeCreate = 'AND (quest_reward_type IS NULL OR quest_reward_type NOT IN (';
             for (let i = 0; i < excludedTypes.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedTypes.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
-            sqlExcludeCreate += '?))';
             excludeTypeSQL = sqlExcludeCreate;
         }
 
@@ -850,9 +870,12 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
         } else {
             let sqlExcludeCreate = 'AND (quest_pokemon_id IS NULL OR quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedPokemon.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
-            sqlExcludeCreate += '?))';
             excludePokemonSQL = sqlExcludeCreate;
         }
 
@@ -861,9 +884,12 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
         } else {
             let sqlExcludeCreate = 'AND (quest_item_id IS NULL OR quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedItems.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
-            sqlExcludeCreate += '?))';
             excludeItemSQL = sqlExcludeCreate;
         }
     } else {
@@ -878,9 +904,12 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
         } else {
             let sqlExcludeCreate = 'AND (lure_id NOT IN (';
             for (let i = 0; i < excludedLures.length; i++) {
-                sqlExcludeCreate += '?, ';
+                if (i === excludedLures.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
             }
-            sqlExcludeCreate += '?))';
             excludeLureSQL = sqlExcludeCreate;
         }
 
@@ -1236,7 +1265,7 @@ function sqlifyIvFilter(filter) {
 
             if (firstGroupNumbers.includes("-")) { // min max
                 let split = firstGroupNumbers.split("-");
-                if (split.count !== 2) { 
+                if (split.length !== 2) { 
                     return nil
                 }
                 let number0 = parseFloat(split[0]);
