@@ -126,7 +126,7 @@ app.use(function(req, res, next) {
             defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
             defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
             defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
-            defaultData.hide_spawnpoints = true;//!utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
+            defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
             defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
             defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
             defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
