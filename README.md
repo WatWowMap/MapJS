@@ -38,9 +38,7 @@ module.exports = {
 ## TODO  
 - Include S2Cell/Weather polgyons in api data
 - Fix pokemon IV filtering
-- Fix nests bug
 - Implement submission cells
-- Fix issue with area endpoint and zoom
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
