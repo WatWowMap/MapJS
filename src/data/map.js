@@ -6,7 +6,7 @@ const InventoryItemId = require('./item.js');
 const config = require('../config.json');
 const query = require('../services/db.js');
 
-async function getData(filter) {
+async function getData(req, res, filter) {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
@@ -44,7 +44,7 @@ async function getData(filter) {
         return;
     }
 
-    // TOOD: get perms
+    // TOOD: get perms via req
     const permViewMap = true;
     const permShowLures = true;
     const permShowInvasions = true;
@@ -108,7 +108,7 @@ async function getData(filter) {
                     </label>
                 </div>
                 `;
-                const andOrString = i === 0 ? andString : orString;    
+                const andOrString = i === 0 ? andString : orString;
                 const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
                 pokemonData.push({
                     'id': {
@@ -151,7 +151,6 @@ async function getData(filter) {
         }
 
         data['pokemon_filters'] = pokemonData;
-        //console.log('Pokemon Filters:', pokemonData);
     }
 
     if (permViewMap && showRaidFilter) {
@@ -1233,69 +1232,67 @@ function generateSizeButtons(id, type) {
 }
 
 function sqlifyIvFilter(filter) {
-    /*
     let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
+    /*
     if (filter !~ fullMatch) {
         return null;
     }
+    */
 
-    let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?"
-    let sql = singleMatch.r?.replaceAll(in: filter) { match in
-        if let firstGroup = match.group(at: 0) {
-            let firstGroupNumbers = firstGroup.replace("A", "");
-            firstGroupNumbers = firstGroupNumbers.replace("D", "");
-            firstGroupNumbers = firstGroupNumbers.replace("S", "");
-            firstGroupNumbers = firstGroupNumbers.replace("L", "");
+    let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?";
+    let sql = singleMatch.r.replaceAll(filter)// { match in
+    console.log("SQL:", sql);
+    if (sql === null) {
+        return '';
+    }
+    let firstGroup = match.group(0)
+    let firstGroupNumbers = firstGroup.replace("A", "");
+    firstGroupNumbers = firstGroupNumbers.replace("D", "");
+    firstGroupNumbers = firstGroupNumbers.replace("S", "");
+    firstGroupNumbers = firstGroupNumbers.replace("L", "");
 
-            let column = '';
-            if (firstGroup.includes("A")) {
-                column = "atk_iv";
-            } else if (firstGroup.includes("D")) {
-                column = "def_iv";
-            } else if (firstGroup.includes("S")) {
-                column = "sta_iv";
-            } else if (firstGroup.includes("L")) {
-                column = "level";
-            } else {
-                column = "iv";
-            }
+    let column = '';
+    if (firstGroup.includes("A")) {
+        column = "atk_iv";
+    } else if (firstGroup.includes("D")) {
+        column = "def_iv";
+    } else if (firstGroup.includes("S")) {
+        column = "sta_iv";
+    } else if (firstGroup.includes("L")) {
+        column = "level";
+    } else {
+        column = "iv";
+    }
 
-            if (firstGroupNumbers.includes("-")) { // min max
-                let split = firstGroupNumbers.split("-");
-                if (split.length !== 2) { 
-                    return nil
-                }
-                let number0 = parseFloat(split[0]);
-                let number1 = parseFloat(split[1]);
-                let min = 0;
-                let max = 0;
-                if (number0 < number1) {
-                    min = number0;
-                    max = number1;
-                } else {
-                    max = number1;
-                    min = number0;
-                }
-                return `${column} >= ${min} AND ${column} <= ${max}`;
-            } else { // fixed
-                let number = parseFloat(firstGroupNumbers);
-                if (number === undefined || number === null) {
-                    return null;
-                }
-                return `${column} = ${number}`;
-            }
+    if (firstGroupNumbers.includes("-")) { // min max
+        let split = firstGroupNumbers.split("-");
+        if (split.length !== 2) { 
+            return nil
         }
-        return null;
-    } || "";
-    if (sql === "") {
-        return null;
+        let number0 = parseFloat(split[0]);
+        let number1 = parseFloat(split[1]);
+        let min = 0;
+        let max = 0;
+        if (number0 < number1) {
+            min = number0;
+            max = number1;
+        } else {
+            max = number1;
+            min = number0;
+        }
+        return `${column} >= ${min} AND ${column} <= ${max}`;
+    } else { // fixed
+        let number = parseFloat(firstGroupNumbers);
+        if (number === undefined || number === null) {
+            return null;
+        }
+        return `${column} = ${number}`;
     }
 
     sql = sql.replace("&&", " AND ");
     sql = sql.replace("||", " OR ");
     return sql;
-    */
-    return '';
+    //return '';
 }
 
 module.exports = {

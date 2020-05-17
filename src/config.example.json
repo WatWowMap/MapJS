@@ -96,5 +96,9 @@
                 "roles": []
             }
         }
+    },
+    "google": {
+        "analytics": "",
+        "adsense": ""
     }
 }

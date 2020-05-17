@@ -3734,6 +3734,8 @@ function manageConfigureButton (e, isNew) {
             if (type === 'pokemon-iv') {
                 switch (info) {
                 case 'global-iv':
+                    console.log("Id:", id);
+                    console.log("PokemonFilterNew:", pokemonFilterNew);
                     return manageGlobalIVPopup(id, pokemonFilterNew);
                 }
             }
