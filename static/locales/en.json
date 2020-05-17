@@ -36,6 +36,7 @@
 	"filter_large": "L",
 	"filter_huge": "XL",
 	"filter_reset": "Reset Filter",
+	"filter_trash": "Disable Trash",
 	"filter_disable_all": "Disable All",
 	"filter_pokemon_filter": "Pokemon Filter",
 	"filter_quest_filter": "Quest Filter",

@@ -669,6 +669,21 @@ function initMap () {
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
     });
 
+    $('#disable-trash-pokemon-filter').on('click', function(event) {
+        const defaultPokemonFilter = [];
+        let i;
+        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+            defaultPokemonFilter[i] = { show: isCommonPokemon(i) === false, size: 'normal' };
+        }
+        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
+        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
+
+        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        pokemonFilterNew = defaultPokemonFilter;
+
+        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+    });
+
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
         let i;
