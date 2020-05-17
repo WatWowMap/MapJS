@@ -22,12 +22,12 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
 
     let sqlExclude = '';
     if (onlyBigKarp || onlyTinyRat) {
-        let karpBaseHeight = 0.89999998;
-        let karpBaseWeight = 10;
-        let bigKarpSQL = `(pokemon_id = 129 AND weight IS NOT NULL AND ((weight / ${karpBaseWeight}) + (size / ${karpBaseHeight})) > 2.5)`;
-        let ratBaseHeight = 0.300000011920929;
-        let ratBaseWeight = 3.5; //Alolan - 3.79999995231628
-        let tinyRatSQL = `(pokemon_id = 19 AND weight IS NOT NULL AND ((weight / ${ratBaseWeight}) + (size / ${ratBaseHeight})) < 1.5)`;
+        const karpBaseHeight = 0.89999998;
+        const karpBaseWeight = 10;
+        const bigKarpSQL = `(pokemon_id = 129 AND weight IS NOT NULL AND ((weight / ${karpBaseWeight}) + (size / ${karpBaseHeight})) > 2.5)`;
+        const ratBaseHeight = 0.300000011920929;
+        const ratBaseWeight = 3.5; //Alolan - 3.79999995231628
+        const tinyRatSQL = `(pokemon_id = 19 AND weight IS NOT NULL AND ((weight / ${ratBaseWeight}) + (size / ${ratBaseHeight})) < 1.5)`;
         if (onlyBigKarp && onlyTinyRat) {
             sqlExclude = `(${bigKarpSQL} OR ${tinyRatSQL})`;
         } else if (onlyBigKarp && !onlyTinyRat) {

@@ -927,7 +927,7 @@ function initMap () {
             });
             spawnpointMarkers = [];
         }
-        if (newShowNests !== showNests && newShowNests === false) {
+        if (/*newShowNests !== showNests &&*/ newShowNests === false) {
             nestLayer.clearLayers();
         } else {
             loadNestPolygons();

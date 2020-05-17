@@ -16,7 +16,6 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: Fix city with zoom
 // TODO: Finish pokemon iv filter
 // TODO: Permissions
 // TODO: submission_placement_cells

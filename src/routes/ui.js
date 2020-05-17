@@ -135,14 +135,13 @@ function handlePage(req, res) {
         }
     }
 
-    let zoom = parseInt(req.params.zoom || config.map.startZoom);
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;
-    // City but in wrong route
-    // TODO: Fix city with zoom
+    let zoom = parseInt(req.params.zoom || config.map.startZoom);
+
+    // City specified but in wrong route
     if (city === null) {
-        //tmpCity.toDouble() == nil
         const tmpCity = req.params.lat;
         city = tmpCity;
         const tmpZoom = parseInt(req.params.lon);
