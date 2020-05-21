@@ -2378,8 +2378,8 @@ function getGymPopupContent (gym) {
             '<div class="col-12 col-md-8 center-vertical p-4">' + // START 2ND COL
                 '<b>Team:</b> ' + getTeamName(gym.team_id) + '<br>' +
                 '<b>Slots Available:</b> ' + (gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots) + '<br>';
-        if (gym.guard_pokemon_id !== null) {
-            content += '<b>Guard:</b> ' + getPokemonName(gym.guard_pokemon_id) + '<br>';
+        if (gym.guarding_pokemon_id !== null) {
+            content += '<b>Guard:</b> ' + getPokemonName(gym.guarding_pokemon_id) + '<br>';
         }
         if (gym.total_cp !== null) {
             content += '<b>Total CP:</b> ' + gym.total_cp.toLocaleString() + '<br>';
