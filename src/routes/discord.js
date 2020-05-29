@@ -2,7 +2,7 @@
 
 const express = require('express');
 const fetch = require('node-fetch');
-const btoa = require('btoa');
+const axios = require('axios');
 const router = express.Router();
 
 const DiscordClient = require('../services/discord.js');
@@ -27,32 +27,37 @@ router.get('/callback', catchAsyncErrors(async function(req, res) {
     if (!req.query.code) {
         throw new Error('NoCodeProvided');
     }
-    const code = req.query.code;
-    const creds = btoa(`${config.discord.clientId}:${config.discord.clientSecret}`);
-    const response = await fetch(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect}`,
-        {
-            method: 'POST',
-            headers: {
-                Authorization: `Basic ${creds}`,
-            }
-        });
-    const json = await response.json();
-    const client = new DiscordClient(json.access_token);
-    const user = await client.getUser();
-    const guilds = await client.getGuilds();
-    const roles = await client.getUserRoles(user.id);
-
-    req.session.logged_in = true;
-    req.session.user_id = user.id;
-    req.session.username = `${user.username}#${user.discriminator}`;
-    req.session.roles = roles;
-    req.session.guilds = guilds;
-    if (utils.hasGuild(guilds)) {
-        res.redirect(`/?token=${json.access_token}`);
-    } else {
-        // Not in Discord server(s)
-        res.redirect('/login');
+    
+    let data = `client_id=${config.discord.clientId}&client_secret=${config.discord.clientSecret}&grant_type=authorization_code&code=${req.query.code}&redirect_uri=${redirect}&scope=guilds%20identify%20email`;
+    
+    let headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
     }
+    
+    axios.post("https://discord.com/api/oauth2/token", data, {
+        headers: headers
+    }).then(async function(response) {
+        
+        const client = new DiscordClient(response.data.access_token);
+        const user = await client.getUser();
+        const guilds = await client.getGuilds();
+        const roles = await client.getUserRoles(user.id);
+
+        req.session.logged_in = true;
+        req.session.user_id = user.id;
+        req.session.username = `${user.username}#${user.discriminator}`;
+        req.session.roles = roles;
+        req.session.guilds = guilds;
+        if (utils.hasGuild(guilds)) {
+            res.redirect(`/?token=${response.data.access_token}`);
+        } else {
+            // Not in Discord server(s)
+            res.redirect('/login');
+        }
+    }).catch(error => {
+        console.error;
+        throw new Error('UnableToFetchToken');
+    });
 }));
 
 module.exports = router;
