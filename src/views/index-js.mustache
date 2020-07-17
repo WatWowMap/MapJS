@@ -433,6 +433,8 @@ function loadStorage () {
         }
         defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
         defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
         store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilter = defaultPokemonFilter;
@@ -703,6 +705,8 @@ function initMap () {
         }
         defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
         defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
         store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
@@ -3815,8 +3819,6 @@ function manageConfigureButton (e, isNew) {
             if (type === 'pokemon-iv') {
                 switch (info) {
                 case 'global-iv':
-                    console.log("Id:", id);
-                    console.log("PokemonFilterNew:", pokemonFilterNew);
                     return manageGlobalIVPopup(id, pokemonFilterNew);
                 }
             }

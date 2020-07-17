@@ -2,7 +2,7 @@
   "name": "mapjs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "test": "npx eslint src/**/*.js",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/versx/MapJS#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "btoa": "^1.2.1",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
