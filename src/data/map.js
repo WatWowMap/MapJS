@@ -113,7 +113,8 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
+            capture_1, capture_2, capture_3
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND
             lon <= ? AND updated > ? ${sqlAdd}
@@ -194,7 +195,10 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 updated: result.updated,
                 changed: result.changed,
                 cellId: result.cell_id,
-                expire_timestamp_verified: result.expire_timestamp_verified
+                expire_timestamp_verified: result.expire_timestamp_verified,
+                capture_1: result.capture_1,
+                capture_2: result.capture_2,
+                capture_3: result.capture_3
             });
         }
     }

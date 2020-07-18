@@ -1626,7 +1626,6 @@ function loadData () {
                         cell.marker.addTo(map);
                     } else {
                         oldCell.updated = cell.updated;
-                        console.log("Cell:", cell);
                         oldCell.marker.setStyle(getCellStyle(cell, ts));
                     }
                 }
@@ -2069,6 +2068,12 @@ function getPokemonPopupContent (pokemon) {
         content += '<b>Size:</b> ' + getSize(size) + ' | <b>Weight:</b> ' + Math.round(pokemon.weight) + 'kg<br>';
     } else if (pokemon.weight !== null) {
         content += '<b>Weight:</b> ' + Math.round(pokemon.weight) + 'kg<br>';
+    }
+    if (pokemon.capture_1 !== null && pokemon.capture_2 !== null && pokemon.capture_3 !== null) {
+        content += '<b>Catch Chances:</b><br>'
+        content += '<img src="/img/item/1.png" height="14" width="14"> ' + (pokemon.capture_1 * 100).toFixed(1) + '% '
+        content += '<img src="/img/item/2.png" height="14" width="14"> ' + (pokemon.capture_2 * 100).toFixed(1) + '%<br>'
+        content += '<img src="/img/item/3.png" height="14" width="14"> ' + (pokemon.capture_3 * 100).toFixed(1) + '%<br>'
     }
     content +=
         '</div>' +
