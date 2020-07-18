@@ -8,17 +8,17 @@ const InventoryItemId = require('../data/item.js');
 const config = require('../config.json');
 const map = require('../data/map.js');
 
-router.get('/get_data', async function(req, res) {
+router.get('/get_data', async (req, res) => {
     const data = await getData(req.query);
     res.json({ data: data });
 });
 
-router.post('/get_data', async function(req, res) {
+router.post('/get_data', async (req, res) => {
     const data = await getData(req.body);
     res.json({ data: data });
 });
 
-async function getData(filter) {
+const getData = async (filter) => {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
@@ -470,9 +470,9 @@ async function getData(filter) {
     }
 
     return data;
-}
+};
 
-function generateShowHideButtons(id, type, ivLabel = '') {
+const generateShowHideButtons = (id, type, ivLabel = '') => {
     const hideString = i18n.__('filter_hide');
     const showString = i18n.__('filter_show');
     const filter = `
@@ -487,9 +487,9 @@ function generateShowHideButtons(id, type, ivLabel = '') {
     </div>
     `;
     return filter;
-}
+};
 
-function generateSizeButtons(id, type) {
+const generateSizeButtons = (id, type) => {
     const smallString = i18n.__('filter_small');
     const normalString = i18n.__('filter_normal');
     const largeString = i18n.__('filter_large');
@@ -511,6 +511,6 @@ function generateSizeButtons(id, type) {
     </div>
     `;
     return size;
-}
+};
 
 module.exports = router;

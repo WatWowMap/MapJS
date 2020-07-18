@@ -41,11 +41,11 @@ i18n.configure({
 app.use(i18n.init);
 
 // Register helper as a locals function wrroutered as mustache expects
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     // Mustache helper
-    res.locals.__ = function() {
+    res.locals.__ = () => {
         /* eslint-disable no-unused-vars */
-        return function(text, render) {
+        return (text, render) => {
         /* eslint-enable no-unused-vars */
             return i18n.__.routerly(req, arguments);
         };
@@ -66,7 +66,7 @@ app.use(session({
 // CSRF token middleware
 app.use(cookieParser());
 app.use(csrf({ cookie: true }));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     var csrf = req.csrfToken();
     defaultData.csrf = csrf;
     //console.log("CSRF Token:", csrf);
@@ -81,7 +81,7 @@ if (config.discord.enabled) {
 
     // Discord error middleware
     /* eslint-disable no-unused-vars */
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
         switch (err.message) {
         case 'NoCodeProvided':
             return res.status(400).send({
@@ -99,7 +99,7 @@ if (config.discord.enabled) {
 }
 
 // Login middleware
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }

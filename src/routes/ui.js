@@ -11,59 +11,59 @@ const InventoryItemId = require('../data/item.js');
 const utils = require('../services/utils.js');
 
 if (config.discord.enabled) {
-    router.get('/login', function(req, res) {
+    router.get('/login', (req, res) => {
         res.redirect('/api/discord/login');
     });
 
-    router.get('/logout', function(req, res) {
-        req.session.destroy(function(err) {
+    router.get('/logout', (req, res) => {
+        req.session.destroy((err) => {
             if (err) throw err;
             res.redirect('/login');
         });
     });
 }
 
-router.get(['/', '/index'], function(req, res) {
+router.get(['/', '/index'], (req, res) => {
     const data = handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/index.js', function(req, res) {
+router.get('/index.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
     res.render('index-js', defaultData);
 });
 
-router.get('/index.css', function(req, res) {
+router.get('/index.css', (req, res) => {
     res.setHeader('Content-Type', 'text/css');
     res.render('index-css', defaultData);
 });
 
-router.get('/@/:lat/:lon', function(req, res) {
+router.get('/@/:lat/:lon', (req, res) => {
     const data = handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:lat/:lon/:zoom', function(req, res) {
+router.get('/@/:lat/:lon/:zoom', (req, res) => {
     const data = handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:city', function(req, res) {
+router.get('/@/:city', (req, res) => {
     const data = handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:city/:zoom', function(req, res) {
+router.get('/@/:city/:zoom', (req, res) => {
     const data = handlePage(req, res);
     res.render('index', data);
 });
 
-function handlePage(req, res) {
+const handlePage = (req, res) => {
     // Build available tile servers list
     const tileservers = {};
     const tileKeys = Object.keys(config.tileservers);
     if (tileKeys) {
-        tileKeys.forEach(function(tileKey) {
+        tileKeys.forEach(tileKey => {
             const tileData = config.tileservers[tileKey].split(';');
             tileservers[tileKey] = {
                 url: tileData[0],
@@ -78,7 +78,7 @@ function handlePage(req, res) {
     const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
     const files = fs.readdirSync(pokemonIconsDir);
     if (files) {
-        files.forEach(function(file) {
+        files.forEach(file => {
             const split = file.replace('.png', '').split('-');
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
@@ -92,7 +92,7 @@ function handlePage(req, res) {
     // Build available items list
     const availableItems = [-3, -2, -1];
     const keys = Object.keys(InventoryItemId);
-    keys.forEach(function(key) {
+    keys.forEach(key => {
         const itemId = InventoryItemId[key];
         availableItems.push(itemId);
     });
@@ -101,7 +101,7 @@ function handlePage(req, res) {
     // Build available areas list
     const areas = [];
     const areaKeys = Object.keys(config.areas).sort();
-    areaKeys.forEach(function(key) {
+    areaKeys.forEach(key => {
         areas.push({ 'area': key });
     });
     defaultData.areas = areas;
@@ -176,6 +176,6 @@ function handlePage(req, res) {
     defaultData.min_zoom = config.map.minZoom || 10;
     defaultData.max_zoom = config.map.maxZoom || 18;
     return defaultData;
-}
+};
 
 module.exports = router;

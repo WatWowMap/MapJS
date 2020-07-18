@@ -4,7 +4,7 @@ const S2 = require('nodes2ts');
 
 const query = require('../services/db.js');
 
-async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length - 1; i++) {
@@ -64,7 +64,7 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         let orPart = '';
         let andPart = '';
         const keys = Object.keys(pokemonFilterIV);
-        keys.forEach(function(key) {
+        keys.forEach(key => {
             const filter = pokemonFilterIV[key];
             const sql = sqlifyIvFilter(filter);
             if (sql && sql !== false && sql !== '') {
@@ -211,9 +211,9 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         }
     }
     return pokemons;
-}
+};
 
-async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, raidFilterExclude = null, gymFilterExclude = null) {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludedPokemon = []; //int
     let excludeAllButEx = false;
@@ -402,9 +402,9 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         }
     }
     return gyms;
-}
+};
 
-async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null) {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
@@ -649,9 +649,9 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
     }
 
     return pokestops;
-}
+};
 
-async function getSpawnpoints(minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null) {
+const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null) => {
     let excludeWithoutTimer = false;
     let excludeWithTimer = false;
     if (spawnpointFilterExclude) {
@@ -698,9 +698,9 @@ async function getSpawnpoints(minLat, maxLat, minLon, maxLon, updated, spawnpoin
         }
     }
     return spawnpoints;
-}
+};
 
-async function getDevices() {
+const getDevices = async () => {
     const sql = `
     SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group
     FROM device
@@ -723,9 +723,9 @@ async function getDevices() {
         }
     }
     return devices;
-}
+};
 
-async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
+const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.01;
     const maxLatReal = maxLat + 0.01;
     const minLonReal = minLon - 0.01;
@@ -765,9 +765,9 @@ async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
         }
     }
     return cells;
-}
+};
 
-async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
+const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.1;
     const maxLatReal = maxLat + 0.1;
     const minLonReal = minLon - 0.1;
@@ -805,9 +805,9 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
         }
     }
     return weather;
-}
+};
 
-function sqlifyIvFilter(filter) {
+const sqlifyIvFilter = (filter) => {
     let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
     /*
     if (filter !~ fullMatch) {
@@ -861,7 +861,7 @@ function sqlifyIvFilter(filter) {
     }
     //sql = sql.replace("&&", " AND ");
     //sql = sql.replace("||", " OR ");
-}
+};
 
 module.exports = {
     getPokemon,
