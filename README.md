@@ -37,7 +37,6 @@ module.exports = {
 
 ## TODO  
 - Include S2Cell/Weather polgyons in api data
-- Fix pokemon IV filtering
 - Implement submission cells
 
 ## Credits  
