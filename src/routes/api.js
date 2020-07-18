@@ -4,21 +4,22 @@ const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
 
-const InventoryItemId = require('../data/item.js');
 const config = require('../config.json');
+const InventoryItemId = require('../data/item.js');
+const Perms = require('../data/perms.js');
 const map = require('../data/map.js');
 
 router.get('/get_data', async (req, res) => {
-    const data = await getData(req.query);
+    const data = await getData(req.session.username, req.session.roles, req.query);
     res.json({ data: data });
 });
 
 router.post('/get_data', async (req, res) => {
-    const data = await getData(req.body);
+    const data = await getData(req.session.username, req.session.roles, req.body);
     res.json({ data: data });
 });
 
-const getData = async (filter) => {
+const getData = async (username, roles, filter) => {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
@@ -56,40 +57,40 @@ const getData = async (filter) => {
         return;
     }
 
-    // TOOD: get perms via req
-    const permViewMap = true;
-    const permShowLures = true;
-    const permShowInvasions = true;
-    const permShowIV = true;
+    const perms = new Perms(username, roles);
+    const permViewMap = perms.map !== false;
+    const permShowLures = perms.lures !== false;
+    const permShowInvasions = perms.invasions !== false;
+    const permShowIV = perms.iv !== false;
 
     let data = {};
-    if (showGyms || showRaids) {
+    if ((perms.gyms && showGyms) || (perms.raids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
-    if (showPokestops || showQuests) {
+    if ((perms.pokestops && showPokestops) || (perms.quests && showQuests)) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
     }
-    if (showPokemon) {
+    if (perms.pokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
     }
-    if (showSpawnpoints) {
+    if (perms.spawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
     }
-    if (showActiveDevices) {
+    if (perms.devices && showActiveDevices) {
         data['active_devices'] = await map.getDevices();
     }
-    if (showCells) {
+    if (perms.s2cells && showCells) {
         data['cells'] = await map.getS2Cells(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
-    if (showSubmissionPlacementCells) {
+    if (perms.submissionCells && showSubmissionPlacementCells) {
         let placementCells = await map.getSubmissionPlacementCells(minLat, maxLat, minLon, maxLon);
         data['submission_placement_cells'] = placementCells.cells;
         data['submission_placement_rings'] = placementCells.rings;
     }
-    if (showSubmissionTypeCells) {
+    if (perms.submissionCells && showSubmissionTypeCells) {
         data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
     }
-    if (showWeather) {
+    if (perms.weather && showWeather) {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
 

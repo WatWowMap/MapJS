@@ -17,10 +17,8 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: Permissions
-// TODO: submission_placement_cells
-// TODO: submission_placement_rings
-// TODO: submission_type_cells
+// TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
+// TODO: PvP filter
 
 // Basic security protection middleware
 app.use(helmet());

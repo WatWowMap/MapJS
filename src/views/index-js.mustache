@@ -2925,6 +2925,15 @@ function getPokemonMarker (pokemon, ts) {
         openedPokemon = pokemon;
         marker._popup.setContent(getPokemonPopupContent(pokemon));
     });
+    /*
+    marker.setBouncingOptions({
+        bounceHeight: 20, // height of the bouncing
+        bounceSpeed: 80, // bouncing speed coefficient
+        elastic: false,
+        shadowAngle: null
+    });
+    marker.bounce();
+    */
     return marker;
 }
 

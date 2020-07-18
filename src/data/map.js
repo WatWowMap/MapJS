@@ -755,23 +755,6 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     return cells;
 };
 
-const getPolygon = (s2cellId) => {
-    let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
-    let polygon = [];
-    for (let i = 0; i <= 3; i++) {
-        let coordinate = s2cell.getVertex(i);
-        let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
-        let latlng = S2.S2LatLng.fromPoint(point);
-        let latitude = latlng.latDegrees
-        let longitude = latlng.lngDegrees;
-        polygon.push([
-            latitude,
-            longitude
-        ]);
-    }
-    return polygon;
-};
-
 const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLatReal = minLat - 0.001;
     let maxLatReal = maxLat + 0.001;
@@ -920,6 +903,23 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
         }
     }
     return weather;
+};
+
+const getPolygon = (s2cellId) => {
+    let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
+    let polygon = [];
+    for (let i = 0; i <= 3; i++) {
+        let coordinate = s2cell.getVertex(i);
+        let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
+        let latlng = S2.S2LatLng.fromPoint(point);
+        let latitude = latlng.latDegrees
+        let longitude = latlng.lngDegrees;
+        polygon.push([
+            latitude,
+            longitude
+        ]);
+    }
+    return polygon;
 };
 
 const sqlifyIvFilter = (filter) => {
