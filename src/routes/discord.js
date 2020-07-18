@@ -5,7 +5,7 @@ const axios = require('axios');
 const router = express.Router();
 
 const DiscordClient = require('../services/discord.js');
-const utils = require('../services/utils.js');
+//const utils = require('../services/utils.js');
 
 const config = require('../config.json');
 const redirect = encodeURIComponent(config.discord.redirectUri);
@@ -35,17 +35,19 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
     axios.post("https://discord.com/api/oauth2/token", data, {
         headers: headers
     }).then(async (response) => {
-        const client = new DiscordClient(response.data.access_token);
+        const client = DiscordClient.instance;
+        client.setAccessToken(response.data.access_token);
         const user = await client.getUser();
         const guilds = await client.getGuilds();
-        const roles = await client.getUserRoles(user.id);
 
         req.session.logged_in = true;
         req.session.user_id = user.id;
         req.session.username = `${user.username}#${user.discriminator}`;
-        req.session.roles = roles;
+        req.session.perms = await DiscordClient.instance.getPerms();
         req.session.guilds = guilds;
-        if (utils.hasGuild(guilds)) {
+        const valid = await client.isValid(config.discord.perms.map);
+        req.session.valid = valid;
+        if (valid) {
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s)

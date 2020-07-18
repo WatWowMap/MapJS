@@ -12,14 +12,12 @@ const helmet = require('helmet');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
-const Perms = require('./data/perms.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
 // TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
-// TODO: PvP filter
 
 // Basic security protection middleware
 app.use(helmet());
@@ -102,7 +100,7 @@ if (config.discord.enabled) {
 }
 
 // Login middleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }
@@ -113,27 +111,33 @@ app.use((req, res, next) => {
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        //const id = req.session.user_id;
-        const guilds = req.session.guilds;
-        const roles = req.session.roles;
-        if (utils.hasGuild(guilds)) {
-            const perms = new Perms(req.session.username, roles);
-            defaultData.hide_map = !perms.map;
-            defaultData.hide_pokemon = !perms.pokemon;
-            defaultData.hide_raids = !perms.raids;
-            defaultData.hide_gyms = !perms.gyms;
-            defaultData.hide_pokestops = !perms.pokestops;
-            defaultData.hide_quests = !perms.quests;
-            defaultData.hide_lures = !perms.lures;
-            defaultData.hide_invasions = !perms.invasions;
-            defaultData.hide_spawnpoints = !perms.spawnpoints;
-            defaultData.hide_iv = !perms.iv;
-            defaultData.hide_s2cells = !perms.s2cells;
-            defaultData.hide_submissionCells = !perms.submissionCells;
-            defaultData.hide_nests = !perms.nests;
-            defaultData.hide_weather = !perms.weather;
-            defaultData.hide_devices = !perms.devices;
+        if (!req.session.valid) {
+            console.error('Invalid user authenticated', req.session.user_id);
+            res.redirect('/login');
+            return;
         }
+        const perms = req.session.perms;
+        defaultData.hide_map = !perms.map;
+        if (defaultData.hide_map) {
+            // No view map permissions, go to login screen
+            console.error('Invalid view map permissions for user', req.session.user_id);
+            res.redirect('/login');
+            return;
+        }
+        defaultData.hide_pokemon = !perms.pokemon;
+        defaultData.hide_raids = !perms.raids;
+        defaultData.hide_gyms = !perms.gyms;
+        defaultData.hide_pokestops = !perms.pokestops;
+        defaultData.hide_quests = !perms.quests;
+        defaultData.hide_lures = !perms.lures;
+        defaultData.hide_invasions = !perms.invasions;
+        defaultData.hide_spawnpoints = !perms.spawnpoints;
+        defaultData.hide_iv = !perms.iv;
+        defaultData.hide_s2cells = !perms.s2cells;
+        defaultData.hide_submissionCells = !perms.submissionCells;
+        defaultData.hide_nests = !perms.nests;
+        defaultData.hide_weather = !perms.weather;
+        defaultData.hide_devices = !perms.devices;
         return next();
     }
     res.redirect('/login');
