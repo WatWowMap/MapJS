@@ -1,0 +1,21 @@
+version: '3.2'
+
+services:
+  mapjs:
+    build: .
+    restart: unless-stopped
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        npm install
+        npm start
+    volumes:
+      - .:/app
+      #- static:/static
+    ports:
+      - "8080:8080"
+
+#volumes:
+#  static:

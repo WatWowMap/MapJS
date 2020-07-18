@@ -1,8 +1,10 @@
 'use strict';
 
+const S2 = require('nodes2ts');
+
 const query = require('../services/db.js');
 
-async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length - 1; i++) {
@@ -62,11 +64,11 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         let orPart = '';
         let andPart = '';
         const keys = Object.keys(pokemonFilterIV);
-        keys.forEach(function(key) {
+        keys.forEach(key => {
             const filter = pokemonFilterIV[key];
-            const sql = sqlifyIvFilter(filter.value);
+            const sql = sqlifyIvFilter(filter);
             if (sql && sql !== false && sql !== '') {
-                if (filter.key === 'and') {
+                if (key === 'and') {
                     andPart += sql;
                 } else if (pokemonFilterExclude && pokemonFilterExclude.length > 0) {
                     if (orPart && orPart === '') {
@@ -74,10 +76,10 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                     } else {
                         orPart += ' OR ';
                     }
-                    if (filter.key === 'or') {
+                    if (key === 'or') {
                         orPart += `${sq}`;
                     } else {
-                        const id = parseInt(filter.key) || 0;
+                        const id = parseInt(key) || 0;
                         orPart += ` (pokemon_id = ${id} AND ${sql})`;
                     }
                 }
@@ -111,7 +113,8 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
+            capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND
             lon <= ? AND updated > ? ${sqlAdd}
@@ -126,7 +129,7 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         }
     }
     const results = await query(sql, args);
-    let pokemons = [];
+    let pokemon = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
@@ -140,6 +143,8 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             let weight;
             let size;
             let displayPokemonId;
+            let pvpRankingsGreatLeague;
+            let pvpRankingsUltraLeague;
             if (showIV) {
                 atkIv = result.atk_iv;
                 defIv = result.def_iv;
@@ -151,6 +156,8 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 weight = result.weight;
                 size = result.size;
                 displayPokemonId = result.display_pokemon_id;
+                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
+                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
             } else {
                 atkIv = null;
                 defIv = null;
@@ -162,9 +169,38 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 weight = null;
                 size = null;
                 displayPokemonId = null;
+                pvpRankingsGreatLeague = null;
+                pvpRankingsUltraLeague = null;
             }
 
-            pokemons.push({
+            let skip = false;
+            if (pokemonFilterPVP) {
+                //console.log('PokemonFilterPVP:', pokemonFilterPVP);
+                let isAnd = pokemonFilterPVP.hasOwnProperty('and');
+                let idString = isAnd ? 'and' : 'or';
+                let split = pokemonFilterPVP[idString].split('-');
+                if (split.length === 2) {
+                    let minRank = parseInt(split[0]);
+                    let maxRank = parseInt(split[1]);
+                    if (
+                        (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
+                        (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
+                     ) {
+                        let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                        let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                        if (greatLeague.length === 0 && ultraLeague.length === 0) {
+                            //console.log('Skipping:', result);
+                            //continue;
+                            skip = true;
+                        }
+                    }
+                }
+            }
+            if (skip) {
+                continue;
+            }
+
+            pokemon.push({
                 id: result.id,
                 pokemon_id: result.pokemon_id,
                 lat: result.lat,
@@ -192,14 +228,19 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 updated: result.updated,
                 changed: result.changed,
                 cellId: result.cell_id,
-                expire_timestamp_verified: result.expire_timestamp_verified
+                expire_timestamp_verified: result.expire_timestamp_verified,
+                capture_1: result.capture_1,
+                capture_2: result.capture_2,
+                capture_3: result.capture_3,
+                pvp_rankings_great_league: pvpRankingsGreatLeague,
+                pvp_rankings_ultra_league: pvpRankingsUltraLeague
             });
         }
     }
-    return pokemons;
-}
+    return pokemon;
+};
 
-async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, raidFilterExclude = null, gymFilterExclude = null) {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludedPokemon = []; //int
     let excludeAllButEx = false;
@@ -388,9 +429,9 @@ async function getGyms(minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         }
     }
     return gyms;
-}
+};
 
-async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null) {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
@@ -635,9 +676,9 @@ async function getPokestops(minLat, maxLat, minLon, maxLon, updated, questsOnly,
     }
 
     return pokestops;
-}
+};
 
-async function getSpawnpoints(minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null) {
+const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null) => {
     let excludeWithoutTimer = false;
     let excludeWithTimer = false;
     if (spawnpointFilterExclude) {
@@ -684,9 +725,9 @@ async function getSpawnpoints(minLat, maxLat, minLon, maxLon, updated, spawnpoin
         }
     }
     return spawnpoints;
-}
+};
 
-async function getDevices() {
+const getDevices = async () => {
     const sql = `
     SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group
     FROM device
@@ -709,9 +750,9 @@ async function getDevices() {
         }
     }
     return devices;
-}
+};
 
-async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
+const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.01;
     const maxLatReal = maxLat + 0.01;
     const minLonReal = minLon - 0.01;
@@ -727,19 +768,129 @@ async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            let polygon = getPolygon(result.id);
             cells.push({
                 id: result.id,
                 level: result.level,
                 centerLat: result.center_lat,
                 centerLon: result.center_lon,
-                updated: result.updated
+                updated: result.updated,
+                polygon: polygon
             });
         }
     }
     return cells;
+};
+
+const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
+    let minLatReal = minLat - 0.001;
+    let maxLatReal = maxLat + 0.001;
+    let minLonReal = minLon - 0.001;
+    let maxLonReal = maxLon + 0.001;
+
+    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, false, false, null, null);
+    allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
+    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, null, null);
+    allGyms = allGyms.filter(x => x.sponsor_id === null || gym.sponsor_id === 0);
+    let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allCoords = allGymCoods.concat(allStopCoods); // TODO: combine arrays
+
+    let regionCoverer = new S2.S2RegionCoverer();
+    regionCoverer.maxCells = 1000;
+    regionCoverer.minLevel = 17;
+    regionCoverer.maxLevel = 17;
+    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+
+    //var indexedCells = [UInt64: SubmissionPlacementCell]()
+    let indexedCells = [];
+    let coveringCells = regionCoverer.getCoveringCells(region);
+    /*
+    for (let i = 0; i < coveringCells.length; i++) {
+        let cell = coveringCells[i];
+        indexedCells[cell.id] = new SubmissionPlacementCell(cell.id, false); // TODO: Create class
+    }
+    for (let i = 0; i < allGymCoods.length; i++) {
+        let coord = allGymCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        let level17Cell = level1Cell.parent(17);
+        let cell = indexedCells[level17Cell.id];
+        if (cell) {
+            cell.blocked = true;
+        }
+    }
+    */
+
+    // TODO: Combine arrays
+    let rings = allCoords.map(x => new Ring(x.latitude, x.longitude, 20));
+    return {
+        cells: Object.values(indexedCells),
+        rings: rings
+    };
+};
+
+const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
+    let minLatReal = minLat - 0.01;
+    let maxLatReal = maxLat + 0.01;
+    let minLonReal = minLon - 0.01;
+    let maxLonReal = maxLon + 0.01;
+
+    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, false, false, null, null);
+    allStops = allStops.filter(x => x.sponsor_id === null || pokestop.sponsor_id === 0);
+    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, null, null);
+    allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
+    let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+
+    let regionCoverer = new S2.S2RegionCoverer();
+    regionCoverer.maxCells = 1000;
+    regionCoverer.minLevel = 14;
+    regionCoverer.maxLevel = 14;
+    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+    //let indexedCells = [UInt64: SubmissionTypeCell]()
+    let indexedCells = [];
+    let coveringCells = regionCoverer.getCoveringCells(region);
+    for (let i = 0; i < coveringCells.length; i++) {
+        let cell = coveringCells[i];
+        indexedCells[cell.id] = {
+            'id': cell.id,
+            'level': 14,
+            'count': 0,
+            'count_pokestops': 0,
+            'count_gyms': 0,
+            'polygon': getPolygon(cell.id)
+        };
+        //indexedCells[cell.id] = new SubmissionTypeCell(cell.id, 0, 0); // TODO: Create class
+    }
+    for (let i = 0; i < allGymCoods.length; i++) {
+        let coord = allGymCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        /*
+        let level14Cell = level1Cell.parent(14);
+        let cell = indexedCells[level14Cell.id];
+        if (cell) {
+            cell.countGyms++;
+            cell.count++;
+        } 
+        */       
+    }
+    for (let i = 0; i < allStopCoods.length; i++) {
+        let coord = allStopCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
+        // TODO: Get parent cells
+        /*
+        let level14Cell = level1Cell.parent(14);
+        let cell = indexedCells[level14Cell.id];
+        if (cell) {
+            cell.countPokestops++;
+            cell.count++;
+        }
+        */
+    }
+    return Object.values(indexedCells.values);
 }
 
-async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
+const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.1;
     const maxLatReal = maxLat + 0.1;
     const minLonReal = minLon - 0.1;
@@ -757,11 +908,13 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            const polygon = getPolygon(result.id);
             weather.push({
                 id: result.id,
                 level: result.level,
                 latitude: result.latitude,
                 longitude: result.longitude,
+                polygon: polygon,
                 gameplay_condition: result.gameplay_condition,
                 wind_direction: result.wind_direction,
                 cloud_level: result.cloud_level,
@@ -777,45 +930,57 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
         }
     }
     return weather;
-}
+};
 
-function sqlifyIvFilter(filter) {
-    let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
+const getPolygon = (s2cellId) => {
+    let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
+    let polygon = [];
+    for (let i = 0; i <= 3; i++) {
+        let coordinate = s2cell.getVertex(i);
+        let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
+        let latlng = S2.S2LatLng.fromPoint(point);
+        let latitude = latlng.latDegrees
+        let longitude = latlng.lngDegrees;
+        polygon.push([
+            latitude,
+            longitude
+        ]);
+    }
+    return polygon;
+};
+
+const sqlifyIvFilter = (filter) => {
+    let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
     /*
     if (filter !~ fullMatch) {
         return null;
     }
     */
-
-    let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?";
-    let sql = singleMatch.r.replaceAll(filter)// { match in
-    console.log("SQL:", sql);
-    if (sql === null) {
-        return '';
-    }
-    let firstGroup = match.group(0)
-    let firstGroupNumbers = firstGroup.replace("A", "");
-    firstGroupNumbers = firstGroupNumbers.replace("D", "");
-    firstGroupNumbers = firstGroupNumbers.replace("S", "");
-    firstGroupNumbers = firstGroupNumbers.replace("L", "");
+    let singleMatch = '(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?';
+    let match = filter.match(singleMatch);
+    let firstGroup = match[0];
+    let firstGroupNumbers = firstGroup.replace('A', '');
+    firstGroupNumbers = firstGroupNumbers.replace('D', '');
+    firstGroupNumbers = firstGroupNumbers.replace('S', '');
+    firstGroupNumbers = firstGroupNumbers.replace('L', '');
 
     let column = '';
-    if (firstGroup.includes("A")) {
-        column = "atk_iv";
-    } else if (firstGroup.includes("D")) {
-        column = "def_iv";
-    } else if (firstGroup.includes("S")) {
-        column = "sta_iv";
-    } else if (firstGroup.includes("L")) {
-        column = "level";
+    if (firstGroup.includes('A')) {
+        column = 'atk_iv';
+    } else if (firstGroup.includes('D')) {
+        column = 'def_iv';
+    } else if (firstGroup.includes('S')) {
+        column = 'sta_iv';
+    } else if (firstGroup.includes('L')) {
+        column = 'level';
     } else {
-        column = "iv";
+        column = 'iv';
     }
 
-    if (firstGroupNumbers.includes("-")) { // min max
-        let split = firstGroupNumbers.split("-");
+    if (firstGroupNumbers.includes('-')) { // min max
+        let split = firstGroupNumbers.split('-');
         if (split.length !== 2) { 
-            return nil
+            return null;
         }
         let number0 = parseFloat(split[0]);
         let number1 = parseFloat(split[1]);
@@ -836,11 +1001,22 @@ function sqlifyIvFilter(filter) {
         }
         return `${column} = ${number}`;
     }
+    //sql = sql.replace("&&", " AND ");
+    //sql = sql.replace("||", " OR ");
+};
 
-    sql = sql.replace("&&", " AND ");
-    sql = sql.replace("||", " OR ");
-    return sql;
-    //return '';
+class Ring {
+    id;
+    lat;
+    lon;
+    radius;
+
+    constructor(lat, lon, radius) {
+        this.id = `${lat}-${lon}-${radius}`;
+        this.lat = lat;
+        this.lon = lon;
+        this.radius = radius;
+    }
 }
 
 module.exports = {
@@ -850,5 +1026,7 @@ module.exports = {
     getSpawnpoints,
     getDevices,
     getS2Cells,
+    getSubmissionPlacementCells,
+    getSubmissionTypeCells,
     getWeather
 };

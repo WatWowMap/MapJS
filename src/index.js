@@ -8,19 +8,21 @@ const session = require('express-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
+const helmet = require('helmet');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
+const Perms = require('./data/perms.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: Finish pokemon iv filter
-// TODO: Permissions
-// TODO: submission_placement_cells
-// TODO: submission_placement_rings
-// TODO: submission_type_cells
+// TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
+// TODO: PvP filter
+
+// Basic security protection middleware
+app.use(helmet());
 
 // View engine
 app.set('view engine', 'mustache');
@@ -32,7 +34,7 @@ app.use(express.static(path.resolve(__dirname, '../static')));
 
 // Body parser middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: false, limit: '50mb' })); // for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
 // Initialize localzation handler
 i18n.configure({
@@ -42,11 +44,11 @@ i18n.configure({
 app.use(i18n.init);
 
 // Register helper as a locals function wrroutered as mustache expects
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     // Mustache helper
-    res.locals.__ = function() {
+    res.locals.__ = () => {
         /* eslint-disable no-unused-vars */
-        return function(text, render) {
+        return (text, render) => {
         /* eslint-enable no-unused-vars */
             return i18n.__.routerly(req, arguments);
         };
@@ -67,7 +69,7 @@ app.use(session({
 // CSRF token middleware
 app.use(cookieParser());
 app.use(csrf({ cookie: true }));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     var csrf = req.csrfToken();
     defaultData.csrf = csrf;
     //console.log("CSRF Token:", csrf);
@@ -82,7 +84,7 @@ if (config.discord.enabled) {
 
     // Discord error middleware
     /* eslint-disable no-unused-vars */
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
         switch (err.message) {
         case 'NoCodeProvided':
             return res.status(400).send({
@@ -100,7 +102,7 @@ if (config.discord.enabled) {
 }
 
 // Login middleware
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }
@@ -115,21 +117,22 @@ app.use(function(req, res, next) {
         const guilds = req.session.guilds;
         const roles = req.session.roles;
         if (utils.hasGuild(guilds)) {
-            defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
-            defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
-            defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
-            defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
-            defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
-            defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
-            defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
-            defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
-            defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
-            defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
-            defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
-            defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
-            defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
-            defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
-            defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+            const perms = new Perms(req.session.username, roles);
+            defaultData.hide_map = !perms.map;
+            defaultData.hide_pokemon = !perms.pokemon;
+            defaultData.hide_raids = !perms.raids;
+            defaultData.hide_gyms = !perms.gyms;
+            defaultData.hide_pokestops = !perms.pokestops;
+            defaultData.hide_quests = !perms.quests;
+            defaultData.hide_lures = !perms.lures;
+            defaultData.hide_invasions = !perms.invasions;
+            defaultData.hide_spawnpoints = !perms.spawnpoints;
+            defaultData.hide_iv = !perms.iv;
+            defaultData.hide_s2cells = !perms.s2cells;
+            defaultData.hide_submissionCells = !perms.submissionCells;
+            defaultData.hide_nests = !perms.nests;
+            defaultData.hide_weather = !perms.weather;
+            defaultData.hide_devices = !perms.devices;
         }
         return next();
     }

@@ -9,11 +9,11 @@ const oauth = new DiscordOauth2();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.on('ready', function() {
+client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
   
-client.on('message', function(msg) {
+client.on('message', (msg) => {
     if (msg.content === 'ping') {
         msg.reply('pong');
     }
@@ -34,9 +34,15 @@ class DiscordClient {
         return guildIds;
     }
     async getUserRoles(id) {
-        const user = await client.users.fetch(id);
-        const rolemgr = user.presence.member.roles;
-        const roles = rolemgr.member._roles;
+        const user = await client.users.fetch(id, true);
+        // Not in cache, fetch api
+        if (user === undefined || user === null) {
+            user = await client.users.fetch(id, false);
+        }
+        //const rolemgr = user.presence.member.roles;
+        //console.log('Roles:', user.presence.member._roles);
+        //const roles = rolemgr.member._roles;
+        const roles = user.presence.member._roles;
         return roles;
     }
     async isValid(configItem) {

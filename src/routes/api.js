@@ -4,21 +4,22 @@ const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
 
-const InventoryItemId = require('../data/item.js');
 const config = require('../config.json');
+const InventoryItemId = require('../data/item.js');
+const Perms = require('../data/perms.js');
 const map = require('../data/map.js');
 
-router.get('/get_data', async function(req, res) {
-    const data = await getData(req.query);
+router.get('/get_data', async (req, res) => {
+    const data = await getData(req.session.username, req.session.roles, req.query);
     res.json({ data: data });
 });
 
-router.post('/get_data', async function(req, res) {
-    const data = await getData(req.body);
+router.post('/get_data', async (req, res) => {
+    const data = await getData(req.session.username, req.session.roles, req.body);
     res.json({ data: data });
 });
 
-async function getData(filter) {
+const getData = async (username, roles, filter) => {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
@@ -32,6 +33,7 @@ async function getData(filter) {
     const showPokemon = filter.show_pokemon || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
+    const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -40,7 +42,7 @@ async function getData(filter) {
     const showCells = filter.show_cells || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells || false;
     const showSubmissionTypeCells = filter.show_submission_type_cells || false;
-    const showWeather = filter.show_weather || false;
+    const showWeather = filter.show_weathers || false;
     const showActiveDevices = filter.show_active_devices || false;
     const showPokemonFilter = filter.show_pokemon_filter || false;
     const showQuestFilter = filter.show_quest_filter || false;
@@ -56,39 +58,40 @@ async function getData(filter) {
         return;
     }
 
-    // TOOD: get perms via req
-    const permViewMap = true;
-    const permShowLures = true;
-    const permShowInvasions = true;
-    const permShowIV = true;
+    const perms = new Perms(username, roles);
+    const permViewMap = perms.map !== false;
+    const permShowLures = perms.lures !== false;
+    const permShowInvasions = perms.invasions !== false;
+    const permShowIV = perms.iv !== false;
 
     let data = {};
-    if (showGyms || showRaids) {
+    if ((perms.gyms && showGyms) || (perms.raids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
-    if (showPokestops || showQuests) {
+    if ((perms.pokestops && showPokestops) || (perms.quests && showQuests)) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
     }
-    if (showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
+    if (perms.pokemon && showPokemon) {
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
     }
-    if (showSpawnpoints) {
+    if (perms.spawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
     }
-    if (showActiveDevices) {
+    if (perms.devices && showActiveDevices) {
         data['active_devices'] = await map.getDevices();
     }
-    if (showCells) {
+    if (perms.s2cells && showCells) {
         data['cells'] = await map.getS2Cells(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
-    if (showSubmissionPlacementCells) {
-        data['submission_placement_cells'] = [];//result?.cells
-        data['submission_placement_rings'] = [];//result?.rings
+    if (perms.submissionCells && showSubmissionPlacementCells) {
+        let placementCells = await map.getSubmissionPlacementCells(minLat, maxLat, minLon, maxLon);
+        data['submission_placement_cells'] = placementCells.cells;
+        data['submission_placement_rings'] = placementCells.rings;
     }
-    if (showSubmissionTypeCells) {
-        data['submission_type_cells'] = [];
+    if (perms.submissionCells && showSubmissionTypeCells) {
+        data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
     }
-    if (showWeather) {
+    if (perms.weather && showWeather) {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
 
@@ -97,10 +100,11 @@ async function getData(filter) {
         const offString = i18n.__('filter_off');
         const ivString = i18n.__('filter_iv');
     
-        const pokemonTypeString = i18n.__('filter_pokemon');
+        const globalIVString = i18n.__('filter_global_iv');
+        const globalPVPString = i18n.__('filter_global_pvp');
         const generalTypeString = i18n.__('filter_general');
+        const pokemonTypeString = i18n.__('filter_pokemon');
     
-        const globalIV = i18n.__('filter_global_iv');
         const configureString = i18n.__('filter_configure');
         const andString = i18n.__('filter_and');
         const orString = i18n.__('filter_or');
@@ -121,17 +125,43 @@ async function getData(filter) {
                 </div>
                 `;
                 const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" "data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
                 pokemonData.push({
                     'id': {
                         'formatted': andOrString,
                         'sort': i
                     },
-                    'name': globalIV,
-                    'image': '-',
+                    'name': globalIVString,
+                    'image': andOrString,
                     'filter': filter,
                     'size': size,
-                    'type': generalTypeString
+                    'type': globalIVString
+                });
+            }
+            for (let i = 0; i <= 1; i++) {
+                const id = i === 0 ? 'and' : 'or';
+                const filter = `
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
+                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+                    </label>
+                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
+                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
+                    </label>
+                </div>
+                `;
+                const andOrString = i === 0 ? andString : orString;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
+                pokemonData.push({
+                    'id': {
+                        'formatted': andOrString,
+                        'sort': i + 2
+                    },
+                    'name': globalPVPString,
+                    'image': andOrString,
+                    'filter': filter,
+                    'size': size,
+                    'type': globalPVPString
                 });
             }
         }
@@ -146,7 +176,7 @@ async function getData(filter) {
             pokemonData.push({
                 "id": {
                     "formatted": i,//String(format: "%03d", i),
-                    "sort": i + 2
+                    "sort": i + 5
                 },
                 "name": sizeString,
                 "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
@@ -470,9 +500,9 @@ async function getData(filter) {
     }
 
     return data;
-}
+};
 
-function generateShowHideButtons(id, type, ivLabel = '') {
+const generateShowHideButtons = (id, type, ivLabel = '') => {
     const hideString = i18n.__('filter_hide');
     const showString = i18n.__('filter_show');
     const filter = `
@@ -487,9 +517,9 @@ function generateShowHideButtons(id, type, ivLabel = '') {
     </div>
     `;
     return filter;
-}
+};
 
-function generateSizeButtons(id, type) {
+const generateSizeButtons = (id, type) => {
     const smallString = i18n.__('filter_small');
     const normalString = i18n.__('filter_normal');
     const largeString = i18n.__('filter_large');
@@ -511,6 +541,6 @@ function generateSizeButtons(id, type) {
     </div>
     `;
     return size;
-}
+};
 
 module.exports = router;

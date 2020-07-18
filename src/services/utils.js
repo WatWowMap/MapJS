@@ -2,11 +2,11 @@
 
 const config = require('../config.json');
 
-function generateString() {
+const generateString = () => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
+};
 
-function hasGuild(guilds) {
+const hasGuild = (guilds) => {
     if (!config.discord.enabled) {
         return true;
     }
@@ -23,9 +23,9 @@ function hasGuild(guilds) {
         }
     }
     return false;
-}
+};
 
-function hasRole(userRoles, requiredRoles) {
+const hasRole = (userRoles, requiredRoles) => {
     if (!config.discord.enabled) {
         return true;
     }
@@ -42,7 +42,7 @@ function hasRole(userRoles, requiredRoles) {
         }
     }
     return false;
-}
+};
 
 module.exports = {
     generateString,
