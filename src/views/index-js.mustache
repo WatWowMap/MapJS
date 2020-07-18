@@ -2636,7 +2636,11 @@ function getPokemonType (typeId) {
 }
 
 function getFormName (formId) {
-    return i18n('form_' + formId);
+    let form = i18n('form_' + formId);
+    if (form !== 'Normal') {
+        return form;
+    }
+    return null;
 }
 
 function getMoveName (moveId) {
