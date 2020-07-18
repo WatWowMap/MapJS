@@ -176,17 +176,21 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             let skip = false;
             if (pokemonFilterPVP) {
                 let idString = pokemonFilterPVP.hasOwnProperty('and') ? 'and' : 'or';
-                let split = pokemonFilterPVP[idString].split('-');
-                if (split.length === 2 && (result.atk_iv > 0 || result.def_iv > 0 || result.sta_iv > 0)) {
-                    let minRank = parseInt(split[0]);
-                    let maxRank = parseInt(split[1]);
-                    if (
-                        (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
-                        (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
-                     ) {
-                        let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
-                        let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
-                        if (greatLeague.length === 0 && ultraLeague.length === 0) {
+                if (pokemonFilterPVP[idString]) {
+                    let split = pokemonFilterPVP[idString].split('-');
+                    if (split.length === 2) {
+                        let minRank = parseInt(split[0]);
+                        let maxRank = parseInt(split[1]);
+                        if (
+                            (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
+                            (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
+                        ) {
+                            let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                            let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                            if (greatLeague.length === 0 && ultraLeague.length === 0) {
+                                skip = true;
+                            }
+                        } else {
                             skip = true;
                         }
                     }

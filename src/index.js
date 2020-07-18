@@ -18,6 +18,8 @@ const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
 // TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
+// TODO: Cache last location
+// TODO: Follow my location
 
 // Basic security protection middleware
 app.use(helmet());
