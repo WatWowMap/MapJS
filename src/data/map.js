@@ -175,22 +175,18 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
 
             let skip = false;
             if (pokemonFilterPVP) {
-                //console.log('PokemonFilterPVP:', pokemonFilterPVP);
-                let isAnd = pokemonFilterPVP.hasOwnProperty('and');
-                let idString = isAnd ? 'and' : 'or';
+                let idString = pokemonFilterPVP.hasOwnProperty('and') ? 'and' : 'or';
                 let split = pokemonFilterPVP[idString].split('-');
-                if (split.length === 2) {
+                if (split.length === 2 && (result.atk_iv > 0 || result.def_iv > 0 || result.sta_iv > 0)) {
                     let minRank = parseInt(split[0]);
                     let maxRank = parseInt(split[1]);
                     if (
                         (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
                         (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
                      ) {
-                        let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
-                        let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                        let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                        let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
                         if (greatLeague.length === 0 && ultraLeague.length === 0) {
-                            //console.log('Skipping:', result);
-                            //continue;
                             skip = true;
                         }
                     }
@@ -794,22 +790,25 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     allGyms = allGyms.filter(x => x.sponsor_id === null || gym.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
-    let allCoords = allGymCoods.concat(allStopCoods); // TODO: combine arrays
+    let allCoords = allGymCoods.concat(allStopCoods);
 
     let regionCoverer = new S2.S2RegionCoverer();
     regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
     let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
-
-    //var indexedCells = [UInt64: SubmissionPlacementCell]()
     let indexedCells = [];
     let coveringCells = regionCoverer.getCoveringCells(region);
-    /*
     for (let i = 0; i < coveringCells.length; i++) {
         let cell = coveringCells[i];
-        indexedCells[cell.id] = new SubmissionPlacementCell(cell.id, false); // TODO: Create class
+        indexedCells[cell.id] = {
+            "id": id.description,
+            "level": 17,
+            "blocked": false,
+            "polygon": getPolygon(cell.id)
+        }
     }
+    /*
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
@@ -820,9 +819,7 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
         }
     }
     */
-
-    // TODO: Combine arrays
-    let rings = allCoords.map(x => new Ring(x.latitude, x.longitude, 20));
+    let rings = allCoords.map(x => new Ring(x.lat, x.lon, 20));
     return {
         cells: Object.values(indexedCells),
         rings: rings
@@ -847,7 +844,6 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
     let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
-    //let indexedCells = [UInt64: SubmissionTypeCell]()
     let indexedCells = [];
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
@@ -860,11 +856,11 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
             'count_gyms': 0,
             'polygon': getPolygon(cell.id)
         };
-        //indexedCells[cell.id] = new SubmissionTypeCell(cell.id, 0, 0); // TODO: Create class
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        // TODO: Get parent cell
         /*
         let level14Cell = level1Cell.parent(14);
         let cell = indexedCells[level14Cell.id];
@@ -877,7 +873,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        // TODO: Get parent cells
+        // TODO: Get parent cell
         /*
         let level14Cell = level1Cell.parent(14);
         let cell = indexedCells[level14Cell.id];

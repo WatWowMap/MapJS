@@ -106,32 +106,29 @@ const handlePage = (req, res) => {
     });
     defaultData.areas = areas;
 
-    defaultData.page_is_home = true;
-    defaultData.page_is_areas = true; // TODO: Perms
-    defaultData.show_areas = true;
-
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        //const id = req.session.user_id;
-        const guilds = req.session.guilds;
-        const roles = req.session.roles;
-        if (utils.hasGuild(guilds)) {
-            defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
-            defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
-            defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
-            defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
-            defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
-            defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
-            defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
-            defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
-            defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
-            defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
-            defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
-            defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
-            defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
-            defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
-            defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+        if (req.session.valid) {
+            defaultData.page_is_home = true;
+            defaultData.page_is_areas = true;
+            defaultData.show_areas = true;
+            const perms = req.session.perms;
+            defaultData.hide_map = !perms.map;
+            defaultData.hide_pokemon = !perms.pokemon;
+            defaultData.hide_raids = !perms.raids;
+            defaultData.hide_gyms = !perms.gyms;
+            defaultData.hide_pokestops = !perms.pokestops;
+            defaultData.hide_quests = !perms.quests;
+            defaultData.hide_lures = !perms.lures;
+            defaultData.hide_invasions = !perms.invasions;
+            defaultData.hide_spawnpoints = !perms.spawnpoints;
+            defaultData.hide_iv = !perms.iv;
+            defaultData.hide_s2cells = !perms.s2cells;
+            defaultData.hide_submissionCells = !perms.submissionCells;
+            defaultData.hide_nests = !perms.nests;
+            defaultData.hide_weather = !perms.weather;
+            defaultData.hide_devices = !perms.devices;
         }
     }
 

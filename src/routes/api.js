@@ -10,16 +10,16 @@ const Perms = require('../data/perms.js');
 const map = require('../data/map.js');
 
 router.get('/get_data', async (req, res) => {
-    const data = await getData(req.session.username, req.session.roles, req.query);
+    const data = await getData(req.session.perms, req.query);
     res.json({ data: data });
 });
 
 router.post('/get_data', async (req, res) => {
-    const data = await getData(req.session.username, req.session.roles, req.body);
+    const data = await getData(req.session.perms, req.body);
     res.json({ data: data });
 });
 
-const getData = async (username, roles, filter) => {
+const getData = async (perms, filter) => {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
     const maxLat = filter.max_lat;
@@ -58,7 +58,6 @@ const getData = async (username, roles, filter) => {
         return;
     }
 
-    const perms = new Perms(username, roles);
     const permViewMap = perms.map !== false;
     const permShowLures = perms.lures !== false;
     const permShowInvasions = perms.invasions !== false;
