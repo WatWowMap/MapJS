@@ -1626,6 +1626,7 @@ function loadData () {
                         cell.marker.addTo(map);
                     } else {
                         oldCell.updated = cell.updated;
+                        console.log("Cell:", cell);
                         oldCell.marker.setStyle(getCellStyle(cell, ts));
                     }
                 }

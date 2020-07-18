@@ -733,8 +733,10 @@ async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
             let polygon = [];
             for (let i = 0; i <= 3; i++) {
                 let coordinate = s2cell.getVertex(i);
-                let latitude = coordinate.x;
-                let longitude = coordinate.y;
+                let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
+                let latlng = S2.S2LatLng.fromPoint(point);
+                let latitude = latlng.latDegrees
+                let longitude = latlng.lngDegrees;
                 polygon.push([
                     latitude,
                     longitude
@@ -794,21 +796,14 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
 }
 
 function sqlifyIvFilter(filter) {
-    console.log('IV Filter:', filter);
     let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
     /*
     if (filter !~ fullMatch) {
         return null;
     }
     */
-
     let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?";
     let match = filter.match(singleMatch);
-    let sql = '';// { match in
-    //console.log("SQL:", sql);
-    //if (sql === null) {
-    //    return '';
-    //}
     let firstGroup = match[0];
     let firstGroupNumbers = firstGroup.replace("A", "");
     firstGroupNumbers = firstGroupNumbers.replace("D", "");
@@ -852,11 +847,8 @@ function sqlifyIvFilter(filter) {
         }
         return `${column} = ${number}`;
     }
-
-    sql = sql.replace("&&", " AND ");
-    sql = sql.replace("||", " OR ");
-    return sql;
-    //return '';
+    //sql = sql.replace("&&", " AND ");
+    //sql = sql.replace("||", " OR ");
 }
 
 module.exports = {
