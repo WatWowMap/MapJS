@@ -6,7 +6,6 @@ const router = express.Router();
 
 const config = require('../config.json');
 const InventoryItemId = require('../data/item.js');
-const Perms = require('../data/perms.js');
 const map = require('../data/map.js');
 
 router.get('/get_data', async (req, res) => {
