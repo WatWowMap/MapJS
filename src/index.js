@@ -8,6 +8,7 @@ const session = require('express-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
+const helmet = require('helmet');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
@@ -20,6 +21,9 @@ const utils = require('./services/utils.js');
 // TODO: submission_placement_cells
 // TODO: submission_placement_rings
 // TODO: submission_type_cells
+
+// Basic security protection middleware
+app.use(helmet());
 
 // View engine
 app.set('view engine', 'mustache');
