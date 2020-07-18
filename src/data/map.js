@@ -898,11 +898,13 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            const polygon = getPolygon(result.id);
             weather.push({
                 id: result.id,
                 level: result.level,
                 latitude: result.latitude,
                 longitude: result.longitude,
+                polygon: polygon,
                 gameplay_condition: result.gameplay_condition,
                 wind_direction: result.wind_direction,
                 cloud_level: result.cloud_level,
