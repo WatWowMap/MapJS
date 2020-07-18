@@ -4,7 +4,7 @@ const S2 = require('nodes2ts');
 
 const query = require('../services/db.js');
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length - 1; i++) {
@@ -129,7 +129,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         }
     }
     const results = await query(sql, args);
-    let pokemons = [];
+    let pokemon = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
@@ -173,7 +173,34 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 pvpRankingsUltraLeague = null;
             }
 
-            pokemons.push({
+            let skip = false;
+            if (pokemonFilterPVP) {
+                //console.log('PokemonFilterPVP:', pokemonFilterPVP);
+                let isAnd = pokemonFilterPVP.hasOwnProperty('and');
+                let idString = isAnd ? 'and' : 'or';
+                let split = pokemonFilterPVP[idString].split('-');
+                if (split.length === 2) {
+                    let minRank = parseInt(split[0]);
+                    let maxRank = parseInt(split[1]);
+                    if (
+                        (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
+                        (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
+                     ) {
+                        let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                        let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                        if (greatLeague.length === 0 && ultraLeague.length === 0) {
+                            //console.log('Skipping:', result);
+                            //continue;
+                            skip = true;
+                        }
+                    }
+                }
+            }
+            if (skip) {
+                continue;
+            }
+
+            pokemon.push({
                 id: result.id,
                 pokemon_id: result.pokemon_id,
                 lat: result.lat,
@@ -210,7 +237,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             });
         }
     }
-    return pokemons;
+    return pokemon;
 };
 
 const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, raidFilterExclude = null, gymFilterExclude = null) => {

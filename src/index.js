@@ -12,6 +12,7 @@ const helmet = require('helmet');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
+const Perms = require('./data/perms.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
@@ -33,7 +34,7 @@ app.use(express.static(path.resolve(__dirname, '../static')));
 
 // Body parser middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: false, limit: '50mb' })); // for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
 // Initialize localzation handler
 i18n.configure({
@@ -116,21 +117,22 @@ app.use((req, res, next) => {
         const guilds = req.session.guilds;
         const roles = req.session.roles;
         if (utils.hasGuild(guilds)) {
-            defaultData.hide_map = !utils.hasRole(roles, config.discord.perms.map.roles);
-            defaultData.hide_pokemon = !utils.hasRole(roles, config.discord.perms.pokemon.roles);
-            defaultData.hide_raids = !utils.hasRole(roles, config.discord.perms.raids.roles);
-            defaultData.hide_gyms = !utils.hasRole(roles, config.discord.perms.gyms.roles);
-            defaultData.hide_pokestops = !utils.hasRole(roles, config.discord.perms.pokestops.roles);
-            defaultData.hide_quests = !utils.hasRole(roles, config.discord.perms.quests.roles);
-            defaultData.hide_lures = !utils.hasRole(roles, config.discord.perms.lures.roles);
-            defaultData.hide_invasions = !utils.hasRole(roles, config.discord.perms.invasions.roles);
-            defaultData.hide_spawnpoints = !utils.hasRole(roles, config.discord.perms.spawnpoints.roles);
-            defaultData.hide_iv = !utils.hasRole(roles, config.discord.perms.iv.roles);
-            defaultData.hide_s2cells = !utils.hasRole(roles, config.discord.perms.s2cells.roles);
-            defaultData.hide_submissionCells = !utils.hasRole(roles, config.discord.perms.submissionCells.roles);
-            defaultData.hide_nests = !utils.hasRole(roles, config.discord.perms.nests.roles);
-            defaultData.hide_weather = !utils.hasRole(roles, config.discord.perms.weather.roles);
-            defaultData.hide_devices = !utils.hasRole(roles, config.discord.perms.devices.roles);
+            const perms = new Perms(req.session.username, roles);
+            defaultData.hide_map = !perms.map;
+            defaultData.hide_pokemon = !perms.pokemon;
+            defaultData.hide_raids = !perms.raids;
+            defaultData.hide_gyms = !perms.gyms;
+            defaultData.hide_pokestops = !perms.pokestops;
+            defaultData.hide_quests = !perms.quests;
+            defaultData.hide_lures = !perms.lures;
+            defaultData.hide_invasions = !perms.invasions;
+            defaultData.hide_spawnpoints = !perms.spawnpoints;
+            defaultData.hide_iv = !perms.iv;
+            defaultData.hide_s2cells = !perms.s2cells;
+            defaultData.hide_submissionCells = !perms.submissionCells;
+            defaultData.hide_nests = !perms.nests;
+            defaultData.hide_weather = !perms.weather;
+            defaultData.hide_devices = !perms.devices;
         }
         return next();
     }

@@ -34,9 +34,15 @@ class DiscordClient {
         return guildIds;
     }
     async getUserRoles(id) {
-        const user = await client.users.fetch(id);
-        const rolemgr = user.presence.member.roles;
-        const roles = rolemgr.member._roles;
+        const user = await client.users.fetch(id, true);
+        // Not in cache, fetch api
+        if (user === undefined || user === null) {
+            user = await client.users.fetch(id, false);
+        }
+        //const rolemgr = user.presence.member.roles;
+        //console.log('Roles:', user.presence.member._roles);
+        //const roles = rolemgr.member._roles;
+        const roles = user.presence.member._roles;
         return roles;
     }
     async isValid(configItem) {

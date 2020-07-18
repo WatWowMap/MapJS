@@ -33,6 +33,7 @@ const getData = async (username, roles, filter) => {
     const showPokemon = filter.show_pokemon || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
+    const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -71,7 +72,7 @@ const getData = async (username, roles, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
     }
     if (perms.pokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
     }
     if (perms.spawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -99,10 +100,11 @@ const getData = async (username, roles, filter) => {
         const offString = i18n.__('filter_off');
         const ivString = i18n.__('filter_iv');
     
-        const pokemonTypeString = i18n.__('filter_pokemon');
+        const globalIVString = i18n.__('filter_global_iv');
+        const globalPVPString = i18n.__('filter_global_pvp');
         const generalTypeString = i18n.__('filter_general');
+        const pokemonTypeString = i18n.__('filter_pokemon');
     
-        const globalIV = i18n.__('filter_global_iv');
         const configureString = i18n.__('filter_configure');
         const andString = i18n.__('filter_and');
         const orString = i18n.__('filter_or');
@@ -129,11 +131,37 @@ const getData = async (username, roles, filter) => {
                         'formatted': andOrString,
                         'sort': i
                     },
-                    'name': globalIV,
+                    'name': globalIVString,
                     'image': andOrString,
                     'filter': filter,
                     'size': size,
-                    'type': generalTypeString
+                    'type': globalIVString
+                });
+            }
+            for (let i = 0; i <= 1; i++) {
+                const id = i === 0 ? 'and' : 'or';
+                const filter = `
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
+                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+                    </label>
+                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
+                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
+                    </label>
+                </div>
+                `;
+                const andOrString = i === 0 ? andString : orString;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
+                pokemonData.push({
+                    'id': {
+                        'formatted': andOrString,
+                        'sort': i + 2
+                    },
+                    'name': globalPVPString,
+                    'image': andOrString,
+                    'filter': filter,
+                    'size': size,
+                    'type': globalPVPString
                 });
             }
         }
@@ -148,7 +176,7 @@ const getData = async (username, roles, filter) => {
             pokemonData.push({
                 "id": {
                     "formatted": i,//String(format: "%03d", i),
-                    "sort": i + 2
+                    "sort": i + 5
                 },
                 "name": sizeString,
                 "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
