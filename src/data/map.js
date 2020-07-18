@@ -1,5 +1,7 @@
 'use strict';
 
+const S2 = require('nodes2ts');
+
 const query = require('../services/db.js');
 
 async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) {
@@ -64,9 +66,9 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(function(key) {
             const filter = pokemonFilterIV[key];
-            const sql = sqlifyIvFilter(filter.value);
+            const sql = sqlifyIvFilter(filter);
             if (sql && sql !== false && sql !== '') {
-                if (filter.key === 'and') {
+                if (key === 'and') {
                     andPart += sql;
                 } else if (pokemonFilterExclude && pokemonFilterExclude.length > 0) {
                     if (orPart && orPart === '') {
@@ -74,10 +76,10 @@ async function getPokemon(minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                     } else {
                         orPart += ' OR ';
                     }
-                    if (filter.key === 'or') {
+                    if (key === 'or') {
                         orPart += `${sq}`;
                     } else {
-                        const id = parseInt(filter.key) || 0;
+                        const id = parseInt(key) || 0;
                         orPart += ` (pokemon_id = ${id} AND ${sql})`;
                     }
                 }
@@ -727,12 +729,24 @@ async function getS2Cells(minLat, maxLat, minLon, maxLon, updated) {
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(result.id).toString()));
+            let polygon = [];
+            for (let i = 0; i <= 3; i++) {
+                let coordinate = s2cell.getVertex(i);
+                let latitude = coordinate.x;
+                let longitude = coordinate.y;
+                polygon.push([
+                    latitude,
+                    longitude
+                ]);
+            }
             cells.push({
                 id: result.id,
                 level: result.level,
                 centerLat: result.center_lat,
                 centerLon: result.center_lon,
-                updated: result.updated
+                updated: result.updated,
+                polygon: polygon
             });
         }
     }
@@ -780,6 +794,7 @@ async function getWeather(minLat, maxLat, minLon, maxLon, updated) {
 }
 
 function sqlifyIvFilter(filter) {
+    console.log('IV Filter:', filter);
     let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
     /*
     if (filter !~ fullMatch) {
@@ -788,12 +803,13 @@ function sqlifyIvFilter(filter) {
     */
 
     let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?";
-    let sql = singleMatch.r.replaceAll(filter)// { match in
-    console.log("SQL:", sql);
-    if (sql === null) {
-        return '';
-    }
-    let firstGroup = match.group(0)
+    let match = filter.match(singleMatch);
+    let sql = '';// { match in
+    //console.log("SQL:", sql);
+    //if (sql === null) {
+    //    return '';
+    //}
+    let firstGroup = match[0];
     let firstGroupNumbers = firstGroup.replace("A", "");
     firstGroupNumbers = firstGroupNumbers.replace("D", "");
     firstGroupNumbers = firstGroupNumbers.replace("S", "");
@@ -815,7 +831,7 @@ function sqlifyIvFilter(filter) {
     if (firstGroupNumbers.includes("-")) { // min max
         let split = firstGroupNumbers.split("-");
         if (split.length !== 2) { 
-            return nil
+            return null;
         }
         let number0 = parseFloat(split[0]);
         let number1 = parseFloat(split[1]);
