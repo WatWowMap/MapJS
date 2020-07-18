@@ -741,19 +741,7 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
-            let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(result.id).toString()));
-            let polygon = [];
-            for (let i = 0; i <= 3; i++) {
-                let coordinate = s2cell.getVertex(i);
-                let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
-                let latlng = S2.S2LatLng.fromPoint(point);
-                let latitude = latlng.latDegrees
-                let longitude = latlng.lngDegrees;
-                polygon.push([
-                    latitude,
-                    longitude
-                ]);
-            }
+            let polygon = getPolygon(result.id);
             cells.push({
                 id: result.id,
                 level: result.level,
@@ -766,6 +754,131 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     }
     return cells;
 };
+
+const getPolygon = (s2cellId) => {
+    let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
+    let polygon = [];
+    for (let i = 0; i <= 3; i++) {
+        let coordinate = s2cell.getVertex(i);
+        let point = new S2.S2Point(coordinate.x, coordinate.y, coordinate.z);
+        let latlng = S2.S2LatLng.fromPoint(point);
+        let latitude = latlng.latDegrees
+        let longitude = latlng.lngDegrees;
+        polygon.push([
+            latitude,
+            longitude
+        ]);
+    }
+    return polygon;
+};
+
+const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
+    let minLatReal = minLat - 0.001;
+    let maxLatReal = maxLat + 0.001;
+    let minLonReal = minLon - 0.001;
+    let maxLonReal = maxLon + 0.001;
+
+    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, false, false, null, null);
+    allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
+    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, null, null);
+    allGyms = allGyms.filter(x => x.sponsor_id === null || gym.sponsor_id === 0);
+    let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allCoords = allGymCoods.concat(allStopCoods); // TODO: combine arrays
+
+    let regionCoverer = new S2.S2RegionCoverer();
+    regionCoverer.maxCells = 1000;
+    regionCoverer.minLevel = 17;
+    regionCoverer.maxLevel = 17;
+    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+
+    //var indexedCells = [UInt64: SubmissionPlacementCell]()
+    let indexedCells = [];
+    let coveringCells = regionCoverer.getCoveringCells(region);
+    /*
+    for (let i = 0; i < coveringCells.length; i++) {
+        let cell = coveringCells[i];
+        indexedCells[cell.id] = new SubmissionPlacementCell(cell.id, false); // TODO: Create class
+    }
+    for (let i = 0; i < allGymCoods.length; i++) {
+        let coord = allGymCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        let level17Cell = level1Cell.parent(17);
+        let cell = indexedCells[level17Cell.id];
+        if (cell) {
+            cell.blocked = true;
+        }
+    }
+    */
+
+    // TODO: Combine arrays
+    let rings = allCoords.map(x => new Ring(x.latitude, x.longitude, 20));
+    return {
+        cells: Object.values(indexedCells),
+        rings: rings
+    };
+};
+
+const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
+    let minLatReal = minLat - 0.01;
+    let maxLatReal = maxLat + 0.01;
+    let minLonReal = minLon - 0.01;
+    let maxLonReal = maxLon + 0.01;
+
+    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, false, false, null, null);
+    allStops = allStops.filter(x => x.sponsor_id === null || pokestop.sponsor_id === 0);
+    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, null, null);
+    allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
+    let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+    let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon } });
+
+    let regionCoverer = new S2.S2RegionCoverer();
+    regionCoverer.maxCells = 1000;
+    regionCoverer.minLevel = 14;
+    regionCoverer.maxLevel = 14;
+    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+    //let indexedCells = [UInt64: SubmissionTypeCell]()
+    let indexedCells = [];
+    let coveringCells = regionCoverer.getCoveringCells(region);
+    for (let i = 0; i < coveringCells.length; i++) {
+        let cell = coveringCells[i];
+        indexedCells[cell.id] = {
+            'id': cell.id,
+            'level': 14,
+            'count': 0,
+            'count_pokestops': 0,
+            'count_gyms': 0,
+            'polygon': getPolygon(cell.id)
+        };
+        //indexedCells[cell.id] = new SubmissionTypeCell(cell.id, 0, 0); // TODO: Create class
+    }
+    for (let i = 0; i < allGymCoods.length; i++) {
+        let coord = allGymCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        /*
+        let level14Cell = level1Cell.parent(14);
+        let cell = indexedCells[level14Cell.id];
+        if (cell) {
+            cell.countGyms++;
+            cell.count++;
+        } 
+        */       
+    }
+    for (let i = 0; i < allStopCoods.length; i++) {
+        let coord = allStopCoods[i];
+        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
+        // TODO: Get parent cells
+        /*
+        let level14Cell = level1Cell.parent(14);
+        let cell = indexedCells[level14Cell.id];
+        if (cell) {
+            cell.countPokestops++;
+            cell.count++;
+        }
+        */
+    }
+    return Object.values(indexedCells.values);
+}
 
 const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.1;
@@ -808,35 +921,35 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
 };
 
 const sqlifyIvFilter = (filter) => {
-    let fullMatch = "^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$";
+    let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
     /*
     if (filter !~ fullMatch) {
         return null;
     }
     */
-    let singleMatch = "(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?";
+    let singleMatch = '(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?';
     let match = filter.match(singleMatch);
     let firstGroup = match[0];
-    let firstGroupNumbers = firstGroup.replace("A", "");
-    firstGroupNumbers = firstGroupNumbers.replace("D", "");
-    firstGroupNumbers = firstGroupNumbers.replace("S", "");
-    firstGroupNumbers = firstGroupNumbers.replace("L", "");
+    let firstGroupNumbers = firstGroup.replace('A', '');
+    firstGroupNumbers = firstGroupNumbers.replace('D', '');
+    firstGroupNumbers = firstGroupNumbers.replace('S', '');
+    firstGroupNumbers = firstGroupNumbers.replace('L', '');
 
     let column = '';
-    if (firstGroup.includes("A")) {
-        column = "atk_iv";
-    } else if (firstGroup.includes("D")) {
-        column = "def_iv";
-    } else if (firstGroup.includes("S")) {
-        column = "sta_iv";
-    } else if (firstGroup.includes("L")) {
-        column = "level";
+    if (firstGroup.includes('A')) {
+        column = 'atk_iv';
+    } else if (firstGroup.includes('D')) {
+        column = 'def_iv';
+    } else if (firstGroup.includes('S')) {
+        column = 'sta_iv';
+    } else if (firstGroup.includes('L')) {
+        column = 'level';
     } else {
-        column = "iv";
+        column = 'iv';
     }
 
-    if (firstGroupNumbers.includes("-")) { // min max
-        let split = firstGroupNumbers.split("-");
+    if (firstGroupNumbers.includes('-')) { // min max
+        let split = firstGroupNumbers.split('-');
         if (split.length !== 2) { 
             return null;
         }
@@ -863,6 +976,20 @@ const sqlifyIvFilter = (filter) => {
     //sql = sql.replace("||", " OR ");
 };
 
+class Ring {
+    id;
+    lat;
+    lon;
+    radius;
+
+    constructor(lat, lon, radius) {
+        this.id = `${lat}-${lon}-${radius}`;
+        this.lat = lat;
+        this.lon = lon;
+        this.radius = radius;
+    }
+}
+
 module.exports = {
     getPokemon,
     getGyms,
@@ -870,5 +997,7 @@ module.exports = {
     getSpawnpoints,
     getDevices,
     getS2Cells,
+    getSubmissionPlacementCells,
+    getSubmissionTypeCells,
     getWeather
 };

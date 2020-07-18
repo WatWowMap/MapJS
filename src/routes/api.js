@@ -82,11 +82,12 @@ const getData = async (filter) => {
         data['cells'] = await map.getS2Cells(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
     if (showSubmissionPlacementCells) {
-        data['submission_placement_cells'] = [];//result?.cells
-        data['submission_placement_rings'] = [];//result?.rings
+        let placementCells = await map.getSubmissionPlacementCells(minLat, maxLat, minLon, maxLon);
+        data['submission_placement_cells'] = placementCells.cells;
+        data['submission_placement_rings'] = placementCells.rings;
     }
     if (showSubmissionTypeCells) {
-        data['submission_type_cells'] = [];
+        data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
     }
     if (showWeather) {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
