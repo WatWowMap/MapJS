@@ -51,6 +51,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s)
+            console.log(user.id, 'Not authorized to access map');
             res.redirect('/login');
         }
     }).catch(error => {

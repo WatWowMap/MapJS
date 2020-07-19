@@ -124,11 +124,14 @@ const handlePage = (req, res) => {
             defaultData.hide_invasions = !perms.invasions;
             defaultData.hide_spawnpoints = !perms.spawnpoints;
             defaultData.hide_iv = !perms.iv;
-            defaultData.hide_s2cells = !perms.s2cells;
-            defaultData.hide_submissionCells = !perms.submissionCells;
+            defaultData.hide_cells = !perms.s2cells;
+            defaultData.hide_submission_cells = !perms.submissionCells;
             defaultData.hide_nests = !perms.nests;
             defaultData.hide_weather = !perms.weather;
             defaultData.hide_devices = !perms.devices;
+        } else {
+            console.log(req.session.username, 'Not authorized to access map');
+            res.redirect('/login');
         }
     }
 
