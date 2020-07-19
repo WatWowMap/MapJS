@@ -35,7 +35,6 @@ const getData = async (perms, filter) => {
     const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
-    console.log('Gym filter:', gymFilterExclude);
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints || false;
