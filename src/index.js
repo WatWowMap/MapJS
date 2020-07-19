@@ -113,6 +113,9 @@ app.use(async (req, res, next) => {
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
+        if (!config.discord.enabled) {
+            return next();
+        }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);
             res.redirect('/login');

@@ -57,39 +57,50 @@ const getData = async (perms, filter) => {
         return;
     }
 
-    const permViewMap = perms.map !== false;
-    const permShowLures = perms.lures !== false;
-    const permShowInvasions = perms.invasions !== false;
-    const permShowIV = perms.iv !== false;
+    // TODO: Create default config for Perms when Discord is disabled
+    const permViewMap = perms ? perms.map !== false : true;
+    const permShowPokemon = perms ? perms.pokemon !== false : true;
+    const permShowLures = perms ? perms.lures !== false : true;
+    const permShowInvasions = perms ? perms.invasions !== false : true;
+    const permShowIV = perms ? perms.iv !== false : true;
+    const permShowRaids = perms ? perms.raids !== false : true;
+    const permShowGyms = perms ? perms.gyms !== false : true;
+    const permShowQuests = perms ? perms.quests !== false : true;
+    const permShowPokestops = perms ? perms.pokestops !== false : true;
+    const permShowSpawnpoints = perms ? perms.pokestops !== false : true;
+    const permShowDevices = perms ? perms.devices !== false : true;
+    const permShowS2Cells = perms ? perms.cells !== false : true;
+    const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
+    const permShowWeather = perms ? perms.weather !== false : true;
 
     let data = {};
-    if ((perms.gyms && showGyms) || (perms.raids && showRaids)) {
+    if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
-    if ((perms.pokestops && showPokestops) || (perms.quests && showQuests)) {
+    if ((permShowPokestops && showPokestops) || (permShowQuests && showQuests)) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
     }
-    if (perms.pokemon && showPokemon) {
+    if (permShowPokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
     }
-    if (perms.spawnpoints && showSpawnpoints) {
+    if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
     }
-    if (perms.devices && showActiveDevices) {
+    if (permShowDevices && showActiveDevices) {
         data['active_devices'] = await map.getDevices();
     }
-    if (perms.s2cells && showCells) {
+    if (permShowS2Cells && showCells) {
         data['cells'] = await map.getS2Cells(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
-    if (perms.submissionCells && showSubmissionPlacementCells) {
+    if (permShowSubmissionCells && showSubmissionPlacementCells) {
         let placementCells = await map.getSubmissionPlacementCells(minLat, maxLat, minLon, maxLon);
         data['submission_placement_cells'] = placementCells.cells;
         data['submission_placement_rings'] = placementCells.rings;
     }
-    if (perms.submissionCells && showSubmissionTypeCells) {
+    if (permShowSubmissionCells && showSubmissionTypeCells) {
         data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
     }
-    if (perms.weather && showWeather) {
+    if (permShowWeather && showWeather) {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
 

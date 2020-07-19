@@ -109,29 +109,31 @@ const handlePage = (req, res) => {
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        if (req.session.valid) {
-            defaultData.page_is_home = true;
-            defaultData.page_is_areas = true;
-            defaultData.show_areas = true;
-            const perms = req.session.perms;
-            defaultData.hide_map = !perms.map;
-            defaultData.hide_pokemon = !perms.pokemon;
-            defaultData.hide_raids = !perms.raids;
-            defaultData.hide_gyms = !perms.gyms;
-            defaultData.hide_pokestops = !perms.pokestops;
-            defaultData.hide_quests = !perms.quests;
-            defaultData.hide_lures = !perms.lures;
-            defaultData.hide_invasions = !perms.invasions;
-            defaultData.hide_spawnpoints = !perms.spawnpoints;
-            defaultData.hide_iv = !perms.iv;
-            defaultData.hide_cells = !perms.s2cells;
-            defaultData.hide_submission_cells = !perms.submissionCells;
-            defaultData.hide_nests = !perms.nests;
-            defaultData.hide_weather = !perms.weather;
-            defaultData.hide_devices = !perms.devices;
-        } else {
-            console.log(req.session.username, 'Not authorized to access map');
-            res.redirect('/login');
+        if (config.discord.enabled) {
+            if (req.session.valid) {
+                defaultData.page_is_home = true;
+                defaultData.page_is_areas = true;
+                defaultData.show_areas = true;
+                const perms = req.session.perms;
+                defaultData.hide_map = !perms.map;
+                defaultData.hide_pokemon = !perms.pokemon;
+                defaultData.hide_raids = !perms.raids;
+                defaultData.hide_gyms = !perms.gyms;
+                defaultData.hide_pokestops = !perms.pokestops;
+                defaultData.hide_quests = !perms.quests;
+                defaultData.hide_lures = !perms.lures;
+                defaultData.hide_invasions = !perms.invasions;
+                defaultData.hide_spawnpoints = !perms.spawnpoints;
+                defaultData.hide_iv = !perms.iv;
+                defaultData.hide_cells = !perms.s2cells;
+                defaultData.hide_submission_cells = !perms.submissionCells;
+                defaultData.hide_nests = !perms.nests;
+                defaultData.hide_weather = !perms.weather;
+                defaultData.hide_devices = !perms.devices;
+            } else {
+                console.log(req.session.username, 'Not authorized to access map');
+                res.redirect('/login');
+            }
         }
     }
 

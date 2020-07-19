@@ -560,8 +560,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
 
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
-            quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR),
-            CAST(quest_rewards AS CHAR), quest_template, cell_id, lure_id, pokestop_display,
+            quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
+            CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
             incident_expire_timestamp, grunt_type, sponsor_id
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND
@@ -618,8 +618,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
                 questType = result.quest_type;
                 questTimestamp = result.quest_timestamp;
                 questTarget = result.quest_target;
-                questConditions = result.quest_conditions || [];//JSON.parse(result.quest_conditions || {});
-                questRewards = result.quest_rewards || [];//JSON.parse(result.quest_rewards || {});
+                questConditions = result.quest_conditions ? JSON.parse(result.quest_conditions || []) : [];
+                questRewards = result.quest_rewards ? JSON.parse(result.quest_rewards || []) : [];
                 questTemplate = result.quest_template;
             } else {
                 questType = null;
