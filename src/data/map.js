@@ -7,10 +7,9 @@ const query = require('../services/db.js');
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
-        for (let i = 0; i < keys.length - 1; i++) {
+        for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
-            const ivFilter = pokemonFilterIV[key];
-            const id = parseInt(ivFilter.key);
+            const id = parseInt(key);
             if (id) {
                 if (!pokemonFilterExclude.includes(id)) {
                     pokemonFilterExclude.push(id);
@@ -71,7 +70,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 if (key === 'and') {
                     andPart += sql;
                 } else if (pokemonFilterExclude && pokemonFilterExclude.length > 0) {
-                    if (orPart && orPart === '') {
+                    if (orPart === '') {
                         orPart += '(';
                     } else {
                         orPart += ' OR ';
@@ -128,7 +127,9 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             }
         }
     }
-    const results = await query(sql, args);
+    const results = await query(sql, args).catch(err => {
+        console.error('Failed to execute query:', sql, 'with arguments:', args);
+    });
     let pokemon = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
