@@ -822,17 +822,15 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
             "polygon": getPolygon(cell.id)
         }
     }
-    /*
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
-        let level17Cell = level1Cell.parent(17);
+        let level17Cell = level1Cell;// TODO: .parent(17);
         let cell = indexedCells[level17Cell.id];
         if (cell) {
             cell.blocked = true;
         }
     }
-    */
     let rings = allCoords.map(x => new Ring(x.lat, x.lon, 20));
     return {
         cells: Object.values(indexedCells),
@@ -874,28 +872,22 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
-        // TODO: Get parent cell
-        /*
-        let level14Cell = level1Cell.parent(14);
+        let level14Cell = level1Cell;// TODO: .parent(14);
         let cell = indexedCells[level14Cell.id];
         if (cell) {
             cell.countGyms++;
             cell.count++;
         } 
-        */       
     }
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        // TODO: Get parent cell
-        /*
-        let level14Cell = level1Cell.parent(14);
+        let level14Cell = level1Cell;// TODO: .parent(14);
         let cell = indexedCells[level14Cell.id];
         if (cell) {
             cell.countPokestops++;
             cell.count++;
         }
-        */
     }
     return Object.values(indexedCells.values);
 }

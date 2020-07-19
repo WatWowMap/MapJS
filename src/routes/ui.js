@@ -106,7 +106,7 @@ const handlePage = (req, res) => {
     });
     defaultData.areas = areas;
 
-    // Left and right header links
+    // Custom navigation bar headers
     defaultData.buttons_left = config.header.left;
     defaultData.buttons_right = config.header.right;
 
