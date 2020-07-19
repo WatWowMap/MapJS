@@ -43,9 +43,10 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.logged_in = true;
         req.session.user_id = user.id;
         req.session.username = `${user.username}#${user.discriminator}`;
-        req.session.perms = await client.getPerms();
+        const perms = await client.getPerms();
+        req.session.perms = perms;
         req.session.guilds = guilds;
-        const valid = req.session.perms.map;
+        const valid = perms.map !== false;
         req.session.valid = valid;
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
@@ -57,7 +58,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         }
     }).catch(error => {
         console.error(error);
-        throw new Error('UnableToFetchToken');
+        //throw new Error('UnableToFetchToken');
     });
 }));
 
