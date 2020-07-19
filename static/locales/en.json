@@ -53,6 +53,7 @@
     "filter_gym_table_empty": "No matching Gyms found",
     "filter_pokestop_table_empty": "No matching Pokestops found",
     "filter_spawnpoint_table_empty": "No matching Spawnpoints found",
+    "filter_global_filters": "Global Filters",
     "filter_global_iv": "Global IV Limit",
     "filter_global_pvp": "Global PVP Limit",
     "filter_and": "And",

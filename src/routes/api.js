@@ -111,7 +111,7 @@ const getData = async (perms, filter) => {
     
         const globalIVString = i18n.__('filter_global_iv');
         const globalPVPString = i18n.__('filter_global_pvp');
-        const generalTypeString = i18n.__('filter_general');
+        const globalFiltersString = i18n.__('filter_global_filters');
         const pokemonTypeString = i18n.__('filter_pokemon');
     
         const configureString = i18n.__('filter_configure');
@@ -144,7 +144,7 @@ const getData = async (perms, filter) => {
                     'image': andOrString,
                     'filter': filter,
                     'size': size,
-                    'type': globalIVString
+                    'type': globalFiltersString
                 });
             }
             for (let i = 0; i <= 1; i++) {
@@ -170,7 +170,7 @@ const getData = async (perms, filter) => {
                     'image': andOrString,
                     'filter': filter,
                     'size': size,
-                    'type': globalPVPString
+                    'type': globalFiltersString
                 });
             }
         }
@@ -191,7 +191,7 @@ const getData = async (perms, filter) => {
                 "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
                 "filter": filter,
                 "size": size,
-                "type": generalTypeString
+                "type": globalFiltersString
             });
         }
 
