@@ -956,6 +956,8 @@
     "poke_800": "Necrozma",
     "poke_801": "Magearna",
     "poke_802": "Marshadow",
+    "poke_808": "Meltan",
+    "poke_809": "Melmetal",
     "move_1": "Thunder Shock",
     "move_2": "Quick Attack",
     "move_3": "Scratch",
@@ -3467,6 +3469,7 @@
     "item_706": "Golden Razz Berry",
     "item_707": "Golden Nanab Berry",
     "item_708": "Silver Pinap Berry",
+    "item_709": "item_709",
     "item_801": "Special Camera",
     "item_901": "Incubator Basic Unlimited",
     "item_902": "Incubator Basic",
@@ -3482,6 +3485,8 @@
     "item_1107": "Unova Stone",
     "item_1201": "Fast TM",
     "item_1202": "Charged TM",
+    "item_1203": "item_1203",
+    "item_1204": "item_1204",
     "item_1301": "Rare Candy",
     "item_1401": "Free Raid Pass",
     "item_1402": "Premium Raid Pass",
@@ -3587,8 +3592,5 @@
     "filter_spawnpoint_with_timer": "With Timer",
     "filter_spawnpoint_without_timer": "Without Timer",
     "filter_big_karp": "Big Karp",
-    "filter_tiny_rat": "Tiny Rat",
-    "item_709": "item_709",
-    "item_1203": "item_1203",
-    "item_1204": "item_1204"
+    "filter_tiny_rat": "Tiny Rat"
 }
