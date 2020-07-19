@@ -44,17 +44,23 @@ class DiscordClient {
     }
 
     async getUserRoles(guildId, userId) {
-        const members = await client.guilds.cache
-            .get(guildId)
-            .members
-            .fetch();
-        const member = members.get(userId);
-        const roles = member.roles.cache
-            .filter(x => x.id)
-            .keyArray();
-        return roles;
+        try {
+            const members = await client.guilds.cache
+                .get(guildId)
+                .members
+                .fetch();
+            const member = members.get(userId);
+            const roles = member.roles.cache
+                .filter(x => x.id)
+                .keyArray();
+            return roles;
+        } catch (e) {
+            console.error('Failed to get roles in guild', guildId, 'for user', userId);
+        }
+        return [];
     }
 
+    /*
     async isValid(configItem) {
         const user = await this.getUser();
         const guilds = await this.getGuilds();
@@ -85,6 +91,7 @@ class DiscordClient {
         }
         return valid;
     }
+    */
 
     async getPerms() {
         const perms = {
@@ -110,8 +117,8 @@ class DiscordClient {
             // Check if user is in config guilds
             const guildId = config.discord.guilds[i];
             if (guilds.includes(guildId)) {
-                // Valid if config roles are not set
                 const keys = Object.keys(config.discord.perms);
+                // Loop through each permission section
                 for (let j = 0; j < keys.length; j++) {
                     const key = keys[j];
                     let configItem = config.discord.perms[key];

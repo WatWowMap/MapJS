@@ -43,15 +43,16 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.logged_in = true;
         req.session.user_id = user.id;
         req.session.username = `${user.username}#${user.discriminator}`;
-        req.session.perms = await DiscordClient.instance.getPerms();
+        req.session.perms = await client.getPerms();
         req.session.guilds = guilds;
-        const valid = await client.isValid(config.discord.perms.map);
+        const valid = req.session.perms.map;
         req.session.valid = valid;
         if (valid) {
+            console.log(user.id, 'Authenticated successfully.');
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
-            // Not in Discord server(s)
-            console.log(user.id, 'Not authorized to access map');
+            // Not in Discord server(s) and/or have required roles to view map
+            console.warn(user.id, 'Not authorized to access map');
             res.redirect('/login');
         }
     }).catch(error => {
