@@ -55,7 +55,7 @@ let showPokemon;
 let showSpawnpoints;
 let showNests;
 let showCells;
-let showWeathers;
+let showWeather;
 let showDevices;
 let showRaidTimers;
 let showSubmissionCells;
@@ -260,7 +260,7 @@ $(function () {
             show_nests: showNests,
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
-            show_weathers: showWeathers,
+            show_weather: showWeather,
             gym: gymFilterNew,
             raid: raidFilterNew,
             pokemon: pokemonFilterNew,
@@ -411,12 +411,12 @@ function loadStorage () {
         showCells = (showCellsValue === 'true');
     }
 
-    const showWeathersValue = retrieve('show_weathers');
-    if (showWeathersValue === null) {
-        store('show_weathers', false);
-        showWeathers = false;
+    const showWeatherValue = retrieve('show_weather');
+    if (showWeatherValue === null) {
+        store('show_weather', false);
+        showWeather = false;
     } else {
-        showWeathers = (showWeathersValue === 'true');
+        showWeather = (showWeatherValue === 'true');
     }
 
     const showDevicesValue = retrieve('show_devices');
@@ -935,7 +935,7 @@ function initMap () {
         const newShowNests = $('#show-nests').hasClass('active');
         const newShowCells = $('#show-cells').hasClass('active');
         const newShowSubmissionCells = $('#show-submission-cells').hasClass('active');
-        const newShowWeathers = $('#show-weathers').hasClass('active');
+        const newShowWeather = $('#show-weather').hasClass('active');
         const newShowDevices = $('#show-devices').hasClass('active');
 
         const ts = Math.round((new Date()).getTime() / 1000);
@@ -1015,7 +1015,7 @@ function initMap () {
             });
             submissionTypeCellMarkers = [];
         }
-        if (newShowWeathers !== showWeathers && newShowWeathers === false) {
+        if (newShowWeather !== showWeather && newShowWeather === false) {
             $.each(weatherMarkers, function (index, weather) {
                 map.removeLayer(weather.marker);
             });
@@ -1114,8 +1114,8 @@ function initMap () {
         showCells = newShowCells;
         store('show_submission_cells', newShowSubmissionCells);
         showSubmissionCells = newShowSubmissionCells;
-        store('show_weathers', newShowWeathers);
-        showWeathers = newShowWeathers;
+        store('show_weather', newShowWeather);
+        showWeather = newShowWeather;
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
 
@@ -1205,12 +1205,12 @@ function initMap () {
                     $('#show-submission-cells').removeClass('active');
                 }
 
-                if (retrieve('show_weathers') === 'true') {
-                    $('#show-weathers').addClass('active');
-                    $('#hide-weathers').removeClass('active');
+                if (retrieve('show_weather') === 'true') {
+                    $('#show-weather').addClass('active');
+                    $('#hide-weather').removeClass('active');
                 } else {
-                    $('#hide-weathers').addClass('active');
-                    $('#show-weathers').removeClass('active');
+                    $('#hide-weather').addClass('active');
+                    $('#show-weather').removeClass('active');
                 }
 
                 if (retrieve('show_devices') === 'true') {
@@ -1434,7 +1434,7 @@ function loadData () {
         show_cells: showCells && map.getZoom() >= 13,
         show_submission_placement_cells: showSubmissionCells && map.getZoom() >= 16,
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
-        show_weathers: showWeathers,
+        show_weather: showWeather,
         show_active_devices: showDevices,
         last_update: lastUpdateServer,
         _csrf: '{{csrf}}'
@@ -1770,7 +1770,7 @@ function loadData () {
 
             const weathers = data.data.weather;
             $.each(weathers, function (index, weather) {
-                if (showWeathers) {
+                if (showWeather) {
                     if (weather.updated > lastUpdateServer) {
                         lastUpdateServer = weather.updated;
                     }
@@ -4919,8 +4919,8 @@ function loadFilterSettings (e) {
         showSubmissionCells = obj.show_submission_cells;
         store('show_submission_cells"', showSubmissionCells);
 
-        showWeathers = obj.show_weathers;
-        store('show_weathers', showWeathers);
+        showWeather = obj.show_weather;
+        store('show_weather', showWeather);
 
         if (showGyms) {
             $('#show-gyms').addClass('active');
@@ -4994,12 +4994,12 @@ function loadFilterSettings (e) {
             $('#show-submission-cells').removeClass('active');
         }
 
-        if (showWeathers) {
-            $('#show-weathers').addClass('active');
-            $('#hide-weathers').removeClass('active');
+        if (showWeather) {
+            $('#show-weather').addClass('active');
+            $('#hide-weather').removeClass('active');
         } else {
-            $('#hide-weathers').addClass('active');
-            $('#show-weathers').removeClass('active');
+            $('#hide-weather').addClass('active');
+            $('#show-weather').removeClass('active');
         }
 
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);

@@ -41,7 +41,7 @@ const getData = async (perms, filter) => {
     const showCells = filter.show_cells || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells || false;
     const showSubmissionTypeCells = filter.show_submission_type_cells || false;
-    const showWeather = filter.show_weathers || false;
+    const showWeather = filter.show_weather || false;
     const showActiveDevices = filter.show_active_devices || false;
     const showPokemonFilter = filter.show_pokemon_filter || false;
     const showQuestFilter = filter.show_quest_filter || false;
