@@ -552,6 +552,9 @@ function loadStorage () {
         if (defaultGymFilter.ex === undefined) {
             defaultGymFilter.ex = { show: false, size: 'normal' };
         }
+        if (defaultGymFilter.battle === undefined) {
+            defaultGymFilter.battle = { show: false, size: 'normal' };
+        }
         for (i = 0; i <= 6; i++) {
             if (defaultGymFilter['s' + i] === undefined) {
                 defaultGymFilter['s' + i] = { show: true, size: 'normal' };
@@ -570,6 +573,9 @@ function loadStorage () {
         }
         if (gymFilter.ex === undefined) {
             gymFilter.ex = { show: false, size: 'normal' };
+        }
+        if (gymFilter.battle === undefined) {
+            gymFilter.battle = { show: false, size: 'normal' };
         }
         for (i = 0; i <= 6; i++) {
             if (gymFilter['s' + i] === undefined) {
@@ -801,6 +807,7 @@ function initMap () {
             defaultGymFilter['t' + i] = { show: true, size: 'normal' };
         }
         defaultGymFilter.ex = { show: false, size: 'normal' };
+        defaultGymFilter.battle = { show: false, size: 'normal' };
         for (i = 0; i <= 6; i++) {
             defaultGymFilter['s' + i] = { show: true, size: 'normal' };
         }
@@ -818,6 +825,7 @@ function initMap () {
             defaultGymFilter['t' + i] = { show: false, size: gymFilterNew['t' + i].size };
         }
         defaultGymFilter.ex = { show: false, size: gymFilterNew.ex.size };
+        defaultGymFilter.battle = { show: false, size: gymFilterNew.ex.size };
         for (i = 0; i <= 6; i++) {
             defaultGymFilter['s' + i] = { show: false, size: gymFilterNew['s' + i].size };
         }
@@ -1329,6 +1337,9 @@ function loadData () {
         if (gymFilter.ex.show !== false) {
             gymFilterExclude.push('ex');
         }
+        if (gymFilter.battle.show !== false) {
+            gymFilterExclude.push('battle');
+        }
         for (i = 0; i <= 6; i++) {
             if (gymFilter['s' + i].show === false) {
                 gymFilterExclude.push('s' + i);
@@ -1362,6 +1373,7 @@ function loadData () {
         }
     }
 
+    console.log('Gyms:', gymFilterExclude);
     const data = {
         _: Math.round((new Date()).getTime() / 1000),
         min_lat: bounds._southWest.lat,
@@ -3517,6 +3529,27 @@ function manageSelectButton (e, isNew) {
             shouldShow = gymFilterNew[id].size === 'huge';
             break;
         }
+    } else if (type === 'gym-battle') {
+        switch (info) {
+        case 'hide':
+            shouldShow = gymFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = gymFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = gymFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = gymFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = gymFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = gymFilterNew[id].size === 'huge';
+            break;
+        }
     } else if (type === 'gym-slots') {
         switch (info) {
         case 'hide':
@@ -3846,6 +3879,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 }
             } else if (type === 'gym-ex') {
+                switch (info) {
+                case 'hide':
+                    gymFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    gymFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    gymFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    gymFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    gymFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    gymFilterNew[id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'gym-battle') {
                 switch (info) {
                 case 'hide':
                     gymFilterNew[id].show = false;

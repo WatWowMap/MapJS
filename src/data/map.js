@@ -244,6 +244,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     let excludedLevels = []; //int
     let excludedPokemon = []; //int
     let excludeAllButEx = false;
+    let excludeAllButBattles = false;
     let excludedTeams = []; //int
     let excludedAvailableSlots = []; //int
 
@@ -263,14 +264,16 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     if (gymFilterExclude) {
         for (let i = 0; i < gymFilterExclude.length; i++) {
             const filter = gymFilterExclude[i];
-            if (filter.includes('t')) {
+            if (filter.includes('battle')) {
+                excludeAllButBattles = true;
+            } else if (filter.includes('ex')) {
+                excludeAllButEx = true;
+            } else if (filter.includes('t')) {
                 const id = parseInt(filter.replace('t', ''));
                 excludedTeams.push(id);
             } else if (filter.includes('s')) {
                 const id = parseInt(filter.replace('s', ''));
                 excludedAvailableSlots.push(id);
-            } else if (filter.includes('ex')) {
-                excludeAllButEx = true;
             }
         }
     }
@@ -278,6 +281,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     let excludeLevelSQL = '';
     let excludePokemonSQL = '';
     let excludeAllButExSQL = '';
+    let excludeAllButBattlesSQL = '';
     let excludeTeamSQL = '';
     let excludeAvailableSlotsSQL = '';
 
@@ -349,6 +353,12 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         excludeAllButExSQL = '';
     }
 
+    if (excludeAllButBattles) {
+        excludeAllButBattlesSQL = 'AND (in_battle = 1)';
+    } else {
+        excludeAllButBattlesSQL = '';
+    }
+
     let sql = `
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
@@ -357,7 +367,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} ${excludePokemonSQL} ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL}
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL}
     `;
     if (raidsOnly) {
         sql += ' AND raid_end_timestamp >= UNIX_TIMESTAMP()';
