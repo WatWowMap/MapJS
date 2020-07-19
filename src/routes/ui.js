@@ -106,6 +106,10 @@ const handlePage = (req, res) => {
     });
     defaultData.areas = areas;
 
+    // Left and right header links
+    defaultData.buttons_left = config.header.left;
+    defaultData.buttons_right = config.header.right;
+
     if (!config.discord.enabled || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;

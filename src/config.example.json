@@ -15,6 +15,14 @@
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
     },
+    "header": {
+        "left": [
+            { "name": "Google", "url": "https://google.com" }
+        ],
+        "right": [
+            { "name": "Yahoo", "url": "https://yahoo.com" }
+        ]
+    },
     "tileservers": {
         "Default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
         "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>",

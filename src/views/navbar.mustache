@@ -21,10 +21,20 @@
                 </div>
             </li>
         {{/show_areas}}
+        {{#buttons_left}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url}}" target="_blank">{{{name}}}</a>
+            </li>
+        {{/buttons_left}}
         </ul>
     {{#logged_in}}
         <ul class="navbar-nav ml-auto">
-         {{#username}}
+        {{#buttons_right}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url}}" target="_blank">{{{name}}}</a>
+            </li>
+        {{/buttons_right}}
+        {{#username}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-fw fa-user" aria-hidden="true"></i>&nbsp;{{username}}
