@@ -2466,6 +2466,9 @@ function getGymPopupContent (gym) {
                     content += '<b>Charge:</b> ' + move2 + '<br>';
                 }
             }
+            if (gym.in_battle) {
+                content += '<b>Gym last seen in battle!</b><br>';
+            }
             if (gym.raid_pokemon_form !== null && gym.raid_pokemon_form > 0) {
                 content += '<b>Form:</b> ' + getFormName(gym.raid_pokemon_form) + '<br>';
             }
@@ -3156,7 +3159,7 @@ function getGymMarkerIcon (gym, ts) {
             });
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
-    // Egg
+        // Egg
         iconSize = getRaidSize('l' + raidLevel);
         icon = L.icon({
             iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
@@ -3165,14 +3168,26 @@ function getGymMarkerIcon (gym, ts) {
             popupAnchor: [0, iconSize * -1.567]
         });
     } else {
-    // Gym
-        iconSize = getGymSize(gym.team_id);
-        icon = L.icon({
-            iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
-            iconSize: [iconSize, iconSize],
-            iconAnchor: [iconSize / 2, iconSize / 2],
-            popupAnchor: [0, -20] // TODO: //size * -1.567
-        });
+        // Gym
+        if (gym.in_battle) {
+            // Gym Battle
+            iconSize = 55; //Set Larger Size For Battle
+            icon = L.icon({
+                iconUrl:  '/img/battle/'+ gym.team_id + '_' + size +'.png',
+                iconSize:  [iconSize, iconSize],
+                iconAnchor:  [iconSize / 2, iconSize / 2],
+                popupAnchor:  [0, -20] //TODO: //size * -1.567
+            });
+        } else {
+            // Gym
+            iconSize = getGymSize(gym.team_id);
+            icon = L.icon({
+              iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
+              iconSize: [iconSize, iconSize],
+              iconAnchor: [iconSize / 2, iconSize / 2],
+              popupAnchor: [0, -20] // TODO: //size * -1.567
+            });
+        }
     }
     return icon;
 }

@@ -18,8 +18,9 @@ const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
 // TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
-// TODO: Cache last location
+// TODO: Cache last location (on map resize/zoom cache location, on map init load cache)
 // TODO: Follow my location
+// TODO: In battle gym filter
 
 // Basic security protection middleware
 app.use(helmet());
