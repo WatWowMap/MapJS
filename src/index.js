@@ -20,6 +20,7 @@ const utils = require('./services/utils.js');
 // TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
 // TODO: Follow my location
 // TODO: Awesome font icons for nav
+// TODO: Nests pokemon
 
 // Basic security protection middleware
 app.use(helmet());

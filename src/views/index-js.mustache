@@ -83,7 +83,10 @@ let deviceOfflineIcon;
 let clusterPokemon = '{{cluster_pokemon}}';
 let tileLayer;
 let nestLayer = new L.LayerGroup();
-let clusters = L.markerClusterGroup();
+let clusters = L.markerClusterGroup({
+    disableClusteringAtZoom: 13,
+    removeOutsideVisibleBounds: true
+});
 
 let pokemonDb = {};
 let weatherTypes = {};
