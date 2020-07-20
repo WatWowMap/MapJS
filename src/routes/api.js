@@ -28,6 +28,7 @@ const getData = async (perms, filter) => {
     const showRaids = filter.show_raids || false;
     const showPokestops = filter.show_pokestops || false;
     const showQuests = filter.show_quests || false;
+    const showInvasions = filter.show_invasions || false;
     const questFilterExclude = filter.quest_filter_exclude ? JSON.parse(filter.quest_filter_exclude || {}) : []; //string 
     const showPokemon = filter.show_pokemon || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
@@ -36,6 +37,7 @@ const getData = async (perms, filter) => {
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
+    const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints || false;
     const showCells = filter.show_cells || false;
@@ -45,12 +47,13 @@ const getData = async (perms, filter) => {
     const showActiveDevices = filter.show_active_devices || false;
     const showPokemonFilter = filter.show_pokemon_filter || false;
     const showQuestFilter = filter.show_quest_filter || false;
+    const showInvasionFilter = filter.show_invasion_filter || false;
     const showRaidFilter = filter.show_raid_filter || false;
     const showGymFilter = filter.show_gym_filter || false;
     const showPokestopFilter = filter.show_pokestop_filter || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter || false;
     const lastUpdate = filter.last_update || 0;
-    if ((showGyms || showRaids || showPokestops || showPokemon || showSpawnpoints ||
+    if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
         (minLat === null || maxLat === null || minLon === null || maxLon === null)) {
         //res.respondWithError(BadRequest);
@@ -61,12 +64,12 @@ const getData = async (perms, filter) => {
     const permViewMap = perms ? perms.map !== false : true;
     const permShowPokemon = perms ? perms.pokemon !== false : true;
     const permShowLures = perms ? perms.lures !== false : true;
-    const permShowInvasions = perms ? perms.invasions !== false : true;
     const permShowIV = perms ? perms.iv !== false : true;
     const permShowRaids = perms ? perms.raids !== false : true;
     const permShowGyms = perms ? perms.gyms !== false : true;
     const permShowQuests = perms ? perms.quests !== false : true;
     const permShowPokestops = perms ? perms.pokestops !== false : true;
+    const permShowInvasions = perms ? perms.invasions !== false : true;
     const permShowSpawnpoints = perms ? perms.pokestops !== false : true;
     const permShowDevices = perms ? perms.devices !== false : true;
     const permShowS2Cells = perms ? perms.cells !== false : true;
@@ -77,8 +80,8 @@ const getData = async (perms, filter) => {
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
-    if ((permShowPokestops && showPokestops) || (permShowQuests && showQuests)) {
-        data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude);
+    if ((permShowPokestops && showPokestops) || (permShowQuests && showQuests) || (permShowInvasions && showInvasions)) {
+        data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
@@ -416,10 +419,8 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showPokestopFilter) {
         const pokestopOptionsString = i18n.__('filter_pokestop_options');
-        let pokestopData = [];
-
         const pokestopNormal = i18n.__('filter_pokestop_normal');
-        const pokestopInvasion = i18n.__('filter_pokestop_invasion');
+        let pokestopData = [];
         pokestopData.push({
             'id': {
                 'formatted': 0,//String(format: "%03d", 0),
@@ -446,19 +447,28 @@ const getData = async (perms, filter) => {
                 'type': pokestopOptionsString
             });
         }
-
-        pokestopData.push({
-            'id': {
-                'formatted': 5,//String(format: "%03d", 5),
-                'sort': 5
-            },
-            'name': pokestopInvasion,
-            'image': '<img class="lazy_load" data-src="/img/pokestop/i0.png" style="height:50px; width:50px;">',
-            'filter': generateShowHideButtons('invasion', 'pokestop-invasion'),
-            'size': generateSizeButtons('invasion', 'pokestop-invasion'),
-            'type': pokestopOptionsString
-        });
         data['pokestop_filters'] = pokestopData;
+    }
+
+    if (permViewMap && showInvasionFilter) {
+        const gruntTypeString = i18n.__('filter_grunt_type');
+        let invasionData = [];
+
+        // Grunt Type
+        for (let i = 1; i <= 50; i++) {
+            invasionData.push({
+                'id': {
+                    'formatted': i,
+                    'sort': i
+                },
+                'name': i18n.__('grunt_' + i),
+                'image': `<img class="lazy_load" data-src="/img/grunt/${i}.png" style="height:50px; width:50px;">`,
+                'filter': generateShowHideButtons(i, 'invasion-grunt'),
+                'size': generateSizeButtons(i, 'invasion-grunt'),
+                'type': gruntTypeString
+            });
+        }
+        data['invasion_filters'] = invasionData;
     }
 
     if (permViewMap && showSpawnpointFilter) {

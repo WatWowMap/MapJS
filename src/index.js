@@ -21,7 +21,6 @@ const utils = require('./services/utils.js');
 // TODO: Cache last location (on map resize/zoom cache location, on map init load cache)
 // TODO: Follow my location
 // TODO: Awesome font icons for nav
-// TODO: One global filters section
 
 // Basic security protection middleware
 app.use(helmet());
