@@ -80,6 +80,7 @@ let spawnpointFilterLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
+let clusterPokemon = '{{cluster_pokemon}}';
 let tileLayer;
 let nestLayer = new L.LayerGroup();
 let clusters = L.markerClusterGroup();
@@ -1712,9 +1713,11 @@ function loadData () {
                         pokemon.marker = getPokemonMarker(pokemon, ts);
                         pokemonMarkers.push(pokemon);
                         startDespawnTimer(pokemon, ts);
-                        //pokemon.marker.addTo(map);
-                        // TODO: Make configurable
-                        clusters.addLayer(pokemon.marker);
+                        if (clusterPokemon) {
+                            clusters.addLayer(pokemon.marker);
+                        } else {
+                            pokemon.marker.addTo(map);
+                        }
                         
                     } else {
                         if (oldPokemon.expire_timestamp !== pokemon.expire_timestamp) {
