@@ -448,7 +448,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
     let excludedItems = []; //int
     let excludedLures = []; //int
     let excludeNormal = false;
-    let excludeInvasion = true;
+    let excludeInvasion = false;
 
     if (showQuests && questsOnly && questFilterExclude) {
         for (let i = 0; i < questFilterExclude.length; i++) {
