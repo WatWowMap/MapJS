@@ -82,6 +82,7 @@ let deviceOfflineIcon;
 
 let tileLayer;
 let nestLayer = new L.LayerGroup();
+let clusters = L.markerClusterGroup();
 
 let pokemonDb = {};
 let weatherTypes = {};
@@ -689,7 +690,8 @@ function initMap () {
         preferCanvas: true,
         updateWhenIdle: true,
         updateWhenZooming: false,
-        layers: [nestLayer]
+        layers: [nestLayer, clusters],
+        maxZoom: '{{max_zoom}}'
     }).setView([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], cachedZoom || '{{start_zoom}}');
 
     let scale = '';
@@ -1311,6 +1313,7 @@ function initMap () {
     map.addControl(new CustomControlSettings());
 
     map.on('zoomend', function () {
+        // Cache map location
         let center = map.getCenter();
         store('last_lat', center.lat);
         store('last_lon', center.lng);
@@ -1543,7 +1546,6 @@ function loadData () {
         type: 'post',
         async: true,
         success: function (data) {
-            //console.log('Data:', data);
             const gyms = data.data.gyms;
             let ts = Math.round((new Date()).getTime() / 1000);
             $.each(gyms, function (index, gym) {
@@ -1710,7 +1712,10 @@ function loadData () {
                         pokemon.marker = getPokemonMarker(pokemon, ts);
                         pokemonMarkers.push(pokemon);
                         startDespawnTimer(pokemon, ts);
-                        pokemon.marker.addTo(map);
+                        //pokemon.marker.addTo(map);
+                        // TODO: Make configurable
+                        clusters.addLayer(pokemon.marker);
+                        
                     } else {
                         if (oldPokemon.expire_timestamp !== pokemon.expire_timestamp) {
                             oldPokemon.expire_timestamp = pokemon.expire_timestamp;
