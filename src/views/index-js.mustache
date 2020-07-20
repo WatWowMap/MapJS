@@ -682,12 +682,15 @@ function loadStorage () {
 }
 
 function initMap () {
+    let cachedLat = retrieve('last_lat');
+    let cachedLon = retrieve('last_lon');
+    let cachedZoom = retrieve('last_zoom');
     map = L.map('map', {
         preferCanvas: true,
         updateWhenIdle: true,
         updateWhenZooming: false,
         layers: [nestLayer]
-    }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+    }).setView([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], cachedZoom || '{{start_zoom}}');
 
     let scale = '';
     if (L.Browser.retina) {
@@ -1308,6 +1311,10 @@ function initMap () {
     map.addControl(new CustomControlSettings());
 
     map.on('zoomend', function () {
+        let center = map.getCenter();
+        store('last_lat', center.lat);
+        store('last_lon', center.lng);
+        store('last_zoom', map.getZoom());
         if (showCells && map.getZoom() < 13) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -1338,6 +1345,11 @@ function initMap () {
     });
 
     map.on('dragend', function () {
+        // Cache map location
+        let center = map.getCenter();
+        store('last_lat', center.lat);
+        store('last_lon', center.lng);
+        store('last_zoom', map.getZoom());
         lastUpdateServer = 0;
         loadData();
     });
