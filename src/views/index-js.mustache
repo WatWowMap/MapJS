@@ -2162,7 +2162,11 @@ function startDespawnTimer (pokemon, ts) {
                 return startDespawnTimer(realPokemon, ts2);
             }
 
-            map.removeLayer(realPokemon.marker);
+            if (clusterPokemon) {
+                clusters.removeLayer(realPokemon.marker);
+            } else {
+                map.removeLayer(realPokemon.marker);
+            }
         }, (pokemon.expire_timestamp - ts) * 1000);
 }
 
