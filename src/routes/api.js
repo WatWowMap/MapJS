@@ -268,16 +268,18 @@ const getData = async (perms, filter) => {
         }
 
         //Pokemon
-        for (let i = 1; i <= config.map.maxPokemonId; i++) {
+        let pokemon = await map.getAvailableRaidBosses();
+        for (let i = 0; i < pokemon.length; i++) {
+            let id = pokemon[i];
             raidData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
-                    'sort': i+200
+                    'formatted': id,//String(format: "%03d", i),
+                    'sort': id+200
                 },
-                'name': i18n.__('poke_' + i),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${i}.png" style="height:50px; width:50px;">`,
-                'filter': generateShowHideButtons(i, 'raid-pokemon'),
-                'size': generateSizeButtons(i, 'raid-pokemon'),
+                'name': i18n.__('poke_' + id),
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                'filter': generateShowHideButtons(id, 'raid-pokemon'),
+                'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
             });
         }

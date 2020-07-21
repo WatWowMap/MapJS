@@ -1045,6 +1045,21 @@ const sqlifyIvFilter = (filter) => {
     //sql = sql.replace("||", " OR ");
 };
 
+const getAvailableRaidBosses = async () => {
+    let sql = `
+    SELECT raid_pokemon_id
+    FROM gym
+    WHERE raid_end_timestamp > UNIX_TIMESTAMP()
+        AND raid_pokemon_id > 0
+    GROUP BY raid_pokemon_id
+    `;
+    let result = await query(sql);
+    if (result) {
+        return result.map(x => x.raid_pokemon_id);
+    }
+    return result;
+};
+
 class Ring {
     id;
     lat;
@@ -1068,5 +1083,6 @@ module.exports = {
     getS2Cells,
     getSubmissionPlacementCells,
     getSubmissionTypeCells,
-    getWeather
+    getWeather,
+    getAvailableRaidBosses
 };
