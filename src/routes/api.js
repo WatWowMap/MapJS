@@ -80,7 +80,11 @@ const getData = async (perms, filter) => {
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, raidFilterExclude, gymFilterExclude);
     }
-    if ((permShowPokestops && showPokestops) || (permShowQuests && showQuests) || (permShowInvasions && showInvasions)) {
+    if (
+        (permShowPokestops && showPokestops) ||
+        (permShowQuests && showQuests) ||
+        (permShowInvasions && showInvasions)
+       ) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, !showPokestops && showQuests, showQuests, permShowLures, permShowInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {

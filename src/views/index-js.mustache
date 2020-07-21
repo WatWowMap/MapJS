@@ -1022,9 +1022,15 @@ function initMap () {
             gymMarkers = newGymMarkers;
         }
         if (newShowPokemon !== showPokemon) {
-            $.each(pokemonMarkers, function (index, pokemon) {
-                map.removeLayer(pokemon.marker);
-            });
+            if (clusterPokemon) {
+                $.each(pokemonMarkers, function (index, pokemon) {
+                    clusters.removeLayer(pokemon.marker);
+                });
+            } else {
+                $.each(pokemonMarkers, function (index, pokemon) {
+                    map.removeLayer(pokemon.marker);
+                });
+            }
             pokemonMarkers = [];
         }
         if (newShowRaids !== showRaids) {
@@ -1104,42 +1110,25 @@ function initMap () {
         }
 
         pokemonFilter = pokemonFilterNew;
-        // const pokemonFilterOld = $.extend(true, {}, pokemonFilter);
         const newPokemonMarkers = [];
-        $.each(pokemonMarkers, function (index, pokemon) {
-            map.removeLayer(pokemon.marker);
-            /* if ((pokemonFilterOld[pokemon.pokemon_id]["show"] !== pokemonFilter[pokemon.pokemon_id]["show"]) ||
-                !(pokemonFilterOld[pokemon.pokemon_id]["size"].localeCompare(pokemonFilter[pokemon.pokemon_id]["size"]))) {
-
+        if (clusterPokemon) {
+            $.each(pokemonMarkers, function (index, pokemon) {
+                clusters.removeLayer(pokemon.marker);
+            });
+        } else {
+            $.each(pokemonMarkers, function (index, pokemon) {
                 map.removeLayer(pokemon.marker);
-                if (matchesPokemonFilter(pokemon.pokemon_id)) {
-                    pokemon.marker = getPokemonMarker(pokemon, ts);
-                    newPokemonMarkers.push(pokemon);
-                    pokemon.marker.addTo(map);
-                }
-            } else {
-                newPokemonMarkers.push(pokemon);
-            } */
-        });
+            });
+        }
+        //$.each(pokemonMarkers, function (index, pokemon) {
+        //    map.removeLayer(pokemon.marker);
+        //});
         pokemonMarkers = newPokemonMarkers;
 
         questFilter = questFilterNew;
-        // const questFilterOld = $.extend(true, {}, questFilter);
         const newPokestopMarkers = [];
         $.each(pokestopMarkers, function (index, pokestop) {
             map.removeLayer(pokestop.marker);
-            /* if ((pokemonFilterOld[pokemon.pokemon_id]["show"] !== pokemonFilter[pokemon.pokemon_id]["show"]) ||
-                !(pokemonFilterOld[pokemon.pokemon_id]["size"].localeCompare(pokemonFilter[pokemon.pokemon_id]["size"]))) {
-
-                map.removeLayer(pokemon.marker);
-                if (matchesPokemonFilter(pokemon.pokemon_id)) {
-                    pokemon.marker = getPokemonMarker(pokemon, ts);
-                    newPokemonMarkers.push(pokemon);
-                    pokemon.marker.addTo(map);
-                }
-            } else {
-                newPokemonMarkers.push(pokemon);
-            } */
         });
         pokestopMarkers = newPokestopMarkers;
 
@@ -1154,7 +1143,6 @@ function initMap () {
         invasionFilter = invasionFilterNew;
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
-        // const raidFilterOld = $.extend(true, {}, raidFilter);
         const newGymMarkers = [];
         $.each(gymMarkers, function (index, gym) {
             map.removeLayer(gym.marker);
