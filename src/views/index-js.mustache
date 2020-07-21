@@ -1870,7 +1870,7 @@ function loadData () {
             });
 
             const submissionTypeCells = data.data.submission_type_cells;
-            console.log('Received submission type cells:', submissionTypeCells);
+            //console.log('Received submission type cells:', submissionTypeCells);
             $.each(submissionTypeCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 14) {
                     if (lastUpdateServer === 0) {
@@ -1893,7 +1893,7 @@ function loadData () {
             });
 
             const submissionPlacementCells = data.data.submission_placement_cells;
-            console.log('Received submission placement cells:', submissionPlacementCells);
+            //console.log('Received submission placement cells:', submissionPlacementCells);
             $.each(submissionPlacementCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 16) {
                     if (lastUpdateServer === 0) {
