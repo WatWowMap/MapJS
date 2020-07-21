@@ -1060,6 +1060,18 @@ const getAvailableRaidBosses = async () => {
     return result;
 };
 
+const getAvailableQuests = async () => {
+    //const rewards = ['stardust']; // TODO: Localize
+    let sql = 'SELECT quest_item_id AS id FROM pokestop WHERE quest_reward_type=2 GROUP BY quest_item_id';
+    const itemResults = await query(sql);
+    sql = 'SELECT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type=7 GROUP BY quest_pokemon_id';
+    const pokemonResults = await query(sql);
+    return {
+        pokemon: pokemonResults.map(x => x.id),
+        items: itemResults.map(x => x.id)
+    };
+};
+
 class Ring {
     id;
     lat;
@@ -1084,5 +1096,6 @@ module.exports = {
     getSubmissionPlacementCells,
     getSubmissionTypeCells,
     getWeather,
-    getAvailableRaidBosses
+    getAvailableRaidBosses,
+    getAvailableQuests
 };

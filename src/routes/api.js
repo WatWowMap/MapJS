@@ -386,16 +386,14 @@ const getData = async (perms, filter) => {
             });
         }
 
+        const rewards = await map.getAvailableQuests();
         // Items
-        let itemI = 1;
-        let keys = Object.keys(InventoryItemId);
-        for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            const itemId = InventoryItemId[key];
+        for (let i = 0; i < rewards.items.length; i++) {
+            const itemId = rewards.items[i];
             questData.push({
                 'id': {
-                    'formatted': itemI,//String(format: "%03d", itemI),
-                    'sort': itemI+100
+                    'formatted': itemId,//String(format: "%03d", itemI),
+                    'sort': itemId + 100
                 },
                 'name': i18n.__('item_' + itemId) ,
                 'image': `<img class="lazy_load" data-src="/img/item/${itemId}.png" style="height:50px; width:50px;">`,
@@ -403,20 +401,20 @@ const getData = async (perms, filter) => {
                 'size': generateSizeButtons(itemId, 'quest-item'),
                 'type': itemsTypeString
             });
-            itemI++;
         }
 
         // Pokemon
-        for (let i = 1; i <= config.map.maxPokemonId; i++) {
+        for (let i = 0; i < rewards.pokemon.length; i++) {
+            const pokeId = rewards.pokemon[i];
             questData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
-                    'sort': i + 200
+                    'formatted': pokeId,//String(format: "%03d", i),
+                    'sort': pokeId + 2000
                 },
-                'name': i18n.__('poke_' + i),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${i}.png" style="height:50px; width:50px;">`,
-                'filter': generateShowHideButtons(i, 'quest-pokemon'),
-                'size': generateSizeButtons(i, 'quest-pokemon'),
+                'name': i18n.__('poke_' + pokeId),
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${pokeId}.png" style="height:50px; width:50px;">`,
+                'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
+                'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
             });
         }
