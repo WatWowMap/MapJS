@@ -442,7 +442,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
@@ -450,7 +450,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
     let excludedInvasions = [];
     let excludeNormal = false;
 
-    if (showQuests && questsOnly && questFilterExclude) {
+    if (showQuests && questFilterExclude) {
         for (let i = 0; i < questFilterExclude.length; i++) {
             const filter = questFilterExclude[i];
             if (filter.includes('p')) {
@@ -496,7 +496,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
     let excludeInvasionSQL = '';
     let excludePokestopSQL = '';
 
-    if (showQuests && questsOnly) {
+    if (showQuests && (excludedTypes.length > 0 || excludedTypes.length > 0 || excludedPokemon.length > 0)) {
         if (excludedTypes.length === 0) {
             excludeTypeSQL = '';
         } else {
@@ -591,9 +591,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, questsOnly,
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND
         deleted = false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}
     `;
-    if (questsOnly) {
-        sql += ' AND quest_reward_type IS NOT NULL';
-    }
 
     let args = [minLat, maxLat, minLon, maxLon, updated];
     for (let i = 0; i < excludedTypes.length; i++) {
@@ -842,7 +839,13 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
-        let level17Cell = level1Cell;// TODO: .parent(17);
+        let regionCoverer = new S2.S2RegionCoverer();
+        regionCoverer.minLevel = 17;
+        regionCoverer.maxLevel = 17;
+        regionCoverer.maxCells = 1;
+        let region = level1Cell.getRectBound();
+        let coveringCells = regionCoverer.getCoveringCells(region);
+        let level17Cell = coveringCells[0];// TODO: .parent(17);
         let cell = indexedCells[level17Cell.id];
         if (cell) {
             cell.blocked = true;
@@ -889,7 +892,13 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
-        let level14Cell = level1Cell;// TODO: .parent(14);
+        let regionCoverer = new S2.S2RegionCoverer();
+        regionCoverer.minLevel = 14;
+        regionCoverer.maxLevel = 14;
+        regionCoverer.maxCells = 1;
+        let region = level1Cell.getRectBound();
+        let coveringCells = regionCoverer.getCoveringCells(region);
+        let level14Cell = coveringCells[0];// TODO: .parent(14);
         let cell = indexedCells[level14Cell.id];
         if (cell) {
             cell.countGyms++;
@@ -899,7 +908,13 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
         let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let level14Cell = level1Cell;// TODO: .parent(14);
+        let regionCoverer = new S2.S2RegionCoverer();
+        regionCoverer.minLevel = 14;
+        regionCoverer.maxLevel = 14;
+        regionCoverer.maxCells = 1;
+        let region = level1Cell.getRectBound();
+        let coveringCells = regionCoverer.getCoveringCells(region);
+        let level14Cell = coveringCells[0];// TODO: .parent(14);
         let cell = indexedCells[level14Cell.id];
         if (cell) {
             cell.countPokestops++;
