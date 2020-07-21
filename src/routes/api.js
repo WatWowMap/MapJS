@@ -24,13 +24,13 @@ const getData = async (perms, filter) => {
     const maxLat = filter.max_lat;
     const minLon = filter.min_lon;
     const maxLon = filter.max_lon;
-    const showGyms = filter.show_gyms || false;
-    const showRaids = filter.show_raids || false;
-    const showPokestops = filter.show_pokestops || false;
-    const showQuests = filter.show_quests || false;
-    const showInvasions = filter.show_invasions || false;
+    const showGyms = filter.show_gyms && filter.show_gyms !== 'false' || false;
+    const showRaids = filter.show_raids && filter.show_raids !== 'false' || false;
+    const showPokestops = filter.show_pokestops && filter.show_pokestops !== 'false' || false;
+    const showQuests = filter.show_quests && filter.show_quests !== 'false' || false;
+    const showInvasions = filter.show_invasions && filter.show_invasions !== 'false' || false;
     const questFilterExclude = filter.quest_filter_exclude ? JSON.parse(filter.quest_filter_exclude || {}) : []; //string 
-    const showPokemon = filter.show_pokemon || false;
+    const showPokemon = filter.show_pokemon && filter.show_pokemon !== 'false' || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
     const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
@@ -39,19 +39,19 @@ const getData = async (perms, filter) => {
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
     const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
-    const showSpawnpoints = filter.show_spawnpoints || false;
-    const showCells = filter.show_cells || false;
-    const showSubmissionPlacementCells = filter.show_submission_placement_cells || false;
-    const showSubmissionTypeCells = filter.show_submission_type_cells || false;
-    const showWeather = filter.show_weather || false;
-    const showActiveDevices = filter.show_active_devices || false;
-    const showPokemonFilter = filter.show_pokemon_filter || false;
-    const showQuestFilter = filter.show_quest_filter || false;
-    const showInvasionFilter = filter.show_invasion_filter || false;
-    const showRaidFilter = filter.show_raid_filter || false;
-    const showGymFilter = filter.show_gym_filter || false;
-    const showPokestopFilter = filter.show_pokestop_filter || false;
-    const showSpawnpointFilter = filter.show_spawnpoint_filter || false;
+    const showSpawnpoints = filter.show_spawnpoints && filter.show_spawnpoints !== 'false' || false;
+    const showCells = filter.show_cells && filter.show_cells !== 'false' || false;
+    const showSubmissionPlacementCells = filter.show_submission_placement_cells && filter.show_submission_placement_cells !== 'false' || false;
+    const showSubmissionTypeCells = filter.show_submission_type_cells && filter.show_submission_type_cells !== 'false' || false;
+    const showWeather = filter.show_weather && filter.show_weather !== 'false' || false;
+    const showActiveDevices = filter.show_active_devices && filter.show_active_devices !== 'false' || false;
+    const showPokemonFilter = filter.show_pokemon_filter && filter.show_pokemon_filter !== 'false' || false;
+    const showQuestFilter = filter.show_quest_filter && filter.show_quest_filter !== 'false' || false;
+    const showInvasionFilter = filter.show_invasion_filter && filter.show_invasion_filter !== 'false' || false;
+    const showRaidFilter = filter.show_raid_filter && filter.show_raid_filter !== false || 'false';
+    const showGymFilter = filter.show_gym_filter && filter.show_gym_filter !== false || 'false';
+    const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
+    const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&

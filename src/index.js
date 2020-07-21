@@ -17,12 +17,17 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: submission_placement_cells, submission_placement_rings, and submission_type_cells
+// TODO: submission_placement_cells and submission_type_cells
 // TODO: Follow my location
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
 // TODO: Limit number of scouts per user
-// TODO: Query db for quests to shorten filter list
+// TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
+// TODO: PMSF icon format
+// TODO: Custom icons
+// TODO: Notification sounds, bouncing icons
+// TODO: Filter by forms
+// TODO: Possibly remove sizing filter and change selection from a list to a grid
 
 // Basic security protection middleware
 app.use(helmet());
