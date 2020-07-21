@@ -115,9 +115,6 @@ const handlePage = (req, res) => {
         defaultData.username = req.session.username;
         if (config.discord.enabled) {
             if (req.session.valid) {
-                defaultData.page_is_home = true;
-                defaultData.page_is_areas = true;
-                defaultData.show_areas = true;
                 const perms = req.session.perms;
                 defaultData.hide_map = !perms.map;
                 defaultData.hide_pokemon = !perms.pokemon;
@@ -141,6 +138,9 @@ const handlePage = (req, res) => {
         }
     }
 
+    defaultData.page_is_home = true;
+    defaultData.page_is_areas = true;
+    defaultData.show_areas = true;
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;
