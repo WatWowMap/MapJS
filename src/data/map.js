@@ -442,7 +442,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokestops, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
@@ -467,12 +467,12 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showQuests,
         }
     }
 
-    if (pokestopFilterExclude) {
+    if (showPokestops && pokestopFilterExclude) {
         for (let i = 0; i < pokestopFilterExclude.length; i++) {
             const filter = pokestopFilterExclude[i];
             if (filter.includes('normal')) {
                 excludeNormal = true;
-            } else if (showLures && filter.includes('l')) {
+            } else if (filter.includes('l')) {
                 const id = parseInt(filter.replace('l', ''));
                 excludedLures.push(id + 500);
             }
@@ -544,7 +544,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showQuests,
         excludeItemSQL = '';
     }
 
-    if (excludeNormal || !excludedLures.length > 0) {
+    if (showPokestops && (excludeNormal || !excludedLures.length > 0)) {
         if (excludedLures.length === 0) {
             excludeLureSQL = '';
         } else {
@@ -829,11 +829,12 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
         let cell = coveringCells[i];
+        let polygon = getPolygon(cell.id);
         indexedCells[cell.id] = {
-            "id": id.description,
+            "id": cell.id,
             "level": 17,
             "blocked": false,
-            "polygon": getPolygon(cell.id)
+            "polygon": polygon
         }
     }
     for (let i = 0; i < allGymCoods.length; i++) {
@@ -880,13 +881,14 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
         let cell = coveringCells[i];
+        let polygon = getPolygon(cell.id);
         indexedCells[cell.id] = {
             'id': cell.id,
             'level': 14,
             'count': 0,
             'count_pokestops': 0,
             'count_gyms': 0,
-            'polygon': getPolygon(cell.id)
+            'polygon': polygon
         };
     }
     for (let i = 0; i < allGymCoods.length; i++) {
