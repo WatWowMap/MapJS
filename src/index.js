@@ -21,6 +21,7 @@ const utils = require('./services/utils.js');
 // TODO: Follow my location
 // TODO: Awesome font icons for nav
 // TODO: Nests pokemon
+// TODO: Separate cluster layers by type
 
 // Basic security protection middleware
 app.use(helmet());

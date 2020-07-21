@@ -1603,7 +1603,11 @@ function loadData () {
             const pokestops = data.data.pokestops;
             ts = Math.round((new Date()).getTime() / 1000);
             $.each(pokestops, function (index, pokestop) {
-                if (showPokestops || (showQuests && pokestop.quest_type !== null)) {
+                if (showPokestops ||
+                    pokestop.lure_expire_timestamp > new Date() / 1000 ||
+                    (showQuests && pokestop.quest_type !== null) ||
+                    (showInvasions && pokestop.incident_expire_timestamp > new Date() / 1000)
+                    ) {
                     if (pokestop.updated > lastUpdateServer) {
                         lastUpdateServer = pokestop.updated;
                     }
