@@ -22,6 +22,7 @@ const utils = require('./services/utils.js');
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
 // TODO: Limit number of scouts per user
+// TODO: Fix issue with lures showing when pokestops are off
 
 // Basic security protection middleware
 app.use(helmet());

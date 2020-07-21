@@ -543,13 +543,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
             }
             excludeItemSQL = sqlExcludeCreate;
         }
-    } else {
-        excludeTypeSQL = '';
-        excludePokemonSQL = '';
-        excludeItemSQL = '';
     }
 
-    if (showPokestops && (excludeNormal || !excludedLures.length > 0)) {
+    if (showPokestops && (excludeNormal || excludedLures.length > 0)) {
         if (excludedLures.length === 0) {
             excludeLureSQL = '';
         } else {
@@ -567,15 +563,13 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
         if (excludeNormal) {
             excludePokestopSQL += `AND (lure_expire_timestamp IS NOT NULL AND lure_expire_timestamp >= UNIX_TIMESTAMP() ${excludeLureSQL})`;
         }
-    } else {
-        excludePokestopSQL = '';
     }
 
     if (showInvasions && excludedInvasions) {
         if (excludedInvasions.length === 0) {
             excludeInvasionSQL = '';
         } else {
-            let sqlExcludeCreate = (excludePokestopSQL === '' ? ' AND ' : ' OR ') + ' (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
+            let sqlExcludeCreate = (excludePokestopSQL !== '' || excludeTypeSQL !== '' || excludeItemSQL !== '' || excludePokemonSQL !== '' ? ' OR ' : ' AND ') + ' (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
             for (let i = 0; i < excludedInvasions.length; i++) {
                 if (i === excludedInvasions.length - 1) {
                     sqlExcludeCreate += '?))';
