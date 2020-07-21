@@ -23,7 +23,6 @@ const utils = require('./services/utils.js');
 // TODO: Separate cluster layers by type
 // TODO: Limit number of scouts per user
 // TODO: Query db for quests to shorten filter list
-// TODO: Use dots instead of icons for Spawnpoints
 
 // Basic security protection middleware
 app.use(helmet());
