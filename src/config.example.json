@@ -113,5 +113,9 @@
     "google": {
         "analytics": "",
         "adsense": ""
+    },
+    "scouting": {
+        "enabled": false,
+        "url": ""
     }
 }

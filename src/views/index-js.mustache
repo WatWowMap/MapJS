@@ -2363,7 +2363,7 @@ function getPokemonPopupContent (pokemon) {
                 content += '<small><b>' + pokemonName + ':</b> ' + infoString + '</small><br>';
             }
         });
-    }  
+    }
     content +=
         '</div>' +
     '</div>' + // END 3RD ROW
@@ -2390,6 +2390,14 @@ function getPokemonPopupContent (pokemon) {
                 '</a>' +
             '</div>' +
         '</div>' +
+        {{#scouting}}
+        '<br>' +
+        '<div class="row justify-content-center">' +
+            '<a href="javascript:void(0);" onclick="sendWebhook(\'' + pokemon.id + '\');" title="Scan with event account">' +
+                '<b>Scan with event account</b>' +
+            '</a>' +
+        '</div>' +
+        {{/scouting}}
     '</div>';
     return content;
 }
@@ -4366,6 +4374,32 @@ function isCommonPokemon(pokemonId) {
         506,509,519
     ];
     return commonList.includes(pokemonId);
+}
+
+function sendWebhook(encounterId) {
+    const pokemonMarker = pokemonMarkers.find(function (value) {
+        return encounterId === value.id;
+    });
+    if (pokemonMarker === null) {
+        console.error('Failed to get Pokemon marker to send scouting webhook, might have already despawned.');
+        return;
+    }
+    const { marker, ...pokemonWithoutMarker } = pokemonMarker;
+    const data = JSON.stringify({ type: "pokemon", message: pokemonWithoutMarker })
+    $.ajax({
+        url: '{{scouting_url}}',
+        type: 'POST',
+        data: data,
+        dataType: 'json',
+        success: function(data) {
+            console.log('Scouting task created for encounter', encounterId);
+        },
+        failure: function(err) {
+            if (err) {
+                console.error('Scouting failed:', err);
+            }
+        }
+    });
 }
 
 // MARK: - Init Filter
