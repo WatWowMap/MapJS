@@ -1604,9 +1604,9 @@ function loadData () {
             ts = Math.round((new Date()).getTime() / 1000);
             $.each(pokestops, function (index, pokestop) {
                 if (showPokestops ||
-                    pokestop.lure_expire_timestamp > new Date() / 1000 ||
+                    pokestop.lure_expire_timestamp > ts ||
                     (showQuests && pokestop.quest_type !== null) ||
-                    (showInvasions && pokestop.incident_expire_timestamp > new Date() / 1000)
+                    (showInvasions && pokestop.incident_expire_timestamp > ts)
                     ) {
                     if (pokestop.updated > lastUpdateServer) {
                         lastUpdateServer = pokestop.updated;
