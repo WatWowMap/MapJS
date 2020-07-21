@@ -21,6 +21,7 @@ const utils = require('./services/utils.js');
 // TODO: Follow my location
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
+// TODO: Limit number of scouts per user
 
 // Basic security protection middleware
 app.use(helmet());

@@ -298,7 +298,6 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
                     sqlExcludeCreate += '?, ';
                 }
             }
-            sqlExcludeCreate += '?))';
             excludeLevelSQL = sqlExcludeCreate;
         }
 
@@ -313,7 +312,6 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
                     sqlExcludeCreate += '?, ';
                 }
             }
-            sqlExcludeCreate += '?))';
             excludePokemonSQL = sqlExcludeCreate;
         }
     } else {
@@ -339,7 +337,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     } else {
         let sqlExcludeCreate = 'AND (availble_slots NOT IN (';
         for (let i = 0; i < excludedAvailableSlots.length; i++) {
-            if (i === excludedTeams.length - 1) {
+            if (i === excludedAvailableSlots.length - 1) {
                 sqlExcludeCreate += '?))';
             } else {
                 sqlExcludeCreate += '?, ';
@@ -388,7 +386,14 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         args.push(excludedAvailableSlots[i]);
     }
 
-    const results = await query(sql, args);
+    const results = await query(sql, args)
+        .catch(err => {
+            if (err) {
+                console.error('Failed to get gyms:', err);
+                console.error('SQL:', sql);
+                console.error('Args:', args);
+            }
+        });
     let gyms = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -812,7 +817,7 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = minLon - 0.001;
     let maxLonReal = maxLon + 0.001;
 
-    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, false, false, null, null);
+    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, null, null);
     allGyms = allGyms.filter(x => x.sponsor_id === null || gym.sponsor_id === 0);
@@ -825,13 +830,14 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
     let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
-    let indexedCells = [];
+    let indexedCells = {};
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
         let cell = coveringCells[i];
         let polygon = getPolygon(cell.id);
-        indexedCells[cell.id] = {
-            "id": cell.id,
+        let cellId = BigInt(cell.id).toString();
+        indexedCells[cellId] = {
+            "id": cellId,
             "level": 17,
             "blocked": false,
             "polygon": polygon
@@ -847,7 +853,8 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level17Cell = coveringCells[0];// TODO: .parent(17);
-        let cell = indexedCells[level17Cell.id];
+        let cellId = BigInt(level17Cell.id).toString();
+        let cell = indexedCells[cellId];
         if (cell) {
             cell.blocked = true;
         }
@@ -877,13 +884,14 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
     let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
-    let indexedCells = [];
+    let indexedCells = {};
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
         let cell = coveringCells[i];
         let polygon = getPolygon(cell.id);
-        indexedCells[cell.id] = {
-            'id': cell.id,
+        let cellId = BigInt(cell.id).toString();
+        indexedCells[cellId] = {
+            'id': cellId,
             'level': 14,
             'count': 0,
             'count_pokestops': 0,
@@ -901,11 +909,12 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level14Cell = coveringCells[0];// TODO: .parent(14);
-        let cell = indexedCells[level14Cell.id];
+        let cellId = BigInt(level14Cell.id).toString();
+        let cell = indexedCells[cellId];
         if (cell) {
-            cell.countGyms++;
+            cell.count_gyms++;
             cell.count++;
-        } 
+        }
     }
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
@@ -917,13 +926,14 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level14Cell = coveringCells[0];// TODO: .parent(14);
-        let cell = indexedCells[level14Cell.id];
+        let cellId = BigInt(level14Cell.id).toString();
+        let cell = indexedCells[cellId];
         if (cell) {
-            cell.countPokestops++;
+            cell.count_pokestops++;
             cell.count++;
         }
     }
-    return Object.values(indexedCells.values);
+    return Object.values(indexedCells);
 }
 
 const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
@@ -986,7 +996,7 @@ const getPolygon = (s2cellId) => {
 };
 
 const sqlifyIvFilter = (filter) => {
-    let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
+    //let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
     /*
     if (filter !~ fullMatch) {
         return null;
