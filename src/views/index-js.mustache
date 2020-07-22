@@ -89,6 +89,7 @@ let clusters = L.markerClusterGroup({
 });
 
 let enableScouting = '{{scouting}}';
+console.log('Scouting:', enableScouting);
 
 let pokemonDb = {};
 let weatherTypes = {};
@@ -344,6 +345,7 @@ $(function () {
         });
     }
 });
+
 
 // MARK: - Setup
 
@@ -712,6 +714,16 @@ function initMap () {
         hq: L.Browser.retina
     });
     tileLayer.addTo(map);
+
+    let locationMarker = L.marker([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], {
+        icon: L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pmsf/PMSF/master/static/marker_icons/pokesition.png',
+            iconSize: [30, 30],
+            iconAnchor: [30 / 2, 30 / 2],
+            popupAnchor: [0, 30 * -1.567]
+        })
+    });
+    locationMarker.addTo(map);
 
     const CustomControlLocation = L.Control.extend({
         options: {
@@ -1357,6 +1369,7 @@ function initMap () {
         }
     });
 }
+
 
 // MARK: - Data Loading
 
