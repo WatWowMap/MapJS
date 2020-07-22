@@ -41,8 +41,8 @@ app.engine('mustache', mustacheExpress());
 app.use(express.static(path.resolve(__dirname, '../static')));
 
 // Body parser middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: false, limit: '50mb' }));
+app.use(express.json({ limit: '500mb' }));
+app.use(express.urlencoded({ extended: false, limit: '500mb' }));
 
 // Initialize localzation handler
 i18n.configure({

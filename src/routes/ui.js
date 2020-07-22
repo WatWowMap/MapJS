@@ -8,7 +8,6 @@ const router = express.Router();
 const config = require('../config.json');
 const defaultData = require('../data/default.js');
 const InventoryItemId = require('../data/item.js');
-const utils = require('../services/utils.js');
 
 if (config.discord.enabled) {
     router.get('/login', (req, res) => {
@@ -30,7 +29,8 @@ router.get(['/', '/index'], (req, res) => {
 
 router.get('/index.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
-    res.render('index-js', defaultData);
+    const data = handlePage(req, res);
+    res.render('index-js', data);
 });
 
 router.get('/index.css', (req, res) => {

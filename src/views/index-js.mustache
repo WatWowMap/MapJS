@@ -88,6 +88,8 @@ let clusters = L.markerClusterGroup({
     removeOutsideVisibleBounds: true
 });
 
+let enableScouting = '{{scouting}}';
+
 let pokemonDb = {};
 let weatherTypes = {};
 let nestsDb = {};
@@ -1045,14 +1047,6 @@ function initMap () {
             });
             pokestopMarkers = [];
         }
-        /* :thinking:
-        if (newShowRaids !== showRaids) {
-            $.each(pokestopMarkers, function (index, pokestop) {
-                map.removeLayer(pokestop.marker);
-            });
-            pokestopMarkers = [];
-        }
-        */
         if (newShowInvasions !== showInvasions && newShowInvasions === false) {
             $.each(pokestopMarkers, function (index, pokestop) {
                 map.removeLayer(pokestop.marker);
@@ -2466,14 +2460,15 @@ function getPokemonPopupContent (pokemon) {
                 '</a>' +
             '</div>' +
         '</div>' +
-        {{#scouting}}
+        // Only show scouting option if enabled
+        scouting ? (
         '<br>' +
         '<div class="row justify-content-center">' +
             '<a href="javascript:void(0);" onclick="sendWebhook(\'' + pokemon.id + '\');" title="Scan with event account">' +
                 '<b>Scan with event account</b>' +
             '</a>' +
-        '</div>' +
-        {{/scouting}}
+        '</div>'
+        ) : '' +
     '</div>';
     return content;
 }
