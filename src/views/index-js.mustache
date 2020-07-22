@@ -89,7 +89,6 @@ let clusters = L.markerClusterGroup({
 });
 
 let enableScouting = '{{scouting}}';
-console.log('Scouting:', enableScouting);
 
 let pokemonDb = {};
 let weatherTypes = {};
@@ -717,6 +716,7 @@ function initMap () {
 
     let locationMarker = L.marker([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], {
         icon: L.icon({
+            // TODO: Pull from static images
             iconUrl: 'https://raw.githubusercontent.com/pmsf/PMSF/master/static/marker_icons/pokesition.png',
             iconSize: [30, 30],
             iconAnchor: [30 / 2, 30 / 2],
@@ -2474,7 +2474,7 @@ function getPokemonPopupContent (pokemon) {
             '</div>' +
         '</div>' +
         // Only show scouting option if enabled
-        scouting ? (
+        enableScouting ? (
         '<br>' +
         '<div class="row justify-content-center">' +
             '<a href="javascript:void(0);" onclick="sendWebhook(\'' + pokemon.id + '\');" title="Scan with event account">' +
@@ -4487,6 +4487,10 @@ function sendWebhook(encounterId) {
             }
         }
     });
+}
+
+function zeroPad(num, places) {
+    return String(num).padStart(places, '0');
 }
 
 
