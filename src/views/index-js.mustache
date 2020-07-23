@@ -4482,7 +4482,13 @@ function sendWebhook(encounterId) {
         return;
     }
     const { marker, ...pokemonWithoutMarker } = pokemonMarker;
-    const data = JSON.stringify({ type: "pokemon", message: pokemonWithoutMarker });
+    const data = { type: "pokemon", message: pokemonWithoutMarker };
+    data.message.encounter_id = data.message.id;
+    data.message.latitude = data.message.lat;
+    data.message.longitude = data.message.lon;
+    data.message.individual_attack = data.message.atk_iv;
+    data.message.individual_defense = data.message.def_iv;
+    data.message.individual_stamina = data.message.sta_iv;
     $.ajax({
         url: '{{{scouting_url}}}',
         type: 'POST',
