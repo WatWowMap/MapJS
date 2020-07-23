@@ -4482,12 +4482,12 @@ function sendWebhook(encounterId) {
         return;
     }
     const { marker, ...pokemonWithoutMarker } = pokemonMarker;
-    const data = JSON.stringify({ type: "pokemon", message: pokemonWithoutMarker })
+    const data = JSON.stringify({ type: "pokemon", message: pokemonWithoutMarker });
     $.ajax({
-        url: '{{scouting_url}}',
+        url: '{{{scouting_url}}}',
         type: 'POST',
         data: data,
-        dataType: 'json',
+        async: true,
         success: function(data) {
             console.log('Scouting task created for encounter', encounterId);
         },
