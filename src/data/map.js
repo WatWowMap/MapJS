@@ -76,7 +76,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                         orPart += ' OR ';
                     }
                     if (key === 'or') {
-                        orPart += `${sq}`;
+                        orPart += `${sql}`;
                     } else {
                         const id = parseInt(key) || 0;
                         orPart += ` (pokemon_id = ${id} AND ${sql})`;
