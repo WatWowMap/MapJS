@@ -88,7 +88,7 @@ let clusters = L.markerClusterGroup({
     removeOutsideVisibleBounds: true
 });
 
-let enableScouting = '{{scouting}}';
+let enableScouting = '{{scouting}}' === 'true';
 
 let pokemonDb = {};
 let weatherTypes = {};
@@ -2482,14 +2482,16 @@ function getPokemonPopupContent (pokemon) {
             '</div>' +
         '</div>' +
         // Only show scouting option if enabled
-        enableScouting ? (
-        '<br>' +
-        '<div class="row justify-content-center">' +
-            '<a href="javascript:void(0);" onclick="sendWebhook(\'' + pokemon.id + '\');" title="Scan with event account">' +
-                '<b>Scan with event account</b>' +
-            '</a>' +
-        '</div>'
-        ) : '' +
+        (
+            enableScouting
+            ? '<br>' +
+            '<div class="row justify-content-center">' +
+                '<a href="javascript:void(0);" onclick="sendWebhook(\'' + pokemon.id + '\');" title="Scan with event account">' +
+                    '<b>Scan with event account</b>' +
+                '</a>' +
+            '</div>'
+            : ''
+        ) +
     '</div>';
     return content;
 }
