@@ -19,6 +19,7 @@ const utils = require('./services/utils.js');
 
 // TODO: submission_placement_cells and submission_type_cells
 // TODO: Follow my location
+// TODO: Cache last location
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
 // TODO: Limit number of scouts per user
@@ -28,6 +29,7 @@ const utils = require('./services/utils.js');
 // TODO: Notification sounds, bouncing icons
 // TODO: Filter by forms
 // TODO: Possibly remove sizing filter and change selection from a list to a grid
+// TODO: Custom user settings model
 
 // Basic security protection middleware
 app.use(helmet());

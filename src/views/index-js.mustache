@@ -690,16 +690,17 @@ function loadStorage () {
 }
 
 function initMap () {
-    let cachedLat = retrieve('last_lat');
-    let cachedLon = retrieve('last_lon');
-    let cachedZoom = retrieve('last_zoom');
+    //let cachedLat = retrieve('last_lat');
+    //let cachedLon = retrieve('last_lon');
+    //let cachedZoom = retrieve('last_zoom');
     map = L.map('map', {
         preferCanvas: true,
         updateWhenIdle: true,
         updateWhenZooming: false,
         layers: [nestLayer, clusters],
-        maxZoom: '{{max_zoom}}'
-    }).setView([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], cachedZoom || '{{start_zoom}}');
+        maxZoom: '{{max_zoom}}',
+        //renderer: L.canvas()
+    }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
 
     let scale = '';
     if (L.Browser.retina) {
@@ -714,16 +715,25 @@ function initMap () {
     });
     tileLayer.addTo(map);
 
-    let locationMarker = L.marker([cachedLat || '{{start_lat}}', cachedLon || '{{start_lon}}'], {
-        icon: L.icon({
-            // TODO: Pull from static images
-            iconUrl: 'https://raw.githubusercontent.com/pmsf/PMSF/master/static/marker_icons/pokesition.png',
-            iconSize: [30, 30],
-            iconAnchor: [30 / 2, 30 / 2],
-            popupAnchor: [0, 30 * -1.567]
-        })
-    });
-    locationMarker.addTo(map);
+    //map.on('locationfound', onLocationFound);
+
+    // placeholders for the L.marker and L.circle representing user's current position and accuracy    
+    let currentPosition, currentAccuracy;
+
+    // Location function for when the location is found for the user
+    function onLocationFound(e) {
+        // If position defined, then remove the existing position marker and accuracy circle from the map
+        if (currentPosition) {
+            map.removeLayer(currentPosition);
+            map.removeLayer(currentAccuracy);
+        }
+        currentPosition = L.marker(e.latlng).addTo(map)
+    }
+
+    // Locate user
+    function locate() {
+        map.locate({setView: true, maxZoom: 16});
+    }
 
     const CustomControlLocation = L.Control.extend({
         options: {
@@ -732,9 +742,7 @@ function initMap () {
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
             container.innerHTML = '<a href="#"><img src="/svg/location.svg" style="width: 21px; height: 21px; class="center-block;"/></a>';
-            container.onclick = function () {
-                map.locate({ setView: true, maxZoom: 16 });
-            };
+            container.onclick = locate();
             return container;
         }
     });
@@ -1312,10 +1320,10 @@ function initMap () {
 
     map.on('zoomend', function () {
         // Cache map location
-        let center = map.getCenter();
-        store('last_lat', center.lat);
-        store('last_lon', center.lng);
-        store('last_zoom', map.getZoom());
+        //let center = map.getCenter();
+        //store('last_lat', center.lat);
+        //store('last_lon', center.lng);
+        //store('last_zoom', map.getZoom());
         if (showCells && map.getZoom() < 13) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -1347,10 +1355,10 @@ function initMap () {
 
     map.on('dragend', function () {
         // Cache map location
-        let center = map.getCenter();
-        store('last_lat', center.lat);
-        store('last_lon', center.lng);
-        store('last_zoom', map.getZoom());
+        //let center = map.getCenter();
+        //store('last_lat', center.lat);
+        //store('last_lon', center.lng);
+        //store('last_zoom', map.getZoom());
         lastUpdateServer = 0;
         loadData();
     });
