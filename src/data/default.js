@@ -11,5 +11,6 @@ data.google_adsense_id = config.google.adsense;
 data.cluster_pokemon = config.map.clusters.pokemon;
 data.scouting = config.scouting.enabled;
 data.scouting_url = config.scouting.url;
+data.scouting_count = config.scouting.maxScouts;
 
 module.exports = data;

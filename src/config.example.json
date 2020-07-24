@@ -117,6 +117,7 @@
     },
     "scouting": {
         "enabled": false,
-        "url": ""
+        "url": "",
+        "maxScouts": 15
     }
 }

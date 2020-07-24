@@ -4474,6 +4474,23 @@ function isCommonPokemon(pokemonId) {
 }
 
 function sendWebhook(encounterId) {
+    // Limit scouts per user
+    let scoutCount = 0;
+    let scoutMaxCount = parseInt('{{scouting_count}}' || 15);
+    const scoutCountValue = parseInt(retrieve('scout_count') || 0);
+    if (scoutCountValue === null) {
+        scoutCount = 1;
+    } else {
+        scoutCount = scoutCountValue;
+        scoutCount++;
+    }
+    if (scoutCount >= scoutMaxCount) {
+        // Max scouts reached for user
+        //console.log('Max scouts reached');
+        return;
+    }
+    store('scout_count', scoutCount);
+
     const pokemonMarker = pokemonMarkers.find(function (value) {
         return encounterId === value.id;
     });
