@@ -4489,6 +4489,7 @@ function sendWebhook(encounterId) {
     data.message.individual_attack = data.message.atk_iv;
     data.message.individual_defense = data.message.def_iv;
     data.message.individual_stamina = data.message.sta_iv;
+    data.message.spawnpoint_id = data.message.spawn_id;
     $.ajax({
         url: '{{{scouting_url}}}',
         type: 'POST',
