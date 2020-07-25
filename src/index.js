@@ -22,7 +22,6 @@ const utils = require('./services/utils.js');
 // TODO: Cache last location
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
-// TODO: Limit number of scouts per user
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
 // TODO: PMSF icon format
 // TODO: Custom icons
