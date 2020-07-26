@@ -8,6 +8,7 @@ const router = express.Router();
 const config = require('../config.json');
 const defaultData = require('../data/default.js');
 const InventoryItemId = require('../data/item.js');
+const map = require('../data/map.js');
 
 if (config.discord.enabled) {
     router.get('/login', (req, res) => {
@@ -23,15 +24,15 @@ if (config.discord.enabled) {
 }
 
 // Map endpoints
-router.get(['/', '/index'], (req, res) => {
+router.get(['/', '/index'], async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
-    const data = handlePage(req, res);
+    const data = await handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/index.js', (req, res) => {
+router.get('/index.js', async (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
-    const data = handleHomeJs(req, res);
+    const data = await handleHomeJs(req, res);
     res.render('index-js', data);
 });
 
@@ -41,29 +42,33 @@ router.get('/index.css', (req, res) => {
 });
 
 // Location endpoints
-router.get('/@/:lat/:lon', (req, res) => {
-    const data = handlePage(req, res);
+router.get('/@/:lat/:lon', async (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    const data = await handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:lat/:lon/:zoom', (req, res) => {
-    const data = handlePage(req, res);
+router.get('/@/:lat/:lon/:zoom', async (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    const data = await handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:city', (req, res) => {
-    const data = handlePage(req, res);
+router.get('/@/:city', async (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    const data = await handlePage(req, res);
     res.render('index', data);
 });
 
-router.get('/@/:city/:zoom', (req, res) => {
-    const data = handlePage(req, res);
+router.get('/@/:city/:zoom', async (req, res) => {
+    const data = await handlePage(req, res);
     res.render('index', data);
 });
 
 
-const handlePage = (req, res) => {
+const handlePage = async (req, res) => {
     const data = defaultData;
+    data.max_pokemon_id = config.map.maxPokemonId;
     // Build available tile servers list
     const tileservers = {};
     const tileKeys = Object.keys(config.tileservers);
@@ -98,11 +103,11 @@ const handlePage = (req, res) => {
 
     // Build available items list
     const availableItems = [-3, -2, -1];
-    const keys = Object.keys(InventoryItemId);
-    keys.forEach(key => {
-        const itemId = InventoryItemId[key];
-        availableItems.push(itemId);
-    });
+    //const keys = Object.keys(InventoryItemId);
+    //keys.forEach(key => {
+    //    const itemId = InventoryItemId[key];
+    //    availableItems.push(itemId);
+    //});
     data.available_items_json = JSON.stringify(availableItems);    
 
     // Build available areas list
@@ -112,6 +117,14 @@ const handlePage = (req, res) => {
         areas.push({ 'area': key });
     });
     data.areas = areas;
+
+    // Available raid boss filters
+    const availableRaidBosses = await map.getAvailableRaidBosses();
+    data.available_raid_bosses_json = JSON.stringify(availableRaidBosses);
+
+    // Available quest filters
+    const availableQuestRewards = await map.getAvailableQuests();
+    data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
 
     // Custom navigation bar headers
     data.buttons_left = config.header.left;
@@ -197,8 +210,9 @@ const handlePage = (req, res) => {
     return data;
 };
 
-const handleHomeJs = (req, res) => {
+const handleHomeJs = async (req, res) => {
     const data = defaultData;
+    data.max_pokemon_id = config.map.maxPokemonId;
     // Build available tile servers list
     const tileservers = {};
     const tileKeys = Object.keys(config.tileservers);
@@ -231,12 +245,20 @@ const handleHomeJs = (req, res) => {
 
     // Build available items list
     const availableItems = [-3, -2, -1];
-    const keys = Object.keys(InventoryItemId);
-    keys.forEach(key => {
-        const itemId = InventoryItemId[key];
-        availableItems.push(itemId);
-    });
+    //const keys = Object.keys(InventoryItemId);
+    //keys.forEach(key => {
+    //    const itemId = InventoryItemId[key];
+    //    availableItems.push(itemId);
+    //});
     data.available_items_json = JSON.stringify(availableItems);
+
+    // Available raid boss filters
+    const availableRaidBosses = await map.getAvailableRaidBosses();
+    data.available_raid_bosses_json = JSON.stringify(availableRaidBosses);
+
+    // Available quest filters
+    const availableQuestRewards = await map.getAvailableQuests();
+    data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
 
     // Map settings
     data.start_lat = req.query.lat || config.map.startLat;

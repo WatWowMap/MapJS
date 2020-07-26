@@ -27,6 +27,7 @@ const utils = require('./services/utils.js');
 // TODO: Filter by forms
 // TODO: Possibly remove sizing filter and change selection from a list to a grid
 // TODO: Custom user settings model
+// TODO: Fix legendary/normal filter buttons
 
 // Basic security protection middleware
 app.use(helmet());

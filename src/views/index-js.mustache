@@ -68,6 +68,8 @@ let availableForms = [];
 let availableItems = [];
 let availableTileservers = {};
 let selectedTileserver = 'Default';
+let availableRaidBosses = [];
+let availableQuestRewards = [];
 
 let pokemonFilterLoaded = false;
 let questFilterLoaded = false;
@@ -96,6 +98,8 @@ let followMyLocation = false;
 let pokemonDb = {};
 let weatherTypes = {};
 let nestsDb = {};
+
+let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 
 // TODO: Make external file or load file gamemaster
 const legendaryPokemon = [144,145,146,150,151,243,244,245,249,250,251,377,378,379,380,381,382,383,384,385,386,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,638,639,640,641,642,643,644,645,646,647,648,649];
@@ -174,6 +178,8 @@ $(function () {
     availableForms = JSON.parse('{{{available_forms_json}}}');
     availableItems = JSON.parse('{{{available_items_json}}}');
     availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
+    availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
+    availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
 
     loadStorage();
 
@@ -463,7 +469,7 @@ function loadStorage () {
     if (pokemonFilterValue === null) {
         const defaultPokemonFilter = {};
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             defaultPokemonFilter[i] = { show: isCommonPokemon(i) === false, size: 'normal' };
         }
         defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
@@ -478,7 +484,7 @@ function loadStorage () {
     } else {
         pokemonFilter = JSON.parse(pokemonFilterValue);
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             if (pokemonFilter[i] === undefined) {
                 pokemonFilter[i] = { show: isCommonPokemon(i) === false, size: 'normal' };
             }
@@ -509,21 +515,27 @@ function loadStorage () {
     if (questFilterValue === null) {
         const defaultQuestFilter = {};
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultQuestFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
             defaultQuestFilter['i' + itemId] = { show: true, size: 'normal' };
         });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
+        }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
         questFilter = defaultQuestFilter;
     } else {
         questFilter = JSON.parse(questFilterValue);
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            if (questFilter['p' + i] === undefined) {
-                questFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            if (questFilter['p' + id] === undefined) {
+                questFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
         $.each(availableItems, function (index, itemId) {
@@ -531,6 +543,12 @@ function loadStorage () {
                 questFilter['i' + itemId] = { show: true, size: 'normal' };
             }
         });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            if (questFilter['i' + id] === undefined) {
+                questFilter['i' + id] = { show: true, size: 'normal' };
+            }
+        }
         store('quest_filter', JSON.stringify(questFilter));
     }
 
@@ -546,9 +564,10 @@ function loadStorage () {
                 defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
             }
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            if (defaultRaidFilter['p' + i] === undefined) {
-                defaultRaidFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            if (defaultRaidFilter['p' + id] === undefined) {
+                defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
 
@@ -568,9 +587,10 @@ function loadStorage () {
                 raidFilter['l' + i] = { show: true, size: 'normal' };
             }
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            if (raidFilter['p' + i] === undefined) {
-                raidFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            if (raidFilter['p' + id] === undefined) {
+                raidFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
     }
@@ -782,7 +802,7 @@ function initMap () {
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             defaultPokemonFilter[i] = { show: true, size: 'normal' };
         }
         defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
@@ -801,7 +821,7 @@ function initMap () {
     $('#disable-trash-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = [];
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             defaultPokemonFilter[i] = { show: isCommonPokemon(i) === false, size: 'normal' };
         }
         defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
@@ -820,7 +840,7 @@ function initMap () {
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             defaultPokemonFilter[i] = { show: false, size: pokemonFilterNew[i].size, filter: pokemonFilterNew[i].filter };
         }
         defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
@@ -839,12 +859,17 @@ function initMap () {
     $('#reset-quest-filter').on('click', function (event) {
         const defaultQuestFilter = {};
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultQuestFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
             defaultQuestFilter['i' + itemId] = { show: true, size: 'normal' };
         });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
+        }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
         questFilterNew = defaultQuestFilter;
@@ -855,12 +880,17 @@ function initMap () {
     $('#disable-all-quest-filter').on('click', function (event) {
         const defaultQuestFilter = {};
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultQuestFilter['p' + i] = { show: false, size: questFilterNew['p' + i].size };
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
         }
         $.each(availableItems, function (index, itemId) {
             defaultQuestFilter['i' + itemId] = { show: false, size: questFilterNew['i' + itemId].size };
         });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            defaultQuestFilter['i' + id] = { show: false, size: questFilterNew['i' + id].size };
+        }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
         questFilterNew = defaultQuestFilter;
@@ -875,8 +905,10 @@ function initMap () {
         for (i = 1; i <= 5; i++) {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultRaidFilter['p' + i] = { show: true, size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            console.log('id:', id);
+            defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -892,8 +924,9 @@ function initMap () {
         for (i = 1; i <= 5; i++) {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultRaidFilter['p' + i] = { show: false, size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -909,8 +942,9 @@ function initMap () {
         for (i = 1; i <= 5; i++) {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultRaidFilter['p' + i] = { show: legendaryPokemon.includes(i), size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            defaultRaidFilter['p' + id] = { show: legendaryPokemon.includes(id), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -926,8 +960,9 @@ function initMap () {
         for (i = 1; i <= 5; i++) {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            defaultRaidFilter['p' + i] = { show: !legendaryPokemon.includes(i), size: 'normal' };
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            defaultRaidFilter['p' + id] = { show: !legendaryPokemon.includes(id), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -1513,7 +1548,7 @@ function loadData () {
     const pokemonFilterPVP = {};
     if (showPokemon) {
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
+        for (i = 1; i <= maxPokemonId; i++) {
             if (pokemonFilter[i].show === false) {
                 pokemonFilterExclude.push(i);
             }
@@ -1550,9 +1585,10 @@ function loadData () {
     const questFilterExclude = [];
     if (showQuests) {
         let i;
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            if (questFilter['p' + i].show === false) {
-                questFilterExclude.push('p' + i);
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            if (questFilter['p' + id].show === false) {
+                questFilterExclude.push('p' + id);
             }
         }
         $.each(availableItems, function (index, itemId) {
@@ -1560,11 +1596,17 @@ function loadData () {
                 questFilterExclude.push('i' + itemId);
             }
         });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            if (questFilter['i' + id].show === false) {
+                questFilterExclude.push('i' + id);
+            }
+        }
     }
 
     const raidFilterExclude = [];
     if (showRaids) {
-    // REVIEW: Probably not needed
+        // REVIEW: Probably not needed
         if (raidFilter.timers.show === false) {
             raidFilterExclude.push('timers');
         }
@@ -1574,9 +1616,10 @@ function loadData () {
                 raidFilterExclude.push('l' + i);
             }
         }
-        for (i = 1; i <= '{{max_pokemon_id}}'; i++) {
-            if (raidFilter['p' + i].show === false) {
-                raidFilterExclude.push('p' + i);
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let id = availableRaidBosses[i];
+            if (raidFilter['p' + id].show === false) {
+                raidFilterExclude.push('p' + id);
             }
         }
     }
