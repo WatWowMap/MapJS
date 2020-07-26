@@ -695,12 +695,29 @@ function initMap () {
     //let cachedZoom = retrieve('last_zoom');
     map = L.map('map', {
         preferCanvas: true,
+        //worldCopyJump: true,
         updateWhenIdle: true,
         updateWhenZooming: false,
         layers: [nestLayer, clusters],
         maxZoom: '{{max_zoom}}',
         //renderer: L.canvas()
     }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+
+    const lastViewCenterLat = retrieve('last_lat');
+    const lastViewCenterLng = retrieve('last_lng');
+    const lastViewZoom = retrieve('last_zoom');
+    if (window.location.pathname == '/' && lastViewCenterLat && lastViewCenterLng && lastViewZoom) {
+        map.setView([lastViewCenterLat, lastViewCenterLng], lastViewZoom);
+    } else {
+        map.setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+    }
+    map.on('moveend', function () {
+        const center = map.getCenter();
+        store('last_lat', center.lat);
+        store('last_lng', center.lng);
+        store('last_zoom', map.getZoom());
+    });
+
 
     let scale = '';
     if (L.Browser.retina) {
