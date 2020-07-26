@@ -6,7 +6,8 @@ const router = express.Router();
 
 const config = require('../config.json');
 const map = require('../data/map.js');
-const utils = require('../services/utils.js');
+
+const masterfile = require('../../static/data/masterfile.json');
 
 router.get('/get_data', async (req, res) => {
     const data = await getData(req.session.perms, req.query);
@@ -128,6 +129,7 @@ const getData = async (perms, filter) => {
         let pokemonData = [];
 
         if (permShowIV) {
+            // Pokemon IV filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
                 const filter = `
@@ -154,6 +156,7 @@ const getData = async (perms, filter) => {
                     'type': globalFiltersString
                 });
             }
+            // Pokemon PVP filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
                 const filter = `
@@ -203,30 +206,47 @@ const getData = async (perms, filter) => {
         }
 
 
-        for (let i = 1; i <= config.map.maxPokemonId; i++) {
-            let ivLabel = '';
-            if (permShowIV) {
-                ivLabel = `
-                <label class="btn btn-sm btn-size select-button-new" data-id="${i}" data-type="pokemon" data-info="iv">
-                    <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
-                </label>
-                `;
-            } else {
-                ivLabel = '';
+        for (let i = 1; i < config.map.maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            if (pkmn === undefined) {
+                console.log('Failed:', i);
+                continue;
             }
-            const filter = generateShowHideButtons(i, 'pokemon', ivLabel);
-            const size = generateSizeButtons(i, 'pokemon');
-            pokemonData.push({
-                'id': {
-                    'formatted': i,//String(format: "%03d", i),
-                    'sort': i + 10
-                },
-                'name': i18n.__('poke_' + i),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${i}.png" style="height:50px; width:50px;">`,
-                'filter': filter,
-                'size': size,
-                'type': pokemonTypeString
-            });
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
+                //const form = pkmn.forms[formId];
+                let formName = i18n.__('form_' + formId);
+                formName = formName === 'Normal' ? '' : formName;
+                if (formName === 'Shadow' || formName === 'Purified') {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === 0 ? i : i + '-' + formId;
+                let ivLabel = '';
+                if (permShowIV) {
+                    ivLabel = `
+                    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="pokemon" data-info="iv">
+                        <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
+                    </label>
+                    `;
+                } else {
+                    ivLabel = '';
+                }
+                const filter = generateShowHideButtons(id, 'pokemon', ivLabel);
+                const size = generateSizeButtons(id, 'pokemon');
+                pokemonData.push({
+                    'id': {
+                        'formatted': id,//String(format: "%03d", i),
+                        'sort': id + 10
+                    },
+                    'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
+                    'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                    'filter': filter,
+                    'size': size,
+                    'type': pokemonTypeString
+                });
+            }
         }
 
         data['pokemon_filters'] = pokemonData;
@@ -528,20 +548,14 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
 };
 
 const generateSizeButtons = (id, type) => {
-    const smallString = i18n.__('filter_small');
+    //const smallString = i18n.__('filter_small');
     const normalString = i18n.__('filter_normal');
-    const largeString = i18n.__('filter_large');
+    //const largeString = i18n.__('filter_large');
     const hugeString = i18n.__('filter_huge');
     const size = `
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="small">
-            <input type="radio" name="options" id="hide" autocomplete="off">${smallString}
-        </label>
         <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="normal">
             <input type="radio" name="options" id="show" autocomplete="off">${normalString}
-        </label>
-        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="large">
-            <input type="radio" name="options" id="show" autocomplete="off">${largeString}
         </label>
         <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="huge">
             <input type="radio" name="options" id="show" autocomplete="off">${hugeString}

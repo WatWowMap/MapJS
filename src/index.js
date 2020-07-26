@@ -25,8 +25,10 @@ const utils = require('./services/utils.js');
 // TODO: Custom icons
 // TODO: Notification sounds, bouncing icons
 // TODO: Filter by forms
-// TODO: Possibly remove sizing filter and change selection from a list to a grid
+// TODO: Possibly change selection from a list to a grid
+// TODO: Remove S and L sizing filters (keep M and XL)
 // TODO: Finish custom user settings model
+// TODO: Fix issue with forms and size filter
 
 // Basic security protection middleware
 app.use(helmet());
