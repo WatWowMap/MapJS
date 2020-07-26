@@ -88,7 +88,9 @@ const handlePage = (req, res) => {
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
                 const formId = parseInt(split[1]);
-                availableForms.push(`${pokemonId}-${formId}`);
+                if (!Number.isNaN(pokemonId) && !Number.isNaN(formId)) {
+                    availableForms.push(`${pokemonId}-${formId}`);
+                }
             }
         });
     }
