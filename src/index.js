@@ -18,8 +18,6 @@ const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
 // TODO: submission_placement_cells and submission_type_cells
-// TODO: Follow my location
-// TODO: Cache last location
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types

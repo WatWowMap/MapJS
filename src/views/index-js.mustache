@@ -90,6 +90,9 @@ let clusters = L.markerClusterGroup({
 
 let enableScouting = '{{scouting}}' === 'true';
 
+let currentPositionMarker;
+let followMyLocation = false;
+
 let pokemonDb = {};
 let weatherTypes = {};
 let nestsDb = {};
@@ -194,7 +197,7 @@ $(function () {
             }));
         }
     }
-    $('#settingsModal').on('show.bs.modal', function () {
+    $('#filtersModal').on('show.bs.modal', function () {
         pokemonFilterNew = $.extend(true, {}, pokemonFilter);
         questFilterNew = $.extend(true, {}, questFilter);
         raidFilterNew = $.extend(true, {}, raidFilter);
@@ -267,7 +270,7 @@ $(function () {
         tileLayer.addTo(map);
     });
 
-    $('#exportSettings').on('click', function () {
+    $('#exportFilters').on('click', function () {
         let settings = {
             show_gyms: showGyms,
             show_raids: showRaids,
@@ -298,11 +301,11 @@ $(function () {
         document.body.removeChild(el);
     });
 
-    $('#importSettings').on('click', function () {
-        $('#importSettingsFile').click();
+    $('#importFilters').on('click', function () {
+        $('#importFiltersFile').click();
     });
 
-    document.getElementById('importSettingsFile').addEventListener('change', loadFilterSettings, false);
+    document.getElementById('importFiltersFile').addEventListener('change', loadFilterSettings, false);
 
     // If you see this: Don't tell anyone
     let d = new Date();
@@ -687,12 +690,17 @@ function loadStorage () {
             spawnpointFilter['with-timer'] = { show: true, size: 'normal' };
         }
     }
+
+    const followMyLocationValue = retrieve('follow_location');
+    if (followMyLocationValue === null) {
+        store('follow_location', false);
+        followMyLocation = false;
+    } else {
+        followMyLocation = (followMyLocationValue === 'true');
+    }
 }
 
 function initMap () {
-    //let cachedLat = retrieve('last_lat');
-    //let cachedLon = retrieve('last_lon');
-    //let cachedZoom = retrieve('last_zoom');
     map = L.map('map', {
         preferCanvas: true,
         //worldCopyJump: true,
@@ -718,7 +726,6 @@ function initMap () {
         store('last_zoom', map.getZoom());
     });
 
-
     let scale = '';
     if (L.Browser.retina) {
         scale = '@2x';
@@ -732,25 +739,7 @@ function initMap () {
     });
     tileLayer.addTo(map);
 
-    //map.on('locationfound', onLocationFound);
-
-    // placeholders for the L.marker and L.circle representing user's current position and accuracy    
-    let currentPosition, currentAccuracy;
-
-    // Location function for when the location is found for the user
-    function onLocationFound(e) {
-        // If position defined, then remove the existing position marker and accuracy circle from the map
-        if (currentPosition) {
-            map.removeLayer(currentPosition);
-            map.removeLayer(currentAccuracy);
-        }
-        currentPosition = L.marker(e.latlng).addTo(map)
-    }
-
-    // Locate user
-    function locate() {
-        map.locate({setView: true, maxZoom: 16});
-    }
+    map.on('locationfound', onLocationFound);
 
     const CustomControlLocation = L.Control.extend({
         options: {
@@ -758,12 +747,37 @@ function initMap () {
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><img src="/svg/location.svg" style="width: 21px; height: 21px; class="center-block;"/></a>';
+            container.innerHTML = '<a href="#"><img src="/svg/location.svg" style="width: 21px; height: 21px;" class="center-block;"/></a>';
             container.onclick = locate();
             return container;
         }
     });
     map.addControl(new CustomControlLocation());
+
+    const CustomControlFollowLocation = L.Control.extend({
+        options: {
+            position: 'topleft'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom follow-location');
+            container.innerHTML = '<a href="#"><i class="fas fa-compass" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
+            container.onclick = function() {
+                if (followMyLocation) {
+                    store('follow_location', false);
+                    container.style.background = 'red';
+                    container.style.color = 'red';
+                } else {
+                    store('follow_location', true);
+                    container.style.background = 'green';
+                    container.style.color = 'green';
+                }
+                updateFollowMyLocation();
+            };
+            return container;
+        }
+    });
+    map.addControl(new CustomControlFollowLocation());
+
 
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
@@ -1030,7 +1044,7 @@ function initMap () {
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
     });
 
-    $('#saveSettings').on('click', function (event) {
+    $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
 
         const newShowGyms = $('#show-gyms').hasClass('active');
@@ -1220,16 +1234,16 @@ function initMap () {
         lastUpdateServer = 0;
         loadData();
 
-        $('#settingsModal').modal('hide');
+        $('#filtersModal').modal('hide');
     });
 
-    const CustomControlSettings = L.Control.extend({
+    const CustomControlFilters = L.Control.extend({
         options: {
             position: 'topleft'
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><img src="/svg/settings.svg" style="width: 21px; height: 21px; class="center-block;"/></a>';
+            container.innerHTML = '<a href="#"><i class="fas fa-filter" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
             container.onclick = function () {
                 if (retrieve('show_gyms') === 'true') {
                     $('#show-gyms').addClass('active');
@@ -1327,6 +1341,22 @@ function initMap () {
                     $('#show-devices').removeClass('active');
                 }
 
+                $('#filtersModal').modal('show');
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new CustomControlFilters());
+
+    const CustomControlSettings = L.Control.extend({
+        options: {
+            position: 'bottomleft'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
+            container.onclick = function () {
                 $('#settingsModal').modal('show');
             };
 
@@ -1336,11 +1366,6 @@ function initMap () {
     map.addControl(new CustomControlSettings());
 
     map.on('zoomend', function () {
-        // Cache map location
-        //let center = map.getCenter();
-        //store('last_lat', center.lat);
-        //store('last_lon', center.lng);
-        //store('last_zoom', map.getZoom());
         if (showCells && map.getZoom() < 13) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -1371,11 +1396,6 @@ function initMap () {
     });
 
     map.on('dragend', function () {
-        // Cache map location
-        //let center = map.getCenter();
-        //store('last_lat', center.lat);
-        //store('last_lon', center.lng);
-        //store('last_zoom', map.getZoom());
         lastUpdateServer = 0;
         loadData();
     });
@@ -1386,6 +1406,7 @@ function initMap () {
     setInterval(updateCellsLoop, 10000);
     setInterval(updateDevicesLoop, 10000);
     setInterval(updateMapTimers, 1000);
+    setInterval(updateFollowMyLocation, 5000);
 
     $.getJSON( "/custom/nests.json", function( data ) {
         nestsDb = data;
@@ -1395,6 +1416,19 @@ function initMap () {
     });
 }
 
+// Locate user
+function locate() {
+    map.locate({setView: true, maxZoom: 16});
+}
+
+// Location function for when the location is found for the user
+function onLocationFound(e) {
+    //console.log('Location found:', e);
+    if (currentPositionMarker) {
+        map.removeLayer(currentPositionMarker);
+    }
+    currentPositionMarker = L.marker(e.latlng).addTo(map)
+}
 
 // MARK: - Data Loading
 
@@ -2256,6 +2290,13 @@ function startPokestopTimer (pokestop, expireTimestamp, ts) {
                 map.removeLayer(realPokestop.marker);
             }
         }, (expireTimestamp - ts) * 1000);
+}
+
+function updateFollowMyLocation () {
+    followMyLocation = retrieve('follow_location') === 'true';
+    if (followMyLocation) {
+        locate();
+    }
 }
 
 
