@@ -39,7 +39,7 @@ class DiscordClient {
 
     async getGuilds() {
         const guilds = await oauth.getUserGuilds(this.accessToken);
-        const guildIds = Array.from(guilds, x => x.id);
+        const guildIds = Array.from(guilds, x => BigInt(x.id).toString());
         return guildIds;
     }
 
@@ -51,7 +51,7 @@ class DiscordClient {
                 .fetch();
             const member = members.get(userId);
             const roles = member.roles.cache
-                .filter(x => x.id)
+                .filter(x => BigInt(x.id).toString())
                 .keyArray();
             return roles;
         } catch (e) {
