@@ -60,39 +60,6 @@ class DiscordClient {
         return [];
     }
 
-    /*
-    async isValid(configItem) {
-        const user = await this.getUser();
-        const guilds = await this.getGuilds();
-        let valid = false;
-        for (let i = 0; i < config.discord.guilds.length; i++) {
-            // Check if user is in config guilds
-            const guildId = config.discord.guilds[i];
-            if (guilds.includes(guildId)) {
-                // Valid if config roles are not set
-                if (configItem.enabled && configItem.roles.length === 0) {
-                    valid = true;
-                    break;
-                }
-                // If set, grab user roles for guild
-                const userRoles = await this.getUserRoles(guildId, user.id);
-                // Check if user has config role assigned
-                for (let j = 0; j < userRoles.length; j++) {
-                    // Check if assigned role to user is in config roles
-                    if (configItem.roles.includes(userRoles[j])) {
-                        valid = true;
-                        break;
-                    }
-                }
-                if (valid) {
-                    break;
-                }
-            }
-        }
-        return valid;
-    }
-    */
-
     async getPerms() {
         const perms = {
             map: false,
@@ -116,25 +83,27 @@ class DiscordClient {
         for (let i = 0; i < config.discord.guilds.length; i++) {
             // Check if user is in config guilds
             const guildId = config.discord.guilds[i];
-            if (guilds.includes(guildId)) {
-                const keys = Object.keys(config.discord.perms);
-                // Loop through each permission section
-                for (let j = 0; j < keys.length; j++) {
-                    const key = keys[j];
-                    let configItem = config.discord.perms[key];
-                    if (configItem.enabled && configItem.roles.length === 0) {
-                        // If type enabled and no roles specified, set as valid
+            if (!guilds.includes(guildId)) {
+                continue;
+            }
+            const keys = Object.keys(config.discord.perms);
+            // Loop through each permission section
+            for (let j = 0; j < keys.length; j++) {
+                const key = keys[j];
+                let configItem = config.discord.perms[key];
+                if (configItem.enabled && configItem.roles.length === 0) {
+                    // If type enabled and no roles specified, set as valid
+                    perms[key] = true;
+                    continue;
+                }
+                
+                // If set, grab user roles for guild
+                const userRoles = await this.getUserRoles(guildId, user.id);
+                // Check if user has config role assigned
+                for (let k = 0; k < userRoles.length; k++) {
+                    // Check if assigned role to user is in config roles
+                    if (configItem.roles.includes(userRoles[k])) {
                         perms[key] = true;
-                    } else {
-                        // If set, grab user roles for guild
-                        const userRoles = await this.getUserRoles(guildId, user.id);
-                        // Check if user has config role assigned
-                        for (let k = 0; k < userRoles.length; k++) {
-                            // Check if assigned role to user is in config roles
-                            if (configItem.roles.includes(userRoles[k])) {
-                                perms[key] = true;
-                            }
-                        }
                     }
                 }
             }
