@@ -24,9 +24,7 @@ const utils = require('./services/utils.js');
 // TODO: PMSF icon format
 // TODO: Custom icons
 // TODO: Notification sounds, bouncing icons
-// TODO: Filter by forms
-// TODO: Possibly change selection from a list to a grid
-// TODO: Remove S and L sizing filters (keep M and XL)
+// TODO: Possibly change filter selection from a list to a grid
 // TODO: Finish custom user settings model
 // TODO: Fix issue with forms and size filter
 

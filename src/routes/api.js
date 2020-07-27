@@ -208,10 +208,6 @@ const getData = async (perms, filter) => {
 
         for (let i = 1; i < config.map.maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
-            if (pkmn === undefined) {
-                console.log('Failed:', i);
-                continue;
-            }
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
@@ -237,7 +233,7 @@ const getData = async (perms, filter) => {
                 const size = generateSizeButtons(id, 'pokemon');
                 pokemonData.push({
                     'id': {
-                        'formatted': id,//String(format: "%03d", i),
+                        'formatted': i,//String(format: "%03d", i),
                         'sort': id + 10
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
