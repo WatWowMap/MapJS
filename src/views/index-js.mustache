@@ -729,14 +729,6 @@ function loadStorage () {
             spawnpointFilter['with-timer'] = { show: true, size: 'normal' };
         }
     }
-
-    const followMyLocationValue = retrieve('follow_location');
-    if (followMyLocationValue === null) {
-        store('follow_location', false);
-        followMyLocation = false;
-    } else {
-        followMyLocation = (followMyLocationValue === 'true');
-    }
 }
 
 function initMap () {
@@ -1455,7 +1447,6 @@ function initMap () {
     setInterval(updateCellsLoop, 10000);
     setInterval(updateDevicesLoop, 10000);
     setInterval(updateMapTimers, 1000);
-    setInterval(updateFollowMyLocation, 5000);
 
     $.getJSON( "/custom/nests.json", function( data ) {
         nestsDb = data;
@@ -2330,13 +2321,6 @@ function startPokestopTimer (pokestop, expireTimestamp, ts) {
                 map.removeLayer(realPokestop.marker);
             }
         }, (expireTimestamp - ts) * 1000);
-}
-
-function updateFollowMyLocation () {
-    followMyLocation = retrieve('follow_location') === 'true';
-    if (followMyLocation) {
-        locate();
-    }
 }
 
 
