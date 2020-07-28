@@ -24,26 +24,20 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
     if (keys && keys.length > 0) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
-            //const id = parseInt(key);
-            //if (id) {
-                const split = key.split('-');
-                if (split.length === 2) {
-                    const pokemonId = parseInt(split[0]);
-                    const formId = parseInt(split[1]);
-                    excludePokemonIds.push(pokemonId);
-                    excludeFormIds.push(formId);
-                } else {
-                    const id = parseInt(key);
-                    if (id) {
-                        //if (!pokemonFilterExclude.includes(id)) {
-                        //    pokemonFilterExclude.push(id);
-                        //}
-                        if (!excludePokemonIds.includes(id)) {
-                            excludePokemonIds.push(id);
-                        }
+            const split = key.split('-');
+            if (split.length === 2) {
+                const pokemonId = parseInt(split[0]);
+                const formId = parseInt(split[1]);
+                excludePokemonIds.push(pokemonId);
+                excludeFormIds.push(formId);
+            } else {
+                const id = parseInt(key);
+                if (id) {
+                    if (!excludePokemonIds.includes(id)) {
+                        excludePokemonIds.push(id);
                     }
                 }
-            //}
+            }
         }
     }
 

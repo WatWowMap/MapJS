@@ -211,7 +211,6 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                //const form = pkmn.forms[formId];
                 let formName = i18n.__('form_' + formId);
                 formName = formName === 'Normal' ? '' : formName;
                 if (formName === 'Shadow' || formName === 'Purified') {
