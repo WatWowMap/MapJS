@@ -93,7 +93,6 @@ let clusters = L.markerClusterGroup({
 let enableScouting = '{{scouting}}' === 'true';
 
 let currentPositionMarker;
-let followMyLocation = false;
 
 let masterfile = {};
 let weatherTypes = {};
@@ -779,45 +778,11 @@ function initMap () {
     });
     tileLayer.addTo(map);
 
-    map.on('locationfound', onLocationFound);
-
-    const CustomControlLocation = L.Control.extend({
-        options: {
-            position: 'topleft'
-        },
-        onAdd: function (map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><img src="/svg/location.svg" style="width: 21px; height: 21px;" class="center-block;"/></a>';
-            container.onclick = locate();
-            return container;
-        }
-    });
-    map.addControl(new CustomControlLocation());
-
-    const CustomControlFollowLocation = L.Control.extend({
-        options: {
-            position: 'topleft'
-        },
-        onAdd: function (map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom follow-location');
-            container.innerHTML = '<a href="#"><i class="fas fa-compass" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
-            container.onclick = function() {
-                if (followMyLocation) {
-                    store('follow_location', false);
-                    container.style.background = 'red';
-                    container.style.color = 'red';
-                } else {
-                    store('follow_location', true);
-                    container.style.background = 'green';
-                    container.style.color = 'green';
-                }
-                updateFollowMyLocation();
-            };
-            return container;
-        }
-    });
-    map.addControl(new CustomControlFollowLocation());
-
+    L.control.locate({
+		icon: 'fas fa-crosshairs',
+		setView: 'untilPan',
+		keepCurrentZoomLevel: true,
+	}).addTo(map);
 
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
@@ -1479,7 +1444,7 @@ function initMap () {
         loadData();
     });
 
-    map.on('dragend', function () {
+    map.on('moveend', function () {
         lastUpdateServer = 0;
         loadData();
     });
