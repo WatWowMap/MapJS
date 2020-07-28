@@ -17,7 +17,6 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: Scan area geofences on map with labels
 // TODO: submission_placement_cells and submission_type_cells
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
