@@ -17,6 +17,7 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
+// TODO: Scan area geofences on map with labels
 // TODO: submission_placement_cells and submission_type_cells
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
@@ -24,10 +25,10 @@ const utils = require('./services/utils.js');
 // TODO: PMSF icon format
 // TODO: Custom icons
 // TODO: Notification sounds, bouncing icons
-// TODO: Filter by forms
-// TODO: Possibly remove sizing filter and change selection from a list to a grid
-// TODO: Custom user settings model
-// TODO: Fix legendary/normal filter buttons
+// TODO: Possibly change filter selection from a list to a grid
+// TODO: Finish custom user settings model
+// TODO: Fix issue with forms and size filter
+// TODO: Force logout of other devices if logged into multiple
 
 // Basic security protection middleware
 app.use(helmet());
