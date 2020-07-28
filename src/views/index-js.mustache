@@ -259,6 +259,11 @@ $(function () {
         }
     });
 
+    // TODO: Bandaid for zindex
+    $('#mapstyleModal').on('shown.bs.modal', function () {
+        $('#settingsModal').modal('hide');
+    });
+
     initMap();
 
     $('#select-mapstyle').on('change', function () {
