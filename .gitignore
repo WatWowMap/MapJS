@@ -109,6 +109,7 @@ config.json
 # No logs
 logs
 
+static/custom/areas.json
 static/custom/nests.json
 static/img/pokemon/*
 static/img/raid/*

@@ -61,6 +61,7 @@ let showNests;
 let showCells;
 let showWeather;
 let showDevices;
+let showScanAreas;
 let showRaidTimers;
 let showSubmissionCells;
 
@@ -85,6 +86,7 @@ let deviceOfflineIcon;
 let clusterPokemon = '{{cluster_pokemon}}';
 let tileLayer;
 let nestLayer = new L.LayerGroup();
+let scanAreaLayer = new L.LayerGroup();
 let clusters = L.markerClusterGroup({
     disableClusteringAtZoom: 13,
     removeOutsideVisibleBounds: true
@@ -97,6 +99,7 @@ let currentPositionMarker;
 let masterfile = {};
 let weatherTypes = {};
 let nestsDb = {};
+let scanAreasDb = {};
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
@@ -290,6 +293,7 @@ $(function () {
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
             show_weather: showWeather,
+            show_scanareas: showScanAreas,
             gym: gymFilterNew,
             raid: raidFilterNew,
             pokemon: pokemonFilterNew,
@@ -456,6 +460,14 @@ function loadStorage () {
         showWeather = false;
     } else {
         showWeather = (showWeatherValue === 'true');
+    }
+
+    const showScanAreasValue = retrieve('show_scanareas');
+    if (showScanAreasValue === null) {
+        store('show_scanareas', false);
+        showScanAreas = false;
+    } else {
+        showScanAreas = (showScanAreasValue === 'true');
     }
 
     const showDevicesValue = retrieve('show_devices');
@@ -737,7 +749,7 @@ function initMap () {
         //worldCopyJump: true,
         updateWhenIdle: true,
         updateWhenZooming: false,
-        layers: [nestLayer, clusters],
+        layers: [nestLayer, scanAreaLayer, clusters],
         maxZoom: '{{max_zoom}}',
         //renderer: L.canvas()
     }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
@@ -1099,6 +1111,7 @@ function initMap () {
         const newShowCells = $('#show-cells').hasClass('active');
         const newShowSubmissionCells = $('#show-submission-cells').hasClass('active');
         const newShowWeather = $('#show-weather').hasClass('active');
+        const newShowScanAreas = $('#show-scanareas').hasClass('active');
         const newShowDevices = $('#show-devices').hasClass('active');
 
         const ts = Math.round((new Date()).getTime() / 1000);
@@ -1188,6 +1201,11 @@ function initMap () {
             });
             weatherMarkers = [];
         }
+        if (/*newShowScanAreas !== showScanAreas &&*/ newShowScanAreas === false) {
+            scanAreaLayer.clearLayers();
+        } else {
+            loadScanAreaPolygons();
+        }
         if (newShowDevices !== showDevices && newShowDevices === false) {
             $.each(deviceMarkers, function (index, device) {
                 map.removeLayer(device.marker);
@@ -1269,6 +1287,8 @@ function initMap () {
         showSubmissionCells = newShowSubmissionCells;
         store('show_weather', newShowWeather);
         showWeather = newShowWeather;
+        showScanAreas = newShowScanAreas;
+        store('show_scanareas', newShowScanAreas);
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
 
@@ -1374,6 +1394,14 @@ function initMap () {
                     $('#show-weather').removeClass('active');
                 }
 
+                if (retrieve('show_scanareas') === 'true') {
+                    $('#show-scanareas').addClass('active');
+                    $('#hide-scanareas').removeClass('active');
+                } else {
+                    $('#hide-scanareas').addClass('active');
+                    $('#show-scanareas').removeClass('active');
+                }
+
                 if (retrieve('show_devices') === 'true') {
                     $('#show-devices').addClass('active');
                     $('#hide-devices').removeClass('active');
@@ -1448,10 +1476,17 @@ function initMap () {
     setInterval(updateDevicesLoop, 10000);
     setInterval(updateMapTimers, 1000);
 
-    $.getJSON( "/custom/nests.json", function( data ) {
+    $.getJSON( '/custom/nests.json', function( data ) {
         nestsDb = data;
         if (showNests) {
             loadNestPolygons();
+        }
+    });
+
+    $.getJSON( '/custom/areas.json', function( data ) {
+        scanAreasDb = data;
+        if (showScanAreas) {
+            loadScanAreaPolygons();
         }
     });
 }
@@ -2095,8 +2130,8 @@ function loadData () {
     });
 }
 
-function loadNestPolygons() {
-    if (nestsDb == null) {
+function loadNestPolygons () {
+    if (nestsDb === null) {
         return;
     }
     try {
@@ -2107,7 +2142,23 @@ function loadNestPolygons() {
         });
         nestLayer.addLayer(nestGeoPolys);
     } catch (err) {
-        console.log("Failed to load nest.json file.\r\nError:", err);
+        console.log('Failed to load nest.json file.\nError:', err);
+    }
+}
+
+function loadScanAreaPolygons () {
+    if (scanAreasDb === null) {
+        return;
+    }
+    try {
+        var areaGeoPolys = L.geoJson(scanAreasDb, {
+            onEachFeature: function(features, featureLayer) {
+                featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name));
+            }
+        });
+        scanAreaLayer.addLayer(areaGeoPolys);
+    } catch (err) {
+        console.error('Failed to load areas.json file\nError:', err);
     }
 }
 
@@ -2163,7 +2214,7 @@ function getPokemonIndex (pokemon) {
     return 2;
 }
   
-function hasRelevantLeagueStats(leagueStats, greatLeague) {
+function hasRelevantLeagueStats (leagueStats, greatLeague) {
     var found = false;
     var minCP = greatLeague !== false ? 1400 : 2400;
     var maxCP = greatLeague !== false ? 1500 : 2500;
@@ -2971,9 +3022,20 @@ function getWeatherPopupContent (weather) {
 }
 
 function getNestPopupContent(name) {
-    let content = '<center>';
-    content += '<h6>Park: <b>'+name+'</b></h6>';
-    content += '</center>';
+    let content = `
+    <center>
+        <h6>Park: <b>${name}</b></h6>
+    </center>
+    `;
+    return content;
+}
+
+function getScanAreaPopupContent(name) {
+    let content = `
+    <center>
+        <h6>Area: <b>${name}</b></h6>
+    </center>
+    `;
     return content;
 }
 
@@ -3624,6 +3686,12 @@ function manageSelectButton (e, isNew) {
     const info = e.attr('data-info');
     let shouldShow = false;
     if (type === 'pokemon' || type === 'pokemon-iv') {
+        if (pokemonFilterNew[id] === undefined || pokemonFilterNew[id] === null || pokemonFilterNew[id] === 'undefined') {
+            console.log('id:', id);
+            console.log('pokemonFilterNew[' + id + ']', pokemonFilterNew[id]);
+            console.log('pokemonFilterNew:', pokemonFilterNew);
+            return;
+        }
         switch (info) {
         case 'hide':
             shouldShow = pokemonFilterNew[id].show === false;
@@ -5364,6 +5432,12 @@ function loadFilterSettings (e) {
         showWeather = obj.show_weather;
         store('show_weather', showWeather);
 
+        showScanAreas = obj.show_scanareas;
+        store('show_scanareas', showScanAreas);
+
+        showDevices = obj.show_devices;
+        store('show_devices', showDevices);
+
         if (showGyms) {
             $('#show-gyms').addClass('active');
             $('#hide-gyms').removeClass('active');
@@ -5442,6 +5516,22 @@ function loadFilterSettings (e) {
         } else {
             $('#hide-weather').addClass('active');
             $('#show-weather').removeClass('active');
+        }
+
+        if (showScanAreas) {
+            $('#show-scanareas').addClass('active');
+            $('#hide-scanareas').removeClass('active');
+        } else {
+            $('#hide-scanareas').addClass('active');
+            $('#show-scanareas').removeClass('active');
+        }
+
+        if (showDevices) {
+            $('#show-devices').addClass('active');
+            $('#hide-devices').removeClass('active');
+        } else {
+            $('#hide-devices').addClass('active');
+            $('#show-devices').removeClass('active');
         }
 
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);

@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "convert": "node src/geofenceToGeoJSON.js",
     "test": "npx eslint src/**/*.js",
     "test-fix": "npx eslint src/**/*.js --fix"
   },
