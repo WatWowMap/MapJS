@@ -28,7 +28,6 @@ const utils = require('./services/utils.js');
 // TODO: Possibly change filter selection from a list to a grid
 // TODO: Finish custom user settings model
 // TODO: Fix issue with forms and size filter
-// TODO: Shrink navbar on mobile
 // TODO: Force logout of other devices if logged into multiple
 
 // Basic security protection middleware

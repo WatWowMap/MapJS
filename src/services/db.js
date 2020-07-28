@@ -24,7 +24,7 @@ const getConnection = () => {
         console.error('Mysql error:', err);
     });
     return conn;
-}
+};
 
 const query = (sql, args) => {
     return new Promise((resolve, reject) => {
@@ -48,6 +48,6 @@ const query = (sql, args) => {
             });
         });
     });
-}
+};
 
 module.exports = query;

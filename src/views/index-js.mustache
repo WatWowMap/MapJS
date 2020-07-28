@@ -779,10 +779,10 @@ function initMap () {
     tileLayer.addTo(map);
 
     L.control.locate({
-		icon: 'fas fa-crosshairs',
-		setView: 'untilPan',
-		keepCurrentZoomLevel: true,
-	}).addTo(map);
+        icon: 'fas fa-crosshairs',
+        setView: 'untilPan',
+        keepCurrentZoomLevel: true,
+    }).addTo(map);
 
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];

@@ -7,7 +7,7 @@ const router = express.Router();
 
 const config = require('../config.json');
 const defaultData = require('../data/default.js');
-const InventoryItemId = require('../data/item.js');
+//const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');
 
 if (config.discord.enabled) {
