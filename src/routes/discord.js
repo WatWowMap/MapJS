@@ -30,9 +30,9 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
     let data = `client_id=${config.discord.clientId}&client_secret=${config.discord.clientSecret}&grant_type=authorization_code&code=${req.query.code}&redirect_uri=${redirect}&scope=guilds%20identify%20email`;
     let headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
-    }
+    };
     
-    axios.post("https://discord.com/api/oauth2/token", data, {
+    axios.post('https://discord.com/api/oauth2/token', data, {
         headers: headers
     }).then(async (response) => {
         const client = DiscordClient.instance;

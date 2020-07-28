@@ -85,7 +85,7 @@ const getData = async (perms, filter) => {
         (permShowPokestops && showPokestops) ||
         (permShowQuests && showQuests) ||
         (permShowInvasions && showInvasions)
-       ) {
+    ) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, showPokestops, showQuests, permShowLures, showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
@@ -185,8 +185,8 @@ const getData = async (perms, filter) => {
             }
         }
 
-        const bigKarpString = i18n.__("filter_big_karp");
-        const tinyRatString = i18n.__("filter_tiny_rat");
+        const bigKarpString = i18n.__('filter_big_karp');
+        const tinyRatString = i18n.__('filter_tiny_rat');
         for (var i = 0; i <= 1; i++) {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
@@ -212,6 +212,45 @@ const getData = async (perms, filter) => {
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
                 //const form = pkmn.forms[formId];
+                let formName = i18n.__('form_' + formId);
+                formName = formName === 'Normal' ? '' : formName;
+                if (formName === 'Shadow' || formName === 'Purified') {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === 0 ? i : i + '-' + formId;
+                let ivLabel = '';
+                if (permShowIV) {
+                    ivLabel = `
+                    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="pokemon" data-info="iv">
+                        <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
+                    </label>
+                    `;
+                } else {
+                    ivLabel = '';
+                }
+                const filter = generateShowHideButtons(id, 'pokemon', ivLabel);
+                const size = generateSizeButtons(id, 'pokemon');
+                pokemonData.push({
+                    'id': {
+                        'formatted': i,//String(format: "%03d", i),
+                        'sort': id + 10
+                    },
+                    'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
+                    'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                    'filter': filter,
+                    'size': size,
+                    'type': pokemonTypeString
+                });
+            }
+        }
+
+
+        for (let i = 1; i < config.map.maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
                 let formName = i18n.__('form_' + formId);
                 formName = formName === 'Normal' ? '' : formName;
                 if (formName === 'Shadow' || formName === 'Purified') {

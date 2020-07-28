@@ -95,7 +95,6 @@ let clusters = L.markerClusterGroup({
 let enableScouting = '{{scouting}}' === 'true';
 
 let currentPositionMarker;
-let followMyLocation = false;
 
 let masterfile = {};
 let weatherTypes = {};
@@ -103,6 +102,7 @@ let nestsDb = {};
 let scanAreasDb = {};
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
+let skipForms = ['Shadow', 'Purified'];
 
 // TODO: Make external file or load file gamemaster
 const legendaryPokemon = [144,145,146,150,151,243,244,245,249,250,251,377,378,379,380,381,382,383,384,385,386,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,638,639,640,641,642,643,644,645,646,647,648,649];
@@ -481,13 +481,12 @@ function loadStorage () {
     const pokemonFilterValue = retrieve('pokemon_filter');
     if (pokemonFilterValue === null) {
         const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
+        for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -506,13 +505,12 @@ function loadStorage () {
         pokemonFilter = defaultPokemonFilter;
     } else {
         pokemonFilter = JSON.parse(pokemonFilterValue);
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
+        for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -743,14 +741,6 @@ function loadStorage () {
             spawnpointFilter['with-timer'] = { show: true, size: 'normal' };
         }
     }
-
-    const followMyLocationValue = retrieve('follow_location');
-    if (followMyLocationValue === null) {
-        store('follow_location', false);
-        followMyLocation = false;
-    } else {
-        followMyLocation = (followMyLocationValue === 'true');
-    }
 }
 
 function initMap () {
@@ -792,45 +782,11 @@ function initMap () {
     });
     tileLayer.addTo(map);
 
-    map.on('locationfound', onLocationFound);
-
-    const CustomControlLocation = L.Control.extend({
-        options: {
-            position: 'topleft'
-        },
-        onAdd: function (map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><img src="/svg/location.svg" style="width: 21px; height: 21px;" class="center-block;"/></a>';
-            container.onclick = locate();
-            return container;
-        }
-    });
-    map.addControl(new CustomControlLocation());
-
-    const CustomControlFollowLocation = L.Control.extend({
-        options: {
-            position: 'topleft'
-        },
-        onAdd: function (map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom follow-location');
-            container.innerHTML = '<a href="#"><i class="fas fa-compass" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
-            container.onclick = function() {
-                if (followMyLocation) {
-                    store('follow_location', false);
-                    container.style.background = 'red';
-                    container.style.color = 'red';
-                } else {
-                    store('follow_location', true);
-                    container.style.background = 'green';
-                    container.style.color = 'green';
-                }
-                updateFollowMyLocation();
-            };
-            return container;
-        }
-    });
-    map.addControl(new CustomControlFollowLocation());
-
+    L.control.locate({
+        icon: 'fas fa-crosshairs',
+        setView: 'untilPan',
+        keepCurrentZoomLevel: true,
+    }).addTo(map);
 
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = [];
@@ -840,7 +796,7 @@ function initMap () {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -869,7 +825,7 @@ function initMap () {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -898,7 +854,7 @@ function initMap () {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -970,7 +926,6 @@ function initMap () {
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
             let id = availableRaidBosses[i];
-            console.log('id:', id);
             defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
         }
 
@@ -1509,7 +1464,7 @@ function initMap () {
         loadData();
     });
 
-    map.on('dragend', function () {
+    map.on('moveend', function () {
         lastUpdateServer = 0;
         loadData();
     });
@@ -1520,7 +1475,6 @@ function initMap () {
     setInterval(updateCellsLoop, 10000);
     setInterval(updateDevicesLoop, 10000);
     setInterval(updateMapTimers, 1000);
-    setInterval(updateFollowMyLocation, 5000);
 
     $.getJSON( '/custom/nests.json', function( data ) {
         nestsDb = data;
@@ -1638,7 +1592,7 @@ function loadData () {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                if (pkmn.forms[formId].name === 'Shadow' || pkmn.forms[formId].name === 'Purified') {
+                if (skipForms.includes(pkmn.forms[formId].name)) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
@@ -2214,7 +2168,7 @@ function loadScanAreaPolygons () {
 function getPokemonSize (pokemonId, pokemonForm) {
     const id = pokemonForm === 0 ? pokemonId : `${pokemonId}-${pokemonForm}`;
     if (pokemonFilter[id] === undefined) {
-        console.log('Pokemon size undefined:', id, 'form:', pokemonForm);
+        // TODO: console.log('Pokemon size undefined:', id, 'form:', pokemonForm);
         return 40;
     }
     const size = pokemonFilter[id].size;
@@ -2227,7 +2181,7 @@ function getPokemonSize (pokemonId, pokemonForm) {
 function getPokemonIndex (pokemon) {
     const id = pokemon.form === 0 ? pokemon.pokemon_id : `${pokemon.pokemon_id}-${pokemon.form}`;
     if (pokemonFilter[id] === undefined) {
-        console.log('Pokemon index undefined:', id);
+        // TODO: console.log('Pokemon index undefined:', id);
         return 2;
     }
     const size = pokemonFilter[id].size
@@ -2418,13 +2372,6 @@ function startPokestopTimer (pokestop, expireTimestamp, ts) {
                 map.removeLayer(realPokestop.marker);
             }
         }, (expireTimestamp - ts) * 1000);
-}
-
-function updateFollowMyLocation () {
-    followMyLocation = retrieve('follow_location') === 'true';
-    if (followMyLocation) {
-        locate();
-    }
 }
 
 
