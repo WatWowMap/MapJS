@@ -8235,18 +8235,6 @@
 				"679": {
 					"name": "Purified",
 					"proto": "PORYGON_PURIFIED"
-				},
-				"683": {
-					"name": "Z",
-					"proto": "PORYGON_Z_NORMAL"
-				},
-				"684": {
-					"name": "Z",
-					"proto": "PORYGON_Z_SHADOW"
-				},
-				"685": {
-					"name": "Z",
-					"proto": "PORYGON_Z_PURIFIED"
 				}
 			},
 			"pokedex_id": 137,
@@ -26657,13 +26645,16 @@
 			"default_form": "",
 			"forms": {
 				"683": {
-					"name": "Normal"
+					"name": "Normal",
+					"proto": "PORYGON_Z_NORMAL"
 				},
 				"684": {
-					"name": "Shadow"
+					"name": "Shadow",
+					"proto": "PORYGON_Z_SHADOW"
 				},
 				"685": {
-					"name": "Purified"
+					"name": "Purified",
+					"proto": "PORYGON_Z_PURIFIED"
 				}
 			},
 			"pokedex_id": 474,
