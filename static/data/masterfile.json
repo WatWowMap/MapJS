@@ -26657,13 +26657,13 @@
 			"default_form": "",
 			"forms": {
 				"683": {
-					"name": "Z normal"
+					"name": "Normal"
 				},
 				"684": {
-					"name": "Z shadow"
+					"name": "Shadow"
 				},
 				"685": {
-					"name": "Z purified"
+					"name": "Purified"
 				}
 			},
 			"pokedex_id": 474,

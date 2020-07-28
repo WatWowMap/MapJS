@@ -8,6 +8,7 @@ const config = require('../config.json');
 const map = require('../data/map.js');
 
 const masterfile = require('../../static/data/masterfile.json');
+const skipForms = ['shadow', 'purified'];
 
 router.get('/get_data', async (req, res) => {
     const data = await getData(req.session.perms, req.query);
@@ -212,12 +213,12 @@ const getData = async (perms, filter) => {
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
                 //const form = pkmn.forms[formId];
-                let formName = i18n.__('form_' + formId);
-                formName = formName === 'Normal' ? '' : formName;
-                if (formName === 'Shadow' || formName === 'Purified') {
+                let formName = pkmn.forms[formId].name;//i18n.__('form_' + formId);
+                if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
                     continue;
                 }
+                formName = formName === 'Normal' ? '' : formName;
                 const id = formId === 0 ? i : i + '-' + formId;
                 let ivLabel = '';
                 if (permShowIV) {

@@ -3686,12 +3686,6 @@ function manageSelectButton (e, isNew) {
     const info = e.attr('data-info');
     let shouldShow = false;
     if (type === 'pokemon' || type === 'pokemon-iv') {
-        if (pokemonFilterNew[id] === undefined || pokemonFilterNew[id] === null || pokemonFilterNew[id] === 'undefined') {
-            console.log('id:', id);
-            console.log('pokemonFilterNew[' + id + ']', pokemonFilterNew[id]);
-            console.log('pokemonFilterNew:', pokemonFilterNew);
-            return;
-        }
         switch (info) {
         case 'hide':
             shouldShow = pokemonFilterNew[id].show === false;
