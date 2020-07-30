@@ -50,8 +50,8 @@ const getData = async (perms, filter) => {
     const showPokemonFilter = filter.show_pokemon_filter && filter.show_pokemon_filter !== 'false' || false;
     const showQuestFilter = filter.show_quest_filter && filter.show_quest_filter !== 'false' || false;
     const showInvasionFilter = filter.show_invasion_filter && filter.show_invasion_filter !== 'false' || false;
-    const showRaidFilter = filter.show_raid_filter && filter.show_raid_filter !== false || 'false';
-    const showGymFilter = filter.show_gym_filter && filter.show_gym_filter !== false || 'false';
+    const showRaidFilter = filter.show_raid_filter && filter.show_raid_filter !== 'false' || false;
+    const showGymFilter = filter.show_gym_filter && filter.show_gym_filter !== 'false' || false;
     const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;

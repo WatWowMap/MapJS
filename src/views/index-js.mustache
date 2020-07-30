@@ -1510,76 +1510,10 @@ function onLocationFound(e) {
     currentPositionMarker = L.marker(e.latlng).addTo(map)
 }
 
+
 // MARK: - Data Loading
 
-/*
-function loadSpawnpoints() {
-    if (isLoading || new Date() - lastUpdate < 100) {
-        return;
-    }
-    isLoading = true;
-    lastUpdate = new Date();
-
-    const bounds = map.getBounds();
-
-    const spawnpointFilterExclude = [];
-    if (showSpawnpoints) {
-        if (spawnpointFilter['no-timer'].show === false) {
-            spawnpointFilterExclude.push('no-timer');
-        }
-        if (spawnpointFilter['with-timer'].show === false) {
-            spawnpointFilterExclude.push('with-timer');
-        }
-    }
-
-    const data = {
-        _: Math.round((new Date()).getTime() / 1000),
-        min_lat: bounds._southWest.lat,
-        max_lat: bounds._northEast.lat,
-        min_lon: bounds._southWest.lng,
-        max_lon: bounds._northEast.lng,
-        spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
-        show_spawnpoints: showSpawnpoints,
-        last_update: lastUpdateServer,
-        _csrf: '{{csrf}}'
-    };
-
-    $.ajax({
-        url: '/api/get_data',
-        data: data,
-        type: 'post',
-        async: true,
-        success: function (data) {
-            console.log('Spawnpoints:', data);
-            let ts = Math.round((new Date()).getTime() / 1000);
-            const spawnpoints = data.data.spawnpoints;
-            $.each(spawnpoints, function (index, spawnpoint) {
-                if (showSpawnpoints) {
-                    if (spawnpoint.updated > lastUpdateServer) {
-                        lastUpdateServer = spawnpoint.updated;
-                    }
-                    const oldSpawnpoint = spawnpointMarkers.find(function (value) {
-                        return spawnpoint.lat === value.lat && spawnpoint.lon === value.lon;
-                    });
-
-                    if (oldSpawnpoint === undefined) {
-                        spawnpoint.marker = getSpawnpointMarker(spawnpoint, ts);
-                        spawnpointMarkers.push(spawnpoint);
-                        spawnpoint.marker.addTo(map);
-                    }
-                }
-            });
-
-            lastUpdate = new Date();
-            isLoading = false;
-        }
-    });
-}
-*/
-
 function loadData () {
-    //loadSpawnpoints();
-
     if (isLoading || new Date() - lastUpdate < 100) {
         return;
     }

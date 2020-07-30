@@ -20,10 +20,10 @@
     },
     "header": {
         "left": [
-            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
+            { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
         ],
         "right": [
-            { "name": "Yahoo", "url": "https://yahoo.com", "icon": "fab fa-yahoo" }
+            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
         ]
     },
     "tileservers": {
