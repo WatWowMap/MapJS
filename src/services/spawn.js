@@ -14,7 +14,7 @@ const exec = (path, args) => {
                 resolve(data.toString());
             });
             shell.on('close', (code) => {
-                //console.log('Child process exited with code:', code);
+                console.log('Child process exited with code:', code);
                 if (code > 0) {
                     console.error('[ERROR] Child process exited with non zero exit code:', code);
                 }

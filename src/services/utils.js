@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require("os");
 const config = require('../config.json');
 
 const generateString = () => {
@@ -84,6 +85,8 @@ const createDirectory = async (directory) => {
     });
 };
 
+const isWindows = () => os.platform() === "win32";
+
 module.exports = {
     generateString,
     hasGuild,
@@ -91,5 +94,6 @@ module.exports = {
     zeroPad,
     fileExists,
     getFiles,
-    createDirectory
+    createDirectory,
+    isWindows
 };

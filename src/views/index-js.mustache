@@ -3275,9 +3275,9 @@ function getWeatherStyle (weather, ts) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
+    const pokemonIdString = `/api/get_img/pokemon?pokemon_id=${pokemon.pokemon_id}&form_id=${pokemon.form}`;
     const icon = L.icon({
-        iconUrl: '/img/' + pokemonIdString,
+        iconUrl: pokemonIdString,
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, -(size / 2)]
@@ -3313,9 +3313,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
-
         let rewardString;
-
         if (id === 1 && info !== undefined && info.amount !== undefined) {
             rewardString = 'i-2';
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
@@ -3346,20 +3344,16 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else {
             lureId = 0;
         }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'quest_invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'quest';
-        }
+        let pokemonId = info.pokemon_id || '0';
+        let formId = info.form_id || '0';
+        let itemId = info.item_id || '0';
+        let gruntId = pokestop.grunt_type || '0';
+        let questId = id || '0';
         icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + '_' + rewardString + invasionStringEnd + '.png',
+            //iconUrl: '/img/' + folder + '/' + invasionString + lureId + '_' + rewardString + invasionStringEnd + '.png',
+            iconUrl: pokestop.incident_expire_timestamp >= ts && showInvasions
+                ? `/api/get_img/quest_invasion?pokemon_id=${pokemonId}&form_id=${formId}&item_id=${itemId}&grunt_id=${gruntId}&quest_id=${questId}&pokestop_id=${lureId}`
+                : `/api/get_img/quest?pokemon_id=${pokemonId}&form_id=${formId}&item_id=${itemId}&pokestop_id=${lureId}`,
             iconSize: [size, size * 1.667],
             iconAnchor: [size / 2, size * 1.567],
             popupAnchor: [0, size * -1.567]
@@ -3371,28 +3365,20 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else {
             lureId = 0;
         }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'pokestop';
-        }
-
         let sizeId = 'normal';
         if (lureId > 0) {
-            sizeId = 'l' + getLureIconId(pokestop.lure_id);
+            sizeId = 'l' + lureId;
         } else if (pokestop.incident_expire_timestamp >= ts) {
             sizeId = 'i' + pokestop.grunt_type;
         }
         const size = getPokestopSize(sizeId);
+        console.log('Lure:', lureId);
+        let gruntId = pokestop.grunt_type || '0';
         icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + invasionStringEnd + '.png',
+            //iconUrl: '/img/' + folder + '/' + invasionString + lureId + invasionStringEnd + '.png',
+            iconUrl: pokestop.incident_expire_timestamp >= ts && showInvasions
+                ? `/api/get_img/invasion?grunt_id=${gruntId}&pokestop_id=${lureId}`
+                : `/api/get_img/pokestop?pokestop_id=${lureId}`,
             iconSize: [size, size],
             iconAnchor: [size / 2, size],
             popupAnchor: [0, size * -1.567]
@@ -3446,25 +3432,19 @@ function getSpawnpointMarker (spawnpoint, ts) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += '<br><b>Despawn Timer:</b> ' + timer + ' minutes';
     }
+    const circle = getSpawnpointMarkerIcon(spawnpoint, hasTimer);
+    circle.bindPopup(content);
+    return circle;
+}
+
+function getSpawnpointMarkerIcon (spawnpoint, hasTimer) {
     const circle = L.circle([spawnpoint.lat, spawnpoint.lon], {
         color: hasTimer ? 'green' : 'red',
         fillColor: hasTimer ? 'green' : 'red',
         fillOpacity: 0.5,
         radius: 1.0
     });
-    circle.bindPopup(content);
     return circle;
-}
-
-function getSpawnpointMarkerIcon (spawnpoint, ts) {
-    const iconId = spawnpoint.despawn_second != null ? 1 : 0;
-    const icon = L.icon({
-        iconUrl: '/img/spawnpoint/' + iconId + '.png',
-        iconSize: [10, 10],
-        iconAnchor: [5, 5],
-        popupAnchor: [0, -5]
-    });
-    return icon;
 }
 
 function getGymMarkerIcon (gym, ts) {
@@ -3503,7 +3483,8 @@ function getGymMarkerIcon (gym, ts) {
         // Egg
         iconSize = getRaidSize('l' + raidLevel);
         icon = L.icon({
-            iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
+            //iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
+            iconUrl: `/api/get_img/raid?pokemon_id=&form_id=&team_id=${gym.team_id}&level=${level}`,
             iconSize: [iconSize, iconSize * 1.667],
             iconAnchor: [iconSize / 2, iconSize * 1.567],
             popupAnchor: [0, iconSize * -1.567]

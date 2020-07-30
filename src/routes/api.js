@@ -7,6 +7,7 @@ const router = express.Router();
 const config = require('../config.json');
 const map = require('../data/map.js');
 const ImageGenerator = require('../services/image-generator.js');
+const utils = require('../services/utils.js');
 
 const masterfile = require('../../static/data/masterfile.json');
 const skipForms = ['shadow', 'purified'];
@@ -22,72 +23,7 @@ router.post('/get_data', async (req, res) => {
 });
 
 router.get('/get_img/:type', async (req, res) => {
-    const {
-        pokemon_id,
-        form_id,
-        rank,
-        level,
-        team_id,
-        pokestop_id,
-        item_id,
-        grunt_id,
-        quest_id
-    } = req.query;
-    const type = req.params.type;
-    console.log('Params:', req.params);
-    console.log('Query:', req.query);
-    switch (type) {
-        case 'pokemon':
-            let pokemonImageUrl = await ImageGenerator.instance.generatePokemonImage(
-                pokemon_id ? parseInt(pokemon_id) : 0,
-                form_id ? parseInt(form_id) : 0,
-                rank ? parseInt(rank) : -1
-            );
-            res.sendFile(pokemonImageUrl);
-            break;
-        case 'raid':
-            let raidImageUrl = await ImageGenerator.instance.generateRaidImage(
-                pokemon_id ? parseInt(pokemon_id) : 0,
-                form_id ? parseInt(form_id) : 0,
-                team_id ? parseInt(team_id) : 0,
-                level ? parseInt(level) : 0
-            );
-            res.sendFile(raidImageUrl);
-            break;
-        case 'gym':
-            let gymImageUrl = await ImageGenerator.instance.generateGymImage(
-                pokemon_id ? parseInt(pokemon_id) : 0,
-                form_id ? parseInt(form_id) : 0,
-                team_id ? parseInt(team_id) : 0,
-                level ? parseInt(level) : 0
-            );
-            res.sendFile(gymImageUrl);
-            break;
-        case 'quest':
-            let questImageUrl = await ImageGenerator.instance.generateQuestImage(
-                pokemon_id ? parseInt(pokemon_id) : 0,
-                form_id ? parseInt(form_id) : 0,
-                item_id ? parseInt(item_id) : 0,
-                pokestop_id ? parseInt(pokestop_id) : 0
-            );
-            res.sendFile(questImageUrl);
-            break;
-        case 'invasion':
-            let invasionImageUrl = await ImageGenerator.instance.generateInvasionImage(
-                grunt_id ? parseInt(grunt_id) : 0,
-                pokestop_id ? parseInt(pokestop_id) : 0
-            );
-            res.sendFile(invasionImageUrl);
-        case 'quest_invasion':
-            let questInvasionImageUrl = await ImageGenerator.instance.generateQuestInvasionImage(
-                quest_id ? parseInt(quest_id) : 0,
-                grunt_id ? parseInt(grunt_id) : 0
-            );
-            res.sendFile(questInvasionImageUrl);
-        default:
-            res.send('OK');
-            break;
-    }
+    await getImage(req, res);
 });
 
 const getData = async (perms, filter) => {
@@ -269,7 +205,7 @@ const getData = async (perms, filter) => {
                     "sort": i + 5
                 },
                 "name": sizeString,
-                "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
+                "image": `<img class="lazy_load" data-src="/api/get_img/pokemon?pokemon_id=${(i == 0 ? 129 : 19)}&form_id=0" style="height:50px; width:50px;">`,
                 "filter": filter,
                 "size": size,
                 "type": globalFiltersString
@@ -308,7 +244,7 @@ const getData = async (perms, filter) => {
                         'sort': id + 10
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
-                    'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                    'image': `<img class="lazy_load" data-src="/api/get_img/pokemon?pokemon_id=${utils.zeroPad(i, 3)}&form_id=${formId}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString
@@ -363,7 +299,7 @@ const getData = async (perms, filter) => {
                     'sort': id+200
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/api/get_img/pokemon?pokemon_id=${id}&form_id=0" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -594,6 +530,87 @@ const getData = async (perms, filter) => {
     }
 
     return data;
+};
+
+const getImage = async (req, res) => {
+    const {
+        pokemon_id,
+        form_id,
+        rank,
+        level,
+        team_id,
+        pokestop_id,
+        item_id,
+        grunt_id,
+        quest_id
+    } = req.query;
+    const type = req.params.type;
+    console.log('Params:', req.params);
+    console.log('Query:', req.query);
+    switch (type) {
+        case 'pokemon':
+            let pokemonImageUrl = await ImageGenerator.instance.generatePokemonImage(
+                pokemon_id ? parseInt(pokemon_id) : 0,
+                form_id ? parseInt(form_id) : 0,
+                rank ? parseInt(rank) : -1
+            );
+            res.sendFile(pokemonImageUrl);
+            break;
+        case 'raid':
+            let raidImageUrl = await ImageGenerator.instance.generateRaidImage(
+                pokemon_id ? parseInt(pokemon_id) : 0,
+                form_id ? parseInt(form_id) : 0,
+                team_id ? parseInt(team_id) : 0,
+                level ? parseInt(level) : 0
+            );
+            res.sendFile(raidImageUrl);
+            break;
+        case 'gym':
+            let gymImageUrl = await ImageGenerator.instance.generateGymImage(
+                pokemon_id ? parseInt(pokemon_id) : 0,
+                form_id ? parseInt(form_id) : 0,
+                team_id ? parseInt(team_id) : 0,
+                level ? parseInt(level) : 0
+            );
+            res.sendFile(gymImageUrl);
+            break;
+        case 'pokestop':
+            let pokestopImageUrl = await ImageGenerator.instance.generatePokestopImage(
+                pokestop_id ? parseInt(pokestop_id) : 0
+            );
+            res.sendFile(pokestopImageUrl);
+            break;
+        case 'quest':
+            let questImageUrl = await ImageGenerator.instance.generateQuestImage(
+                pokemon_id ? parseInt(pokemon_id) : 0,
+                form_id ? parseInt(form_id) : 0,
+                item_id ? parseInt(item_id) : 0,
+                pokestop_id ? parseInt(pokestop_id) : 0
+            );
+            res.sendFile(questImageUrl);
+            break;
+        case 'invasion':
+            let invasionImageUrl = await ImageGenerator.instance.generateInvasionImage(
+                grunt_id ? parseInt(grunt_id) : 0,
+                pokestop_id ? parseInt(pokestop_id) : 0
+            );
+            res.sendFile(invasionImageUrl);
+            break;
+        case 'quest_invasion':
+            let questInvasionImageUrl = await ImageGenerator.instance.generateQuestInvasionImage(
+                pokemon_id ? parseInt(pokemon_id) : 0,
+                form_id ? parseInt(form_id) : 0,
+                item_id ? parseInt(item_id) : 0,
+                grunt_id ? parseInt(grunt_id) : 0,
+                quest_id ? parseInt(quest_id) : 0,
+                pokestop_id ? parseInt(pokestop_id) : 0
+            );
+            res.sendFile(questInvasionImageUrl);
+            break;
+        default:
+            res.send('OK');
+            break;
+    }
 };
 
 const generateShowHideButtons = (id, type, ivLabel = '') => {

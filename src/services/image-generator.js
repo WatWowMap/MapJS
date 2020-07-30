@@ -4,7 +4,6 @@ const path = require('path');
 
 const exec = require('./spawn.js');
 const utils = require('./utils.js');
-const imageMagick = '/usr/local/bin/convert';
 
 const baseDir = path.resolve(__dirname, '../../static/img');
 const pokemonDir = path.resolve(baseDir, 'pokemon');
@@ -24,6 +23,13 @@ const questInvasionDir = path.resolve(baseDir, 'quest_invasion');
 const firstFile = path.resolve(miscDir, 'first.png');
 const secondFile = path.resolve(miscDir, 'second.png');
 const thirdFile = path.resolve(miscDir, 'third.png');
+
+let imageMagick;
+if (utils.isWindows()) {
+    imageMagick = 'convert.exe';
+} else {
+    imageMagick = '/usr/local/bin/convert';
+}
 
 let composeMethod;
 if (process.env['IMAGEGEN_OVER']) {
@@ -232,6 +238,23 @@ class ImageGenerator {
         return null;
     }
 
+    async generatePokestopImage(pokestopId) {
+        if (utils.fileExists(pokestopDir)) {
+            try {
+                let pokestopFile = path.resolve(pokestopDir, pokestopId + '.png');
+                return pokestopFile;
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            console.warn('[ImageGenerator] Not generating Pokestop Image (missing Dirs)');
+            if (!utils.fileExists(pokestopDir)) {
+                console.log(`[ImageGenerator] Missing dir ${pokestopDir}`);
+            }
+        }
+        return null;
+    }
+
     async generateQuestImage(pokemonId, formId, itemId, pokestopId) {
         if (utils.fileExists(questDir) &&
             utils.fileExists(itemDir) &&
@@ -291,10 +314,10 @@ class ImageGenerator {
         if (utils.fileExists(gruntDir) &&
             utils.fileExists(pokestopDir)) {
             try {
-                let pokestopFile = path.resolve(pokestopDir, pokestopId + '.png');
+                let pokestopFile = path.resolve(pokestopDir, 'i' + pokestopId + '.png');
                 try {
                     let gruntFile = path.resolve(gruntDir, gruntId + '.png');
-                    let newFile = path.resolve(invasionDir, pokestopId + '_' + gruntId + '.png');
+                    let newFile = path.resolve(invasionDir, 'i' + pokestopId + '_' + gruntId + '.png');
                     if (!utils.fileExists(newFile)) {
                         console.debug(`[ImageGenerator] Creating invasion for stop ${pokestopId} and grunt ${gruntId}`);
                         await this.combineImagesGrunt(pokestopFile, gruntFile, newFile);
@@ -318,16 +341,36 @@ class ImageGenerator {
         return null;
     }
 
-    async generateQuestInvasionImage(questId, gruntId) {
+    async generateQuestInvasionImage(pokemonId, formId, itemId, gruntId, questId, pokestopId) {
         if (utils.fileExists(gruntDir) &&
             utils.fileExists(questDir)) {
             try {
-                let questFile = path.resolve(questDir, questId + '.png');
+                //i<pokestop>_[<p/i>-<id>]_<grunt>
+                let id;
+                if (questId === 1) {
+                    id = 'i-2';
+                } else if (questId === 2 && itemId) {
+                    id = 'i' + itemId;
+                } else if (questId === 3) {
+                    id = 'i-1';
+                } else if (questId === 4 && pokemonId) {
+                    id = 'i-3';
+                } else if (questId === 7 && pokemonId) {
+                    if (formId !== 0 && formId !== null) {
+                        id = 'p' + pokemonId + '-' + formId;
+                    } else {
+                        id = 'p' + pokemonId;
+                    }
+                } else {
+                    id = 'i0';
+                }
+                let questFile = path.resolve(questDir, id + '.png');
                 try {
                     let gruntFile = path.resolve(gruntDir, gruntId + '.png');
-                    let newFile = path.resolve(questInvasionDir, questId + '_' + gruntId + '.png');
+                    let newFile = path.resolve(questInvasionDir, `i${pokestopId}_${id}_${gruntId}.png`);
+                    console.log('Quest invasion:', newFile);
                     if (!utils.fileExists(newFile)) {
-                        console.debug(`[ImageGenerator] Creating invasion for quest ${questId} and grunt ${gruntId}`);
+                        console.debug(`[ImageGenerator] Creating invasion for quest ${id} and grunt ${gruntId}`);
                         await this.combineImagesGruntQuest(questFile, gruntFile, newFile);
                     }
                     return newFile;
@@ -375,6 +418,7 @@ class ImageGenerator {
         ]);
         await exec('rm', ['-f', 'tmp1.png']);
         await exec('rm', ['-f', 'tmp2.png']);
+        console.debug('[ImageGenerator] Image', output, 'generated...');
     }
 
     async combineImagesGrunt(image1, image2, output) {
@@ -402,6 +446,7 @@ class ImageGenerator {
         ]);
         await exec('rm', ['-f', 'tmp1.png']);
         await exec('rm', ['-f', 'tmp2.png']);
+        console.debug('[ImageGenerator] Image', output, 'generated...');
     }
 
     async combineImagesGruntQuest(image1, image2, output) {
@@ -429,6 +474,7 @@ class ImageGenerator {
         ]);
         await exec('rm', '-f', 'tmp1.png');
         await exec('rm', '-f', 'tmp2.png');
+        console.debug('[ImageGenerator] Image', output, 'generated...');
     }
 
     async combineImagesLeague(image1, image2, output) {
@@ -455,6 +501,7 @@ class ImageGenerator {
         ]);
         await exec('rm', '-f', 'tmp1.png');
         await exec('rm', '-f', 'tmp2.png');
+        console.debug('[ImageGenerator] Image', output, 'generated...');
     }
 }
 
