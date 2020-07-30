@@ -45,38 +45,46 @@ class ImageGenerator {
         return path.resolve(pokemonDir, `pokemon_icon_${pokeId}_${form}.png`);
     }
 
-    async generatePokemonImage(pokemonId, formId) {
+    async generatePokemonImage(pokemonId, formId, rank) {
         if (utils.fileExists(pokemonDir) &&
             utils.fileExists(firstFile) &&
             utils.fileExists(secondFile) &&
             utils.fileExists(thirdFile)) {
-            console.log('[ImageGenerator] Creating Pokemon League Images...');
             try {
-                const pokemonFileName = getPokemonImagePath(pokemonId, formId);
+                const pokemonFileName = this.getPokemonImagePath(pokemonId, formId);
                 if (!pokemonFileName.includes('.png')) {
                     return;
                 }
-                let pokemonFile = path.resolve(pokemonDir, pokemonFileName);
-                let newFileFirst = path.resolve(pokemonLeagueDir, pokemonId + '_1.png');
-                if (!utils.fileExists(newFileFirst)) {
-                    console.debug(`[ImageGenerator] Creating #1 Pokemon League Images ${pokemonId}`);
-                    await this.combineImagesLeague(pokemonFile, firstFile, newFileFirst);
+                let pokeId = utils.zeroPad(pokemonId, 3);
+                let form = formId === 0 ? '00' : formId;
+                switch (rank) {
+                    case 1:
+                        let newFileFirst = path.resolve(pokemonLeagueDir, pokeId + '_' + form + '_1.png');
+                        if (!utils.fileExists(newFileFirst)) {
+                            console.debug(`[ImageGenerator] Creating #1 Pokemon League Images ${pokemonId}`);
+                            await this.combineImagesLeague(pokemonFileName, firstFile, newFileFirst);
+                        }
+                        return newFileFirst;
+                    case 2:
+                        let newFileSecond = path.resolve(pokemonLeagueDir, pokeId + '_' + form + '_2.png');
+                        if (!utils.fileExists(newFileSecond)) {
+                            console.debug(`[ImageGenerator] Creating #2 Pokemon League Images ${pokemonId}`);
+                            await this.combineImagesLeague(pokemonFileName, secondFile, newFileSecond);
+                        }
+                        return newFileSecond;
+                    case 3:
+                        let newFileThird = path.resolve(pokemonLeagueDir, pokeId + '_' + form + '_3.png');
+                        if (!utils.fileExists(newFileThird)) {
+                            console.debug(`[ImageGenerator] Creating #3 Pokemon League Images ${pokemonId}`);
+                            await this.combineImagesLeague(pokemonFileName, thirdFile, newFileThird);
+                        }
+                        return newFileThird;
+                    default:
+                        return pokemonFileName;
                 }
-                let newFileSecond = path.resolve(pokemonLeagueDir, pokemonId + '_2.png');
-                if (!utils.fileExists(newFileSecond)) {
-                    console.debug(`[ImageGenerator] Creating #2 Pokemon League Images ${pokemonId}`);
-                    await this.combineImagesLeague(pokemonFile, secondFile, newFileSecond);
-                }
-                let newFileThird = path.resolve(pokemonLeagueDir, pokemonId + '_3.png');
-                if (!utils.fileExists(newFileThird)) {
-                    console.debug(`[ImageGenerator] Creating #3 Pokemon League Images ${pokemonId}`);
-                    await this.combineImagesLeague(pokemonFile, thirdFile, newFileThird);
-                }
-                return pokemonFile;
             } catch (e) {
                 console.error('[ImageGenerator] Failed to generate iamge:', e);
             }
-            console.log('[ImageGenerator] Pokemon League Images created.');
         } else {
             console.warn('[ImageGenerator] Creating Pokemon League Images (missing Dirs)');
             if (!utils.fileExists(pokemonDir)) {
@@ -95,14 +103,71 @@ class ImageGenerator {
         return null;
     }
 
+    async generateRaidImage(pokemonId, formId, teamId, level) {
+        if (utils.fileExists(raidDir) &&
+            utils.fileExists(gymDir) &&
+            utils.fileExists(eggDir) &&
+            utils.fileExists(unkownEggDir) &&
+            utils.fileExists(pokemonDir)) {
+            try {
+                let gymFile = path.resolve(gymDir, teamId + '.png');
+                if (pokemonId === 0) {
+                    try {
+                        let eggFile = path.resolve(eggDir, level + '.png');
+                        let newFile = path.resolve(raidDir, teamId + '_e' + level + '.png');
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating image for gym ${teamId} and egg ${level}`);
+                            await this.combineImages(eggFile, gymFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                } else {
+                    try {
+                        let pokeId = utils.zeroPad(pokemonId, 3);
+                        let form = formId === 0 ? '00' : formId;
+                        let pokemonFile = this.getPokemonImagePath(pokeId, formId);
+                        let newFile = path.resolve(raidDir, `${teamId}_${pokeId}_${form}.png`);
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating image for gym ${teamId} and pokemon ${pokemonId}`);
+                            await this.combineImages(pokemonFile, gymFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            } catch (e) {
+                console.error('[ImageGenerator] Error:', e);
+            }
+        } else {
+            console.warn('[ImageGenerator] Not generating Raid Image (missing Dirs)');
+            if (!utils.fileExists(raidDir)) {
+                console.log(`[ImageGenerator] Missing dir ${raidDir}`);
+            }
+            if (!utils.fileExists(gymDir)) {
+                console.log(`[ImageGenerator] Missing dir ${gymDir}`);
+            }
+            if (!utils.fileExists(eggDir)) {
+                console.log(`[ImageGenerator] Missing dir ${eggDir}`);
+            }
+            if (!utils.fileExists(unkownEggDir)) {
+                console.log(`[ImageGenerator] Missing dir ${unkownEggDir}`);
+            }
+            if (!utils.fileExists(pokemonDir)) {
+                console.log(`[ImageGenerator] Missing dir ${pokemonDir}`);
+            }
+        }
+        return null;
+    }
+
     async generateGymImage(pokemonId, formId, teamId, level) {
         if (utils.fileExists(raidDir) &&
             utils.fileExists(gymDir) &&
             utils.fileExists(eggDir) &&
             utils.fileExists(unkownEggDir) &&
             utils.fileExists(pokemonDir)) {
-            console.log('[ImageGenerator] Creating Raid Images...')
-
             try {
                 let gymFile = path.resolve(gymDir, teamId + '.png');
                 try {
@@ -116,36 +181,38 @@ class ImageGenerator {
                 } catch (e) {
                     console.error(e);
                 }
-                try {
-                    let unkownEggFile = path.resolve(unkownEggDir, level);
-                    let newFile = path.resolve(raidDir, teamId + '_ue' + level + '.png');
-                    if (!utils.fileExists(newFile)) {
-                        console.debug(`[ImageGenerator] Creating image for gym ${teamId} and unkown egg ${level}`);
-                        await this.combineImages(unkownEggFile, gymFile, composeMethod, newFile);
+                if (pokemonId === 0) {
+                    try {
+                        let unkownEggFile = path.resolve(unkownEggDir, level);
+                        let newFile = path.resolve(raidDir, teamId + '_ue' + level + '.png');
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating image for gym ${teamId} and unkown egg ${level}`);
+                            await this.combineImages(unkownEggFile, gymFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
                     }
-                    return newFile;
-                } catch (e) {
-                    console.error(e);
-                }
-                try {
-                    let pokeId = utils.zeroPad(pokemonId, 3);
-                    let pokemonFile = getPokemonImagePath(pokeId, formId);
-                    let newFile = path.resolve(raidDir, `{teamId}_${pokeId}_${formId === 0 ? '00' : formId}.png`);
-                    if (!utils.fileExists(newFile)) {
-                        console.debug(`[ImageGenerator] Creating image for gym ${teamId} and pokemon ${pokemonId}`);
-                        await this.combineImages(pokemonFile, gymFile, composeMethod, newFile);
+                } else {
+                    try {
+                        let pokeId = utils.zeroPad(pokemonId, 3);
+                        let form = formId === 0 ? '00' : formId;
+                        let pokemonFile = this.getPokemonImagePath(pokeId, formId);
+                        let newFile = path.resolve(raidDir, `${teamId}_${pokeId}_${form}.png`);
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating image for gym ${teamId} and pokemon ${pokemonId}`);
+                            await this.combineImages(pokemonFile, gymFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
                     }
-                    return newFile;
-                } catch (e) {
-                    console.error(e);
                 }
             } catch (e) {
                 console.error('[ImageGenerator] Error:', e);
             }
-
-            console.log('[ImageGenerator] Raid images created.')
         } else {
-            console.warn('[ImageGenerator] Not generating Quest Images (missing Dirs)');
+            console.warn('[ImageGenerator] Not generating Gym Image (missing Dirs)');
             if (!utils.fileExists(raidDir)) {
                 console.log(`[ImageGenerator] Missing dir ${raidDir}`);
             }
@@ -170,40 +237,38 @@ class ImageGenerator {
             utils.fileExists(itemDir) &&
             utils.fileExists(pokestopDir) &&
             utils.fileExists(pokemonDir)) {
-            console.log('[ImageGenerator] Creating Quest Images...');
             try {
                 let pokestopFile = path.resolve(pokestopDir, pokestopId + '.png');
-
-                try {
-                    let itemFile = path.resolve(itemDir, itemId + '.png');
-                    let newFile = path.resolve(questDir, pokestopId + '_i' + itemId + '.png');
-                    if (!utils.fileExists(newFile)) {
-                        console.debug(`[ImageGenerator] Creating quest for stop ${pokestopId} and item ${itemId}`);
-                        await this.combineImages(itemFile, pokestopFile, composeMethod, newFile);
+                if (itemId > 0 && pokemonId === 0) {
+                    try {
+                        let itemFile = path.resolve(itemDir, itemId + '.png');
+                        let newFile = path.resolve(questDir, pokestopId + '_i' + itemId + '.png');
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating quest for stop ${pokestopId} and item ${itemId}`);
+                            await this.combineImages(itemFile, pokestopFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
                     }
-                    return newFile;
-                } catch (e) {
-                    console.error(e);
-                }
-
-                try {
-                    let pokeId = utils.zeroPad(pokemonId, 3);
-                    let form = formId === 0 ? '00' : formId;
-                    let pokemonFile = path.resolve(pokemonDir, `pokemon_icon_${pokeId}_${form}.png`);
-                    let newFile = path.resolve(questDir, pokestopId + '_p' + pokemonId + '.png');
-                    if (!utils.fileExists(newFile)) {
-                        console.debug(`[ImageGenerator] Creating quest for stop ${pokestopId} and pokemon ${pokemonId}`);
-                        await this.combineImages(pokemonFile, pokestopFile, composeMethod, newFile);
+                } else if (itemId === 0 && pokemonId > 0) {
+                    try {
+                        let pokeId = utils.zeroPad(pokemonId, 3);
+                        let form = formId === 0 ? '00' : formId;
+                        let pokemonFile = path.resolve(pokemonDir, `pokemon_icon_${pokeId}_${form}.png`);
+                        let newFile = path.resolve(questDir, pokestopId + '_p' + pokemonId + '.png');
+                        if (!utils.fileExists(newFile)) {
+                            console.debug(`[ImageGenerator] Creating quest for stop ${pokestopId} and pokemon ${pokemonId}`);
+                            await this.combineImages(pokemonFile, pokestopFile, composeMethod, newFile);
+                        }
+                        return newFile;
+                    } catch (e) {
+                        console.error(e);
                     }
-                    return newFile;
-                } catch (e) {
-                    console.error(e);
                 }
             } catch (e) {
                 console.error(e);
             }
-
-            console.log('[ImageGenerator] Quest images created.');
         } else {
             console.warn('[ImageGenerator] Not generating Quest Images (missing Dirs)');
             if (!utils.fileExists(questDir)) {
@@ -223,8 +288,8 @@ class ImageGenerator {
     }
 
     async generateInvasionImage(gruntId, pokestopId) {
-        if (utils.fileExists(gruntDir) && utils.fileExists(pokestopDir)) {
-            console.log('[ImageGenerator] Creating Invasion Images...');
+        if (utils.fileExists(gruntDir) &&
+            utils.fileExists(pokestopDir)) {
             try {
                 let pokestopFile = path.resolve(pokestopDir, pokestopId + '.png');
                 try {
@@ -241,9 +306,8 @@ class ImageGenerator {
             } catch (e) {
                 console.error(e);
             }
-            console.log('[ImageGenerator] Invasion images created.');
         } else {
-            console.warn('[ImageGenerator] Not generating Invasion Images (missing Dirs)');
+            console.warn('[ImageGenerator] Not generating Invasion Image (missing Dirs)');
             if (!utils.fileExists(gruntDir)) {
                 console.log(`[ImageGenerator] Missing dir ${gruntDir}`);
             }
@@ -255,8 +319,8 @@ class ImageGenerator {
     }
 
     async generateQuestInvasionImage(questId, gruntId) {
-        if (utils.fileExists(gruntDir) && utils.fileExists(questDir)) {
-            console.log('[ImageGenerator] Creating Quest Invasion Images...')
+        if (utils.fileExists(gruntDir) &&
+            utils.fileExists(questDir)) {
             try {
                 let questFile = path.resolve(questDir, questId + '.png');
                 try {
@@ -273,9 +337,8 @@ class ImageGenerator {
             } catch (e) {
                 console.error(e);
             }
-            console.log('[ImageGenerator] Quest Invasion images created.');
         } else {
-            console.warn('[ImageGenerator] Not generating Quest Invasion Images (missing Dirs)');
+            console.warn('[ImageGenerator] Not generating Quest Invasion Image (missing Dirs)');
             if (!utils.fileExists(gruntDir)) {
                 console.log(`[ImageGenerator] Missing dir ${gruntDir}`);
             }
