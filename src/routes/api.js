@@ -542,7 +542,8 @@ const getImage = async (req, res) => {
         pokestop_id,
         item_id,
         grunt_id,
-        quest_id
+        quest_id,
+        slots
     } = req.query;
     const type = req.params.type;
     console.log('Params:', req.params);
@@ -561,6 +562,7 @@ const getImage = async (req, res) => {
                 pokemon_id ? parseInt(pokemon_id) : 0,
                 form_id ? parseInt(form_id) : 0,
                 team_id ? parseInt(team_id) : 0,
+                slots ? parseInt(slots) : 0,
                 level ? parseInt(level) : 0
             );
             res.sendFile(raidImageUrl);

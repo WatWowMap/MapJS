@@ -3372,7 +3372,6 @@ function getPokestopMarkerIcon (pokestop, ts) {
             sizeId = 'i' + pokestop.grunt_type;
         }
         const size = getPokestopSize(sizeId);
-        console.log('Lure:', lureId);
         let gruntId = pokestop.grunt_type || '0';
         icon = L.icon({
             //iconUrl: '/img/' + folder + '/' + invasionString + lureId + invasionStringEnd + '.png',
@@ -3460,11 +3459,11 @@ function getGymMarkerIcon (gym, ts) {
     let iconSize;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
-            const pokemonIdString = getPokemonIdIconString(gym.raid_pokemon_id, gym.raid_pokemon_form);
             // Raid Boss
             iconSize = getRaidSize('p' + gym.raid_pokemon_id);
             icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_' + pokemonIdString + '.png',
+                //iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_' + pokemonIdString + '.png',
+                iconUrl: `/api/get_img/raid?pokemon_id=${gym.raid_pokemon_id}&form_id=${gym.raid_pokemon_form}&team_id=${gym.team_id}&slots=${size}&level=${raidLevel}`,
                 iconSize: [iconSize, iconSize * 1.667],
                 iconAnchor: [iconSize / 2, iconSize * 1.567],
                 popupAnchor: [0, iconSize * -1.567]
@@ -3473,7 +3472,8 @@ function getGymMarkerIcon (gym, ts) {
             // Egg
             iconSize = getRaidSize('l' + raidLevel);
             icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
+                //iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
+                iconUrl: `/api/get_img/raid?pokemon_id=0&form_id=0&team_id=${gym.team_id}&slots=${size}&level=${raidLevel}`,
                 iconSize: [iconSize, iconSize * 1.667],
                 iconAnchor: [iconSize / 2, iconSize * 1.567],
                 popupAnchor: [0, iconSize * -1.567]
@@ -3484,32 +3484,21 @@ function getGymMarkerIcon (gym, ts) {
         iconSize = getRaidSize('l' + raidLevel);
         icon = L.icon({
             //iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
-            iconUrl: `/api/get_img/raid?pokemon_id=&form_id=&team_id=${gym.team_id}&level=${level}`,
+            iconUrl: `/api/get_img/raid?pokemon_id=${gym.raid_pokemon_id}&form_id=${gym.raid_pokemon_form}&team_id=${gym.team_id}&level=${raidLevel}&slots=${size}`,
             iconSize: [iconSize, iconSize * 1.667],
             iconAnchor: [iconSize / 2, iconSize * 1.567],
             popupAnchor: [0, iconSize * -1.567]
         });
     } else {
         // Gym
-        if (gym.in_battle) {
-            // Gym Battle
-            iconSize = 55; //Set Larger Size For Battle
-            icon = L.icon({
-                iconUrl:  '/img/battle/'+ gym.team_id + '_' + size +'.png',
-                iconSize:  [iconSize, iconSize],
-                iconAnchor:  [iconSize / 2, iconSize / 2],
-                popupAnchor:  [0, -20] //TODO: //size * -1.567
-            });
-        } else {
-            // Gym
-            iconSize = getGymSize(gym.team_id);
-            icon = L.icon({
-              iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
-              iconSize: [iconSize, iconSize],
-              iconAnchor: [iconSize / 2, iconSize / 2],
-              popupAnchor: [0, -20] // TODO: //size * -1.567
-            });
-        }
+        iconSize = getGymSize(gym.team_id);
+        icon = L.icon({
+            //iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
+            iconUrl: `/api/get_img/gym?team_id=${gym_team_id}&slots=${size}&battle=${gym.in_battle}`,
+            iconSize: [iconSize, iconSize],
+            iconAnchor: [iconSize / 2, iconSize / 2],
+            popupAnchor: [0, -20] // TODO: //size * -1.567
+        });
     }
     return icon;
 }
