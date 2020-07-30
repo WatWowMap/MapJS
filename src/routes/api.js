@@ -282,7 +282,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': raidLevel,
-                'image': `<img class="lazy_load" data-src="/img/egg/${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/api/get_img/raid?&level=${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'raid-level'),
                 'size': generateSizeButtons(i, 'raid-level'),
                 'type': raidLevelsString
@@ -434,7 +434,8 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${pokeId}.png" style="height:50px; width:50px;">`,
+                //'image': `<img class="lazy_load" data-src="/img/pokemon/${pokeId}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/api/get_img/pokemon?pokemon_id=${pokeId}&form_id=0" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
