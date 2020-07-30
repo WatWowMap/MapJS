@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const config = require('../config.json');
 
 const generateString = () => {
@@ -46,9 +47,49 @@ const hasRole = (userRoles, requiredRoles) => {
 
 const zeroPad = (num, places) => String(num).padStart(places, '0');
 
+const fileExists = async (path) => {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.exists(path, (exists) => {
+                resolve(exists);
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
+const getFiles = async (directory) => {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.readdir(directory, (err, files) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(files);
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
+const createDirectory = async (directory) => {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.mkdir(directory, () => resolve());
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 module.exports = {
     generateString,
     hasGuild,
     hasRole,
-    zeroPad
+    zeroPad,
+    fileExists,
+    getFiles,
+    createDirectory
 };
