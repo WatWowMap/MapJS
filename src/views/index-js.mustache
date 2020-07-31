@@ -4688,9 +4688,36 @@ function loadPokemonFilter () {
                 $('.dtrg-level-1').css('color', 'white');
                 $('.dtrg-level-2').children().css('background-color', '#1a1a1a');
                 $('.dtrg-level-2').css('color', 'white');
+                $('.dataTables_scroll').css('background-color', 'rgb(33, 37, 41)');
+                $('.dataTables_scrollBody').css('background-color', 'rgb(33, 37, 41)');
+                $('.tbody').css('background-color', 'rgb(33, 37, 41)');
+                $('.tr > child').css('background-color', 'rgb(33, 37, 41)');
+                $('.tr > .child').css('background-color', 'rgb(33, 37, 41)');
+                $('.details-control').css('background-color', 'rgb(33, 37, 41)');
+                $('.details-control').css('background-color', 'rgb(33, 37, 41)');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-pokemon tbody').on('click', 'td.details-control', function () {
@@ -4792,7 +4819,25 @@ function loadQuestFilter () {
                 $('.dtrg-level-2').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-quest tbody').on('click', 'td.details-control', function () {
@@ -4890,7 +4935,27 @@ function loadRaidFilter () {
                 $('.dtrg-level-0').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-raid tbody').on('click', 'td.details-control', function () {
@@ -4988,7 +5053,27 @@ function loadGymFilter () {
                 $('.dtrg-level-0').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-gym tbody').on('click', 'td.details-control', function () {
@@ -5086,7 +5171,27 @@ function loadPokestopFilter () {
                 $('.dtrg-level-0').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-pokestop tbody').on('click', 'td.details-control', function () {
@@ -5184,7 +5289,27 @@ function loadInvasionFilter () {
                 $('.dtrg-level-0').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-invasion tbody').on('click', 'td.details-control', function () {
@@ -5282,7 +5407,27 @@ function loadSpawnpointFilter () {
                 $('.dtrg-level-0').css('color', 'white');
             }
         },
-        responsive: true
+        //responsive: true
+        responsive: {
+            details: {
+                renderer: function ( api, rowIdx, columns ) {
+                    $(rowIdx).css('background-color', 'rgb(33, 37, 41)');
+                    $(rowIdx).parent().css('background-color', 'rgb(33, 37, 41)');
+                    var data = $.map( columns, function ( col, i ) {
+                        return col.hidden ?
+                            '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '" style="background-color: rgb(33, 37, 41)">' +
+                                '<td>' + col.title + ':' + '</td> ' +
+                                '<td>' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    } ).join('');
+ 
+                    return data ?
+                        $('<table/>').append( data ) :
+                        false;
+                }
+            }
+        }
     });
 
     $('#table-filter-spawnpoint tbody').on('click', 'td.details-control', function () {
