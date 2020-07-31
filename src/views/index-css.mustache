@@ -26,6 +26,10 @@
     max-height: 20px;
 }
 
+.leaflet-control-locate-location circle {
+    animation: none !important;
+}
+
 table.dataTable tbody td {
     text-align: center;
     vertical-align: middle;
@@ -235,6 +239,15 @@ fieldset[disabled] .btn-size.active {
 }
 .team-neutral {
     border: 4px solid gray;
+}
+
+@media (max-height: 600px) {
+    .fill {
+        top: 0;
+    }
+    .navbar {
+        display: none;
+    }
 }
 
 

@@ -10,14 +10,28 @@
         "startLon": 0,
         "startZoom": 12,
         "minZoom": 10,
-        "maxZoom": 18
+        "maxZoom": 18,
+        "clusters": {
+            "pokemon": true
+        }
     },
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
     },
+    "header": {
+        "left": [
+            { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
+        ],
+        "right": [
+            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
+        ]
+    },
     "tileservers": {
         "Default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
-        "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>"
+        "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>",
+        "Alidade Smooth Dark": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png;&copy; <a href='https://stadiamaps.com/'>Stadia Maps</a>, &copy; <a href='https://openmaptiles.org/'>OpenMapTiles</a> &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors",
+        "Thunder Forest": "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png;&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+        "Satellite": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x};Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
     },
     "db": {
         "host": "127.0.0.1",
@@ -100,5 +114,10 @@
     "google": {
         "analytics": "",
         "adsense": ""
+    },
+    "scouting": {
+        "enabled": false,
+        "url": "",
+        "maxScouts": 15
     }
 }

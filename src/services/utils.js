@@ -44,8 +44,11 @@ const hasRole = (userRoles, requiredRoles) => {
     return false;
 };
 
+const zeroPad = (num, places) => String(num).padStart(places, '0');
+
 module.exports = {
     generateString,
     hasGuild,
-    hasRole
+    hasRole,
+    zeroPad
 };

@@ -6,11 +6,11 @@
 
     <div class="fill" id="map"></div>
 
-    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filtersModal" tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel" aria-hidden="true">
         <div class="modal-dialog-scroll modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="settingsModalLabel">{{filter_title}}</h5>
+                    <h5 class="modal-title" id="filtersModalLabel">{{filter_title}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -63,6 +63,18 @@
                         </div>
                         {{filter_quests}}
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterQuestModal">{{filter_filter}}</button>
+                    </div>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_invasions}}class="d-none"{{/hide_invasions}}>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label id="hide-invasions" class="btn btn-sm btn-off">
+                                <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
+                            </label>
+                            <label id="show-invasions" class="btn btn-sm btn-on">
+                                <input type="radio" name="options" id="show" autocomplete="off">{{filter_show}}
+                            </label>
+                        </div>
+                        {{filter_invasions}}
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterInvasionModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_spawnpoints}}class="d-none"{{/hide_spawnpoints}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -124,16 +136,28 @@
                         {{filter_submission_cells}}
                         <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
                     </div>
-                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_weathers}}class="d-none"{{/hide_weathers}}>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_weather}}class="d-none"{{/hide_weather}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label id="hide-weathers" class="btn btn-sm btn-off">
+                            <label id="hide-weather" class="btn btn-sm btn-off">
                                 <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
                             </label>
-                            <label id="show-weathers" class="btn btn-sm btn-on">
+                            <label id="show-weather" class="btn btn-sm btn-on">
                                 <input type="radio" name="options" id="show" autocomplete="off">{{filter_show}}
                             </label>
                         </div>
                         {{filter_weathers}}
+                        <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
+                    </div>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_scanareas}}class="d-none"{{/hide_scanareas}}>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label id="hide-scanareas" class="btn btn-sm btn-off">
+                                <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
+                            </label>
+                            <label id="show-scanareas" class="btn btn-sm btn-on">
+                                <input type="radio" name="options" id="show" autocomplete="off">{{filter_show}}
+                            </label>
+                        </div>
+                        {{filter_scanareas}}
                         <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_devices}}class="d-none"{{/hide_devices}}>
@@ -148,18 +172,15 @@
                         {{filter_devices}}
                         <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
                     </div>
-                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" class="text-center">
-                        <button type="button" id="exportSettings" class="btn btn-primary">{{filter_export}}</button>
-                        <button type="button" id="importSettings" class="btn btn-primary">{{filter_import}}</button>
-                        <input type="file" id="importSettingsFile" accept="text/json" class="btn btn-primary" hidden>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                        <button type="button" id="exportFilters" class="btn btn-primary">{{filter_export}}</button>
+                        <button type="button" id="importFilters" class="btn btn-primary">{{filter_import}}</button>
+                        <input type="file" id="importFiltersFile" accept="text/json" class="btn btn-primary" hidden>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
-                    <button type="button" id="saveSettings" class="btn btn-primary">{{filter_save}}</button>
+                    <button type="button" id="saveFilters" class="btn btn-primary">{{filter_save}}</button>
                 </div>
             </div>
         </div>
@@ -178,11 +199,11 @@
                     <table id="table-filter-pokemon" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="min-desktop">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -214,11 +235,11 @@
                     <table id="table-filter-gym" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -249,11 +270,11 @@
                     <table id="table-filter-raid" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -264,6 +285,8 @@
                     <div class="mr-auto">
                         <button id="reset-raid-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
                         <button id="disable-all-raid-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                        <button id="legendary-raid-filter" type="button" class="btn btn-primary">{{filter_raids_legendary}}</button>
+                        <button id="normal-raid-filter" type="button" class="btn btn-primary">{{filter_raids_normal}}</button>
                     </div>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
@@ -284,11 +307,11 @@
                     <table id="table-filter-pokestop" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -319,11 +342,11 @@
                     <table id="table-filter-quest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="min-desktop">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -334,6 +357,41 @@
                     <div class="mr-auto">
                         <button id="reset-quest-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
                         <button id="disable-all-quest-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterInvasionModal" tabindex="-1" role="dialog" aria-labelledby="filterInvasionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterInvasionModalLabel">{{filter_invasion_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-invasion" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="min-desktop">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-invasion-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-invasion-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
                     </div>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
@@ -354,11 +412,11 @@
                     <table id="table-filter-spawnpoint" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
-                                <th>{{filter_image}}</th>
-                                <th>{{filter_name}}</th>
-                                <th>#</th>
-                                <th>{{filter_filter}}</th>
-                                <th>{{filter_size_properties}}</th>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -393,6 +451,30 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog-scroll modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">{{settings_title}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-body-scroll">
+                    <p>TODO</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
+                    <button type="button" id="saveSettings" class="btn btn-primary">{{filter_save}}</button>
                 </div>
             </div>
         </div>

@@ -22,39 +22,93 @@ client.on('message', (msg) => {
 client.login(config.discord.botToken);
 
 class DiscordClient {
+    static instance = new DiscordClient();
+    accessToken;
+
     constructor(accessToken) {
         this.accessToken = accessToken;
     }
+
+    setAccessToken(token) {
+        this.accessToken = token;
+    }
+
     async getUser() {
         return await oauth.getUser(this.accessToken);
     }
+
     async getGuilds() {
         const guilds = await oauth.getUserGuilds(this.accessToken);
-        const guildIds = Array.from(guilds, x => x.id);
+        const guildIds = Array.from(guilds, x => BigInt(x.id).toString());
         return guildIds;
     }
-    async getUserRoles(id) {
-        const user = await client.users.fetch(id, true);
-        // Not in cache, fetch api
-        if (user === undefined || user === null) {
-            user = await client.users.fetch(id, false);
+
+    async getUserRoles(guildId, userId) {
+        try {
+            const members = await client.guilds.cache
+                .get(guildId)
+                .members
+                .fetch();
+            const member = members.get(userId);
+            const roles = member.roles.cache
+                .filter(x => BigInt(x.id).toString())
+                .keyArray();
+            return roles;
+        } catch (e) {
+            console.error('Failed to get roles in guild', guildId, 'for user', userId);
         }
-        //const rolemgr = user.presence.member.roles;
-        //console.log('Roles:', user.presence.member._roles);
-        //const roles = rolemgr.member._roles;
-        const roles = user.presence.member._roles;
-        return roles;
+        return [];
     }
-    async isValid(configItem) {
-        if (configItem.enabled && configItem.roles.length === 0) {
-            return true;
-        }
+
+    async getPerms() {
+        const perms = {
+            map: false,
+            pokemon: false,
+            raids: false,
+            gyms: false,
+            pokestops: false,
+            quests: false,
+            lures: false,
+            invasions: false,
+            spawnpoints: false,
+            iv: false,
+            s2cells: false,
+            submissionCells: false,
+            nests: false,
+            weather: false,
+            devices: false
+        };
         const user = await this.getUser();
-        const roles = await this.getUserRoles(user.id);
         const guilds = await this.getGuilds();
-        const guildResult = utils.hasGuild(guilds);
-        const roleResult = utils.hasRole(roles, configItem.roles);
-        return guildResult && roleResult;
+        for (let i = 0; i < config.discord.guilds.length; i++) {
+            // Check if user is in config guilds
+            const guildId = config.discord.guilds[i];
+            if (!guilds.includes(guildId)) {
+                continue;
+            }
+            const keys = Object.keys(config.discord.perms);
+            // Loop through each permission section
+            for (let j = 0; j < keys.length; j++) {
+                const key = keys[j];
+                let configItem = config.discord.perms[key];
+                if (configItem.enabled && configItem.roles.length === 0) {
+                    // If type enabled and no roles specified, set as valid
+                    perms[key] = true;
+                    continue;
+                }
+                
+                // If set, grab user roles for guild
+                const userRoles = await this.getUserRoles(guildId, user.id);
+                // Check if user has config role assigned
+                for (let k = 0; k < userRoles.length; k++) {
+                    // Check if assigned role to user is in config roles
+                    if (configItem.roles.includes(userRoles[k])) {
+                        perms[key] = true;
+                    }
+                }
+            }
+        }
+        return perms;
     }
 }
 
