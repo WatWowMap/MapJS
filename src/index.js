@@ -35,6 +35,7 @@ const utils = require('./services/utils.js');
 // TODO: Global level filter
 // TODO: Rank to pokemon images
 // TODO: Add more descriptive name for bigkarp/global filters image name
+// TODO: Filter raids by forms
 
 // TODO: Add images to queue to combine them
 
