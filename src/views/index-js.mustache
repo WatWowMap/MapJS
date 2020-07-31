@@ -2385,8 +2385,7 @@ function getPokemonPopupContent (pokemon) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
 
-    const pokemonIcon = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league)
-
+    //const pokemonIcon = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league)
     content +=
     '<div class="row">' + // START 1ST ROW
         '<div class="col-12 col-md-8 center-vertical text-nowrap">' +
@@ -2405,7 +2404,8 @@ function getPokemonPopupContent (pokemon) {
     '<div class="row">' + // START 2ND ROW
         '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
             '<div class="row' + (hasIV ? '' : 'text-center') + '" style="margin: auto;">' +
-                '<img src="/img/' + pokemonIcon + '" height="64" width="64">' +
+                //'<img src="/img/' + pokemonIcon + '" height="64" width="64">' +
+                `<img src="/api/get_img/pokemon?pokemon_id=${pokemon.pokemon_id}&form_id=${pokemon.form || 0}" height="64" width="64">` +
             '</div>' + // END POKEMON ROW
             '<div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">';
     const pkmn = masterfile[pokemon.pokemon_id];
@@ -2745,9 +2745,11 @@ function getGymPopupContent (gym) {
             '<div class="col-6 col-md-4">' + // START 1ST COL
                 '<div class="row" style="margin:auto;">';
         if (hasRaidBoss && isRaidBattle) {
-            content += '<img src="/img/' + pokemonIcon + '" height="64" width="64">';
+            //content += '<img src="/img/' + pokemonIcon + '" height="64" width="64">';
+            content += `<img src="/api/get_img/pokemon?pokemon_id=${gym.raid_pokemon_id}&form_id=${gym.raid_pokemon_form}" height="64" width="64">`;
         } else {
-            content += '<img src="/img/egg/' + gym.raid_level + '.png" height="64" width="64">';
+            //content += '<img src="/img/egg/' + gym.raid_level + '.png" height="64" width="64">';
+            content += `<img src="/api/get_img/egg?level=${gym.raid_level}.png" height="64" width="64">`;
         }
         content +=
                 '</div>' + // END POKEMON ROW
@@ -2892,14 +2894,13 @@ function getGymPopupContent (gym) {
 }
 
 function getCellPopupContent (cell) {
-    let content = '<center>';
-    content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
-    content += '<b>Id:</b> ' + cell.id + '<br>';
-
     const updatedDate = new Date(cell.updated * 1000);
-
-    content += '<b>Last Updated:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')';
-    content += '</center>';
+    let content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
+    </center>`;
     return content;
 }
 
@@ -2937,29 +2938,27 @@ function degreesToCardinal (d) {
 function getWeatherPopupContent (weather) {
     const weatherName = weatherTypes[weather.gameplay_condition].name;
     const weatherType = weatherTypes[weather.gameplay_condition].types;
-
-    let content = '<center>';
-    content += '<h6><b>' + weatherName + '</b><br></h6>';
-    content += '<b>Boosted Types:</b><br>' + weatherType + '<br>';
-    content += '<b>Cell ID:</b> ' + weather.id + '<br>';
-    content += '<b>Cell Level:</b> ' + weather.level + '<br>';
-    content += '<b>Lat:</b> ' + weather.latitude + '<br>';
-    content += '<b>Lon:</b> ' + weather.longitude + '<br>';
-    content += '<b>Gameplay Condition:</b> ' + weather.gameplay_condition + '<br>';
-    content += '<b>Wind Direction:</b> ' + weather.wind_direction + '° (' + degreesToCardinal(weather.wind_direction) + ')<br>';
-    content += '<b>Cloud Level:</b> ' + weather.cloud_level + '<br>';
-    content += '<b>Rain Level:</b> ' + weather.rain_level + '<br>';
-    content += '<b>Wind Level:</b> ' + weather.wind_level + '<br>';
-    content += '<b>Snow Level:</b> ' + weather.snow_level + '<br>';
-    content += '<b>Fog Level:</b> ' + weather.fog_level + '<br>';
-    content += '<b>Special Effects Level:</b> ' + weather.special_effect_level + '<br>';
-    content += '<b>Severity:</b> ' + weather.severity + '<br>';
-    content += '<b>Weather Warning:</b> ' + weather.warn_weather + '<br><br>';
-
     const updatedDate = new Date(weather.updated * 1000);
-
-    content += '<b>Last Updated:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')';
-    content += '</center>';
+    let content = `
+    <center>
+        <h6><b>${weatherName}</b><br></h6>
+        <b>Boosted Types:</b><br>${weatherType}<br>
+        <b>Cell ID:</b> ${weather.id}<br>
+        <b>Cell Level:</b> ${weather.level}<br>
+        <b>Lat:</b> ${weather.latitude}<br>
+        <b>Lon:</b> ${weather.longitude}<br>
+        <b>Gameplay Condition:</b> ${weather.gameplay_condition}<br>
+        <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
+        <b>Cloud Level:</b> ${weather.cloud_level}<br>
+        <b>Rain Level:</b> ${weather.rain_level}<br>
+        <b>Wind Level:</b> ${weather.wind_level}<br>
+        <b>Snow Level:</b> ${weather.snow_level}<br>
+        <b>Fog Level:</b> ${weather.fog_level}<br>
+        <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
+        <b>Severity:</b> ${weather.severity}<br>
+        <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
+        <b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
+    </center>`;
     return content;
 }
 
@@ -3549,10 +3548,14 @@ function getDevicePopupContent (device) {
     const lastSeen = lastSeenDate.toLocaleTimeString() + ' (' + getTimeSince(lastSeenDate) + ')';
     const ts = Math.round((new Date()).getTime() / 1000);
     const isOffline = isDeviceOffline(device, ts);
-    const content = '<center><h6><b>' + device.uuid + '</b></h6></center><br>' +
-        '<b>Instance:</b> ' + device.instance_name + '<br>' +
-        '<b>Last Seen:</b> ' + lastSeen + '<br>' +
-        '<b>Status:</b> ' + (isOffline ? 'Offline' : 'Online');
+    const content = `
+    <center>
+        <h6><b>${device.uuid}</b></h6>
+    </center>
+    <br>
+    <b>Instance:</b> ${device.instance_name}<br>
+    <b>Last Seen:</b> ${lastSeen}<br>
+    <b>Status:</b> ${isOffline ? 'Offline' : 'Online'}`;
     return content;
 }
 

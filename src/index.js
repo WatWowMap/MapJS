@@ -33,6 +33,8 @@ const utils = require('./services/utils.js');
 // TODO: Configurable default filter settings
 // TODO: Only clear layers if filter changed
 // TODO: Global level filter
+// TODO: Rank to pokemon images
+// TODO: Add more descriptive name for bigkarp/global filters image name
 
 // TODO: Add images to queue to combine them
 

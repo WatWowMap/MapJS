@@ -146,10 +146,9 @@ class ImageGenerator {
                     }
                 } else {
                     try {
-                        let pokeId = utils.zeroPad(pokemonId, 3);
                         let form = formId === 0 ? '' : '-' + formId;
-                        let pokemonFile = this.getPokemonImagePath(pokeId, formId);
-                        let newFile = path.resolve(raidDir, `${teamId}_${slots}_${pokeId}${form}.png`);
+                        let pokemonFile = this.getPokemonImagePath(pokemonId, formId);
+                        let newFile = path.resolve(raidDir, `${teamId}_${slots}_${pokemonId}${form}.png`);
                         if (!utils.fileExists(newFile)) {
                             console.debug(`[ImageGenerator] Creating image for gym ${teamId} and pokemon ${pokemonId}`);
                             await this.combineImages(pokemonFile, gymFile, composeMethod, newFile);
@@ -178,6 +177,23 @@ class ImageGenerator {
             }
             if (!await utils.fileExists(pokemonDir)) {
                 console.log(`[ImageGenerator] Missing dir ${pokemonDir}`);
+            }
+        }
+        return null;
+    }
+
+    async generateEggImage(level) {
+        if (await utils.fileExists(eggDir)) {
+            try {
+                let eggFile = path.resolve(eggDir, `${level}.png`);
+                return eggFile;
+            } catch (e) {
+                console.error('[ImageGenerator] Error:', e);
+            }
+        } else {
+            console.warn('[ImageGenerator] Not generating Raid Egg Image (missing Dirs)');
+            if (!await utils.fileExists(eggDir)) {
+                console.log(`[ImageGenerator] Missing dir ${eggDir}`);
             }
         }
         return null;

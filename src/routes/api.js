@@ -263,7 +263,7 @@ const getData = async (perms, filter) => {
         let raidData = [];
         raidData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': utils.zeroPad(0, 3).toString(),
                 'sort': 0
             },
             'name': raidTimers,
@@ -278,11 +278,11 @@ const getData = async (perms, filter) => {
             const raidLevel = i18n.__('filter_raid_level_' + i);
             raidData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i
                 },
                 'name': raidLevel,
-                'image': `<img class="lazy_load" data-src="/api/get_img/raid?&level=${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/api/get_img/egg?&level=${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'raid-level'),
                 'size': generateSizeButtons(i, 'raid-level'),
                 'type': raidLevelsString
@@ -295,7 +295,7 @@ const getData = async (perms, filter) => {
             let id = pokemon[i];
             raidData.push({
                 'id': {
-                    'formatted': id,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(id, 3).toString(),
                     'sort': id+200
                 },
                 'name': i18n.__('poke_' + id),
@@ -319,7 +319,7 @@ const getData = async (perms, filter) => {
             const gymTeam = i18n.__('filter_gym_team_' + i);
             gymData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i
                 },
                 'name': gymTeam,
@@ -333,7 +333,7 @@ const getData = async (perms, filter) => {
         // EX raid eligible gyms
         gymData.push({
             'id': {
-                'formatted': 5,//String(format: "%03d", 5), //Need a better way to display, new section?
+                'formatted': utils.zeroPad(5, 3).toString(), //Need a better way to display, new section?
                 'sort': 5
             },
             'name': i18n.__('filter_raid_ex') ,
@@ -346,7 +346,7 @@ const getData = async (perms, filter) => {
         // In-battle gyms
         gymData.push({
             'id': {
-                'formatted': 6,//String(format: "%03d", 5), //Need a better way to display, new section?
+                'formatted': utils.zeroPad(6, 3).toString(), //Need a better way to display, new section?
                 'sort': 6
             },
             'name': i18n.__('filter_gym_in_battle') ,
@@ -362,7 +362,7 @@ const getData = async (perms, filter) => {
             const team = Math.round((Math.random() % 3) + 1);
             gymData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i+100
                 },
                 'name': availableSlots,
@@ -397,7 +397,7 @@ const getData = async (perms, filter) => {
             }
             questData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i
                 },
                 'name': itemName,
@@ -430,7 +430,7 @@ const getData = async (perms, filter) => {
             const pokeId = rewards.pokemon[i];
             questData.push({
                 'id': {
-                    'formatted': pokeId,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(pokeId, 3),
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
@@ -450,7 +450,7 @@ const getData = async (perms, filter) => {
         let pokestopData = [];
         pokestopData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': '000',
                 'sort': 0
             },
             'name': pokestopNormal,
@@ -464,7 +464,7 @@ const getData = async (perms, filter) => {
             const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
             pokestopData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i
                 },
                 'name': pokestopLure,
@@ -485,7 +485,7 @@ const getData = async (perms, filter) => {
         for (let i = 1; i <= 50; i++) {
             invasionData.push({
                 'id': {
-                    'formatted': i,
+                    'formatted': utils.zeroPad(i, 3).toString(),
                     'sort': i
                 },
                 'name': i18n.__('grunt_' + i),
@@ -506,7 +506,7 @@ const getData = async (perms, filter) => {
         let spawnpointData = [];
         spawnpointData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': utils.zeroPad(0, 3).toString(),
                 'sort': 0
             },
             'name': spawnpointWithoutTimerString,
@@ -518,7 +518,7 @@ const getData = async (perms, filter) => {
 
         spawnpointData.push({
             'id': {
-                'formatted': 1,//String(format: "%03d", 1),
+                'formatted': utils.zeroPad(1, 3).toString(),
                 'sort': 1
             },
             'name': spawnpointWithTimerString,
@@ -567,6 +567,12 @@ const getImage = async (req, res) => {
                 level ? parseInt(level) : 0
             );
             res.sendFile(raidImageUrl);
+            break;
+        case 'egg':
+            let eggImageUrl = await ImageGenerator.instance.generateEggImage(
+                level ? parseInt(level) : 0
+            );
+            res.sendFile(eggImageUrl);
             break;
         case 'gym':
             let gymImageUrl = await ImageGenerator.instance.generateGymImage(
