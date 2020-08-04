@@ -1037,12 +1037,11 @@ const getPolygon = (s2cellId) => {
 };
 
 const sqlifyIvFilter = (filter) => {
-    //let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
-    /*
-    if (filter !~ fullMatch) {
+    let fullMatch = '^(?!&&|\\|\\|)((\\|\\||&&)?\\(?((A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?)\\)?)*$';
+    //if (filter !~ fullMatch) {
+    if (!filter.match(fullMatch)) {
         return null;
     }
-    */
     let singleMatch = '(A|D|S|L)?[0-9.]+(-(A|D|S|L)?[0-9.]+)?';
     let match = filter.match(singleMatch);
     let firstGroup = match[0];

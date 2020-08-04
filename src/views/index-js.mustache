@@ -3276,11 +3276,22 @@ function getWeatherStyle (weather, ts) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
-    const icon = L.icon({
-        iconUrl: '/img/' + pokemonIdString,
+    // TODO: Calculate whole IV value
+    //const icon = L.icon({
+    const color = 'green';
+    const icon = L.divIcon({
+        //iconUrl: '/img/' + pokemonIdString,
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
-        popupAnchor: [0, -(size / 2)]
+        popupAnchor: [0, -(size / 2)],
+        className: 'pokemon-marker',
+        html: `<img src="/img/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
+        (
+            // TODO: Configurable color and IV limit
+            pokemon.atk_iv === 15 && pokemon.def_iv === 15 && pokemon.sta_iv === 15
+            ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
+            : ''
+        ) + '"/>'
     });
     return icon;
 }
