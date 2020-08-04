@@ -4,7 +4,7 @@ const S2 = require('nodes2ts');
 
 const query = require('../services/db.js');
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
     const excludePokemonIds = [];
     const excludeFormIds = [];
     let keys = Object.keys(pokemonFilterIV || []);
@@ -62,14 +62,11 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             sqlExclude = '';
         }
     } else {
-        //if (pokemonFilterExclude.length === 0) {
         if (excludePokemonIds.length === 0) {
             sqlExclude = '';
         } else {
             let sqlExcludeCreate = 'pokemon_id NOT IN (';
-            //for (let i = 0; i < pokemonFilterExclude.length; i++) {
             for (let i = 0; i < excludePokemonIds.length; i++) {
-                //if (i === pokemonFilterExclude.length - 1) {
                 if (i === excludePokemonIds.length - 1) {
                     sqlExcludeCreate += '?)';
                 } else {
@@ -151,6 +148,46 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
         }
     }
 
+    let sqlLevel = '';
+    if (pokemonFilterLevel) {
+        let sqlExcludeLevel = '';
+        let orPart = '';
+        let andPart = '';
+        const keys = Object.keys(pokemonFilterLevel);
+        keys.forEach(key => {
+            const filter = pokemonFilterLevel[key];
+            const sql = sqlifyIvFilter(filter);
+            if (sql && sql !== false && sql !== '') {
+                if (key === 'and') {
+                    andPart += sql;
+                }
+            }
+        });
+        if (sqlExcludeLevel && sqlExcludeLevel !== '') {
+            if (orPart === '') {
+                orPart += '(';
+            } else {
+                orPart += ' OR ';
+            }
+            orPart += `(${sqlExcludeLevel})`;
+        }
+        if (orPart && orPart !== '') {
+            orPart += ')';
+        }
+
+        if (orPart && orPart !== '' && andPart && andPart !== '') {
+            sqlLevel = ` AND (${orPart} AND ${andPart})`;
+        } else if (orPart && orPart !== '') {
+            sqlLevel = ` AND (${orPart})`;
+        } else if (andPart && andPart !== '') {
+            sqlLevel = ` AND (${andPart})`;
+        } else if (sqlExcludeLevel && sqlExcludeLevel !== '') {
+            sqlLevel = ` AND (${sqlExcludeLevel})`;
+        } else {
+            sqlLevel = '';
+        }
+    }
+
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
@@ -158,17 +195,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND
-            lon <= ? AND updated > ? ${sqlAdd}
+            lon <= ? AND updated > ? ${sqlAdd} ${sqlLevel}
     `;
     let args = [minLat, maxLat, minLon, maxLon, updated];
     if (!(onlyBigKarp || onlyTinyRat)) {
-        //for (let i = 0; i < pokemonFilterExclude.length; i++) {
-        //    const id = pokemonFilterExclude[i];
         for (let i = 0; i < excludePokemonIds.length; i++) {
             const id = excludePokemonIds[i];
-            //if (id !== 'big_karp' && id !== 'tiny_rat') {
-                args.push(id);
-            //}
+            args.push(id);
         }
         for (let i = 0; i < excludeFormIds.length; i++) {
             args.push(excludeFormIds[i]);
