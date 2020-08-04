@@ -153,7 +153,7 @@ const getData = async (perms, filter) => {
                         'sort': i
                     },
                     'name': globalIVString,
-                    'image': andOrString,
+                    'image': `IV-${andOrString}`,
                     'filter': filter,
                     'size': size,
                     'type': globalFiltersString
@@ -180,7 +180,7 @@ const getData = async (perms, filter) => {
                         'sort': i + 2
                     },
                     'name': globalPVPString,
-                    'image': andOrString,
+                    'image': `PVP-${andOrString}`,
                     'filter': filter,
                     'size': size,
                     'type': globalFiltersString
@@ -207,7 +207,7 @@ const getData = async (perms, filter) => {
                         'sort': i + 4
                     },
                     'name': globalLevelString,
-                    'image': andOrString,
+                    'image': `LVL-${andOrString}`,
                     'filter': filter,
                     'size': size,
                     'type': globalFiltersString
