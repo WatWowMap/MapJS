@@ -13,5 +13,7 @@ data.cluster_pokemon = config.map.clusters.pokemon;
 data.scouting = config.scouting.enabled;
 data.scouting_url = config.scouting.url;
 data.scouting_count = config.scouting.maxScouts;
+data.glow_color = config.map.glow.color;
+data.glow_iv = config.map.glow.iv;
 
 module.exports = data;

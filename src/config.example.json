@@ -13,6 +13,25 @@
         "maxZoom": 18,
         "clusters": {
             "pokemon": true
+        },
+        "filters": {
+            "gyms": true,
+            "raids": false,
+            "pokestops": false,
+            "quests": false,
+            "invasions": false,
+            "spawnpoints": false,
+            "pokemon": false,
+            "nests": false,
+            "scanCells": false,
+            "submissionCells": false,
+            "weather": false,
+            "scanAreas": false,
+            "devices": false
+        },
+        "glow": {
+            "iv": 100,
+            "color": "red"
         }
     },
     "areas": {

@@ -3289,14 +3289,27 @@ function getWeatherStyle (weather, ts) {
     return { fillColor: ['hsl(', hue, ',100%,50%)'].join(''), color: 'black', opacity: 0.75, fillOpacity: 0.5, weight: 1.0 };
 }
 
+function calcIV(atk, def, sta) {
+    return ((atk + def + sta) * 100.0 / 45.0).toFixed(2);
+}
+
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
-    const icon = L.icon({
-        iconUrl: '/img/' + pokemonIdString,
+    const color = '{{glow_color}}';
+    const glowIV = parseFloat('{{glow_iv}}');
+    const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
+    const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
-        popupAnchor: [0, -(size / 2)]
+        popupAnchor: [0, -(size / 2)],
+        className: 'pokemon-marker',
+        html: `<img src="/img/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
+        (
+            iv >= glowIV
+            ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
+            : ''
+        ) + '"/>'
     });
     return icon;
 }
