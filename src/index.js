@@ -31,6 +31,7 @@ const utils = require('./services/utils.js');
 // TODO: Glow for 100s, maybe 90s, 0s and pvp
 // TODO: Configurable default filter settings
 // TODO: Only clear layers if filter changed
+// TODO: Reset all settings (clear cache/session)
 
 // Basic security protection middleware
 app.use(helmet());
