@@ -170,9 +170,11 @@ $(function () {
         i18n.translator.add(data);
     });
 
+    $.ajaxSetup({
+        async: false
+    })
     $.getJSON('/data/masterfile.json', function (data) {
         masterfile = data;
-        loadStorage();
     });
 
     $.getJSON('/data/weathertypes.json', function (data) {
@@ -185,7 +187,7 @@ $(function () {
     availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
     availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
 
-    //loadStorage();
+    loadStorage();
 
     const availableTileserverKeys = [];
     for (let availableTileserverKey in availableTileservers) {
