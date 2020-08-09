@@ -108,6 +108,10 @@
                 "enabled": true,
                 "roles": []
             },
+            "pvp": {
+            	"enabled": true,
+            	"roles": []
+            },
             "s2cells": {
                 "enabled": true,
                 "roles": []

@@ -4,7 +4,7 @@ const S2 = require('nodes2ts');
 
 const query = require('../services/db.js');
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
     const excludePokemonIds = [];
     const excludeFormIds = [];
     let keys = Object.keys(pokemonFilterIV || []);
@@ -226,7 +226,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             let displayPokemonId;
             let pvpRankingsGreatLeague;
             let pvpRankingsUltraLeague;
-            if (showIV) {
+            if (showPVP) {
                 atkIv = result.atk_iv;
                 defIv = result.def_iv;
                 staIv = result.sta_iv;
@@ -239,6 +239,19 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 displayPokemonId = result.display_pokemon_id;
                 pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
                 pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
+            } else if (showIV && !showPVP) {
+                atkIv = result.atk_iv;
+                defIv = result.def_iv;
+                staIv = result.sta_iv;
+                move1 = result.move_1;
+                move2 = result.move_2;
+                cp = result.cp;
+                level = result.level;
+                weight = result.weight;
+                size = result.size;
+                displayPokemonId = result.display_pokemon_id;
+                pvpRankingsGreatLeague = null;
+                pvpRankingsUltraLeague = null;
             } else {
                 atkIv = null;
                 defIv = null;
