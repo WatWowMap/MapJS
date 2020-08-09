@@ -50,6 +50,9 @@ let weatherFilterNew = {};
 let deviceFilter = {};
 let deviceFilterNew = {};
 
+let settings = {};
+let settingsNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -96,6 +99,7 @@ let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
 let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
+let settingsLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
@@ -332,6 +336,22 @@ $(function () {
         if (!deviceFilterLoaded) {
             deviceFilterLoaded = true;
             loadDeviceFilter();
+        }
+    });
+
+    $('#settingsModal').on('show.bs.modal', function () {
+        settingsNew = $.extend(true, {}, settings);
+
+        $('.select-button').each(function (button) {
+            manageSelectButton($(this), false);
+        });
+        $('.configure-button').each(function (button) {
+            manageConfigureButton($(this), false);
+        });
+
+        if (!settingsLoaded) {
+            settingsLoaded = true;
+            loadSettings();
         }
     });
 
@@ -917,6 +937,27 @@ function loadStorage () {
         }
         if (deviceFilter['offline'] === undefined) {
             deviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+    }
+    
+    const settingsValue = retrieve('settings');
+    if (settingsValue === null) {
+        const defaultSettings = {};
+        if (defaultSettings['pokemon-glow'] === undefined) {
+            defaultSettings['pokemon-glow'] = { show: true, filter: 'red' };
+        }
+        if (defaultSettings['glow-color'] === undefined) {
+            defaultSettings['glow-color'] = { color: 'red' };
+        }
+        store('settings', JSON.stringify(defaultSettings));
+        settings = defaultSettings;
+    } else {
+        settings = JSON.parse(settingsValue);
+        if (settings['pokemon-glow'] === undefined) {
+            settings['pokemon-glow'] = { show: true, filter: 'red' };
+        }
+        if (settings['glow-color'] === undefined) {
+            settings['glow-color'] = { color: 'red' };
         }
     }
 }
@@ -1573,6 +1614,15 @@ function initMap () {
         loadData();
 
         $('#filtersModal').modal('hide');
+    });
+
+    $('#saveSettings').on('click', function (event) {
+        $(this).toggleClass('active');
+
+        settings = settingsNew;
+        store('settings', JSON.stringify(settings));
+
+        $('#settingsModal').modal('hide');
     });
 
     const CustomControlFilters = L.Control.extend({
@@ -4067,6 +4117,19 @@ function manageSelectButton (e, isNew) {
             shouldShow = pokemonFilterNew[id]['size'] === "huge";
             break;
         }
+    } else if (type === 'pokemon-glow') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settings[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settings[id].show === true;
+            break;
+        case 'color':
+            //shouldShow = settings[id].show === 'color';
+            shouldShow = settings[id].show === 'filter';
+            break;
+        }
     } else if (type === 'quest-misc') {
         switch (info) {
         case 'hide':
@@ -4500,6 +4563,22 @@ function manageSelectButton (e, isNew) {
                     pokemonFilterNew[id]['size'] = 'huge';
                     break;
                 }
+            } else if (type === 'pokemon-glow') {
+                switch (info) {
+                case 'hide':
+                    settings[id].show = false;
+                    break;
+                case 'show':
+                    settings[id].show = true;
+                    break;
+                case 'color':
+                    return manageColorPopup(id, settings);
+                }
+            } else if (type === 'glow-color') {
+                switch (info) {
+                case 'color':
+                    return manageColorPopup(id, settings);
+                }
             } else if (type === 'quest-misc') {
                 switch (info) {
                 case 'hide':
@@ -4931,6 +5010,33 @@ function manageIVPopup (id, filter) {
     } else {
         success = false;
         alert('Invalid IV Filter!');
+    }
+    if (!success) {
+        if (prevShow === true) {
+            $('.select-button[data-id="' + id + '"][data-info="show"]').addClass('active');
+        } else if (prevShow === false) {
+            $('.select-button[data-id="' + id + '"][data-info="hide"]').addClass('active');
+        }
+    }
+    return success;
+}
+
+function manageColorPopup (id, filter) {
+    const result = prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color).toUpperCase();
+    const prevShow = filter[id].show;
+    let success;
+    const validColors = ['red','green','blue','yellow','orange','purple'];
+    if (result == null) {
+        success = false;
+    } else if (validColors.includes(result.toLowerCase())) {
+        //filter[id].show = 'color';
+        //filter[id].filter = result;
+        filter[id].color = result.toLowerCase();
+        console.log('Filter:', filter);
+        success = true;
+    } else {
+        success = false;
+        alert('Invalid color value!');
     }
     if (!success) {
         if (prevShow === true) {
@@ -6135,6 +6241,103 @@ function loadDeviceFilter () {
 
     $('#filterDeviceModal').on('shown.bs.modal', function () {
         const dataTable = $('#table-filter-device').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
+function loadSettingsFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-settings').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_settings_table_empty'),
+            zeroRecords: i18n('filter_settings_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' }
+        ],
+        ajax: {
+            url: '/api/get_settings',
+            dataSrc: 'data.settings',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-settings tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterSettingsModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-settings').DataTable();
         dataTable.responsive.recalc();
         dataTable.columns.adjust();
     });
