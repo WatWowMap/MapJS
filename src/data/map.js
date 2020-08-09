@@ -886,10 +886,10 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
 };
 
 const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = minLat - 0.001;
-    let maxLatReal = maxLat + 0.001;
-    let minLonReal = minLon - 0.001;
-    let maxLonReal = maxLon + 0.001;
+    let minLatReal = parseFloat(minLat - 0.001);
+    let maxLatReal = parseFloat(maxLat + 0.001);
+    let minLonReal = parseFloat(minLon - 0.001);
+    let maxLonReal = parseFloat(maxLon + 0.001);
 
     let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
@@ -903,7 +903,10 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
-    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+    let region = S2.S2LatLngRect.fromLatLng(
+        S2.S2LatLng.fromDegrees(minLatReal, minLonReal),
+        S2.S2LatLng.fromDegrees(maxLatReal, maxLonReal)
+    );
     let indexedCells = {};
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
@@ -941,10 +944,10 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
 };
 
 const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = minLat - 0.01;
-    let maxLatReal = maxLat + 0.01;
-    let minLonReal = minLon - 0.01;
-    let maxLonReal = maxLon + 0.01;
+    let minLatReal = parseFloat(minLat - 0.01);
+    let maxLatReal = parseFloat(maxLat + 0.01);
+    let minLonReal = parseFloat(minLon - 0.01);
+    let maxLonReal = parseFloat(maxLon + 0.01);
 
     let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, false, false, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || pokestop.sponsor_id === 0);
@@ -957,7 +960,10 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
-    let region = S2.S2LatLngRect.fromLatLng(new S2.S2LatLng(minLatReal, minLonReal), new S2.S2LatLng(maxLatReal, maxLonReal));
+    let region = S2.S2LatLngRect.fromLatLng(
+        S2.S2LatLng.fromDegrees(minLatReal, minLonReal),
+        S2.S2LatLng.fromDegrees(maxLatReal, maxLonReal)
+    );
     let indexedCells = {};
     let coveringCells = regionCoverer.getCoveringCells(region);
     for (let i = 0; i < coveringCells.length; i++) {
