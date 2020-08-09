@@ -1513,20 +1513,6 @@ function initMap () {
     });
 }
 
-// Locate user
-function locate() {
-    map.locate({setView: true, maxZoom: 16});
-}
-
-// Location function for when the location is found for the user
-function onLocationFound(e) {
-    //console.log('Location found:', e);
-    if (currentPositionMarker) {
-        map.removeLayer(currentPositionMarker);
-    }
-    currentPositionMarker = L.marker(e.latlng).addTo(map)
-}
-
 
 // MARK: - Data Loading
 
@@ -4791,8 +4777,6 @@ function loadPokemonFilter () {
                 $('.dtrg-level-0').css('color', 'white');
                 $('.dtrg-level-1').children().css('background-color', '#1a1a1a');
                 $('.dtrg-level-1').css('color', 'white');
-                $('.dtrg-level-2').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-2').css('color', 'white');
             }
         },
         responsive: true
@@ -4891,10 +4875,6 @@ function loadQuestFilter () {
                 $(row).css('color', 'white');
                 $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
                 $('.dtrg-level-0').css('color', 'white');
-                $('.dtrg-level-1').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-1').css('color', 'white');
-                $('.dtrg-level-2').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-2').css('color', 'white');
             }
         },
         responsive: true
