@@ -29,10 +29,8 @@ const utils = require('./services/utils.js');
 // TODO: Fix issue with forms and size filter
 // TODO: Force logout of other devices if logged into multiple
 // TODO: Glow for top pvp ranks
-// TODO: Configurable default filter settings
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
-// TODO: Fix race condition
 
 // Basic security protection middleware
 app.use(helmet());

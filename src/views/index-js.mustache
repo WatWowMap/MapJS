@@ -851,6 +851,15 @@ function initMap () {
             }
         }
 
+        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
+        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
+        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
+        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
+        defaultPokemonFilter.lvl_and = { on: false, filter: 'L0-35' };
+        defaultPokemonFilter.lvl_or = { on: false, filter: 'L0-35' };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
         store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
 
