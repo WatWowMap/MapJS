@@ -1513,20 +1513,6 @@ function initMap () {
     });
 }
 
-// Locate user
-function locate() {
-    map.locate({setView: true, maxZoom: 16});
-}
-
-// Location function for when the location is found for the user
-function onLocationFound(e) {
-    //console.log('Location found:', e);
-    if (currentPositionMarker) {
-        map.removeLayer(currentPositionMarker);
-    }
-    currentPositionMarker = L.marker(e.latlng).addTo(map)
-}
-
 
 // MARK: - Data Loading
 
