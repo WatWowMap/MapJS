@@ -325,6 +325,22 @@ $(function () {
         }
     });
 
+    $('#settingsModal').on('show.bs.modal', function () {
+        settingsNew = $.extend(true, {}, settings);
+
+        $('.select-button').each(function (button) {
+            manageSelectButton($(this), false);
+        });
+        $('.configure-button').each(function (button) {
+            manageConfigureButton($(this), false);
+        });
+
+        if (!settingsLoaded) {
+            settingsLoaded = true;
+            loadSettings();
+        }
+    });
+
     // TODO: Bandaid for zindex
     $('#mapstyleModal').on('shown.bs.modal', function () {
         $('#settingsModal').modal('hide');
