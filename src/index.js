@@ -25,7 +25,6 @@ const utils = require('./services/utils.js');
 // TODO: Notification sounds, bouncing icons
 // TODO: Possibly change filter selection from a list to a grid
 // TODO: Finish custom user settings modal
-// TODO: Fix issue with forms and size filter
 // TODO: Force logout of other devices if logged into multiple
 // TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
