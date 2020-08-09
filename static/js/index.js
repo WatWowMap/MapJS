@@ -325,22 +325,6 @@ $(function () {
         }
     });
 
-    $('#settingsModal').on('show.bs.modal', function () {
-        settingsNew = $.extend(true, {}, settings);
-
-        $('.select-button').each(function (button) {
-            manageSelectButton($(this), false);
-        });
-        $('.configure-button').each(function (button) {
-            manageConfigureButton($(this), false);
-        });
-
-        if (!settingsLoaded) {
-            settingsLoaded = true;
-            loadSettings();
-        }
-    });
-
     // TODO: Bandaid for zindex
     $('#mapstyleModal').on('shown.bs.modal', function () {
         $('#settingsModal').modal('hide');
@@ -4609,15 +4593,6 @@ function manageSelectButton (e, isNew) {
                 switch (info) {
                 case 'color':
                     return manageColorPopup(id, settings);
-                }
-            } else if (type === 'pokemon-cluster') {
-                switch (info) {
-                case 'hide':
-                    settingsNew[id].show = false;
-                    break;
-                case 'show':
-                    settingsNew[id].show = true;
-                    break;
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
