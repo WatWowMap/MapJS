@@ -21,11 +21,14 @@ router.post('/get_data', async (req, res) => {
     res.json({ data: data });
 });
 
+<<<<<<< HEAD
 router.post('/search', async (req, res) => {
     const data = await getSearch(req.body);
     res.json({ data: data });
 });
 
+=======
+>>>>>>> 8aeb7ba... wip
 router.get('/get_settings', async (req, res) => {
     const data = getSettings();
     res.json({ data: data });
@@ -34,6 +37,7 @@ router.get('/get_settings', async (req, res) => {
 const getSettings = () => {
     let data = {};
     let settingsData = [];
+<<<<<<< HEAD
     let settingColorString = i18n.__('settings_color');
     let pokemonSettingsString = i18n.__('settings_pokemon');
     let pokemonGlowString = i18n.__('settings_pokemon_glow');
@@ -67,24 +71,58 @@ const getSettings = () => {
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(1, 3),
+=======
+    // TODO: Glow color locale
+    let glowColorLabel = `
+        <label class="btn btn-sm btn-size select-button-new" data-id="glow-color" data-type="pokemon-glow" data-info="color">
+            <input type="radio" name="options" id="color" autocomplete="off">Color
+        </label>
+    `;
+    settingsData.push({
+        'id': {
+            'formatted': 0,//String(format: "%03d", 0),
+            'sort': 0
+        },
+        'name': 'Pokemon Glow',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
+        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow', glowColorLabel),
+        'type': 'Pokemon Settings'
+    });
+    settingsData.push({
+        'id': {
+            'formatted': 1,
+>>>>>>> 8aeb7ba... wip
             'sort': 1
         },
         'name': 'Glow Color',
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
         'filter': generateTextBox('glow-color', 'pokemon-glow'),
+<<<<<<< HEAD
         'type': pokemonSettingsLabel
     });
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(2, 3),
+=======
+        'type': 'Pokemon Settings'
+    });
+    settingsData.push({
+        'id': {
+            'formatted': 2,
+>>>>>>> 8aeb7ba... wip
             'sort': 2
         },
         'name': 'Minimum IV Glow',
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
         'filter': generateShowHideButtons('glow-iv', 'pokemon-glow'),
+<<<<<<< HEAD
         'type': pokemonSettingsLabel
     });
     */
+=======
+        'type': 'Pokemon Settings'
+    });
+>>>>>>> 8aeb7ba... wip
     data['settings'] = settingsData;
 
     return data;
@@ -877,6 +915,17 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
             <input type="radio" name="options" id="show" autocomplete="off">${showString}
         </label>
         ${ivLabel}
+    </div>
+    `;
+    return filter;
+};
+
+const generateTextBox = (id, type) => {
+    const filter = `
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="input select-button-new" data-id="${id}" data-type="${type}" data-info="color">
+            <input type="input" name="options" id="color" autocomplete="off">
+        </label>
     </div>
     `;
     return filter;
