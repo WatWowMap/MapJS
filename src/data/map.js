@@ -604,6 +604,10 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 case 3:
                     args.push(4);
                     break;
+                default:
+                    console.warn('Unrecognized excludedType', id);
+                    args.push(-1);
+                    break;
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
