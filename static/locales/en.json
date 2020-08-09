@@ -57,8 +57,9 @@
 	"filter_invasion_table_empty": "No matching Invasions found",
 	"filter_spawnpoint_table_empty": "No matching Spawnpoints found",
 	"filter_global_filters": "Global Filters",
-	"filter_global_iv": "Global IV Limit",
-	"filter_global_pvp": "Global PVP Limit",
+	"filter_global_iv": "IV Limit",
+	"filter_global_pvp": "PVP Limit",
+	"filter_global_lvl": "Level Limit",
 	"filter_and": "And",
 	"filter_or": "Or",
 	"filter_on": "On",
@@ -3615,5 +3616,6 @@
 	"form_589": "form_589",
 	"form_590": "form_590",
 	"form_591": "form_591",
-	"form_592": "form_592"
+	"form_592": "form_592",
+	"filter_global_level": "filter_global_level"
 }

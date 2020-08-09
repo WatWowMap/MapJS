@@ -7414,7 +7414,20 @@
 		"122": {
 			"name": "Mr Mime",
 			"default_form": "",
-			"forms": {},
+			"forms": {
+			    "1080": {
+					"name": "Normal",
+					"proto": "MR_MIME_NORMAL"
+				},
+				"1081": {
+					"name": "Shadow",
+					"proto": "MR_MIME_SHADOW"
+				},
+				"1082": {
+					"name": "Purified",
+					"proto": "MR_MIME_PURIFIED"
+				}
+			},
 			"pokedex_id": 122,
 			"default_form_id": "1080",
 			"types": [

@@ -17,7 +17,6 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const utils = require('./services/utils.js');
 
-// TODO: submission_placement_cells and submission_type_cells
 // TODO: Nests pokemon
 // TODO: Separate cluster layers by type
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
@@ -26,11 +25,10 @@ const utils = require('./services/utils.js');
 // TODO: Notification sounds, bouncing icons
 // TODO: Possibly change filter selection from a list to a grid
 // TODO: Finish custom user settings modal
-// TODO: Fix issue with forms and size filter
 // TODO: Force logout of other devices if logged into multiple
-// TODO: Glow for 100s, maybe 90s, 0s and pvp
-// TODO: Configurable default filter settings
+// TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
+// TODO: Reset all settings (clear cache/session)
 
 // Basic security protection middleware
 app.use(helmet());
