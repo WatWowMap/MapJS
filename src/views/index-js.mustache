@@ -4506,8 +4506,8 @@ function manageIVPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt('Please enter a IV Filter', filter['iv_' + id].filter);
-    if (result == null) {
+    const result = prompt('Please enter an IV Filter. Example: (S0-1 && A15 && D15 && L0-20) || L35 || 90-100', filter['iv_' + id].filter);
+    if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
         filter['iv_' + id].filter = result;
@@ -4519,8 +4519,8 @@ function manageGlobalIVPopup (id, filter) {
 }
 
 function manageGlobalPVPPopup (id, filter) {
-    const result = prompt('Please enter a PVP Filter', filter['pvp_' + id].filter);
-    if (result == null) {
+    const result = prompt('Please enter a PVP Filter. Example: 1-5', filter['pvp_' + id].filter);
+    if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
         filter['pvp_' + id].filter = result;
@@ -4532,8 +4532,8 @@ function manageGlobalPVPPopup (id, filter) {
 }
 
 function manageGlobalLevelPopup (id, filter) {
-    const result = prompt('Please enter a level Filter', filter['lvl_' + id].filter);
-    if (result == null) {
+    const result = prompt('Please enter a level Filter. Example: L20-30 || L35', filter['lvl_' + id].filter);
+    if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) { // TODO: Review
         filter['lvl_' + id].filter = result;
