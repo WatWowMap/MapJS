@@ -50,6 +50,9 @@ let weatherFilterNew = {};
 let deviceFilter = {};
 let deviceFilterNew = {};
 
+let settings = {};
+let settingsNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -91,6 +94,7 @@ let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
 let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
+let settingsLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
@@ -300,6 +304,22 @@ $(function () {
         if (!deviceFilterLoaded) {
             deviceFilterLoaded = true;
             loadDeviceFilter();
+        }
+    });
+
+    $('#settingsModal').on('show.bs.modal', function () {
+        settingsNew = $.extend(true, {}, settings);
+
+        $('.select-button').each(function (button) {
+            manageSelectButton($(this), false);
+        });
+        $('.configure-button').each(function (button) {
+            manageConfigureButton($(this), false);
+        });
+
+        if (!settingsLoaded) {
+            settingsLoaded = true;
+            loadSettings();
         }
     });
 
@@ -923,6 +943,27 @@ function loadStorage () {
         }
         if (deviceFilter['offline'] === undefined) {
             deviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+    }
+    
+    const settingsValue = retrieve('settings');
+    if (settingsValue === null) {
+        const defaultSettings = {};
+        if (defaultSettings['pokemon-glow'] === undefined) {
+            defaultSettings['pokemon-glow'] = { show: true, filter: 'red' };
+        }
+        if (defaultSettings['glow-color'] === undefined) {
+            defaultSettings['glow-color'] = { color: 'red' };
+        }
+        store('settings', JSON.stringify(defaultSettings));
+        settings = defaultSettings;
+    } else {
+        settings = JSON.parse(settingsValue);
+        if (settings['pokemon-glow'] === undefined) {
+            settings['pokemon-glow'] = { show: true, filter: 'red' };
+        }
+        if (settings['glow-color'] === undefined) {
+            settings['glow-color'] = { color: 'red' };
         }
     }
 }
@@ -3905,6 +3946,19 @@ function manageSelectButton (e, isNew) {
             shouldShow = pokemonFilterNew[id]['size'] === "huge";
             break;
         }
+    } else if (type === 'pokemon-glow') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settings[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settings[id].show === true;
+            break;
+        case 'color':
+            //shouldShow = settings[id].show === 'color';
+            shouldShow = settings[id].show === 'filter';
+            break;
+        }
     } else if (type === 'quest-misc') {
         switch (info) {
         case 'hide':
@@ -4403,6 +4457,22 @@ function manageSelectButton (e, isNew) {
                 case 'huge':
                     pokemonFilterNew[id]['size'] = 'huge';
                     break;
+                }
+            } else if (type === 'pokemon-glow') {
+                switch (info) {
+                case 'hide':
+                    settings[id].show = false;
+                    break;
+                case 'show':
+                    settings[id].show = true;
+                    break;
+                case 'color':
+                    return manageColorPopup(id, settings);
+                }
+            } else if (type === 'glow-color') {
+                switch (info) {
+                case 'color':
+                    return manageColorPopup(id, settings);
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
@@ -4907,6 +4977,33 @@ function manageIVPopup (id, filter) {
     } else {
         success = false;
         alert('Invalid IV Filter!');
+    }
+    if (!success) {
+        if (prevShow === true) {
+            $('.select-button[data-id="' + id + '"][data-info="show"]').addClass('active');
+        } else if (prevShow === false) {
+            $('.select-button[data-id="' + id + '"][data-info="hide"]').addClass('active');
+        }
+    }
+    return success;
+}
+
+function manageColorPopup (id, filter) {
+    const result = prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color).toUpperCase();
+    const prevShow = filter[id].show;
+    let success;
+    const validColors = ['red','green','blue','yellow','orange','purple'];
+    if (result == null) {
+        success = false;
+    } else if (validColors.includes(result.toLowerCase())) {
+        //filter[id].show = 'color';
+        //filter[id].filter = result;
+        filter[id].color = result.toLowerCase();
+        console.log('Filter:', filter);
+        success = true;
+    } else {
+        success = false;
+        alert('Invalid color value!');
     }
     if (!success) {
         if (prevShow === true) {
