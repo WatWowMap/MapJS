@@ -574,6 +574,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
         }
     }
 
+    let args = [minLat, maxLat, minLon, maxLon, updated];
     let excludeTypeSQL = '';
     let excludePokemonSQL = '';
     let excludeItemSQL = '';
@@ -592,6 +593,18 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                const id = parseInt(excludedTypes[i]);
+                switch (id) {
+                case 1:
+                    args.push(3);
+                    break;
+                case 2:
+                    args.push(1);
+                    break;
+                case 3:
+                    args.push(4);
+                    break;
+                }
             }
             excludeTypeSQL = sqlExcludeCreate;
         }
@@ -606,6 +619,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                const id = parseInt(excludedPokemon[i]);
+                args.push(id);
             }
             excludePokemonSQL = sqlExcludeCreate;
         }
@@ -620,6 +635,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                args.push(excludedItems[i]);
             }
             excludeItemSQL = sqlExcludeCreate;
         }
@@ -638,6 +654,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                     } else {
                         sqlExcludeCreate += '?, ';
                     }
+                    args.push(excludedLures[i]);
                 }
                 excludeLureSQL = sqlExcludeCreate;
             }
@@ -663,6 +680,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                args.push(excludedInvasions[i]);
             }
             excludeInvasionSQL = sqlExcludeCreate;
         }
@@ -677,35 +695,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
     `;
-
-    let args = [minLat, maxLat, minLon, maxLon, updated];
-    for (let i = 0; i < excludedTypes.length; i++) {
-        const id = parseInt(excludedTypes[i]);
-        switch (id) {
-        case 1:
-            args.push(3);
-            break;
-        case 2:
-            args.push(1);
-            break;
-        case 3:
-            args.push(4);
-            break;
-        }
-    }
-    for (let i = 0; i < excludedPokemon.length; i++) {
-        const id = parseInt(excludedPokemon[i]);
-        args.push(id);
-    }
-    for (let i = 0; i < excludedItems.length; i++) {
-        args.push(excludedItems[i]);
-    }
-    for (let i = 0; i < excludedLures.length; i++) {
-        args.push(excludedLures[i]);
-    }
-    for (let i = 0; i < excludedInvasions.length; i++) {
-        args.push(excludedInvasions[i]);
-    }
 
     const results = await query(sql, args);
     let pokestops = [];
