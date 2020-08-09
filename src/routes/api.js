@@ -20,6 +20,55 @@ router.post('/get_data', async (req, res) => {
     res.json({ data: data });
 });
 
+router.get('/get_settings', async (req, res) => {
+    const data = getSettings();
+    res.json({ data: data });
+});
+
+const getSettings = () => {
+    let data = {};
+    let settingsData = [];
+    // TODO: Glow color locale
+    let glowColorLabel = `
+        <label class="btn btn-sm btn-size select-button-new" data-id="glow-color" data-type="pokemon-glow" data-info="color">
+            <input type="radio" name="options" id="color" autocomplete="off">Color
+        </label>
+    `;
+    settingsData.push({
+        'id': {
+            'formatted': 0,//String(format: "%03d", 0),
+            'sort': 0
+        },
+        'name': 'Pokemon Glow',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
+        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow', glowColorLabel),
+        'type': 'Pokemon Settings'
+    });
+    settingsData.push({
+        'id': {
+            'formatted': 1,
+            'sort': 1
+        },
+        'name': 'Glow Color',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
+        'filter': generateTextBox('glow-color', 'pokemon-glow'),
+        'type': 'Pokemon Settings'
+    });
+    settingsData.push({
+        'id': {
+            'formatted': 2,
+            'sort': 2
+        },
+        'name': 'Minimum IV Glow',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
+        'filter': generateShowHideButtons('glow-iv', 'pokemon-glow'),
+        'type': 'Pokemon Settings'
+    });
+    data['settings'] = settingsData;
+
+    return data;
+};
+
 const getData = async (perms, filter) => {
     //console.log('Filter:', filter);
     const minLat = filter.min_lat;
@@ -567,6 +616,17 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
             <input type="radio" name="options" id="show" autocomplete="off">${showString}
         </label>
         ${ivLabel}
+    </div>
+    `;
+    return filter;
+};
+
+const generateTextBox = (id, type) => {
+    const filter = `
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="input select-button-new" data-id="${id}" data-type="${type}" data-info="color">
+            <input type="input" name="options" id="color" autocomplete="off">
+        </label>
     </div>
     `;
     return filter;
