@@ -323,6 +323,22 @@ $(function () {
         }
     });
 
+    $('#settingsModal').on('show.bs.modal', function () {
+        settingsNew = $.extend(true, {}, settings);
+
+        $('.select-button').each(function (button) {
+            manageSelectButton($(this), false);
+        });
+        $('.configure-button').each(function (button) {
+            manageConfigureButton($(this), false);
+        });
+
+        if (!settingsLoaded) {
+            settingsLoaded = true;
+            loadSettings();
+        }
+    });
+
     // TODO: Bandaid for zindex
     $('#mapstyleModal').on('shown.bs.modal', function () {
         $('#settingsModal').modal('hide');
@@ -1271,6 +1287,15 @@ function initMap () {
         if (input) {
             loadSearchData(input.id, input.value);
         }
+    });
+
+    $('#saveSettings').on('click', function (event) {
+        $(this).toggleClass('active');
+
+        settings = settingsNew;
+        store('settings', JSON.stringify(settings));
+
+        $('#settingsModal').modal('hide');
     });
 
     const CustomControlFilters = L.Control.extend({
