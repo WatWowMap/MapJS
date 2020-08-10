@@ -41,6 +41,9 @@ let invasionFilterNew = {};
 let spawnpointFilter = {};
 let spawnpointFilterNew = {};
 
+let nestFilter = {};
+let nestFilterNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -73,6 +76,7 @@ let availableTileservers = {};
 let selectedTileserver = 'Default';
 let availableRaidBosses = [];
 let availableQuestRewards = [];
+let availableNestPokemon = [];
 
 let pokemonFilterLoaded = false;
 let questFilterLoaded = false;
@@ -81,6 +85,7 @@ let gymFilterLoaded = false;
 let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
+let nestFilterLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
@@ -188,6 +193,7 @@ $(function () {
     availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
     availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
     availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
+    availableNestPokemon = JSON.parse('{{{available_nest_pokemon_json}}}');
 
     loadStorage();
 
@@ -219,6 +225,7 @@ $(function () {
         pokestopFilterNew = $.extend(true, {}, pokestopFilter);
         invasionFilterNew = $.extend(true, {}, invasionFilter);
         spawnpointFilterNew = $.extend(true, {}, spawnpointFilter);
+        nestFilterNew = $.extend(true, {}, nestFilter);
 
         $('.select-button').each(function (button) {
             manageSelectButton($(this), false);
@@ -260,6 +267,11 @@ $(function () {
         if (!spawnpointFilterLoaded) {
             spawnpointFilterLoaded = true;
             loadSpawnpointFilter();
+        }
+
+        if (!nestFilterLoaded) {
+            nestFilterLoaded = true;
+            loadNestFilter();
         }
     });
 
@@ -309,7 +321,8 @@ $(function () {
             quest: questFilterNew,
             pokestop: pokestopFilterNew,
             invasion: invasionFilterNew,
-            spawnpoint: spawnpointFilterNew
+            spawnpoint: spawnpointFilterNew,
+            nest: nestFilterNew
         };
         let json = JSON.stringify(settings);
         let el = document.createElement('a');
@@ -758,6 +771,28 @@ function loadStorage () {
             spawnpointFilter['with-timer'] = { show: true, size: 'normal' };
         }
     }
+
+    const nestFilterValue = retrieve('nest_filter');
+    if (nestFilterValue === null) {
+        const defaultNestFilter = {};
+        for (let i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (defaultNestFilter['p' + id] === undefined) {
+                defaultNestFilter['p' + id] = { show: true, size: 'normal' };
+            }
+        }
+        
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilter = defaultNestFilter;
+    } else {
+        nestFilter = JSON.parse(nestFilterValue);
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (nestFilter['p' + id] === undefined) {
+                nestFilter['p' + id] = { show: true, size: 'normal' };
+            }
+        }
+    }
 }
 
 function initMap () {
@@ -1121,6 +1156,33 @@ function initMap () {
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
     });
 
+    $('#reset-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        defaultNestFilter['no-timer'] = { show: true, size: 'normal' };
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: true, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: false, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
     $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -1276,6 +1338,7 @@ function initMap () {
         invasionFilter = invasionFilterNew;
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
+        nestFilter = nestFilterNew;
         const newGymMarkers = [];
         $.each(gymMarkers, function (index, gym) {
             map.removeLayer(gym.marker);
@@ -1310,6 +1373,7 @@ function initMap () {
         store('pokestop_filter', JSON.stringify(pokestopFilter));
         store('invasion_filter', JSON.stringify(invasionFilter));
         store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
+        store('nest_filter', JSON.stringify(nestFilter));
         store('show_cells', newShowCells);
         showCells = newShowCells;
         store('show_submission_cells', newShowSubmissionCells);
@@ -1680,6 +1744,16 @@ function loadData () {
         }
     }
 
+    const nestFilterExclude = [];
+    if (showNests) {
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (nestFilter['p' + id].show === false) {
+                nestFilterExclude.push('p' + id);
+            }
+        }
+    }
+
     const data = {
         _: Math.round((new Date()).getTime() / 1000),
         min_lat: bounds._southWest.lat,
@@ -1702,6 +1776,7 @@ function loadData () {
         pokestop_filter_exclude: JSON.stringify(pokestopFilterExclude),
         invasion_filter_exclude: JSON.stringify(invasionFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
+        nest_filter_exclude: JSON.stringify(nestFilterExclude),
         show_spawnpoints: showSpawnpoints,
         show_nests: showNests,
         show_cells: showCells && map.getZoom() >= 13,
@@ -4106,6 +4181,27 @@ function manageSelectButton (e, isNew) {
             shouldShow = spawnpointFilterNew[id].size === 'huge';
             break;
         }
+    } else if (type === 'nest-pokemon') {
+        switch (info) {
+            case 'hide':
+                shouldShow = nestFilterNew['p' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = nestFilterNew['p' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = nestFilterNew['p' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = nestFilterNew['p' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = nestFilterNew['p' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = nestFilterNew['p' + id].size === 'huge';
+                break;
+            }
     } else {
         shouldShow = false;
     }
@@ -4487,6 +4583,27 @@ function manageSelectButton (e, isNew) {
                     spawnpointFilterNew[id].size = 'huge';
                     break;
                 }
+            } else if (type === 'nest-pokemon') {
+                switch (info) {
+                    case 'hide':
+                        nestFilterNew['p' + id].show = false;
+                        break;
+                    case 'show':
+                        nestFilterNew['p' + id].show = true;
+                        break;
+                    case 'small':
+                        nestFilterNew['p' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        nestFilterNew['p' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        nestFilterNew['p' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        nestFilterNew['p' + id].size = 'huge';
+                        break;
+                    }
             }
         });
     }
@@ -5480,6 +5597,104 @@ function loadSpawnpointFilter () {
     });
 }
 
+function loadNestFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-nest').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_nest_table_empty'),
+            zeroRecords: i18n('filter_nest_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' },
+            { data: 'size' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_nest_filter=true',
+            dataSrc: 'data.nest_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3, 4],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-nest tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterNestModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-nest').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
 function loadFilterSettings (e) {
     const file = e.target.files[0];
     if (!file) {
@@ -5522,6 +5737,7 @@ function loadFilterSettings (e) {
 
         showNests = obj.show_nests;
         store('show_nests', showNests);
+        store('nest_filter', JSON.stringify(nestFilterNew));
 
         showCells = obj.show_cells;
         store('show_cells', showCells);

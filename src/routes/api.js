@@ -42,6 +42,7 @@ const getData = async (perms, filter) => {
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
     const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
+    const nestFilterExclude = filter.nest_filter_exclude ? JSON.parse(filter.nest_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints && filter.show_spawnpoints !== 'false' || false;
     const showCells = filter.show_cells && filter.show_cells !== 'false' || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells && filter.show_submission_placement_cells !== 'false' || false;
@@ -56,6 +57,7 @@ const getData = async (perms, filter) => {
     const showGymFilter = filter.show_gym_filter && filter.show_gym_filter !== 'false' || false;
     const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
+    const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
@@ -116,7 +118,7 @@ const getData = async (perms, filter) => {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
     }
     if (permShowNests && showNests) {
-        data['nests'] = await map.getNests(minLat, maxLat, minLon, maxLon);
+        data['nests'] = await map.getNests(minLat, maxLat, minLon, maxLon, nestFilterExclude);
     }
 
     if (permViewMap && showPokemonFilter) {
@@ -555,6 +557,28 @@ const getData = async (perms, filter) => {
             'type': spawnpointOptionsString
         });
         data['spawnpoint_filters'] = spawnpointData;
+    }
+
+    if (permViewMap && showNestFilter) {
+        const pokemonString = i18n.__('filter_pokemon');
+        let nestData = [];
+        //Pokemon
+        let pokemon = await map.getAvailableNestPokemon();
+        for (let i = 0; i < pokemon.length; i++) {
+            let id = pokemon[i];
+            nestData.push({
+                'id': {
+                    'formatted': id,//String(format: "%03d", i),
+                    'sort': id
+                },
+                'name': i18n.__('poke_' + id),
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                'filter': generateShowHideButtons(id, 'nest-pokemon'),
+                'size': generateSizeButtons(id, 'nest-pokemon'),
+                'type': pokemonString
+            });
+        }
+        data['nest_filters'] = nestData;
     }
 
     return data;

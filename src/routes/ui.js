@@ -126,6 +126,10 @@ const handlePage = async (req, res) => {
     const availableQuestRewards = await map.getAvailableQuests();
     data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
 
+    // Available nest pokemon filter
+    const availableNestPokemon = await map.getAvailableNestPokemon();
+    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
+
     // Custom navigation bar headers
     data.buttons_left = config.header.left;
     data.buttons_right = config.header.right;
@@ -259,6 +263,10 @@ const handleHomeJs = async (req, res) => {
     // Available quest filters
     const availableQuestRewards = await map.getAvailableQuests();
     data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
+
+    // Available nest pokemon filter
+    const availableNestPokemon = await map.getAvailableNestPokemon();
+    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
 
     // Map settings
     data.start_lat = req.query.lat || config.map.startLat;
