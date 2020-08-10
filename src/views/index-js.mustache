@@ -3496,7 +3496,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
     let iconHtml = '<span class="text-nowrap text-center">';
     let sizeId = '0';
     const lureIconId = getLureIconId(pokestop.lure_id);
-    const activeLure = showPokestops && sizeId > 0 && pokestop.lure_expire_timestamp >= ts;
+    const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
@@ -3526,10 +3526,6 @@ function getPokestopMarkerIcon (pokestop, ts) {
     } else {
         iconSize = getPokestopSize(sizeId);
     }
-    if (activeInvasion) {
-        iconHtml += `<img src="/img/grunt/${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
-    }
-    iconHtml += '</span>';
     if (activeInvasion && activeLure) {
         sizeId = 'i' + lureIconId;
     } else if (activeInvasion) {
@@ -3537,12 +3533,15 @@ function getPokestopMarkerIcon (pokestop, ts) {
     } else if (activeLure) {
         sizeId = lureIconId;
     }
+    iconHtml += '</span>';
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
         iconAnchor: [iconSize / 2, iconSize / 2],
         popupAnchor: [0, iconSize * -1.567],
         className: 'pokestop-marker',
-        html: `<center>${iconHtml}<img src="/img/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+        html: activeInvasion
+            ? `<center>${iconHtml}<img src="/img/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+            : `<center>${iconHtml}<img src="/img/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
     });
     return icon;
 }
