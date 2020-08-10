@@ -3408,7 +3408,6 @@ function getNestMarker (nest, geojson, ts) {
                 'fillColor': features.properties['fill'],
                 'fillOpacity': features.properties['fill-opacity']
             });
-            const color = 'green';
             const icon = L.divIcon({
                 iconSize: [40, 40],
                 iconAnchor: [40 / 2, 40 / 2],
@@ -3660,60 +3659,52 @@ function getGymMarkerIcon (gym, ts) {
     }
 
     const raidLevel = gym.raid_level;
-    let icon;
+    //let icon;
     let iconSize;
+    let iconHtml = '';
+    let ignoreGymIcon = false;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             const pokemonIdString = getPokemonIdIconString(gym.raid_pokemon_id, gym.raid_pokemon_form);
             // Raid Boss
             iconSize = getRaidSize('p' + gym.raid_pokemon_id);
-            icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_' + pokemonIdString + '.png',
-                iconSize: [iconSize, iconSize * 1.667],
-                iconAnchor: [iconSize / 2, iconSize * 1.567],
-                popupAnchor: [0, iconSize * -1.567]
-            });
+            iconHtml = `<img src="/img/pokemon/${pokemonIdString}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else {
             // Egg
             iconSize = getRaidSize('l' + raidLevel);
-            icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
-                iconSize: [iconSize, iconSize * 1.667],
-                iconAnchor: [iconSize / 2, iconSize * 1.567],
-                popupAnchor: [0, iconSize * -1.567]
-            });
+            iconHtml = `<img src="/img/egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+            //icon = L.icon({
+            //    iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
+            //    iconSize: [iconSize, iconSize * 1.667],
+            //    iconAnchor: [iconSize / 2, iconSize * 1.567],
+            //    popupAnchor: [0, iconSize * -1.567]
+            //});
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
         iconSize = getRaidSize('l' + raidLevel);
-        icon = L.icon({
-            iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
-            iconSize: [iconSize, iconSize * 1.667],
-            iconAnchor: [iconSize / 2, iconSize * 1.567],
-            popupAnchor: [0, iconSize * -1.567]
-        });
+        iconHtml = `<img src="/img/egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
     } else {
         // Gym
         if (gym.in_battle) {
             // Gym Battle
             iconSize = 55; //Set Larger Size For Battle
-            icon = L.icon({
-                iconUrl:  '/img/battle/'+ gym.team_id + '_' + size +'.png',
-                iconSize:  [iconSize, iconSize],
-                iconAnchor:  [iconSize / 2, iconSize / 2],
-                popupAnchor:  [0, -20] //TODO: //size * -1.567
-            });
+            iconHtml = `<img src="/img/battle/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+            ignoreGymIcon = true;
         } else {
             // Gym
             iconSize = getGymSize(gym.team_id);
-            icon = L.icon({
-              iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
-              iconSize: [iconSize, iconSize],
-              iconAnchor: [iconSize / 2, iconSize / 2],
-              popupAnchor: [0, -20] // TODO: //size * -1.567
-            });
         }
     }
+    const icon = L.divIcon({
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
+        popupAnchor: [0, -20], // TODO: //size * -1.567
+        className: 'gym-marker',
+        html: ignoreGymIcon
+            ? `<center>${iconHtml}<br></center>`
+            : `<center>${iconHtml}<br><img src="/img/gym/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+    });
     return icon;
 }
 

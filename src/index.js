@@ -30,7 +30,6 @@ const utils = require('./services/utils.js');
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
 // TODO: Finish default filter options
-// TODO: Click device, show 70m instance
 
 // Basic security protection middleware
 app.use(helmet());
