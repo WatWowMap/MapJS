@@ -3634,13 +3634,7 @@ function getGymMarkerIcon (gym, ts) {
         } else {
             // Egg
             iconSize = getRaidSize('l' + raidLevel);
-            iconHtml = `<img src="/img/egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
-            //icon = L.icon({
-            //    iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
-            //    iconSize: [iconSize, iconSize * 1.667],
-            //    iconAnchor: [iconSize / 2, iconSize * 1.567],
-            //    popupAnchor: [0, iconSize * -1.567]
-            //});
+            iconHtml = `<img src="/img/unknown_egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
