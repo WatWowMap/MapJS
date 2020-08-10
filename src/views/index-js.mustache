@@ -3492,95 +3492,63 @@ function getPokemonMarker (pokemon, ts) {
 }
 
 function getPokestopMarkerIcon (pokestop, ts) {
-    let icon;
+    let iconSize = 30;
+    let iconHtml = '<span class="text-nowrap text-center">';
+    let sizeId = '0';
+    const lureIconId = getLureIconId(pokestop.lure_id);
+    const activeLure = showPokestops && sizeId > 0 && pokestop.lure_expire_timestamp >= ts;
+    const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
 
         let rewardString;
-
         if (id === 1 && info !== undefined && info.amount !== undefined) {
-            rewardString = 'i-2';
+            iconHtml += `<img src="/img/item/-2.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
-            rewardString = 'i' + info.item_id;
+            iconHtml += `<img src="/img/item/${info.item_id}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
-            rewardString = 'i-1';
+            iconHtml += `<img src="/img/item/-1.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
-            rewardString = 'i-3';
+            iconHtml += `<img src="/img/item/-3.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
                 const pokemonIdStringTmp = '' + info.pokemon_id + '-' + info.form_id;
                 if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-                    rewardString = 'p' + pokemonIdStringTmp;
+                    iconHtml += `<img src="/img/pokemon/${pokemonIdStringTmp}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
                 } else {
-                    rewardString = 'p' + info.pokemon_id;
+                    iconHtml += `<img src="/img/pokemon/${info.pokemon_id}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
                 }
             } else {
-                rewardString = 'p' + info.pokemon_id;
+                iconHtml += `<img src="/img/pokemon/${info.pokemon_id}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
             }
-        } else {
-            rewardString = 'i0';
         }
-        const size = getQuestSize(rewardString);
-
-        let lureId;
-        if (pokestop.lure_expire_timestamp >= ts) {
-            lureId = getLureIconId(pokestop.lure_id);
-        } else {
-            lureId = 0;
+        iconSize = getQuestSize(rewardString);
+        if (activeInvasion) {
+            //folder = 'quest_invasion';
+            iconHtml += `<img src="/img/grunt/${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'quest_invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'quest';
-        }
-        icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + '_' + rewardString + invasionStringEnd + '.png',
-            iconSize: [size, size * 1.667],
-            iconAnchor: [size / 2, size * 1.567],
-            popupAnchor: [0, size * -1.567]
-        });
     } else {
-        let lureId;
-        if (showPokestops && pokestop.lure_expire_timestamp >= ts) {
-            lureId = getLureIconId(pokestop.lure_id);
-        } else {
-            lureId = 0;
+        if (activeInvasion) {
+            iconHtml += `<img src="/img/grunt/${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'pokestop';
-        }
-
-        let sizeId = 'normal';
-        if (lureId > 0) {
-            sizeId = 'l' + getLureIconId(pokestop.lure_id);
-        } else if (pokestop.incident_expire_timestamp >= ts) {
-            sizeId = 'i' + pokestop.grunt_type;
-        }
-        const size = getPokestopSize(sizeId);
-        icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + invasionStringEnd + '.png',
-            iconSize: [size, size],
-            iconAnchor: [size / 2, size],
-            popupAnchor: [0, size * -1.567]
-        });
+        iconSize = getPokestopSize(sizeId);
     }
+    if (activeInvasion && activeLure) {
+        sizeId = 'i' + lureIconId;
+    } else if (activeInvasion) {
+        sizeId = 'i0';
+    } else if (activeLure) {
+        sizeId = lureIconId;
+    }
+    iconHtml += '</span>';
+    const icon = L.divIcon({
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
+        popupAnchor: [0, iconSize * -1.567],
+        className: 'pokestop-marker',
+        html: `<center>${iconHtml}<br><img src="/img/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+    });
     return icon;
 }
 
