@@ -47,6 +47,7 @@ const getData = async (perms, filter) => {
     const showSubmissionPlacementCells = filter.show_submission_placement_cells && filter.show_submission_placement_cells !== 'false' || false;
     const showSubmissionTypeCells = filter.show_submission_type_cells && filter.show_submission_type_cells !== 'false' || false;
     const showWeather = filter.show_weather && filter.show_weather !== 'false' || false;
+    const showNests = filter.show_nests && filter.show_nests !== 'false' || false;
     const showActiveDevices = filter.show_active_devices && filter.show_active_devices !== 'false' || false;
     const showPokemonFilter = filter.show_pokemon_filter && filter.show_pokemon_filter !== 'false' || false;
     const showQuestFilter = filter.show_quest_filter && filter.show_quest_filter !== 'false' || false;
@@ -78,6 +79,7 @@ const getData = async (perms, filter) => {
     const permShowS2Cells = perms ? perms.cells !== false : true;
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
+    const permShowNests = perms ? perms.nests !== false : true;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -112,6 +114,9 @@ const getData = async (perms, filter) => {
     }
     if (permShowWeather && showWeather) {
         data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
+    }
+    if (permShowNests && showNests) {
+        data['nests'] = await map.getNests(minLat, maxLat, minLon, maxLon);
     }
 
     if (permViewMap && showPokemonFilter) {
@@ -264,7 +269,7 @@ const getData = async (perms, filter) => {
                 pokemonData.push({
                     'id': {
                         'formatted': i,//String(format: "%03d", i),
-                        'sort': id + 10
+                        'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
                     'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,

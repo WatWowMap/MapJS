@@ -2,7 +2,10 @@
 
 const S2 = require('nodes2ts');
 
-const query = require('../services/db.js');
+const config = require('../config.json');
+const MySQLConnector = require('../services/mysql.js');
+const db = new MySQLConnector(config.db.scanner);
+const dbManual = new MySQLConnector(config.db.manualdb);
 
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
     const excludePokemonIds = [];
@@ -207,7 +210,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
             args.push(excludeFormIds[i]);
         }
     }
-    const results = await query(sql, args).catch(err => {
+    const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args);
     });
     let pokemon = [];
@@ -370,7 +373,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         if (excludedLevels.length === 0) {
             excludeLevelSQL = '';
         } else {
-            let sqlExcludeCreate = 'AND (raid_level NOT IN (';
+            let sqlExcludeCreate = 'AND (raid_pokemon_id > 0 OR raid_level NOT IN (';
             for (let i = 0; i < excludedLevels.length; i++) {
                 if (i === excludedLevels.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -466,7 +469,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         args.push(excludedAvailableSlots[i]);
     }
 
-    const results = await query(sql, args)
+    const results = await db.query(sql, args)
         .catch(err => {
             if (err) {
                 console.error('Failed to get gyms:', err);
@@ -699,7 +702,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
     `;
-
     const results = await query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
@@ -813,7 +815,7 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     `;
 
     let args = [minLat, maxLat, minLon, maxLon, updated];
-    const results = await query(sql, args);
+    const results = await db.query(sql, args);
     let spawnpoints = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -835,7 +837,7 @@ const getDevices = async () => {
     SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group
     FROM device
     `;
-    const results = await query(sql);
+    const results = await db.query(sql);
     let devices = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -866,7 +868,7 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     WHERE center_lat >= ? AND center_lat <= ? AND center_lon >= ? AND center_lon <= ? AND updated > ?
     `;
     let args = [minLatReal, maxLatReal, minLonReal, maxLonReal, updated];
-    const results = await query(sql, args);
+    const results = await db.query(sql, args);
     let cells = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -1014,7 +1016,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         }
     }
     return Object.values(indexedCells);
-}
+};
 
 const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     const minLatReal = minLat - 0.1;
@@ -1029,7 +1031,7 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     `;
 
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal, updated];
-    const results = await query(sql, args);
+    const results = await db.query(sql, args);
     let weather = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -1056,6 +1058,24 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
         }
     }
     return weather;
+};
+
+const getNests = async (minLat, maxLat, minLon, maxLon) => {
+    const minLatReal = minLat - 0.01;
+    const maxLatReal = maxLat + 0.01;
+    const minLonReal = minLon - 0.01;
+    const maxLonReal = maxLon + 0.01;
+    const sql = `
+    SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
+    FROM nests
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ?
+    `;
+    let args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
+    const results = await dbManual.query(sql, args);
+    if (results && results.length > 0) {
+        return results;
+    }
+    return null;
 };
 
 const getPolygon = (s2cellId) => {
@@ -1138,7 +1158,7 @@ const getAvailableRaidBosses = async () => {
         AND raid_pokemon_id > 0
     GROUP BY raid_pokemon_id
     `;
-    let result = await query(sql);
+    let result = await db.query(sql);
     if (result) {
         return result.map(x => x.raid_pokemon_id);
     }
@@ -1148,9 +1168,9 @@ const getAvailableRaidBosses = async () => {
 const getAvailableQuests = async () => {
     //const rewards = ['stardust']; // TODO: Localize
     let sql = 'SELECT quest_item_id AS id FROM pokestop WHERE quest_reward_type=2 GROUP BY quest_item_id';
-    const itemResults = await query(sql);
+    const itemResults = await db.query(sql);
     sql = 'SELECT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type=7 GROUP BY quest_pokemon_id';
-    const pokemonResults = await query(sql);
+    const pokemonResults = await db.query(sql);
     return {
         pokemon: pokemonResults.map(x => x.id),
         items: itemResults.map(x => x.id)
@@ -1181,6 +1201,7 @@ module.exports = {
     getSubmissionPlacementCells,
     getSubmissionTypeCells,
     getWeather,
+    getNests,
     getAvailableRaidBosses,
     getAvailableQuests
 };

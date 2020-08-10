@@ -17,6 +17,7 @@ let submissionPlacementCellMarkers = [];
 let submissionPlacementRingMarkers = [];
 let submissionTypeCellMarkers = [];
 let weatherMarkers = [];
+let nestMarkers = [];
 let deviceMarkers = [];
 
 let pokemonFilter = {};
@@ -48,6 +49,7 @@ let openedGym;
 let openedCell;
 let openedSubmissionTypeCell;
 let openedWeather;
+let openedNest;
 let openedDevice;
 
 let showPokestops;
@@ -1192,10 +1194,15 @@ function initMap () {
             });
             spawnpointMarkers = [];
         }
-        if (/*newShowNests !== showNests &&*/ newShowNests === false) {
+        if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
-        } else {
-            loadNestPolygons();
+            /*
+            $.each(nestMarkers, function (index, nest) {
+                //map.removeLayer(nest.marker);
+                nestLayer.removeLayer(nest.marker);
+            });
+            */
+            nestMarkers = [];
         }
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
@@ -1500,9 +1507,6 @@ function initMap () {
 
     $.getJSON( '/custom/nests.json', function( data ) {
         nestsDb = data;
-        if (showNests) {
-            loadNestPolygons();
-        }
     });
 
     $.getJSON( '/custom/areas.json', function( data ) {
@@ -2076,26 +2080,34 @@ function loadData () {
                 }
             });
 
+            const nests = data.data.nests;
+            $.each(nests, function (index, nest) {
+                if (showNests) {
+                    const oldNest = nestMarkers.find(function (value) {
+                        return nest.nest_id === value.nest_id;
+                    });
+                    let geojson = getGeoJsonFromName(nest);
+                    if (geojson !== undefined) {
+                        if (oldNest === undefined) {
+                            nest.marker = getNestMarker(nest, geojson, ts);
+                            nestMarkers.push(nest);
+                            nest.marker.addTo(nestLayer);
+                        }
+                    }
+                }
+            });
+
             lastUpdate = new Date();
             isLoading = false;
         }
     });
 }
 
-function loadNestPolygons () {
-    if (nestsDb === null) {
-        return;
-    }
-    try {
-        var nestGeoPolys = L.geoJson(nestsDb, {
-            onEachFeature: function(features, featureLayer) {
-                featureLayer.bindPopup(getNestPopupContent(features.properties.name));
-            }
-        });
-        nestLayer.addLayer(nestGeoPolys);
-    } catch (err) {
-        console.log('Failed to load nest.json file.\nError:', err);
-    }
+function getGeoJsonFromName(nest) {
+    let geojson = nestsDb.features.find(function (value) {
+        return nest.nest_id === value.id;
+    });
+    return geojson;
 }
 
 function loadScanAreaPolygons () {
@@ -2351,6 +2363,9 @@ function updateOpenedPopupLoop () {
     if (openedWeather !== undefined) {
         openedWeather.marker._popup.setContent(getWeatherPopupContent(openedWeather));
     }
+    if (openedNest !== undefined) {
+        openedNest.marker._popup.setContent(getNestPopupContent(openedNest));
+    }
     if (openedDevice !== undefined) {
         openedDevice.marker._popup.setContent(getDevicePopupContent(openedDevice));
     }
@@ -2421,7 +2436,7 @@ function getPokemonPopupContent (pokemon) {
                 '<img src="/img/' + pokemonIcon + '" height="64" width="64">' +
             '</div>' + // END POKEMON ROW
             '<div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">';
-    const pkmn = masterfile[pokemon.pokemon_id];
+    const pkmn = masterfile.pokemon[pokemon.pokemon_id];
     if (pkmn !== undefined && pkmn !== null) {
         const types = pkmn.types;
         if (types !== null && types.length > 0) {
@@ -2766,7 +2781,7 @@ function getGymPopupContent (gym) {
                 '</div>' + // END POKEMON ROW
                 '<div class="row" style="margin:auto;">';
         if (hasRaidBoss && isRaidBattle) {
-            const pkmn = masterfile[gym.raid_pokemon_id];
+            const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
             if (pkmn !== undefined && pkmn !== null) {
                 const types = pkmn.types;
                 if (types !== null && types.length > 0) {
@@ -2976,10 +2991,17 @@ function getWeatherPopupContent (weather) {
     return content;
 }
 
-function getNestPopupContent(name) {
+function getNestPopupContent(nest) {
+    const lastUpdated = new Date(nest.updated * 1000);
+    const pokemonName = getPokemonName(nest.pokemon_id);
     let content = `
     <center>
-        <h6>Park: <b>${name}</b></h6>
+        <h6>Park: <b>${nest.name}</b></h6>
+        Pokemon: <b>${pokemonName}</b><br>
+        Average: <b>${nest.pokemon_avg.toLocaleString()}</b><br>
+        Count: <b>${nest.pokemon_count.toLocaleString()}</b><br>
+        <br>
+        <small>Last Updated: <b>${lastUpdated.toLocaleString()}</b></small><br>
     </center>
     `;
     return content;
@@ -3272,6 +3294,67 @@ function getWeatherMarker (weather, ts) {
         polygon._popup.setContent(getWeatherPopupContent(weather));
     });
     return polygon;
+}
+
+function getNestMarker (nest, geojson, ts) {
+    const pkmn = masterfile.pokemon[nest.pokemon_id];
+    let typesIcon = '';
+    if (pkmn !== undefined && pkmn !== null) {
+        const types = pkmn.types;
+        if (types !== null && types.length > 0) {
+            if (types.length === 2) {
+                typesIcon += '<span class="text-nowrap"><img src="/img/type/' + types[0].toLowerCase() + '.png" height="24" width="24">&nbsp;';
+                typesIcon += '<img src="/img/type/' + types[1].toLowerCase() + '.png" height="24" width="24"></span>';
+            } else {
+                typesIcon += '<img src="/img/type/' + types[0].toLowerCase() + '.png" height="24" width="24">';
+            }
+        }
+    }
+    const nestPolygonMarker = L.geoJson(geojson, {
+        /*
+        pointToLayer: function(feature, latlng) {
+            console.log(latlng, feature);
+            let icon = L.icon({
+                iconUrl: '/img/pokemon/1.png',
+                iconSize: [30, 30],
+                iconAnchor: [30 / 2, 30 / 2],
+                popupAnchor:  [0, 30 * -1.567]
+            });
+            return L.marker(latlng, {icon: icon});
+        },
+        */
+        onEachFeature: function(features, featureLayer) {
+            featureLayer.bindPopup(getNestPopupContent(nest));
+            featureLayer.setStyle({
+                //'weight': 1,
+                'stroke': features.properties['stroke'],
+                'strokeOpacity': features.properties['stroke-opacity'],
+                'strokeWidth': features.properties['stroke-width'],
+                'fillColor': features.properties['fill'],
+                'fillOpacity': features.properties['fill-opacity']
+            });
+            const color = 'green';
+            const icon = L.divIcon({
+                iconSize: [40, 40],
+                iconAnchor: [40 / 2, 40 / 2],
+                popupAnchor: [0, 30 * -1.567],
+                className: 'nest-marker',
+                html: `<center><img src="/img/pokemon/${nest.pokemon_id}.png" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
+            });
+            /*
+            const icon = L.icon({
+                iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
+                iconSize: [30, 30],
+                iconAnchor: [30 / 2, 30 / 2],
+                popupAnchor:  [0, 30 * -1.567],
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                shadowSize:  [41, 41]
+            });
+            */
+            L.marker([nest.lat, nest.lon], {icon: icon}).addTo(nestLayer);
+        }
+    });
+    return nestPolygonMarker;
 }
 
 function getWeatherStyle (weather, ts) {
