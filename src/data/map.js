@@ -1061,17 +1061,48 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
     return weather;
 };
 
-const getNests = async (minLat, maxLat, minLon, maxLon) => {
+const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null) => {
     const minLatReal = minLat - 0.01;
     const maxLatReal = maxLat + 0.01;
     const minLonReal = minLon - 0.01;
     const maxLonReal = maxLon + 0.01;
+    const excludedPokemon = [];
+    
+    if (nestFilterExclude) {
+        for (let i = 0; i < nestFilterExclude.length; i++) {
+            const filter = nestFilterExclude[i];
+            if (filter.includes('p')) {
+                const id = parseInt(filter.replace('p', ''));
+                excludedPokemon.push(id);
+            }
+        }
+    }
+
+    let excludePokemonSQL;
+    if (excludedPokemon.length === 0) {
+        excludePokemonSQL = '';
+    } else {
+        let sqlExcludeCreate = 'AND (pokemon_id NOT IN (';
+        for (let i = 0; i < excludedPokemon.length; i++) {
+            if (i === excludedPokemon.length - 1) {
+                sqlExcludeCreate += '?))';
+            } else {
+                sqlExcludeCreate += '?, ';
+            }
+        }
+        excludePokemonSQL = sqlExcludeCreate;
+    }
+
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ?
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL}
     `;
     let args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
+    for (let i = 0; i < excludedPokemon.length; i++) {
+        args.push(excludedPokemon[i]);
+    }
+
     const results = await dbManual.query(sql, args);
     if (results && results.length > 0) {
         return results;
@@ -1178,6 +1209,19 @@ const getAvailableQuests = async () => {
     };
 };
 
+const getAvailableNestPokemon = async () => {
+    const sql = `
+    SELECT pokemon_id
+    FROM nests
+    GROUP BY pokemon_id
+    `;
+    let result = await dbManual.query(sql);
+    if (result) {
+        return result.map(x => x.pokemon_id);
+    }
+    return result;
+};
+
 class Ring {
     id;
     lat;
@@ -1204,5 +1248,6 @@ module.exports = {
     getWeather,
     getNests,
     getAvailableRaidBosses,
-    getAvailableQuests
+    getAvailableQuests,
+    getAvailableNestPokemon
 };
