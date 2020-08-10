@@ -264,7 +264,7 @@ const getData = async (perms, filter) => {
                 pokemonData.push({
                     'id': {
                         'formatted': i,//String(format: "%03d", i),
-                        'sort': id + 10
+                        'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
                     'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
