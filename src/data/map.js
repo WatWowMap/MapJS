@@ -254,7 +254,36 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 pvpRankingsUltraLeague = null;
             } else {
                 atkIv = null;
+            if (showIV) {
+                atkIv = result.atk_iv;
+                defIv = result.def_iv;
+                staIv = result.sta_iv;
+                move1 = result.move_1;
+                move2 = result.move_2;
+                cp = result.cp;
+                level = result.level;
+                weight = result.weight;
+                size = result.size;
+                displayPokemonId = result.display_pokemon_id;
+            } else {
+                atkIv = null;
                 defIv = null;
+                staIv = null;
+                move1 = null;
+                move2 = null;
+                cp = null;
+                level = null;
+                weight = null;
+                size = null;
+                displayPokemonId = null;
+            }
+            if (showPVP) {
+                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
+                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
+            } else {
+                pvpRankingsGreatLeague = null;
+                pvpRankingsUltraLeague = null;
+            }
                 staIv = null;
                 move1 = null;
                 move2 = null;
