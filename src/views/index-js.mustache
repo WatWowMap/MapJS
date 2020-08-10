@@ -3751,9 +3751,21 @@ function getDeviceMarker (device, ts) {
         virtual: true
     });
     marker.bindPopup('');
+    let polyline;
     marker.on('popupopen', function (popup) {
         openedDevice = device;
         marker._popup.setContent(getDevicePopupContent(device));
+        if (device.type === 'circle_pokemon') {
+            const data = JSON.parse(device.data);
+            const route = data.area;
+            // TODO: Make outline color configurable
+            polyline = L.polyline(route, {color: 'red'}).addTo(map);
+        }
+    });
+    marker.on('popupclose', function (popup) {
+        if (polyline) {
+            map.removeLayer(polyline);
+        }
     });
     return marker;
 }

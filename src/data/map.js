@@ -835,8 +835,10 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
 
 const getDevices = async () => {
     const sql = `
-    SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group
+    SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group, type, data
     FROM device
+    INNER JOIN instance
+    ON device.instance_name = instance.name
     `;
     const results = await db.query(sql);
     let devices = [];
@@ -851,7 +853,9 @@ const getDevices = async () => {
                 account_username: result.account_username,
                 last_lat: result.last_lat,
                 last_lon: result.last_lon,
-                device_group: result.device_group
+                device_group: result.device_group,
+                type: result.type,
+                data: result.data
             });
         }
     }
