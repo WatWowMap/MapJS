@@ -72,6 +72,7 @@ const getData = async (perms, filter) => {
     const permShowPokemon = perms ? perms.pokemon !== false : true;
     const permShowLures = perms ? perms.lures !== false : true;
     const permShowIV = perms ? perms.iv !== false : true;
+    const permShowPVP = perms ? perms.pvp !== false : true;
     const permShowRaids = perms ? perms.raids !== false : true;
     const permShowGyms = perms ? perms.gyms !== false : true;
     const permShowQuests = perms ? perms.quests !== false : true;
@@ -96,7 +97,7 @@ const getData = async (perms, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, showPokestops, showQuests, permShowLures, showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP, pokemonFilterLevel);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP, pokemonFilterLevel);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -167,6 +168,8 @@ const getData = async (perms, filter) => {
                     'type': globalFiltersString
                 });
             }
+        }
+        if (permShowPVP) {
             // Pokemon PVP filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
@@ -194,6 +197,8 @@ const getData = async (perms, filter) => {
                     'type': globalFiltersString
                 });
             }
+        }
+        if (permShowIV) {
             // Pokemon Level filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
@@ -231,15 +236,15 @@ const getData = async (perms, filter) => {
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
             const size = generateSizeButtons(id, 'pokemon-size');      
             pokemonData.push({
-                "id": {
-                    "formatted": utils.zeroPad(i, 3),
-                    "sort": i + 5
+                'id': {
+                    'formatted': utils.zeroPad(i, 3),
+                    'sort': i + 5
                 },
-                "name": sizeString,
-                "image": `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
-                "filter": filter,
-                "size": size,
-                "type": globalFiltersString
+                'name': sizeString,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
+                'filter': filter,
+                'size': size,
+                'type': globalFiltersString
             });
         }
 

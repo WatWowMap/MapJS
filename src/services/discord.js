@@ -72,6 +72,7 @@ class DiscordClient {
             invasions: false,
             spawnpoints: false,
             iv: false,
+            pvp: false,
             s2cells: false,
             submissionCells: false,
             nests: false,

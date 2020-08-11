@@ -7,7 +7,7 @@ const MySQLConnector = require('../services/mysql.js');
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null, pokemonFilterLevel = null) => {
     const excludePokemonIds = [];
     const excludeFormIds = [];
     let keys = Object.keys(pokemonFilterIV || []);
@@ -240,8 +240,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 weight = result.weight;
                 size = result.size;
                 displayPokemonId = result.display_pokemon_id;
-                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
-                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
             } else {
                 atkIv = null;
                 defIv = null;
@@ -253,10 +251,14 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showIV, updated, pokem
                 weight = null;
                 size = null;
                 displayPokemonId = null;
+            }
+            if (showPVP) {
+                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
+                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
+            } else {
                 pvpRankingsGreatLeague = null;
                 pvpRankingsUltraLeague = null;
             }
-
             let skip = false;
             if (pokemonFilterPVP) {
                 let idString = pokemonFilterPVP.hasOwnProperty('and') ? 'and' : 'or';
