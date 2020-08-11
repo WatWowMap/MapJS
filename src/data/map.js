@@ -226,34 +226,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             let displayPokemonId;
             let pvpRankingsGreatLeague;
             let pvpRankingsUltraLeague;
-            if (showPVP) {
-                atkIv = result.atk_iv;
-                defIv = result.def_iv;
-                staIv = result.sta_iv;
-                move1 = result.move_1;
-                move2 = result.move_2;
-                cp = result.cp;
-                level = result.level;
-                weight = result.weight;
-                size = result.size;
-                displayPokemonId = result.display_pokemon_id;
-                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
-                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
-            } else if (showIV && !showPVP) {
-                atkIv = result.atk_iv;
-                defIv = result.def_iv;
-                staIv = result.sta_iv;
-                move1 = result.move_1;
-                move2 = result.move_2;
-                cp = result.cp;
-                level = result.level;
-                weight = result.weight;
-                size = result.size;
-                displayPokemonId = result.display_pokemon_id;
-                pvpRankingsGreatLeague = null;
-                pvpRankingsUltraLeague = null;
-            } else {
-                atkIv = null;
             if (showIV) {
                 atkIv = result.atk_iv;
                 defIv = result.def_iv;
@@ -284,18 +256,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 pvpRankingsGreatLeague = null;
                 pvpRankingsUltraLeague = null;
             }
-                staIv = null;
-                move1 = null;
-                move2 = null;
-                cp = null;
-                level = null;
-                weight = null;
-                size = null;
-                displayPokemonId = null;
-                pvpRankingsGreatLeague = null;
-                pvpRankingsUltraLeague = null;
-            }
-
             let skip = false;
             if (pokemonFilterPVP) {
                 let idString = pokemonFilterPVP.hasOwnProperty('and') ? 'and' : 'or';
