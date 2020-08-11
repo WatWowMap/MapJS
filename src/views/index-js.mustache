@@ -343,7 +343,7 @@ $(function () {
             pokestop: pokestopFilterNew,
             invasion: invasionFilterNew,
             spawnpoint: spawnpointFilterNew,
-            nest: nestFilterNew
+            nest: nestFilterNew,
             weather: weatherFilterNew,
             device: deviceFilterNew,
         };
@@ -834,6 +834,7 @@ function loadStorage () {
             if (weatherFilter[i] === undefined) {
                 weatherFilter[i] = { show: true, size: 'normal' };
             }
+        }
     }
 
     const deviceFilterValue = retrieve('device_filter');
@@ -1832,6 +1833,7 @@ function loadData () {
             if (weatherFilter[i].show === false) {
                 weatherFilterExclude.push(i);
             }
+        }
     }
 
     const deviceFilterExclude = [];
@@ -4280,6 +4282,7 @@ function manageSelectButton (e, isNew) {
         case 'huge':
             shouldShow = weatherFilterNew[id].size === 'huge';
             break;
+        }
     } else if (type === 'device-status') {
         switch (info) {
         case 'hide':
@@ -4723,6 +4726,7 @@ function manageSelectButton (e, isNew) {
                 case 'huge':
                     weatherFilterNew[id].size = 'huge';
                     break;
+                }
             } else if (type === 'device-status') {
                 switch (info) {
                 case 'hide':

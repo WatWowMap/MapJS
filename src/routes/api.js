@@ -9,7 +9,6 @@ const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 
 const masterfile = require('../../static/data/masterfile.json');
-const utils = require('../services/utils');
 const skipForms = ['shadow', 'purified'];
 
 router.get('/get_data', async (req, res) => {
