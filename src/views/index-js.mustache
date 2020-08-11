@@ -1248,6 +1248,30 @@ function initMap () {
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
     });
 
+    $('#reset-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultWeatherFilter[i] = { show: true, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultNestFilter[i] = { show: false, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        nestFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
     // TODO: Reset/disable weather filters
 
     // TODO: Reset and disable filter for devices, maybe just reset
