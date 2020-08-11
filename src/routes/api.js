@@ -226,145 +226,6 @@ const getData = async (perms, filter) => {
                 });
             }
         }
-            // Pokemon IV filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-iv" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-iv" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i
-                    },
-                    'name': globalIVString,
-                    'image': `IV-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-            // Pokemon Level filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="global-lvl">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 4
-                    },
-                    'name': globalLevelString,
-                    'image': `LVL-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-        }
-
-        if (permShowPVP) {
-            // Pokemon IV filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-iv" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-iv" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i
-                    },
-                    'name': globalIVString,
-                    'image': `IV-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-            // Pokemon PVP filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 2
-                    },
-                    'name': globalPVPString,
-                    'image': `PVP-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-            // Pokemon Level filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="global-lvl">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 4
-                    },
-                    'name': globalLevelString,
-                    'image': `LVL-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-        }
 
         const bigKarpString = i18n.__('filter_big_karp');
         const tinyRatString = i18n.__('filter_tiny_rat');
@@ -374,15 +235,15 @@ const getData = async (perms, filter) => {
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
             const size = generateSizeButtons(id, 'pokemon-size');            
             pokemonData.push({
-                "id": {
-                    "formatted": i,//String(format: "%03d", i),
-                    "sort": i + 5
+                'id': {
+                    'formatted': i,//String(format: "%03d", i),
+                    'sort': i + 5
                 },
-                "name": sizeString,
-                "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
-                "filter": filter,
-                "size": size,
-                "type": globalFiltersString
+                'name': sizeString,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
+                'filter': filter,
+                'size': size,
+                'type': globalFiltersString
             });
         }
 
