@@ -278,9 +278,9 @@ const handleHomeJs = async (req, res) => {
     data.min_zoom = req.query.min_zoom || config.map.minZoom;
     data.max_zoom = req.query.max_zoom || config.map.maxZoom;
     data.max_pokemon_id = config.maxPokemonId;
-    //data["start_pokemon"] = request.param(name: "start_pokemon")
-    //data["start_pokestop"] = request.param(name: "start_pokestop")
-    //data["start_gym"] = request.param(name: "start_gym")
+    //data.start_pokemon = req.params.start_pokemon
+    //data.start_pokestop = req.params.start_pokestop
+    //data.start_gym = req.params.start_gym
     return data;
 };
 
