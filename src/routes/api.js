@@ -6,6 +6,7 @@ const router = express.Router();
 
 const config = require('../config.json');
 const map = require('../data/map.js');
+const utils = require('../services/utils.js');
 
 const masterfile = require('../../static/data/masterfile.json');
 const skipForms = ['shadow', 'purified'];
@@ -228,14 +229,14 @@ const getData = async (perms, filter) => {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
-            const size = generateSizeButtons(id, 'pokemon-size');            
+            const size = generateSizeButtons(id, 'pokemon-size');      
             pokemonData.push({
                 "id": {
                     "formatted": i,//String(format: "%03d", i),
                     "sort": i + 5
                 },
                 "name": sizeString,
-                "image": `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
+                "image": `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
                 "filter": filter,
                 "size": size,
                 "type": globalFiltersString
@@ -274,7 +275,7 @@ const getData = async (perms, filter) => {
                         'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
-                    'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                    'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString
@@ -329,7 +330,8 @@ const getData = async (perms, filter) => {
                     'sort': id+200
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                // TODO: Raid Pokemon form support
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -464,7 +466,7 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${pokeId}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -572,7 +574,7 @@ const getData = async (perms, filter) => {
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
@@ -617,6 +619,12 @@ const generateSizeButtons = (id, type) => {
     </div>
     `;
     return size;
+};
+
+const getPokemonIcon = (pokemonId, formId) => {
+    let pokeId = utils.zeroPad(pokemonId, 3);
+    let form = formId === 0 ? '00' : formId;
+    return `pokemon_icon_${pokeId}_${form}.png`;
 };
 
 module.exports = router;
