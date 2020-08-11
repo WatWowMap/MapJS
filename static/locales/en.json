@@ -49,6 +49,7 @@
 	"filter_pokestop_filter": "Pokestop Filter",
 	"filter_spawnpoint_filter": "Spawnpoint Filter",
 	"filter_nest_filter": "Nest Filter",
+	"filter_weather_filter": "Weather Filter",
 	"filter_table_search": "Search:",
 	"filter_pokemon_table_empty": "No matching Pokemon found",
 	"filter_quest_table_empty": "No matching Quests found",
