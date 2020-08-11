@@ -150,6 +150,7 @@ const handlePage = async (req, res) => {
                 data.hide_invasions = !perms.invasions;
                 data.hide_spawnpoints = !perms.spawnpoints;
                 data.hide_iv = !perms.iv;
+                data.hide_pvp = !perms.pvp;
                 data.hide_cells = !perms.s2cells;
                 data.hide_submission_cells = !perms.submissionCells;
                 data.hide_nests = !perms.nests;
