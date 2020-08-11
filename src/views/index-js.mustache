@@ -2633,7 +2633,7 @@ function getPokemonPopupContent (pokemon) {
             }
         });
     }
-    let pokemonIdString = '' + pokemon.pokemon_id + '-' + pokemon.form_id;
+    let pokemonIdString = '' + pokemon.pokemon_id + '-' + pokemon.form;
     if ($.inArray(pokemonIdString, availableForms) === -1) {
         pokemonIdString = pokemon.pokemon_id;
     }
