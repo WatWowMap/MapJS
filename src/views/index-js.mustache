@@ -44,6 +44,9 @@ let spawnpointFilterNew = {};
 let nestFilter = {};
 let nestFilterNew = {};
 
+let deviceFilter = {};
+let deviceFilterNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -86,6 +89,7 @@ let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
+let deviceFilterLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
@@ -226,6 +230,7 @@ $(function () {
         invasionFilterNew = $.extend(true, {}, invasionFilter);
         spawnpointFilterNew = $.extend(true, {}, spawnpointFilter);
         nestFilterNew = $.extend(true, {}, nestFilter);
+        deviceFilterNew = $.extend(true, {}, deviceFilter);
 
         $('.select-button').each(function (button) {
             manageSelectButton($(this), false);
@@ -273,6 +278,11 @@ $(function () {
             nestFilterLoaded = true;
             loadNestFilter();
         }
+
+        if (!deviceFilterLoaded) {
+            deviceFilterLoaded = true;
+            loadDeviceFilter();
+        }
     });
 
     // TODO: Bandaid for zindex
@@ -311,6 +321,7 @@ $(function () {
             show_invasions: showInvasions,
             show_spawnpoints: showSpawnpoints,
             show_nests: showNests,
+            show_devices: showDevices,
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
             show_weather: showWeather,
@@ -322,7 +333,8 @@ $(function () {
             pokestop: pokestopFilterNew,
             invasion: invasionFilterNew,
             spawnpoint: spawnpointFilterNew,
-            nest: nestFilterNew
+            nest: nestFilterNew,
+            device: deviceFilterNew,
         };
         let json = JSON.stringify(settings);
         let el = document.createElement('a');
@@ -793,6 +805,25 @@ function loadStorage () {
             }
         }
     }
+
+    const deviceFilterValue = retrieve('device_filter');
+    if (deviceFilterValue === null) {
+        const defaultDeviceFilter = {};
+        if (defaultDeviceFilter['online'] === undefined) {
+            defaultDeviceFilter['online'] = { show: true, size: 'normal' };
+        }
+        if (defaultDeviceFilter['offline'] === undefined) {
+            defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+    } else {
+        deviceFilter = JSON.parse(deviceFilterValue);
+        if (deviceFilter['online'] === undefined) {
+            deviceFilter['online'] = { show: true, size: 'normal' };
+        }
+        if (deviceFilter['offline'] === undefined) {
+            deviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+    }
 }
 
 function initMap () {
@@ -1183,6 +1214,8 @@ function initMap () {
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
     });
 
+    // TODO: Reset and disable filter for devices, maybe just reset
+
     $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -1297,12 +1330,13 @@ function initMap () {
         } else {
             loadScanAreaPolygons();
         }
-        if (newShowDevices !== showDevices && newShowDevices === false) {
+        // TODO: Fix
+        //if (newShowDevices !== showDevices && newShowDevices === false) {
             $.each(deviceMarkers, function (index, device) {
                 map.removeLayer(device.marker);
             });
             deviceMarkers = [];
-        }
+        //}
 
         pokemonFilter = pokemonFilterNew;
         const newPokemonMarkers = [];
@@ -1339,6 +1373,7 @@ function initMap () {
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
         nestFilter = nestFilterNew;
+        deviceFilter = deviceFilterNew;
         const newGymMarkers = [];
         $.each(gymMarkers, function (index, gym) {
             map.removeLayer(gym.marker);
@@ -1374,6 +1409,7 @@ function initMap () {
         store('invasion_filter', JSON.stringify(invasionFilter));
         store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
         store('nest_filter', JSON.stringify(nestFilter));
+        store('device_filter', JSON.stringify(deviceFilter));
         store('show_cells', newShowCells);
         showCells = newShowCells;
         store('show_submission_cells', newShowSubmissionCells);
@@ -1754,6 +1790,16 @@ function loadData () {
         }
     }
 
+    const deviceFilterExclude = [];
+    if (showDevices) {
+        if (deviceFilter['online'].show === false) {
+            deviceFilterExclude.push('online');
+        }
+        if (deviceFilter['offline'].show === false) {
+            deviceFilterExclude.push('offline');
+        }
+    }
+
     const data = {
         _: Math.round((new Date()).getTime() / 1000),
         min_lat: bounds._southWest.lat,
@@ -1777,6 +1823,7 @@ function loadData () {
         invasion_filter_exclude: JSON.stringify(invasionFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
         nest_filter_exclude: JSON.stringify(nestFilterExclude),
+        device_filter_exclude: JSON.stringify(deviceFilterExclude),
         show_spawnpoints: showSpawnpoints,
         show_nests: showNests,
         show_cells: showCells && map.getZoom() >= 13,
@@ -2059,7 +2106,6 @@ function loadData () {
             });
 
             const submissionTypeCells = data.data.submission_type_cells;
-            //console.log('Received submission type cells:', submissionTypeCells);
             $.each(submissionTypeCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 14) {
                     if (lastUpdateServer === 0) {
@@ -2082,7 +2128,6 @@ function loadData () {
             });
 
             const submissionPlacementCells = data.data.submission_placement_cells;
-            //console.log('Received submission placement cells:', submissionPlacementCells);
             $.each(submissionPlacementCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 16) {
                     if (lastUpdateServer === 0) {
@@ -4195,23 +4240,44 @@ function manageSelectButton (e, isNew) {
         }
     } else if (type === 'nest-pokemon') {
         switch (info) {
+        case 'hide':
+            shouldShow = nestFilterNew['p' + id].show === false;
+            break;
+        case 'show':
+            shouldShow = nestFilterNew['p' + id].show === true;
+            break;
+        case 'small':
+            shouldShow = nestFilterNew['p' + id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = nestFilterNew['p' + id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = nestFilterNew['p' + id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = nestFilterNew['p' + id].size === 'huge';
+            break;
+        }
+    } else if (type === 'device-status') {
+        switch (info) {
             case 'hide':
-                shouldShow = nestFilterNew['p' + id].show === false;
+                shouldShow = deviceFilterNew[id].show === false;
                 break;
             case 'show':
-                shouldShow = nestFilterNew['p' + id].show === true;
+                shouldShow = deviceFilterNew[id].show === true;
                 break;
             case 'small':
-                shouldShow = nestFilterNew['p' + id].size === 'small';
+                shouldShow = deviceFilterNew[id].size === 'small';
                 break;
             case 'normal':
-                shouldShow = nestFilterNew['p' + id].size === 'normal';
+                shouldShow = deviceFilterNew[id].size === 'normal';
                 break;
             case 'large':
-                shouldShow = nestFilterNew['p' + id].size === 'large';
+                shouldShow = deviceFilterNew[id].size === 'large';
                 break;
             case 'huge':
-                shouldShow = nestFilterNew['p' + id].size === 'huge';
+                shouldShow = deviceFilterNew[id].size === 'huge';
                 break;
             }
     } else {
@@ -4597,25 +4663,46 @@ function manageSelectButton (e, isNew) {
                 }
             } else if (type === 'nest-pokemon') {
                 switch (info) {
-                    case 'hide':
-                        nestFilterNew['p' + id].show = false;
-                        break;
-                    case 'show':
-                        nestFilterNew['p' + id].show = true;
-                        break;
-                    case 'small':
-                        nestFilterNew['p' + id].size = 'small';
-                        break;
-                    case 'normal':
-                        nestFilterNew['p' + id].size = 'normal';
-                        break;
-                    case 'large':
-                        nestFilterNew['p' + id].size = 'large';
-                        break;
-                    case 'huge':
-                        nestFilterNew['p' + id].size = 'huge';
-                        break;
-                    }
+                case 'hide':
+                    nestFilterNew['p' + id].show = false;
+                    break;
+                case 'show':
+                    nestFilterNew['p' + id].show = true;
+                    break;
+                case 'small':
+                    nestFilterNew['p' + id].size = 'small';
+                    break;
+                case 'normal':
+                    nestFilterNew['p' + id].size = 'normal';
+                    break;
+                case 'large':
+                    nestFilterNew['p' + id].size = 'large';
+                    break;
+                case 'huge':
+                    nestFilterNew['p' + id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'device-status') {
+                switch (info) {
+                case 'hide':
+                    deviceFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    deviceFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    deviceFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    deviceFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    deviceFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    deviceFilterNew[id].size = 'huge';
+                    break;
+                }
             }
         });
     }
@@ -5707,6 +5794,104 @@ function loadNestFilter () {
     });
 }
 
+function loadDeviceFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-device').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_device_table_empty'),
+            zeroRecords: i18n('filter_device_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' },
+            { data: 'size' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_device_filter=true',
+            dataSrc: 'data.device_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3, 4],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-device tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterDeviceModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-device').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
 function loadFilterSettings (e) {
     const file = e.target.files[0];
     if (!file) {
@@ -5748,6 +5933,7 @@ function loadFilterSettings (e) {
         store('spawnpoint_filter', JSON.stringify(spawnpointFilterNew));
 
         showNests = obj.show_nests;
+        nestFilterNew = obj.nest;
         store('show_nests', showNests);
         store('nest_filter', JSON.stringify(nestFilterNew));
 
@@ -5764,7 +5950,9 @@ function loadFilterSettings (e) {
         store('show_scanareas', showScanAreas);
 
         showDevices = obj.show_devices;
+        deviceFilterNew = obj.device;
         store('show_devices', showDevices);
+        store('device_filter', JSON.stringify(deviceFilterNew));
 
         if (showGyms) {
             $('#show-gyms').addClass('active');
@@ -5868,6 +6056,8 @@ function loadFilterSettings (e) {
         $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     };
     reader.readAsText(file);
 }
