@@ -846,6 +846,9 @@ function loadStorage () {
         if (defaultDeviceFilter['offline'] === undefined) {
             defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
         }
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilter = defaultDeviceFilter;
     } else {
         deviceFilter = JSON.parse(deviceFilterValue);
         if (deviceFilter['online'] === undefined) {
