@@ -1272,9 +1272,27 @@ function initMap () {
         $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
     });
 
-    // TODO: Reset/disable weather filters
+    $('#reset-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: true, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
 
-    // TODO: Reset and disable filter for devices, maybe just reset
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: false, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: false, size: 'normal' };
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
 
     $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
