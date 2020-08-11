@@ -44,6 +44,7 @@ const getData = async (perms, filter) => {
     const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const nestFilterExclude = filter.nest_filter_exclude ? JSON.parse(filter.nest_filter_exclude || {}) : [];
+    const deviceFilterExclude = filter.device_filter_exclude ? JSON.parse(filter.device_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints && filter.show_spawnpoints !== 'false' || false;
     const showCells = filter.show_cells && filter.show_cells !== 'false' || false;
     const showSubmissionPlacementCells = filter.show_submission_placement_cells && filter.show_submission_placement_cells !== 'false' || false;
@@ -59,6 +60,7 @@ const getData = async (perms, filter) => {
     const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
     const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
+    const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
@@ -103,7 +105,7 @@ const getData = async (perms, filter) => {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
     }
     if (permShowDevices && showActiveDevices) {
-        data['active_devices'] = await map.getDevices();
+        data['active_devices'] = await map.getDevices(deviceFilterExclude);
     }
     if (permShowS2Cells && showCells) {
         data['cells'] = await map.getS2Cells(minLat, maxLat, minLon, maxLon, lastUpdate);
@@ -586,6 +588,38 @@ const getData = async (perms, filter) => {
             });
         }
         data['nest_filters'] = nestData;
+    }
+
+    if (permViewMap && showDeviceFilter) {
+        const deviceOptionsString = i18n.__('filter_device_options');
+        const deviceOnlineString = i18n.__('filter_device_online');
+        const deviceOfflineString = i18n.__('filter_device_offline');
+
+        let deviceData = [];
+        deviceData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': deviceOnlineString,
+            'image': '<img class="lazy_load" data-src="/img/device/0.png" style="height:50px; width:50px;">',
+            'filter': generateShowHideButtons('online', 'device-status'),
+            'size': generateSizeButtons('online', 'device-status'),
+            'type': deviceOptionsString
+        });
+
+        deviceData.push({
+            'id': {
+                'formatted': utils.zeroPad(1, 3),
+                'sort': 1
+            },
+            'name': deviceOfflineString,
+            'image': '<img class="lazy_load" data-src="/img/device/1.png" style="height:50px; width:50px;">',
+            'filter': generateShowHideButtons('offline', 'device-status'),
+            'size': generateSizeButtons('offline', 'device-status'),
+            'type': deviceOptionsString
+        });
+        data['device_filters'] = deviceData;
     }
 
     return data;
