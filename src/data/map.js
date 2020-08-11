@@ -835,12 +835,38 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     return spawnpoints;
 };
 
-const getDevices = async () => {
+const getDevices = async (deviceFilterExclude = null) => {
+    let excludeOnline = false;
+    let excludeOffline = false;
+    if (deviceFilterExclude) {
+        for (let i = 0; i < deviceFilterExclude.length; i++) {
+            const filter = deviceFilterExclude[i];
+            if (filter.includes('online')) {
+                excludeOnline = true;
+            } else if (filter.includes('offline')) {
+                excludeOffline = true;
+            }
+        }
+    }
+
+    let excludeDeviceSQL;
+    if (!excludeOnline && !excludeOffline) {
+        excludeDeviceSQL = '';
+    } else if (!excludeOnline && excludeOffline) {
+        // Only exclude offline
+        excludeDeviceSQL = 'AND (last_seen >= UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE))';
+    } else if (excludeOnline && !excludeOffline) {
+        // Only exclude online
+        excludeDeviceSQL = 'AND (last_seen < UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE))';
+    } else {
+        excludeDeviceSQL = 'AND (last_seen >= UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE)) AND (last_seen < UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE))';
+    }
+
     const sql = `
     SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group, type, data
     FROM device
     INNER JOIN instance
-    ON device.instance_name = instance.name
+    ON device.instance_name = instance.name ${excludeDeviceSQL}
     `;
     const results = await db.query(sql);
     let devices = [];
