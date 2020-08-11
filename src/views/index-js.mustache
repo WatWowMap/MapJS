@@ -2643,7 +2643,7 @@ function getPokemonPopupContent (pokemon) {
     '<br>' +
     '<div class="text-center">' +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
-        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(\'' + pokemonIdString + '\', ' + pokemon.pokemon_id + ', ' + pokemon.form_id + ', false);return false;"><b>[Exclude]</b></a>' +
+        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(\'' + pokemonIdString + '\', ' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
         '<br>' +
         '<br>' +
         '<div class="row">' +
@@ -2700,7 +2700,7 @@ function addPokemonFilter (pokemonIdString, pokemonId, formId, show) {
     store('pokemon_filter', JSON.stringify(pokemonFilter));
 
     $.each(pokemonMarkers, function (index, pokemon) {
-        if (pokemon.pokemon_id === pokemonId && pokemon.form_id === formId) {
+        if (pokemon.pokemon_id === pokemonId && pokemon.form === formId) {
             map.removeLayer(pokemon.marker);
         }
     });
