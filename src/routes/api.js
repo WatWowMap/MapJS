@@ -6,6 +6,7 @@ const router = express.Router();
 
 const config = require('../config.json');
 const map = require('../data/map.js');
+const utils = require('../services/utils.js');
 
 const masterfile = require('../../static/data/masterfile.json');
 const skipForms = ['shadow', 'purified'];
@@ -233,14 +234,14 @@ const getData = async (perms, filter) => {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
-            const size = generateSizeButtons(id, 'pokemon-size');            
+            const size = generateSizeButtons(id, 'pokemon-size');      
             pokemonData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i + 5
                 },
                 'name': sizeString,
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${(i == 0 ? 129 : 19)}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
                 'filter': filter,
                 'size': size,
                 'type': globalFiltersString
@@ -275,11 +276,11 @@ const getData = async (perms, filter) => {
                 const size = generateSizeButtons(id, 'pokemon');
                 pokemonData.push({
                     'id': {
-                        'formatted': i,//String(format: "%03d", i),
+                        'formatted': utils.zeroPad(i, 3),
                         'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
-                    'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                    'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString
@@ -298,7 +299,7 @@ const getData = async (perms, filter) => {
         let raidData = [];
         raidData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': utils.zeroPad(0, 3),
                 'sort': 0
             },
             'name': raidTimers,
@@ -313,7 +314,7 @@ const getData = async (perms, filter) => {
             const raidLevel = i18n.__('filter_raid_level_' + i);
             raidData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
                 'name': raidLevel,
@@ -330,11 +331,12 @@ const getData = async (perms, filter) => {
             let id = pokemon[i];
             raidData.push({
                 'id': {
-                    'formatted': id,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(id),
                     'sort': id+200
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                // TODO: Raid Pokemon form support
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -354,7 +356,7 @@ const getData = async (perms, filter) => {
             const gymTeam = i18n.__('filter_gym_team_' + i);
             gymData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
                 'name': gymTeam,
@@ -368,7 +370,7 @@ const getData = async (perms, filter) => {
         // EX raid eligible gyms
         gymData.push({
             'id': {
-                'formatted': 5,//String(format: "%03d", 5), //Need a better way to display, new section?
+                'formatted': utils.zeroPad(5, 3),
                 'sort': 5
             },
             'name': i18n.__('filter_raid_ex') ,
@@ -381,7 +383,7 @@ const getData = async (perms, filter) => {
         // In-battle gyms
         gymData.push({
             'id': {
-                'formatted': 6,//String(format: "%03d", 5), //Need a better way to display, new section?
+                'formatted': utils.zeroPad(6, 3),
                 'sort': 6
             },
             'name': i18n.__('filter_gym_in_battle') ,
@@ -397,8 +399,8 @@ const getData = async (perms, filter) => {
             const team = Math.round((Math.random() % 3) + 1);
             gymData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
-                    'sort': i+100
+                    'formatted': utils.zeroPad(i, 3),
+                    'sort': i + 100
                 },
                 'name': availableSlots,
                 'image': `<img class="lazy_load" data-src="/img/gym/${(i == 6 ? 0 : team)}_${(6 - i)}.png" style="height:50px; width:50px;">`,
@@ -432,7 +434,7 @@ const getData = async (perms, filter) => {
             }
             questData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
                 'name': itemName,
@@ -449,7 +451,7 @@ const getData = async (perms, filter) => {
             const itemId = rewards.items[i];
             questData.push({
                 'id': {
-                    'formatted': itemId,//String(format: "%03d", itemI),
+                    'formatted': utils.zeroPad(itemId, 3),
                     'sort': itemId + 100
                 },
                 'name': i18n.__('item_' + itemId) ,
@@ -465,11 +467,11 @@ const getData = async (perms, filter) => {
             const pokeId = rewards.pokemon[i];
             questData.push({
                 'id': {
-                    'formatted': pokeId,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(pokeId, 3),
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${pokeId}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -484,7 +486,7 @@ const getData = async (perms, filter) => {
         let pokestopData = [];
         pokestopData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': utils.zeroPad(0, 3),
                 'sort': 0
             },
             'name': pokestopNormal,
@@ -498,7 +500,7 @@ const getData = async (perms, filter) => {
             const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
             pokestopData.push({
                 'id': {
-                    'formatted': i,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
                 'name': pokestopLure,
@@ -519,7 +521,7 @@ const getData = async (perms, filter) => {
         for (let i = 1; i <= 50; i++) {
             invasionData.push({
                 'id': {
-                    'formatted': i,
+                    'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
                 'name': i18n.__('grunt_' + i),
@@ -540,7 +542,7 @@ const getData = async (perms, filter) => {
         let spawnpointData = [];
         spawnpointData.push({
             'id': {
-                'formatted': 0,//String(format: "%03d", 0),
+                'formatted': utils.zeroPad(0, 3),
                 'sort': 0
             },
             'name': spawnpointWithoutTimerString,
@@ -552,7 +554,7 @@ const getData = async (perms, filter) => {
 
         spawnpointData.push({
             'id': {
-                'formatted': 1,//String(format: "%03d", 1),
+                'formatted': utils.zeroPad(1, 3),
                 'sort': 1
             },
             'name': spawnpointWithTimerString,
@@ -573,11 +575,11 @@ const getData = async (perms, filter) => {
             let id = pokemon[i];
             nestData.push({
                 'id': {
-                    'formatted': id,//String(format: "%03d", i),
+                    'formatted': utils.zeroPad(id, 3),
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${id}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
@@ -622,6 +624,12 @@ const generateSizeButtons = (id, type) => {
     </div>
     `;
     return size;
+};
+
+const getPokemonIcon = (pokemonId, formId) => {
+    let pokeId = utils.zeroPad(pokemonId, 3);
+    let form = formId === 0 ? '00' : formId;
+    return `pokemon_icon_${pokeId}_${form}.png`;
 };
 
 module.exports = router;
