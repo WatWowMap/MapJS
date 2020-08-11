@@ -3902,7 +3902,7 @@ function setDespawnTimer (gym) {
             const text = '<div class=\'rounded raid-timer\'><span class=\'p-1\'>' + timer + '</span></div>';
             gym.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 55] };
             /* let tooltip = */ gym.marker.bindTooltip(timer, options);
             gym.marker.timerSet = true;
         }
