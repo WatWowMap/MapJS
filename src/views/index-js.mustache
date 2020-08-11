@@ -44,6 +44,9 @@ let spawnpointFilterNew = {};
 let nestFilter = {};
 let nestFilterNew = {};
 
+let weatherFilter = {};
+let weatherFilterNew = {};
+
 let deviceFilter = {};
 let deviceFilterNew = {};
 
@@ -89,6 +92,7 @@ let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
+let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
 
 let deviceOnlineIcon;
@@ -230,6 +234,7 @@ $(function () {
         invasionFilterNew = $.extend(true, {}, invasionFilter);
         spawnpointFilterNew = $.extend(true, {}, spawnpointFilter);
         nestFilterNew = $.extend(true, {}, nestFilter);
+        weatherFilterNew = $.extend(true, {}, weatherFilter);
         deviceFilterNew = $.extend(true, {}, deviceFilter);
 
         $('.select-button').each(function (button) {
@@ -277,6 +282,11 @@ $(function () {
         if (!nestFilterLoaded) {
             nestFilterLoaded = true;
             loadNestFilter();
+        }
+
+        if (!weatherFilterLoaded) {
+            weatherFilterLoaded = true;
+            loadWeatherFilter();
         }
 
         if (!deviceFilterLoaded) {
@@ -333,7 +343,8 @@ $(function () {
             pokestop: pokestopFilterNew,
             invasion: invasionFilterNew,
             spawnpoint: spawnpointFilterNew,
-            nest: nestFilterNew,
+            nest: nestFilterNew
+            weather: weatherFilterNew,
             device: deviceFilterNew,
         };
         let json = JSON.stringify(settings);
@@ -798,12 +809,31 @@ function loadStorage () {
         nestFilter = defaultNestFilter;
     } else {
         nestFilter = JSON.parse(nestFilterValue);
-        for (i = 0; i < availableNestPokemon.length; i++) {
+        for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id] === undefined) {
                 nestFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
+    }
+
+    const weatherFilterValue = retrieve('weather_filter');
+    if (weatherFilterValue === null) {
+        const defaultWeatherFilter = {};
+        for (let i = 1; i <= 7; i++) {
+            if (defaultWeatherFilter[i] === undefined) {
+                defaultWeatherFilter[i] = { show: true, size: 'normal' };
+            }
+        }
+        
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilter = defaultWeatherFilter;
+    } else {
+        weatherFilter = JSON.parse(weatherFilterValue);
+        for (let i = 1; i <= 7; i++) {
+            if (weatherFilter[i] === undefined) {
+                weatherFilter[i] = { show: true, size: 'normal' };
+            }
     }
 
     const deviceFilterValue = retrieve('device_filter');
@@ -1214,6 +1244,8 @@ function initMap () {
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
     });
 
+    // TODO: Reset/disable weather filters
+
     // TODO: Reset and disable filter for devices, maybe just reset
 
     $('#saveFilters').on('click', function (event) {
@@ -1319,12 +1351,13 @@ function initMap () {
             });
             submissionTypeCellMarkers = [];
         }
-        if (newShowWeather !== showWeather && newShowWeather === false) {
+        // TODO: Fix weather filtering on change
+        //if (newShowWeather !== showWeather && newShowWeather === false) {
             $.each(weatherMarkers, function (index, weather) {
                 map.removeLayer(weather.marker);
             });
             weatherMarkers = [];
-        }
+        //}
         if (/*newShowScanAreas !== showScanAreas &&*/ newShowScanAreas === false) {
             scanAreaLayer.clearLayers();
         } else {
@@ -1373,7 +1406,9 @@ function initMap () {
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
         nestFilter = nestFilterNew;
+        weatherFilter = weatherFilterNew;
         deviceFilter = deviceFilterNew;
+
         const newGymMarkers = [];
         $.each(gymMarkers, function (index, gym) {
             map.removeLayer(gym.marker);
@@ -1409,6 +1444,7 @@ function initMap () {
         store('invasion_filter', JSON.stringify(invasionFilter));
         store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
         store('nest_filter', JSON.stringify(nestFilter));
+        store('weather_filter', JSON.stringify(weatherFilter));
         store('device_filter', JSON.stringify(deviceFilter));
         store('show_cells', newShowCells);
         showCells = newShowCells;
@@ -1782,12 +1818,20 @@ function loadData () {
 
     const nestFilterExclude = [];
     if (showNests) {
-        for (i = 0; i < availableNestPokemon.length; i++) {
+        for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id].show === false) {
                 nestFilterExclude.push('p' + id);
             }
         }
+    }
+
+    const weatherFilterExclude = [];
+    if (showWeather) {
+        for (let i = 1; i <= 7; i++) {
+            if (weatherFilter[i].show === false) {
+                weatherFilterExclude.push(i);
+            }
     }
 
     const deviceFilterExclude = [];
@@ -1823,6 +1867,7 @@ function loadData () {
         invasion_filter_exclude: JSON.stringify(invasionFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
         nest_filter_exclude: JSON.stringify(nestFilterExclude),
+        weather_filter_exclude: JSON.stringify(weatherFilterExclude),
         device_filter_exclude: JSON.stringify(deviceFilterExclude),
         show_spawnpoints: showSpawnpoints,
         show_nests: showNests,
@@ -4215,27 +4260,47 @@ function manageSelectButton (e, isNew) {
             shouldShow = nestFilterNew['p' + id].size === 'huge';
             break;
         }
+    } else if (type === 'weather-type') {
+        switch (info) {
+        case 'hide':
+            shouldShow = weatherFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = weatherFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = weatherFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = weatherFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = weatherFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = weatherFilterNew[id].size === 'huge';
+            break;
     } else if (type === 'device-status') {
         switch (info) {
-            case 'hide':
-                shouldShow = deviceFilterNew[id].show === false;
-                break;
-            case 'show':
-                shouldShow = deviceFilterNew[id].show === true;
-                break;
-            case 'small':
-                shouldShow = deviceFilterNew[id].size === 'small';
-                break;
-            case 'normal':
-                shouldShow = deviceFilterNew[id].size === 'normal';
-                break;
-            case 'large':
-                shouldShow = deviceFilterNew[id].size === 'large';
-                break;
-            case 'huge':
-                shouldShow = deviceFilterNew[id].size === 'huge';
-                break;
-            }
+        case 'hide':
+            shouldShow = deviceFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = deviceFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = deviceFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = deviceFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = deviceFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = deviceFilterNew[id].size === 'huge';
+            break;
+        }
     } else {
         shouldShow = false;
     }
@@ -4638,6 +4703,26 @@ function manageSelectButton (e, isNew) {
                     nestFilterNew['p' + id].size = 'huge';
                     break;
                 }
+            } else if (type === 'weather-type') {
+                switch (info) {
+                case 'hide':
+                    weatherFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    weatherFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    weatherFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    weatherFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    weatherFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    weatherFilterNew[id].size = 'huge';
+                    break;
             } else if (type === 'device-status') {
                 switch (info) {
                 case 'hide':
@@ -5732,6 +5817,103 @@ function loadNestFilter () {
     });
 }
 
+function loadWeatherFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-weather').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_weather_table_empty'),
+            zeroRecords: i18n('filter_weather_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_weather_filter=true',
+            dataSrc: 'data.weather_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-weather tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterWeatherModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-weather').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
 function loadDeviceFilter () {
     const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-device').DataTable({
@@ -5882,7 +6064,9 @@ function loadFilterSettings (e) {
         store('show_submission_cells"', showSubmissionCells);
 
         showWeather = obj.show_weather;
+        weatherFilterNew = obj.weather;
         store('show_weather', showWeather);
+        store('weather_filter', JSON.stringify(weatherFilterNew));
 
         showScanAreas = obj.show_scanareas;
         store('show_scanareas', showScanAreas);

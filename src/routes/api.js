@@ -9,6 +9,7 @@ const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 
 const masterfile = require('../../static/data/masterfile.json');
+const utils = require('../services/utils');
 const skipForms = ['shadow', 'purified'];
 
 router.get('/get_data', async (req, res) => {
@@ -44,6 +45,7 @@ const getData = async (perms, filter) => {
     const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const nestFilterExclude = filter.nest_filter_exclude ? JSON.parse(filter.nest_filter_exclude || {}) : [];
+    const weatherFilterExclude = filter.weather_filter_exclude ? JSON.parse(filter.weather_filter_exclude || {}) : [];
     const deviceFilterExclude = filter.device_filter_exclude ? JSON.parse(filter.device_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints && filter.show_spawnpoints !== 'false' || false;
     const showCells = filter.show_cells && filter.show_cells !== 'false' || false;
@@ -60,6 +62,7 @@ const getData = async (perms, filter) => {
     const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
     const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
+    const showWeatherFilter = filter.show_weather_filter && filter.show_weather_filter !== 'false' || false;
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
@@ -119,7 +122,7 @@ const getData = async (perms, filter) => {
         data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
     }
     if (permShowWeather && showWeather) {
-        data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate);
+        data['weather'] = await map.getWeather(minLat, maxLat, minLon, maxLon, lastUpdate, weatherFilterExclude);
     }
     if (permShowNests && showNests) {
         data['nests'] = await map.getNests(minLat, maxLat, minLon, maxLon, nestFilterExclude);
@@ -588,6 +591,26 @@ const getData = async (perms, filter) => {
             });
         }
         data['nest_filters'] = nestData;
+    }
+
+    if (permViewMap && showWeatherFilter) {
+        const weatherOptionsString = i18n.__('filter_weather_options');
+        let weatherData = [];
+        for (i = 1; i <= 7; i++) {
+            const weatherNameString = i18n.__('weather_' + i);
+            weatherData.push({
+                'id': {
+                    'formatted': utils.zeroPad(i, 3),
+                    'sort': 0
+                },
+                'name': weatherNameString,
+                'image': `<img class="lazy_load" data-src="/img/weather/${i}.png" style="height:50px; width:50px;">`,
+                'filter': generateShowHideButtons(i, 'weather-type'),
+                'size': generateSizeButtons(i, 'weather-type'),
+                'type': weatherOptionsString
+            });
+        }
+        data['weather_filters'] = weatherData;
     }
 
     if (permViewMap && showDeviceFilter) {

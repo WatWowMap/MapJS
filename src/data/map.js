@@ -1051,19 +1051,47 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     return Object.values(indexedCells);
 };
 
-const getWeather = async (minLat, maxLat, minLon, maxLon, updated) => {
+const getWeather = async (minLat, maxLat, minLon, maxLon, updated, weatherFilterExclude = null) => {
     const minLatReal = minLat - 0.1;
     const maxLatReal = maxLat + 0.1;
     const minLonReal = minLon - 0.1;
     const maxLonReal = maxLon + 0.1;
+    let excludedTypes = [];
+    if (weatherFilterExclude) {
+        for (let i = 0; i < weatherFilterExclude.length; i++) {
+            const filter = weatherFilterExclude[i];
+            excludedTypes.push(filter);
+        }
+    }
+
+    let excludeWeatherSQL = '';
+    if (excludedTypes.length === 0) {
+        excludeWeatherSQL = '';
+    } else {
+        let sqlExcludeCreate = 'AND (gameplay_condition NOT IN (';
+        for (let i = 0; i < excludedTypes.length; i++) {
+            if (i === excludedTypes.length - 1) {
+                sqlExcludeCreate += '?))';
+            } else {
+                sqlExcludeCreate += '?, ';
+            }
+        }
+        excludeWeatherSQL = sqlExcludeCreate;
+    }
+
     const sql = `
     SELECT id, level, latitude, longitude, gameplay_condition, wind_direction, cloud_level,
             rain_level, wind_level, snow_level, fog_level, special_effect_level, severity, warn_weather, updated
     FROM weather
-    WHERE latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND updated > ?
+    WHERE latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND updated > ? ${excludeWeatherSQL}
     `;
-
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal, updated];
+    
+    for (let i = 0; i < excludedTypes.length; i++) {
+        const id = excludedTypes[i];
+        args.push(id);
+    }
+
     const results = await db.query(sql, args);
     let weather = [];
     if (results && results.length > 0) {

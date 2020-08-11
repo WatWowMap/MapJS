@@ -146,7 +146,7 @@
                             </label>
                         </div>
                         {{filter_weathers}}
-                        <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterWeatherModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_scanareas}}class="d-none"{{/hide_scanareas}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -469,6 +469,40 @@
         </div>
     </div>
 
+    <div class="modal fade" id="filterWeatherModal" tabindex="-1" role="dialog" aria-labelledby="filterWeatherModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterWeatherModalLabel">{{filter_weather_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-weather" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-weather-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-weather-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="modal fade" id="filterDeviceModal" tabindex="-1" role="dialog" aria-labelledby="filterDeviceModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
