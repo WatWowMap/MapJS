@@ -3462,19 +3462,19 @@ function getPokemonMarkerIcon (pokemon, ts) {
                 ? 'first'
                 : '';
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
-        ? `<img src="/img/misc/${bestRankIcon}.png" style="width:${size}px;height:auto; background-color:transparent;" />`
+        ? `<img src="/img/misc/${bestRankIcon}.png" style="width:${size / 1.5}px;height:auto; background-color:transparent; padding:0; margin:-10px 0 0 0;" />`
         : '';
     const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, -(size / 2)],
         className: 'pokemon-marker',
-        html: `<center>${iconHtml}<img src="/img/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
+        html: `<center><img src="/img/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
         (
             iv >= glowIV
             ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
             : ''
-        ) + '"/></center>'
+        ) + `"/>${iconHtml}</center>`
     });
     return icon;
 }
