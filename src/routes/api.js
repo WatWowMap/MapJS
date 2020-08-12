@@ -98,7 +98,7 @@ const getData = async (perms, filter) => {
         (permShowQuests && showQuests) ||
         (permShowInvasions && showInvasions)
     ) {
-        data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, showPokestops, showQuests, permShowLures, showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
+        data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP, pokemonFilterLevel);

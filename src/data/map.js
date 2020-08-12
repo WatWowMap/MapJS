@@ -579,88 +579,117 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
         }
     }
 
+    let args = [minLat, maxLat, minLon, maxLon, updated];
     let excludeTypeSQL = '';
     let excludePokemonSQL = '';
     let excludeItemSQL = '';
-    let excludeLureSQL = '';
     let excludeInvasionSQL = '';
     let excludePokestopSQL = '';
 
-    if (showQuests && (excludedTypes.length > 0 || excludedTypes.length > 0 || excludedPokemon.length > 0)) {
+    if (showQuests) {
         if (excludedTypes.length === 0) {
-            excludeTypeSQL = '';
+            // exclude pokemon/item quests; they will be included in subsequent clauses
+            excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7))';
         } else {
-            let sqlExcludeCreate = 'AND (quest_reward_type IS NULL OR quest_reward_type NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
             for (let i = 0; i < excludedTypes.length; i++) {
                 if (i === excludedTypes.length - 1) {
                     sqlExcludeCreate += '?))';
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                const id = parseInt(excludedTypes[i]);
+                switch (id) {
+                case 1:
+                    args.push(3);
+                    break;
+                case 2:
+                    args.push(1);
+                    break;
+                case 3:
+                    args.push(4);
+                    break;
+                default:
+                    console.warn('Unrecognized excludedType', id);
+                    args.push(-1);
+                    break;
+                }
             }
             excludeTypeSQL = sqlExcludeCreate;
         }
 
         if (excludedPokemon.length === 0) {
-            excludePokemonSQL = '';
+            excludePokemonSQL = 'OR (quest_pokemon_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'AND (quest_pokemon_id IS NULL OR quest_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
                 if (i === excludedPokemon.length - 1) {
                     sqlExcludeCreate += '?))';
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                const id = parseInt(excludedPokemon[i]);
+                args.push(id);
             }
             excludePokemonSQL = sqlExcludeCreate;
         }
 
         if (excludedItems.length === 0) {
-            excludeItemSQL = '';
+            excludeItemSQL = 'OR (quest_item_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'AND (quest_item_id IS NULL OR quest_item_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
                     sqlExcludeCreate += '?))';
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                args.push(excludedItems[i]);
             }
             excludeItemSQL = sqlExcludeCreate;
         }
     }
 
-    if (showPokestops && (excludeNormal || excludedLures.length > 0)) {
-        if (excludedLures.length === 0) {
-            excludeLureSQL = '';
-        } else {
-            let sqlExcludeCreate = 'AND (lure_id NOT IN (';
-            for (let i = 0; i < excludedLures.length; i++) {
-                if (i === excludedLures.length - 1) {
-                    sqlExcludeCreate += '?))';
-                } else {
-                    sqlExcludeCreate += '?, ';
+    if (showPokestops) {
+        if (showLures) {
+            let excludeLureSQL;
+            if (excludedLures.length === 0) {
+                excludeLureSQL = 'TRUE';
+            } else {
+                let sqlExcludeCreate = '(lure_id NOT IN (';
+                for (let i = 0; i < excludedLures.length; i++) {
+                    if (i === excludedLures.length - 1) {
+                        sqlExcludeCreate += '?))';
+                    } else {
+                        sqlExcludeCreate += '?, ';
+                    }
+                    args.push(excludedLures[i]);
                 }
+                excludeLureSQL = sqlExcludeCreate;
             }
-            excludeLureSQL = sqlExcludeCreate;
-        }
 
-        if (excludeNormal) {
-            excludePokestopSQL += `AND (lure_expire_timestamp IS NOT NULL AND lure_expire_timestamp >= UNIX_TIMESTAMP() ${excludeLureSQL})`;
+            if (excludeNormal) {
+                excludePokestopSQL = `OR (lure_expire_timestamp IS NOT NULL AND lure_expire_timestamp >= UNIX_TIMESTAMP() AND ${excludeLureSQL})`;
+            } else {
+                excludePokestopSQL = `OR (lure_expire_timestamp IS NULL OR lure_expire_timestamp < UNIX_TIMESTAMP() OR ${excludeLureSQL})`;
+            }
+        } else if (!excludeNormal) {
+            excludePokestopSQL = 'OR TRUE';
         }
     }
 
-    if (showInvasions && excludedInvasions) {
+    if (showInvasions) {
         if (excludedInvasions.length === 0) {
-            excludeInvasionSQL = '';
+            excludeInvasionSQL = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP())';
         } else {
-            let sqlExcludeCreate = (excludePokestopSQL !== '' || excludeTypeSQL !== '' || excludeItemSQL !== '' || excludePokemonSQL !== '' ? ' OR ' : ' AND ') + ' (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
+            let sqlExcludeCreate = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
             for (let i = 0; i < excludedInvasions.length; i++) {
                 if (i === excludedInvasions.length - 1) {
                     sqlExcludeCreate += '?))';
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
+                args.push(excludedInvasions[i]);
             }
             excludeInvasionSQL = sqlExcludeCreate;
         }
@@ -672,40 +701,10 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
             incident_expire_timestamp, grunt_type, sponsor_id
     FROM pokestop
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND
-        deleted = false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
+        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
     `;
-
-    let args = [minLat, maxLat, minLon, maxLon, updated];
-    for (let i = 0; i < excludedTypes.length; i++) {
-        const id = parseInt(excludedTypes[i]);
-        switch (id) {
-        case 1:
-            args.push(3);
-            break;
-        case 2:
-            args.push(1);
-            break;
-        case 3:
-            args.push(4);
-            break;
-        }
-    }
-    for (let i = 0; i < excludedPokemon.length; i++) {
-        const id = parseInt(excludedPokemon[i]);
-        args.push(id);
-    }
-    for (let i = 0; i < excludedItems.length; i++) {
-        args.push(excludedItems[i]);
-    }
-    for (let i = 0; i < excludedLures.length; i++) {
-        args.push(excludedLures[i]);
-    }
-    for (let i = 0; i < excludedInvasions.length; i++) {
-        args.push(excludedInvasions[i]);
-    }
-
-    const results = await db.query(sql, args);
+    const results = await query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
