@@ -704,7 +704,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
     `;
-    const results = await query(sql, args);
+    const results = await db.query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {

@@ -28,8 +28,6 @@ const utils = require('./services/utils.js');
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
 // TODO: Finish default filter options
-// TODO: Filter devices
-// TODO: Filter weather
 
 // Basic security protection middleware
 app.use(helmet());
