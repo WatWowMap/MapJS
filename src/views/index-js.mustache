@@ -1267,7 +1267,7 @@ function initMap () {
         }
 
         store('weather_filter', JSON.stringify(defaultWeatherFilter));
-        nestFilterNew = defaultWeatherFilter;
+        weatherFilterNew = defaultWeatherFilter;
 
         $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
     });
