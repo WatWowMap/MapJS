@@ -120,6 +120,20 @@ let pokemonRarityDb = [];
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
 
+let defaultShowPokemon = '{{default_show_pokemon}}' || false;
+let defaultShowRaids = '{{default_show_raids}}' || true;
+let defaultShowGyms = '{{default_show_gyms}}' || false;
+let defaultShowPokestops = '{{default_show_pokestops}}' || false;
+let defaultShowQuests = '{{default_show_quests}}' || true;
+let defaultShowInvasions = '{{default_show_invasions}}' || true;
+let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' || false;
+let defaultShowWeather = '{{default_show_weather}}' || false;
+let defaultShowScanCells = '{{default_show_scancells}}' || false;
+let defaultShowSubmissionCells = '{{default_show_submissioncells}}' || false;
+let defaultShowNests = '{{default_show_nests}}' || false;
+let defaultShowScanAreas = '{{default_show_scanareas}}' || false;
+let defaultShowDevices = '{{default_show_devices}}' || false;
+
 $(function () {
     L.Marker.addInitHook(function () {
         if (this.options.virtual) {
@@ -423,104 +437,104 @@ function loadStorage () {
 
     const showGymsValue = retrieve('show_gyms');
     if (showGymsValue === null) {
-        store('show_gyms', true);
-        showGyms = true;
+        store('show_gyms', defaultShowGyms);
+        showGyms = defaultShowGyms;
     } else {
         showGyms = (showGymsValue === 'true');
     }
 
     const showRaidsValue = retrieve('show_raids');
     if (showRaidsValue === null) {
-        store('show_raids', true);
-        showRaids = true;
+        store('show_raids', defaultShowPokemon);
+        showRaids = defaultShowPokemon;
     } else {
         showRaids = (showRaidsValue === 'true');
     }
 
     const showPokestopsValue = retrieve('show_pokestops');
     if (showPokestopsValue === null) {
-        store('show_pokestops', false);
-        showPokestops = false;
+        store('show_pokestops', defaultShowPokestops);
+        showPokestops = defaultShowPokestops;
     } else {
         showPokestops = (showPokestopsValue === 'true');
     }
 
     const showQuestsValue = retrieve('show_quests');
     if (showQuestsValue === null) {
-        store('show_quests', true);
-        showQuests = true;
+        store('show_quests', defaultShowQuests);
+        showQuests = defaultShowQuests;
     } else {
         showQuests = (showQuestsValue === 'true');
     }
 
     const showInvasionsValue = retrieve('show_invasions');
     if (showInvasionsValue === null) {
-        store('show_invasions', true);
-        showInvasions = true;
+        store('show_invasions', defaultShowInvasions);
+        showInvasions = defaultShowInvasions;
     } else {
         showInvasions = (showInvasionsValue === 'true');
     }
 
     const showSpawnpointsValue = retrieve('show_spawnpoints');
     if (showSpawnpointsValue === null) {
-        store('show_spawnpoints', false);
-        showSpawnpoints = false;
+        store('show_spawnpoints', defaultShowSpawnpoints);
+        showSpawnpoints = defaultShowSpawnpoints;
     } else {
         showSpawnpoints = (showSpawnpointsValue === 'true');
     }
 
     const showNestsValue = retrieve('show_nests');
     if (showNestsValue === null) {
-        store('show_nests', false);
-        showNests = false;
+        store('show_nests', defaultShowNests);
+        showNests = defaultShowNests;
     } else {
         showNests = (showNestsValue === 'true');
     }
 
     const showPokemonValue = retrieve('show_pokemon');
     if (showPokemonValue === null) {
-        store('show_pokemon', true);
-        showPokemon = true;
+        store('show_pokemon', defaultShowPokemon);
+        showPokemon = defaultShowPokemon;
     } else {
         showPokemon = (showPokemonValue === 'true');
     }
 
     const showSubmissionCellsValue = retrieve('show_submission_cells');
     if (showSubmissionCellsValue === null) {
-        store('show_submission_cells', false);
-        showSubmissionCells = false;
+        store('show_submission_cells', defaultShowSubmissionCells);
+        showSubmissionCells = defaultShowSubmissionCells;
     } else {
         showSubmissionCells = (showSubmissionCellsValue === 'true');
     }
 
     const showCellsValue = retrieve('show_cells');
     if (showCellsValue === null) {
-        store('show_cells', false);
-        showCells = false;
+        store('show_cells', defaultShowScanCells);
+        showCells = defaultShowScanCells;
     } else {
         showCells = (showCellsValue === 'true');
     }
 
     const showWeatherValue = retrieve('show_weather');
     if (showWeatherValue === null) {
-        store('show_weather', false);
-        showWeather = false;
+        store('show_weather', defaultShowWeather);
+        showWeather = defaultShowWeather;
     } else {
         showWeather = (showWeatherValue === 'true');
     }
 
     const showScanAreasValue = retrieve('show_scanareas');
     if (showScanAreasValue === null) {
-        store('show_scanareas', false);
-        showScanAreas = false;
+        store('show_scanareas', defaultShowScanAreas);
+        showScanAreas = defaultShowScanAreas;
     } else {
         showScanAreas = (showScanAreasValue === 'true');
     }
 
     const showDevicesValue = retrieve('show_devices');
     if (showDevicesValue === null) {
-        store('show_devices', false);
-        showDevices = false;
+        store('show_devices', defaultShowDevices);
+        showDevices = defaultShowDevices;
     } else {
         showDevices = (showDevicesValue === 'true');
     }
