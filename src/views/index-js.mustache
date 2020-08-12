@@ -1263,7 +1263,7 @@ function initMap () {
     $('#disable-all-weather-filter').on('click', function (event) {
         const defaultWeatherFilter = {};
         for (i = 1; i <= 7; i++) {
-            defaultNestFilter[i] = { show: false, size: 'normal' };
+            defaultWeatherFilter[i] = { show: false, size: 'normal' };
         }
 
         store('weather_filter', JSON.stringify(defaultWeatherFilter));
