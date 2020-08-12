@@ -3642,6 +3642,7 @@ function getPokemonMarker (pokemon, ts) {
 function getPokestopMarkerIcon (pokestop, ts) {
     let iconSize = 30;
     let iconHtml = '<span class="text-nowrap text-center">';
+    let iconUrl = '';
     let sizeId = '0';
     const lureIconId = getLureIconId(pokestop.lure_id);
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
@@ -3651,25 +3652,26 @@ function getPokestopMarkerIcon (pokestop, ts) {
         const info = pokestop.quest_rewards[0].info;
         let rewardString;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
-            iconHtml += `<img src="/img/item/-2.png" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+            iconUrl = '/img/item/-2.png';
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
-            iconHtml += `<img src="/img/item/${info.item_id}.png" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+            iconUrl = `/img/item/${info.item_id}.png`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
-            iconHtml += `<img src="/img/item/-1.png" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+            iconUrl = '/img/item/-1.png';
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
-            iconHtml += `<img src="/img/item/-3.png" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+            iconUrl = '/img/item/-3.png';
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
                 const pokemonIdStringTmp = '' + info.pokemon_id + '_' + info.form_id;
                 if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-                    iconHtml += `<img src="/img/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id)}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+                    iconUrl = `/img/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id)}`;
                 } else {
-                    iconHtml += `<img src="/img/pokemon/${getPokemonIcon(info.pokemon_id, 0)}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+                    iconUrl = `/img/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
                 }
             } else {
-                iconHtml += `<img src="/img/pokemon/${getPokemonIcon(info.pokemon_id, 0)}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block;"/>`;
+                iconUrl = `/img/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
             }
         }
+        iconHtml += `<img src="${iconUrl}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/>`;
         iconSize = getQuestSize(rewardString);
     } else {
         iconSize = getPokestopSize(sizeId);
@@ -3685,7 +3687,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
         iconAnchor: [iconSize / 2, iconSize / 2],
-        popupAnchor: [0, iconSize * -1.567],
+        //popupAnchor: [0, iconSize * -1.567],
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<center>${iconHtml}<img src="/img/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
@@ -3801,7 +3803,7 @@ function getGymMarkerIcon (gym, ts) {
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
         iconAnchor: [iconSize / 2, iconSize / 2],
-        popupAnchor: [iconSize * -1.567], // 0, -20
+        //popupAnchor: [iconSize * -1.567], // 0, -20
         className: 'gym-marker',
         html: ignoreGymIcon
             ? `<center>${iconHtml}<br></center>`
@@ -3886,10 +3888,10 @@ function setDespawnTimer (gym) {
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
-    // Hatched
+        // Hatched
         raidTimestamp = gym.raid_end_timestamp;
     } else if (gym.raid_battle_timestamp >= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
-    // Egg
+        // Egg
         raidTimestamp = gym.raid_battle_timestamp;
     } else {
         gym.marker.unbindTooltip();
@@ -4984,6 +4986,7 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     return 4096;
 }
 
+// TODO: Make external file
 function isCommonPokemon(pokemonId) {
     const commonList = [
         1,4,7,10,13,16,17,19,20,21,23,25,27,29,32,35,37,39,41,43,46,48,50,52,54,56,58,60,63,66,69,72,74,77,79,81,84,86,90,92,96,98,100,

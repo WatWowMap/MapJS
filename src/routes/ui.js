@@ -89,6 +89,7 @@ const handlePage = async (req, res) => {
     const files = fs.readdirSync(pokemonIconsDir);
     if (files) {
         files.forEach(file => {
+            // TODO: Fix available forms check
             const split = file.replace('.png', '').split('-');
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
