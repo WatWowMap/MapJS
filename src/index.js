@@ -27,7 +27,6 @@ const utils = require('./services/utils.js');
 // TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
-// TODO: Finish default filter options
 
 // Basic security protection middleware
 app.use(helmet());
