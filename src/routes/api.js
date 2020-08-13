@@ -63,6 +63,7 @@ const getData = async (perms, filter) => {
     const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
     const showWeatherFilter = filter.show_weather_filter && filter.show_weather_filter !== 'false' || false;
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
+    const iconStyle = filter.icon_style || 'Default';
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
@@ -88,6 +89,7 @@ const getData = async (perms, filter) => {
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
+    const iconStylePath = config.icons[iconStyle];
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -245,7 +247,7 @@ const getData = async (perms, filter) => {
                     'sort': i + 5
                 },
                 'name': sizeString,
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
                 'filter': filter,
                 'size': size,
                 'type': globalFiltersString
@@ -284,7 +286,7 @@ const getData = async (perms, filter) => {
                         'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
-                    'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
+                    'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString
@@ -307,7 +309,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': raidTimers,
-            'image': '<img class="lazy_load" data-src="/img/misc/timer.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/misc/timer.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('timers', 'raid-timers'),
             'size': generateSizeButtons('timers', 'raid-timers'),
             'type': generalString
@@ -322,7 +324,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': raidLevel,
-                'image': `<img class="lazy_load" data-src="/img/egg/${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/egg/${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'raid-level'),
                 'size': generateSizeButtons(i, 'raid-level'),
                 'type': raidLevelsString
@@ -340,7 +342,7 @@ const getData = async (perms, filter) => {
                 },
                 'name': i18n.__('poke_' + id),
                 // TODO: Raid Pokemon form support
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -364,7 +366,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': gymTeam,
-                'image': `<img class="lazy_load" data-src="/img/gym/${i}_${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/gym/${i}_${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'gym-team'),
                 'size': generateSizeButtons(i, 'gym-team'),
                 'type': gymTeamString
@@ -378,7 +380,7 @@ const getData = async (perms, filter) => {
                 'sort': 5
             },
             'name': i18n.__('filter_raid_ex') ,
-            'image': '<img class="lazy_load" data-src="/img/item/1403.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/1403.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('ex', 'gym-ex'),
             'size': generateSizeButtons('ex', 'gym-ex'),
             'type': gymOptionsString
@@ -391,7 +393,7 @@ const getData = async (perms, filter) => {
                 'sort': 6
             },
             'name': i18n.__('filter_gym_in_battle') ,
-            'image': '<img class="lazy_load" data-src="/img/battle/0_0.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/battle/0_0.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('battle', 'gym-battle'),
             'size': generateSizeButtons('battle', 'gym-battle'),
             'type': gymOptionsString
@@ -407,7 +409,7 @@ const getData = async (perms, filter) => {
                     'sort': i + 100
                 },
                 'name': availableSlots,
-                'image': `<img class="lazy_load" data-src="/img/gym/${(i == 6 ? 0 : team)}_${(6 - i)}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/gym/${(i == 6 ? 0 : team)}_${(6 - i)}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'gym-slots'),
                 'size': generateSizeButtons(i, 'gym-slots'),
                 'type': availableSlotsString
@@ -442,7 +444,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': itemName,
-                'image': `<img class="lazy_load" data-src="/img/item/${-i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/item/${-i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'quest-misc'),
                 'size': generateSizeButtons(i, 'quest-misc'),
                 'type': miscTypeString
@@ -459,7 +461,7 @@ const getData = async (perms, filter) => {
                     'sort': itemId + 100
                 },
                 'name': i18n.__('item_' + itemId) ,
-                'image': `<img class="lazy_load" data-src="/img/item/${itemId}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/item/${itemId}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(itemId, 'quest-item'),
                 'size': generateSizeButtons(itemId, 'quest-item'),
                 'type': itemsTypeString
@@ -475,7 +477,7 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -494,7 +496,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': pokestopNormal,
-            'image': '<img class="lazy_load" data-src="/img/pokestop/0.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/0.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('normal', 'pokestop-normal'),
             'size': generateSizeButtons('normal', 'pokestop-normal'),
             'type': pokestopOptionsString
@@ -508,7 +510,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': pokestopLure,
-                'image': `<img class="lazy_load" data-src="/img/pokestop/${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'pokestop-lure'),
                 'size': generateSizeButtons(i, 'pokestop-lure'),
                 'type': pokestopOptionsString
@@ -529,7 +531,7 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': i18n.__('grunt_' + i),
-                'image': `<img class="lazy_load" data-src="/img/grunt/${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/grunt/${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'invasion-grunt'),
                 'size': generateSizeButtons(i, 'invasion-grunt'),
                 'type': gruntTypeString
@@ -550,7 +552,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': spawnpointWithoutTimerString,
-            'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/spawnpoint/0.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('no-timer', 'spawnpoint-timer'),
             'size': generateSizeButtons('no-timer', 'spawnpoint-timer'),
             'type': spawnpointOptionsString
@@ -562,7 +564,7 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': spawnpointWithTimerString,
-            'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/spawnpoint/1.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('with-timer', 'spawnpoint-timer'),
             'size': generateSizeButtons('with-timer', 'spawnpoint-timer'),
             'type': spawnpointOptionsString
@@ -583,7 +585,7 @@ const getData = async (perms, filter) => {
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="/img/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
@@ -603,7 +605,7 @@ const getData = async (perms, filter) => {
                     'sort': 0
                 },
                 'name': weatherNameString,
-                'image': `<img class="lazy_load" data-src="/img/weather/${i}.png" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/weather/${i}.png" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(i, 'weather-type'),
                 'size': generateSizeButtons(i, 'weather-type'),
                 'type': weatherOptionsString
@@ -624,7 +626,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': deviceOnlineString,
-            'image': '<img class="lazy_load" data-src="/img/device/0.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/device/0.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('online', 'device-status'),
             'size': generateSizeButtons('online', 'device-status'),
             'type': deviceOptionsString
@@ -636,7 +638,7 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': deviceOfflineString,
-            'image': '<img class="lazy_load" data-src="/img/device/1.png" style="height:50px; width:50px;">',
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/device/1.png" style="height:50px; width:50px;">`,
             'filter': generateShowHideButtons('offline', 'device-status'),
             'size': generateSizeButtons('offline', 'device-status'),
             'type': deviceOptionsString
