@@ -83,6 +83,8 @@ const handlePage = async (req, res) => {
     }
     data.available_tileservers_json = JSON.stringify(tileservers);
 
+    data.available_icon_styles_json = JSON.stringify(config.iconStyles);
+
     // Build available forms list
     const availableForms = [];
     const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
@@ -232,6 +234,8 @@ const handleHomeJs = async (req, res) => {
         });
     }
     data.available_tileservers_json = JSON.stringify(tileservers);
+
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available forms list
     const availableForms = [];

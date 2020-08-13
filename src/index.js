@@ -19,7 +19,6 @@ const utils = require('./services/utils.js');
 
 // TODO: Separate cluster layers by type
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
-// TODO: Custom icons
 // TODO: Notification sounds, bouncing icons
 // TODO: Possibly change filter selection from a list to a grid
 // TODO: Finish custom user settings modal
@@ -27,7 +26,6 @@ const utils = require('./services/utils.js');
 // TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
-// TODO: Finish default filter options
 
 // Basic security protection middleware
 app.use(helmet());
