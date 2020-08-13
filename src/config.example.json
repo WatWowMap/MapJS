@@ -148,6 +148,9 @@
         "analytics": "",
         "adsense": ""
     },
+    "icons": {
+        "Default": "/img/"
+    },
     "scouting": {
         "enabled": false,
         "url": "",
