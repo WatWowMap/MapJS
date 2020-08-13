@@ -2314,7 +2314,7 @@ function loadData () {
                     const oldNest = nestMarkers.find(function (value) {
                         return nest.nest_id === value.nest_id;
                     });
-                    let geojson = getGeoJsonFromName(nest);
+                    let geojson = getGeoJsonFromId(nest);
                     if (geojson !== undefined) {
                         if (oldNest === undefined) {
                             nest.marker = getNestMarker(nest, geojson, ts);
@@ -2331,9 +2331,10 @@ function loadData () {
     });
 }
 
-function getGeoJsonFromName(nest) {
+function getGeoJsonFromId(nest) {
+    const nestId = parseInt(nest.nest_id);
     let geojson = nestsDb.features.find(function (value) {
-        return nest.nest_id === value.id;
+        return nestId === parseInt(value.id);
     });
     return geojson;
 }
