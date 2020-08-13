@@ -3666,7 +3666,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
                 ? 'first'
                 : '';
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
-        ? `<img src="${availableIconStyles[selectedIconStyle]}/misc/${bestRankIcon}.png" style="width:${size / 1.5}px;height:auto; background-color:transparent; padding:0; margin:-10px 0 0 0;" />`
+        ? `<img src="${availableIconStyles[selectedIconStyle]}/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto; background-color:transparent; padding:0; margin:-15px 0 0 15px;" />`
         : '';
     const icon = L.divIcon({
         iconSize: [size, size],
