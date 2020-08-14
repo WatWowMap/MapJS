@@ -3035,10 +3035,23 @@ function getGymPopupContent (gym) {
         gymName = gym.name;
     }
 
+    let titleSize = 16;//'medium';
+    if (gymName.length > 40) {
+        //titleSize = 'xx-small';
+        titleSize = 8;
+    } else if (gymName.length > 30) {
+        //titleSize = 'small';
+        titleSize = 11;
+    } else if (gymName.length > 20) {
+        //titleSize = 'small';
+        titleSize = 14;
+    }
+    console.log('Title size:', titleSize);
+
     let content =
     '<div class="row">' + // START 1ST ROW
         '<div class="col-12 col-md-8 center-vertical">' +
-            '<span class="text-nowrap"><h6><b>' + gymName + '</b></h6></span>' +
+            `<span class="text-nowrap" style="font-size:${titleSize}px;"><b>${gymName}</b></span>` +
         '</div>' +
         '<div class="col-6 col-md-4 center-vertical">' +
             '<div style="float:right; margin: auto;">' +
