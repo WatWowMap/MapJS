@@ -247,7 +247,7 @@ const getData = async (perms, filter) => {
                     'sort': i + 5
                 },
                 'name': sizeString,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, '0')}" style="height:50px; width:50px;">`,
                 'filter': filter,
                 'size': size,
                 'type': globalFiltersString
@@ -342,7 +342,7 @@ const getData = async (perms, filter) => {
                 },
                 'name': i18n.__('poke_' + id),
                 // TODO: Raid Pokemon form support
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -477,7 +477,7 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -585,7 +585,7 @@ const getData = async (perms, filter) => {
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
