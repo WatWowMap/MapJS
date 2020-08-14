@@ -938,7 +938,7 @@ function initMap () {
         layers: [nestLayer, scanAreaLayer, clusters],
         maxZoom: '{{max_zoom}}',
         //renderer: L.canvas()
-    }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+    });
 
     const lastViewCenterLat = retrieve('last_lat');
     const lastViewCenterLng = retrieve('last_lng');
@@ -946,7 +946,7 @@ function initMap () {
     if (window.location.pathname == '/' && lastViewCenterLat && lastViewCenterLng && lastViewZoom) {
         map.setView([lastViewCenterLat, lastViewCenterLng], lastViewZoom);
     } else {
-        map.setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+        map.setView(defaultStartLocation, defaultStartZoom);
     }
     map.on('moveend', function () {
         const center = map.getCenter();
