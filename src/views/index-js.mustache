@@ -3887,7 +3887,7 @@ function getGymMarkerIcon (gym, ts) {
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
         iconAnchor: [iconSize / 2, iconSize * 1.567],
-        //popupAnchor: [0, iconSize * -1.567], // 0, -20
+        popupAnchor: [0, iconSize * -1.567], // 0, -20
         className: 'gym-marker',
         html: ignoreGymIcon
             ? `<center>${iconHtml}<br></center>`
@@ -3988,7 +3988,7 @@ function setDespawnTimer (gym) {
             const text = '<div class=\'rounded raid-timer\'><span class=\'p-1\'>' + timer + '</span></div>';
             gym.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 55] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
             /* let tooltip = */ gym.marker.bindTooltip(timer, options);
             gym.marker.timerSet = true;
         }
