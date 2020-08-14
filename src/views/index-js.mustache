@@ -6,7 +6,7 @@ let map;
 let lastUpdateServer = 0;
 
 let lastUpdate = 0;
-let isLoading = false;
+let loadRequest = null;
 
 let pokestopMarkers = [];
 let gymMarkers = [];
@@ -199,6 +199,9 @@ $(function () {
 
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
+    });
+    $.ajaxSetup({
+        async: true
     });
 
     availableForms = JSON.parse('{{{available_forms_json}}}');
@@ -1769,10 +1772,12 @@ function initMap () {
 // MARK: - Data Loading
 
 function loadData () {
-    if (isLoading || new Date() - lastUpdate < 100) {
+    if (new Date() - lastUpdate < (loadRequest ? 4000 : 500)) {
         return;
     }
-    isLoading = true;
+    if (loadRequest) {
+        loadRequest.abort();
+	}
     lastUpdate = new Date();
 
     const bounds = map.getBounds();
@@ -1994,7 +1999,7 @@ function loadData () {
         _csrf: '{{csrf}}'
     };
 
-    $.ajax({
+    loadRequest = $.ajax({
         url: '/api/get_data',
         data: data,
         type: 'post',
@@ -2377,7 +2382,7 @@ function loadData () {
             });
 
             lastUpdate = new Date();
-            isLoading = false;
+            loadRequest = null;
         }
     });
 }
