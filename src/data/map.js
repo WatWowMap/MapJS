@@ -984,7 +984,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = parseFloat(minLon - 0.01);
     let maxLonReal = parseFloat(maxLon + 0.01);
 
-    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, false, false, null, null);
+    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, true, null, null);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
@@ -1016,7 +1016,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 14;
         regionCoverer.maxLevel = 14;
