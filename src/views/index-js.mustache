@@ -6176,6 +6176,11 @@ function loadFilterSettings (e) {
         store('show_pokestops', showPokestops);
         store('pokestop_filter', JSON.stringify(pokestopFilterNew));
 
+        showInvasions = obj.show_invasions;
+        invasionFilterNew = obj.invasion;
+        store('show_invasions', showInvasions);
+        store('invasion_filter', JSON.stringify(invasionFilterNew));
+
         showSpawnpoints = obj.show_spawnpoints;
         spawnpointFilterNew = obj.spawnpoint;
         store('show_spawnpoints', showSpawnpoints);
