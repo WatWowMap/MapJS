@@ -2674,7 +2674,11 @@ function updateDevicesLoop () {
 }
 
 function updateMapTimers () {
+    const bounds = map.getBounds();
     $.each(gymMarkers, function (index, marker) {
+        if (!bounds.contains(marker)) {
+            return;
+        }
         if (showRaidTimers) {
             setDespawnTimer(marker);
         } else {
