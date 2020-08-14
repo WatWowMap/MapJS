@@ -2843,17 +2843,13 @@ function getPokemonPopupContent (pokemon) {
             }
         });
     }
-    let pokemonIdString = '' + pokemon.pokemon_id + '-' + pokemon.form;
-    if ($.inArray(pokemonIdString, availableForms) === -1) {
-        pokemonIdString = pokemon.pokemon_id;
-    }
     content +=
         '</div>' +
     '</div>' + // END 3RD ROW
     '<br>' +
     '<div class="text-center">' +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
-        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(\'' + pokemonIdString + '\', ' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
+        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
         '<br>' +
         '<br>' +
         '<div class="row">' +
@@ -2905,12 +2901,22 @@ function setIndividualPokemonHidden (id) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function addPokemonFilter (pokemonIdString, pokemonId, formId, show) {
-    pokemonFilter[pokemonIdString].show = show;
+function addPokemonFilter (pokemonId, formId, show) {
+    let pokemonString = null;
+    let mappedForm = formId;
+    if (formId === 0) {
+        const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+        if (defaultForm) {
+            mappedForm = defaultForm;
+        } else {
+            pokemonString = String(pokemonId);
+        }
+    }
+    pokemonFilter[pokemonString || pokemonId + '-' + mappedForm].show = show;
     store('pokemon_filter', JSON.stringify(pokemonFilter));
 
     $.each(pokemonMarkers, function (index, pokemon) {
-        if (pokemon.pokemon_id === pokemonId && pokemon.form === formId) {
+        if (pokemon.pokemon_id === pokemonId && (pokemon.form === formId || pokemon.form === mappedForm)) {
             map.removeLayer(pokemon.marker);
         }
     });
