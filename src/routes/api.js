@@ -267,7 +267,7 @@ const getData = async (perms, filter) => {
                     continue;
                 }
                 formName = formName === 'Normal' ? '' : formName;
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 let ivLabel = '';
                 if (permShowIV) {
                     ivLabel = `
@@ -285,7 +285,7 @@ const getData = async (perms, filter) => {
                         'formatted': utils.zeroPad(i, 3),
                         'sort': i * 100 + j
                     },
-                    'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
+                    'name': i18n.__('poke_' + i) + (formId === '0' ? '' : ' ' + formName),
                     'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
@@ -686,7 +686,7 @@ const generateSizeButtons = (id, type) => {
 
 const getPokemonIcon = (pokemonId, formId) => {
     let pokeId = utils.zeroPad(pokemonId, 3);
-    let form = formId === 0 ? '00' : formId;
+    let form = formId === '0' ? '00' : formId;
     return `pokemon_icon_${pokeId}_${form}.png`;
 };
 
