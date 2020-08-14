@@ -6293,3 +6293,11 @@ function loadFilterSettings (e) {
     };
     reader.readAsText(file);
 }
+
+function clearSiteCache() {
+    if (window.location.reload.length == 1) {
+        window.location.reload(true);
+    } else {
+        window.location.href = '/purge?target=' + encodeURIComponent(window.location.pathname);
+    }
+}
