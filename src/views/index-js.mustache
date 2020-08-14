@@ -592,6 +592,14 @@ function loadStorage () {
         showDevices = (showDevicesValue === 'true');
     }
 
+    const showRaidTimersValue = retrieve('show_devices');
+    if (showRaidTimersValue === null) {
+        store('show_raid_timers', true); // TODO: Set default option in config
+        showRaidTimers = true;
+    } else {
+        showRaidTimers = (showRaidTimersValue === 'true');
+    }
+
     const pokemonFilterValue = retrieve('pokemon_filter');
     if (pokemonFilterValue === null) {
         const defaultPokemonFilter = {};
@@ -1571,6 +1579,7 @@ function initMap () {
         store('show_scanareas', newShowScanAreas);
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
+        store('show_raid_timers', newShowRaidTimers);
 
         lastUpdateServer = 0;
         loadData();
