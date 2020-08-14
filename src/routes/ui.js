@@ -275,12 +275,6 @@ const handleHomeJs = async (req, res) => {
     data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
 
     // Map settings
-    data.start_lat = req.query.lat || config.map.startLat;
-    data.start_lon = req.query.lon || config.map.startLon;
-    data.start_zoom = req.query.zoom || config.map.startZoom;
-    data.lat = req.query.lat || config.map.startLat;
-    data.lon = req.query.lon || config.map.startLon;
-    data.zoom = req.query.zoom || config.map.startZoom;
     data.min_zoom = req.query.min_zoom || config.map.minZoom;
     data.max_zoom = req.query.max_zoom || config.map.maxZoom;
     data.max_pokemon_id = config.maxPokemonId;

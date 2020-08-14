@@ -1,8 +1,12 @@
 {{> header}}
 {{> navbar}}
 
+    <script type="text/javascript">
+        const defaultStartLocation = ['{{lat}}', '{{lon}}'];
+        const defaultStartZoom = '{{zoom}}';
+    </script>
     <link href="/index.css?timestamp={{timestamp}}" rel="stylesheet">
-    <script src="/index.js?timestamp={{timestamp}}&lat={{lat}}&lon={{lon}}&zoom={{zoom}}"></script>
+    <script src="/index.js?timestamp={{timestamp}}" type="text/javascript"></script>
 
     <div class="fill" id="map"></div>
 
