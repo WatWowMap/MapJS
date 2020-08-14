@@ -3772,11 +3772,11 @@ function getPokestopMarkerIcon (pokestop, ts) {
     } else if (activeInvasion) {
         sizeId = 'i0';
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize],// * 1.567],
+        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
     } else if (activeLure) {
         sizeId = lureIconId;
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize],// * 1.567],
+        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
     }
     iconHtml += '</span>';
     const icon = L.divIcon({
@@ -3887,7 +3887,7 @@ function getGymMarkerIcon (gym, ts) {
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
         iconAnchor: [iconSize / 2, iconSize * 1.567],
-        popupAnchor: [0, iconSize * -1.567], // 0, -20
+        //popupAnchor: [0, iconSize * -1.567], // 0, -20
         className: 'gym-marker',
         html: ignoreGymIcon
             ? `<center>${iconHtml}<br></center>`
