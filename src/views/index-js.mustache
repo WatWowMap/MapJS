@@ -3721,6 +3721,8 @@ function getPokestopMarkerIcon (pokestop, ts) {
     let iconHtml = '<span class="text-nowrap text-center">';
     let iconUrl = '';
     let sizeId = '0';
+    let iconAnchor = [];
+    let popupAnchor = [];
     const lureIconId = getLureIconId(pokestop.lure_id);
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
@@ -3750,22 +3752,34 @@ function getPokestopMarkerIcon (pokestop, ts) {
         }
         iconHtml += `<img src="${iconUrl}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/>`;
         iconSize = getQuestSize(rewardString);
+        iconAnchor = [iconSize / 2, iconSize * 1.567];
+        popupAnchor = [0, iconSize * -1.567];
+
     } else {
         iconSize = getPokestopSize(sizeId);
+        iconAnchor = [iconSize / 2, iconSize];// * 1.567];
     }
     if (activeInvasion && activeLure) {
         sizeId = 'i' + lureIconId;
+        iconSize = getPokestopSize(sizeId);
+        iconAnchor = [iconSize / 2, iconSize * 1.567];
+        popupAnchor = [0, size * -1.567];
     } else if (activeInvasion) {
         sizeId = 'i0';
+        iconSize = getPokestopSize(sizeId);
+        iconAnchor = [iconSize / 2, iconSize],// * 1.567],
+        popupAnchor = [0, iconSize]// * -1.567],
     } else if (activeLure) {
         sizeId = lureIconId;
+        iconSize = getPokestopSize(sizeId);
+        iconAnchor = [iconSize / 2, iconSize],// * 1.567],
+        popupAnchor = [0, iconSize]// * -1.567],
     }
     iconHtml += '</span>';
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
-        iconAnchor: [iconSize / 2, iconSize * 1.567],
-        //popupAnchor: [0, iconSize * -1.567],
-        popupAnchor: [0, iconSize * -1.567],
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor,
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
@@ -3869,10 +3883,8 @@ function getGymMarkerIcon (gym, ts) {
     }
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
-        //iconAnchor: [iconSize / 2, iconSize / 2],
         iconAnchor: [iconSize / 2, iconSize * 1.567],
-        popupAnchor: [0, iconSize * -1.567],
-        //popupAnchor: [iconSize * -1.567], // 0, -20
+        popupAnchor: [0, iconSize * -1.567], // 0, -20
         className: 'gym-marker',
         html: ignoreGymIcon
             ? `<center>${iconHtml}<br></center>`
