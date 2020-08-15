@@ -959,7 +959,7 @@ function initMap () {
     }).addTo(map);
 
     $('#reset-pokemon-filter').on('click', function (event) {
-        const defaultPokemonFilter = [];
+        const defaultPokemonFilter = {};
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -988,7 +988,7 @@ function initMap () {
     });
 
     $('#disable-trash-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = [];
+        const defaultPokemonFilter = {};
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -1018,7 +1018,7 @@ function initMap () {
     });
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
-        const defaultPokemonFilter = [];
+        const defaultPokemonFilter = {};
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
