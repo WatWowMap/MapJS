@@ -828,14 +828,14 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 17;
         regionCoverer.maxLevel = 17;
         regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
-        let level17Cell = coveringCells[0];// TODO: .parent(17);
+        let level17Cell = coveringCells[0].parentL(17);
         let cellId = BigInt(level17Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
