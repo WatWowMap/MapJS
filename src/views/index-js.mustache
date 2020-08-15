@@ -5033,7 +5033,7 @@ function getPokemonIcon(pokemonId, pokemonForm) {
     let pokemonIdString;
     const pokeId = zeroPad(pokemonId, 3);
     if (pokemonForm !== 0 && pokemonForm !== null) {
-        if ($.inArray(pokeId + '-' + pokemonForm, availableForms) !== -1) {
+        if ($.inArray(pokemonId + '-' + pokemonForm, availableForms) !== -1) {
             pokemonIdString = pokeId + '_' + pokemonForm;
         } else {
             // If form icon doesn't exist, use default
