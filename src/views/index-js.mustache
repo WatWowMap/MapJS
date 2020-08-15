@@ -1489,9 +1489,6 @@ function initMap () {
                 map.removeLayer(pokemon.marker);
             });
         }
-        //$.each(pokemonMarkers, function (index, pokemon) {
-        //    map.removeLayer(pokemon.marker);
-        //});
         pokemonMarkers = newPokemonMarkers;
 
         questFilter = questFilterNew;
@@ -1529,40 +1526,52 @@ function initMap () {
 
         showGyms = newShowGyms;
         store('show_gyms', newShowGyms);
+        store('gym_filter', JSON.stringify(gymFilter));
+
         showRaids = newShowRaids;
         store('show_raids', newShowRaids);
+        store('raid_filter', JSON.stringify(raidFilter));
+
         showPokestops = newShowPokestops;
         store('show_pokestops', newShowPokestops);
+        store('pokestop_filter', JSON.stringify(pokestopFilter));
+
         showQuests = newShowQuests;
         store('show_quests', newShowQuests);
+        store('quest_filter', JSON.stringify(questFilter));
+
         showPokemon = newShowPokemon;
         store('show_pokemon', newShowPokemon);
+        store('pokemon_filter', JSON.stringify(pokemonFilter));
+
         showInvasions = newShowInvasions;
         store('show_invasions', newShowInvasions);
+        store('invasion_filter', JSON.stringify(invasionFilter));
+
         showSpawnpoints = newShowSpawnpoints;
         store('show_spawnpoints', newShowSpawnpoints);
+        store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
+
         showNests = newShowNests;
         store('show_nests', newShowNests);
-        store('pokemon_filter', JSON.stringify(pokemonFilter));
-        store('quest_filter', JSON.stringify(questFilter));
-        store('raid_filter', JSON.stringify(raidFilter));
-        store('gym_filter', JSON.stringify(gymFilter));
-        store('pokestop_filter', JSON.stringify(pokestopFilter));
-        store('invasion_filter', JSON.stringify(invasionFilter));
-        store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
         store('nest_filter', JSON.stringify(nestFilter));
-        store('weather_filter', JSON.stringify(weatherFilter));
-        store('device_filter', JSON.stringify(deviceFilter));
-        store('show_cells', newShowCells);
+
         showCells = newShowCells;
-        store('show_submission_cells', newShowSubmissionCells);
+        store('show_cells', newShowCells);
+
         showSubmissionCells = newShowSubmissionCells;
-        store('show_weather', newShowWeather);
+        store('show_submission_cells', newShowSubmissionCells);
+
         showWeather = newShowWeather;
+        store('show_weather', newShowWeather);
+        store('weather_filter', JSON.stringify(weatherFilter));
+
         showScanAreas = newShowScanAreas;
         store('show_scanareas', newShowScanAreas);
+    
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
+        store('device_filter', JSON.stringify(deviceFilter));
 
         lastUpdateServer = 0;
         loadData();
@@ -4940,7 +4949,7 @@ function getTimeSince (date) {
 }
 
 function manageIVPopup (id, filter) {
-    const result = prompt('Please enter a IV Filter', filter[id].filter).toUpperCase();
+    const result = prompt('Please enter an IV Filter. Example: (S0-1 && A15 && D15 && L0-20) || L35 || 90-100', filter[id].filter).toUpperCase();
     const prevShow = filter[id].show;
     let success;
     if (result == null) {

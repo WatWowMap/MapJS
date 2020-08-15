@@ -65,8 +65,8 @@ const getData = async (perms, filter) => {
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
     const iconStyle = filter.icon_style || 'Default';
     const lastUpdate = filter.last_update || 0;
-    if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
-        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
+    if ((showGyms || showRaids || showPokestops || showQuests || showInvasions || showPokemon || showSpawnpoints ||
+        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showActiveDevices) &&
         (minLat === null || maxLat === null || minLon === null || maxLon === null)) {
         //res.respondWithError(BadRequest);
         return;
