@@ -489,8 +489,22 @@ const getData = async (perms, filter) => {
     }
 
     if (permViewMap && showInvasionFilter) {
+        const generalString = i18n.__('filter_general');
         const gruntTypeString = i18n.__('filter_grunt_type');
+        const invasionTimers = i18n.__('filter_invasion_timers');
         let invasionData = [];
+
+        invasionData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': invasionTimers,
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/misc/timer.png" style="height:50px; width:50px;">`,
+            'filter': generateShowHideButtons('timers', 'invasion-timers'),
+            'size': generateSizeButtons('timers', 'invasion-timers'),
+            'type': generalString
+        });
 
         // Grunt Type
         for (let i = 1; i <= 50; i++) {
