@@ -1084,7 +1084,7 @@ const sqlifyIvFilter = (filter) => {
                 if (match[4] !== undefined) {
                     higher = parseFloat(match[4]);
                 }
-                result += `(${column} >= ${lower} AND ${column} <= ${higher})`;
+                result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
                 expectClause = false;
             } else if (match[1] === '(') {
                 if (++stack > 1000000000) {
