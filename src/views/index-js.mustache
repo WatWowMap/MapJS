@@ -4010,46 +4010,46 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (gym) { // TODO: rename to marker or something more generic
+function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
-    if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+    if (marker.raid_battle_timestamp <= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Hatched
-        raidTimestamp = gym.raid_end_timestamp;
-    } else if (gym.raid_battle_timestamp >= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+        raidTimestamp = marker.raid_end_timestamp;
+    } else if (marker.raid_battle_timestamp >= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Egg
-        raidTimestamp = gym.raid_battle_timestamp;
+        raidTimestamp = marker.raid_battle_timestamp;
     } else {
-        gym.marker.unbindTooltip();
-        gym.marker.timerSet = false;
+        marker.marker.unbindTooltip();
+        marker.marker.timerSet = false;
     }
 
-    if (gym.incident_expire_timestamp < ts) {
-        gym.marker.timerSet = false;
+    if (marker.incident_expire_timestamp < ts) {
+        marker.marker.timerSet = false;
     }
 
     if (raidTimestamp > 0) {
         const timer = getTimeUntill(new Date(raidTimestamp * 1000));
-        if (gym.marker.timerSet) {
+        if (marker.marker.timerSet) {
             const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
-            gym.marker.setTooltipContent(text);
+            marker.marker.setTooltipContent(text);
         } else {
             const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
-            /* let tooltip = */ gym.marker.bindTooltip(timer, options);
-            gym.marker.timerSet = true;
+            /* let tooltip = */ marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
         }
     }
 
-    if (gym.incident_expire_timestamp >= ts) {
-        const timer = getTimeUntill(new Date(gym.incident_expire_timestamp * 1000));
-        if (gym.marker.timerSet) {
+    if (marker.incident_expire_timestamp >= ts && showInvasions) {
+        const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
+        if (marker.marker.timerSet) {
             const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
-            gym.marker.setTooltipContent(text);
+            marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
-            gym.marker.bindTooltip(timer, options);
-            gym.marker.timerSet = true;
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 1] };
+            marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
         }
     }
 }
