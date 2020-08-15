@@ -42,8 +42,13 @@ module.exports = {
 ```
 
 ## TODO  
-- Include S2Cell/Weather polgyons in api data
-- Implement submission cells
+- Filter raids by forms  
+- Finish custom user settings modal (user defined glow settings, cluster settings, etc)  
+- Notifications  
+- Notification sounds  
+- Bouncing marker options  
+- Heatmaps  
+- Basic statistics  
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
