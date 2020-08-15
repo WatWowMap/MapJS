@@ -215,11 +215,7 @@ $(function () {
     loadStorage();
 
     // Load available tileservers
-    // TODO: Use Object.keys?
-    const availableTileserverKeys = [];
-    for (let availableTileserverKey in availableTileservers) {
-        availableTileserverKeys.push(availableTileserverKey);
-    }
+    const availableTileserverKeys = Object.keys(availableTileservers);
     availableTileserverKeys.sort();
     $('#select-mapstyle').append($('<option>', {
         value: 'Default',
@@ -238,11 +234,7 @@ $(function () {
     }
 
     // Load available icon styles
-    // TODO: Use Object.keys?
-    const availableIconStyleKeys = [];
-    for (let availableIconStyleKey in availableIconStyles) {
-        availableIconStyleKeys.push(availableIconStyleKey);
-    }
+    const availableIconStyleKeys = Object.keys(availableIconStyles);
     availableIconStyleKeys.sort();
     $('#select-iconstyle').append($('<option>', {
         value: 'Default',

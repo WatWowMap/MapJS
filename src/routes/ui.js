@@ -256,6 +256,7 @@ const getAvailableTileservers = () => {
 
 const getAvailableForms = () => {
     const availableForms = [];
+    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
     const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
     const files = fs.readdirSync(pokemonIconsDir);
     if (files) {
