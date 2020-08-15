@@ -792,10 +792,10 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
 };
 
 const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = parseFloat(minLat - 0.001);
-    let maxLatReal = parseFloat(maxLat + 0.001);
-    let minLonReal = parseFloat(minLon - 0.001);
-    let maxLonReal = parseFloat(maxLon + 0.001);
+    let minLatReal = minLat - 0.001;
+    let maxLatReal = maxLat + 0.001;
+    let minLonReal = minLon - 0.001;
+    let maxLonReal = maxLon + 0.001;
 
     let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
@@ -850,10 +850,10 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
 };
 
 const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = parseFloat(minLat - 0.01);
-    let maxLatReal = parseFloat(maxLat + 0.01);
-    let minLonReal = parseFloat(minLon - 0.01);
-    let maxLonReal = parseFloat(maxLon + 0.01);
+    let minLatReal = minLat - 0.01;
+    let maxLatReal = maxLat + 0.01;
+    let minLonReal = minLon - 0.01;
+    let maxLonReal = maxLon + 0.01;
 
     let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
