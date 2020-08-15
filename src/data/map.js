@@ -218,95 +218,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
-            let atkIv;
-            let defIv;
-            let staIv;
-            let move1;
-            let move2;
-            let cp;
-            let level;
-            let weight;
-            let size;
-            let displayPokemonId;
-            let pvpRankingsGreatLeague;
-            let pvpRankingsUltraLeague;
-            if (showIV) {
-                atkIv = result.atk_iv;
-                defIv = result.def_iv;
-                staIv = result.sta_iv;
-                move1 = result.move_1;
-                move2 = result.move_2;
-                cp = result.cp;
-                level = result.level;
-                weight = result.weight;
-                size = result.size;
-                displayPokemonId = result.display_pokemon_id;
-            } else {
-                atkIv = null;
-                defIv = null;
-                staIv = null;
-                move1 = null;
-                move2 = null;
-                cp = null;
-                level = null;
-                weight = null;
-                size = null;
-                displayPokemonId = null;
-            }
-            if (showPVP) {
-                pvpRankingsGreatLeague = JSON.parse(result.pvp_rankings_great_league);
-                pvpRankingsUltraLeague = JSON.parse(result.pvp_rankings_ultra_league);
-            } else {
-                pvpRankingsGreatLeague = null;
-                pvpRankingsUltraLeague = null;
-            }
-            let skip = false;
-            if (pokemonFilterPVP) {
-                let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
-                if (pokemonFilterPVP[idString]) {
-                    let split = pokemonFilterPVP[idString].split('-');
-                    if (split.length === 2) {
-                        let minRank = parseInt(split[0]);
-                        let maxRank = parseInt(split[1]);
-                        if (
-                            (pvpRankingsGreatLeague && pvpRankingsGreatLeague.length > 0) ||
-                            (pvpRankingsUltraLeague && pvpRankingsUltraLeague.length > 0)
-                        ) {
-                            let greatLeague = pvpRankingsGreatLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
-                            let ultraLeague = pvpRankingsUltraLeague.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
-                            if (greatLeague.length === 0 && ultraLeague.length === 0) {
-                                skip = true;
-                            }
-                        } else {
-                            skip = true;
-                        }
-                    }
-                }
-            }
-            if (skip) {
-                continue;
-            }
-
-            pokemon.push({
+            let filtered = {
                 id: result.id,
                 pokemon_id: result.pokemon_id,
                 lat: result.lat,
                 lon: result.lon,
                 spawn_id: result.spawn_id,
                 expire_timestamp: result.expire_timestamp,
-                atk_iv: atkIv,
-                def_iv: defIv,
-                sta_iv: staIv,
-                move_1: move1,
-                move_2: move2,
                 gender: result.gender,
                 form: result.form,
-                cp: cp,
-                level: level,
-                weight: weight,
                 costume: result.costume,
-                size: size,
-                display_pokemon_id: displayPokemonId,
                 weather: result.weather,
                 shiny: result.shiny,
                 username: result.username,
@@ -319,9 +240,46 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 capture_1: result.capture_1,
                 capture_2: result.capture_2,
                 capture_3: result.capture_3,
-                pvp_rankings_great_league: pvpRankingsGreatLeague,
-                pvp_rankings_ultra_league: pvpRankingsUltraLeague
-            });
+            };
+            if (showIV) {
+                filtered.atk_iv = result.atk_iv;
+                filtered.def_iv = result.def_iv;
+                filtered.sta_iv = result.sta_iv;
+                filtered.move_1 = result.move_1;
+                filtered.move_2 = result.move_2;
+                filtered.cp = result.cp;
+                filtered.level = result.level;
+                filtered.weight = result.weight;
+                filtered.size = result.size;
+                filtered.display_pokemon_id = result.display_pokemon_id;
+            }
+            if (showPVP) {
+                filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
+                filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
+                if (pokemonFilterPVP) {
+                    let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
+                    if (pokemonFilterPVP[idString]) {
+                        let split = pokemonFilterPVP[idString].split('-');
+                        if (split.length === 2) {
+                            let minRank = parseInt(split[0]);
+                            let maxRank = parseInt(split[1]);
+                            if (
+                                filtered.pvp_rankings_great_league.length > 0 ||
+                                filtered.pvp_rankings_ultra_league.length > 0
+                            ) {
+                                let greatLeague = filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                                let ultraLeague = filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                                if (greatLeague.length === 0 && ultraLeague.length === 0) {
+                                    continue;
+                                }
+                            } else {
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            pokemon.push(filtered);
         }
     }
     return pokemon;
