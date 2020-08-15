@@ -1,8 +1,12 @@
 {{> header}}
 {{> navbar}}
 
+    <script type="text/javascript">
+        const defaultStartLocation = ['{{lat}}', '{{lon}}'];
+        const defaultStartZoom = '{{zoom}}';
+    </script>
     <link href="/index.css?timestamp={{timestamp}}" rel="stylesheet">
-    <script src="/index.js?timestamp={{timestamp}}&lat={{lat}}&lon={{lon}}&zoom={{zoom}}"></script>
+    <script src="/index.js?timestamp={{timestamp}}" type="text/javascript"></script>
 
     <div class="fill" id="map"></div>
 
@@ -110,7 +114,7 @@
                             </label>
                         </div>
                         {{filter_nests}}
-                        <button class="btn btn-sm btn-primary float-right disabled" data-toggle="modal" data-target="#filterNestModal">{{filter_filter}}</button>
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterNestModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_cells}}class="d-none"{{/hide_cells}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -146,7 +150,7 @@
                             </label>
                         </div>
                         {{filter_weathers}}
-                        <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterWeatherModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_scanareas}}class="d-none"{{/hide_scanareas}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -170,7 +174,7 @@
                             </label>
                         </div>
                         {{filter_devices}}
-                        <button class="btn btn-sm btn-primary float-right disabled">{{filter_filter}}</button>
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterDeviceModal">{{filter_filter}}</button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -434,6 +438,110 @@
         </div>
     </div>
 
+    <div class="modal fade" id="filterNestModal" tabindex="-1" role="dialog" aria-labelledby="filterNestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterNestModalLabel">{{filter_nest_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-nest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-nest-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-nest-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterWeatherModal" tabindex="-1" role="dialog" aria-labelledby="filterWeatherModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterWeatherModalLabel">{{filter_weather_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-weather" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-weather-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-weather-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="filterDeviceModal" tabindex="-1" role="dialog" aria-labelledby="filterDeviceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterDeviceModalLabel">{{filter_device_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-device" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="min-desktop">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-device-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-device-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="mapstyleModal" tabindex="-1" role="dialog" aria-labelledby="mapstyleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -447,6 +555,28 @@
                     <div class="form-group">
                         {{filter_select_mapstyle}}
                         <select class="form-control" id="select-mapstyle" required></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="iconstyleModal" tabindex="-1" role="dialog" aria-labelledby="iconstyleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iconstyleModalLabel">{{filter_iconstyle}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        {{filter_select_iconstyle}}
+                        <select class="form-control" id="select-iconstyle" required></select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -472,6 +602,7 @@
                 <div class="modal-footer">
                     <div class="mr-auto">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
                     <button type="button" id="saveSettings" class="btn btn-primary">{{filter_save}}</button>
@@ -490,6 +621,7 @@
         
         //$('.darkInvert').css('filter', 'invert(100%)');
         $('.modal-header').css('background-color', 'rgb(33, 37, 31)');
+        $('.modal-header').css('color', 'white');
         $('.modal-body').css('background-color', 'rgb(33, 37, 31)');
         $('.modal-footer').css('background-color', 'rgb(33, 37, 31)');
         //$('.leaflet-control-custom').css('background-color', 'rgb(33, 37, 31)');

@@ -69,36 +69,15 @@ router.get('/@/:city/:zoom', async (req, res) => {
 const handlePage = async (req, res) => {
     const data = defaultData;
     data.max_pokemon_id = config.map.maxPokemonId;
+
     // Build available tile servers list
-    const tileservers = {};
-    const tileKeys = Object.keys(config.tileservers);
-    if (tileKeys) {
-        tileKeys.forEach(tileKey => {
-            const tileData = config.tileservers[tileKey].split(';');
-            tileservers[tileKey] = {
-                url: tileData[0],
-                attribution: tileData[1]
-            };
-        });
-    }
+    const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
+    data.available_icon_styles_json = JSON.stringify(config.iconStyles);
+
     // Build available forms list
-    const availableForms = [];
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('-');
-            if (split.length === 2) {
-                const pokemonId = parseInt(split[0]);
-                const formId = parseInt(split[1]);
-                if (!Number.isNaN(pokemonId) && !Number.isNaN(formId)) {
-                    availableForms.push(`${pokemonId}-${formId}`);
-                }
-            }
-        });
-    }
+    const availableForms = getAvailableForms();
     data.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
@@ -125,6 +104,10 @@ const handlePage = async (req, res) => {
     // Available quest filters
     const availableQuestRewards = await map.getAvailableQuests();
     data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
+
+    // Available nest pokemon filter
+    const availableNestPokemon = await map.getAvailableNestPokemon();
+    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
 
     // Custom navigation bar headers
     data.buttons_left = config.header.left;
@@ -214,34 +197,15 @@ const handlePage = async (req, res) => {
 const handleHomeJs = async (req, res) => {
     const data = defaultData;
     data.max_pokemon_id = config.map.maxPokemonId;
+
     // Build available tile servers list
-    const tileservers = {};
-    const tileKeys = Object.keys(config.tileservers);
-    if (tileKeys) {
-        tileKeys.forEach(tileKey => {
-            const tileData = config.tileservers[tileKey].split(';');
-            tileservers[tileKey] = {
-                url: tileData[0],
-                attribution: tileData[1]
-            };
-        });
-    }
+    const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
+    data.available_icon_styles_json = JSON.stringify(config.icons);
+
     // Build available forms list
-    const availableForms = [];
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('-');
-            if (split.length === 2) {
-                const pokemonId = parseInt(split[0]);
-                const formId = parseInt(split[1]);
-                availableForms.push(`${pokemonId}-${formId}`);
-            }
-        });
-    }
+    const availableForms = getAvailableForms();
     data.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
@@ -261,20 +225,51 @@ const handleHomeJs = async (req, res) => {
     const availableQuestRewards = await map.getAvailableQuests();
     data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
 
+    // Available nest pokemon filter
+    const availableNestPokemon = await map.getAvailableNestPokemon();
+    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
+
     // Map settings
-    data.start_lat = req.query.lat || config.map.startLat;
-    data.start_lon = req.query.lon || config.map.startLon;
-    data.start_zoom = req.query.zoom || config.map.startZoom;
-    data.lat = req.query.lat || config.map.startLat;
-    data.lon = req.query.lon || config.map.startLon;
-    data.zoom = req.query.zoom || config.map.startZoom;
     data.min_zoom = req.query.min_zoom || config.map.minZoom;
     data.max_zoom = req.query.max_zoom || config.map.maxZoom;
     data.max_pokemon_id = config.maxPokemonId;
-    //data["start_pokemon"] = request.param(name: "start_pokemon")
-    //data["start_pokestop"] = request.param(name: "start_pokestop")
-    //data["start_gym"] = request.param(name: "start_gym")
+    //data.start_pokemon = req.params.start_pokemon
+    //data.start_pokestop = req.params.start_pokestop
+    //data.start_gym = req.params.start_gym
     return data;
+};
+
+const getAvailableTileservers = () => {
+    const tileservers = {};
+    const tileKeys = Object.keys(config.tileservers);
+    if (tileKeys) {
+        tileKeys.forEach(tileKey => {
+            const tileData = config.tileservers[tileKey].split(';');
+            tileservers[tileKey] = {
+                url: tileData[0],
+                attribution: tileData[1]
+            };
+        });
+    }
+    return tileservers;
+};
+
+const getAvailableForms = () => {
+    const availableForms = [];
+    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
+    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
+    const files = fs.readdirSync(pokemonIconsDir);
+    if (files) {
+        files.forEach(file => {
+            const split = file.replace('.png', '').split('_');
+            if (split.length === 4) {
+                const pokemonId = parseInt(split[2]);
+                const formId = parseInt(split[3]);
+                availableForms.push(`${pokemonId}-${formId}`);
+            }
+        });
+    }
+    return availableForms;
 };
 
 module.exports = router;

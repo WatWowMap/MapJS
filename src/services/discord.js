@@ -1,7 +1,7 @@
+/* global BigInt */
 'use strict';
 
 const config = require('../config.json');
-const utils = require('./utils.js');
 
 const DiscordOauth2 = require('discord-oauth2');
 const oauth = new DiscordOauth2();
@@ -22,8 +22,7 @@ client.on('message', (msg) => {
 client.login(config.discord.botToken);
 
 class DiscordClient {
-    static instance = new DiscordClient();
-    accessToken;
+    //static instance = new DiscordClient();
 
     constructor(accessToken) {
         this.accessToken = accessToken;
@@ -113,4 +112,4 @@ class DiscordClient {
     }
 }
 
-module.exports = DiscordClient;
+module.exports = new DiscordClient();

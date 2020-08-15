@@ -35,15 +35,15 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
     axios.post('https://discord.com/api/oauth2/token', data, {
         headers: headers
     }).then(async (response) => {
-        const client = DiscordClient.instance;
-        client.setAccessToken(response.data.access_token);
-        const user = await client.getUser();
-        const guilds = await client.getGuilds();
+        //const client = DiscordClient.instance;
+        DiscordClient.setAccessToken(response.data.access_token);
+        const user = await DiscordClient.getUser();
+        const guilds = await DiscordClient.getGuilds();
 
         req.session.logged_in = true;
         req.session.user_id = user.id;
         req.session.username = `${user.username}#${user.discriminator}`;
-        const perms = await client.getPerms();
+        const perms = await DiscordClient.getPerms();
         req.session.perms = perms;
         req.session.guilds = guilds;
         const valid = perms.map !== false;

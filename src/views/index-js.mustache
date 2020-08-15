@@ -6,7 +6,7 @@ let map;
 let lastUpdateServer = 0;
 
 let lastUpdate = 0;
-let isLoading = false;
+let loadRequest = null;
 
 let pokestopMarkers = [];
 let gymMarkers = [];
@@ -17,6 +17,7 @@ let submissionPlacementCellMarkers = [];
 let submissionPlacementRingMarkers = [];
 let submissionTypeCellMarkers = [];
 let weatherMarkers = [];
+let nestMarkers = [];
 let deviceMarkers = [];
 
 let pokemonFilter = {};
@@ -40,6 +41,15 @@ let invasionFilterNew = {};
 let spawnpointFilter = {};
 let spawnpointFilterNew = {};
 
+let nestFilter = {};
+let nestFilterNew = {};
+
+let weatherFilter = {};
+let weatherFilterNew = {};
+
+let deviceFilter = {};
+let deviceFilterNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -48,6 +58,7 @@ let openedGym;
 let openedCell;
 let openedSubmissionTypeCell;
 let openedWeather;
+let openedNest;
 let openedDevice;
 
 let showPokestops;
@@ -68,9 +79,12 @@ let showSubmissionCells;
 let availableForms = [];
 let availableItems = [];
 let availableTileservers = {};
+let availableIconStyles = {};
 let selectedTileserver = 'Default';
+let selectedIconStyle = 'Default';
 let availableRaidBosses = [];
 let availableQuestRewards = [];
+let availableNestPokemon = [];
 
 let pokemonFilterLoaded = false;
 let questFilterLoaded = false;
@@ -79,6 +93,9 @@ let gymFilterLoaded = false;
 let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
+let nestFilterLoaded = false;
+let weatherFilterLoaded = false;
+let deviceFilterLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
@@ -100,12 +117,24 @@ let masterfile = {};
 let weatherTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
+let pokemonRarityDb = [];
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
 
-// TODO: Make external file or load file gamemaster
-const legendaryPokemon = [144,145,146,150,151,243,244,245,249,250,251,377,378,379,380,381,382,383,384,385,386,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,638,639,640,641,642,643,644,645,646,647,648,649];
+let defaultShowPokemon = '{{default_show_pokemon}}' === 'true' || false;
+let defaultShowRaids = '{{default_show_raids}}' === 'true' || true;
+let defaultShowGyms = '{{default_show_gyms}}' === 'true' || false;
+let defaultShowPokestops = '{{default_show_pokestops}}' === 'true' || false;
+let defaultShowQuests = '{{default_show_quests}}' === 'true' || true;
+let defaultShowInvasions = '{{default_show_invasions}}' === 'true' || true;
+let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true' || false;
+let defaultShowWeather = '{{default_show_weather}}' === 'true' || false;
+let defaultShowScanCells = '{{default_show_scancells}}' === 'true' || false;
+let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true' || false;
+let defaultShowNests = '{{default_show_nests}}' === 'true' || false;
+let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true' || false;
+let defaultShowDevices = '{{default_show_devices}}' === 'true' || false;
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -153,19 +182,6 @@ $(function () {
         }
     });
 
-    deviceOnlineIcon = L.icon({
-        iconUrl: '/img/device/0.png',
-        iconSize: [30, 30],
-        iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
-    });
-    deviceOfflineIcon = L.icon({
-        iconUrl: '/img/device/1.png',
-        iconSize: [30, 30],
-        iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
-    });
-
     $.getJSON('/locales/{{{locale}}}.json', { _: '{{{locale_last_modified}}}' }, function (data) {
         i18n.translator.add(data);
     });
@@ -177,22 +193,29 @@ $(function () {
         masterfile = data;
     });
 
+    $.getJSON('/data/rarity.json', function (data) {
+        pokemonRarityDb = data;
+    });
+
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
+    });
+    $.ajaxSetup({
+        async: true
     });
 
     availableForms = JSON.parse('{{{available_forms_json}}}');
     availableItems = JSON.parse('{{{available_items_json}}}');
     availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
+    availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
     availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
     availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
+    availableNestPokemon = JSON.parse('{{{available_nest_pokemon_json}}}');
 
     loadStorage();
 
-    const availableTileserverKeys = [];
-    for (let availableTileserverKey in availableTileservers) {
-        availableTileserverKeys.push(availableTileserverKey);
-    }
+    // Load available tileservers
+    const availableTileserverKeys = Object.keys(availableTileservers);
     availableTileserverKeys.sort();
     $('#select-mapstyle').append($('<option>', {
         value: 'Default',
@@ -209,6 +232,39 @@ $(function () {
             }));
         }
     }
+
+    // Load available icon styles
+    const availableIconStyleKeys = Object.keys(availableIconStyles);
+    availableIconStyleKeys.sort();
+    $('#select-iconstyle').append($('<option>', {
+        value: 'Default',
+        text: 'Default',
+        selected: selectedIconStyle === 'Default'
+    }));
+    for (let i = 0; i < availableIconStyleKeys.length; i++) {
+        const key = availableIconStyleKeys[i];
+        if (key !== 'Default') {
+            $('#select-iconstyle').append($('<option>', {
+                value: key,
+                text: key,
+                selected: key === selectedIconStyle
+            }));
+        }
+    }
+
+    deviceOnlineIcon = L.icon({
+        iconUrl: availableIconStyles[selectedIconStyle] + '/device/0.png',
+        iconSize: [30, 30],
+        iconAnchor: [30 / 2, 30 / 2],
+        popupAnchor: [0, 30 * -1.567]
+    });
+    deviceOfflineIcon = L.icon({
+        iconUrl: availableIconStyles[selectedIconStyle] + '/device/1.png',
+        iconSize: [30, 30],
+        iconAnchor: [30 / 2, 30 / 2],
+        popupAnchor: [0, 30 * -1.567]
+    });
+    
     $('#filtersModal').on('show.bs.modal', function () {
         pokemonFilterNew = $.extend(true, {}, pokemonFilter);
         questFilterNew = $.extend(true, {}, questFilter);
@@ -217,6 +273,9 @@ $(function () {
         pokestopFilterNew = $.extend(true, {}, pokestopFilter);
         invasionFilterNew = $.extend(true, {}, invasionFilter);
         spawnpointFilterNew = $.extend(true, {}, spawnpointFilter);
+        nestFilterNew = $.extend(true, {}, nestFilter);
+        weatherFilterNew = $.extend(true, {}, weatherFilter);
+        deviceFilterNew = $.extend(true, {}, deviceFilter);
 
         $('.select-button').each(function (button) {
             manageSelectButton($(this), false);
@@ -259,10 +318,28 @@ $(function () {
             spawnpointFilterLoaded = true;
             loadSpawnpointFilter();
         }
+
+        if (!nestFilterLoaded) {
+            nestFilterLoaded = true;
+            loadNestFilter();
+        }
+
+        if (!weatherFilterLoaded) {
+            weatherFilterLoaded = true;
+            loadWeatherFilter();
+        }
+
+        if (!deviceFilterLoaded) {
+            deviceFilterLoaded = true;
+            loadDeviceFilter();
+        }
     });
 
     // TODO: Bandaid for zindex
     $('#mapstyleModal').on('shown.bs.modal', function () {
+        $('#settingsModal').modal('hide');
+    });
+    $('#iconstyleModal').on('shown.bs.modal', function () {
         $('#settingsModal').modal('hide');
     });
 
@@ -287,6 +364,13 @@ $(function () {
         tileLayer.addTo(map);
     });
 
+    $('#select-iconstyle').on('change', function () {
+        selectedIconStyle = this.value;
+        store('iconstyle', this.value);
+
+        // TODO: Redraw markers/update icons for markers, invalidate map
+    });
+
     $('#exportFilters').on('click', function () {
         let settings = {
             show_gyms: showGyms,
@@ -297,6 +381,7 @@ $(function () {
             show_invasions: showInvasions,
             show_spawnpoints: showSpawnpoints,
             show_nests: showNests,
+            show_devices: showDevices,
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
             show_weather: showWeather,
@@ -307,7 +392,10 @@ $(function () {
             quest: questFilterNew,
             pokestop: pokestopFilterNew,
             invasion: invasionFilterNew,
-            spawnpoint: spawnpointFilterNew
+            spawnpoint: spawnpointFilterNew,
+            nest: nestFilterNew,
+            weather: weatherFilterNew,
+            device: deviceFilterNew,
         };
         let json = JSON.stringify(settings);
         let el = document.createElement('a');
@@ -381,106 +469,117 @@ function loadStorage () {
         }
     }
 
+    const selectedIconStyleTmp = retrieve('iconstyle');
+    if (selectedIconStyleTmp === undefined) {
+        selectedIconStyle = 'Default';
+    } else {
+        if (availableIconStyles[selectedIconStyleTmp] === undefined) {
+            selectedIconStyle = 'Default';
+        } else {
+            selectedIconStyle = selectedIconStyleTmp;
+        }
+    }
+
     const showGymsValue = retrieve('show_gyms');
     if (showGymsValue === null) {
-        store('show_gyms', true);
-        showGyms = true;
+        store('show_gyms', defaultShowGyms);
+        showGyms = defaultShowGyms;
     } else {
         showGyms = (showGymsValue === 'true');
     }
 
     const showRaidsValue = retrieve('show_raids');
     if (showRaidsValue === null) {
-        store('show_raids', true);
-        showRaids = true;
+        store('show_raids', defaultShowPokemon);
+        showRaids = defaultShowPokemon;
     } else {
         showRaids = (showRaidsValue === 'true');
     }
 
     const showPokestopsValue = retrieve('show_pokestops');
     if (showPokestopsValue === null) {
-        store('show_pokestops', false);
-        showPokestops = false;
+        store('show_pokestops', defaultShowPokestops);
+        showPokestops = defaultShowPokestops;
     } else {
         showPokestops = (showPokestopsValue === 'true');
     }
 
     const showQuestsValue = retrieve('show_quests');
     if (showQuestsValue === null) {
-        store('show_quests', true);
-        showQuests = true;
+        store('show_quests', defaultShowQuests);
+        showQuests = defaultShowQuests;
     } else {
         showQuests = (showQuestsValue === 'true');
     }
 
     const showInvasionsValue = retrieve('show_invasions');
     if (showInvasionsValue === null) {
-        store('show_invasions', true);
-        showInvasions = true;
+        store('show_invasions', defaultShowInvasions);
+        showInvasions = defaultShowInvasions;
     } else {
         showInvasions = (showInvasionsValue === 'true');
     }
 
     const showSpawnpointsValue = retrieve('show_spawnpoints');
     if (showSpawnpointsValue === null) {
-        store('show_spawnpoints', false);
-        showSpawnpoints = false;
+        store('show_spawnpoints', defaultShowSpawnpoints);
+        showSpawnpoints = defaultShowSpawnpoints;
     } else {
         showSpawnpoints = (showSpawnpointsValue === 'true');
     }
 
     const showNestsValue = retrieve('show_nests');
     if (showNestsValue === null) {
-        store('show_nests', false);
-        showNests = false;
+        store('show_nests', defaultShowNests);
+        showNests = defaultShowNests;
     } else {
         showNests = (showNestsValue === 'true');
     }
 
     const showPokemonValue = retrieve('show_pokemon');
     if (showPokemonValue === null) {
-        store('show_pokemon', true);
-        showPokemon = true;
+        store('show_pokemon', defaultShowPokemon);
+        showPokemon = defaultShowPokemon;
     } else {
         showPokemon = (showPokemonValue === 'true');
     }
 
     const showSubmissionCellsValue = retrieve('show_submission_cells');
     if (showSubmissionCellsValue === null) {
-        store('show_submission_cells', false);
-        showSubmissionCells = false;
+        store('show_submission_cells', defaultShowSubmissionCells);
+        showSubmissionCells = defaultShowSubmissionCells;
     } else {
         showSubmissionCells = (showSubmissionCellsValue === 'true');
     }
 
     const showCellsValue = retrieve('show_cells');
     if (showCellsValue === null) {
-        store('show_cells', false);
-        showCells = false;
+        store('show_cells', defaultShowScanCells);
+        showCells = defaultShowScanCells;
     } else {
         showCells = (showCellsValue === 'true');
     }
 
     const showWeatherValue = retrieve('show_weather');
     if (showWeatherValue === null) {
-        store('show_weather', false);
-        showWeather = false;
+        store('show_weather', defaultShowWeather);
+        showWeather = defaultShowWeather;
     } else {
         showWeather = (showWeatherValue === 'true');
     }
 
     const showScanAreasValue = retrieve('show_scanareas');
     if (showScanAreasValue === null) {
-        store('show_scanareas', false);
-        showScanAreas = false;
+        store('show_scanareas', defaultShowScanAreas);
+        showScanAreas = defaultShowScanAreas;
     } else {
         showScanAreas = (showScanAreasValue === 'true');
     }
 
     const showDevicesValue = retrieve('show_devices');
     if (showDevicesValue === null) {
-        store('show_devices', false);
-        showDevices = false;
+        store('show_devices', defaultShowDevices);
+        showDevices = defaultShowDevices;
     } else {
         showDevices = (showDevicesValue === 'true');
     }
@@ -497,7 +596,7 @@ function loadStorage () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 defaultPokemonFilter[id] = { show: isCommonPokemon(i) === false, size: 'normal' };
             }
         }
@@ -523,7 +622,7 @@ function loadStorage () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 if (pokemonFilter[id] === undefined) {
                     pokemonFilter[id] = { show: isCommonPokemon(i) === false, size: 'normal' };
                 }
@@ -756,6 +855,70 @@ function loadStorage () {
             spawnpointFilter['with-timer'] = { show: true, size: 'normal' };
         }
     }
+
+    const nestFilterValue = retrieve('nest_filter');
+    if (nestFilterValue === null) {
+        const defaultNestFilter = {};
+        for (let i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (defaultNestFilter['p' + id] === undefined) {
+                defaultNestFilter['p' + id] = { show: true, size: 'normal' };
+            }
+        }
+        
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilter = defaultNestFilter;
+    } else {
+        nestFilter = JSON.parse(nestFilterValue);
+        for (let i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (nestFilter['p' + id] === undefined) {
+                nestFilter['p' + id] = { show: true, size: 'normal' };
+            }
+        }
+    }
+
+    const weatherFilterValue = retrieve('weather_filter');
+    if (weatherFilterValue === null) {
+        const defaultWeatherFilter = {};
+        for (let i = 1; i <= 7; i++) {
+            if (defaultWeatherFilter[i] === undefined) {
+                defaultWeatherFilter[i] = { show: true, size: 'normal' };
+            }
+        }
+        
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilter = defaultWeatherFilter;
+    } else {
+        weatherFilter = JSON.parse(weatherFilterValue);
+        for (let i = 1; i <= 7; i++) {
+            if (weatherFilter[i] === undefined) {
+                weatherFilter[i] = { show: true, size: 'normal' };
+            }
+        }
+    }
+
+    const deviceFilterValue = retrieve('device_filter');
+    if (deviceFilterValue === null) {
+        const defaultDeviceFilter = {};
+        if (defaultDeviceFilter['online'] === undefined) {
+            defaultDeviceFilter['online'] = { show: true, size: 'normal' };
+        }
+        if (defaultDeviceFilter['offline'] === undefined) {
+            defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilter = defaultDeviceFilter;
+    } else {
+        deviceFilter = JSON.parse(deviceFilterValue);
+        if (deviceFilter['online'] === undefined) {
+            deviceFilter['online'] = { show: true, size: 'normal' };
+        }
+        if (deviceFilter['offline'] === undefined) {
+            deviceFilter['offline'] = { show: true, size: 'normal' };
+        }
+    }
 }
 
 function initMap () {
@@ -767,7 +930,7 @@ function initMap () {
         layers: [nestLayer, scanAreaLayer, clusters],
         maxZoom: '{{max_zoom}}',
         //renderer: L.canvas()
-    }).setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+    });
 
     const lastViewCenterLat = retrieve('last_lat');
     const lastViewCenterLng = retrieve('last_lng');
@@ -775,7 +938,7 @@ function initMap () {
     if (window.location.pathname == '/' && lastViewCenterLat && lastViewCenterLng && lastViewZoom) {
         map.setView([lastViewCenterLat, lastViewCenterLng], lastViewZoom);
     } else {
-        map.setView(['{{start_lat}}', '{{start_lon}}'], '{{start_zoom}}');
+        map.setView(defaultStartLocation, defaultStartZoom);
     }
     map.on('moveend', function () {
         const center = map.getCenter();
@@ -815,7 +978,7 @@ function initMap () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 defaultPokemonFilter[id] = { show: true, size: 'normal' };
             }
         }
@@ -846,7 +1009,7 @@ function initMap () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 defaultPokemonFilter[id] = { show: isCommonPokemon(i) === false, size: 'normal' };
             }
         }
@@ -878,7 +1041,7 @@ function initMap () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
             }
         }
@@ -984,7 +1147,7 @@ function initMap () {
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
             let id = availableRaidBosses[i];
-            defaultRaidFilter['p' + id] = { show: legendaryPokemon.includes(id), size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: masterfile.pokemon[id].legendary || masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -1002,7 +1165,7 @@ function initMap () {
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
             let id = availableRaidBosses[i];
-            defaultRaidFilter['p' + id] = { show: !legendaryPokemon.includes(id), size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[id].legendary && !masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -1119,6 +1282,79 @@ function initMap () {
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
     });
 
+    $('#reset-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        defaultNestFilter['no-timer'] = { show: true, size: 'normal' };
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: true, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: false, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#reset-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultWeatherFilter[i] = { show: true, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultWeatherFilter[i] = { show: false, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#reset-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: true, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: false, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: false, size: 'normal' };
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
+
     $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -1192,10 +1428,15 @@ function initMap () {
             });
             spawnpointMarkers = [];
         }
-        if (/*newShowNests !== showNests &&*/ newShowNests === false) {
+        if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
-        } else {
-            loadNestPolygons();
+            /*
+            $.each(nestMarkers, function (index, nest) {
+                //map.removeLayer(nest.marker);
+                nestLayer.removeLayer(nest.marker);
+            });
+            */
+            nestMarkers = [];
         }
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
@@ -1217,23 +1458,25 @@ function initMap () {
             });
             submissionTypeCellMarkers = [];
         }
-        if (newShowWeather !== showWeather && newShowWeather === false) {
+        // TODO: Fix weather filtering on change
+        //if (newShowWeather !== showWeather && newShowWeather === false) {
             $.each(weatherMarkers, function (index, weather) {
                 map.removeLayer(weather.marker);
             });
             weatherMarkers = [];
-        }
+        //}
         if (/*newShowScanAreas !== showScanAreas &&*/ newShowScanAreas === false) {
             scanAreaLayer.clearLayers();
         } else {
             loadScanAreaPolygons();
         }
-        if (newShowDevices !== showDevices && newShowDevices === false) {
+        // TODO: Fix
+        //if (newShowDevices !== showDevices && newShowDevices === false) {
             $.each(deviceMarkers, function (index, device) {
                 map.removeLayer(device.marker);
             });
             deviceMarkers = [];
-        }
+        //}
 
         pokemonFilter = pokemonFilterNew;
         const newPokemonMarkers = [];
@@ -1269,6 +1512,10 @@ function initMap () {
         invasionFilter = invasionFilterNew;
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
+        nestFilter = nestFilterNew;
+        weatherFilter = weatherFilterNew;
+        deviceFilter = deviceFilterNew;
+
         const newGymMarkers = [];
         $.each(gymMarkers, function (index, gym) {
             map.removeLayer(gym.marker);
@@ -1303,6 +1550,9 @@ function initMap () {
         store('pokestop_filter', JSON.stringify(pokestopFilter));
         store('invasion_filter', JSON.stringify(invasionFilter));
         store('spawnpoint_filter', JSON.stringify(spawnpointFilter));
+        store('nest_filter', JSON.stringify(nestFilter));
+        store('weather_filter', JSON.stringify(weatherFilter));
+        store('device_filter', JSON.stringify(deviceFilter));
         store('show_cells', newShowCells);
         showCells = newShowCells;
         store('show_submission_cells', newShowSubmissionCells);
@@ -1500,9 +1750,6 @@ function initMap () {
 
     $.getJSON( '/custom/nests.json', function( data ) {
         nestsDb = data;
-        if (showNests) {
-            loadNestPolygons();
-        }
     });
 
     $.getJSON( '/custom/areas.json', function( data ) {
@@ -1517,10 +1764,12 @@ function initMap () {
 // MARK: - Data Loading
 
 function loadData () {
-    if (isLoading || new Date() - lastUpdate < 100) {
+    if (new Date() - lastUpdate < (loadRequest ? 4000 : 500)) {
         return;
     }
-    isLoading = true;
+    if (loadRequest) {
+        loadRequest.abort();
+	}
     lastUpdate = new Date();
 
     const bounds = map.getBounds();
@@ -1539,7 +1788,7 @@ function loadData () {
                     // Skip Shadow and Purified forms
                     continue;
                 }
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 if (pokemonFilter[id].show === false) {
                     pokemonFilterExclude.push(id);
                 }
@@ -1676,6 +1925,35 @@ function loadData () {
         }
     }
 
+    const nestFilterExclude = [];
+    if (showNests) {
+        for (let i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            if (nestFilter['p' + id].show === false) {
+                nestFilterExclude.push('p' + id);
+            }
+        }
+    }
+
+    const weatherFilterExclude = [];
+    if (showWeather) {
+        for (let i = 1; i <= 7; i++) {
+            if (weatherFilter[i].show === false) {
+                weatherFilterExclude.push(i);
+            }
+        }
+    }
+
+    const deviceFilterExclude = [];
+    if (showDevices) {
+        if (deviceFilter['online'].show === false) {
+            deviceFilterExclude.push('online');
+        }
+        if (deviceFilter['offline'].show === false) {
+            deviceFilterExclude.push('offline');
+        }
+    }
+
     const data = {
         _: Math.round((new Date()).getTime() / 1000),
         min_lat: bounds._southWest.lat,
@@ -1698,6 +1976,9 @@ function loadData () {
         pokestop_filter_exclude: JSON.stringify(pokestopFilterExclude),
         invasion_filter_exclude: JSON.stringify(invasionFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
+        nest_filter_exclude: JSON.stringify(nestFilterExclude),
+        weather_filter_exclude: JSON.stringify(weatherFilterExclude),
+        device_filter_exclude: JSON.stringify(deviceFilterExclude),
         show_spawnpoints: showSpawnpoints,
         show_nests: showNests,
         show_cells: showCells && map.getZoom() >= 13,
@@ -1705,11 +1986,12 @@ function loadData () {
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
         show_weather: showWeather,
         show_active_devices: showDevices,
+        icon_style: selectedIconStyle,
         last_update: lastUpdateServer,
         _csrf: '{{csrf}}'
     };
 
-    $.ajax({
+    loadRequest = $.ajax({
         url: '/api/get_data',
         data: data,
         type: 'post',
@@ -1980,7 +2262,6 @@ function loadData () {
             });
 
             const submissionTypeCells = data.data.submission_type_cells;
-            //console.log('Received submission type cells:', submissionTypeCells);
             $.each(submissionTypeCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 14) {
                     if (lastUpdateServer === 0) {
@@ -2003,7 +2284,6 @@ function loadData () {
             });
 
             const submissionPlacementCells = data.data.submission_placement_cells;
-            //console.log('Received submission placement cells:', submissionPlacementCells);
             $.each(submissionPlacementCells, function (index, cell) {
                 if (showSubmissionCells && map.getZoom() >= 16) {
                     if (lastUpdateServer === 0) {
@@ -2060,7 +2340,7 @@ function loadData () {
                         weather.marker = getWeatherMarker(weather, ts);
                         let weatherIcon;
                         if (weather.gameplay_condition !== 0 && weather.gameplay_condition !== null) {
-                            weatherIcon = '<img src="/img/weather/' + weather.gameplay_condition + '.png" height="25" width="25">';
+                            weatherIcon = `<img src="${availableIconStyles[selectedIconStyle]}/weather/${weather.gameplay_condition}.png" height="25" width="25">`;
                         } else {
                             weatherIcon = '';
                         }
@@ -2076,26 +2356,35 @@ function loadData () {
                 }
             });
 
+            const nests = data.data.nests;
+            $.each(nests, function (index, nest) {
+                if (showNests) {
+                    const oldNest = nestMarkers.find(function (value) {
+                        return nest.nest_id === value.nest_id;
+                    });
+                    let geojson = getGeoJsonFromId(nest);
+                    if (geojson !== undefined) {
+                        if (oldNest === undefined) {
+                            nest.marker = getNestMarker(nest, geojson, ts);
+                            nestMarkers.push(nest);
+                            nest.marker.addTo(nestLayer);
+                        }
+                    }
+                }
+            });
+
             lastUpdate = new Date();
-            isLoading = false;
+            loadRequest = null;
         }
     });
 }
 
-function loadNestPolygons () {
-    if (nestsDb === null) {
-        return;
-    }
-    try {
-        var nestGeoPolys = L.geoJson(nestsDb, {
-            onEachFeature: function(features, featureLayer) {
-                featureLayer.bindPopup(getNestPopupContent(features.properties.name));
-            }
-        });
-        nestLayer.addLayer(nestGeoPolys);
-    } catch (err) {
-        console.log('Failed to load nest.json file.\nError:', err);
-    }
+function getGeoJsonFromId(nest) {
+    const nestId = parseInt(nest.nest_id);
+    let geojson = nestsDb.features.find(function (value) {
+        return nestId === parseInt(value.id);
+    });
+    return geojson;
 }
 
 function loadScanAreaPolygons () {
@@ -2351,6 +2640,9 @@ function updateOpenedPopupLoop () {
     if (openedWeather !== undefined) {
         openedWeather.marker._popup.setContent(getWeatherPopupContent(openedWeather));
     }
+    if (openedNest !== undefined) {
+        openedNest.marker._popup.setContent(getNestPopupContent(openedNest));
+    }
     if (openedDevice !== undefined) {
         openedDevice.marker._popup.setContent(getDevicePopupContent(openedDevice));
     }
@@ -2374,7 +2666,11 @@ function updateDevicesLoop () {
 }
 
 function updateMapTimers () {
+    const bounds = map.getBounds();
     $.each(gymMarkers, function (index, marker) {
+        if (!bounds.contains(marker)) {
+            return;
+        }
         if (showRaidTimers) {
             setDespawnTimer(marker);
         } else {
@@ -2398,7 +2694,7 @@ function getPokemonPopupContent (pokemon) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
 
-    const pokemonIcon = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league)
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form)
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -2408,7 +2704,7 @@ function getPokemonPopupContent (pokemon) {
         '<div class="col-6 col-md-4 center-vertical">' +
             '<div style="float:right; margin-right:5px;">';
     if (!(pokemon.display_pokemon_id > 0) && pokemon.weather !== 0 && pokemon.weather !== null) {
-        content += '<img src="/img/weather/' + pokemon.weather + '.png" height="32" width="32">';
+        content += `<img src="${availableIconStyles[selectedIconStyle]}/weather/${pokemon.weather}.png" height="32" width="32">`;
     }
     content +=
             '</div>' +
@@ -2418,19 +2714,19 @@ function getPokemonPopupContent (pokemon) {
     '<div class="row">' + // START 2ND ROW
         '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
             '<div class="row' + (hasIV ? '' : 'text-center') + '" style="margin: auto;">' +
-                '<img src="/img/' + pokemonIcon + '" height="64" width="64">' +
+                `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${pokemonIcon}" height="64" width="64">` +
             '</div>' + // END POKEMON ROW
             '<div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">';
-    const pkmn = masterfile[pokemon.pokemon_id];
+    const pkmn = masterfile.pokemon[pokemon.pokemon_id];
     if (pkmn !== undefined && pkmn !== null) {
         const types = pkmn.types;
         if (types !== null && types.length > 0) {
             content += '<div class="col">';
             if (types.length === 2) {
-                content += '<img src="/img/type/' + types[0].toLowerCase() + '.png" height="16" width="16">&nbsp;';
-                content += '<img src="/img/type/' + types[1].toLowerCase() + '.png" height="16" width="16">';
+                content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
+                content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[1].toLowerCase()}.png" height="16" width="16">`;
             } else {
-                content += '<img src="/img/type/' + types[0].toLowerCase() + '.png" height="16" width="16">';
+                content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="16" width="16">`;
             }
             content += '</div>';
         }
@@ -2462,9 +2758,9 @@ function getPokemonPopupContent (pokemon) {
     }
     if (pokemon.capture_1 !== null && pokemon.capture_2 !== null && pokemon.capture_3 !== null) {
         content += '<b>Catch Chances:</b><br>'
-        content += '<img src="/img/item/1.png" height="14" width="14"> ' + (pokemon.capture_1 * 100).toFixed(1) + '% '
-        content += '<img src="/img/item/2.png" height="14" width="14"> ' + (pokemon.capture_2 * 100).toFixed(1) + '%<br>'
-        content += '<img src="/img/item/3.png" height="14" width="14"> ' + (pokemon.capture_3 * 100).toFixed(1) + '%<br>'
+        content += `<img src="${availableIconStyles[selectedIconStyle]}/item/1.png" height="14" width="14"> ${(pokemon.capture_1 * 100).toFixed(1)}% `
+        content += `<img src="${availableIconStyles[selectedIconStyle]}/item/2.png" height="14" width="14"> ${(pokemon.capture_2 * 100).toFixed(1)}%<br>`
+        content += `<img src="${availableIconStyles[selectedIconStyle]}/item/3.png" height="14" width="14"> ${(pokemon.capture_3 * 100).toFixed(1)}%<br>`
     }
     content +=
         '</div>' +
@@ -2549,23 +2845,23 @@ function getPokemonPopupContent (pokemon) {
     '<br>' +
     '<div class="text-center">' +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
-        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', false);return false;"><b>[Exclude]</b></a>' +
+        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
         '<br>' +
         '<br>' +
         '<div class="row">' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Google Maps">' +
-                    '<img src="/img/navigation/gmaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
             '<div class="col">' +
                 '<a href="https://maps.apple.com/maps?daddr=' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Apple Maps">' +
-                    '<img src="/img/navigation/applemaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/applemaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
             '<div class="col">' +
                 '<a href="https://www.waze.com/ul?ll=' + pokemon.lat + ',' + pokemon.lon + '&navigate=yes" title="Open in Waze">' +
-                    '<img src="/img/navigation/othermaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/othermaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
         '</div>' +
@@ -2601,12 +2897,22 @@ function setIndividualPokemonHidden (id) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function addPokemonFilter (pokemonId, show) {
-    pokemonFilter[pokemonId].show = show;
+function addPokemonFilter (pokemonId, formId, show) {
+    let pokemonString = null;
+    let mappedForm = formId;
+    if (formId === 0) {
+        const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+        if (defaultForm) {
+            mappedForm = defaultForm;
+        } else {
+            pokemonString = String(pokemonId);
+        }
+    }
+    pokemonFilter[pokemonString || pokemonId + '-' + mappedForm].show = show;
     store('pokemon_filter', JSON.stringify(pokemonFilter));
 
     $.each(pokemonMarkers, function (index, pokemon) {
-        if (pokemon.pokemon_id === pokemonId) {
+        if (pokemon.pokemon_id === pokemonId && (pokemon.form === formId || pokemon.form === mappedForm)) {
             map.removeLayer(pokemon.marker);
         }
     });
@@ -2692,17 +2998,17 @@ function getPokestopPopupContent (pokestop) {
         '<div class="row text-center">' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
-                    '<img src="/img/navigation/gmaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
             '<div class="col">' +
                 '<a href="https://maps.apple.com/maps?daddr=' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Apple Maps">' +
-                    '<img src="/img/navigation/applemaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/applemaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
             '<div class="col">' +
                 '<a href="https://www.waze.com/ul?ll=' + pokestop.lat + ',' + pokestop.lon + '&navigate=yes" title="Open in Waze">' +
-                    '<img src="/img/navigation/othermaps.png" height="32" width="32">' +
+                    `<img src="${availableIconStyles[selectedIconStyle]}/navigation/othermaps.png" height="32" width="32">` +
                 '</a>' +
             '</div>' +
         '</div>' +
@@ -2725,14 +3031,27 @@ function getGymPopupContent (gym) {
         gymName = gym.name;
     }
 
+    let titleSize = 16;//'medium';
+    if (gymName.length > 40) {
+        //titleSize = 'xx-small';
+        titleSize = 8;
+    } else if (gymName.length > 30) {
+        //titleSize = 'small';
+        titleSize = 11;
+    } else if (gymName.length > 20) {
+        //titleSize = 'small';
+        titleSize = 14;
+    }
+    console.log('Title size:', titleSize);
+
     let content =
     '<div class="row">' + // START 1ST ROW
         '<div class="col-12 col-md-8 center-vertical">' +
-            '<span class="text-nowrap"><h6><b>' + gymName + '</b></h6></span>' +
+            `<span class="text-nowrap" style="font-size:${titleSize}px;"><b>${gymName}</b></span>` +
         '</div>' +
         '<div class="col-6 col-md-4 center-vertical">' +
             '<div style="float:right; margin: auto;">' +
-                '<img src="/img/team/' + gym.team_id + '.png" height="32" width="32">' +
+                `<img src="${availableIconStyles[selectedIconStyle]}/team/${gym.team_id}.png" height="32" width="32">` +
             '</div>' +
         '</div>' +
     '</div>'; // END 1ST ROW
@@ -2752,30 +3071,30 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIconString(gym.raid_pokemon_id, gym.raid_pokemon_form, null, null);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-6 col-md-4">' + // START 1ST COL
                 '<div class="row" style="margin:auto;">';
         if (hasRaidBoss && isRaidBattle) {
-            content += '<img src="/img/' + pokemonIcon + '" height="64" width="64">';
+            content += `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${pokemonIcon}" height="64" width="64">`;
         } else {
-            content += '<img src="/img/egg/' + gym.raid_level + '.png" height="64" width="64">';
+            content += `<img src="${availableIconStyles[selectedIconStyle]}/egg/${gym.raid_level}.png" height="64" width="64">`;
         }
         content +=
                 '</div>' + // END POKEMON ROW
                 '<div class="row" style="margin:auto;">';
         if (hasRaidBoss && isRaidBattle) {
-            const pkmn = masterfile[gym.raid_pokemon_id];
+            const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
             if (pkmn !== undefined && pkmn !== null) {
                 const types = pkmn.types;
                 if (types !== null && types.length > 0) {
                     content += '<div class="col text-nowrap">';
                     if (types.length === 2) {
-                        content += '<img src="/img/type/' + types[0].toLowerCase() + '.png" height="16" width="16">&nbsp;';
-                        content += '<img src="/img/type/' + types[1].toLowerCase() + '.png" height="16" width="16">';
+                        content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
+                        content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[1].toLowerCase()}.png" height="16" width="16">`;
                     } else {
-                        content += '<img src="/img/type/' + types[0].toLowerCase() + '.png" height="16" width="16">';
+                        content += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="16" width="16">`;
                     }
                     content += '</div>';
                 }
@@ -2814,7 +3133,7 @@ function getGymPopupContent (gym) {
             }
         }
         if (gym.ex_raid_eligible) {
-            content += '<img src="/img/misc/ex.png" height="24" width="32">';
+            content += `<img src="${availableIconStyles[selectedIconStyle]}/misc/ex.png" height="24" width="32">`;
         }
         content +=
             '</div>' + // END 2ND COL
@@ -2837,7 +3156,7 @@ function getGymPopupContent (gym) {
             content +=
             '<div class="col-6 col-md-4">' + // START 1ST COL
                 // '<a href="' + url + '" target="_blank"><img src="' + url + '" style="border-radius:50%; height:96px; width:96px;"></a>' +
-                '<a href="' + url + '" target="_blank"><img src="' + url + '" class="circle-image ' + teamClass + '" style="height:72px; width:72px;"></a>' +
+                `<a href="${url}" target="_blank"><img src="${url}" class="circle-image ${teamClass}" style="height:72px; width:72px;"></a>` +
             '</div>'; // END 1ST COL
         }
         content +=
@@ -2856,7 +3175,7 @@ function getGymPopupContent (gym) {
         }
         if (gym.ex_raid_eligible) {
             // content += '<b>Gym is EX-Raid eligible</b>';
-            content += '<img src="/img/misc/ex.png" height="24" width="32">';
+            content += `<img src="${availableIconStyles[selectedIconStyle]}/misc/ex.png" height="24" width="32">`;
         }
         content +=
             '</div>' + // END 2ND COL
@@ -2887,17 +3206,17 @@ function getGymPopupContent (gym) {
     '<div class="row text-center">' +
         '<div class="col">' +
             '<a href="https://www.google.com/maps/place/' + gym.lat + ',' + gym.lon + '" title="Open in Google Maps">' +
-                '<img src="/img/navigation/gmaps.png" height="32" width="32">' +
+                `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
             '</a>' +
         '</div>' +
         '<div class="col">' +
             '<a href="https://maps.apple.com/maps?daddr=' + gym.lat + ',' + gym.lon + '" title="Open in Apple Maps">' +
-                '<img src="/img/navigation/applemaps.png" height="32" width="32">' +
+                `<img src="${availableIconStyles[selectedIconStyle]}/navigation/applemaps.png" height="32" width="32">` +
             '</a>' +
         '</div>' +
         '<div class="col">' +
             '<a href="https://www.waze.com/ul?ll=' + gym.lat + ',' + gym.lon + '&navigate=yes" title="Open in Waze">' +
-                '<img src="/img/navigation/othermaps.png" height="32" width="32">' +
+                `<img src="${availableIconStyles[selectedIconStyle]}/navigation/othermaps.png" height="32" width="32">` +
             '</a>' +
         '</div>' +
     '</div>';
@@ -2976,10 +3295,17 @@ function getWeatherPopupContent (weather) {
     return content;
 }
 
-function getNestPopupContent(name) {
+function getNestPopupContent(nest) {
+    const lastUpdated = new Date(nest.updated * 1000);
+    const pokemonName = getPokemonName(nest.pokemon_id);
     let content = `
     <center>
-        <h6>Park: <b>${name}</b></h6>
+        <h6>Park: <b>${nest.name}</b></h6>
+        Pokemon: <b>${pokemonName}</b><br>
+        Average: <b>${nest.pokemon_avg.toLocaleString()}</b><br>
+        Count: <b>${nest.pokemon_count.toLocaleString()}</b><br>
+        <br>
+        <small>Last Updated: <b>${lastUpdated.toLocaleString()}</b></small><br>
     </center>
     `;
     return content;
@@ -3274,6 +3600,66 @@ function getWeatherMarker (weather, ts) {
     return polygon;
 }
 
+function getNestMarker (nest, geojson, ts) {
+    const pkmn = masterfile.pokemon[nest.pokemon_id];
+    let typesIcon = '';
+    if (pkmn !== undefined && pkmn !== null) {
+        const types = pkmn.types;
+        if (types !== null && types.length > 0) {
+            if (types.length === 2) {
+                typesIcon += `<span class="text-nowrap"><img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="24" width="24">&nbsp;`;
+                typesIcon += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[1].toLowerCase()}.png" height="24" width="24"></span>`;
+            } else {
+                typesIcon += `<img src="${availableIconStyles[selectedIconStyle]}/type/${types[0].toLowerCase()}.png" height="24" width="24">`;
+            }
+        }
+    }
+    const nestPolygonMarker = L.geoJson(geojson, {
+        /*
+        pointToLayer: function(feature, latlng) {
+            console.log(latlng, feature);
+            let icon = L.icon({
+                iconUrl: '/img/pokemon/1.png',
+                iconSize: [30, 30],
+                iconAnchor: [30 / 2, 30 / 2],
+                popupAnchor:  [0, 30 * -1.567]
+            });
+            return L.marker(latlng, {icon: icon});
+        },
+        */
+        onEachFeature: function(features, featureLayer) {
+            featureLayer.bindPopup(getNestPopupContent(nest));
+            featureLayer.setStyle({
+                //'weight': 1,
+                'stroke': features.properties['stroke'],
+                'strokeOpacity': features.properties['stroke-opacity'],
+                'strokeWidth': features.properties['stroke-width'],
+                'fillColor': features.properties['fill'],
+                'fillOpacity': features.properties['fill-opacity']
+            });
+            const icon = L.divIcon({
+                iconSize: [40, 40],
+                iconAnchor: [40 / 2, 40 / 2],
+                popupAnchor: [0, 30 * -1.567],
+                className: 'nest-marker',
+                html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(nest.pokemon_id, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
+            });
+            /*
+            const icon = L.icon({
+                iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
+                iconSize: [30, 30],
+                iconAnchor: [30 / 2, 30 / 2],
+                popupAnchor:  [0, 30 * -1.567],
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                shadowSize:  [41, 41]
+            });
+            */
+            L.marker([nest.lat, nest.lon], {icon: icon}).addTo(nestLayer);
+        }
+    });
+    return nestPolygonMarker;
+}
+
 function getWeatherStyle (weather, ts) {
     const ago = ts - weather.updated;
     let value;
@@ -3292,21 +3678,32 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIconString(pokemon.pokemon_id, pokemon.form, pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
+    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form);
     const color = '{{glow_color}}';
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
+    const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
+    const bestRankIcon = bestRank === 3
+        ? 'third'
+        : bestRank === 2
+            ? 'second'
+            : bestRank === 1
+                ? 'first'
+                : '';
+    let iconHtml = bestRank <= 3 && bestRankIcon !== ''
+        ? `<img src="${availableIconStyles[selectedIconStyle]}/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto; background-color:transparent; padding:0; margin:-15px 0 0 15px;" />`
+        : '';
     const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, -(size / 2)],
         className: 'pokemon-marker',
-        html: `<img src="/img/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
+        html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
         (
             iv >= glowIV
             ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
             : ''
-        ) + '"/>'
+        ) + `"/>${iconHtml}</center>`
     });
     return icon;
 }
@@ -3335,95 +3732,59 @@ function getPokemonMarker (pokemon, ts) {
 }
 
 function getPokestopMarkerIcon (pokestop, ts) {
-    let icon;
+    let iconSize = 30;
+    let iconHtml = '<span class="text-nowrap text-center">';
+    let iconUrl = '';
+    let sizeId = '0';
+    const lureIconId = getLureIconId(pokestop.lure_id);
+    const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
+    const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
-
         let rewardString;
-
         if (id === 1 && info !== undefined && info.amount !== undefined) {
-            rewardString = 'i-2';
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-2.png`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
-            rewardString = 'i' + info.item_id;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/${info.item_id}.png`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
-            rewardString = 'i-1';
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
-            rewardString = 'i-3';
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
-                const pokemonIdStringTmp = '' + info.pokemon_id + '-' + info.form_id;
+                const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
                 if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-                    rewardString = 'p' + pokemonIdStringTmp;
+                    iconUrl = `${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id)}`;
                 } else {
-                    rewardString = 'p' + info.pokemon_id;
+                    iconUrl = `${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
                 }
             } else {
-                rewardString = 'p' + info.pokemon_id;
+                iconUrl = `${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
             }
-        } else {
-            rewardString = 'i0';
         }
-        const size = getQuestSize(rewardString);
-
-        let lureId;
-        if (pokestop.lure_expire_timestamp >= ts) {
-            lureId = getLureIconId(pokestop.lure_id);
-        } else {
-            lureId = 0;
-        }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'quest_invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'quest';
-        }
-        icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + '_' + rewardString + invasionStringEnd + '.png',
-            iconSize: [size, size * 1.667],
-            iconAnchor: [size / 2, size * 1.567],
-            popupAnchor: [0, size * -1.567]
-        });
+        iconHtml += `<img src="${iconUrl}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/>`;
+        iconSize = getQuestSize(rewardString);
     } else {
-        let lureId;
-        if (showPokestops && pokestop.lure_expire_timestamp >= ts) {
-            lureId = getLureIconId(pokestop.lure_id);
-        } else {
-            lureId = 0;
-        }
-        let invasionString;
-        let invasionStringEnd;
-        let folder;
-        if (showInvasions && pokestop.incident_expire_timestamp >= ts) {
-            invasionString = 'i';
-            invasionStringEnd = '_' + pokestop.grunt_type;
-            folder = 'invasion';
-        } else {
-            invasionString = '';
-            invasionStringEnd = '';
-            folder = 'pokestop';
-        }
-
-        let sizeId = 'normal';
-        if (lureId > 0) {
-            sizeId = 'l' + getLureIconId(pokestop.lure_id);
-        } else if (pokestop.incident_expire_timestamp >= ts) {
-            sizeId = 'i' + pokestop.grunt_type;
-        }
-        const size = getPokestopSize(sizeId);
-        icon = L.icon({
-            iconUrl: '/img/' + folder + '/' + invasionString + lureId + invasionStringEnd + '.png',
-            iconSize: [size, size],
-            iconAnchor: [size / 2, size],
-            popupAnchor: [0, size * -1.567]
-        });
+        iconSize = getPokestopSize(sizeId);
     }
+    if (activeInvasion && activeLure) {
+        sizeId = 'i' + lureIconId;
+    } else if (activeInvasion) {
+        sizeId = 'i0';
+    } else if (activeLure) {
+        sizeId = lureIconId;
+    }
+    iconHtml += '</span>';
+    const icon = L.divIcon({
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
+        //popupAnchor: [0, iconSize * -1.567],
+        className: 'pokestop-marker',
+        html: activeInvasion
+            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+    });
     return icon;
 }
 
@@ -3482,17 +3843,6 @@ function getSpawnpointMarker (spawnpoint, ts) {
     return circle;
 }
 
-function getSpawnpointMarkerIcon (spawnpoint, ts) {
-    const iconId = spawnpoint.despawn_second != null ? 1 : 0;
-    const icon = L.icon({
-        iconUrl: '/img/spawnpoint/' + iconId + '.png',
-        iconSize: [10, 10],
-        iconAnchor: [5, 5],
-        popupAnchor: [0, -5]
-    });
-    return icon;
-}
-
 function getGymMarkerIcon (gym, ts) {
     let size;
     if (gym.availble_slots === 6 || gym.team_id === 0) {
@@ -3502,60 +3852,44 @@ function getGymMarkerIcon (gym, ts) {
     }
 
     const raidLevel = gym.raid_level;
-    let icon;
     let iconSize;
+    let iconHtml = '';
+    let ignoreGymIcon = false;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
-            const pokemonIdString = getPokemonIdIconString(gym.raid_pokemon_id, gym.raid_pokemon_form);
             // Raid Boss
             iconSize = getRaidSize('p' + gym.raid_pokemon_id);
-            icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_' + pokemonIdString + '.png',
-                iconSize: [iconSize, iconSize * 1.667],
-                iconAnchor: [iconSize / 2, iconSize * 1.567],
-                popupAnchor: [0, iconSize * -1.567]
-            });
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else {
             // Egg
             iconSize = getRaidSize('l' + raidLevel);
-            icon = L.icon({
-                iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_ue' + raidLevel + '.png',
-                iconSize: [iconSize, iconSize * 1.667],
-                iconAnchor: [iconSize / 2, iconSize * 1.567],
-                popupAnchor: [0, iconSize * -1.567]
-            });
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/unknown_egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
         iconSize = getRaidSize('l' + raidLevel);
-        icon = L.icon({
-            iconUrl: '/img/raid/' + gym.team_id + '_' + size + '_e' + raidLevel + '.png',
-            iconSize: [iconSize, iconSize * 1.667],
-            iconAnchor: [iconSize / 2, iconSize * 1.567],
-            popupAnchor: [0, iconSize * -1.567]
-        });
+        iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
     } else {
         // Gym
         if (gym.in_battle) {
             // Gym Battle
             iconSize = 55; //Set Larger Size For Battle
-            icon = L.icon({
-                iconUrl:  '/img/battle/'+ gym.team_id + '_' + size +'.png',
-                iconSize:  [iconSize, iconSize],
-                iconAnchor:  [iconSize / 2, iconSize / 2],
-                popupAnchor:  [0, -20] //TODO: //size * -1.567
-            });
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/battle/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+            ignoreGymIcon = true;
         } else {
             // Gym
             iconSize = getGymSize(gym.team_id);
-            icon = L.icon({
-              iconUrl: '/img/gym/' + gym.team_id + '_' + size + '.png',
-              iconSize: [iconSize, iconSize],
-              iconAnchor: [iconSize / 2, iconSize / 2],
-              popupAnchor: [0, -20] // TODO: //size * -1.567
-            });
         }
     }
+    const icon = L.divIcon({
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
+        //popupAnchor: [iconSize * -1.567], // 0, -20
+        className: 'gym-marker',
+        html: ignoreGymIcon
+            ? `<center>${iconHtml}<br></center>`
+            : `<center>${iconHtml}<br><img src="${availableIconStyles[selectedIconStyle]}/gym/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+    });
     return icon;
 }
 
@@ -3593,9 +3927,21 @@ function getDeviceMarker (device, ts) {
         virtual: true
     });
     marker.bindPopup('');
+    let polyline;
     marker.on('popupopen', function (popup) {
         openedDevice = device;
         marker._popup.setContent(getDevicePopupContent(device));
+        if (device.type === 'circle_pokemon') {
+            const data = JSON.parse(device.data);
+            const route = data.area;
+            // TODO: Make outline color configurable
+            polyline = L.polyline(route, {color: 'red'}).addTo(map);
+        }
+    });
+    marker.on('popupclose', function (popup) {
+        if (polyline) {
+            map.removeLayer(polyline);
+        }
     });
     return marker;
 }
@@ -3623,10 +3969,10 @@ function setDespawnTimer (gym) {
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
-    // Hatched
+        // Hatched
         raidTimestamp = gym.raid_end_timestamp;
     } else if (gym.raid_battle_timestamp >= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
-    // Egg
+        // Egg
         raidTimestamp = gym.raid_battle_timestamp;
     } else {
         gym.marker.unbindTooltip();
@@ -3639,7 +3985,7 @@ function setDespawnTimer (gym) {
             const text = '<div class=\'rounded raid-timer\'><span class=\'p-1\'>' + timer + '</span></div>';
             gym.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 55] };
             /* let tooltip = */ gym.marker.bindTooltip(timer, options);
             gym.marker.timerSet = true;
         }
@@ -3654,7 +4000,7 @@ function manageSelectButton (e, isNew) {
     const type = e.attr('data-type');
     const info = e.attr('data-info');
     let shouldShow = false;
-    if (type === 'pokemon' || type === 'pokemon-iv' || type === 'pokemon-lvl') {
+    if (type === 'pokemon' || type === 'pokemon-iv') {
         switch (info) {
         case 'hide':
             shouldShow = pokemonFilterNew[id].show === false;
@@ -4021,6 +4367,69 @@ function manageSelectButton (e, isNew) {
             break;
         case 'huge':
             shouldShow = spawnpointFilterNew[id].size === 'huge';
+            break;
+        }
+    } else if (type === 'nest-pokemon') {
+        switch (info) {
+        case 'hide':
+            shouldShow = nestFilterNew['p' + id].show === false;
+            break;
+        case 'show':
+            shouldShow = nestFilterNew['p' + id].show === true;
+            break;
+        case 'small':
+            shouldShow = nestFilterNew['p' + id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = nestFilterNew['p' + id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = nestFilterNew['p' + id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = nestFilterNew['p' + id].size === 'huge';
+            break;
+        }
+    } else if (type === 'weather-type') {
+        switch (info) {
+        case 'hide':
+            shouldShow = weatherFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = weatherFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = weatherFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = weatherFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = weatherFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = weatherFilterNew[id].size === 'huge';
+            break;
+        }
+    } else if (type === 'device-status') {
+        switch (info) {
+        case 'hide':
+            shouldShow = deviceFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = deviceFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = deviceFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = deviceFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = deviceFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = deviceFilterNew[id].size === 'huge';
             break;
         }
     } else {
@@ -4404,6 +4813,69 @@ function manageSelectButton (e, isNew) {
                     spawnpointFilterNew[id].size = 'huge';
                     break;
                 }
+            } else if (type === 'nest-pokemon') {
+                switch (info) {
+                case 'hide':
+                    nestFilterNew['p' + id].show = false;
+                    break;
+                case 'show':
+                    nestFilterNew['p' + id].show = true;
+                    break;
+                case 'small':
+                    nestFilterNew['p' + id].size = 'small';
+                    break;
+                case 'normal':
+                    nestFilterNew['p' + id].size = 'normal';
+                    break;
+                case 'large':
+                    nestFilterNew['p' + id].size = 'large';
+                    break;
+                case 'huge':
+                    nestFilterNew['p' + id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'weather-type') {
+                switch (info) {
+                case 'hide':
+                    weatherFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    weatherFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    weatherFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    weatherFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    weatherFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    weatherFilterNew[id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'device-status') {
+                switch (info) {
+                case 'hide':
+                    deviceFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    deviceFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    deviceFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    deviceFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    deviceFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    deviceFilterNew[id].size = 'huge';
+                    break;
+                }
             }
         });
     }
@@ -4557,35 +5029,23 @@ function getSize (size) {
     return 'Big';
 }
 
-function getPokemonIdIconString(pokemonId, pokemonForm) {
+function getPokemonIcon(pokemonId, pokemonForm) {
     let pokemonIdString;
+    const pokeId = zeroPad(pokemonId, 3);
     if (pokemonForm !== 0 && pokemonForm !== null) {
-        const pokemonIdStringTmp = '' + pokemonId + '-' + pokemonForm;
-        if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-            pokemonIdString = pokemonIdStringTmp;
+        if ($.inArray(pokemonId + '-' + pokemonForm, availableForms) !== -1) {
+            pokemonIdString = pokeId + '_' + pokemonForm;
         } else {
-            pokemonIdString = '' + pokemonId;
+            // If form icon doesn't exist, use default
+            pokemonIdString = pokeId + '_00';
         }
     } else {
-        pokemonIdString = '' + pokemonId;
+        pokemonIdString = pokeId + '_00';
     }
-    return pokemonIdString;
+    return 'pokemon_icon_' + pokemonIdString + '.png';
 }
 
-function getPokemonIconString(pokemonId, pokemonForm, greatLeague, ultraLeague) {
-    let pokemonIdString = getPokemonIdIconString(pokemonId, pokemonForm);
-    if (pokemonForm !== 0 && pokemonForm !== null) {
-        const pokemonIdStringTmp = '' + pokemonId + '-' + pokemonForm;
-        if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-            pokemonIdString = pokemonIdStringTmp;
-        } else {
-            pokemonIdString = '' + pokemonId;
-        }
-    } else {
-        pokemonIdString = '' + pokemonId;
-    }
-    let pre;
-    let post;
+function getPokemonBestRank(greatLeague, ultraLeague) {
     if ((greatLeague !== null && hasRelevantLeagueStats(greatLeague, true)) ||
         (ultraLeague !== null && hasRelevantLeagueStats(ultraLeague, false))) {
         let bestRank = 4;
@@ -4600,28 +5060,14 @@ function getPokemonIconString(pokemonId, pokemonForm, greatLeague, ultraLeague) 
             }
         });
         if (bestRank <= 3) {
-            pre = 'pokemon_league/';
-            post = '_' + bestRank +'.png';
-        } else {
-            pre = 'pokemon/';
-            post = '.png';
+            return bestRank;
         }
-    } else {
-        pre = 'pokemon/';
-        post = '.png';
     }
-    return pre + pokemonIdString + post;
+    return 4096;
 }
 
 function isCommonPokemon(pokemonId) {
-    const commonList = [
-        1,4,7,10,13,16,17,19,20,21,23,25,27,29,32,35,37,39,41,43,46,48,50,52,54,56,58,60,63,66,69,72,74,77,79,81,84,86,90,92,96,98,100,
-        102,104,109,111,116,118,120,127,128,129,133,138,140,152,155,158,161,163,165,167,170,177,179,183,185,187,190,191,193,194,198,200,
-        204,206,207,209,213,215,216,218,220,223,228,231,252,255,258,261,263,265,273,276,285,293,296,299,300,302,304,307,309,311,312,314,
-        315,316,318,320,322,325,328,331,333,336,339,341,343,345,347,351,353,355,361,363,370,387,390,396,399,401,418,425,427,434,459,504,
-        506,509,519
-    ];
-    return commonList.includes(pokemonId);
+    return pokemonRarityDb.common.includes(pokemonId);
 }
 
 function sendWebhook(encounterId) {
@@ -5397,6 +5843,299 @@ function loadSpawnpointFilter () {
     });
 }
 
+function loadNestFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-nest').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_nest_table_empty'),
+            zeroRecords: i18n('filter_nest_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' },
+            { data: 'size' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_nest_filter=true',
+            dataSrc: 'data.nest_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3, 4],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-nest tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterNestModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-nest').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
+function loadWeatherFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-weather').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_weather_table_empty'),
+            zeroRecords: i18n('filter_weather_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_weather_filter=true',
+            dataSrc: 'data.weather_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-weather tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterWeatherModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-weather').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
+function loadDeviceFilter () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-filter-device').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_device_table_empty'),
+            zeroRecords: i18n('filter_device_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' },
+            { data: 'size' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_device_filter=true',
+            dataSrc: 'data.device_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3, 4],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-filter-device tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterDeviceModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-device').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
 function loadFilterSettings (e) {
     const file = e.target.files[0];
     if (!file) {
@@ -5432,13 +6171,20 @@ function loadFilterSettings (e) {
         store('show_pokestops', showPokestops);
         store('pokestop_filter', JSON.stringify(pokestopFilterNew));
 
+        showInvasions = obj.show_invasions;
+        invasionFilterNew = obj.invasion;
+        store('show_invasions', showInvasions);
+        store('invasion_filter', JSON.stringify(invasionFilterNew));
+
         showSpawnpoints = obj.show_spawnpoints;
         spawnpointFilterNew = obj.spawnpoint;
         store('show_spawnpoints', showSpawnpoints);
         store('spawnpoint_filter', JSON.stringify(spawnpointFilterNew));
 
         showNests = obj.show_nests;
+        nestFilterNew = obj.nest;
         store('show_nests', showNests);
+        store('nest_filter', JSON.stringify(nestFilterNew));
 
         showCells = obj.show_cells;
         store('show_cells', showCells);
@@ -5447,13 +6193,17 @@ function loadFilterSettings (e) {
         store('show_submission_cells"', showSubmissionCells);
 
         showWeather = obj.show_weather;
+        weatherFilterNew = obj.weather;
         store('show_weather', showWeather);
+        store('weather_filter', JSON.stringify(weatherFilterNew));
 
         showScanAreas = obj.show_scanareas;
         store('show_scanareas', showScanAreas);
 
         showDevices = obj.show_devices;
+        deviceFilterNew = obj.device;
         store('show_devices', showDevices);
+        store('device_filter', JSON.stringify(deviceFilterNew));
 
         if (showGyms) {
             $('#show-gyms').addClass('active');
@@ -5557,6 +6307,8 @@ function loadFilterSettings (e) {
         $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     };
     reader.readAsText(file);
 }
