@@ -5014,18 +5014,6 @@ function checkIVFilterValid (filter) {
         }
         if (expectClause) {
             if (match[3] !== undefined) {
-                const lower = parseFloat(match[3]);
-                let column = 'iv';
-                switch (match[2]) {
-                    case 'A': column = 'atk_iv'; break;
-                    case 'D': column = 'def_iv'; break;
-                    case 'S': column = 'sta_iv'; break;
-                    case 'L': column = 'level';  break;
-                }
-                let higher = lower;
-                if (match[4] !== undefined) {
-                    higher = parseFloat(match[4]);
-                }
                 expectClause = false;
             } else if (match[1] === '(') {
                 if (++stack > 1000000000) {
