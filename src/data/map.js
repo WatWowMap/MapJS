@@ -170,7 +170,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             if (showPVP) {
                 filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
                 filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
-                if (pokemonFilterPVP) {
+                if (filtered.pvp_rankings_great_league !== null && filtered.pvp_rankings_ultra_league !== null && pokemonFilterPVP) {
                     let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
                     if (pokemonFilterPVP[idString]) {
                         let split = pokemonFilterPVP[idString].split('-');
