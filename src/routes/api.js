@@ -37,7 +37,6 @@ const getData = async (perms, filter) => {
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
     const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
-    const pokemonFilterLevel = filter.pokemon_filter_lvl ? JSON.parse(filter.pokemon_filter_lvl || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -65,8 +64,8 @@ const getData = async (perms, filter) => {
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
     const iconStyle = filter.icon_style || 'Default';
     const lastUpdate = filter.last_update || 0;
-    if ((showGyms || showRaids || showPokestops || showInvasions || showPokemon || showSpawnpoints ||
-        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather) &&
+    if ((showGyms || showRaids || showPokestops || showQuests || showInvasions || showPokemon || showSpawnpoints ||
+        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showActiveDevices) &&
         (minLat === null || maxLat === null || minLon === null || maxLon === null)) {
         //res.respondWithError(BadRequest);
         return;
@@ -103,7 +102,7 @@ const getData = async (perms, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP, pokemonFilterLevel);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -204,35 +203,6 @@ const getData = async (perms, filter) => {
                 });
             }
         }
-        if (permShowIV) {
-            // Pokemon Level filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-lvl" data-info="global-lvl">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 4
-                    },
-                    'name': globalLevelString,
-                    'image': `LVL-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
-                });
-            }
-        }
 
         const bigKarpString = i18n.__('filter_big_karp');
         const tinyRatString = i18n.__('filter_tiny_rat');
@@ -247,7 +217,7 @@ const getData = async (perms, filter) => {
                     'sort': i + 5
                 },
                 'name': sizeString,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, '0')}" style="height:50px; width:50px;">`,
                 'filter': filter,
                 'size': size,
                 'type': globalFiltersString
@@ -267,7 +237,7 @@ const getData = async (perms, filter) => {
                     continue;
                 }
                 formName = formName === 'Normal' ? '' : formName;
-                const id = formId === 0 ? i : i + '-' + formId;
+                const id = formId === '0' ? i : i + '-' + formId;
                 let ivLabel = '';
                 if (permShowIV) {
                     ivLabel = `
@@ -285,7 +255,7 @@ const getData = async (perms, filter) => {
                         'formatted': utils.zeroPad(i, 3),
                         'sort': i * 100 + j
                     },
-                    'name': i18n.__('poke_' + i) + (formId === 0 ? '' : ' ' + formName),
+                    'name': i18n.__('poke_' + i) + (formId === '0' ? '' : ' ' + formName),
                     'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
                     'filter': filter,
                     'size': size,
@@ -342,7 +312,7 @@ const getData = async (perms, filter) => {
                 },
                 'name': i18n.__('poke_' + id),
                 // TODO: Raid Pokemon form support
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -477,7 +447,7 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -585,7 +555,7 @@ const getData = async (perms, filter) => {
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, 0)}" style="height:50px; width:50px;">`,
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
@@ -686,7 +656,7 @@ const generateSizeButtons = (id, type) => {
 
 const getPokemonIcon = (pokemonId, formId) => {
     let pokeId = utils.zeroPad(pokemonId, 3);
-    let form = formId === 0 ? '00' : formId;
+    let form = formId === '0' ? '00' : formId;
     return `pokemon_icon_${pokeId}_${form}.png`;
 };
 
