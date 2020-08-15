@@ -120,7 +120,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
-            (form == 0 ${sqlExcludePokemon})
+            (form = 0 ${sqlExcludePokemon})
             OR form NOT IN (0 ${sqlExcludeForms})
             ${sqlIncludeIv} ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
         ) ${sqlAndIv} ${sqlOrIv}
