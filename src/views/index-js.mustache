@@ -3761,7 +3761,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
-                const pokemonIdStringTmp = '' + info.pokemon_id + '_' + info.form_id;
+                const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
                 if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
                     iconUrl = `${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id)}`;
                 } else {
@@ -5041,9 +5041,8 @@ function getPokemonIcon(pokemonId, pokemonForm) {
     let pokemonIdString;
     const pokeId = zeroPad(pokemonId, 3);
     if (pokemonForm !== 0 && pokemonForm !== null) {
-        const pokemonIdStringTmp = pokeId + '_' + pokemonForm;
-        if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-            pokemonIdString = pokemonIdStringTmp;
+        if ($.inArray(pokeId + '-' + pokemonForm, availableForms) !== -1) {
+            pokemonIdString = pokeId + '_' + pokemonForm;
         } else {
             // If form icon doesn't exist, use default
             pokemonIdString = pokeId + '_00';

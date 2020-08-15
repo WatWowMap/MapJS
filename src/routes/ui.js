@@ -69,39 +69,15 @@ router.get('/@/:city/:zoom', async (req, res) => {
 const handlePage = async (req, res) => {
     const data = defaultData;
     data.max_pokemon_id = config.map.maxPokemonId;
+
     // Build available tile servers list
-    const tileservers = {};
-    const tileKeys = Object.keys(config.tileservers);
-    if (tileKeys) {
-        tileKeys.forEach(tileKey => {
-            const tileData = config.tileservers[tileKey].split(';');
-            tileservers[tileKey] = {
-                url: tileData[0],
-                attribution: tileData[1]
-            };
-        });
-    }
+    const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
     data.available_icon_styles_json = JSON.stringify(config.iconStyles);
 
     // Build available forms list
-    const availableForms = [];
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            // TODO: Fix available forms check
-            const split = file.replace('.png', '').split('-');
-            if (split.length === 2) {
-                const pokemonId = parseInt(split[0]);
-                const formId = parseInt(split[1]);
-                if (!Number.isNaN(pokemonId) && !Number.isNaN(formId)) {
-                    availableForms.push(`${pokemonId}-${formId}`);
-                }
-            }
-        });
-    }
+    const availableForms = getAvailableForms();
     data.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
@@ -221,36 +197,15 @@ const handlePage = async (req, res) => {
 const handleHomeJs = async (req, res) => {
     const data = defaultData;
     data.max_pokemon_id = config.map.maxPokemonId;
+
     // Build available tile servers list
-    const tileservers = {};
-    const tileKeys = Object.keys(config.tileservers);
-    if (tileKeys) {
-        tileKeys.forEach(tileKey => {
-            const tileData = config.tileservers[tileKey].split(';');
-            tileservers[tileKey] = {
-                url: tileData[0],
-                attribution: tileData[1]
-            };
-        });
-    }
+    const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available forms list
-    const availableForms = [];
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('-');
-            if (split.length === 2) {
-                const pokemonId = parseInt(split[0]);
-                const formId = parseInt(split[1]);
-                availableForms.push(`${pokemonId}-${formId}`);
-            }
-        });
-    }
+    const availableForms = getAvailableForms();
     data.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
@@ -282,6 +237,38 @@ const handleHomeJs = async (req, res) => {
     //data.start_pokestop = req.params.start_pokestop
     //data.start_gym = req.params.start_gym
     return data;
+};
+
+const getAvailableTileservers = () => {
+    const tileservers = {};
+    const tileKeys = Object.keys(config.tileservers);
+    if (tileKeys) {
+        tileKeys.forEach(tileKey => {
+            const tileData = config.tileservers[tileKey].split(';');
+            tileservers[tileKey] = {
+                url: tileData[0],
+                attribution: tileData[1]
+            };
+        });
+    }
+    return tileservers;
+};
+
+const getAvailableForms = () => {
+    const availableForms = [];
+    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
+    const files = fs.readdirSync(pokemonIconsDir);
+    if (files) {
+        files.forEach(file => {
+            const split = file.replace('.png', '').split('_');
+            if (split.length === 4) {
+                const pokemonId = parseInt(split[2]);
+                const formId = parseInt(split[3]);
+                availableForms.push(`${pokemonId}-${formId}`);
+            }
+        });
+    }
+    return availableForms;
 };
 
 module.exports = router;
