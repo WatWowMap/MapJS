@@ -80,7 +80,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let sqlIncludeIv = '';
     let sqlOrIv = '';
     let sqlAndIv = '';
-    if (showIv) {
+    if (showIV) {
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(key => {
             const filter = pokemonFilterIV[key];
