@@ -604,8 +604,6 @@ function loadStorage () {
         defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
         defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
         defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        defaultPokemonFilter.lvl_and = { on: false, filter: 'L0-35' };
-        defaultPokemonFilter.lvl_or = { on: false, filter: 'L0-35' };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -639,12 +637,6 @@ function loadStorage () {
         }
         if (pokemonFilter.pvp_or === undefined) {
             pokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        }
-        if (pokemonFilter.lvl_and === undefined) {
-            pokemonFilter.lvl_and = { on: false, filter: 'L0-35' };
-        }
-        if (pokemonFilter.lvl_or === undefined) {
-            pokemonFilter.lvl_or = { on: false, filter: 'L0-35' };
         }
 
         if (pokemonFilter.big_karp === undefined) {
@@ -986,8 +978,6 @@ function initMap () {
         defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
         defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
         defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        defaultPokemonFilter.lvl_and = { on: false, filter: 'L0-35' };
-        defaultPokemonFilter.lvl_or = { on: false, filter: 'L0-35' };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -1018,8 +1008,6 @@ function initMap () {
         defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
         defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
         defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        defaultPokemonFilter.lvl_and = { on: false, filter: 'L0-35' };
-        defaultPokemonFilter.lvl_or = { on: false, filter: 'L0-35' };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -1049,8 +1037,6 @@ function initMap () {
         defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
         defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
         defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.lvl_and = { on: false, filter: pokemonFilterNew.lvl_and.filter };
-        defaultPokemonFilter.lvl_or = { on: false, filter: pokemonFilterNew.lvl_or.filter };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -1777,7 +1763,6 @@ function loadData () {
     const pokemonFilterExclude = [];
     const pokemonFilterIV = {};
     const pokemonFilterPVP = {};
-    const pokemonFilterLevel = {};
     if (showPokemon) {
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -1812,14 +1797,6 @@ function loadData () {
 
         if (pokemonFilter.pvp_or.on === true) {
             pokemonFilterPVP.or = pokemonFilter.pvp_or.filter.replace(/\s/g, '');
-        }
-
-        if (pokemonFilter.lvl_and.on === true) {
-            pokemonFilterLevel.and = pokemonFilter.lvl_and.filter.replace(/\s/g, '');
-        }
-
-        if (pokemonFilter.lvl_or.on === true) {
-            pokemonFilterLevel.or = pokemonFilter.lvl_or.filter.replace(/\s/g, '');
         }
 
         if (pokemonFilter.big_karp.show !== false) {
@@ -1970,7 +1947,6 @@ function loadData () {
         quest_filter_exclude: JSON.stringify(questFilterExclude),
         pokemon_filter_iv: JSON.stringify(pokemonFilterIV),
         pokemon_filter_pvp: JSON.stringify(pokemonFilterPVP),
-        pokemon_filter_lvl: JSON.stringify(pokemonFilterLevel),
         raid_filter_exclude: JSON.stringify(raidFilterExclude),
         gym_filter_exclude: JSON.stringify(gymFilterExclude),
         pokestop_filter_exclude: JSON.stringify(pokestopFilterExclude),
@@ -4042,18 +4018,6 @@ function manageSelectButton (e, isNew) {
             shouldShow = pokemonFilterNew['pvp_' + id].on;
             break;
         }
-    } else if (type === 'pokemon-lvl') {
-        switch (info) {
-        case 'lvl': // TODO: Not used...yet
-            shouldShow = pokemonFilterNew[id].show === 'filter';
-            break;
-        case 'off':
-            shouldShow = !pokemonFilterNew['lvl_' + id].on;
-            break;
-        case 'on':
-            shouldShow = pokemonFilterNew['lvl_' + id].on;
-            break;
-        }
     } else if (type === 'pokemon-size') {
         switch (info) {
         case 'hide':
@@ -4487,17 +4451,6 @@ function manageSelectButton (e, isNew) {
                     pokemonFilterNew['pvp_' + id].on = true;
                     break;
                 }
-            } else if (type === 'pokemon-lvl') {
-                switch (info) {
-                case 'iv': // TODO: Not used, yet
-                    return manageIVPopup(id, pokemonFilterNew);
-                case 'off':
-                    pokemonFilterNew['lvl_' + id].on = false;
-                    break;
-                case 'on':
-                    pokemonFilterNew['lvl_' + id].on = true;
-                    break;
-                }
             } else if (type === 'pokemon-size') {
                 switch (info) {
                 case 'hide':
@@ -4891,14 +4844,12 @@ function manageConfigureButton (e, isNew) {
         e.addClass('configure-button');
         e.on('click', function (e) {
             e.preventDefault();
-            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'pokemon-lvl') {
+            if (type === 'pokemon-iv' || type === 'pokemon-pvp') {
                 switch (info) {
                 case 'global-iv':
                     return manageGlobalIVPopup(id, pokemonFilterNew);
                 case 'global-pvp':
                     return manageGlobalPVPPopup(id, pokemonFilterNew);
-                case 'global-lvl':
-                    return manageGlobalLevelPopup(id, pokemonFilterNew);
                 }
             }
         });
@@ -4989,19 +4940,6 @@ function manageGlobalPVPPopup (id, filter) {
     }
 }
 
-function manageGlobalLevelPopup (id, filter) {
-    const result = prompt('Please enter a level Filter. Example: L20-30 | L35', filter['lvl_' + id].filter);
-    if (result === null) {
-        return false;
-    } else if (checkIVFilterValid(result)) { // TODO: Review
-        filter['lvl_' + id].filter = result;
-        return true;
-    } else {
-        alert('Invalid Level Filter!');
-        return false;
-    }
-}
-
 function checkIVFilterValid (filter) {
     let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
@@ -5032,8 +4970,6 @@ function checkIVFilterValid (filter) {
                 }
                 break;
             case '&':
-                expectClause = true;
-                break;
             case '|':
                 expectClause = true;
                 break;
