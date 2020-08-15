@@ -170,7 +170,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             if (showPVP) {
                 filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
                 filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
-                if (filtered.pvp_rankings_great_league !== null && filtered.pvp_rankings_ultra_league !== null && pokemonFilterPVP) {
+                if (pokemonFilterPVP) {
                     let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
                     if (pokemonFilterPVP[idString]) {
                         let split = pokemonFilterPVP[idString].split('-');
@@ -178,15 +178,14 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                             let minRank = parseInt(split[0]);
                             let maxRank = parseInt(split[1]);
                             if (
-                                filtered.pvp_rankings_great_league.length > 0 ||
-                                filtered.pvp_rankings_ultra_league.length > 0
+                                (!filtered.pvp_rankings_great_league || filtered.pvp_rankings_great_league.length === 0) &&
+                                (!filtered.pvp_rankings_ultra_league || filtered.pvp_rankings_ultra_league.length === 0)
                             ) {
-                                let greatLeague = filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
-                                let ultraLeague = filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
-                                if (greatLeague.length === 0 && ultraLeague.length === 0) {
-                                    continue;
-                                }
-                            } else {
+                                continue;
+                            }
+                            let greatLeague = filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
+                            let ultraLeague = filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                            if (greatLeague.length === 0 && ultraLeague.length === 0) {
                                 continue;
                             }
                         }
