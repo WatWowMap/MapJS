@@ -14,7 +14,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     const excludePokemonIds = [];
     const excludeFormIds = [];
     let keys = Object.keys(pokemonFilterIV || []);
-    if (keys && keys.length > 0) {
+    if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             const id = parseInt(key);
@@ -80,35 +80,37 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let sqlIncludeIv = '';
     let sqlOrIv = '';
     let sqlAndIv = '';
-    keys = Object.keys(pokemonFilterIV);
-    keys.forEach(key => {
-        const filter = pokemonFilterIV[key];
-        const sqlFilter = sqlifyIvFilter(filter, showIV);
-        if (sqlFilter) {
-            const split = key.split('-');
-            let sqlPokemon = 'FALSE';
-            if (split.length === 2) {
-                const pokemonId = parseInt(split[0]);
-                const formId = parseInt(split[1]);
-                sqlPokemon = `form = ${formId}`;
-                if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
-                    sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
+    if (showIV) {
+        const keys = Object.keys(pokemonFilterIV);
+        keys.forEach(key => {
+            const filter = pokemonFilterIV[key];
+            const sqlFilter = sqlifyIvFilter(filter);
+            if (sqlFilter) {
+                const split = key.split('-');
+                let sqlPokemon = 'FALSE';
+                if (split.length === 2) {
+                    const pokemonId = parseInt(split[0]);
+                    const formId = parseInt(split[1]);
+                    sqlPokemon = `form = ${formId}`;
+                    if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                        sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
+                    }
+                } else if (key === 'and') {
+                    sqlAndIv = `AND (${sqlFilter})`;
+                    return;
+                } else if (key === 'or') {
+                    sqlOrIv = `OR (${sqlFilter})`;
+                    return;
+                } else {
+                    const id = parseInt(key);
+                    if (id) {
+                        sqlPokemon = `pokemon_id = ${id} AND form = 0`;
+                    }
                 }
-            } else if (key === 'and') {
-                sqlAndIv = `AND (${sqlFilter})`;
-                return;
-            } else if (key === 'or') {
-                sqlOrIv = `OR (${sqlFilter})`;
-                return;
-            } else {
-                const id = parseInt(key);
-                if (id) {
-                    sqlPokemon = `pokemon_id = ${id} AND form = 0`;
-                }
+                sqlIncludeIv += ` OR ((${sqlPokemon}) AND (${sqlFilter}))`;
             }
-            sqlIncludeIv += ` OR ((${sqlPokemon}) AND (${sqlFilter}))`;
-        }
-    });
+        });
+    }
 
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
@@ -1057,8 +1059,7 @@ const getPolygon = (s2cellId) => {
     return polygon;
 };
 
-// keep this in sync with checkIVFilterValid in index.js
-const sqlifyIvFilter = (filter, showIV) => {
+const sqlifyIvFilter = (filter) => {
     let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
@@ -1071,23 +1072,19 @@ const sqlifyIvFilter = (filter, showIV) => {
         }
         if (expectClause) {
             if (match[3] !== undefined) {
-                let column = showIV ? 'iv' : null;
+                const lower = parseFloat(match[3]);
+                let column = 'iv';
                 switch (match[2]) {
-                    case 'A': column = showIV ? 'atk_iv' : null; break;
-                    case 'D': column = showIV ? 'def_iv' : null; break;
-                    case 'S': column = showIV ? 'sta_iv' : null; break;
+                    case 'A': column = 'atk_iv'; break;
+                    case 'D': column = 'def_iv'; break;
+                    case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                 }
-                if (column != null) {
-                    const lower = parseFloat(match[3]);
-                    let higher = lower;
-                    if (match[4] !== undefined) {
-                        higher = parseFloat(match[4]);
-                    }
-                    result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
-                } else {
-                    result += '(FALSE)';
+                let higher = lower;
+                if (match[4] !== undefined) {
+                    higher = parseFloat(match[4]);
                 }
+                result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
                 expectClause = false;
             } else if (match[1] === '(') {
                 if (++stack > 1000000000) {
