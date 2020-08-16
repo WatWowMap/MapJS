@@ -966,20 +966,14 @@ function loadStorage () {
     if (settingsValue === null) {
         const defaultSettings = {};
         if (defaultSettings['pokemon-glow'] === undefined) {
-            defaultSettings['pokemon-glow'] = { show: true, filter: 'red' };
-        }
-        if (defaultSettings['glow-color'] === undefined) {
-            defaultSettings['glow-color'] = { color: 'red' };
+            defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
         settings = JSON.parse(settingsValue);
         if (settings['pokemon-glow'] === undefined) {
-            settings['pokemon-glow'] = { show: true, filter: 'red' };
-        }
-        if (settings['glow-color'] === undefined) {
-            settings['glow-color'] = { color: 'red' };
+            settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
     }
 }
@@ -3558,7 +3552,10 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = glowColor;
+    console.log('settings:', settings);
+    const showPokemonGlow = settings['pokemon-glow'].show;
+    const color = settings['pokemon-glow'].color;
+    const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3578,7 +3575,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
         className: 'pokemon-marker',
         html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` +
         (
-            iv >= glowIV
+            showPokemonGlow !== false && iv >= glowIV
             ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
             : ''
         ) + `"/></div>${iconHtml}`
@@ -3988,14 +3985,14 @@ function manageSelectButton (e, isNew) {
     } else if (type === 'pokemon-glow') {
         switch (info) {
         case 'hide':
-            shouldShow = settings[id].show === false;
+            shouldShow = settingsNew[id].show === false;
             break;
         case 'show':
-            shouldShow = settings[id].show === true;
+            shouldShow = settingsNew[id].show === true;
             break;
         case 'color':
             //shouldShow = settings[id].show === 'color';
-            shouldShow = settings[id].show === 'filter';
+            shouldShow = settingsNew[id].show === 'filter';
             break;
         }
     } else if (type === 'quest-misc') {
@@ -4500,16 +4497,11 @@ function manageSelectButton (e, isNew) {
             } else if (type === 'pokemon-glow') {
                 switch (info) {
                 case 'hide':
-                    settings[id].show = false;
+                    settingsNew[id].show = false;
                     break;
                 case 'show':
-                    settings[id].show = true;
+                    settingsNew[id].show = true;
                     break;
-                case 'color':
-                    return manageColorPopup(id, settings);
-                }
-            } else if (type === 'glow-color') {
-                switch (info) {
                 case 'color':
                     return manageColorPopup(id, settings);
                 }
@@ -5028,7 +5020,7 @@ function manageIVPopup (id, filter) {
 }
 
 function manageColorPopup (id, filter) {
-    const result = prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color).toUpperCase();
+    const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
     const prevShow = filter[id].show;
     let success;
     const validColors = ['red','green','blue','yellow','orange','purple'];
@@ -5038,6 +5030,7 @@ function manageColorPopup (id, filter) {
         //filter[id].show = 'color';
         //filter[id].filter = result;
         filter[id].color = result.toLowerCase();
+        filter[id].filter = result.toLowerCase();
         console.log('Filter:', filter);
         success = true;
     } else {
