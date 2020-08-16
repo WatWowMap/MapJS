@@ -154,6 +154,7 @@ const handlePage = async (req, res) => {
     data.page_is_home = true;
     data.page_is_areas = true;
     data.show_areas = true;
+    data.timestamp = Date.now();
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;
