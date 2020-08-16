@@ -968,12 +968,18 @@ function loadStorage () {
         if (defaultSettings['pokemon-glow'] === undefined) {
             defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
+        if (defaultSettings['pokemon-cluster'] === undefined) {
+            defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
         settings = JSON.parse(settingsValue);
         if (settings['pokemon-glow'] === undefined) {
             settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
+        }
+        if (settings['pokemon-cluster'] === undefined) {
+            settings['pokemon-cluster'] = { show: true };
         }
     }
 }
@@ -3995,6 +4001,15 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === 'filter';
             break;
         }
+    } else if (type === 'pokemon-cluster') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settingsNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settingsNew[id].show === true;
+            break;
+        }
     } else if (type === 'quest-misc') {
         switch (info) {
         case 'hide':
@@ -4504,6 +4519,15 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'color':
                     return manageColorPopup(id, settings);
+                }
+            } else if (type === 'pokemon-cluster') {
+                switch (info) {
+                case 'hide':
+                    settingsNew[id].show = false;
+                    break;
+                case 'show':
+                    settingsNew[id].show = true;
+                    break;
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
