@@ -84,6 +84,7 @@
 	"filter_iconstyle": "Icon Style",
 	"filter_select_mapstyle": "Select Map Style",
 	"filter_select_iconstyle": "Select Icon Style",
+	"clear_cache": "Clear Cache",
 	"filter_level": "Level",
 	"filter_devices": "Devices",
 	"filter_scanareas": "Scan Areas",
