@@ -3608,8 +3608,29 @@
 	"filter_big_karp": "Big Karp",
 	"filter_tiny_rat": "Tiny Rat",
 	"filter_grunt_type": "Grunt Type",
+<<<<<<< HEAD
 	"settings_color": "settings_color",
 	"settings_pokemon": "settings_pokemon",
 	"settings_pokemon_glow": "settings_pokemon_glow",
 	"settings_cluster_pokemon": "settings_cluster_pokemon"
+=======
+	"settings_pokemon": "Pokemon Settings",
+	"settings_color": "Color",
+	"form_2336": "form_2336",
+	"form_2337": "form_2337",
+	"form_2582": "form_2582",
+	"form_2583": "form_2583",
+	"form_2586": "form_2586",
+	"form_2585": "form_2585",
+	"form_2340": "form_2340",
+	"form_2344": "form_2344",
+	"form_585": "form_585",
+	"form_586": "form_586",
+	"form_587": "form_587",
+	"form_588": "form_588",
+	"form_589": "form_589",
+	"form_590": "form_590",
+	"form_591": "form_591",
+	"form_592": "form_592"
+>>>>>>> 32e928e... User toggleable pokemon glow
 }

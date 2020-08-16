@@ -53,6 +53,7 @@ const getSettings = () => {
         'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow', glowColorLabel),
         'type': pokemonSettingsString
     });
+    /*
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(1, 3),
@@ -877,17 +878,6 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
             <input type="radio" name="options" id="show" autocomplete="off">${showString}
         </label>
         ${ivLabel}
-    </div>
-    `;
-    return filter;
-};
-
-const generateTextBox = (id, type) => {
-    const filter = `
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="input select-button-new" data-id="${id}" data-type="${type}" data-info="color">
-            <input type="input" name="options" id="color" autocomplete="off">
-        </label>
     </div>
     `;
     return filter;
