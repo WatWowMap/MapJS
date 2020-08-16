@@ -2,6 +2,29 @@
 
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
 
+## Features  
+- Everything from RealDeviceMap  
+- Pokemon form filtering  
+- Nests and nest filtering  
+- Weather filtering  
+- Pokemon glow  
+- Refactored Pokemon/Pokestop/Raid filtering  
+- Invasion filtering  
+- Custom icon support  
+- 400k+ less icons  
+- PVP filtering  
+- Refactored IV filtering  
+- Pokemon clustering  
+- Mobile friendly filters  
+- Available raid boss and quest rewards from database for smaller filter lists
+- Big karp and tiny rat filtering  
+- Scan area polygons  
+- Trash pokemon button  
+- Legendary and normal raid buttons  
+- Follow my location  
+- Cache previous location  
+- Fast  
+
 ## Installation
 1.) Clone repository `git clone https://github.com/versx/MapJS`  
 2.) Install dependencies `npm install`  
