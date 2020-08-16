@@ -144,14 +144,14 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "map": {
                 // Enable map (probably redundant)
                 "enabled": true,
-                // Discord roles required in order to view map
+                // Discord roles required in order to view map (leave empty `[]` for no role requirement)
                 "roles": []
             },
             // View Pokemon permissions
             "pokemon": {
                 // Enable Pokemon
                 "enabled": true,
-                // Discord roles required in order to view Pokemon
+                // Discord roles required in order to view Pokemon (leave empty `[]` for no role requirement)
                 "roles": []
             },
             "raids": {
