@@ -31,8 +31,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 3.) Copy config `cp src/config.example.json src/config.json`  
 4.) Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`  
 5.) Fill out config `vi src/config.json`  
-6.) Run `npm start`  
-7.) Access via http://machineip:port/ login using your Discord account    
+6.) Create/copy a `static/custom/nests.json` file to show nests  
+7.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file, see below)  
+8.) Run `npm start`  
+9.) Access via http://machineip:port/ login using your Discord account    
 
 ## Configuration  
 ```js
