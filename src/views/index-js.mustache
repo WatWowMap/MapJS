@@ -256,13 +256,13 @@ $(function () {
         iconUrl: availableIconStyles[selectedIconStyle] + '/device/0.png',
         iconSize: [30, 30],
         iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
+        popupAnchor: [0, 30 * -.6]
     });
     deviceOfflineIcon = L.icon({
         iconUrl: availableIconStyles[selectedIconStyle] + '/device/1.png',
         iconSize: [30, 30],
         iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
+        popupAnchor: [0, 30 * -.6]
     });
     
     $('#filtersModal').on('show.bs.modal', function () {
@@ -3617,7 +3617,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconUrl: '/img/pokemon/1.png',
                 iconSize: [30, 30],
                 iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -1.567]
+                popupAnchor:  [0, 30 * -.6]
             });
             return L.marker(latlng, {icon: icon});
         },
@@ -3635,7 +3635,7 @@ function getNestMarker (nest, geojson, ts) {
             const icon = L.divIcon({
                 iconSize: [40, 40],
                 iconAnchor: [40 / 2, 40 / 2],
-                popupAnchor: [0, 30 * -1.567],
+                popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
                 html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(nest.pokemon_id, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
             });
@@ -3644,7 +3644,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
                 iconSize: [30, 30],
                 iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -1.567],
+                popupAnchor:  [0, 30 * -.6],
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 shadowSize:  [41, 41]
             });
@@ -3691,7 +3691,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
     const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
-        popupAnchor: [0, -(size / 2)],
+        popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
         html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
         (
@@ -3731,7 +3731,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
     let iconHtml = '<span class="text-nowrap text-center">';
     let iconUrl = '';
     let sizeId = '0';
-    let iconAnchor = [];
+    let iconAnchorY = .896;
     const lureIconId = getLureIconId(pokestop.lure_id);
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
@@ -3761,33 +3761,29 @@ function getPokestopMarkerIcon (pokestop, ts) {
         }
         iconHtml += `<img src="${iconUrl}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/>`;
         iconSize = getQuestSize(rewardString);
-        iconAnchor = [iconSize / 2, iconSize * 1.9];//1.567];
+        iconAnchorY += 1;
     } else {
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567];
     }
     if (activeInvasion && activeLure) {
         sizeId = 'i' + lureIconId;
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize * 1.567];
     } else if (activeInvasion) {
         sizeId = 'i0';
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize * 1.567];
     } else if (activeLure) {
         sizeId = lureIconId;
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
     }
     iconHtml += '</span>';
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
-        iconAnchor: iconAnchor,
-        popupAnchor: [0, iconSize * -1.567],
+        iconAnchor: [iconSize / 2, iconSize * iconAnchorY],
+        popupAnchor: [0, iconSize * (-.1 - iconAnchorY)],
         className: 'pokestop-marker',
         html: activeInvasion
-            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
-            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/></center>`
+            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/></center>`
     });
     return icon;
 }
@@ -3887,12 +3883,12 @@ function getGymMarkerIcon (gym, ts) {
     }
     const icon = L.divIcon({
         iconSize: [iconSize, iconSize],
-        iconAnchor: [iconSize / 2, iconSize * 1.567],
-        popupAnchor: [0, iconSize * -1.567], // 0, -20
+        iconAnchor: [iconSize / 2, iconSize * .917],
+        popupAnchor: [0, iconSize * -1],
         className: 'gym-marker',
         html: ignoreGymIcon
-            ? `<center>${iconHtml}<br></center>`
-            : `<center>${iconHtml}<br><img src="${availableIconStyles[selectedIconStyle]}/gym/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+            ? `<center>${iconHtml}</center>`
+            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/gym/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
     });
     return icon;
 }
