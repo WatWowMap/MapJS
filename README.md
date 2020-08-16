@@ -12,7 +12,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 7.) Access via http://machineip:port/ login using your Discord account    
 
 ## Configuration  
-```json
+```js
 {
     // Listening interface IP address
     "interface": "0.0.0.0",
