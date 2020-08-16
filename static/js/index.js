@@ -41,7 +41,6 @@ let invasionFilterNew = {};
 let spawnpointFilter = {};
 let spawnpointFilterNew = {};
 
-<<<<<<< HEAD:static/js/index.js
 let nestFilter = {};
 let nestFilterNew = {};
 
@@ -51,8 +50,6 @@ let weatherFilterNew = {};
 let deviceFilter = {};
 let deviceFilterNew = {};
 
-=======
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
 let settings = {};
 let settingsNew = {};
 
@@ -94,12 +91,9 @@ let gymFilterLoaded = false;
 let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
-<<<<<<< HEAD:static/js/index.js
 let nestFilterLoaded = false;
 let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
-=======
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
 let settingsLoaded = false;
 
 let deviceOnlineIcon;
@@ -904,7 +898,6 @@ function loadStorage () {
         }
     }
 
-<<<<<<< HEAD:static/js/index.js
     const nestFilterValue = retrieve('nest_filter');
     if (nestFilterValue === null) {
         const defaultNestFilter = {};
@@ -975,35 +968,20 @@ function loadStorage () {
         }
     }
     
-=======
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
     const settingsValue = retrieve('settings');
     if (settingsValue === null) {
         const defaultSettings = {};
         if (defaultSettings['pokemon-glow'] === undefined) {
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
             defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
         if (defaultSettings['pokemon-cluster'] === undefined) {
             defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
-=======
-            defaultSettings['pokemon-glow'] = { show: true, filter: 'red' };
-        }
-        if (defaultSettings['glow-color'] === undefined) {
-            defaultSettings['glow-color'] = { color: 'red' };
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
-=======
-            defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
         }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
         settings = JSON.parse(settingsValue);
         if (settings['pokemon-glow'] === undefined) {
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
             settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
         if (settings['pokemon-cluster'] === undefined) {
@@ -1012,17 +990,6 @@ function loadStorage () {
     }
     clusterPokemon = settings['pokemon-cluster'].show;
     showPokemonGlow = settings['pokemon-glow'].show;
-=======
-            settings['pokemon-glow'] = { show: true, filter: 'red' };
-        }
-        if (settings['glow-color'] === undefined) {
-            settings['glow-color'] = { color: 'red' };
-=======
-            settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
-        }
-    }
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
 }
 
 function initMap () {
@@ -1323,7 +1290,6 @@ function initMap () {
         $('#filtersModal').modal('hide');
     });
 
-<<<<<<< HEAD:static/js/index.js
     $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
         let input = e.target;
         if (input) {
@@ -1353,14 +1319,6 @@ function initMap () {
         clusterPokemon = newClusterPokemon;
         showPokemonGlow = newShowPokemonGlow;
         //pokemonGlowColor = settings['pokemon-glow'].color;
-=======
-    $('#saveSettings').on('click', function (event) {
-        $(this).toggleClass('active');
-
-        settings = settingsNew;
-        store('settings', JSON.stringify(settings));
-
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
         $('#settingsModal').modal('hide');
     });
 
@@ -1752,7 +1710,6 @@ function loadData () {
         }
     }
 
-<<<<<<< HEAD:static/js/index.js
     const pokestopFilterExclude = [];
     if (showPokestops) {
         if (pokestopFilter.normal.show === false) {
@@ -1764,16 +1721,6 @@ function loadData () {
             }
         }
     }
-=======
-        // TODO: Get glow element show/hide value and invalid map/force a redraw of markers if changed
-        const newPokemonGlow = $('label').attr('data-id');
-        console.log('New poke glow:', newPokemonGlow);
-        lastUpdateServer = 0;
-        map.invalidateSize();
-
-        $('#settingsModal').modal('hide');
-    });
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
 
     const invasionFilterExclude = [];
     if (showInvasions) {
@@ -3634,14 +3581,8 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-<<<<<<< HEAD:static/js/index.js
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-=======
-    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form);
-    console.log('settings:', settings);
-    const showPokemonGlow = settings['pokemon-glow'].show;
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
-    const color = settings['pokemon-glow'].color;
+    const color = glowColor;
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
@@ -4072,8 +4013,6 @@ function manageSelectButton (e, isNew) {
     } else if (type === 'pokemon-glow') {
         switch (info) {
         case 'hide':
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
             shouldShow = settingsNew[id].show === false;
             break;
         case 'show':
@@ -4091,23 +4030,19 @@ function manageSelectButton (e, isNew) {
             break;
         case 'show':
             shouldShow = settingsNew[id].show === true;
-=======
-            shouldShow = settings[id].show === false;
-=======
-            shouldShow = settingsNew[id].show === false;
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
-            break;
-        case 'show':
-            shouldShow = settingsNew[id].show === true;
             break;
         case 'color':
             //shouldShow = settings[id].show === 'color';
-<<<<<<< HEAD:static/js/index.js
-            shouldShow = settings[id].show === 'filter';
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
-=======
             shouldShow = settingsNew[id].show === 'filter';
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
+            break;
+        }
+    } else if (type === 'pokemon-cluster') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settingsNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settingsNew[id].show === true;
             break;
         }
     } else if (type === 'quest-misc') {
@@ -4612,30 +4547,14 @@ function manageSelectButton (e, isNew) {
             } else if (type === 'pokemon-glow') {
                 switch (info) {
                 case 'hide':
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
                     settingsNew[id].show = false;
                     break;
                 case 'show':
                     settingsNew[id].show = true;
-=======
-                    settings[id].show = false;
-                    break;
-                case 'show':
-                    settings[id].show = true;
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
-=======
-                    settingsNew[id].show = false;
-                    break;
-                case 'show':
-                    settingsNew[id].show = true;
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
                     break;
                 case 'color':
                     return manageColorPopup(id, settings);
                 }
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
             } else if (type === 'pokemon-cluster') {
                 switch (info) {
                 case 'hide':
@@ -4644,15 +4563,21 @@ function manageSelectButton (e, isNew) {
                 case 'show':
                     settingsNew[id].show = true;
                     break;
-=======
+                }
             } else if (type === 'glow-color') {
                 switch (info) {
                 case 'color':
                     return manageColorPopup(id, settings);
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
                 }
-=======
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
+            } else if (type === 'pokemon-cluster') {
+                switch (info) {
+                case 'hide':
+                    settingsNew[id].show = false;
+                    break;
+                case 'show':
+                    settingsNew[id].show = true;
+                    break;
+                }
             } else if (type === 'quest-misc') {
                 switch (info) {
                 case 'hide':
@@ -5168,15 +5093,7 @@ function manageIVPopup (id, filter) {
 }
 
 function manageColorPopup (id, filter) {
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
     const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
-=======
-    const result = prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color).toUpperCase();
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
-=======
-    const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
     const prevShow = filter[id].show;
     let success;
     const validColors = ['red','green','blue','yellow','orange','purple'];
@@ -5186,14 +5103,7 @@ function manageColorPopup (id, filter) {
         //filter[id].show = 'color';
         //filter[id].filter = result;
         filter[id].color = result.toLowerCase();
-<<<<<<< HEAD:static/js/index.js
-<<<<<<< HEAD:static/js/index.js
         filter[id].filter = result.toLowerCase();
-=======
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
-=======
-        filter[id].filter = result.toLowerCase();
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
         console.log('Filter:', filter);
         success = true;
     } else {
@@ -6197,33 +6107,19 @@ function loadSpawnpointFilter () {
     });
 }
 
-<<<<<<< HEAD:static/js/index.js
 function loadNestFilter () {
     const table = $('#table-filter-nest').DataTable({
         language: {
             search: i18n('filter_table_search'),
             emptyTable: i18n('filter_nest_table_empty'),
             zeroRecords: i18n('filter_nest_table_empty')
-=======
-function loadSettings () {
-    const scrollHeight = $(document).height() * 0.5;
-    const table = $('#table-settings').DataTable({
-        language: {
-            search: i18n('filter_table_search'),
-            emptyTable: i18n('filter_spawnpoint_table_empty'),
-            zeroRecords: i18n('filter_spawnpoint_table_empty')
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
         },
         rowGroup: {
             dataSrc: 'type'
         },
         autoWidth: false,
         columns: [
-<<<<<<< HEAD:static/js/index.js
             { data: populateImage, width: '5%', className: 'details-control' },
-=======
-            { data: 'image', width: '5%', className: 'details-control' },
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6232,42 +6128,26 @@ function loadSettings () {
                 },
                 width: '5%'
             },
-<<<<<<< HEAD:static/js/index.js
             { data: 'filter' },
             { data: 'size' }
         ],
         ajax: {
             url: '/api/get_data?show_nest_filter=true',
             dataSrc: 'data.nest_filters',
-=======
-            { data: 'filter' }
-        ],
-        ajax: {
-            url: '/api/get_settings',
-            dataSrc: 'data.settings',
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
             async: true
         },
         info: false,
         order: [[2, 'asc']],
         'search.caseInsensitive': true,
         columnDefs: [{
-<<<<<<< HEAD:static/js/index.js
             targets: [0, 3, 4],
-=======
-            targets: [0, 3],
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
             orderable: false
         }, {
             type: 'num',
             targets: 2
         }],
         deferRender: true,
-<<<<<<< HEAD:static/js/index.js
         scrollY: '50vh',
-=======
-        scrollY: scrollHeight,
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -6278,103 +6158,6 @@ function loadSettings () {
                 img.removeClass('lazy_load');
                 img.attr('src', img.data('src'));
             });
-<<<<<<< HEAD:static/js/index.js
-=======
-
-            $('.select-button-new').each(function (button) {
-                manageSelectButton($(this), true);
-            });
-            $('.configure-button-new').each(function (button) {
-                manageConfigureButton($(this), true);
-            });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
-        responsive: true
-    });
-
-    $('#table-settings tbody').on('click', 'td.details-control', function () {
-        $('.select-button-new').each(function (button) {
-            manageSelectButton($(this), true);
-        });
-        $('.configure-button-new').each(function (button) {
-            manageConfigureButton($(this), true);
-        });
-    });
-
-    table.on('search.dt', function () {
-        $('tr').each(function () {
-            const tr = $(this).closest('tr');
-            const row = table.row(tr);
-            if (row.child.isShown()) {
-                row.child.hide();
-                tr.removeClass('parent');
-            }
-        });
-    });
-
-    $('#settingsModal').on('shown.bs.modal', function () {
-        const dataTable = $('#table-settings').DataTable();
-        dataTable.responsive.recalc();
-        dataTable.columns.adjust();
-    });
-}
-
-function loadFilterSettings (e) {
-    const file = e.target.files[0];
-    if (!file) {
-        return;
-    }
-    const reader = new FileReader();
-    reader.onload = function (file) {
-        const contents = file.target.result;
-        const obj = JSON.parse(contents);
-
-        showGyms = obj.show_gyms;
-        gymFilterNew = obj.gym;
-        store('show_gyms', showGyms);
-        store('gym_filter', JSON.stringify(gymFilterNew));
-
-        showRaids = obj.show_raids;
-        raidFilterNew = obj.raid;
-        store('show_raids', showRaids);
-        store('raid_filter', JSON.stringify(raidFilterNew));
-
-        showPokemon = obj.show_pokemon;
-        pokemonFilterNew = obj.pokemon;
-        store('show_pokemon', showRaids);
-        store('pokemon_filter', JSON.stringify(pokemonFilterNew));
-
-        showQuests = obj.show_quests;
-        questFilterNew = obj.quest;
-        store('show_quests', showRaids);
-        store('quest_filter', JSON.stringify(questFilterNew));
-
-        showPokestops = obj.show_pokestops;
-        pokestopFilterNew = obj.pokestop;
-        store('show_pokestops', showPokestops);
-        store('pokestop_filter', JSON.stringify(pokestopFilterNew));
-
-        showSpawnpoints = obj.show_spawnpoints;
-        spawnpointFilterNew = obj.spawnpoint;
-        store('show_spawnpoints', showSpawnpoints);
-        store('spawnpoint_filter', JSON.stringify(spawnpointFilterNew));
-
-        showNests = obj.show_nests;
-        store('show_nests', showNests);
-
-        showCells = obj.show_cells;
-        store('show_cells', showCells);
-
-        showSubmissionCells = obj.show_submission_cells;
-        store('show_submission_cells"', showSubmissionCells);
->>>>>>> ef3f4e5... wip:src/views/index-js.mustache
 
             $('.select-button-new').each(function (button) {
                 manageSelectButton($(this), true);
@@ -7152,7 +6935,6 @@ function registerFilterButtonCallbacks() {
         $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
     });
 
-<<<<<<< HEAD:static/js/index.js
     $('#disable-all-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: false, size: raidFilterNew.timers.size };
@@ -7165,59 +6947,6 @@ function registerFilterButtonCallbacks() {
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
         }
-=======
-function loadSettings () {
-    const scrollHeight = $(document).height() * 0.5;
-    const table = $('#table-settings').DataTable({
-        language: {
-            search: i18n('filter_table_search'),
-            emptyTable: i18n('filter_settings_table_empty'),
-            zeroRecords: i18n('filter_settings_table_empty')
-        },
-        rowGroup: {
-            dataSrc: 'type'
-        },
-        autoWidth: false,
-        columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
-            { data: 'name', width: '15%' },
-            {
-                data: {
-                    _: 'id.formatted',
-                    sort: 'id.sort'
-                },
-                width: '5%'
-            },
-            { data: 'filter' }
-        ],
-        ajax: {
-            url: '/api/get_settings',
-            dataSrc: 'data.settings',
-            async: true
-        },
-        info: false,
-        order: [[2, 'asc']],
-        'search.caseInsensitive': true,
-        columnDefs: [{
-            targets: [0, 3],
-            orderable: false
-        }, {
-            type: 'num',
-            targets: 2
-        }],
-        deferRender: true,
-        scrollY: scrollHeight,
-        scrollCollapse: false,
-        scroller: true,
-        lengthChange: false,
-        dom: 'lfrti',
-        drawCallback: function (settings) {
-            $('.lazy_load').each(function () {
-                const img = $(this);
-                img.removeClass('lazy_load');
-                img.attr('src', img.data('src'));
-            });
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
         raidFilterNew = defaultRaidFilter;
@@ -7225,7 +6954,6 @@ function loadSettings () {
         $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
     });
 
-<<<<<<< HEAD:static/js/index.js
     $('#legendary-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
@@ -7243,15 +6971,6 @@ function loadSettings () {
         raidFilterNew = defaultRaidFilter;
 
         $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
-=======
-    $('#table-settings tbody').on('click', 'td.details-control', function () {
-        $('.select-button-new').each(function (button) {
-            manageSelectButton($(this), true);
-        });
-        $('.configure-button-new').each(function (button) {
-            manageConfigureButton($(this), true);
-        });
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
     });
 
     $('#normal-raid-filter').on('click', function (event) {
@@ -7324,21 +7043,12 @@ function loadSettings () {
         $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
     });
 
-<<<<<<< HEAD:static/js/index.js
     $('#disable-all-pokestop-filter').on('click', function (event) {
         const defaultPokestopFilter = {};
         defaultPokestopFilter.normal = { show: false, size: pokestopFilterNew.normal.size };
         for (let i = 1; i < 5; i++) {
             defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
         }
-=======
-    $('#settingsModal').on('shown.bs.modal', function () {
-        const dataTable = $('#table-settings').DataTable();
-        dataTable.responsive.recalc();
-        dataTable.columns.adjust();
-    });
-}
->>>>>>> 32e928e... User toggleable pokemon glow:src/views/index-js.mustache
 
         store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
         pokestopFilterNew = defaultPokestopFilter;
