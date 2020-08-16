@@ -65,6 +65,15 @@ router.get('/@/:city/:zoom', async (req, res) => {
     res.render('index', data);
 });
 
+router.get('/purge', async (req, res) => {
+    let target = req.query.target;
+    if (!target || !target.startsWith('/')) {
+        target = '/';
+    }
+    res.set('Clear-Site-Data', '"cache"');
+    res.redirect(target);
+});
+
 
 const handlePage = async (req, res) => {
     const data = defaultData;
