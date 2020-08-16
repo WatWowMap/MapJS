@@ -4074,10 +4074,6 @@ function manageSelectButton (e, isNew) {
         case 'show':
             shouldShow = settingsNew[id].show === true;
             break;
-        case 'color':
-            //shouldShow = settings[id].show === 'color';
-            shouldShow = settingsNew[id].show === 'filter';
-            break;
         }
     } else if (type === 'quest-misc') {
         switch (info) {
