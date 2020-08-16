@@ -2027,10 +2027,12 @@ function loadData () {
 
                         if (oldGym.availble_slots !== gym.availble_slots ||
                             oldGym.team_id !== gym.team_id ||
+                            oldGym.in_battle !== gym.in_battle ||
                             oldGym.raid_end_timestamp !== gym.raid_end_timestamp ||
                             oldGym.raid_pokemon_id !== gym.raid_pokemon_id) {
                             oldGym.availble_slots = gym.availble_slots;
                             oldGym.team_id = gym.team_id;
+                            oldGym.in_battle = gym.in_battle;
                             oldGym.raid_end_timestamp = gym.raid_end_timestamp;
                             oldGym.raid_battle_timestamp = gym.raid_battle_timestamp;
                             oldGym.raid_spawn_timestamp = gym.raid_spawn_timestamp;
