@@ -918,17 +918,6 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
     return filter;
 };
 
-const generateTextBox = (id, type) => {
-    const filter = `
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="input select-button-new" data-id="${id}" data-type="${type}" data-info="color">
-            <input type="input" name="options" id="color" autocomplete="off">
-        </label>
-    </div>
-    `;
-    return filter;
-};
-
 const generateSizeButtons = (id, type) => {
     //const smallString = i18n.__('filter_small');
     const normalString = i18n.__('filter_normal');

@@ -3623,7 +3623,9 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = glowColor;
+    console.log('settings:', settings);
+    const showPokemonGlow = settings['pokemon-glow'].show;
+    const color = settings['pokemon-glow'].color;
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
@@ -4075,15 +4077,6 @@ function manageSelectButton (e, isNew) {
         case 'color':
             //shouldShow = settings[id].show === 'color';
             shouldShow = settingsNew[id].show === 'filter';
-            break;
-        }
-    } else if (type === 'pokemon-cluster') {
-        switch (info) {
-        case 'hide':
-            shouldShow = settingsNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = settingsNew[id].show === true;
             break;
         }
     } else if (type === 'quest-misc') {
