@@ -1041,6 +1041,61 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
+const getSearchData = async (lat, lon, id, value) => {
+    let sql = '';
+    let args = [];
+    let useManualDb = false;
+    switch (id) {
+        // TODO: Search reward name
+        case 'search-reward':
+            sql = `
+            SELECT id, name, lat, lon,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM pokestop
+            WHERE LOWER(name) LIKE '%${value}%'
+            `;
+            args = [lat, lon, lat, value];
+            break;
+        case 'search-nest':
+            // TODO: Search nest pokemon
+            sql = `
+            SELECT name, lat, lon,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM nests
+            WHERE LOWER(name) LIKE '%${value}%'
+            `;
+            args = [lat, lon, lat, value];
+            useManualDb = true;
+            break;
+        case 'search-gym':
+            sql = `
+            SELECT id, name, lat, lon,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM gym
+            WHERE LOWER(name) LIKE '%${value}%'
+            `;
+            args = [lat, lon, lat, value];
+            break;
+        case 'search-pokestop':
+            sql = `
+            SELECT id, name, lat, lon,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM pokestop
+            WHERE LOWER(name) LIKE '%${value}%'
+            `;
+            args = [lat, lon, lat];
+            break;
+    }
+    sql += ' ORDER BY distance LIMIT 25';
+    const results = useManualDb
+        ? await dbManual.query(sql, args)
+        : await db.query(sql, args);
+    if (results && results.length > 0) {
+        return results;
+    }
+    return null;
+};
+
 const getPolygon = (s2cellId) => {
     let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
     let polygon = [];
@@ -1180,6 +1235,7 @@ module.exports = {
     getSubmissionTypeCells,
     getWeather,
     getNests,
+    getSearchData,
     getAvailableRaidBosses,
     getAvailableQuests,
     getAvailableNestPokemon

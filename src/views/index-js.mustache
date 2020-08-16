@@ -1575,6 +1575,13 @@ function initMap () {
         $('#filtersModal').modal('hide');
     });
 
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+        let input = e.target;
+        if (input) {
+            loadSearchData(input.id, input.value);
+        }
+    });
+
     const CustomControlFilters = L.Control.extend({
         options: {
             position: 'topleft'
@@ -1701,7 +1708,7 @@ function initMap () {
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
+            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block"></i></a>';
             container.onclick = function () {
                 $('#settingsModal').modal('show');
             };
@@ -1710,6 +1717,22 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlSettings());
+
+    const CustomControlSearch = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.innerHTML = '<a href="#"><i class="fas fa-search" style="width: 21px; height: 21px;" class="center-block"></i></a>';
+            container.onclick = function () {
+                $('#searchModal').modal('show');
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new CustomControlSearch());
 
     map.on('zoomend', function () {
         if (showCells && map.getZoom() < 13) {
@@ -1763,6 +1786,52 @@ function initMap () {
             loadScanAreaPolygons();
         }
     });
+}
+
+function loadSearchData (id, value) {
+    let center = map.getCenter();
+    let elementId = `#${id}-list`;
+    if (!value) {
+        console.log('search value empty:', value);
+        $(elementId).hide();
+        return;
+    }
+    $.ajax({
+        url: '/api/search',
+        type: 'GET',
+        data: {
+            id: id,
+            value: value,
+            lat: center.lat,
+            lon: center.lng
+        },
+        timeout: 30000,
+        dataType: 'json',
+        success: function(result) {
+            if (result === null) {
+                return;
+            }
+            if (result.data === null) {
+                $(elementId).hide();
+                return;
+            }
+            let html = '<ul id="search-list" style="list-style-type: none;">';
+            for (let i = 0; i < result.data.length; i++) {
+                const item = result.data[i];
+                html += `<li><a href="#" onclick="centerOnMap(${item.lat}, ${item.lon});">${item.name} - ${item.distance} km away</a></li>`;
+            }
+            html += '</ul>';
+            $(elementId).show();
+            $(elementId).html(html);
+        }
+    });
+}
+
+function centerOnMap(lat, lon) {
+    $('#searchModal').modal('toggle');
+    let latlng = new L.LatLng(lat, lon);
+    let zoom = 17;//map.getZoom(); // TODO: Max zoom
+    map.setView(latlng, zoom);
 }
 
 
