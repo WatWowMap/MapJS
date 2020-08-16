@@ -710,7 +710,8 @@ function loadStorage () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (defaultRaidFilter['p' + id] === undefined) {
                 defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -733,7 +734,8 @@ function loadStorage () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (raidFilter['p' + id] === undefined) {
                 raidFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -1104,7 +1106,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
         }
 
@@ -1122,7 +1125,9 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            console.log(poke);
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
         }
 
@@ -1140,7 +1145,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: masterfile.pokemon[id].legendary || masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
@@ -1158,7 +1164,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[id].legendary && !masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
@@ -1862,7 +1869,8 @@ function loadData () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (raidFilter['p' + id].show === false) {
                 raidFilterExclude.push('p' + id);
             }
@@ -3037,7 +3045,6 @@ function getGymPopupContent (gym) {
         //titleSize = 'small';
         titleSize = 14;
     }
-    console.log('Title size:', titleSize);
 
     let content =
     '<div class="row">' + // START 1ST ROW
@@ -3862,7 +3869,8 @@ function getGymMarkerIcon (gym, ts) {
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
-            iconSize = getRaidSize('p' + gym.raid_pokemon_id);
+            let id = gym.raid_pokemon_form === 0 ? gym.raid_pokemon_id : gym.raid_pokemon_id + '-' + gym.raid_pokemon_form;
+            iconSize = getRaidSize('p' + id);
             iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
         } else {
             // Egg
