@@ -1808,10 +1808,7 @@ function loadSearchData (id, value) {
         timeout: 30000,
         dataType: 'json',
         success: function(result) {
-            if (result === null) {
-                return;
-            }
-            if (result.data === null) {
+            if (result === null || result.data === null) {
                 $(elementId).hide();
                 return;
             }
