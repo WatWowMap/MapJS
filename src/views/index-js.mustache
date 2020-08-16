@@ -595,7 +595,8 @@ function loadStorage () {
 
     const showInvasionTimersValue = retrieve('show_invasion_timers');
     if (showInvasionTimersValue === null) {
-        store('show_invasion_timers', true); // TODO: Set default option in config
+        store('show_invasion_timers', false); // TODO: Set default option in config
+        showInvasionTimers = false;
     } else {
         showInvasionTimers = (showInvasionTimersValue === 'true');
     }
@@ -4044,10 +4045,10 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
     if (marker.incident_expire_timestamp >= ts && showInvasions) {
         const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
         if (marker.marker.timerSet) {
-            const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
+            const text = `<div class='rounded invasion-timer' style='background: gray'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 1] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
             marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }
