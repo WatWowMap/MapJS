@@ -3773,7 +3773,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
     } else if (activeInvasion) {
         sizeId = 'i0';
         iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
+        iconAnchor = [iconSize / 2, iconSize * 1.567];
     } else if (activeLure) {
         sizeId = lureIconId;
         iconSize = getPokestopSize(sizeId);
