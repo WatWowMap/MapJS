@@ -31,6 +31,8 @@ const getSettings = () => {
     let settingsData = [];
     let settingColorString = i18n.__('settings_color');
     let pokemonSettingsString = i18n.__('settings_pokemon');
+    let pokemonGlowString = i18n.__('settings_pokemon_glow');
+    let clusterPokemonString = i18n.__('settings_cluster_pokemon');
     let glowColorLabel = `
     <label class="btn btn-sm btn-size select-button-new" data-id="pokemon-glow" data-type="pokemon-glow" data-info="color">
         <input type="radio" name="options" id="color" autocomplete="off">${settingColorString}
@@ -41,9 +43,19 @@ const getSettings = () => {
             'formatted': utils.zeroPad(0, 3),
             'sort': 0
         },
-        'name': 'Pokemon Glow',
+        'name': pokemonGlowString,
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow', glowColorLabel),
+        'type': pokemonSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'formatted': utils.zeroPad(1, 3),
+            'sort': 1
+        },
+        'name': clusterPokemonString,
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
+        'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
         'type': pokemonSettingsString
     });
     /*

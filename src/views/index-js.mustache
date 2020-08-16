@@ -946,12 +946,18 @@ function loadStorage () {
         if (defaultSettings['pokemon-glow'] === undefined) {
             defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
         }
+        if (defaultSettings['pokemon-cluster'] === undefined) {
+            defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
         settings = JSON.parse(settingsValue);
         if (settings['pokemon-glow'] === undefined) {
             settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
+        }
+        if (settings['pokemon-cluster'] === undefined) {
+            settings['pokemon-cluster'] = { show: true };
         }
     }
 }
@@ -1616,10 +1622,11 @@ function initMap () {
         settings = settingsNew;
         store('settings', JSON.stringify(settings));
 
-        // TODO: Get glow element show/hide value and invalid map/force a redraw of markers if changed
-        const newPokemonGlow = $('label').attr('data-id');
-        console.log('New poke glow:', newPokemonGlow);
-        lastUpdateServer = 0;
+        //showPokemonGlow = settings['pokemon-glow'].show;
+        //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterPokemon = settings['pokemon-cluster'].show;
+
+        // TODO: Invalidate map/force a redraw of markers if changed
         map.invalidateSize();
 
         $('#settingsModal').modal('hide');
@@ -4132,6 +4139,15 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === 'filter';
             break;
         }
+    } else if (type === 'pokemon-cluster') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settingsNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settingsNew[id].show === true;
+            break;
+        }
     } else if (type === 'quest-misc') {
         switch (info) {
         case 'hide':
@@ -4575,6 +4591,15 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'color':
                     return manageColorPopup(id, settings);
+                }
+            } else if (type === 'pokemon-cluster') {
+                switch (info) {
+                case 'hide':
+                    settingsNew[id].show = false;
+                    break;
+                case 'show':
+                    settingsNew[id].show = true;
+                    break;
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
