@@ -21,6 +21,12 @@ router.post('/get_data', async (req, res) => {
     res.json({ data: data });
 });
 
+router.get('/search', async (req, res) => {
+    const data = await getSearch(req.query);
+    res.json({ data: data });
+});
+
+
 const getData = async (perms, filter) => {
     //console.log('Filter:', filter);
     const minLat = parseFloat(filter.min_lat);
@@ -621,6 +627,11 @@ const getData = async (perms, filter) => {
     }
 
     return data;
+};
+
+const getSearch = async (filter) => {
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value);
+    return searchData;
 };
 
 const generateShowHideButtons = (id, type, ivLabel = '') => {
