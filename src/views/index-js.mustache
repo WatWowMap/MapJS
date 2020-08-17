@@ -1791,12 +1791,13 @@ function loadSearchData (id, value) {
     }
     $.ajax({
         url: '/api/search',
-        type: 'GET',
+        type: 'POST',
         data: {
             id: id,
             value: value,
             lat: center.lat,
-            lon: center.lng
+            lon: center.lng,
+            _csrf: '{{csrf}}'
         },
         timeout: 30000,
         dataType: 'json',
@@ -2055,7 +2056,7 @@ function loadData () {
     loadRequest = $.ajax({
         url: '/api/get_data',
         data: data,
-        type: 'post',
+        type: 'POST',
         async: true,
         success: function (data) {
             const gyms = data.data.gyms;
