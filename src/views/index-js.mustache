@@ -1424,12 +1424,6 @@ function initMap () {
         }
         if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
-            /*
-            $.each(nestMarkers, function (index, nest) {
-                //map.removeLayer(nest.marker);
-                nestLayer.removeLayer(nest.marker);
-            });
-            */
             nestMarkers = [];
         }
         if (newShowCells !== showCells && newShowCells === false) {
@@ -1792,7 +1786,6 @@ function loadSearchData (id, value) {
     let center = map.getCenter();
     let elementId = `#${id}-list`;
     if (!value) {
-        console.log('search value empty:', value);
         $(elementId).hide();
         return;
     }
@@ -2582,8 +2575,6 @@ function getPokestopSize (id) {
     }
     return 30;
 }
-
-// TODO: Calculate spawnpoint size?
 
 
 // MARK: - Local Storage

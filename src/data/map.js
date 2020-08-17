@@ -1048,15 +1048,45 @@ const getSearchData = async (lat, lon, id, value) => {
     let useManualDb = false;
     // TODO: Sanitize user input so we don't get sqli'd
     switch (id) {
-        // TODO: Search reward name
         case 'search-reward':
+            args = [lat, lon, lat];
+            let pokemonIds = getPokemonIdsByName(value);
+            let pokemonRewardSQL = '';
+            if (pokemonIds.length > 0) {
+                // TODO: Search by form
+                pokemonRewardSQL = 'OR quest_pokemon_id IN (';
+                for (let i = 0; i < pokemonIds.length; i++) {
+                    const pokemonId = pokemonIds[i];
+                    pokemonRewardSQL += '?';
+                    if (i !== pokemonIds.length - 1) {
+                        pokemonRewardSQL += ',';
+                    }
+                    args.push(pokemonId);
+                }
+                pokemonRewardSQL += ')';
+            }
+            let itemIds = getItemIdsByName(value);
+            let itemsSQL = '';
+            if (itemIds.length > 0) {
+                itemsSQL = 'OR quest_item_id IN (';
+                for (let i = 0; i < itemIds.length; i++) {
+                    const id = itemIds[i];
+                    itemsSQL += '?';
+                    if (i !== itemIds.length - 1) {
+                        itemsSQL += ',';
+                    }
+                    args.push(id);
+                }
+                itemsSQL += ')';
+            }
+            // TODO: Quest conditions
+            // TODO: Maybe not search pokestop name
             sql = `
             SELECT id, name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
-            WHERE LOWER(name) LIKE '%${value}%'
+            WHERE LOWER(name) LIKE "%${value}%" ${pokemonRewardSQL} ${itemsSQL}
             `;
-            args = [lat, lon, lat, value];
             break;
         case 'search-nest':
             args = [lat, lon, lat, value];
@@ -1101,7 +1131,7 @@ const getSearchData = async (lat, lon, id, value) => {
             args = [lat, lon, lat];
             break;
     }
-    sql += ' ORDER BY distance LIMIT 25';
+    sql += ' ORDER BY distance LIMIT 25'; // TODO: Configurable limit
     const results = useManualDb
         ? await dbManual.query(sql, args)
         : await db.query(sql, args);
@@ -1234,7 +1264,22 @@ const getPokemonIdsByName = (search) => {
     const pokemon = masterfile.pokemon;
     const keys = Object.keys(pokemon);
     const filtered = keys.filter(x => {
+        if (x === 0) {
+            return;
+        }
         const name = i18n.__('poke_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
+const getItemIdsByName = (search) => {
+    const items = masterfile.items;
+    const keys = Object.keys(items);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('item_' + x) || '';
         if (name.toLowerCase().includes(search)) {
             return x;
         }
