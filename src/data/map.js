@@ -1044,14 +1044,15 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
 
 const getSearchData = async (lat, lon, id, value) => {
     let sql = '';
-    let args = [];
+    let args = [lat, lon, lat];
     let useManualDb = false;
     let conditions = [];
-    // TODO: Sanitize user input so we don't get sqli'd
-    switch (id) {
+    // TODO: Sanitize user input so we don't get sqli'd or xss'd
+    let sanitizedId = sanitizer.value(id, 'string');
+    let sanitizedValue = sanitizer.value(value, 'string');
+    switch (sanitizedId) {
         case 'search-reward':
-            args = [lat, lon, lat];
-            let pokemonIds = getPokemonIdsByName(value);
+            let pokemonIds = getPokemonIdsByName(sanitizedValue);
             let pokemonRewardSQL = '';
             if (pokemonIds.length > 0) {
                 // TODO: Search by form
@@ -1067,7 +1068,7 @@ const getSearchData = async (lat, lon, id, value) => {
                 pokemonRewardSQL += ')';
                 conditions.push(pokemonRewardSQL);
             }
-            let itemIds = getItemIdsByName(value);
+            let itemIds = getItemIdsByName(sanitizedValue);
             let itemsSQL = '';
             if (itemIds.length > 0) {
                 itemsSQL = 'quest_item_id IN (';
@@ -1082,7 +1083,7 @@ const getSearchData = async (lat, lon, id, value) => {
                 itemsSQL += ')';
                 conditions.push(itemsSQL);
             }
-            let questTypes = getQuestTypesByName(value);
+            let questTypes = getQuestTypesByName(sanitizedValue);
             let questTypesSQL = '';
             if (questTypes.length > 0) {
                 questTypesSQL = 'quest_type IN (';
@@ -1097,7 +1098,7 @@ const getSearchData = async (lat, lon, id, value) => {
                 questTypesSQL += ')';
                 conditions.push(questTypesSQL);
             }
-            let questRewardTypes = getQuestRewardTypesByName(value);
+            let questRewardTypes = getQuestRewardTypesByName(sanitizedValue);
             let questRewardTypesSQL = '';
             if (questRewardTypes.length > 0) {
                 questRewardTypesSQL = 'quest_reward_type IN (';
@@ -1121,18 +1122,18 @@ const getSearchData = async (lat, lon, id, value) => {
             console.log('sql:', sql);
             break;
         case 'search-nest':
-            args = [lat, lon, lat, value];
-            let ids = getPokemonIdsByName(value);
+            args.push(sanitizedValue);
+            let ids = getPokemonIdsByName(sanitizedValue);
             let pokemonSQL = '';
             if (ids.length > 0) {
                 pokemonSQL = 'OR pokemon_id NOT IN (';
                 for (let i = 0; i < ids.length; i++) {
-                    const id = ids[i];
+                    const nestPokemonId = ids[i];
                     pokemonSQL += '?';
                     if (i !== ids.length - 1) {
                         pokemonSQL += ',';
                     }
-                    args.push(id);
+                    args.push(nestPokemonId);
                 }
                 pokemonSQL += ')';
             }
@@ -1140,7 +1141,7 @@ const getSearchData = async (lat, lon, id, value) => {
             SELECT name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM nests
-            WHERE LOWER(name) LIKE '%${value}%' ${pokemonSQL}
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
             `;
             useManualDb = true;
             break;
@@ -1149,18 +1150,18 @@ const getSearchData = async (lat, lon, id, value) => {
             SELECT id, name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM gym
-            WHERE LOWER(name) LIKE '%${value}%'
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            args = [lat, lon, lat, value];
+            args.push(sanitizedValue);
             break;
         case 'search-pokestop':
             sql = `
             SELECT id, name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
-            WHERE LOWER(name) LIKE '%${value}%'
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            args = [lat, lon, lat];
+            args.push(sanitizedValue);
             break;
     }
     sql += ' ORDER BY distance LIMIT 25'; // TODO: Configurable limit
