@@ -1,6 +1,7 @@
 /* global BigInt */
 'use strict';
 
+const i18n = require('i18n');
 const S2 = require('nodes2ts');
 
 const config = require('../config.json');
@@ -1045,6 +1046,7 @@ const getSearchData = async (lat, lon, id, value) => {
     let sql = '';
     let args = [];
     let useManualDb = false;
+    // TODO: Sanitize user input so we don't get sqli'd
     switch (id) {
         // TODO: Search reward name
         case 'search-reward':
@@ -1057,14 +1059,27 @@ const getSearchData = async (lat, lon, id, value) => {
             args = [lat, lon, lat, value];
             break;
         case 'search-nest':
-            // TODO: Search nest pokemon
+            args = [lat, lon, lat, value];
+            let ids = getPokemonIdsByName(value);
+            let pokemonSQL = '';
+            if (ids.length > 0) {
+                pokemonSQL = 'OR pokemon_id NOT IN (';
+                for (let i = 0; i < ids.length; i++) {
+                    const id = ids[i];
+                    pokemonSQL += '?';
+                    if (i !== ids.length - 1) {
+                        pokemonSQL += ',';
+                    }
+                    args.push(id);
+                }
+                pokemonSQL += ')';
+            }
             sql = `
             SELECT name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM nests
-            WHERE LOWER(name) LIKE '%${value}%'
+            WHERE LOWER(name) LIKE '%${value}%' ${pokemonSQL}
             `;
-            args = [lat, lon, lat, value];
             useManualDb = true;
             break;
         case 'search-gym':
@@ -1213,6 +1228,18 @@ const getAvailableNestPokemon = async () => {
         return result.map(x => x.pokemon_id);
     }
     return result;
+};
+
+const getPokemonIdsByName = (search) => {
+    const pokemon = masterfile.pokemon;
+    const keys = Object.keys(pokemon);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('poke_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
 };
 
 class Ring {
