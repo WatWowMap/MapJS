@@ -1166,11 +1166,25 @@ const getSearchData = async (lat, lon, id, value) => {
         ? await dbManual.query(sql, args)
         : await db.query(sql, args);
     if (results && results.length > 0) {
-        if (id === 'search-nest') {
-            for (let i = 0; i < results.length; i++) {
-                let result = results[i];
-                result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
-            }
+        switch (id) {
+            case 'search-reward':
+                for (let i = 0; i < results.length; i++) {
+                    let result = results[i];
+                    // TODO: Check quest types
+                    if (result.quest_item_id > 0) {
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
+                    } else if (result.quest_pokemon_id > 0) {
+                        const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                    }
+                }
+                break;
+            case 'search-nest':
+                for (let i = 0; i < results.length; i++) {
+                    let result = results[i];
+                    result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                }
+                break;
         }
         return results;
     }
