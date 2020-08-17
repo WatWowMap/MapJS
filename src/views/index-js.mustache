@@ -2980,6 +2980,22 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
+function addQuestFilter (pokemonId, itemId, show) {
+    if (pokemonId > 0) {
+        questFilter['p' + pokemonId].show = show;
+    }
+    if (itemId > 0) {
+        questFilter['i' + itemId].show = show;
+    }
+    store('quest_filter', JSON.stringify(questFilter));
+
+    $.each(pokestopMarkers, function (index, pokestop) {
+        if (pokestop.quest_pokemon_id === pokemonId || pokestop.quest_item_id === itemId) {
+            map.removeLayer(pokestop.marker);
+        }
+    });
+}
+
 function getPokestopPopupContent (pokestop) {
     const now = new Date();
     const lureExpireDate = new Date(pokestop.lure_expire_timestamp * 1000);
@@ -3058,6 +3074,9 @@ function getPokestopPopupContent (pokestop) {
     content +=
         '<br>' +
         '<div class="row text-center">' +
+            '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + pokestop.quest_pokemon_id + ', ' + pokestop.quest_item_id + ', false);return false;"><b>[Exclude]</b></a>' +
+            '<br>' +
+            '<br>' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
                     `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
