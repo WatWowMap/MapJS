@@ -23,6 +23,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Legendary and normal raid buttons  
 - Follow my location  
 - Cache previous location  
+- Global search for quest rewards, nest pokemon, gyms, and pokestops
 - Fast  
 
 ## Installation
@@ -257,7 +258,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         "url": "",
         // Maximum amount of scouts allowed
         "maxScouts": 15
-    }
+    },
+    "searchMaxResults": 20
 }
 ```
 
