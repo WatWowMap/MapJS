@@ -1047,10 +1047,8 @@ const getSearchData = async (lat, lon, id, value) => {
     let args = [lat, lon, lat];
     let useManualDb = false;
     let conditions = [];
-    // TODO: Sanitize user input so we don't get sqli'd or xss'd
-    let sanitizedId = sanitizer.value(id, 'string');
     let sanitizedValue = sanitizer.value(value, 'string');
-    switch (sanitizedId) {
+    switch (id) {
         case 'search-reward':
             let pokemonIds = getPokemonIdsByName(sanitizedValue);
             let pokemonRewardSQL = '';
