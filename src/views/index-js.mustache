@@ -1424,12 +1424,6 @@ function initMap () {
         }
         if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
-            /*
-            $.each(nestMarkers, function (index, nest) {
-                //map.removeLayer(nest.marker);
-                nestLayer.removeLayer(nest.marker);
-            });
-            */
             nestMarkers = [];
         }
         if (newShowCells !== showCells && newShowCells === false) {
@@ -1575,6 +1569,13 @@ function initMap () {
         $('#filtersModal').modal('hide');
     });
 
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+        let input = e.target;
+        if (input) {
+            loadSearchData(input.id, input.value);
+        }
+    });
+
     const CustomControlFilters = L.Control.extend({
         options: {
             position: 'topleft'
@@ -1701,7 +1702,7 @@ function initMap () {
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
+            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block"></i></a>';
             container.onclick = function () {
                 $('#settingsModal').modal('show');
             };
@@ -1710,6 +1711,22 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlSettings());
+
+    const CustomControlSearch = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.innerHTML = '<a href="#"><i class="fas fa-search" style="width: 21px; height: 21px;" class="center-block"></i></a>';
+            container.onclick = function () {
+                $('#searchModal').modal('show');
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new CustomControlSearch());
 
     map.on('zoomend', function () {
         if (showCells && map.getZoom() < 13) {
@@ -1763,6 +1780,55 @@ function initMap () {
             loadScanAreaPolygons();
         }
     });
+}
+
+function loadSearchData (id, value) {
+    let center = map.getCenter();
+    let elementId = `#${id}-list`;
+    if (!value) {
+        $(elementId).hide();
+        return;
+    }
+    $.ajax({
+        url: '/api/search',
+        type: 'GET',
+        data: {
+            id: id,
+            value: value,
+            lat: center.lat,
+            lon: center.lng
+        },
+        timeout: 30000,
+        dataType: 'json',
+        success: function(result) {
+            if (result === null || result.data === null) {
+                $(elementId).hide();
+                return;
+            }
+            let html = '<ul id="search-list" style="list-style-type: none;">';
+            for (let i = 0; i < result.data.length; i++) {
+                const item = result.data[i];
+                html += '<li>';
+                html += `<img src='${item.url}' width='24' height='auto' />&nbsp;`;
+                if (item.url2) {
+                    html += `<img src='${item.url2}' width='24' height='auto' />&nbsp;`;
+                }
+                html += `<a href="#" onclick="centerOnMap(${item.lat}, ${item.lon});">${item.name} - ${item.distance} km away</a>`;
+                html += '</li>';
+            }
+            html += '</ul>';
+            $(elementId).show();
+            $(elementId).html(html);
+        }
+    });
+}
+
+function centerOnMap(lat, lon) {
+    $('#searchModal').modal('toggle');
+    let latlng = new L.LatLng(lat, lon);
+    let zoom = '{{max_zoom}}';
+    map.setView(latlng, zoom);
+    // TODO: Click marker popup? Search markers, if lat/lon same open popup
 }
 
 
@@ -2516,8 +2582,6 @@ function getPokestopSize (id) {
     }
     return 30;
 }
-
-// TODO: Calculate spawnpoint size?
 
 
 // MARK: - Local Storage
