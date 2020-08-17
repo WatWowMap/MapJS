@@ -1122,11 +1122,10 @@ const getSearchData = async (lat, lon, id, value) => {
             `;
             break;
         case 'search-nest':
-            //args.push(sanitizedValue);
             let ids = getPokemonIdsByName(sanitizedValue);
             let pokemonSQL = '';
             if (ids.length > 0) {
-                pokemonSQL = 'pokemon_id IN (';
+                pokemonSQL = 'OR pokemon_id IN (';
                 for (let i = 0; i < ids.length; i++) {
                     const nestPokemonId = ids[i];
                     pokemonSQL += '?';
@@ -1141,7 +1140,7 @@ const getSearchData = async (lat, lon, id, value) => {
             SELECT name, lat, lon, pokemon_id,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM nests
-            WHERE ${pokemonSQL || 'FALSE'}
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
             `;
             useManualDb = true;
             break;
@@ -1152,7 +1151,6 @@ const getSearchData = async (lat, lon, id, value) => {
             FROM gym
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            args.push(sanitizedValue);
             break;
         case 'search-pokestop':
             sql = `
@@ -1161,7 +1159,6 @@ const getSearchData = async (lat, lon, id, value) => {
             FROM pokestop
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            args.push(sanitizedValue);
             break;
     }
     sql += ' ORDER BY distance LIMIT 25'; // TODO: Configurable limit
