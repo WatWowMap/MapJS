@@ -1052,6 +1052,7 @@ const getSearchData = async (lat, lon, id, value) => {
     let useManualDb = false;
     let conditions = [];
     let sanitizedValue = sanitizer.sanitize(value);
+    sanitizedValue = sanitizedValue.toLowerCase();
     switch (id) {
         case 'search-reward':
             let pokemonIds = getPokemonIdsByName(sanitizedValue);
@@ -1320,7 +1321,7 @@ const getPokemonIdsByName = (search) => {
     const filtered = keys.filter(x => {
         if (x !== 0) {
             const name = i18n.__('poke_' + x) || '';
-            if (name.toLowerCase().includes(search)) {
+            if (name.toLowerCase().includes(search.toLowerCase())) {
                 return x;
             }
         }
