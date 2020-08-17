@@ -3,6 +3,7 @@
 
 const i18n = require('i18n');
 const S2 = require('nodes2ts');
+const sanitizer = require('sanitizer');
 
 const config = require('../config.json');
 const MySQLConnector = require('../services/mysql.js');
@@ -1047,7 +1048,8 @@ const getSearchData = async (lat, lon, id, value) => {
     let args = [lat, lon, lat];
     let useManualDb = false;
     let conditions = [];
-    let sanitizedValue = sanitizer.value(value, 'string');
+    console.log('value:', value);
+    let sanitizedValue = sanitizer.sanitize(value);
     switch (id) {
         case 'search-reward':
             let pokemonIds = getPokemonIdsByName(sanitizedValue);
@@ -1117,7 +1119,6 @@ const getSearchData = async (lat, lon, id, value) => {
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
             `;
-            console.log('sql:', sql);
             break;
         case 'search-nest':
             args.push(sanitizedValue);

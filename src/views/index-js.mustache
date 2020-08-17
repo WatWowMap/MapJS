@@ -1820,8 +1820,9 @@ function loadSearchData (id, value) {
 function centerOnMap(lat, lon) {
     $('#searchModal').modal('toggle');
     let latlng = new L.LatLng(lat, lon);
-    let zoom = 17;//map.getZoom(); // TODO: Max zoom
+    let zoom = '{{max_zoom}}';
     map.setView(latlng, zoom);
+    // TODO: Click marker popup? Search markers, if lat/lon same open popup
 }
 
 
