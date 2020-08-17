@@ -179,12 +179,12 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button type="button" id="exportFilters" class="btn btn-primary">{{filter_export}}</button>
-                        <button type="button" id="importFilters" class="btn btn-primary">{{filter_import}}</button>
+                        <button type="button" id="exportFilters" class="btn btn-sm btn-primary">{{filter_export}}</button>
+                        <button type="button" id="importFilters" class="btn btn-sm btn-primary">{{filter_import}}</button>
                         <input type="file" id="importFiltersFile" accept="text/json" class="btn btn-primary" hidden>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
-                    <button type="button" id="saveFilters" class="btn btn-primary">{{filter_save}}</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
+                    <button type="button" id="saveFilters" class="btn btn-sm btn-primary">{{filter_save}}</button>
                 </div>
             </div>
         </div>
@@ -601,11 +601,12 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                        <button class="btn btn-sm btn-danger" onclick="clearSiteCache();">{{clear_cache}}</button>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
-                    <button type="button" id="saveSettings" class="btn btn-primary">{{filter_save}}</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
+                    <button type="button" id="saveSettings" class="btn btn-sm btn-primary">{{filter_save}}</button>
                 </div>
             </div>
         </div>

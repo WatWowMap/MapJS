@@ -12,6 +12,7 @@
 	"title_confirmmail": "Confirm Mail",
 	"title_resetpassword": "Reset Password",
 	"title_unauthorized": "Unauthorized",
+	"title_clear_cache": "Clear Cache",
 	"filter_title": "Filter",
 	"filter_gyms": "Gyms",
 	"filter_raids": "Raids",
@@ -83,6 +84,7 @@
 	"filter_iconstyle": "Icon Style",
 	"filter_select_mapstyle": "Select Map Style",
 	"filter_select_iconstyle": "Select Icon Style",
+	"clear_cache": "Clear Cache",
 	"filter_level": "Level",
 	"filter_devices": "Devices",
 	"filter_scanareas": "Scan Areas",
@@ -3627,6 +3629,5 @@
 	"form_590": "form_590",
 	"form_591": "form_591",
 	"form_592": "form_592",
-	"form_0": "form_0",
 	"form_593": "form_593"
 }

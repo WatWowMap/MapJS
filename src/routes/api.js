@@ -23,10 +23,10 @@ router.post('/get_data', async (req, res) => {
 
 const getData = async (perms, filter) => {
     //console.log('Filter:', filter);
-    const minLat = filter.min_lat;
-    const maxLat = filter.max_lat;
-    const minLon = filter.min_lon;
-    const maxLon = filter.max_lon;
+    const minLat = parseFloat(filter.min_lat);
+    const maxLat = parseFloat(filter.max_lat);
+    const minLon = parseFloat(filter.min_lon);
+    const maxLon = parseFloat(filter.max_lon);
     const showGyms = filter.show_gyms && filter.show_gyms !== 'false' || false;
     const showRaids = filter.show_raids && filter.show_raids !== 'false' || false;
     const showPokestops = filter.show_pokestops && filter.show_pokestops !== 'false' || false;
