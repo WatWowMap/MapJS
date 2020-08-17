@@ -5156,7 +5156,6 @@ function convertAreaToSqkm(value) {
 // MARK: - Init Filter
 
 function loadPokemonFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-pokemon').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5202,7 +5201,7 @@ function loadPokemonFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5262,7 +5261,6 @@ function loadPokemonFilter () {
 }
 
 function loadQuestFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-quest').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5302,7 +5300,7 @@ function loadQuestFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5360,7 +5358,6 @@ function loadQuestFilter () {
 }
 
 function loadRaidFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-raid').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5400,7 +5397,7 @@ function loadRaidFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5458,7 +5455,6 @@ function loadRaidFilter () {
 }
 
 function loadGymFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-gym').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5498,7 +5494,7 @@ function loadGymFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5556,7 +5552,6 @@ function loadGymFilter () {
 }
 
 function loadPokestopFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-pokestop').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5596,7 +5591,7 @@ function loadPokestopFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5654,7 +5649,6 @@ function loadPokestopFilter () {
 }
 
 function loadInvasionFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-invasion').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5694,7 +5688,7 @@ function loadInvasionFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5752,7 +5746,6 @@ function loadInvasionFilter () {
 }
 
 function loadSpawnpointFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-spawnpoint').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5792,7 +5785,7 @@ function loadSpawnpointFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5850,7 +5843,6 @@ function loadSpawnpointFilter () {
 }
 
 function loadNestFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-nest').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5890,7 +5882,7 @@ function loadNestFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5948,7 +5940,6 @@ function loadNestFilter () {
 }
 
 function loadWeatherFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-weather').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5987,7 +5978,7 @@ function loadWeatherFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -6045,7 +6036,6 @@ function loadWeatherFilter () {
 }
 
 function loadDeviceFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-device').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -6085,7 +6075,7 @@ function loadDeviceFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
