@@ -1808,7 +1808,7 @@ function loadSearchData (id, value) {
             let html = '<ul id="search-list" style="list-style-type: none;">';
             for (let i = 0; i < result.data.length; i++) {
                 const item = result.data[i];
-                html += `<li><a href="#" onclick="centerOnMap(${item.lat}, ${item.lon});">${item.name} - ${item.distance} km away</a></li>`;
+                html += `<li><img src='${item.url}' width='24' height='auto' />&nbsp;<a href="#" onclick="centerOnMap(${item.lat}, ${item.lon});">${item.name} - ${item.distance} km away</a></li>`;
             }
             html += '</ul>';
             $(elementId).show();
