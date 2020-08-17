@@ -155,5 +155,6 @@
         "enabled": false,
         "url": "",
         "maxScouts": 15
-    }
+    },
+    "searchMaxResults": 20
 }

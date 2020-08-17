@@ -8,10 +8,12 @@ const sanitizer = require('sanitizer');
 const config = require('../config.json');
 const MySQLConnector = require('../services/mysql.js');
 const utils = require('../services/utils.js');
+
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
+
 
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     const excludePokemonIds = [];
@@ -1114,7 +1116,7 @@ const getSearchData = async (lat, lon, id, value) => {
                 conditions.push(questRewardTypesSQL);
             }
             sql = `
-            SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id,
+            SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id, quest_reward_type,
                 json_extract(json_extract('quest_rewards','$[*].info.form_id'),'$[0]') AS quest_pokemon_form_id,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
@@ -1161,7 +1163,7 @@ const getSearchData = async (lat, lon, id, value) => {
             `;
             break;
     }
-    sql += ' ORDER BY distance LIMIT 25'; // TODO: Configurable limit
+    sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
     let results = useManualDb
         ? await dbManual.query(sql, args)
         : await db.query(sql, args);
@@ -1176,6 +1178,8 @@ const getSearchData = async (lat, lon, id, value) => {
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
                         result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                    } else if (result.quest_reward_type === 3) {
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
                     }
                 }
                 break;
@@ -1359,9 +1363,6 @@ const getQuestRewardTypesByName = (search) => {
     });
     return filtered;
 };
-
-// TODO: Quest reward type
-// TODO: Quest type
 
 class Ring {
     constructor(lat, lon, radius) {
