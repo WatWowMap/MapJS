@@ -3640,5 +3640,11 @@
 	"item_1502": "item_1502",
 	"item_1503": "item_1503",
 	"item_1600": "item_1600",
-	"item_1601": "item_1601"
+	"item_1601": "item_1601",
+	"poke_0": "Substitute Pokemon",
+	"quest_0": "Unknown quest type",
+	"quest_36": "quest_36",
+	"quest_37": "quest_37",
+	"quest_38": "quest_38",
+	"quest_reward_0": "Unset"
 }

@@ -1046,6 +1046,7 @@ const getSearchData = async (lat, lon, id, value) => {
     let sql = '';
     let args = [];
     let useManualDb = false;
+    let conditions = [];
     // TODO: Sanitize user input so we don't get sqli'd
     switch (id) {
         case 'search-reward':
@@ -1054,7 +1055,7 @@ const getSearchData = async (lat, lon, id, value) => {
             let pokemonRewardSQL = '';
             if (pokemonIds.length > 0) {
                 // TODO: Search by form
-                pokemonRewardSQL = 'OR quest_pokemon_id IN (';
+                pokemonRewardSQL = 'quest_pokemon_id IN (';
                 for (let i = 0; i < pokemonIds.length; i++) {
                     const pokemonId = pokemonIds[i];
                     pokemonRewardSQL += '?';
@@ -1064,11 +1065,12 @@ const getSearchData = async (lat, lon, id, value) => {
                     args.push(pokemonId);
                 }
                 pokemonRewardSQL += ')';
+                conditions.push(pokemonRewardSQL);
             }
             let itemIds = getItemIdsByName(value);
             let itemsSQL = '';
             if (itemIds.length > 0) {
-                itemsSQL = 'OR quest_item_id IN (';
+                itemsSQL = 'quest_item_id IN (';
                 for (let i = 0; i < itemIds.length; i++) {
                     const id = itemIds[i];
                     itemsSQL += '?';
@@ -1078,15 +1080,45 @@ const getSearchData = async (lat, lon, id, value) => {
                     args.push(id);
                 }
                 itemsSQL += ')';
+                conditions.push(itemsSQL);
             }
-            // TODO: Quest conditions
-            // TODO: Maybe not search pokestop name
+            let questTypes = getQuestTypesByName(value);
+            let questTypesSQL = '';
+            if (questTypes.length > 0) {
+                questTypesSQL = 'quest_type IN (';
+                for (let i = 0; i < questTypes.length; i++) {
+                    const id = questTypes[i];
+                    questTypesSQL += '?';
+                    if (i !== questTypes.length - 1) {
+                        questTypesSQL += ',';
+                    }
+                    args.push(id);
+                }
+                questTypesSQL += ')';
+                conditions.push(questTypesSQL);
+            }
+            let questRewardTypes = getQuestRewardTypesByName(value);
+            let questRewardTypesSQL = '';
+            if (questRewardTypes.length > 0) {
+                questRewardTypesSQL = 'quest_reward_type IN (';
+                for (let i = 0; i < questRewardTypes.length; i++) {
+                    const id = questRewardTypes[i];
+                    questRewardTypesSQL += '?';
+                    if (i !== questRewardTypes.length - 1) {
+                        questRewardTypesSQL += ',';
+                    }
+                    args.push(id);
+                }
+                questRewardTypesSQL += ')';
+                conditions.push(questRewardTypesSQL);
+            }
             sql = `
             SELECT id, name, lat, lon,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
-            WHERE LOWER(name) LIKE "%${value}%" ${pokemonRewardSQL} ${itemsSQL}
+            WHERE ${conditions.join(' OR ') || 'FALSE'}
             `;
+            console.log('sql:', sql);
             break;
         case 'search-nest':
             args = [lat, lon, lat, value];
@@ -1264,12 +1296,11 @@ const getPokemonIdsByName = (search) => {
     const pokemon = masterfile.pokemon;
     const keys = Object.keys(pokemon);
     const filtered = keys.filter(x => {
-        if (x === 0) {
-            return;
-        }
-        const name = i18n.__('poke_' + x) || '';
-        if (name.toLowerCase().includes(search)) {
-            return x;
+        if (x !== 0) {
+            const name = i18n.__('poke_' + x) || '';
+            if (name.toLowerCase().includes(search)) {
+                return x;
+            }
         }
     });
     return filtered;
@@ -1286,6 +1317,33 @@ const getItemIdsByName = (search) => {
     });
     return filtered;
 };
+
+const getQuestTypesByName = (search) => {
+    const questTypes = masterfile.quest_types;
+    const keys = Object.keys(questTypes);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('quest_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
+const getQuestRewardTypesByName = (search) => {
+    const questRewardTypes = masterfile.quest_reward_types;
+    const keys = Object.keys(questRewardTypes);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('quest_reward_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
+// TODO: Quest reward type
+// TODO: Quest type
 
 class Ring {
     constructor(lat, lon, radius) {
