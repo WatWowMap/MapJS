@@ -23,6 +23,7 @@
     "axios": "^0.19.2",
     "btoa": "^1.2.1",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
     "csurf": "^1.11.0",
     "discord-oauth2": "^2.2.0",
     "discord.js": "^12.2.0",
