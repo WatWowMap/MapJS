@@ -5,6 +5,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 ## Features  
 - Everything from RealDeviceMap  
 - Pokemon form filtering  
+- Raid Pokemon form filtering  
 - Nests and nest filtering  
 - Weather filtering  
 - Pokemon glow  
@@ -259,6 +260,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         // Maximum amount of scouts allowed
         "maxScouts": 15
     },
+    // Maximum search results for global filter to return
     "searchMaxResults": 20
 }
 ```
@@ -294,13 +296,17 @@ module.exports = {
 ```
 
 ## TODO  
-- Filter raids by forms  
 - Finish custom user settings modal (user defined glow settings, cluster settings, etc)  
 - Notifications  
 - Notification sounds  
 - Bouncing marker options  
 - Heatmaps  
 - Basic statistics  
+
+## Bugs  
+- Pokestop filter sizing does not work  
+- Raid filter sizing does not work  
+- Submission cells with incorrect pokestop/gym count  
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
