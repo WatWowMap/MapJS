@@ -3076,8 +3076,11 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     content +=
-        '<br>' +
-        '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + (questReward.info.pokemon_id || 0) + ', ' + (questReward.info.item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>' +
+        '<br>';
+    if (pokestop.quest_type !== null) {
+        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
+    }
+    content +=
         '<br>' +
         '<div class="row text-center">' +
             '<br>' +
