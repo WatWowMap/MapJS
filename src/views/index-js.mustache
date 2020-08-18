@@ -74,6 +74,7 @@ let showWeather;
 let showDevices;
 let showScanAreas;
 let showRaidTimers;
+let showInvasionTimers;
 let showSubmissionCells;
 
 let availableForms = [];
@@ -584,12 +585,20 @@ function loadStorage () {
         showDevices = (showDevicesValue === 'true');
     }
 
-    const showRaidTimersValue = retrieve('show_devices');
+    const showRaidTimersValue = retrieve('show_raid_timers');
     if (showRaidTimersValue === null) {
         store('show_raid_timers', true); // TODO: Set default option in config
         showRaidTimers = true;
     } else {
         showRaidTimers = (showRaidTimersValue === 'true');
+    }
+
+    const showInvasionTimersValue = retrieve('show_invasion_timers');
+    if (showInvasionTimersValue === null) {
+        store('show_invasion_timers', false); // TODO: Set default option in config
+        showInvasionTimers = false;
+    } else {
+        showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
     const pokemonFilterValue = retrieve('pokemon_filter');
@@ -817,6 +826,9 @@ function loadStorage () {
     const invasionFilterValue = retrieve('invasion_filter');
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
+        if (defaultInvasionFilter.timers === undefined) {
+            defaultInvasionFilter.timers = { show: true, size: 'normal' };
+        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (defaultInvasionFilter['i' + i] === undefined) {
@@ -828,6 +840,12 @@ function loadStorage () {
         invasionFilter = defaultInvasionFilter;
     } else {
         invasionFilter = JSON.parse(invasionFilterValue);
+        if (invasionFilter.timers === undefined) {
+            invasionFilter.timers = { show: true, size: 'normal' };
+            showInvasionTimers = true;
+        } else {
+            showInvasionTimers = invasionFilter.timers.show;
+        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (invasionFilter['i' + i] === undefined) {
@@ -1239,6 +1257,7 @@ function initMap () {
 
     $('#reset-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: true, size: 'normal' };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
         }
@@ -1251,6 +1270,7 @@ function initMap () {
 
     $('#disable-all-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: false, size: invasionFilterNew.timers.size };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
         }
@@ -1519,6 +1539,11 @@ function initMap () {
             showRaidTimers = newShowRaidTimers;
         }
 
+        const newShowInvasionTimers = invasionFilter.timers.show;
+        if (newShowInvasionTimers !== showInvasionTimers) {
+            showInvasionTimers = newShowInvasionTimers;
+        }
+
         showGyms = newShowGyms;
         store('show_gyms', newShowGyms);
         store('gym_filter', JSON.stringify(gymFilter));
@@ -1569,6 +1594,7 @@ function initMap () {
         store('device_filter', JSON.stringify(deviceFilter));
 
         store('show_raid_timers', newShowRaidTimers);
+        store('show_invasion_timers', newShowInvasionTimers);
 
         lastUpdateServer = 0;
         loadData();
@@ -2166,8 +2192,13 @@ function loadData () {
                         if (pokestop.incident_expire_timestamp >= ts) {
                             pokestop.willUpdate = true;
                             startPokestopTimer(pokestop, pokestop.incident_expire_timestamp, ts);
+                            pokestop.invasionTimerSet = true;
+                            if (showInvasionTimers) {
+                                setDespawnTimer(pokestop);
+                            }
                         } else {
                             pokestop.willUpdate = false;
+                            pokestop.invasionTimerSet = false;
                         }
                     } else {
                         if (oldPokestop.lure_expire_timestamp !== pokestop.lure_expire_timestamp) {
@@ -2201,6 +2232,10 @@ function loadData () {
                         if (oldPokestop.willUpdate === false && oldPokestop.incident_expire_timestamp >= ts) {
                             oldPokestop.willUpdate = true;
                             startPokestopTimer(oldPokestop, oldPokestop.incident_expire_timestamp, ts);
+                            oldPokestop.invasionTimerSet = true;
+                            if (showInvasionTimers) {
+                                setDespawnTimer(oldPokestop);
+                            }
                         }
                     }
                 }
@@ -2747,6 +2782,16 @@ function updateMapTimers () {
             return;
         }
         if (showRaidTimers) {
+            setDespawnTimer(marker);
+        } else {
+            marker.marker.unbindTooltip();
+        }
+    });
+    $.each(pokestopMarkers, function (index, marker) {
+        if (!bounds.contains(marker)) {
+            return;
+        }
+        if (showInvasionTimers) {
             setDespawnTimer(marker);
         } else {
             marker.marker.unbindTooltip();
@@ -4037,30 +4082,46 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (gym) {
+function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
-    if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+    if (marker.raid_battle_timestamp <= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Hatched
-        raidTimestamp = gym.raid_end_timestamp;
-    } else if (gym.raid_battle_timestamp >= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+        raidTimestamp = marker.raid_end_timestamp;
+    } else if (marker.raid_battle_timestamp >= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Egg
-        raidTimestamp = gym.raid_battle_timestamp;
+        raidTimestamp = marker.raid_battle_timestamp;
     } else {
-        gym.marker.unbindTooltip();
-        gym.marker.timerSet = false;
+        marker.marker.unbindTooltip();
+        marker.marker.timerSet = false;
+    }
+
+    if (marker.incident_expire_timestamp < ts) {
+        marker.marker.timerSet = false;
     }
 
     if (raidTimestamp > 0) {
         const timer = getTimeUntill(new Date(raidTimestamp * 1000));
-        if (gym.marker.timerSet) {
-            const text = '<div class=\'rounded raid-timer\'><span class=\'p-1\'>' + timer + '</span></div>';
-            gym.marker.setTooltipContent(text);
+        if (marker.marker.timerSet) {
+            const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
+            marker.marker.setTooltipContent(text);
         } else {
             const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
-            /* let tooltip = */ gym.marker.bindTooltip(timer, options);
-            gym.marker.timerSet = true;
+            /* let tooltip = */ marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
+        }
+    }
+
+    if (marker.incident_expire_timestamp >= ts && showInvasions) {
+        const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
+        if (marker.marker.timerSet) {
+            const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
+            marker.marker.setTooltipContent(text);
+        } else {
+            const options = { permanent: true, className: 'leaflet-tooltip invasion-timer span p-0', direction: 'bottom', offset: [0, 0] };
+            marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
         }
     }
 }
@@ -4407,6 +4468,27 @@ function manageSelectButton (e, isNew) {
             break;
         case 'huge':
             shouldShow = invasionFilterNew['i' + id].size === 'huge';
+            break;
+        }
+    } else if (type === 'invasion-timers') {
+        switch (info) {
+        case 'hide':
+            shouldShow = invasionFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = invasionFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = invasionFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = invasionFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = invasionFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = invasionFilterNew[id].size === 'huge';
             break;
         }
     } else if (type === 'spawnpoint-timer') {
@@ -4840,6 +4922,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     invasionFilterNew['i' + id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'invasion-timers') {
+                switch (info) {
+                case 'hide':
+                    invasionFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    invasionFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    invasionFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    invasionFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    invasionFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    invasionFilterNew[id].size = 'huge';
                     break;
                 }
             } else if (type === 'spawnpoint-timer') {
