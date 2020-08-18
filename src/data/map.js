@@ -21,8 +21,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let keys = Object.keys(pokemonFilterIV || []);
     if (keys && keys.length > 0 && showIV) {
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            const id = parseInt(key);
+            const id = keys[i];
             if (id) {
                 if (!pokemonFilterExclude.includes(id)) {
                     pokemonFilterExclude.push(id);
@@ -37,7 +36,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (keys && keys.length > 0) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
-            const split = String(key).split('-');
+            const split = key.split('-', 2);
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
                 const formId = parseInt(split[1]);
@@ -91,7 +90,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             const filter = pokemonFilterIV[key];
             const sqlFilter = sqlifyIvFilter(filter);
             if (sqlFilter) {
-                const split = key.split('-');
+                const split = key.split('-', 2);
                 let sqlPokemon = 'FALSE';
                 if (split.length === 2) {
                     const pokemonId = parseInt(split[0]);
@@ -178,7 +177,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 if (pokemonFilterPVP) {
                     let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
                     if (pokemonFilterPVP[idString]) {
-                        let split = pokemonFilterPVP[idString].split('-');
+                        let split = String(pokemonFilterPVP[idString]).split('-', 2);
                         if (split.length === 2) {
                             let minRank = parseInt(split[0]);
                             let maxRank = parseInt(split[1]);
