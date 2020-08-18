@@ -1806,10 +1806,10 @@ function loadSearchData (id, value) {
                 $(elementId).hide();
                 return;
             }
-            let html = '<ul id="search-list" style="list-style-type: none;">';
+            let html = '<ul id="search-list" class="list-group">';
             for (let i = 0; i < result.data.length; i++) {
                 const item = result.data[i];
-                html += '<li>';
+                html += '<li class="list-group-item list-group-item-action" style="padding: 0 0 0 0; background-color: rgb(33, 37, 31); border: 1px solid black">';
                 html += `<img src='${item.url}' width='24' height='auto' />&nbsp;`;
                 if (item.url2) {
                     html += `<img src='${item.url2}' width='24' height='auto' />&nbsp;`;
