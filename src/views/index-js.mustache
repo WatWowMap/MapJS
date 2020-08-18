@@ -2990,7 +2990,10 @@ function addQuestFilter (pokemonId, itemId, show) {
     store('quest_filter', JSON.stringify(questFilter));
 
     $.each(pokestopMarkers, function (index, pokestop) {
-        if (pokestop.quest_pokemon_id === pokemonId || pokestop.quest_item_id === itemId) {
+        const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
+        const rewardPokemonId = reward.info.pokemon_id || 0;
+        const rewardItemId = reward.info.item_id || 0;
+        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
             map.removeLayer(pokestop.marker);
         }
     });
@@ -3071,11 +3074,12 @@ function getPokestopPopupContent (pokestop) {
         content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
     }
 
+    const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     content +=
         '<br>' +
+        '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + (questReward.info.pokemon_id || 0) + ', ' + (questReward.info.item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>' +
+        '<br>' +
         '<div class="row text-center">' +
-            '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + pokestop.quest_pokemon_id + ', ' + pokestop.quest_item_id + ', false);return false;"><b>[Exclude]</b></a>' +
-            '<br>' +
             '<br>' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
