@@ -21,8 +21,8 @@ router.post('/get_data', async (req, res) => {
     res.json({ data: data });
 });
 
-router.get('/search', async (req, res) => {
-    const data = await getSearch(req.query);
+router.post('/search', async (req, res) => {
+    const data = await getSearch(req.body);
     res.json({ data: data });
 });
 
