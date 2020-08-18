@@ -33,8 +33,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 3.) Copy config `cp src/config.example.json src/config.json`  
 4.) Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`  
 5.) Fill out config `vi src/config.json`  
-6.) Create/copy a `static/custom/nests.json` file to show nests  
-7.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file, see below)  
+6.) Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)  
+7.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)  
 8.) Run `npm start`  
 9.) Access via http://machineip:port/ login using your Discord account    
 
@@ -119,7 +119,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         ],
         // Right side navigation headers
         "right": [
-            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
+            { "name": "Discord", "url": "https://discord.com/invite/example", "icon": "fab fa-discord" }
         ]
     },
     // Available tileservers
@@ -260,7 +260,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         // Maximum amount of scouts allowed
         "maxScouts": 15
     },
-    // Maximum search results for global filter to return
+    // Maximum search results for global search to return
     "searchMaxResults": 20
 }
 ```
@@ -280,8 +280,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 Once everything is setup and running appropriately, you can add this to PM2 ecosystem.config.js file so it is automatically started:  
 ```
 module.exports = {
-  apps : [
-  {
+  apps : [{
     name: 'MapJS',
     script: 'index.js',
     cwd: '/home/username/MapJS/src/',
@@ -290,8 +289,7 @@ module.exports = {
     watch: false,
     max_memory_restart: '2G',
     out_file: 'NULL'
-  }
-  ]
+  }]
 };
 ```
 
