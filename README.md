@@ -7,20 +7,20 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Pokemon form filtering  
 - Raid Pokemon form filtering  
 - Nests and nest filtering  
-- Weather filtering  
-- Pokemon glow  
-- Refactored Pokemon/Pokestop/Raid filtering  
-- Invasion filtering  
+- Pokemon glow based on minimum IV  
+- Refactored Global IV/Pokemon/Pokestop/Raid filtering  
+- PVP rank filtering  
+- Invasion type filtering  
+- Weather type filtering  
+- Device status filtering
+- Big karp and tiny rat filtering  
 - Custom icon support  
 - 400k+ less icons  
-- PVP filtering  
-- Refactored IV filtering  
 - Pokemon clustering  
 - Mobile friendly filters  
 - Available raid boss and quest rewards from database for smaller filter lists
-- Big karp and tiny rat filtering  
 - Scan area polygons  
-- Trash pokemon button  
+- Disable trash pokemon button  
 - Legendary and normal raid buttons  
 - Follow my location  
 - Cache previous location  
