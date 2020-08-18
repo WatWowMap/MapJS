@@ -286,7 +286,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
         }
 
         if (excludePokemonIds.length > 0) {
-            let sqlExcludeCreate = 'AND (raid_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'AND raid_pokemon_id NOT IN (';
             for (let i = 0; i < excludePokemonIds.length; i++) {
                 if (i === excludePokemonIds.length - 1) {
                     sqlExcludeCreate += '?)';
