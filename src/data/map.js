@@ -37,7 +37,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (keys && keys.length > 0) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
-            const split = key.split('-');
+            const split = String(key).split('-');
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
                 const formId = parseInt(split[1]);
@@ -52,9 +52,9 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                         excludePokemonIds.push(id);
                     }
                 } else if (key === 'big_karp') {
-                    sqlIncludeBigKarp = `OR (pokemon_id = 129 AND weight IS NOT NULL AND weight >= 13.125)`;
+                    sqlIncludeBigKarp = 'OR (pokemon_id = 129 AND weight IS NOT NULL AND weight >= 13.125)';
                 } else if (key === 'tiny_rat') {
-                    sqlIncludeTinyRat = `OR (pokemon_id = 19 AND weight IS NOT NULL AND weight <= 2.40625)`;
+                    sqlIncludeTinyRat = 'OR (pokemon_id = 19 AND weight IS NOT NULL AND weight <= 2.40625)';
                 }
             }
         }
@@ -203,7 +203,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     return pokemon;
 };
 
-const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, showGyms, raidFilterExclude = null, gymFilterExclude = null) => {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showGyms, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
@@ -229,6 +229,9 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
                         excludePokemonIds.push(pokemonId);
                     } else {
                         excludeFormIds.push(formId);
+                        if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                            excludePokemonIds.push(pokemonId);
+                        }
                     }
                 } else {
                     const id = parseInt(key);
@@ -353,7 +356,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
             )
         )
     `;
-    if (raidsOnly) {
+    if (!showGyms) {
         sql += ' AND raid_end_timestamp >= UNIX_TIMESTAMP()';
     }
 
@@ -830,7 +833,7 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
 
     let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, true, null, null);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
@@ -888,7 +891,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
 
     let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, true, null, null);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
@@ -988,7 +991,7 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated, weatherFilter
     WHERE latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND updated > ? ${excludeWeatherSQL}
     `;
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal, updated];
-    
+
     for (let i = 0; i < excludedTypes.length; i++) {
         const id = excludedTypes[i];
         args.push(id);
@@ -1029,7 +1032,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const minLonReal = minLon - 0.01;
     const maxLonReal = maxLon + 0.01;
     const excludedPokemon = [];
-    
+
     if (nestFilterExclude) {
         for (let i = 0; i < nestFilterExclude.length; i++) {
             const filter = nestFilterExclude[i];
