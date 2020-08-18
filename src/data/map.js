@@ -1310,7 +1310,9 @@ const getAvailableRaidBosses = async () => {
     `;
     let result = await db.query(sql);
     if (result) {
-        return result.map(x => { return { id: x.raid_pokemon_id, form_id: x.raid_pokemon_form }; } );
+        return result.map(x => {
+            return { id: x.raid_pokemon_id, form_id: x.raid_pokemon_form };
+        });
     }
     return result;
 };
