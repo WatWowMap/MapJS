@@ -827,7 +827,7 @@ function loadStorage () {
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
         if (defaultInvasionFilter.timers === undefined) {
-            defaultInvasionFilter.timers = { show: true, size: 'normal' };
+            defaultInvasionFilter.timers = { show: false, size: 'normal' };
         }
         let i;
         for (i = 1; i <= 50; i++) {
@@ -841,7 +841,7 @@ function loadStorage () {
     } else {
         invasionFilter = JSON.parse(invasionFilterValue);
         if (invasionFilter.timers === undefined) {
-            invasionFilter.timers = { show: true, size: 'normal' };
+            invasionFilter.timers = { show: false, size: 'normal' };
             showInvasionTimers = true;
         } else {
             showInvasionTimers = invasionFilter.timers.show;
