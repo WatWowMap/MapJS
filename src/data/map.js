@@ -274,7 +274,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
         if (excludedLevels.length === 0) {
             excludeLevelSQL = '';
         } else {
-            let sqlExcludeCreate = 'AND (raid_pokemon_id > 0 OR raid_level NOT IN (';
+            let sqlExcludeCreate = 'AND (raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id > 0 OR raid_level NOT IN (';
             for (let i = 0; i < excludedLevels.length; i++) {
                 if (i === excludedLevels.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -286,7 +286,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
         }
 
         if (excludePokemonIds.length > 0) {
-            let sqlExcludeCreate = 'AND raid_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'AND (raid_pokemon_id NOT IN (';
             for (let i = 0; i < excludePokemonIds.length; i++) {
                 if (i === excludePokemonIds.length - 1) {
                     sqlExcludeCreate += '?)';
@@ -349,15 +349,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} OR (
-            (
-                (raid_pokemon_form = 0 ${sqlExcludePokemon})
-                OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
-            )
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} AND (
+            raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR 
+            (raid_pokemon_form = 0 ${sqlExcludePokemon}) OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
         )
     `;
     if (!showGyms) {
-        sql += ' AND raid_end_timestamp >= UNIX_TIMESTAMP()';
+        sql += ' AND raid_end_timestamp IS NOT NULL AND raid_end_timestamp >= UNIX_TIMESTAMP()';
     }
 
     let args = [minLat, maxLat, minLon, maxLon, updated];
