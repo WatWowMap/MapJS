@@ -73,6 +73,7 @@
     },
     "discord": {
         "enabled": true,
+        "status": "Map Status: Online",
         "botToken": "",
         "clientId": "",
         "clientSecret": "",
