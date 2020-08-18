@@ -3871,7 +3871,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
             // Stardust
             //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_stardust${true ? '_' + info.amount : ''}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
             // Candy
             //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
