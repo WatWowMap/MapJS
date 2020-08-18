@@ -346,7 +346,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} AND (
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} OR (
             (
                 (raid_pokemon_form = 0 ${sqlExcludePokemon})
                 OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
