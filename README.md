@@ -3,7 +3,7 @@
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
 
 ## Features  
-- Everything from RealDeviceMap  
+- Everything from RealDeviceMap UI Map  
 - Pokemon form filtering  
 - Raid Pokemon form filtering  
 - Nests and nest filtering  
