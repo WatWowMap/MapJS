@@ -179,12 +179,12 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button type="button" id="exportFilters" class="btn btn-primary">{{filter_export}}</button>
-                        <button type="button" id="importFilters" class="btn btn-primary">{{filter_import}}</button>
+                        <button type="button" id="exportFilters" class="btn btn-sm btn-primary">{{filter_export}}</button>
+                        <button type="button" id="importFilters" class="btn btn-sm btn-primary">{{filter_import}}</button>
                         <input type="file" id="importFiltersFile" accept="text/json" class="btn btn-primary" hidden>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
-                    <button type="button" id="saveFilters" class="btn btn-primary">{{filter_save}}</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
+                    <button type="button" id="saveFilters" class="btn btn-sm btn-primary">{{filter_save}}</button>
                 </div>
             </div>
         </div>
@@ -612,11 +612,71 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                        <button class="btn btn-sm btn-danger" onclick="clearSiteCache();">{{clear_cache}}</button>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
-                    <button type="button" id="saveSettings" class="btn btn-primary">{{filter_save}}</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
+                    <button type="button" id="saveSettings" class="btn btn-sm btn-primary">{{filter_save}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog-scroll modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">{{search_title}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-pills nav-fill mb-3 justify-content-center" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-reward-tab" data-toggle="pill" href="#pills-reward" role="tab" aria-controls="pills-reward" aria-selected="true">
+                                <img src="/img/misc/reward.png" width="32" height="auto"/>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-nest-tab" data-toggle="pill" href="#pills-nest" role="tab" aria-controls="pills-nest" aria-selected="false">
+                                <img src="/img/misc/nest.png" width="32" height="auto"/>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-gym-tab" data-toggle="pill" href="#pills-gym" role="tab" aria-controls="pills-gym" aria-selected="false">
+                                <img src="/img/misc/gym.png" width="32" height="auto"/>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-pokestop-tab" data-toggle="pill" href="#pills-pokestop" role="tab" aria-controls="pills-pokestop" aria-selected="false">
+                                <img src="/img/misc/pokestop.png" width="32" height="auto"/>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-reward" role="tabpanel" aria-labelledby="pills-reward-tab">
+                            <input id="search-reward" type="text" class="form-control" placeholder="Enter Reward Name..." autocomplete="off" />
+                            <div id="search-reward-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-nest" role="tabpanel" aria-labelledby="pills-nest-tab">
+                            <input id="search-nest" type="text" class="form-control" placeholder="Enter nest Pokemon or Type..." autocomplete="off" />
+                            <div id="search-nest-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-gym" role="tabpanel" aria-labelledby="pills-gym-tab">
+                            <input id="search-gym" type="text" class="form-control" placeholder="Enter Gym Name..." autocomplete="off" />
+                            <div id="search-gym-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-pokestop" role="tabpanel" aria-labelledby="pills-pokestop-tab">
+                            <input id="search-pokestop" type="text" class="form-control" placeholder="Enter Pokestop Name..." autocomplete="off" />
+                            <div id="search-pokestop-list" class="search-list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
             </div>
         </div>
@@ -628,6 +688,7 @@
     if ("{{style}}" === 'dark') {
         $('#settingsModal').css('color', 'rgb(255, 255, 255)');
         $('#filtersModal').css('color', 'rgb(255, 255, 255)');
+        $('#searchModal').css('color', 'rgb(255, 255, 255)');
         $('#mapstyleModal').css('color', 'rgb(255, 255, 255)');
         
         //$('.darkInvert').css('filter', 'invert(100%)');
@@ -635,6 +696,7 @@
         $('.modal-header').css('color', 'white');
         $('.modal-body').css('background-color', 'rgb(33, 37, 31)');
         $('.modal-footer').css('background-color', 'rgb(33, 37, 31)');
+        $('.close').css('color', 'rgb(255, 255, 255)');
         //$('.leaflet-control-custom').css('background-color', 'rgb(33, 37, 31)');
         //$('.leaflet-tooltip').css('background-color', 'rgb(33, 37, 31)');
         //$('.leaflet-control').css('background-color', 'rgb(33, 37, 31)');

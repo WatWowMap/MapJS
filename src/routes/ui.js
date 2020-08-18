@@ -16,10 +16,8 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        req.session.destroy((err) => {
-            if (err) throw err;
-            res.redirect('/login');
-        });
+        req.session = null;
+        res.redirect('/login');
     });
 }
 
@@ -63,6 +61,15 @@ router.get('/@/:city', async (req, res) => {
 router.get('/@/:city/:zoom', async (req, res) => {
     const data = await handlePage(req, res);
     res.render('index', data);
+});
+
+router.get('/purge', async (req, res) => {
+    let target = req.query.target;
+    if (!target || !target.startsWith('/')) {
+        target = '/';
+    }
+    res.set('Clear-Site-Data', '"cache"');
+    res.redirect(target);
 });
 
 
@@ -145,6 +152,7 @@ const handlePage = async (req, res) => {
     data.page_is_home = true;
     data.page_is_areas = true;
     data.show_areas = true;
+    data.timestamp = Date.now();
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;

@@ -4,7 +4,7 @@ const path = require('path');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const session = require('express-session');
+const cookieSession = require('cookie-session')
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
@@ -67,11 +67,10 @@ app.use((req, res, next) => {
 i18n.setLocale(config.locale);
 
 // Sessions middleware
-app.use(session({
-    secret: utils.generateString(),
-    cookie: { maxAge: 86400000 },
-    resave: true,
-    saveUninitialized: true
+app.use(cookieSession({
+    name: 'session',
+    keys: [config.sessionSecret],
+    maxAge: 518400000
 }));
 
 // CSRF token middleware
@@ -112,10 +111,6 @@ if (config.discord.enabled) {
 // Login middleware
 app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
-        return next();
-    }
-    if (req.session.valid && req.session.user_id && req.session.username && req.session.guilds && req.session.roles) {
-        //console.log("Previous discord auth still active for user id:", req.session.user_id);
         return next();
     }
     if (!config.discord.enabled || req.session.logged_in) {

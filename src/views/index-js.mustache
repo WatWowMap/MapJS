@@ -77,6 +77,7 @@ let showWeather;
 let showDevices;
 let showScanAreas;
 let showRaidTimers;
+let showInvasionTimers;
 let showSubmissionCells;
 
 let availableForms = [];
@@ -260,13 +261,13 @@ $(function () {
         iconUrl: availableIconStyles[selectedIconStyle] + '/device/0.png',
         iconSize: [30, 30],
         iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
+        popupAnchor: [0, 30 * -.6]
     });
     deviceOfflineIcon = L.icon({
         iconUrl: availableIconStyles[selectedIconStyle] + '/device/1.png',
         iconSize: [30, 30],
         iconAnchor: [30 / 2, 30 / 2],
-        popupAnchor: [0, 30 * -1.567]
+        popupAnchor: [0, 30 * -.6]
     });
     
     $('#filtersModal').on('show.bs.modal', function () {
@@ -604,12 +605,20 @@ function loadStorage () {
         showDevices = (showDevicesValue === 'true');
     }
 
-    const showRaidTimersValue = retrieve('show_devices');
+    const showRaidTimersValue = retrieve('show_raid_timers');
     if (showRaidTimersValue === null) {
         store('show_raid_timers', true); // TODO: Set default option in config
         showRaidTimers = true;
     } else {
         showRaidTimers = (showRaidTimersValue === 'true');
+    }
+
+    const showInvasionTimersValue = retrieve('show_invasion_timers');
+    if (showInvasionTimersValue === null) {
+        store('show_invasion_timers', false); // TODO: Set default option in config
+        showInvasionTimers = false;
+    } else {
+        showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
     const pokemonFilterValue = retrieve('pokemon_filter');
@@ -730,7 +739,8 @@ function loadStorage () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (defaultRaidFilter['p' + id] === undefined) {
                 defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -753,7 +763,8 @@ function loadStorage () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (raidFilter['p' + id] === undefined) {
                 raidFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -835,6 +846,9 @@ function loadStorage () {
     const invasionFilterValue = retrieve('invasion_filter');
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
+        if (defaultInvasionFilter.timers === undefined) {
+            defaultInvasionFilter.timers = { show: false, size: 'normal' };
+        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (defaultInvasionFilter['i' + i] === undefined) {
@@ -846,6 +860,12 @@ function loadStorage () {
         invasionFilter = defaultInvasionFilter;
     } else {
         invasionFilter = JSON.parse(invasionFilterValue);
+        if (invasionFilter.timers === undefined) {
+            invasionFilter.timers = { show: false, size: 'normal' };
+            showInvasionTimers = true;
+        } else {
+            showInvasionTimers = invasionFilter.timers.show;
+        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (invasionFilter['i' + i] === undefined) {
@@ -1145,7 +1165,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
         }
 
@@ -1163,7 +1184,9 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            console.log(poke);
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
         }
 
@@ -1181,7 +1204,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: masterfile.pokemon[id].legendary || masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
@@ -1199,7 +1223,8 @@ function initMap () {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[id].legendary && !masterfile.pokemon[id].mythic, size: 'normal' };
         }
 
@@ -1273,6 +1298,7 @@ function initMap () {
 
     $('#reset-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: true, size: 'normal' };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
         }
@@ -1285,6 +1311,7 @@ function initMap () {
 
     $('#disable-all-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: false, size: invasionFilterNew.timers.size };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
         }
@@ -1465,12 +1492,6 @@ function initMap () {
         }
         if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
-            /*
-            $.each(nestMarkers, function (index, nest) {
-                //map.removeLayer(nest.marker);
-                nestLayer.removeLayer(nest.marker);
-            });
-            */
             nestMarkers = [];
         }
         if (newShowCells !== showCells && newShowCells === false) {
@@ -1559,6 +1580,11 @@ function initMap () {
             showRaidTimers = newShowRaidTimers;
         }
 
+        const newShowInvasionTimers = invasionFilter.timers.show;
+        if (newShowInvasionTimers !== showInvasionTimers) {
+            showInvasionTimers = newShowInvasionTimers;
+        }
+
         showGyms = newShowGyms;
         store('show_gyms', newShowGyms);
         store('gym_filter', JSON.stringify(gymFilter));
@@ -1609,6 +1635,7 @@ function initMap () {
         store('device_filter', JSON.stringify(deviceFilter));
 
         store('show_raid_timers', newShowRaidTimers);
+        store('show_invasion_timers', newShowInvasionTimers);
 
         lastUpdateServer = 0;
         loadData();
@@ -1630,6 +1657,13 @@ function initMap () {
         map.invalidateSize();
 
         $('#settingsModal').modal('hide');
+    });
+
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+        let input = e.target;
+        if (input) {
+            loadSearchData(input.id, input.value);
+        }
     });
 
     const CustomControlFilters = L.Control.extend({
@@ -1758,7 +1792,7 @@ function initMap () {
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block;"></i></a>';
+            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block"></i></a>';
             container.onclick = function () {
                 $('#settingsModal').modal('show');
             };
@@ -1767,6 +1801,22 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlSettings());
+
+    const CustomControlSearch = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.innerHTML = '<a href="#"><i class="fas fa-search" style="width: 21px; height: 21px;" class="center-block"></i></a>';
+            container.onclick = function () {
+                $('#searchModal').modal('show');
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new CustomControlSearch());
 
     map.on('zoomend', function () {
         if (showCells && map.getZoom() < 13) {
@@ -1820,6 +1870,56 @@ function initMap () {
             loadScanAreaPolygons();
         }
     });
+}
+
+function loadSearchData (id, value) {
+    let center = map.getCenter();
+    let elementId = `#${id}-list`;
+    if (!value) {
+        $(elementId).hide();
+        return;
+    }
+    $.ajax({
+        url: '/api/search',
+        type: 'POST',
+        data: {
+            id: id,
+            value: value,
+            lat: center.lat,
+            lon: center.lng,
+            _csrf: '{{csrf}}'
+        },
+        timeout: 30000,
+        dataType: 'json',
+        success: function(result) {
+            if (result === null || result.data === null) {
+                $(elementId).hide();
+                return;
+            }
+            let html = '<ul id="search-list" class="list-group">';
+            for (let i = 0; i < result.data.length; i++) {
+                const item = result.data[i];
+                html += '<li class="list-group-item list-group-item-action" style="padding: 0 0 0 0; background-color: rgb(33, 37, 31); border: 1px solid black">';
+                html += `<img src='${item.url}' width='24' height='auto' />&nbsp;`;
+                if (item.url2) {
+                    html += `<img src='${item.url2}' width='24' height='auto' />&nbsp;`;
+                }
+                html += `<a href="#" onclick="centerOnMap(${item.lat}, ${item.lon});">${item.name} - ${item.distance} km away</a>`;
+                html += '</li>';
+            }
+            html += '</ul>';
+            $(elementId).show();
+            $(elementId).html(html);
+        }
+    });
+}
+
+function centerOnMap(lat, lon) {
+    $('#searchModal').modal('toggle');
+    let latlng = new L.LatLng(lat, lon);
+    let zoom = '{{max_zoom}}';
+    map.setView(latlng, zoom);
+    // TODO: Click marker popup? Search markers, if lat/lon same open popup
 }
 
 
@@ -1919,7 +2019,8 @@ function loadData () {
             }
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
-            let id = availableRaidBosses[i];
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             if (raidFilter['p' + id].show === false) {
                 raidFilterExclude.push('p' + id);
             }
@@ -2046,7 +2147,7 @@ function loadData () {
     loadRequest = $.ajax({
         url: '/api/get_data',
         data: data,
-        type: 'post',
+        type: 'POST',
         async: true,
         success: function (data) {
             const gyms = data.data.gyms;
@@ -2084,10 +2185,12 @@ function loadData () {
 
                         if (oldGym.availble_slots !== gym.availble_slots ||
                             oldGym.team_id !== gym.team_id ||
+                            oldGym.in_battle !== gym.in_battle ||
                             oldGym.raid_end_timestamp !== gym.raid_end_timestamp ||
                             oldGym.raid_pokemon_id !== gym.raid_pokemon_id) {
                             oldGym.availble_slots = gym.availble_slots;
                             oldGym.team_id = gym.team_id;
+                            oldGym.in_battle = gym.in_battle;
                             oldGym.raid_end_timestamp = gym.raid_end_timestamp;
                             oldGym.raid_battle_timestamp = gym.raid_battle_timestamp;
                             oldGym.raid_spawn_timestamp = gym.raid_spawn_timestamp;
@@ -2146,8 +2249,13 @@ function loadData () {
                         if (pokestop.incident_expire_timestamp >= ts) {
                             pokestop.willUpdate = true;
                             startPokestopTimer(pokestop, pokestop.incident_expire_timestamp, ts);
+                            pokestop.invasionTimerSet = true;
+                            if (showInvasionTimers) {
+                                setDespawnTimer(pokestop);
+                            }
                         } else {
                             pokestop.willUpdate = false;
+                            pokestop.invasionTimerSet = false;
                         }
                     } else {
                         if (oldPokestop.lure_expire_timestamp !== pokestop.lure_expire_timestamp) {
@@ -2181,6 +2289,10 @@ function loadData () {
                         if (oldPokestop.willUpdate === false && oldPokestop.incident_expire_timestamp >= ts) {
                             oldPokestop.willUpdate = true;
                             startPokestopTimer(oldPokestop, oldPokestop.incident_expire_timestamp, ts);
+                            oldPokestop.invasionTimerSet = true;
+                            if (showInvasionTimers) {
+                                setDespawnTimer(oldPokestop);
+                            }
                         }
                     }
                 }
@@ -2555,6 +2667,11 @@ function getGymSize (teamId) {
 }
 
 function getRaidSize (id) {
+    if (raidFilter[id] === undefined) {
+        // TODO: Fix raid filter sizing
+        //console.log('raidFilter[id] undefined:', id, raidFilter);
+        return 40;
+    }
     const size = raidFilter[id].size;
     if (size === 'huge') {
         return 75;
@@ -2571,8 +2688,6 @@ function getPokestopSize (id) {
     }
     return 30;
 }
-
-// TODO: Calculate spawnpoint size?
 
 
 // MARK: - Local Storage
@@ -2724,6 +2839,16 @@ function updateMapTimers () {
             return;
         }
         if (showRaidTimers) {
+            setDespawnTimer(marker);
+        } else {
+            marker.marker.unbindTooltip();
+        }
+    });
+    $.each(pokestopMarkers, function (index, marker) {
+        if (!bounds.contains(marker)) {
+            return;
+        }
+        if (showInvasionTimers) {
             setDespawnTimer(marker);
         } else {
             marker.marker.unbindTooltip();
@@ -3094,7 +3219,6 @@ function getGymPopupContent (gym) {
         //titleSize = 'small';
         titleSize = 14;
     }
-    console.log('Title size:', titleSize);
 
     let content =
     '<div class="row">' + // START 1ST ROW
@@ -3674,7 +3798,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconUrl: '/img/pokemon/1.png',
                 iconSize: [30, 30],
                 iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -1.567]
+                popupAnchor:  [0, 30 * -.6]
             });
             return L.marker(latlng, {icon: icon});
         },
@@ -3692,7 +3816,7 @@ function getNestMarker (nest, geojson, ts) {
             const icon = L.divIcon({
                 iconSize: [40, 40],
                 iconAnchor: [40 / 2, 40 / 2],
-                popupAnchor: [0, 30 * -1.567],
+                popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
                 html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(nest.pokemon_id, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
             });
@@ -3701,7 +3825,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
                 iconSize: [30, 30],
                 iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -1.567],
+                popupAnchor:  [0, 30 * -.6],
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 shadowSize:  [41, 41]
             });
@@ -3750,7 +3874,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
     const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
-        popupAnchor: [0, -(size / 2)],
+        popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
         html: `<center><img src="${availableIconStyles[selectedIconStyle]}/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
         (
@@ -3786,11 +3910,8 @@ function getPokemonMarker (pokemon, ts) {
 }
 
 function getPokestopMarkerIcon (pokestop, ts) {
-    let iconSize = 30;
-    let iconHtml = '<span class="text-nowrap text-center">';
-    let iconUrl = '';
-    let sizeId = '0';
-    let iconAnchor = [];
+    let questSize = 0;
+    let iconHtml = '';
     const lureIconId = getLureIconId(pokestop.lure_id);
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
@@ -3798,6 +3919,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
         let rewardString;
+        let iconUrl;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
             iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-2.png`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
@@ -3818,35 +3940,28 @@ function getPokestopMarkerIcon (pokestop, ts) {
                 iconUrl = `${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
             }
         }
-        iconHtml += `<img src="${iconUrl}" style="width:${iconSize}px;height:auto; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/>`;
-        iconSize = getQuestSize(rewardString);
-        iconAnchor = [iconSize / 2, iconSize * 1.9];//1.567];
-    } else {
-        iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567];
+        questSize = getQuestSize(rewardString);
+        iconHtml += `<img src="${iconUrl}" style="width:${questSize}px;height:${questSize}px; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/><br>`;
     }
+    let sizeId = '0';
     if (activeInvasion && activeLure) {
         sizeId = 'i' + lureIconId;
-        iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize * 1.567];
     } else if (activeInvasion) {
         sizeId = 'i0';
-        iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
     } else if (activeLure) {
         sizeId = lureIconId;
-        iconSize = getPokestopSize(sizeId);
-        iconAnchor = [iconSize / 2, iconSize];// * 1.567],
     }
-    iconHtml += '</span>';
+    const stopSize = getPokestopSize(sizeId);
+    const iconWidth = Math.max(questSize, stopSize);
+    const iconAnchorY = questSize + stopSize * .896;
     const icon = L.divIcon({
-        iconSize: [iconSize, iconSize],
-        iconAnchor: iconAnchor,
-        popupAnchor: [0, iconSize * -1.567],
+        iconSize: [iconWidth, questSize + stopSize],
+        iconAnchor: [iconWidth / 2, iconAnchorY],
+        popupAnchor: [0, -8 - iconAnchorY],
         className: 'pokestop-marker',
         html: activeInvasion
-            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
-            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/pokestop/${sizeId}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${stopSize}px;height:${stopSize}px; background-color:transparent;"/></center>`
+            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle]}/pokestop/${sizeId}.png" style="width:${stopSize}px;height:${stopSize}px; background-color:transparent;"/></center>`
     });
     return icon;
 }
@@ -3915,43 +4030,42 @@ function getGymMarkerIcon (gym, ts) {
     }
 
     const raidLevel = gym.raid_level;
-    let iconSize;
+    let raidSize = 0;
     let iconHtml = '';
-    let ignoreGymIcon = false;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
-            iconSize = getRaidSize('p' + gym.raid_pokemon_id);
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+            raidSize = getRaidSize('p' + gym.raid_pokemon_id);
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
         } else {
             // Egg
-            iconSize = getRaidSize('l' + raidLevel);
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/unknown_egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+            raidSize = getRaidSize('l' + raidLevel);
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/unknown_egg/${raidLevel}.png" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
-        iconSize = getRaidSize('l' + raidLevel);
-        iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/egg/${raidLevel}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
+        raidSize = getRaidSize('l' + raidLevel);
+        iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/egg/${raidLevel}.png" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
+    }
+    // Gym
+    let gymSize;
+    if (gym.in_battle) {
+        // Gym Battle
+        gymSize = 55; //Set Larger Size For Battle
+        iconHtml += `<img src="${availableIconStyles[selectedIconStyle]}/battle/${gym.team_id}_${size}.png" style="width:${gymSize}px;height:${gymSize}px; background-color:transparent;"/>`;
     } else {
         // Gym
-        if (gym.in_battle) {
-            // Gym Battle
-            iconSize = 55; //Set Larger Size For Battle
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle]}/battle/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/>`;
-            ignoreGymIcon = true;
-        } else {
-            // Gym
-            iconSize = getGymSize(gym.team_id);
-        }
+        gymSize = getGymSize(gym.team_id);
+        iconHtml += `<img src="${availableIconStyles[selectedIconStyle]}/gym/${gym.team_id}_${size}.png" style="width:${gymSize}px;height:${gymSize}px; background-color:transparent;"/>`;
     }
+    const iconWidth = Math.max(raidSize, gymSize);
+    const iconAnchorY = raidSize + gymSize * .917;
     const icon = L.divIcon({
-        iconSize: [iconSize, iconSize],
-        iconAnchor: [iconSize / 2, iconSize * 1.567],
-        popupAnchor: [0, iconSize * -1.567], // 0, -20
+        iconSize: [iconWidth, raidSize + gymSize],
+        iconAnchor: [iconWidth / 2, iconAnchorY],
+        popupAnchor: [0, -8 - iconAnchorY],
         className: 'gym-marker',
-        html: ignoreGymIcon
-            ? `<center>${iconHtml}<br></center>`
-            : `<center>${iconHtml}<br><img src="${availableIconStyles[selectedIconStyle]}/gym/${gym.team_id}_${size}.png" style="width:${iconSize}px;height:auto; background-color:transparent;"/><br></center>`
+        html: `<center>${iconHtml}</center>`
     });
     return icon;
 }
@@ -4027,30 +4141,46 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (gym) {
+function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
-    if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+    if (marker.raid_battle_timestamp <= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Hatched
-        raidTimestamp = gym.raid_end_timestamp;
-    } else if (gym.raid_battle_timestamp >= ts && gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
+        raidTimestamp = marker.raid_end_timestamp;
+    } else if (marker.raid_battle_timestamp >= ts && marker.raid_end_timestamp >= ts && parseInt(marker.raid_level) > 0 && showRaids) {
         // Egg
-        raidTimestamp = gym.raid_battle_timestamp;
+        raidTimestamp = marker.raid_battle_timestamp;
     } else {
-        gym.marker.unbindTooltip();
-        gym.marker.timerSet = false;
+        marker.marker.unbindTooltip();
+        marker.marker.timerSet = false;
+    }
+
+    if (marker.incident_expire_timestamp < ts) {
+        marker.marker.timerSet = false;
     }
 
     if (raidTimestamp > 0) {
         const timer = getTimeUntill(new Date(raidTimestamp * 1000));
-        if (gym.marker.timerSet) {
-            const text = '<div class=\'rounded raid-timer\'><span class=\'p-1\'>' + timer + '</span></div>';
-            gym.marker.setTooltipContent(text);
+        if (marker.marker.timerSet) {
+            const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
+            marker.marker.setTooltipContent(text);
         } else {
             const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
-            /* let tooltip = */ gym.marker.bindTooltip(timer, options);
-            gym.marker.timerSet = true;
+            /* let tooltip = */ marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
+        }
+    }
+
+    if (marker.incident_expire_timestamp >= ts && showInvasions) {
+        const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
+        if (marker.marker.timerSet) {
+            const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
+            marker.marker.setTooltipContent(text);
+        } else {
+            const options = { permanent: true, className: 'leaflet-tooltip invasion-timer span p-0', direction: 'bottom', offset: [0, 0] };
+            marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
         }
     }
 }
@@ -4419,6 +4549,27 @@ function manageSelectButton (e, isNew) {
             break;
         case 'huge':
             shouldShow = invasionFilterNew['i' + id].size === 'huge';
+            break;
+        }
+    } else if (type === 'invasion-timers') {
+        switch (info) {
+        case 'hide':
+            shouldShow = invasionFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = invasionFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = invasionFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = invasionFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = invasionFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = invasionFilterNew[id].size === 'huge';
             break;
         }
     } else if (type === 'spawnpoint-timer') {
@@ -4874,6 +5025,27 @@ function manageSelectButton (e, isNew) {
                     invasionFilterNew['i' + id].size = 'huge';
                     break;
                 }
+            } else if (type === 'invasion-timers') {
+                switch (info) {
+                case 'hide':
+                    invasionFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    invasionFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    invasionFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    invasionFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    invasionFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    invasionFilterNew[id].size = 'huge';
+                    break;
+                }
             } else if (type === 'spawnpoint-timer') {
                 switch (info) {
                 case 'hide':
@@ -5283,7 +5455,6 @@ function convertAreaToSqkm(value) {
 // MARK: - Init Filter
 
 function loadPokemonFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-pokemon').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5329,7 +5500,7 @@ function loadPokemonFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5389,7 +5560,6 @@ function loadPokemonFilter () {
 }
 
 function loadQuestFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-quest').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5429,7 +5599,7 @@ function loadQuestFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5487,7 +5657,6 @@ function loadQuestFilter () {
 }
 
 function loadRaidFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-raid').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5527,7 +5696,7 @@ function loadRaidFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5585,7 +5754,6 @@ function loadRaidFilter () {
 }
 
 function loadGymFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-gym').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5625,7 +5793,7 @@ function loadGymFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5683,7 +5851,6 @@ function loadGymFilter () {
 }
 
 function loadPokestopFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-pokestop').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5723,7 +5890,7 @@ function loadPokestopFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5781,7 +5948,6 @@ function loadPokestopFilter () {
 }
 
 function loadInvasionFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-invasion').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5821,7 +5987,7 @@ function loadInvasionFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5879,7 +6045,6 @@ function loadInvasionFilter () {
 }
 
 function loadSpawnpointFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-spawnpoint').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -5919,7 +6084,7 @@ function loadSpawnpointFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -5977,7 +6142,6 @@ function loadSpawnpointFilter () {
 }
 
 function loadNestFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-nest').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -6017,7 +6181,7 @@ function loadNestFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -6075,7 +6239,6 @@ function loadNestFilter () {
 }
 
 function loadWeatherFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-weather').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -6114,7 +6277,7 @@ function loadWeatherFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -6172,7 +6335,6 @@ function loadWeatherFilter () {
 }
 
 function loadDeviceFilter () {
-    const scrollHeight = $(document).height() * 0.5;
     const table = $('#table-filter-device').DataTable({
         language: {
             search: i18n('filter_table_search'),
@@ -6212,7 +6374,7 @@ function loadDeviceFilter () {
             targets: 2
         }],
         deferRender: true,
-        scrollY: scrollHeight,
+        scrollY: '50vh',
         scrollCollapse: false,
         scroller: true,
         lengthChange: false,
@@ -6541,4 +6703,12 @@ function loadFilterSettings (e) {
         $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     };
     reader.readAsText(file);
+}
+
+function clearSiteCache() {
+    if (window.location.reload.length == 1) {
+        window.location.reload(true);
+    } else {
+        window.location.href = '/purge?target=' + encodeURIComponent(window.location.pathname);
+    }
 }

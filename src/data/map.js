@@ -1,14 +1,19 @@
 /* global BigInt */
 'use strict';
 
+const i18n = require('i18n');
 const S2 = require('nodes2ts');
+const sanitizer = require('sanitizer');
 
 const config = require('../config.json');
 const MySQLConnector = require('../services/mysql.js');
+const utils = require('../services/utils.js');
+
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
+
 
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     const excludePokemonIds = [];
@@ -200,11 +205,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
 
 const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showRaids, showGyms, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
-    let excludedPokemon = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
     let excludedTeams = []; //int
     let excludedAvailableSlots = []; //int
+
+    let excludePokemonIds = [];
+    let excludeFormIds = [];
 
     if (showRaids && raidFilterExclude) {
         for (let i = 0; i < raidFilterExclude.length; i++) {
@@ -213,8 +220,24 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
                 const id = parseInt(filter.replace('l', ''));
                 excludedLevels.push(id);
             } else if (filter.includes('p')) {
-                const id = parseInt(filter.replace('p', ''));
-                excludedPokemon.push(id);
+                const key = filter.replace('p', '');
+                const split = key.split('-');
+                if (split.length === 2) {
+                    const pokemonId = parseInt(split[0]);
+                    const formId = parseInt(split[1]);
+                    if (formId === 0) {
+                        excludePokemonIds.push(pokemonId);
+                    } else {
+                        excludeFormIds.push(formId);
+                    }
+                } else {
+                    const id = parseInt(key);
+                    if (id) {
+                        if (!excludePokemonIds.includes(id)) {
+                            excludePokemonIds.push(id);
+                        }
+                    }
+                }
             }
         }
     }
@@ -236,8 +259,9 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
         }
     }
 
+    let sqlExcludePokemon = '';
+    let sqlExcludeForms = '';
     let excludeLevelSQL = '';
-    let excludePokemonSQL = '';
     let excludeAllButExSQL = '';
     let excludeAllButBattlesSQL = '';
     let excludeTeamSQL = '';
@@ -258,23 +282,22 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
             excludeLevelSQL = sqlExcludeCreate;
         }
 
-        if (excludedPokemon.length === 0) {
-            excludePokemonSQL = '';
-        } else {
-            let sqlExcludeCreate = 'AND (raid_pokemon_id NOT IN (';
-            for (let i = 0; i < excludedPokemon.length; i++) {
-                if (i === excludedPokemon.length - 1) {
-                    sqlExcludeCreate += '?))';
+        if (excludePokemonIds.length > 0) {
+            let sqlExcludeCreate = 'AND raid_pokemon_id NOT IN (';
+            for (let i = 0; i < excludePokemonIds.length; i++) {
+                if (i === excludePokemonIds.length - 1) {
+                    sqlExcludeCreate += '?)';
                 } else {
                     sqlExcludeCreate += '?, ';
                 }
             }
-            excludePokemonSQL = sqlExcludeCreate;
+            sqlExcludePokemon = sqlExcludeCreate;
         }
-    } else {
-        excludeLevelSQL = '';
-        excludePokemonSQL = '';
+        for (let i = 0; i < excludeFormIds.length; i++) {
+            sqlExcludeForms += ', ?';
+        }
     }
+
     if (excludedTeams.length === 0) {
         excludeTeamSQL = '';
     } else {
@@ -322,8 +345,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
-        ${excludeLevelSQL} ${excludePokemonSQL} ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL} ${excludeAllButBattlesSQL}
+        ${excludeLevelSQL} ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} AND (
+            (
+                (raid_pokemon_form = 0 ${sqlExcludePokemon})
+                OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
+            )
+        )
     `;
     if (raidsOnly) {
         sql += ' AND raid_end_timestamp >= UNIX_TIMESTAMP()';
@@ -333,14 +361,17 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, raidsOnly, showR
     for (let i = 0; i < excludedLevels.length; i++) {
         args.push(excludedLevels[i]);
     }
-    for (let i = 0; i < excludedPokemon.length; i++) {
-        args.push(excludedPokemon[i]);
-    }
     for (let i = 0; i < excludedTeams.length; i++) {
         args.push(excludedTeams[i]);
     }
     for (let i = 0; i < excludedAvailableSlots.length; i++) {
         args.push(excludedAvailableSlots[i]);
+    }
+    for (let i = 0; i < excludePokemonIds.length; i++) {
+        args.push(excludePokemonIds[i]);
+    }
+    for (let i = 0; i < excludeFormIds.length; i++) {
+        args.push(excludeFormIds[i]);
     }
 
     const results = await db.query(sql, args)
@@ -792,10 +823,10 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
 };
 
 const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = parseFloat(minLat - 0.001);
-    let maxLatReal = parseFloat(maxLat + 0.001);
-    let minLonReal = parseFloat(minLon - 0.001);
-    let maxLonReal = parseFloat(maxLon + 0.001);
+    let minLatReal = minLat - 0.001;
+    let maxLatReal = maxLat + 0.001;
+    let minLonReal = minLon - 0.001;
+    let maxLonReal = maxLon + 0.001;
 
     let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
@@ -828,14 +859,14 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(new S2.S2LatLng(coord));
+        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 17;
         regionCoverer.maxLevel = 17;
         regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
-        let level17Cell = coveringCells[0];// TODO: .parent(17);
+        let level17Cell = coveringCells[0].parentL(17);
         let cellId = BigInt(level17Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -850,10 +881,10 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
 };
 
 const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
-    let minLatReal = parseFloat(minLat - 0.01);
-    let maxLatReal = parseFloat(maxLat + 0.01);
-    let minLonReal = parseFloat(minLon - 0.01);
-    let maxLonReal = parseFloat(maxLon + 0.01);
+    let minLatReal = minLat - 0.01;
+    let maxLatReal = maxLat + 0.01;
+    let minLonReal = minLon - 0.01;
+    let maxLonReal = maxLon + 0.01;
 
     let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
@@ -1041,6 +1072,156 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
+const getSearchData = async (lat, lon, id, value) => {
+    let sql = '';
+    let args = [lat, lon, lat];
+    let useManualDb = false;
+    let conditions = [];
+    let sanitizedValue = sanitizer.sanitize(value);
+    sanitizedValue = sanitizedValue.toLowerCase();
+    switch (id) {
+        case 'search-reward':
+            let pokemonIds = getPokemonIdsByName(sanitizedValue);
+            let pokemonRewardSQL = '';
+            if (pokemonIds.length > 0) {
+                // TODO: Search by form
+                pokemonRewardSQL = 'quest_pokemon_id IN (';
+                for (let i = 0; i < pokemonIds.length; i++) {
+                    const pokemonId = pokemonIds[i];
+                    pokemonRewardSQL += '?';
+                    if (i !== pokemonIds.length - 1) {
+                        pokemonRewardSQL += ',';
+                    }
+                    args.push(pokemonId);
+                }
+                pokemonRewardSQL += ')';
+                conditions.push(pokemonRewardSQL);
+            }
+            let itemIds = getItemIdsByName(sanitizedValue);
+            let itemsSQL = '';
+            if (itemIds.length > 0) {
+                itemsSQL = 'quest_item_id IN (';
+                for (let i = 0; i < itemIds.length; i++) {
+                    const id = itemIds[i];
+                    itemsSQL += '?';
+                    if (i !== itemIds.length - 1) {
+                        itemsSQL += ',';
+                    }
+                    args.push(id);
+                }
+                itemsSQL += ')';
+                conditions.push(itemsSQL);
+            }
+            let questTypes = getQuestTypesByName(sanitizedValue);
+            let questTypesSQL = '';
+            if (questTypes.length > 0) {
+                questTypesSQL = 'quest_type IN (';
+                for (let i = 0; i < questTypes.length; i++) {
+                    const id = questTypes[i];
+                    questTypesSQL += '?';
+                    if (i !== questTypes.length - 1) {
+                        questTypesSQL += ',';
+                    }
+                    args.push(id);
+                }
+                questTypesSQL += ')';
+                conditions.push(questTypesSQL);
+            }
+            let questRewardTypes = getQuestRewardTypesByName(sanitizedValue);
+            let questRewardTypesSQL = '';
+            if (questRewardTypes.length > 0) {
+                questRewardTypesSQL = 'quest_reward_type IN (';
+                for (let i = 0; i < questRewardTypes.length; i++) {
+                    const id = questRewardTypes[i];
+                    questRewardTypesSQL += '?';
+                    if (i !== questRewardTypes.length - 1) {
+                        questRewardTypesSQL += ',';
+                    }
+                    args.push(id);
+                }
+                questRewardTypesSQL += ')';
+                conditions.push(questRewardTypesSQL);
+            }
+            sql = `
+            SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id, quest_reward_type,
+                json_extract(json_extract('quest_rewards','$[*].info.form_id'),'$[0]') AS quest_pokemon_form_id,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM pokestop
+            WHERE ${conditions.join(' OR ') || 'FALSE'}
+            `;
+            break;
+        case 'search-nest':
+            let ids = getPokemonIdsByName(sanitizedValue);
+            let pokemonSQL = '';
+            if (ids.length > 0) {
+                pokemonSQL = 'OR pokemon_id IN (';
+                for (let i = 0; i < ids.length; i++) {
+                    const nestPokemonId = ids[i];
+                    pokemonSQL += '?';
+                    if (i !== ids.length - 1) {
+                        pokemonSQL += ',';
+                    }
+                    args.push(nestPokemonId);
+                }
+                pokemonSQL += ')';
+            }
+            sql = `
+            SELECT name, lat, lon, pokemon_id,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM nests
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
+            `;
+            useManualDb = true;
+            break;
+        case 'search-gym':
+            sql = `
+            SELECT id, name, lat, lon, url,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM gym
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%'
+            `;
+            break;
+        case 'search-pokestop':
+            sql = `
+            SELECT id, name, lat, lon, url,
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM pokestop
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%'
+            `;
+            break;
+    }
+    sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
+    let results = useManualDb
+        ? await dbManual.query(sql, args)
+        : await db.query(sql, args);
+    if (results && results.length > 0) {
+        switch (id) {
+            case 'search-reward':
+                for (let i = 0; i < results.length; i++) {
+                    let result = results[i];
+                    // TODO: Check quest types
+                    if (result.quest_item_id > 0) {
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
+                    } else if (result.quest_pokemon_id > 0) {
+                        const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                    } else if (result.quest_reward_type === 3) {
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
+                    }
+                }
+                break;
+            case 'search-nest':
+                for (let i = 0; i < results.length; i++) {
+                    let result = results[i];
+                    result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                }
+                break;
+        }
+        return results;
+    }
+    return null;
+};
+
 const getPolygon = (s2cellId) => {
     let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
     let polygon = [];
@@ -1122,7 +1303,7 @@ const sqlifyIvFilter = (filter) => {
 
 const getAvailableRaidBosses = async () => {
     let sql = `
-    SELECT raid_pokemon_id
+    SELECT raid_pokemon_id, raid_pokemon_form
     FROM gym
     WHERE raid_end_timestamp > UNIX_TIMESTAMP()
         AND raid_pokemon_id > 0
@@ -1130,7 +1311,9 @@ const getAvailableRaidBosses = async () => {
     `;
     let result = await db.query(sql);
     if (result) {
-        return result.map(x => x.raid_pokemon_id);
+        return result.map(x => {
+            return { id: x.raid_pokemon_id, form_id: x.raid_pokemon_form };
+        });
     }
     return result;
 };
@@ -1160,6 +1343,56 @@ const getAvailableNestPokemon = async () => {
     return result;
 };
 
+const getPokemonIdsByName = (search) => {
+    const pokemon = masterfile.pokemon;
+    const keys = Object.keys(pokemon);
+    const filtered = keys.filter(x => {
+        if (x !== 0) {
+            const name = i18n.__('poke_' + x) || '';
+            if (name.toLowerCase().includes(search.toLowerCase())) {
+                return x;
+            }
+        }
+    });
+    return filtered;
+};
+
+const getItemIdsByName = (search) => {
+    const items = masterfile.items;
+    const keys = Object.keys(items);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('item_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
+const getQuestTypesByName = (search) => {
+    const questTypes = masterfile.quest_types;
+    const keys = Object.keys(questTypes);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('quest_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
+const getQuestRewardTypesByName = (search) => {
+    const questRewardTypes = masterfile.quest_reward_types;
+    const keys = Object.keys(questRewardTypes);
+    const filtered = keys.filter(x => {
+        const name = i18n.__('quest_reward_' + x) || '';
+        if (name.toLowerCase().includes(search)) {
+            return x;
+        }
+    });
+    return filtered;
+};
+
 class Ring {
     constructor(lat, lon, radius) {
         this.id = `${lat}-${lon}-${radius}`;
@@ -1180,6 +1413,7 @@ module.exports = {
     getSubmissionTypeCells,
     getWeather,
     getNests,
+    getSearchData,
     getAvailableRaidBosses,
     getAvailableQuests,
     getAvailableNestPokemon
