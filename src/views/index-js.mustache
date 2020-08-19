@@ -1033,7 +1033,7 @@ function initMap () {
         }
 
         defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
-        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
+        defaultPokemonFilter.iv_or = { on: true, filter: '100' };
         defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
         defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
@@ -5244,6 +5244,42 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
 
 function isCommonPokemon(pokemonId) {
     return pokemonRarityDb.common.includes(pokemonId);
+}
+
+function isUncommonPokemon(pokemonId) {
+    return pokemonRarityDb.uncommon.includes(pokemonId);
+}
+
+function isRarePokemon(pokemonId) {
+    return pokemonRarityDb.rare.includes(pokemonId);
+}
+
+function isUltraPokemon(pokemonId) {
+    return pokemonRarityDb.ultra.includes(pokemonId);
+}
+
+function isLegendaryPokemon(pokemonId) {
+    return pokemonRarityDb.legendary.includes(pokemonId);
+}
+
+function isMythicalPokemon(pokemonId) {
+    return pokemonRarityDb.mythical.includes(pokemonId);
+}
+
+function isAlolanPokemon(pokemonId) {
+    return pokemonRarityDb.alolan.includes(pokemonId);
+}
+
+function isGalarianPokemon(pokemonId) {
+    return pokemonRarityDb.galarian.includes(pokemonId);
+}
+
+function isRegionalPokemon(pokemonId) {
+    return pokemonRarityDb.regional.includes(pokemonId);
+}
+
+function isEventPokemon(pokemonId) {
+    return pokemonRarityDb.event.includes(pokemonId);
 }
 
 function sendWebhook(encounterId) {
