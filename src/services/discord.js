@@ -108,6 +108,15 @@ class DiscordClient {
         }
         return perms;
     }
+
+    async sendMessage(channelId, message) {
+        const channel = await client.channels.cache
+            .get(channelId)
+            .fetch();
+        if (channel && message) {
+            channel.send(message);
+        }
+    }
 }
 
 module.exports = new DiscordClient();
