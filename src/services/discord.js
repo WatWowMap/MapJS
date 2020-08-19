@@ -9,13 +9,15 @@ const oauth = new DiscordOauth2();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setPresence({ activity: { name: config.discord.status, type: 3 }
+if (config.discord.enabled) {
+    client.on('ready', () => {
+        console.log(`Logged in as ${client.user.tag}!`);
+            client.user.setPresence({ activity: { name: config.discord.status, type: 3 }
+        });
     });
-});
   
-client.login(config.discord.botToken);
+    client.login(config.discord.botToken);
+}
 
 class DiscordClient {
     //static instance = new DiscordClient();
