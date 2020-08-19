@@ -15,7 +15,6 @@ const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
-const utils = require('./services/utils.js');
 
 // TODO: Separate cluster layers by type
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
@@ -26,6 +25,7 @@ const utils = require('./services/utils.js');
 // TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
+// TODO: Filter candy/stardust quest by amount
 
 // Basic security protection middleware
 app.use(helmet());

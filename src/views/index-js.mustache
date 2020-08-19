@@ -3862,13 +3862,20 @@ function getPokestopMarkerIcon (pokestop, ts) {
         let rewardString;
         let iconUrl;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
+            // XP
             iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-2.png`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/${info.item_id}.png`;
+            // Item
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/${info.item_id}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_${info.item_id}_${info.amount}.png`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
+            // Stardust
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
+            // Candy
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_1301_${info.amount}.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
                 const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
