@@ -5282,6 +5282,26 @@ function isEventPokemon(pokemonId) {
     return pokemonRarityDb.event.includes(pokemonId);
 }
 
+function isKantoPokemon(pokemonId) {
+    return pokemonRarityDb.kanto.includes(pokemonId);
+}
+
+function isJohtoPokemon(pokemonId) {
+    return pokemonRarityDb.johto.includes(pokemonId);
+}
+
+function isHoennPokemon(pokemonId) {
+    return pokemonRarityDb.hoenn.includes(pokemonId);
+}
+
+function isSinnohPokemon(pokemonId) {
+    return pokemonRarityDb.sinnoh.includes(pokemonId);
+}
+
+function isUnovaPokemon(pokemonId) {
+    return pokemonRarityDb.unova.includes(pokemonId);
+}
+
 function sendWebhook(encounterId) {
     // Limit scouts per user
     let scoutCount = 0;
