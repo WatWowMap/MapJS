@@ -4,6 +4,7 @@
     "title": "MapJS",
     "locale": "en",
     "style": "dark",
+    "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     "map": {
         "maxPokemonId": 649,
         "startLat": 0,
@@ -42,7 +43,7 @@
             { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
         ],
         "right": [
-            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
+            { "name": "Discord", "url": "https://discord.com", "icon": "fab fa-discord" }
         ]
     },
     "tileservers": {
@@ -71,7 +72,8 @@
         }
     },
     "discord": {
-        "enabled": true,
+        "enabled": false,
+        "status": "Map Status: Online",
         "botToken": "",
         "clientId": "",
         "clientSecret": "",
@@ -155,5 +157,6 @@
         "enabled": false,
         "url": "",
         "maxScouts": 15
-    }
+    },
+    "searchMaxResults": 20
 }

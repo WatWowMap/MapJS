@@ -48,6 +48,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.guilds = guilds;
         const valid = perms.map !== false;
         req.session.valid = valid;
+        req.session.save();
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             res.redirect(`/?token=${response.data.access_token}`);

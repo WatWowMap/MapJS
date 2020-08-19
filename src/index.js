@@ -4,7 +4,7 @@ const path = require('path');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const session = require('express-session');
+const cookieSession = require('cookie-session')
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
@@ -15,7 +15,6 @@ const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
-const utils = require('./services/utils.js');
 
 // TODO: Separate cluster layers by type
 // TODO: Use api endpoint for each model type instead of one for all. Update and clear based on layers of types
@@ -26,6 +25,8 @@ const utils = require('./services/utils.js');
 // TODO: Glow for top pvp ranks
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
+// TODO: Filter candy/stardust quest by amount
+// TODO: Icon spacing
 
 // Basic security protection middleware
 app.use(helmet());
@@ -66,10 +67,10 @@ app.use((req, res, next) => {
 i18n.setLocale(config.locale);
 
 // Sessions middleware
-app.use(session({
-    secret: utils.generateString(),
-    resave: true,
-    saveUninitialized: true
+app.use(cookieSession({
+    name: 'session',
+    keys: [config.sessionSecret],
+    maxAge: 518400000
 }));
 
 // CSRF token middleware
@@ -110,10 +111,6 @@ if (config.discord.enabled) {
 // Login middleware
 app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
-        return next();
-    }
-    if (req.session.user_id && req.session.username && req.session.guilds && req.session.roles) {
-        //console.log("Previous discord auth still active for user id:", req.session.user_id);
         return next();
     }
     if (!config.discord.enabled || req.session.logged_in) {
