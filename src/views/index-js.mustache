@@ -3038,6 +3038,25 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
+function addQuestFilter (pokemonId, itemId, show) {
+    if (pokemonId > 0) {
+        questFilter['p' + pokemonId].show = show;
+    }
+    if (itemId > 0) {
+        questFilter['i' + itemId].show = show;
+    }
+    store('quest_filter', JSON.stringify(questFilter));
+
+    $.each(pokestopMarkers, function (index, pokestop) {
+        const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
+        const rewardPokemonId = reward.info.pokemon_id || 0;
+        const rewardItemId = reward.info.item_id || 0;
+        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+            map.removeLayer(pokestop.marker);
+        }
+    });
+}
+
 function getPokestopPopupContent (pokestop) {
     const now = new Date();
     const lureExpireDate = new Date(pokestop.lure_expire_timestamp * 1000);
@@ -3113,9 +3132,16 @@ function getPokestopPopupContent (pokestop) {
         content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
     }
 
+    const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
+    content +=
+        '<br>';
+    if (pokestop.quest_type !== null) {
+        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
+    }
     content +=
         '<br>' +
         '<div class="row text-center">' +
+            '<br>' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
                     `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
