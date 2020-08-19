@@ -24808,7 +24808,20 @@
 		"439": {
 			"name": "Mime Jr",
 			"default_form": "",
-			"forms": {},
+			"forms": {
+				"1775": {
+					"name": "Normal",
+					"proto": "MIME_JR_NORMAL"
+				},
+				"1776": {
+					"name": "Shadow",
+					"proto": "MIME_JR_SHADOW"
+				},
+				"1777": {
+					"name": "Purified",
+					"proto": "MIME_JR_PURIFIED"
+				}
+			},
 			"pokedex_id": 439,
 			"default_form_id": "1775",
 			"types": [
