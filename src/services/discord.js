@@ -110,6 +110,9 @@ class DiscordClient {
     }
 
     async sendMessage(channelId, message) {
+        if (!channelId) {
+            return;
+        }
         const channel = await client.channels.cache
             .get(channelId)
             .fetch();
