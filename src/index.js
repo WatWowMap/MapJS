@@ -26,6 +26,7 @@ const uiRoutes = require('./routes/ui.js');
 // TODO: Only clear layers if filter changed
 // TODO: Reset all settings (clear cache/session)
 // TODO: Filter candy/stardust quest by amount
+// TODO: Icon spacing
 
 // Basic security protection middleware
 app.use(helmet());
