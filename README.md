@@ -3,23 +3,24 @@
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
 
 ## Features  
-- Everything from RealDeviceMap  
+- Everything from RealDeviceMap UI Map  
 - Pokemon form filtering  
+- Raid Pokemon form filtering  
 - Nests and nest filtering  
-- Weather filtering  
-- Pokemon glow  
-- Refactored Pokemon/Pokestop/Raid filtering  
-- Invasion filtering  
+- Pokemon glow based on minimum IV  
+- Refactored Global IV/Pokemon/Pokestop/Raid filtering  
+- PVP rank filtering  
+- Invasion type filtering  
+- Weather type filtering  
+- Device status filtering
+- Big karp and tiny rat filtering  
 - Custom icon support  
 - 400k+ less icons  
-- PVP filtering  
-- Refactored IV filtering  
 - Pokemon clustering  
 - Mobile friendly filters  
 - Available raid boss and quest rewards from database for smaller filter lists
-- Big karp and tiny rat filtering  
 - Scan area polygons  
-- Trash pokemon button  
+- Disable trash pokemon button  
 - Legendary and normal raid buttons  
 - Follow my location  
 - Cache previous location  
@@ -32,8 +33,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 3.) Copy config `cp src/config.example.json src/config.json`  
 4.) Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`  
 5.) Fill out config `vi src/config.json`  
-6.) Create/copy a `static/custom/nests.json` file to show nests  
-7.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file, see below)  
+6.) Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)  
+7.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)  
 8.) Run `npm start`  
 9.) Access via http://machineip:port/ login using your Discord account    
 
@@ -118,7 +119,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         ],
         // Right side navigation headers
         "right": [
-            { "name": "Google", "url": "https://google.com", "icon": "fab fa-google" }
+            { "name": "Discord", "url": "https://discord.com/invite/example", "icon": "fab fa-discord" }
         ]
     },
     // Available tileservers
@@ -259,6 +260,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         // Maximum amount of scouts allowed
         "maxScouts": 15
     },
+    // Maximum search results for global search to return
     "searchMaxResults": 20
 }
 ```
@@ -278,8 +280,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 Once everything is setup and running appropriately, you can add this to PM2 ecosystem.config.js file so it is automatically started:  
 ```
 module.exports = {
-  apps : [
-  {
+  apps : [{
     name: 'MapJS',
     script: 'index.js',
     cwd: '/home/username/MapJS/src/',
@@ -288,19 +289,22 @@ module.exports = {
     watch: false,
     max_memory_restart: '2G',
     out_file: 'NULL'
-  }
-  ]
+  }]
 };
 ```
 
 ## TODO  
-- Filter raids by forms  
 - Finish custom user settings modal (user defined glow settings, cluster settings, etc)  
 - Notifications  
 - Notification sounds  
 - Bouncing marker options  
 - Heatmaps  
 - Basic statistics  
+
+## Bugs  
+- Pokestop filter sizing does not work  
+- Raid filter sizing does not work  
+- Submission cells with incorrect pokestop/gym count  
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  

@@ -98,7 +98,7 @@ const getData = async (perms, filter) => {
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
-        data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, showGyms, raidFilterExclude, gymFilterExclude);
+        data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, showRaids, showGyms, raidFilterExclude, gymFilterExclude);
     }
     if (
         (permShowPokestops && showPokestops) ||
@@ -307,17 +307,22 @@ const getData = async (perms, filter) => {
         }
 
         //Pokemon
-        let pokemon = await map.getAvailableRaidBosses();
+        const pokemon = await map.getAvailableRaidBosses();
         for (let i = 0; i < pokemon.length; i++) {
-            let id = pokemon[i];
+            const poke = pokemon[i];
+            const pokemonId = poke.id;
+            const formId = '' + poke.form_id;
+            // TODO: Get form name from master file since locale form ids are off
+            let formName = i18n.__('form_' + formId);
+            formName = formName === 'Normal' ? '' : formName;
+            const id = formId === '0' ? pokemonId : pokemonId + '-' + formId;
             raidData.push({
                 'id': {
-                    'formatted': utils.zeroPad(id),
-                    'sort': id+200
+                    'formatted': utils.zeroPad(pokemonId, 3),
+                    'sort': i+200
                 },
-                'name': i18n.__('poke_' + id),
-                // TODO: Raid Pokemon form support
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
+                'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
+                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokemonId, formId)}" style="height:50px; width:50px;">`,
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -495,8 +500,22 @@ const getData = async (perms, filter) => {
     }
 
     if (permViewMap && showInvasionFilter) {
+        const generalString = i18n.__('filter_general');
         const gruntTypeString = i18n.__('filter_grunt_type');
+        const invasionTimers = i18n.__('filter_invasion_timers');
         let invasionData = [];
+
+        invasionData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': invasionTimers,
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/misc/timer.png" style="height:50px; width:50px;">`,
+            'filter': generateShowHideButtons('timers', 'invasion-timers'),
+            'size': generateSizeButtons('timers', 'invasion-timers'),
+            'type': generalString
+        });
 
         // Grunt Type
         for (let i = 1; i <= 50; i++) {
