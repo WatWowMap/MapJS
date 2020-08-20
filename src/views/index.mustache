@@ -606,14 +606,14 @@
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
                             <div class="dropdown">
                                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Clear Data
+                                    {{clear_data}}
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="clearSiteCache('all');" href="#">Clear All Data</a>
+                                    <a class="dropdown-item" onclick="clearSiteCache('all');" href="#">{{clear_all_data}}</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" onclick="clearSiteCache('cache');" href="#">{{clear_cache}}</a>
-                                    <a class="dropdown-item" onclick="clearSiteCache('cookies');" href="#">Clear Cookies</a>
-                                    <a class="dropdown-item" onclick="clearSiteCache('storage');" href="#">Clear Storage</a>
+                                    <a class="dropdown-item" onclick="clearSiteCache('cookies');" href="#">{{clear_cookies}}</a>
+                                    <a class="dropdown-item" onclick="clearSiteCache('storage');" href="#">{{clear_storage}}</a>
                                 </div>
                             </div>
                         </div>
