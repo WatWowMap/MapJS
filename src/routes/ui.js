@@ -156,10 +156,9 @@ const handlePage = async (req, res) => {
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
     let city = req.params.city || null;
-    let zoom = parseInt(req.params.zoom || config.map.startZoom);
+    let zoom = req.params.zoom;
 
-    // City specified but in wrong route
-    /*
+    // Zoom specified for city
     if (city === null) {
         const tmpCity = req.params.lat;
         city = tmpCity;
@@ -168,7 +167,6 @@ const handlePage = async (req, res) => {
             zoom = tmpZoom;
         }
     }
-    */
 
     if (city) {
         for (var i = 0; i < areaKeys.length; i++) {
@@ -177,7 +175,7 @@ const handlePage = async (req, res) => {
                 const area = config.areas[key];
                 lat = parseFloat(area.lat);
                 lon = parseFloat(area.lon);
-                if (zoom === null) {
+                if (!zoom) {
                     zoom = parseInt(area.zoom || config.map.startZoom);
                 }
                 break;
