@@ -2573,10 +2573,12 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
     var minCP = greatLeague !== false ? 1400 : 2400;
     var maxCP = greatLeague !== false ? 1500 : 2500;
     var maxRank = 100;
-    for (var i = 0; i < leagueStats.length; i++) {
-        if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
-            found = true;
-            break;
+    if (leagueStats) {
+        for (var i = 0; i < leagueStats.length; i++) {
+            if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
+                found = true;
+                break;
+            }
         }
     }
     return found;
