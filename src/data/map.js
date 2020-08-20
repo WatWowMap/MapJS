@@ -1296,7 +1296,7 @@ const getAvailableRaidBosses = async () => {
     FROM gym
     WHERE raid_end_timestamp > UNIX_TIMESTAMP()
         AND raid_pokemon_id > 0
-    GROUP BY raid_pokemon_id
+    GROUP BY raid_pokemon_id, raid_pokemon_form
     `;
     let result = await db.query(sql);
     if (result) {
