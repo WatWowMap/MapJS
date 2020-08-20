@@ -2131,7 +2131,8 @@ function loadData () {
                             oldGym.guard_pokemon_id !== gym.guard_pokemon_id ||
                             oldGym.in_battle !== gym.in_battle ||
                             oldGym.raid_end_timestamp !== gym.raid_end_timestamp ||
-                            oldGym.raid_pokemon_id !== gym.raid_pokemon_id) {
+                            oldGym.raid_pokemon_id !== gym.raid_pokemon_id ||
+                            oldGym.raid_pokemon_form !== gym.raid_pokemon_form) {
                             oldGym.availble_slots = gym.availble_slots;
                             oldGym.team_id = gym.team_id;
                             oldGym.guard_pokemon_id = gym.guard_pokemon_id;
@@ -4142,7 +4143,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
             const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
             /* let tooltip = */ marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }
