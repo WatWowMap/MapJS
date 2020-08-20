@@ -68,7 +68,8 @@ router.get('/purge', async (req, res) => {
     if (!target || !target.startsWith('/')) {
         target = '/';
     }
-    res.set('Clear-Site-Data', '"cache"');
+    // Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"
+    res.set('Clear-Site-Data', '"cache", "cookies", "storage", "executionContexts"');
     res.redirect(target);
 });
 
