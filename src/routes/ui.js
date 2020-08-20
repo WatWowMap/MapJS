@@ -65,11 +65,17 @@ router.get('/@/:city/:zoom', async (req, res) => {
 
 router.get('/purge', async (req, res) => {
     let target = req.query.target;
+    let type = req.query.type;
     if (!target || !target.startsWith('/')) {
         target = '/';
     }
     // Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"
-    res.set('Clear-Site-Data', '"cache", "cookies", "storage", "executionContexts"');
+    if (type === 'all') {
+        type = '"cache", "cookies", "storage", "executionContexts"';
+    } else {
+        type = `"${type}"`;
+    }
+    res.set('Clear-Site-Data', type);
     res.redirect(target);
 });
 
