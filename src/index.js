@@ -108,6 +108,14 @@ if (config.discord.enabled) {
     /* eslint-enable no-unused-vars */
 }
 
+// Image cache middleware
+app.use((req, res, next) => {
+    if (req.path.endsWith('.png') || req.path.endsWith('.jpg')) {
+        res.setHeader('Cache-Control', 'max-age=604800, must-revalidate');
+    }
+    return next();
+});
+
 // Login middleware
 app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
