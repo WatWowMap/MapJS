@@ -26,6 +26,13 @@ router.post('/search', async (req, res) => {
     res.json({ data: data });
 });
 
+router.post('/get_template/:name', async (req, res) => {
+    const template = req.params.name;
+    const view = req.body.data;
+    const templateData = await utils.render(template, view);
+    res.send(templateData);
+});
+
 
 const getData = async (perms, filter) => {
     //console.log('Filter:', filter);

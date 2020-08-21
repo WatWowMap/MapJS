@@ -3715,6 +3715,10 @@ function getDeviceMarker (device, ts) {
 }
 
 function getDevicePopupContent (device) {
+    //let data = Mustache.render('<b>{{name}}</b>', {name: "versx"});
+    let data = getTemplateData('devices.mustache', device);
+    console.log('Data:', data);
+    return data;
     const lastSeenDate = new Date(device.last_seen * 1000);
     const lastSeen = lastSeenDate.toLocaleTimeString() + ' (' + getTimeSince(lastSeenDate) + ')';
     const ts = Math.round((new Date()).getTime() / 1000);
@@ -3774,6 +3778,32 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
             marker.marker.timerSet = true;
         }
     }
+}
+
+function getTemplateData(template, data) {
+    const { marker, ...dataWithoutMarker } = data;
+    let results = null;
+    $.ajax({
+        url: '/api/get_template/' + template,
+        type: 'POST',
+        data: JSON.stringify({
+            data: dataWithoutMarker,
+            _csrf: '{{csrf}}'
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        async: false,
+        success: function (result) {
+            console.log('result:', result);
+            results = result;
+        },
+        failure: function (err) {
+            console.error('Error:', err);
+        }
+    });
+    return results;
 }
 
 
