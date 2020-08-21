@@ -601,9 +601,22 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
-                        <button class="btn btn-sm btn-danger" onclick="clearSiteCache();">{{clear_cache}}</button>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{clear_data}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" onclick="clearSiteCache('all');" href="#">{{clear_all_data}}</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" onclick="clearSiteCache('cache');" href="#">{{clear_cache}}</a>
+                                    <a class="dropdown-item" onclick="clearSiteCache('cookies');" href="#">{{clear_cookies}}</a>
+                                    <a class="dropdown-item" onclick="clearSiteCache('storage');" href="#">{{clear_storage}}</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
                     <button type="button" id="saveSettings" class="btn btn-sm btn-primary">{{filter_save}}</button>

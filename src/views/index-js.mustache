@@ -6517,10 +6517,10 @@ function loadFilterSettings (e) {
     reader.readAsText(file);
 }
 
-function clearSiteCache() {
+function clearSiteCache(type) {
     if (window.location.reload.length == 1) {
         window.location.reload(true);
     } else {
-        window.location.href = '/purge?target=' + encodeURIComponent(window.location.pathname);
+        window.location.href = '/purge/?target=' + encodeURIComponent(window.location.pathname) + '&type=' + type;
     }
 }
