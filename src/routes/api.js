@@ -98,7 +98,7 @@ const getData = async (perms, filter) => {
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
-        data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, !showGyms, showRaids, showGyms, raidFilterExclude, gymFilterExclude);
+        data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, showRaids, showGyms, raidFilterExclude, gymFilterExclude);
     }
     if (
         (permShowPokestops && showPokestops) ||
