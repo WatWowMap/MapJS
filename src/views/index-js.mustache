@@ -119,7 +119,7 @@ let weatherTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
 let pokemonRarityDb = [];
-let pokemonRecommendedDb = [];
+let recommendedPokemonDb = [];
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
@@ -199,8 +199,8 @@ $(function () {
         pokemonRarityDb = data;
     });
 
-    $.getJSON('../config.json', function (data) {
-        pokemonRecommendedDb = data;
+    $.getJSON('/config.json', function (data) {
+        recommendedPokemonDb = data;
     });
 
     $.getJSON('/data/weathertypes.json', function (data) {
@@ -4897,7 +4897,7 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
 }
 
 function isRecommendedPokemon(pokemonId) {
-    return pokemonConfigDb.recommendedPokemon.includes(pokemonId);
+    return recommendedPokemonDb.recommendedPokemon.includes(pokemonId);
 }
 
 function isCommonPokemon(pokemonId) {
@@ -6234,36 +6234,6 @@ function registerFilterButtonCallbacks() {
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
     });
 
-    $('#recommended').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                defaultPokemonFilter[id] = { show: isRecommendedPokemon(i) === true, size: 'normal' };
-            }
-        }
-
-        defaultPokemonFilter.iv_and = { on: false, filter: '90-100' };
-        defaultPokemonFilter.iv_or = { on: true, filter: '100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-3' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-3' };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-    });
-
     $('#reset-common-pokemon-filter').on('click', function(event) {
         setPokemonFilters('common', true);
     });
@@ -6389,6 +6359,37 @@ function registerFilterButtonCallbacks() {
         setPokemonFilters('galarian', false);
     });
     
+    
+    $('#recommended').on('click', function(event) {
+        const defaultPokemonFilter = {};
+        let i;
+        for (i = 1; i <= maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
+                if (skipForms.includes(pkmn.forms[formId].name)) {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === '0' ? i : i + '-' + formId;
+                defaultPokemonFilter[id] = { show: isRecommendedPokemon(i) === true, size: 'normal' };
+            }
+        }
+
+        defaultPokemonFilter.iv_and = { on: false, filter: '90-100' };
+        defaultPokemonFilter.iv_or = { on: true, filter: '100' };
+        defaultPokemonFilter.pvp_and = { on: false, filter: '1-3' };
+        defaultPokemonFilter.pvp_or = { on: false, filter: '1-3' };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        pokemonFilterNew = defaultPokemonFilter;
+
+        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+    });
+
     // Quest filter buttons
     $('#reset-quest-filter').on('click', function (event) {
         const defaultQuestFilter = {};
