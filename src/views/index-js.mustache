@@ -3770,9 +3770,6 @@ function manageSelectButton (e, isNew) {
             shouldShow = pokemonFilterNew[id].size === 'huge';
             break;
         case 'off':
-            console.log('iv_' + id);
-            console.log(pokemonFilterNew['iv_' + id]);
-            console.log(!pokemonFilterNew['iv_' + id].on);
             shouldShow = !pokemonFilterNew['iv_' + id].on;
             break;
         case 'on':
