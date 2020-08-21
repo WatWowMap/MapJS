@@ -71,7 +71,7 @@ router.get('/purge', async (req, res) => {
     }
     // Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"
     if (type === 'all') {
-        type = '"cache", "cookies", "storage", "executionContexts"';
+        type = '"cache", "cookies", "storage"';
     } else {
         type = `"${type}"`;
     }
