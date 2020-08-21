@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const mustache = require('mustache');
+const ejs = require('ejs');
 
 const config = require('../config.json');
 const TemplatesDir = path.resolve(__dirname, '../../templates');
@@ -79,18 +79,24 @@ const fileRead = async (path) => {
 };
 
 const render = async (name, data) => {
-    try {
-        const filePath = path.resolve(TemplatesDir, name);
-        if (!await fileExists(filePath)) {
-            console.error('Template', filePath, 'does not exist!');
-            return;
+    return new Promise(async (resolve, reject) => {
+        try {
+            const filePath = path.resolve(TemplatesDir, name);
+            if (!await fileExists(filePath)) {
+                const errMsg = `Template ${filePath} does not exist!`
+                console.error(errMsg);
+                return reject(errMsg);
+            }
+            ejs.renderFile(filePath, data, (err, str) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(str);
+            });
+        } catch (e) {
+            return reject(e);
         }
-        const templateData = await fileRead(filePath);
-        const result = mustache.render(templateData, data);
-        return result;
-    } catch (e) {
-        return reject(e);
-    }
+    });
 };
 
 module.exports = {
