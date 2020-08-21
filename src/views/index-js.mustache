@@ -3074,6 +3074,9 @@ function getNestPopupContent(nest) {
 }
 
 function getScanAreaPopupContent(name, size) {
+    const templateData = getTemplateData('scanarea', { name, size });
+    return templateData;
+    /*
     let content = `
     <center>
         <h6>Area: <b>${name}</b></h6>
@@ -3081,6 +3084,7 @@ function getScanAreaPopupContent(name, size) {
     </center>
     `;
     return content;
+    */
 }
 
 
@@ -3715,10 +3719,9 @@ function getDeviceMarker (device, ts) {
 }
 
 function getDevicePopupContent (device) {
-    //let data = Mustache.render('<b>{{name}}</b>', {name: "versx"});
-    let data = getTemplateData('devices.mustache', device);
-    console.log('Data:', data);
+    let data = getTemplateData('device', device);
     return data;
+    /*
     const lastSeenDate = new Date(device.last_seen * 1000);
     const lastSeen = lastSeenDate.toLocaleTimeString() + ' (' + getTimeSince(lastSeenDate) + ')';
     const ts = Math.round((new Date()).getTime() / 1000);
@@ -3728,6 +3731,7 @@ function getDevicePopupContent (device) {
         '<b>Last Seen:</b> ' + lastSeen + '<br>' +
         '<b>Status:</b> ' + (isOffline ? 'Offline' : 'Online');
     return content;
+    */
 }
 
 function isDeviceOffline (device, ts) {
@@ -3736,7 +3740,7 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
+function setDespawnTimer (marker) {
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;

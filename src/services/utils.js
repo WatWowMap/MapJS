@@ -81,7 +81,7 @@ const fileRead = async (path) => {
 const render = async (name, data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const filePath = path.resolve(TemplatesDir, name);
+            const filePath = path.resolve(TemplatesDir, name + '.ejs');
             if (!await fileExists(filePath)) {
                 const errMsg = `Template ${filePath} does not exist!`
                 console.error(errMsg);
