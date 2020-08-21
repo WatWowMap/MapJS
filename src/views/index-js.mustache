@@ -2986,6 +2986,10 @@ function getGymPopupContent (gym) {
 }
 
 function getCellPopupContent (cell) {
+    cell.time_since = getTimeSince(new Date(cell.updated * 1000));
+    const templateData = getTemplateData('cell', cell);
+    return templateData;
+    /*
     let content = '<center>';
     content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
     content += '<b>Id:</b> ' + cell.id + '<br>';
@@ -2995,6 +2999,7 @@ function getCellPopupContent (cell) {
     content += '<b>Last Updated:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')';
     content += '</center>';
     return content;
+    */
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
