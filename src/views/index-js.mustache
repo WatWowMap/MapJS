@@ -7140,7 +7140,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: masterfile.pokemon[id].legendary || masterfile.pokemon[id].mythic, size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: masterfile.pokemon[poke.id].legendary || masterfile.pokemon[poke.id].mythic, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -7159,7 +7159,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[id].legendary && !masterfile.pokemon[id].mythic, size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[poke.id].legendary && !masterfile.pokemon[poke.id].mythic, size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
