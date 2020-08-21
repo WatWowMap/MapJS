@@ -754,7 +754,7 @@ const getDevices = async (deviceFilterExclude = null) => {
     }
 
     const sql = `
-    SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, device_group, type, data
+    SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, type, data
     FROM device
     INNER JOIN instance
     ON device.instance_name = instance.name ${excludeDeviceSQL}
@@ -772,7 +772,6 @@ const getDevices = async (deviceFilterExclude = null) => {
                 account_username: result.account_username,
                 last_lat: result.last_lat,
                 last_lon: result.last_lon,
-                device_group: result.device_group,
                 type: result.type,
                 data: result.data
             });
@@ -1296,7 +1295,7 @@ const getAvailableRaidBosses = async () => {
     FROM gym
     WHERE raid_end_timestamp > UNIX_TIMESTAMP()
         AND raid_pokemon_id > 0
-    GROUP BY raid_pokemon_id
+    GROUP BY raid_pokemon_id, raid_pokemon_form
     `;
     let result = await db.query(sql);
     if (result) {

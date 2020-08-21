@@ -300,11 +300,15 @@ module.exports = {
 - Bouncing marker options  
 - Heatmaps  
 - Basic statistics  
-
-## Bugs  
-- Pokestop filter sizing does not work  
-- Raid filter sizing does not work  
-- Submission cells with incorrect pokestop/gym count  
+- Separate cluster layers by type
+- Notification sounds, bouncing icons
+- Possibly change filter selection from a list to a grid
+- Finish custom user settings modal
+- Force logout of other devices if logged into multiple
+- Glow for top pvp ranks
+- Only clear layers if filter changed
+- Filter candy/stardust quest by amount
+- Icon spacing
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
