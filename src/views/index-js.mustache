@@ -2668,7 +2668,7 @@ function addQuestFilter (pokemonId, itemId, show) {
         const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
         const rewardPokemonId = reward.info.pokemon_id || 0;
         const rewardItemId = reward.info.item_id || 0;
-        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+        if (rewardPokemonId === parseInt(pokemonId) && rewardItemId === parseInt(itemId)) {
             map.removeLayer(pokestop.marker);
         }
     });
@@ -2679,6 +2679,51 @@ function getPokestopPopupContent (pokestop) {
     const lureExpireDate = new Date(pokestop.lure_expire_timestamp * 1000);
     const invasionExpireDate = new Date(pokestop.incident_expire_timestamp * 1000);
     const isActiveLure = lureExpireDate >= now;
+    const isActiveInvasion = invasionExpireDate >= now;
+    const lastUpdatedDate = new Date(pokestop.updated * 1000);
+
+    pokestop.is_lure_active = isActiveLure;
+    pokestop.is_invasion_active = isActiveInvasion;
+    pokestop.lure_time_since = getTimeUntill(lureExpireDate);
+    pokestop.invasion_time_since = getTimeUntill(invasionExpireDate);
+    pokestop.lure_expire_time = lureExpireDate.toLocaleTimeString();
+    pokestop.invasion_expire_time = invasionExpireDate.toLocaleTimeString();
+    pokestop.icon_path = availableIconStyles[selectedIconStyle];
+    if (isActiveInvasion) {
+        pokestop.grunt_name = getGruntName(pokestop.grunt_type);
+    }
+    if (pokestop.quest_type !== null) {
+        let questRewards = [];
+        const conditions = pokestop.quest_conditions;
+        let conditionsString = '';
+        if (conditions !== undefined && conditions.length > 0) {
+            conditionsString += ' (';
+            $.each(conditions, function (index, condition) {
+                let formatting;
+                if (index === 0) {
+                    formatting = '';
+                } else {
+                    formatting = ', ';
+                }
+
+                conditionsString += formatting + getQuestCondition(condition);
+            });
+            conditionsString += ')';
+        }
+
+        //content += '<b>Quest Condition:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
+        pokestop.quest_name = getQuestName(pokestop.quest_type, pokestop.quest_target);
+        pokestop.quest_conditions_formatted = conditionsString;
+        $.each(pokestop.quest_rewards, function (index, reward) {
+            //content += '<b>Quest Reward:</b> ' + getQuestReward(reward) + '<br>';
+            questRewards.push(getQuestReward(reward));
+        });
+        pokestop.quest_rewards_formatted = questRewards;
+    }
+    pokestop.last_updated = lastUpdatedDate;
+    pokestop.time_since = getTimeUntill(lastUpdatedDate);
+    const templateData = getTemplateData('pokestop', pokestop);
+    return templateData;
 
     let content = '<div class="text-center">';
     if (pokestop.name === null || pokestop.name === '') {

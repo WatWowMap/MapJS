@@ -89,11 +89,13 @@ const render = async (name, data) => {
             }
             ejs.renderFile(filePath, data, (err, str) => {
                 if (err) {
-                    return reject(err);
+                    console.error('Template render error:', err);
+                    //return reject(err);
                 }
                 resolve(str);
             });
         } catch (e) {
+            console.error('Template error:', e);
             return reject(e);
         }
     });
