@@ -4909,11 +4909,11 @@ function isUltraPokemon(pokemonId) {
 }
 
 function isLegendaryPokemon(pokemonId) {
-    return pokemonRarityDb.legendary.includes(pokemonId);
+    return masterfile.pokemon[pokemonId].legendary;
 }
 
 function isMythicalPokemon(pokemonId) {
-    return pokemonRarityDb.mythical.includes(pokemonId);
+    return masterfile.pokemon[pokemonId].mythic;
 }
 
 function isAlolanPokemon(pokemonId) {
@@ -6444,7 +6444,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: masterfile.pokemon[poke.id].legendary || masterfile.pokemon[poke.id].mythic, size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: isLegendaryPokemon(poke.id) || isMythicalPokemon(poke.id), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -6463,7 +6463,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[poke.id].legendary && !masterfile.pokemon[poke.id].mythic, size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: !isLegendaryPokemon(poke.id) && !isMythicalPokemon(poke.id), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
