@@ -6227,399 +6227,51 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#reset-common-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isCommonPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('common', true);
     });
 
     $('#reset-uncommon-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUncommonPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('uncommon', true);
     });
 
     $('#reset-rare-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isRarePokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('rare', true);
     });
 
     $('#reset-ultra-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUltraPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('ultra', true);
     });
 
     $('#reset-regional-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isRegionalPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('regional', true);
     });
 
     $('#reset-kanto-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isKantoPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('kanto', true);
     });
 
     $('#reset-johto-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isJohtoPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('johto', true);
     });
 
     $('#reset-hoenn-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isHoennPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('hoenn', true);
     });
 
     $('#reset-sinnoh-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isSinnohPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('sinnoh', true);
     });
 
     $('#reset-unova-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUnovaPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('unova', true);
     });
 
     $('#reset-alolan-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isAlolanPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('alolan', true);
     });
 
     $('#reset-galarian-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isGalarianPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: true, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('galarian', true);
     });
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
@@ -6652,399 +6304,51 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#disable-common-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isCommonPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('common', false);
     });
 
     $('#disable-uncommon-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUncommonPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('uncommon', false);
     });
 
     $('#disable-rare-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isRarePokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('rare', false);
     });
 
     $('#disable-ultra-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUltraPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('ultra', false);
     });
 
     $('#disable-regional-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isRegionalPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('regional', false);
     });
 
     $('#disable-kanto-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isKantoPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('kanto', false);
     });
 
     $('#disable-johto-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isJohtoPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('johto', false);
     });
 
     $('#disable-hoenn-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isHoennPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('hoenn', false);
     });
 
     $('#disable-sinnoh-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isSinnohPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('sinnoh', false);
     });
 
     $('#disable-unova-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isUnovaPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('unova', false);
     });
 
     $('#disable-alolan-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isAlolanPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('alolan', false);
     });
 
     $('#disable-galarian-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                if (isGalarianPokemon(i)) {
-                    defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size };
-                } else {
-                    defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-                }
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+        setPokemonFilters('galarian', false);
     });
     
     // Quest filter buttons
@@ -7357,4 +6661,51 @@ function registerFilterButtonCallbacks() {
 
         $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     });
+}
+
+function setPokemonFilters(type, show) {
+    const defaultPokemonFilter = {};
+    for (let i = 1; i <= maxPokemonId; i++) {
+        const pkmn = masterfile.pokemon[i];
+        const forms = Object.keys(pkmn.forms);
+        for (let j = 0; j < forms.length; j++) {
+            const formId = forms[j];
+            if (skipForms.includes(pkmn.forms[formId].name)) {
+                // Skip Shadow and Purified forms
+                continue;
+            }
+            let matches = false;
+            switch (type) {
+                case 'common':   matches = isCommonPokemon(i); break;
+                case 'uncommon': matches = isUncommonPokemon(i); break;
+                case 'rare':     matches = isRarePokemon(i); break;
+                case 'ultra':    matches = isUltraPokemon(i); break;
+                case 'regional': matches = isRegionalPokemon(i); break;
+                case 'kanto':    matches = isKantoPokemon(i); break;
+                case 'johto':    matches = isJohtoPokemon(i); break;
+                case 'hoenn':    matches = isHoennPokemon(i); break;
+                case 'sinnoh':   matches = isSinnohPokemon(i); break;
+                case 'unova':    matches = isUnovaPokemon(i); break;
+                case 'alolan':   matches = isAlolanPokemon(i); break;
+                case 'galarian': matches = isGalarianPokemon(i); break;
+            }
+            const id = formId === '0' ? i : i + '-' + formId;
+            if (matches) {
+                defaultPokemonFilter[id] = { show: show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
+            } else {
+                defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
+            }
+        }
+    }
+    defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
+    defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
+    defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
+    defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
+    defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+    defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+    store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+    pokemonFilterNew = defaultPokemonFilter;
+
+    $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
 }
