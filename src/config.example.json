@@ -159,5 +159,8 @@
         "url": "",
         "maxScouts": 15
     },
-    "searchMaxResults": 20
+    "searchMaxResults": 20,
+    "recommendedPokemon": [
+        1, 3
+    ]
 }
