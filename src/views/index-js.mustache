@@ -3029,9 +3029,14 @@ function degreesToCardinal (d) {
 }
 
 function getWeatherPopupContent (weather) {
-    const weatherName = weatherTypes[weather.gameplay_condition].name;
-    const weatherType = weatherTypes[weather.gameplay_condition].types;
+    weather.weather_name = weatherTypes[weather.gameplay_condition].name;
+    weather.weather_type = weatherTypes[weather.gameplay_condition].types;
+    weather.cardinal = degreesToCardinal(weather.wind_direction);
+    weather.time_since = getTimeSince(new Date(weather.updated * 1000));
+    const templateData = getTemplateData('weather', weather);
+    return templateData;
 
+    /*
     let content = '<center>';
     content += '<h6><b>' + weatherName + '</b><br></h6>';
     content += '<b>Boosted Types:</b><br>' + weatherType + '<br>';
@@ -3055,6 +3060,7 @@ function getWeatherPopupContent (weather) {
     content += '<b>Last Updated:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')';
     content += '</center>';
     return content;
+    */
 }
 
 function getNestPopupContent(nest) {
@@ -3604,19 +3610,23 @@ function getPokestopMarker (pokestop, ts) {
 }
 
 function getSpawnpointMarker (spawnpoint, ts) {
+    /*
     let content = '<center><h6><b>Spawnpoint</b></h6></center>';
     const hasTimer = spawnpoint.despawn_second != null;
     if (hasTimer) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += '<br><b>Despawn Timer:</b> ' + timer + ' minutes';
     }
+    */
+    const hasTimer = spawnpoint.despawn_second !== null;
+    const templateData = getTemplateData('spawnpoint', spawnpoint);
     const circle = L.circle([spawnpoint.lat, spawnpoint.lon], {
         color: hasTimer ? 'green' : 'red',
         fillColor: hasTimer ? 'green' : 'red',
         fillOpacity: 0.5,
         radius: 1.0
     });
-    circle.bindPopup(content);
+    circle.bindPopup(templateData);
     return circle;
 }
 
