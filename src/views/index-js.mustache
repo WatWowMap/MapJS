@@ -3058,8 +3058,11 @@ function getWeatherPopupContent (weather) {
 }
 
 function getNestPopupContent(nest) {
-    const lastUpdated = new Date(nest.updated * 1000);
-    const pokemonName = getPokemonName(nest.pokemon_id);
+    nest.pokemon_name = getPokemonName(nest.pokemon_id);
+    nest.last_updated = new Date(nest.updated * 1000);
+    const templateData = getTemplateData('nest', nest);
+    return templateData;
+    /*
     let content = `
     <center>
         <h6>Park: <b>${nest.name}</b></h6>
@@ -3071,6 +3074,7 @@ function getNestPopupContent(nest) {
     </center>
     `;
     return content;
+    */
 }
 
 function getScanAreaPopupContent(name, size) {
@@ -3719,7 +3723,7 @@ function getDeviceMarker (device, ts) {
 }
 
 function getDevicePopupContent (device) {
-    let data = getTemplateData('device', device);
+    const data = getTemplateData('device', device);
     return data;
     /*
     const lastSeenDate = new Date(device.last_seen * 1000);
@@ -3800,7 +3804,7 @@ function getTemplateData(template, data) {
         },
         async: false,
         success: function (result) {
-            console.log('result:', result);
+            //console.log('result:', result);
             results = result;
         },
         failure: function (err) {
