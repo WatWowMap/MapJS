@@ -216,11 +216,55 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <button id="reset-pokemon-filter" type="button" class="btn btn-danger">{{filter_reset}}</button>
-                        <button id="disable-trash-pokemon-filter" type="button" class="btn btn-danger">{{filter_trash}}</button>
-                        <button id="disable-all-pokemon-filter" type="button" class="btn btn-danger">{{filter_disable_all}}</button>
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{filter_disable}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a id="disable-all-pokemon-filter" class="dropdown-item" href="#">{{filter_disable_all}}</a>
+                                    <div class="dropdown-header">By Rarity</div>
+                                    <a id="disable-common-pokemon-filter" class="dropdown-item" href="#">Common</a>
+                                    <a id="disable-uncommon-pokemon-filter" class="dropdown-item" href="#">Uncommon</a>
+                                    <a id="disable-rare-pokemon-filter" class="dropdown-item" href="#">Rare</a>
+                                    <a id="disable-ultra-pokemon-filter" class="dropdown-item" href="#">Ultra Rare</a>
+                                    <a id="disable-regional-pokemon-filter" class="dropdown-item" href="#">Regional</a>
+                                    <div class="dropdown-header">By Generation</div>
+                                    <a id="disable-kanto-pokemon-filter" class="dropdown-item" href="#">Kanto</a>
+                                    <a id="disable-johto-pokemon-filter" class="dropdown-item" href="#">Johto</a>
+                                    <a id="disable-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
+                                    <a id="disable-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
+                                    <a id="disable-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="disable-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
+                                    <a id="disable-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
+                                </div>
+                            </div>
+                            &nbsp;
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{filter_enable}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a id="reset-pokemon-filter" class="dropdown-item" href="#">{{filter_reset}}</a>
+                                    <div class="dropdown-header">By Rarity</div>
+                                    <a id="reset-common-pokemon-filter" class="dropdown-item" href="#">Common</a>
+                                    <a id="reset-uncommon-pokemon-filter" class="dropdown-item" href="#">Uncommon</a>
+                                    <a id="reset-rare-pokemon-filter" class="dropdown-item" href="#">Rare</a>
+                                    <a id="reset-ultra-pokemon-filter" class="dropdown-item" href="#">Ultra Rare</a>
+                                    <a id="reset-regional-pokemon-filter" class="dropdown-item" href="#">Regional</a>
+                                    <div class="dropdown-header">By Generation</div>
+                                    <a id="reset-kanto-pokemon-filter" class="dropdown-item" href="#">Kanto</a>
+                                    <a id="reset-johto-pokemon-filter" class="dropdown-item" href="#">Johto</a>
+                                    <a id="reset-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
+                                    <a id="reset-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
+                                    <a id="reset-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="reset-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
+                                    <a id="reset-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
             </div>
         </div>
