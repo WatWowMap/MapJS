@@ -160,7 +160,7 @@
         "maxScouts": 15
     },
     "searchMaxResults": 20,
-    "recommendedPokemon": [
+    "recommended_pokemon": [
         1, 3
     ]
 }

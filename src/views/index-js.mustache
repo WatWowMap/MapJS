@@ -119,7 +119,6 @@ let weatherTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
 let pokemonRarityDb = [];
-let recommendedPokemonDb = [];
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
@@ -137,6 +136,8 @@ let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true' |
 let defaultShowNests = '{{default_show_nests}}' === 'true' || false;
 let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true' || false;
 let defaultShowDevices = '{{default_show_devices}}' === 'true' || false;
+
+const recommendedPokemon = '{{recommended_pokemon}}';
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -4897,7 +4898,7 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
 }
 
 function isRecommendedPokemon(pokemonId) {
-    return recommendedPokemonDb.recommendedPokemon.includes(pokemonId);
+    return recommendedPokemon.includes(pokemonId);
 }
 
 function isCommonPokemon(pokemonId) {
@@ -6360,7 +6361,7 @@ function registerFilterButtonCallbacks() {
     });
     
     
-    $('#recommended').on('click', function(event) {
+    $('#recommended-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
