@@ -1050,20 +1050,9 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
 
     let excludeAverageSQL;
     if (averageCountFilter) {
-        const sanitizedAverageFilter = sanitizer.sanitize(averageCountFilter);
-        const split = sanitizedAverageFilter.split('-');
-        if (split.length === 2) {
-            // Minimum and maximum average count
-            const min = parseInt(split[0]);
-            const max = parseInt(split[1]);
-            excludeAverageSQL = ' AND pokemon_avg >= ? AND pokemon_avg <= ?';
-            args.push(min);
-            args.push(max);
-        } else {
-            // Minimum average count
-            excludeAverageSQL = ' AND pokemon_avg >= ?';
-            args.push(sanitizedAverageFilter);
-        }
+        // Minimum average count
+        excludeAverageSQL = ' AND pokemon_avg >= ?';
+        args.push(averageCountFilter);
     }
 
     const sql = `
