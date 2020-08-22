@@ -123,19 +123,19 @@ let pokemonRarityDb = [];
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
 
-let defaultShowPokemon = '{{default_show_pokemon}}' === 'true' || false;
-let defaultShowRaids = '{{default_show_raids}}' === 'true' || true;
-let defaultShowGyms = '{{default_show_gyms}}' === 'true' || false;
-let defaultShowPokestops = '{{default_show_pokestops}}' === 'true' || false;
-let defaultShowQuests = '{{default_show_quests}}' === 'true' || true;
-let defaultShowInvasions = '{{default_show_invasions}}' === 'true' || true;
-let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true' || false;
-let defaultShowWeather = '{{default_show_weather}}' === 'true' || false;
-let defaultShowScanCells = '{{default_show_scancells}}' === 'true' || false;
-let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true' || false;
-let defaultShowNests = '{{default_show_nests}}' === 'true' || false;
-let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true' || false;
-let defaultShowDevices = '{{default_show_devices}}' === 'true' || false;
+let defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
+let defaultShowRaids = '{{default_show_raids}}' === 'true';
+let defaultShowGyms = '{{default_show_gyms}}' === 'true';
+let defaultShowPokestops = '{{default_show_pokestops}}' === 'true';
+let defaultShowQuests = '{{default_show_quests}}' === 'true';
+let defaultShowInvasions = '{{default_show_invasions}}' === 'true';
+let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true';
+let defaultShowWeather = '{{default_show_weather}}' === 'true';
+let defaultShowScanCells = '{{default_show_scancells}}' === 'true';
+let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true';
+let defaultShowNests = '{{default_show_nests}}' === 'true';
+let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true';
+let defaultShowDevices = '{{default_show_devices}}' === 'true';
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -491,8 +491,8 @@ function loadStorage () {
 
     const showRaidsValue = retrieve('show_raids');
     if (showRaidsValue === null) {
-        store('show_raids', defaultShowPokemon);
-        showRaids = defaultShowPokemon;
+        store('show_raids', defaultShowRaids);
+        showRaids = defaultShowRaids;
     } else {
         showRaids = (showRaidsValue === 'true');
     }
