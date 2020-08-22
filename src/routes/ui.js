@@ -65,11 +65,10 @@ router.get('/@/:city/:zoom', async (req, res) => {
 
 router.get('/purge', async (req, res) => {
     let target = req.query.target;
-    let type = req.query.type;
     if (!target || !target.startsWith('/')) {
         target = '/';
     }
-    res.set('Clear-Site-Data', `"${type}"`);
+    res.set('Clear-Site-Data', '"cache"');
     res.redirect(target);
 });
 

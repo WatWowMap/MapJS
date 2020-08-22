@@ -6186,10 +6186,14 @@ function loadFilterSettings (e) {
 }
 
 function clearSiteCache(type) {
+    if (type === 'storage') {
+        localStorage.clear();
+        //return;
+    }
     if (window.location.reload.length == 1) {
         window.location.reload(true);
     } else {
-        window.location.href = '/purge/?target=' + encodeURIComponent(window.location.pathname) + '&type=' + type;
+        window.location.href = '/purge/?target=' + encodeURIComponent(window.location.pathname);
     }
 }
 
