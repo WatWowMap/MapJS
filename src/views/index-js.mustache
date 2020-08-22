@@ -6291,8 +6291,6 @@ function clearSiteCache(type) {
 }
 
 function registerFilterButtonCallbacks() {
-    // TOOD: Make convienent method instead of 1000s of the same >.>
-
     // Pokemon filter buttons
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
@@ -6317,7 +6315,7 @@ function registerFilterButtonCallbacks() {
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
 
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
@@ -6394,7 +6392,7 @@ function registerFilterButtonCallbacks() {
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
 
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
@@ -6473,7 +6471,7 @@ function registerFilterButtonCallbacks() {
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
 
         $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
@@ -6833,7 +6831,7 @@ function setPokemonFilters(type, show) {
     defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
     defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
-    store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+    //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
     pokemonFilterNew = defaultPokemonFilter;
 
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
