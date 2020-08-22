@@ -482,19 +482,21 @@ const getData = async (perms, filter) => {
             'type': pokestopOptionsString
         });
 
-        for (let i = 1; i <= 4; i++) {
-            const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
-            pokestopData.push({
-                'id': {
-                    'formatted': utils.zeroPad(i, 3),
-                    'sort': i
-                },
-                'name': pokestopLure,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
-                'filter': generateShowHideButtons(i, 'pokestop-lure'),
-                'size': generateSizeButtons(i, 'pokestop-lure'),
-                'type': pokestopOptionsString
-            });
+        if (permShowLures) {
+            for (let i = 1; i <= 4; i++) {
+                const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
+                pokestopData.push({
+                    'id': {
+                        'formatted': utils.zeroPad(i, 3),
+                        'sort': i
+                    },
+                    'name': pokestopLure,
+                    'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
+                    'filter': generateShowHideButtons(i, 'pokestop-lure'),
+                    'size': generateSizeButtons(i, 'pokestop-lure'),
+                    'type': pokestopOptionsString
+                });
+            }
         }
         data['pokestop_filters'] = pokestopData;
     }
