@@ -4784,7 +4784,7 @@ function getTimeSince (date) {
 }
 
 function manageIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 && A15 && D15 && L0-20) || L35 || 90-100', filter[id].filter).toUpperCase();
+    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter[id].filter).toUpperCase();
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
