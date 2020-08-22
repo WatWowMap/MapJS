@@ -2831,14 +2831,9 @@ function getGymPopupContent (gym) {
 
     const isRaid = raidEndDate >= now && parseInt(gym.raid_level) > 0;
     const isRaidBattle = raidBattleDate <= now && isRaid;
+    const hasRaidBoss = gym.raid_pokemon_id > 0;
 
-    let gymName = '';
-    if (gym.name === null || gym.name === '') {
-        gymName = 'Unknown Gym Name';
-    } else {
-        gymName = gym.name;
-    }
-
+    let gymName = gym.name ? gym.name : 'Unknown Gym Name';
     let titleSize = 16;//'medium';
     if (gymName.length > 40) {
         //titleSize = 'xx-small';
@@ -2850,6 +2845,53 @@ function getGymPopupContent (gym) {
         //titleSize = 'small';
         titleSize = 14;
     }
+
+    gym.gym_name = gymName;
+    gym.title_size = titleSize;
+    gym.is_raid = isRaid;
+    gym.is_raid_battle = isRaidBattle;
+    gym.available_slots = gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots;
+    gym.has_raid_boss = hasRaidBoss;
+    if (hasRaidBoss && isRaidBattle) {
+        let pokemonName = getPokemonName(gym.raid_pokemon_id);
+        if (gym.raid_pokemon_form > 0) {
+            const formName = getFormName(gym.raid_pokemon_form);
+            pokemonName = formName + ' ' + pokemonName;
+            gym.form_name = formName;
+        }
+        pokemonName += ' ' + getGenderIcon(gym.raid_pokemon_gender);
+    } else if (isRaidBattle) {
+        pokemonName = 'Unknown Raid Boss';
+    } else {
+        pokemonName = 'Level ' + gym.raid_level + ' Egg';
+    }
+    let pokemonTypes = [];
+    if (hasRaidBoss && isRaidBattle) {
+        const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
+        if (pkmn) {
+            const types = pkmn.types;
+            if (types && types.length > 0) {
+                if (types.length === 2) {
+                    types.push(types[0].toLowerCase());
+                    types.push(types[1].toLowerCase());
+                } else {
+                    types.push(types[0].toLowerCase());
+                }
+            }
+        }
+    }
+    gym.pokemon_types = pokemonTypes;
+    if (hasRaidBoss) {
+        gym.pokemon_icon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form);
+    }
+    gym.pokemon_name = pokemonName;
+    gym.move_1_name = getMoveName(gym.raid_pokemon_move_1);
+    gym.move_2_name = getMoveName(gym.raid_pokemon_move_2);
+    gym.guarding_pokemon_name = getPokemonName(gym.guarding_pokemon_id);
+    gym.team_name = getTeamName(gym.team_id);
+    gym.icon_path = availableIconStyles[selectedIconStyle];
+    const templateData = getTemplateData('gym', gym);
+    return templateData;
 
     let content =
     '<div class="row">' + // START 1ST ROW
