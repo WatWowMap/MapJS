@@ -1017,7 +1017,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const minLonReal = minLon - 0.01;
     const maxLonReal = maxLon + 0.01;
     const excludedPokemon = [];
-    let averageCountFilter;
+    let averageCountFilter = 0;
 
     if (nestFilterExclude) {
         for (let i = 0; i < nestFilterExclude.length; i++) {
@@ -1049,7 +1049,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     let args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
 
     let excludeAverageSQL;
-    if (averageCountFilter) {
+    if (averageCountFilter >= 0) {
         // Minimum average count
         excludeAverageSQL = ' AND pokemon_avg >= ?';
         args.push(averageCountFilter);
