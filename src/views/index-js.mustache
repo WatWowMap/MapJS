@@ -137,7 +137,7 @@ let defaultShowNests = '{{default_show_nests}}' === 'true' || false;
 let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true' || false;
 let defaultShowDevices = '{{default_show_devices}}' === 'true' || false;
 
-const recommendedPokemon = '{{recommended_pokemon}}';
+const recommendedPokemon = JSON.parse('{{{recommended_pokemon_json}}}');
 
 $(function () {
     L.Marker.addInitHook(function () {

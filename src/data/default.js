@@ -30,6 +30,6 @@ data.default_show_submissioncells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
 data.default_show_scanareas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
-data.recommended_pokemon = config.recommended_pokemon;
+data.recommended_pokemon = JSON.stringify(config.recommended_pokemon);
 
 module.exports = data;
