@@ -73,7 +73,22 @@
         <small><b>Latest Seen:</b> <%= updatedDate.toLocaleString() %> (<%= time_since_updated %>)</small><br>
     <% } %>
 
-
+    <% if (great_league_rankings && great_league_rankings.length > 0) { %>
+        <br>
+        <b>Great League:</b><br>
+        <% for (let i = 0; i < great_league_rankings.length; i++) { %>
+            <% let ranking = great_league_rankings[i]; %>
+            <small><b><%= ranking.pokemon_name %>:</b> #<%= ranking.rank %> (<%= ranking.percent %>%) @ <%= ranking.cp %> CP (Lvl. <%= ranking.level %>)</small><br>
+        <% } %>
+    <% } %>
+    <% if (ultra_league_rankings && ultra_league_rankings.length > 0) { %>
+        <br>
+        <b>Ultra League:</b><br>
+        <% for (let i = 0; i < ultra_league_rankings.length; i++) { %>
+            <% let ranking = ultra_league_rankings[i]; %>
+            <small><b><%= ranking.pokemon_name %>:</b> #<%= ranking.rank %> (<%= ranking.percent %>%) @ <%= ranking.cp %> CP (Lvl. <%= ranking.level %>)</small><br>
+        <% } %>
+    <% } %>
 
     </div>
 </div>

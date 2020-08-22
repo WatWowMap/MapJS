@@ -2470,6 +2470,50 @@ function getPokemonPopupContent (pokemon) {
     pokemon.time_utill_despawn = getTimeUntill(despawnDate);
     pokemon.time_since_first_seen = getTimeSince(firstSeenDate);
     pokemon.time_since_updated = getTimeSince(lastUpdatedDate);
+
+    let greatLeagueRankings = [];
+    if (pokemon.pvp_rankings_ultra_league && pokemon.pvp_rankings_ultra_league.length > 0 && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
+        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
+            if (ranking.cp > 0 && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+                let pokemonName;
+                if (ranking.form !== 0) {
+                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
+                } else {
+                    pokemonName = getPokemonName(ranking.pokemon);
+                }
+                greatLeagueRankings.push({
+                    pokemon_name: pokemonName,
+                    rank: ranking.rank,
+                    percent: Math.round(ranking.percentage * 1000) / 10,
+                    cp: ranking.cp,
+                    level: ranking.level
+                });
+            }
+        });
+    }
+    pokemon.great_league_rankings = greatLeagueRankings;
+    let ultraLeagueRankings = [];
+    if (pokemon.pvp_rankings_ultra_league && pokemon.pvp_rankings_ultra_league.length > 0 && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
+        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
+            if (ranking.cp > 0 && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+                let pokemonName;
+                if (ranking.form !== 0) {
+                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
+                } else {
+                    pokemonName = getPokemonName(ranking.pokemon);
+                }
+                ultraLeagueRankings.push({
+                    pokemon_name: pokemonName,
+                    rank: ranking.rank,
+                    percent: Math.round(ranking.percentage * 1000) / 10,
+                    cp: ranking.cp,
+                    level: ranking.level
+                });
+            }
+        });
+    }
+    pokemon.ultra_league_rankings = ultraLeagueRankings;
+
     const templateData = getTemplateData('pokemon', pokemon);
     return templateData;
     /*
