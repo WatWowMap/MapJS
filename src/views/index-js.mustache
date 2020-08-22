@@ -1067,10 +1067,11 @@ function initMap () {
             });
             spawnpointMarkers = [];
         }
-        if (newShowNests !== showNests && newShowNests === false) {
+        // TODO: Fix nest filtering on change
+        //if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
             nestMarkers = [];
-        }
+        //}
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -2070,7 +2071,7 @@ function loadData () {
                     if (oldWeather === undefined) {
                         weather.marker = getWeatherMarker(weather, ts);
                         let weatherIcon;
-                        if (weather.gameplay_condition !== 0 && weather.gameplay_condition !== null) {
+                        if (weather.gameplay_condition > 0) {
                             weatherIcon = `<img src="${availableIconStyles[selectedIconStyle]}/weather/${weather.gameplay_condition}.png" height="25" width="25">`;
                         } else {
                             weatherIcon = '';
@@ -2112,6 +2113,9 @@ function loadData () {
 
 function getGeoJsonFromId(nest) {
     const nestId = parseInt(nest.nest_id);
+    if (!nestsDb || !nestsDb.features) {
+        return null;
+    }
     let geojson = nestsDb.features.find(function (value) {
         return nestId === parseInt(value.id);
     });
