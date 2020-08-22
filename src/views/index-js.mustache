@@ -2114,9 +2114,6 @@ function loadData () {
 
 function getGeoJsonFromId(nest) {
     const nestId = parseInt(nest.nest_id);
-    if (!nestsDb || !nestsDb.features) {
-        return null;
-    }
     let geojson = nestsDb.features.find(function (value) {
         return nestId === parseInt(value.id);
     });
@@ -6704,7 +6701,7 @@ function registerFilterButtonCallbacks() {
     // Nest filter buttons
     $('#reset-nest-filter').on('click', function (event) {
         const defaultNestFilter = {};
-        defaultNestFilter['no-timer'] = { show: true, size: 'normal' };
+        defaultNestFilter['avg'] = { on: false, filter: '5' };
         for (i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             defaultNestFilter['p' + id] = { show: true, size: 'normal' };
@@ -6718,6 +6715,7 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-nest-filter').on('click', function (event) {
         const defaultNestFilter = {};
+        defaultNestFilter['avg'] = { on: false, filter: '5' };
         for (i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             defaultNestFilter['p' + id] = { show: false, size: 'normal' };
