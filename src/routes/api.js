@@ -29,7 +29,6 @@ router.post('/search', async (req, res) => {
 router.post('/get_template/:name', async (req, res) => {
     const template = req.params.name;
     const view = req.body.data;
-    view.error = false;
     const templateData = await utils.render(template, view);
     res.send(templateData);
 });

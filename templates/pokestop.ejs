@@ -43,8 +43,8 @@
         <br>
     <% } %>
 
-    <% if (last_updated) { %>
-        <small><b>Last Updated:</b> <%= last_updated.toLocaleString() %> (<%= time_since %>)<br></small>
+    <% if (updated) { %>
+        <small><b>Last Updated:</b> <%= new Date(updated * 1000).toLocaleString() %> (<%= time_since %>)<br></small>
     <% } %>
 
     <br>
