@@ -4916,12 +4916,29 @@ function isMythicalPokemon(pokemonId) {
     return masterfile.pokemon[pokemonId].mythic;
 }
 
-function isAlolanPokemon(pokemonId) {
-    return pokemonRarityDb.alolan.includes(pokemonId);
+function isAlolanPokemon(pokemonId, formId) {
+    if (masterfile.pokemon[pokemonId]) {
+        const pkmn = masterfile.pokemon[pokemonId];
+        if (pkmn.forms && pkmn.forms[formId]) {
+            const form = pkmn.forms[formId];
+            if (form.name === 'Alola') {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
-function isGalarianPokemon(pokemonId) {
-    return pokemonRarityDb.galarian.includes(pokemonId);
+function isGalarianPokemon(pokemonId, formId) {
+    if (masterfile.pokemon[pokemonId]) {
+        const pkmn = masterfile.pokemon[pokemonId];
+        if (pkmn.forms && pkmn.forms[formId]) {
+            const form = pkmn.forms[formId];
+            if (form.name === 'Galarian') {
+                return true;
+            }
+        }
+    }
 }
 
 function isRegionalPokemon(pokemonId) {
@@ -6690,8 +6707,8 @@ function setPokemonFilters(type, show) {
                 case 'hoenn':    matches = isHoennPokemon(i); break;
                 case 'sinnoh':   matches = isSinnohPokemon(i); break;
                 case 'unova':    matches = isUnovaPokemon(i); break;
-                case 'alolan':   matches = isAlolanPokemon(i); break;
-                case 'galarian': matches = isGalarianPokemon(i); break;
+                case 'alolan':   matches = isAlolanPokemon(i, formId); break;
+                case 'galarian': matches = isGalarianPokemon(i, formId); break;
             }
             const id = formId === '0' ? i : i + '-' + formId;
             if (matches) {
