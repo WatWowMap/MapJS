@@ -879,6 +879,9 @@ function loadStorage () {
     const nestFilterValue = retrieve('nest_filter');
     if (nestFilterValue === null) {
         const defaultNestFilter = {};
+        if (defaultNestFilter['avg'] === undefined) {
+            defaultNestFilter['avg'] = { on: false, filter: '5-50' };
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (defaultNestFilter['p' + id] === undefined) {
@@ -890,6 +893,9 @@ function loadStorage () {
         nestFilter = defaultNestFilter;
     } else {
         nestFilter = JSON.parse(nestFilterValue);
+        if (nestFilter['avg'] === undefined) {
+            nestFilter['avg'] = { on: false, filter: '5-50' };
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id] === undefined) {
@@ -1636,6 +1642,9 @@ function loadData () {
 
     const nestFilterExclude = [];
     if (showNests) {
+        if (nestFilter['avg'].on === true) {
+            nestFilterExclude.push('avg' + nestFilter['avg'].filter.replace(/\s/g, ''));
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id].show === false) {
@@ -4183,6 +4192,21 @@ function manageSelectButton (e, isNew) {
             shouldShow = nestFilterNew['p' + id].size === 'huge';
             break;
         }
+    } else if (type === 'nest-avg') {
+        switch (info) {
+        case 'off':
+            shouldShow = !nestFilterNew[id].on;
+            break;
+        case 'on':
+            shouldShow = nestFilterNew[id].on;
+            break;
+        case 'hide':
+            shouldShow = nestFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = nestFilterNew[id].show === true;
+            break;
+        }
     } else if (type === 'weather-type') {
         switch (info) {
         case 'hide':
@@ -4637,6 +4661,21 @@ function manageSelectButton (e, isNew) {
                     nestFilterNew['p' + id].size = 'huge';
                     break;
                 }
+            } else if (type === 'nest-avg') {
+                switch (info) {
+                case 'off':
+                    nestFilterNew[id].on = false;
+                    break;
+                case 'on':
+                    nestFilterNew[id].on = true;
+                    break;
+                case 'hide':
+                    nestFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    nestFilterNew[id].show = true;
+                    break;
+                }
             } else if (type === 'weather-type') {
                 switch (info) {
                 case 'hide':
@@ -4694,12 +4733,14 @@ function manageConfigureButton (e, isNew) {
         e.addClass('configure-button');
         e.on('click', function (e) {
             e.preventDefault();
-            if (type === 'pokemon-iv' || type === 'pokemon-pvp') {
+            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'nest-avg') {
                 switch (info) {
                 case 'global-iv':
                     return manageGlobalIVPopup(id, pokemonFilterNew);
                 case 'global-pvp':
                     return manageGlobalPVPPopup(id, pokemonFilterNew);
+                case 'global-avg':
+                    return manageGlobalAveragePopup(id, nestFilterNew);
                 }
             }
         });
@@ -4786,6 +4827,20 @@ function manageGlobalPVPPopup (id, filter) {
         return true;
     } else {
         alert('Invalid PVP Filter!');
+        return false;
+    }
+}
+
+function manageGlobalAveragePopup (id, filter) {
+    const result = prompt('Please enter a nest count average to filter. Example: 5-50', filter[id].filter);
+    if (result === null) {
+        return false;
+    } else if (checkIVFilterValid(result)) {
+        console.log('avg result:', result);
+        filter[id].filter = result;
+        return true;
+    } else {
+        alert('Invalid Nest Filter!');
         return false;
     }
 }
