@@ -3177,6 +3177,9 @@ function getCellPopupContent (cell) {
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
+    const templateData = getTemplateData('submission_cell', cell);
+    return templateData;
+    /*
     let content = '<center>';
     content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
     content += '<b>Id:</b> ' + cell.id + '<br>';
@@ -3198,6 +3201,7 @@ function getSubmissionTypeCellPopupContent (cell) {
 
     content += '</center>';
     return content;
+    */
 }
 
 function degreesToCardinal (d) {
