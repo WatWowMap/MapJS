@@ -2121,6 +2121,9 @@ function loadScanAreaPolygons () {
                 let areaSize = geodesicArea(coords);
                 let size = convertAreaToSqkm(areaSize).toFixed(2);
                 featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
+                featureLayer.on('popupopen', function(event) {
+                    setPopupStyle();
+                });
             }
         });
         scanAreaLayer.addLayer(areaGeoPolys);
@@ -3361,6 +3364,7 @@ function getWeatherMarker (weather, ts) {
     polygon.on('popupopen', function (popup) {
         openedWeather = weather;
         polygon._popup.setContent(getWeatherPopupContent(weather));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3394,6 +3398,9 @@ function getNestMarker (nest, geojson, ts) {
         */
         onEachFeature: function(features, featureLayer) {
             featureLayer.bindPopup(getNestPopupContent(nest));
+            featureLayer.on('popupopen', function(event) {
+                setPopupStyle();
+            });
             featureLayer.setStyle({
                 //'weight': 1,
                 'stroke': features.properties['stroke'],
@@ -3614,6 +3621,9 @@ function getSpawnpointMarker (spawnpoint, ts) {
         radius: 1.0
     });
     circle.bindPopup(content);
+    circle.on('popupopen', function(event) {
+        setPopupStyle();
+    });
     return circle;
 }
 
@@ -3705,13 +3715,13 @@ function getDeviceMarker (device, ts) {
     marker.on('popupopen', function (popup) {
         openedDevice = device;
         marker._popup.setContent(getDevicePopupContent(device));
-        setPopupStyle();
         if (device.type === 'circle_pokemon') {
             const data = JSON.parse(device.data);
             const route = data.area;
             // TODO: Make outline color configurable
             polyline = L.polyline(route, {color: 'red'}).addTo(map);
         }
+        setPopupStyle();
     });
     marker.on('popupclose', function (popup) {
         if (polyline) {
@@ -6777,5 +6787,6 @@ function setPopupStyle() {
     if ('{{style}}' === 'dark') {
         $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
         $('.leaflet-popup-content-wrapper').css('color', 'white');
+        $('.leaflet-popup-tip').css('background-color', 'rgb(33, 37, 31)');
     }
 }
