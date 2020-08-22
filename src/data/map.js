@@ -1017,6 +1017,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const minLonReal = minLon - 0.01;
     const maxLonReal = maxLon + 0.01;
     const excludedPokemon = [];
+    let averageCountFilter = 0;
 
     if (nestFilterExclude) {
         for (let i = 0; i < nestFilterExclude.length; i++) {
@@ -1024,6 +1025,8 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
             if (filter.includes('p')) {
                 const id = parseInt(filter.replace('p', ''));
                 excludedPokemon.push(id);
+            } else if (filter.includes('avg')) {
+                averageCountFilter = filter.replace('avg', '');
             }
         }
     }
@@ -1043,12 +1046,20 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
         excludePokemonSQL = sqlExcludeCreate;
     }
 
+    let args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
+
+    let excludeAverageSQL;
+    if (averageCountFilter >= 0) {
+        // Minimum average count
+        excludeAverageSQL = ' AND pokemon_avg >= ?';
+        args.push(averageCountFilter);
+    }
+
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL} ${excludeAverageSQL}
     `;
-    let args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
     for (let i = 0; i < excludedPokemon.length; i++) {
         args.push(excludedPokemon[i]);
     }

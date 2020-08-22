@@ -68,6 +68,7 @@
 	"filter_global_filters": "Global Filters",
 	"filter_global_iv": "IV/Level Limit",
 	"filter_global_pvp": "PVP Limit",
+	"filter_global_avg": "Nest Avg Limit",
 	"filter_and": "And",
 	"filter_or": "Or",
 	"filter_on": "On",
