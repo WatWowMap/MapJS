@@ -3280,6 +3280,7 @@ function getCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedCell = cell;
         polygon._popup.setContent(getCellPopupContent(cell));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3336,6 +3337,7 @@ function getSubmissionTypeCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedSubmissionTypeCell = cell;
         polygon._popup.setContent(getSubmissionTypeCellPopupContent(cell));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3481,6 +3483,7 @@ function getPokemonMarker (pokemon, ts) {
     marker.on('popupopen', function (popup) {
         openedPokemon = pokemon;
         marker._popup.setContent(getPokemonPopupContent(pokemon));
+        setPopupStyle();
     });
     /*
     marker.setBouncingOptions({
@@ -3592,6 +3595,7 @@ function getPokestopMarker (pokestop, ts) {
     marker.on('popupopen', function (popup) {
         openedPokestop = pokestop;
         marker._popup.setContent(getPokestopPopupContent(pokestop));
+        setPopupStyle();
     });
     return marker;
 }
@@ -3679,6 +3683,7 @@ function getGymMarker (gym, ts) {
     marker.on('popupopen', function (popup) {
         openedGym = gym;
         marker._popup.setContent(getGymPopupContent(gym));
+        setPopupStyle();
     });
 
     return marker;
@@ -3700,6 +3705,7 @@ function getDeviceMarker (device, ts) {
     marker.on('popupopen', function (popup) {
         openedDevice = device;
         marker._popup.setContent(getDevicePopupContent(device));
+        setPopupStyle();
         if (device.type === 'circle_pokemon') {
             const data = JSON.parse(device.data);
             const route = data.area;
@@ -6765,4 +6771,11 @@ function setPokemonFilters(type, show) {
     pokemonFilterNew = defaultPokemonFilter;
 
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+}
+
+function setPopupStyle() {
+    if ('{{style}}' === 'dark') {
+        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
+        $('.leaflet-popup-content-wrapper').css('color', 'white');
+    }
 }
