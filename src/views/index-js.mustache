@@ -2418,8 +2418,10 @@ function updateMapTimers () {
 
 function getPokemonPopupContent (pokemon) {
     const despawnDate = new Date(pokemon.expire_timestamp * 1000);
+    const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
+    const lastUpdatedDate = new Date(pokemon.updated * 1000);
     const hasIV = pokemon.atk_iv !== null;
-    let content = '';
+    //let content = '';
 
     let pokemonName;
     if (pokemon.form !== 0 && pokemon.form !== null) {
@@ -2430,9 +2432,47 @@ function getPokemonPopupContent (pokemon) {
     if (pokemon.display_pokemon_id > 0) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
-
+    pokemon.pokemon_name = pokemonName;
     const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form)
-
+    pokemon.pokemon_icon = pokemonIcon;
+    pokemon.icon_path = availableIconStyles[selectedIconStyle];
+    const pkmn = masterfile.pokemon[pokemon.pokemon_id];
+    let pokemonTypes = [];
+    if (pkmn && pkmn.types && pkmn.types.length > 0) {
+        if (pkmn) {
+            const types = pkmn.types;
+            if (types && types.length > 0) {
+                if (types.length === 2) {
+                    pokemonTypes.push(types[0].toLowerCase());
+                    pokemonTypes.push(types[1].toLowerCase());
+                } else {
+                    pokemonTypes.push(types[0].toLowerCase());
+                }
+            }
+        }
+    }
+    pokemon.pokemon_types = pokemonTypes;
+    pokemon.gender_icon = getGenderIcon(pokemon.gender);
+    pokemon.has_iv = hasIV;
+    if (pokemon.size > 0 && pokemon.weight > 0 && (pokemon.pokemon_id === 19 || pokemon.pokemon_id === 129)) {
+        const baseHeight = pokemon_id === 19 ? 0.300000011920929 : 0.89999998;
+        const baseWeight = pokemon_id === 19 ? 3.5 : 10;
+        const size = (size / baseHeight) + (pokemon.weight / baseWeight);
+        pokemon.size = getSize(size);
+    }
+    if (pokemon.move_1 > 0) {
+        pokemon.move_1_name = getMoveName(pokemon.move_1);
+    }
+    if (pokemon.move_2 > 0) {
+        pokemon.move_2_name = getMoveName(pokemon.move_2);
+    }
+    pokemon.enable_scouting = enableScouting;
+    pokemon.time_utill_despawn = getTimeUntill(despawnDate);
+    pokemon.time_since_first_seen = getTimeSince(firstSeenDate);
+    pokemon.time_since_updated = getTimeSince(lastUpdatedDate);
+    const templateData = getTemplateData('pokemon', pokemon);
+    return templateData;
+    /*
     content +=
     '<div class="row">' + // START 1ST ROW
         '<div class="col-12 col-md-8 center-vertical text-nowrap">' +
@@ -2615,6 +2655,7 @@ function getPokemonPopupContent (pokemon) {
         ) +
     '</div>';
     return content;
+    */
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -2721,7 +2762,7 @@ function getPokestopPopupContent (pokestop) {
         pokestop.quest_rewards_formatted = questRewards;
     }
     pokestop.last_updated = lastUpdatedDate;
-    pokestop.time_since = getTimeUntill(lastUpdatedDate);
+    pokestop.time_since = getTimeSince(lastUpdatedDate);
     const templateData = getTemplateData('pokestop', pokestop);
     return templateData;
 
@@ -2852,8 +2893,9 @@ function getGymPopupContent (gym) {
     gym.is_raid_battle = isRaidBattle;
     gym.available_slots = gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots;
     gym.has_raid_boss = hasRaidBoss;
+    let pokemonName = '';
     if (hasRaidBoss && isRaidBattle) {
-        let pokemonName = getPokemonName(gym.raid_pokemon_id);
+        pokemonName = getPokemonName(gym.raid_pokemon_id);
         if (gym.raid_pokemon_form > 0) {
             const formName = getFormName(gym.raid_pokemon_form);
             pokemonName = formName + ' ' + pokemonName;
@@ -2872,10 +2914,10 @@ function getGymPopupContent (gym) {
             const types = pkmn.types;
             if (types && types.length > 0) {
                 if (types.length === 2) {
-                    types.push(types[0].toLowerCase());
-                    types.push(types[1].toLowerCase());
+                    pokemonTypes.push(types[0].toLowerCase());
+                    pokemonTypes.push(types[1].toLowerCase());
                 } else {
-                    types.push(types[0].toLowerCase());
+                    pokemonTypes.push(types[0].toLowerCase());
                 }
             }
         }
@@ -2892,7 +2934,7 @@ function getGymPopupContent (gym) {
     gym.icon_path = availableIconStyles[selectedIconStyle];
     const templateData = getTemplateData('gym', gym);
     return templateData;
-
+    /*
     let content =
     '<div class="row">' + // START 1ST ROW
         '<div class="col-12 col-md-8 center-vertical">' +
@@ -3070,6 +3112,7 @@ function getGymPopupContent (gym) {
         '</div>' +
     '</div>';
     return content;
+    */
 }
 
 function getCellPopupContent (cell) {
