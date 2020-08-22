@@ -267,7 +267,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     // Maximum search results for global search to return
     "searchMaxResults": 200,
     // Set a custom list of Pokemon to be activated if a user selects the "Quick Start" filter button on the Pokemon Filter menu
-    "recommended_pokemon": [
+    "recommendedPokemon": [
     3,6,9,65,68,76,94,99,106,107,108,112,113,114,115,122,125,130,131,134
     ]
     
