@@ -3,6 +3,7 @@
 const config = require('../config.json');
 const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
+data.header_title = config.headerTitle;
 data.locale = config.locale;
 data.style = config.style == 'dark' ? 'dark' : '';
 data.max_pokemon_id = config.map.maxPokemonId; // TODO: Fix, no idea why index.js isn't picking up max_pokemon_id anymore
@@ -30,5 +31,6 @@ data.default_show_submissioncells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
 data.default_show_scanareas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
+data.recommended_pokemon_json = JSON.stringify(config.recommendedPokemon);
 
 module.exports = data;

@@ -9,17 +9,15 @@ const oauth = new DiscordOauth2();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-});
+if (config.discord.enabled) {
+    client.on('ready', () => {
+        console.log(`Logged in as ${client.user.tag}!`);
+            client.user.setPresence({ activity: { name: config.discord.status, type: 3 }
+        });
+    });
   
-client.on('message', (msg) => {
-    if (msg.content === 'ping') {
-        msg.reply('pong');
-    }
-});
-  
-client.login(config.discord.botToken);
+    client.login(config.discord.botToken);
+}
 
 class DiscordClient {
     //static instance = new DiscordClient();
@@ -109,6 +107,18 @@ class DiscordClient {
             }
         }
         return perms;
+    }
+
+    async sendMessage(channelId, message) {
+        if (!channelId) {
+            return;
+        }
+        const channel = await client.channels.cache
+            .get(channelId)
+            .fetch();
+        if (channel && message) {
+            channel.send(message);
+        }
     }
 }
 

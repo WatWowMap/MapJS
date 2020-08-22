@@ -127,19 +127,21 @@ let pokemonRarityDb = [];
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
 
-let defaultShowPokemon = '{{default_show_pokemon}}' === 'true' || false;
-let defaultShowRaids = '{{default_show_raids}}' === 'true' || true;
-let defaultShowGyms = '{{default_show_gyms}}' === 'true' || false;
-let defaultShowPokestops = '{{default_show_pokestops}}' === 'true' || false;
-let defaultShowQuests = '{{default_show_quests}}' === 'true' || true;
-let defaultShowInvasions = '{{default_show_invasions}}' === 'true' || true;
-let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true' || false;
-let defaultShowWeather = '{{default_show_weather}}' === 'true' || false;
-let defaultShowScanCells = '{{default_show_scancells}}' === 'true' || false;
-let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true' || false;
-let defaultShowNests = '{{default_show_nests}}' === 'true' || false;
-let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true' || false;
-let defaultShowDevices = '{{default_show_devices}}' === 'true' || false;
+let defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
+let defaultShowRaids = '{{default_show_raids}}' === 'true';
+let defaultShowGyms = '{{default_show_gyms}}' === 'true';
+let defaultShowPokestops = '{{default_show_pokestops}}' === 'true';
+let defaultShowQuests = '{{default_show_quests}}' === 'true';
+let defaultShowInvasions = '{{default_show_invasions}}' === 'true';
+let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true';
+let defaultShowWeather = '{{default_show_weather}}' === 'true';
+let defaultShowScanCells = '{{default_show_scancells}}' === 'true';
+let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true';
+let defaultShowNests = '{{default_show_nests}}' === 'true';
+let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true';
+let defaultShowDevices = '{{default_show_devices}}' === 'true';
+
+const recommendedPokemon = JSON.parse('{{{recommended_pokemon_json}}}');
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -511,8 +513,8 @@ function loadStorage () {
 
     const showRaidsValue = retrieve('show_raids');
     if (showRaidsValue === null) {
-        store('show_raids', defaultShowPokemon);
-        showRaids = defaultShowPokemon;
+        store('show_raids', defaultShowRaids);
+        showRaids = defaultShowRaids;
     } else {
         showRaids = (showRaidsValue === 'true');
     }
@@ -675,7 +677,6 @@ function loadStorage () {
         if (pokemonFilter.pvp_or === undefined) {
             pokemonFilter.pvp_or = { on: false, filter: '1-100' };
         }
-
         if (pokemonFilter.big_karp === undefined) {
             pokemonFilter.big_karp = { show: false, size: 'normal'};
         }
@@ -899,6 +900,9 @@ function loadStorage () {
     const nestFilterValue = retrieve('nest_filter');
     if (nestFilterValue === null) {
         const defaultNestFilter = {};
+        if (defaultNestFilter['avg'] === undefined) {
+            defaultNestFilter['avg'] = { on: false, filter: '5' };
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (defaultNestFilter['p' + id] === undefined) {
@@ -910,6 +914,9 @@ function loadStorage () {
         nestFilter = defaultNestFilter;
     } else {
         nestFilter = JSON.parse(nestFilterValue);
+        if (nestFilter['avg'] === undefined) {
+            nestFilter['avg'] = { on: false, filter: '5-50' };
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id] === undefined) {
@@ -1027,395 +1034,7 @@ function initMap () {
         keepCurrentZoomLevel: true,
     }).addTo(map);
 
-    $('#reset-pokemon-filter').on('click', function (event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                defaultPokemonFilter[id] = { show: true, size: 'normal' };
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
-        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-trash-pokemon-filter').on('click', function(event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                defaultPokemonFilter[id] = { show: isCommonPokemon(i) === false, size: 'normal' };
-            }
-        }
-
-        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
-        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-pokemon-filter').on('click', function (event) {
-        const defaultPokemonFilter = {};
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
-            const forms = Object.keys(pkmn.forms);
-            for (let j = 0; j < forms.length; j++) {
-                const formId = forms[j];
-                if (skipForms.includes(pkmn.forms[formId].name)) {
-                    // Skip Shadow and Purified forms
-                    continue;
-                }
-                const id = formId === '0' ? i : i + '-' + formId;
-                defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
-            }
-        }
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
-
-        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
-        pokemonFilterNew = defaultPokemonFilter;
-
-        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-quest-filter').on('click', function (event) {
-        const defaultQuestFilter = {};
-        let i;
-        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
-            defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
-        }
-        $.each(availableItems, function (index, itemId) {
-            defaultQuestFilter['i' + itemId] = { show: true, size: 'normal' };
-        });
-        for (i = 0; i < availableQuestRewards.items.length; i++) {
-            let id = availableQuestRewards.items[i];
-            defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
-        }
-
-        store('quest_filter', JSON.stringify(defaultQuestFilter));
-        questFilterNew = defaultQuestFilter;
-
-        $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-quest-filter').on('click', function (event) {
-        const defaultQuestFilter = {};
-        let i;
-        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
-            defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
-        }
-        $.each(availableItems, function (index, itemId) {
-            defaultQuestFilter['i' + itemId] = { show: false, size: questFilterNew['i' + itemId].size };
-        });
-        for (i = 0; i < availableQuestRewards.items.length; i++) {
-            let id = availableQuestRewards.items[i];
-            defaultQuestFilter['i' + id] = { show: false, size: questFilterNew['i' + id].size };
-        }
-
-        store('quest_filter', JSON.stringify(defaultQuestFilter));
-        questFilterNew = defaultQuestFilter;
-
-        $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-raid-filter').on('click', function (event) {
-        const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: true, size: 'normal' };
-        let i;
-        for (i = 1; i <= 5; i++) {
-            defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
-        }
-        for (i = 0; i < availableRaidBosses.length; i++) {
-            let poke = availableRaidBosses[i];
-            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
-        }
-
-        store('raid_filter', JSON.stringify(defaultRaidFilter));
-        raidFilterNew = defaultRaidFilter;
-
-        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-raid-filter').on('click', function (event) {
-        const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: false, size: raidFilterNew.timers.size };
-        let i;
-        for (i = 1; i <= 5; i++) {
-            defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
-        }
-        for (i = 0; i < availableRaidBosses.length; i++) {
-            let poke = availableRaidBosses[i];
-            console.log(poke);
-            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
-        }
-
-        store('raid_filter', JSON.stringify(defaultRaidFilter));
-        raidFilterNew = defaultRaidFilter;
-
-        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#legendary-raid-filter').on('click', function (event) {
-        const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
-        let i;
-        for (i = 1; i <= 5; i++) {
-            defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
-        }
-        for (i = 0; i < availableRaidBosses.length; i++) {
-            let poke = availableRaidBosses[i];
-            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: masterfile.pokemon[id].legendary || masterfile.pokemon[id].mythic, size: 'normal' };
-        }
-
-        store('raid_filter', JSON.stringify(defaultRaidFilter));
-        raidFilterNew = defaultRaidFilter;
-
-        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#normal-raid-filter').on('click', function (event) {
-        const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
-        let i;
-        for (i = 1; i <= 5; i++) {
-            defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
-        }
-        for (i = 0; i < availableRaidBosses.length; i++) {
-            let poke = availableRaidBosses[i];
-            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: !masterfile.pokemon[id].legendary && !masterfile.pokemon[id].mythic, size: 'normal' };
-        }
-
-        store('raid_filter', JSON.stringify(defaultRaidFilter));
-        raidFilterNew = defaultRaidFilter;
-
-        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-gym-filter').on('click', function (event) {
-        const defaultGymFilter = {};
-        let i;
-        for (i = 0; i <= 3; i++) {
-            defaultGymFilter['t' + i] = { show: true, size: 'normal' };
-        }
-        defaultGymFilter.ex = { show: false, size: 'normal' };
-        defaultGymFilter.battle = { show: false, size: 'normal' };
-        for (i = 0; i <= 6; i++) {
-            defaultGymFilter['s' + i] = { show: true, size: 'normal' };
-        }
-
-        store('gym_filter', JSON.stringify(defaultGymFilter));
-        gymFilterNew = defaultGymFilter;
-
-        $('#table-filter-gym').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-gym-filter').on('click', function (event) {
-        const defaultGymFilter = {};
-        let i;
-        for (i = 0; i <= 3; i++) {
-            defaultGymFilter['t' + i] = { show: false, size: gymFilterNew['t' + i].size };
-        }
-        defaultGymFilter.ex = { show: false, size: gymFilterNew.ex.size };
-        defaultGymFilter.battle = { show: false, size: gymFilterNew.ex.size };
-        for (i = 0; i <= 6; i++) {
-            defaultGymFilter['s' + i] = { show: false, size: gymFilterNew['s' + i].size };
-        }
-
-        store('gym_filter', JSON.stringify(defaultGymFilter));
-        gymFilterNew = defaultGymFilter;
-
-        $('#table-filter-gym').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-pokestop-filter').on('click', function (event) {
-        const defaultPokestopFilter = {};
-        defaultPokestopFilter.normal = { show: true, size: 'normal' };
-        for (let i = 1; i < 5; i++) {
-            defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
-        }
-
-        store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
-        pokestopFilterNew = defaultPokestopFilter;
-
-        $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-pokestop-filter').on('click', function (event) {
-        const defaultPokestopFilter = {};
-        defaultPokestopFilter.normal = { show: false, size: pokestopFilterNew.normal.size };
-        for (let i = 1; i < 5; i++) {
-            defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
-        }
-
-        store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
-        pokestopFilterNew = defaultPokestopFilter;
-
-        $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-invasion-filter').on('click', function (event) {
-        const defaultInvasionFilter = {};
-        defaultInvasionFilter.timers = { show: true, size: 'normal' };
-        for (let i = 1; i <= 50; i++) {
-            defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
-        }
-
-        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
-        invasionFilterNew = defaultInvasionFilter;
-
-        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-invasion-filter').on('click', function (event) {
-        const defaultInvasionFilter = {};
-        defaultInvasionFilter.timers = { show: false, size: invasionFilterNew.timers.size };
-        for (let i = 1; i <= 50; i++) {
-            defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
-        }
-
-        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
-        invasionFilterNew = defaultInvasionFilter;
-
-        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-spawnpoint-filter').on('click', function (event) {
-        const defaultSpawnpointFilter = {};
-        defaultSpawnpointFilter['no-timer'] = { show: true, size: 'normal' };
-        defaultSpawnpointFilter['with-timer'] = { show: true, size: 'normal' };
-
-        store('spawnpoint_filter', JSON.stringify(defaultSpawnpointFilter));
-        spawnpointFilterNew = defaultSpawnpointFilter;
-
-        $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-spawnpoint-filter').on('click', function (event) {
-        const defaultSpawnpointFilter = {};
-        defaultSpawnpointFilter['no-timer'] = { show: false, size: spawnpointFilterNew['no-timer'].size };
-        defaultSpawnpointFilter['with-timer'] = { show: false, size: spawnpointFilterNew['with-timer'].size };
-
-        store('spawnpoint_filter', JSON.stringify(defaultSpawnpointFilter));
-        spawnpointFilterNew = defaultSpawnpointFilter;
-
-        $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-nest-filter').on('click', function (event) {
-        const defaultNestFilter = {};
-        defaultNestFilter['no-timer'] = { show: true, size: 'normal' };
-        for (i = 0; i < availableNestPokemon.length; i++) {
-            let id = availableNestPokemon[i];
-            defaultNestFilter['p' + id] = { show: true, size: 'normal' };
-        }
-
-        store('nest_filter', JSON.stringify(defaultNestFilter));
-        nestFilterNew = defaultNestFilter;
-
-        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-nest-filter').on('click', function (event) {
-        const defaultNestFilter = {};
-        for (i = 0; i < availableNestPokemon.length; i++) {
-            let id = availableNestPokemon[i];
-            defaultNestFilter['p' + id] = { show: false, size: 'normal' };
-        }
-
-        store('nest_filter', JSON.stringify(defaultNestFilter));
-        nestFilterNew = defaultNestFilter;
-
-        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-weather-filter').on('click', function (event) {
-        const defaultWeatherFilter = {};
-        for (i = 1; i <= 7; i++) {
-            defaultWeatherFilter[i] = { show: true, size: 'normal' };
-        }
-
-        store('weather_filter', JSON.stringify(defaultWeatherFilter));
-        weatherFilterNew = defaultWeatherFilter;
-
-        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-weather-filter').on('click', function (event) {
-        const defaultWeatherFilter = {};
-        for (i = 1; i <= 7; i++) {
-            defaultWeatherFilter[i] = { show: false, size: 'normal' };
-        }
-
-        store('weather_filter', JSON.stringify(defaultWeatherFilter));
-        weatherFilterNew = defaultWeatherFilter;
-
-        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#reset-device-filter').on('click', function (event) {
-        const defaultDeviceFilter = {};
-        defaultDeviceFilter['online'] = { show: true, size: 'normal' };
-        defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
-
-        store('device_filter', JSON.stringify(defaultDeviceFilter));
-        deviceFilterNew = defaultDeviceFilter;
-
-        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
-    });
-
-    $('#disable-all-device-filter').on('click', function (event) {
-        const defaultDeviceFilter = {};
-        defaultDeviceFilter['online'] = { show: false, size: 'normal' };
-        defaultDeviceFilter['offline'] = { show: false, size: 'normal' };
-
-        store('device_filter', JSON.stringify(defaultDeviceFilter));
-        deviceFilterNew = defaultDeviceFilter;
-
-        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
-    });
+    registerFilterButtonCallbacks();
 
     $('#saveFilters').on('click', function (event) {
         $(this).toggleClass('active');
@@ -1490,10 +1109,11 @@ function initMap () {
             });
             spawnpointMarkers = [];
         }
-        if (newShowNests !== showNests && newShowNests === false) {
+        // TODO: Fix nest filtering on change
+        //if (newShowNests !== showNests && newShowNests === false) {
             nestLayer.clearLayers();
             nestMarkers = [];
-        }
+        //}
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -1642,7 +1262,7 @@ function initMap () {
 
         $('#filtersModal').modal('hide');
     });
-
+    
     $('#saveSettings').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -1804,7 +1424,7 @@ function initMap () {
 
     const CustomControlSearch = L.Control.extend({
         options: {
-            position: 'topright'
+            position: 'topleft'
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -2081,6 +1701,9 @@ function loadData () {
 
     const nestFilterExclude = [];
     if (showNests) {
+        if (nestFilter['avg'].on === true) {
+            nestFilterExclude.push('avg' + nestFilter['avg'].filter.replace(/\s/g, ''));
+        }
         for (let i = 0; i < availableNestPokemon.length; i++) {
             let id = availableNestPokemon[i];
             if (nestFilter['p' + id].show === false) {
@@ -2185,11 +1808,14 @@ function loadData () {
 
                         if (oldGym.availble_slots !== gym.availble_slots ||
                             oldGym.team_id !== gym.team_id ||
+                            oldGym.guard_pokemon_id !== gym.guard_pokemon_id ||
                             oldGym.in_battle !== gym.in_battle ||
                             oldGym.raid_end_timestamp !== gym.raid_end_timestamp ||
-                            oldGym.raid_pokemon_id !== gym.raid_pokemon_id) {
+                            oldGym.raid_pokemon_id !== gym.raid_pokemon_id ||
+                            oldGym.raid_pokemon_form !== gym.raid_pokemon_form) {
                             oldGym.availble_slots = gym.availble_slots;
                             oldGym.team_id = gym.team_id;
+                            oldGym.guard_pokemon_id = gym.guard_pokemon_id;
                             oldGym.in_battle = gym.in_battle;
                             oldGym.raid_end_timestamp = gym.raid_end_timestamp;
                             oldGym.raid_battle_timestamp = gym.raid_battle_timestamp;
@@ -2503,7 +2129,7 @@ function loadData () {
                     if (oldWeather === undefined) {
                         weather.marker = getWeatherMarker(weather, ts);
                         let weatherIcon;
-                        if (weather.gameplay_condition !== 0 && weather.gameplay_condition !== null) {
+                        if (weather.gameplay_condition > 0) {
                             weatherIcon = `<img src="${availableIconStyles[selectedIconStyle]}/weather/${weather.gameplay_condition}.png" height="25" width="25">`;
                         } else {
                             weatherIcon = '';
@@ -2562,6 +2188,9 @@ function loadScanAreaPolygons () {
                 let areaSize = geodesicArea(coords);
                 let size = convertAreaToSqkm(areaSize).toFixed(2);
                 featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
+                featureLayer.on('popupopen', function(event) {
+                    setPopupStyle();
+                });
             }
         });
         scanAreaLayer.addLayer(areaGeoPolys);
@@ -2627,10 +2256,12 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
     var minCP = greatLeague !== false ? 1400 : 2400;
     var maxCP = greatLeague !== false ? 1500 : 2500;
     var maxRank = 100;
-    for (var i = 0; i < leagueStats.length; i++) {
-        if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
-            found = true;
-            break;
+    if (leagueStats) {
+        for (var i = 0; i < leagueStats.length; i++) {
+            if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
+                found = true;
+                break;
+            }
         }
     }
     return found;
@@ -3095,6 +2726,25 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
+function addQuestFilter (pokemonId, itemId, show) {
+    if (pokemonId > 0) {
+        questFilter['p' + pokemonId].show = show;
+    }
+    if (itemId > 0) {
+        questFilter['i' + itemId].show = show;
+    }
+    store('quest_filter', JSON.stringify(questFilter));
+
+    $.each(pokestopMarkers, function (index, pokestop) {
+        const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
+        const rewardPokemonId = reward.info.pokemon_id || 0;
+        const rewardItemId = reward.info.item_id || 0;
+        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+            map.removeLayer(pokestop.marker);
+        }
+    });
+}
+
 function getPokestopPopupContent (pokestop) {
     const now = new Date();
     const lureExpireDate = new Date(pokestop.lure_expire_timestamp * 1000);
@@ -3170,9 +2820,16 @@ function getPokestopPopupContent (pokestop) {
         content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
     }
 
+    const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
+    content +=
+        '<br>';
+    if (pokestop.quest_type !== null) {
+        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
+    }
     content +=
         '<br>' +
         '<div class="row text-center">' +
+            '<br>' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
                     `<img src="${availableIconStyles[selectedIconStyle]}/navigation/gmaps.png" height="32" width="32">` +
@@ -3693,6 +3350,7 @@ function getCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedCell = cell;
         polygon._popup.setContent(getCellPopupContent(cell));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3749,6 +3407,7 @@ function getSubmissionTypeCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedSubmissionTypeCell = cell;
         polygon._popup.setContent(getSubmissionTypeCellPopupContent(cell));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3772,6 +3431,7 @@ function getWeatherMarker (weather, ts) {
     polygon.on('popupopen', function (popup) {
         openedWeather = weather;
         polygon._popup.setContent(getWeatherPopupContent(weather));
+        setPopupStyle();
     });
     return polygon;
 }
@@ -3805,6 +3465,9 @@ function getNestMarker (nest, geojson, ts) {
         */
         onEachFeature: function(features, featureLayer) {
             featureLayer.bindPopup(getNestPopupContent(nest));
+            featureLayer.on('popupopen', function(event) {
+                setPopupStyle();
+            });
             featureLayer.setStyle({
                 //'weight': 1,
                 'stroke': features.properties['stroke'],
@@ -3896,6 +3559,7 @@ function getPokemonMarker (pokemon, ts) {
     marker.on('popupopen', function (popup) {
         openedPokemon = pokemon;
         marker._popup.setContent(getPokemonPopupContent(pokemon));
+        setPopupStyle();
     });
     /*
     marker.setBouncingOptions({
@@ -3921,13 +3585,20 @@ function getPokestopMarkerIcon (pokestop, ts) {
         let rewardString;
         let iconUrl;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
+            // XP
             iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-2.png`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/${info.item_id}.png`;
+            // Item
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/${info.item_id}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_${info.item_id}_${info.amount}.png`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
+            // Stardust
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-1.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
+            // Candy
+            //iconUrl = `${availableIconStyles[selectedIconStyle]}/item/-3.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle]}/reward/reward_1301_${info.amount}.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             if (info.form_id !== 0 && info.form_id !== null) {
                 const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
@@ -4000,6 +3671,7 @@ function getPokestopMarker (pokestop, ts) {
     marker.on('popupopen', function (popup) {
         openedPokestop = pokestop;
         marker._popup.setContent(getPokestopPopupContent(pokestop));
+        setPopupStyle();
     });
     return marker;
 }
@@ -4018,6 +3690,9 @@ function getSpawnpointMarker (spawnpoint, ts) {
         radius: 1.0
     });
     circle.bindPopup(content);
+    circle.on('popupopen', function(event) {
+        setPopupStyle();
+    });
     return circle;
 }
 
@@ -4087,6 +3762,7 @@ function getGymMarker (gym, ts) {
     marker.on('popupopen', function (popup) {
         openedGym = gym;
         marker._popup.setContent(getGymPopupContent(gym));
+        setPopupStyle();
     });
 
     return marker;
@@ -4114,6 +3790,7 @@ function getDeviceMarker (device, ts) {
             // TODO: Make outline color configurable
             polyline = L.polyline(route, {color: 'red'}).addTo(map);
         }
+        setPopupStyle();
     });
     marker.on('popupclose', function (popup) {
         if (polyline) {
@@ -4166,7 +3843,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
             const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 15] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
             /* let tooltip = */ marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }
@@ -4612,6 +4289,21 @@ function manageSelectButton (e, isNew) {
             break;
         case 'huge':
             shouldShow = nestFilterNew['p' + id].size === 'huge';
+            break;
+        }
+    } else if (type === 'nest-avg') {
+        switch (info) {
+        case 'off':
+            shouldShow = !nestFilterNew[id].on;
+            break;
+        case 'on':
+            shouldShow = nestFilterNew[id].on;
+            break;
+        case 'hide':
+            shouldShow = nestFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = nestFilterNew[id].show === true;
             break;
         }
     } else if (type === 'weather-type') {
@@ -5088,6 +4780,21 @@ function manageSelectButton (e, isNew) {
                     nestFilterNew['p' + id].size = 'huge';
                     break;
                 }
+            } else if (type === 'nest-avg') {
+                switch (info) {
+                case 'off':
+                    nestFilterNew[id].on = false;
+                    break;
+                case 'on':
+                    nestFilterNew[id].on = true;
+                    break;
+                case 'hide':
+                    nestFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    nestFilterNew[id].show = true;
+                    break;
+                }
             } else if (type === 'weather-type') {
                 switch (info) {
                 case 'hide':
@@ -5145,12 +4852,14 @@ function manageConfigureButton (e, isNew) {
         e.addClass('configure-button');
         e.on('click', function (e) {
             e.preventDefault();
-            if (type === 'pokemon-iv' || type === 'pokemon-pvp') {
+            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'nest-avg') {
                 switch (info) {
                 case 'global-iv':
                     return manageGlobalIVPopup(id, pokemonFilterNew);
                 case 'global-pvp':
                     return manageGlobalPVPPopup(id, pokemonFilterNew);
+                case 'global-avg':
+                    return manageGlobalAveragePopup(id, nestFilterNew);
                 }
             }
         });
@@ -5192,7 +4901,7 @@ function getTimeSince (date) {
 }
 
 function manageIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 && A15 && D15 && L0-20) || L35 || 90-100', filter[id].filter).toUpperCase();
+    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter[id].filter).toUpperCase();
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5265,6 +4974,19 @@ function manageGlobalPVPPopup (id, filter) {
         return true;
     } else {
         alert('Invalid PVP Filter!');
+        return false;
+    }
+}
+
+function manageGlobalAveragePopup (id, filter) {
+    const result = prompt('Please enter a nest count average to filter. Example: 5', filter[id].filter);
+    if (result === null) {
+        return false;
+    } else if (checkIVFilterValid(result)) {
+        filter[id].filter = result;
+        return true;
+    } else {
+        alert('Invalid Nest Filter!');
         return false;
     }
 }
@@ -5371,8 +5093,85 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     return 4096;
 }
 
+function isRecommendedPokemon(pokemonId) {
+    return recommendedPokemon.includes(pokemonId);
+}
+
 function isCommonPokemon(pokemonId) {
     return pokemonRarityDb.common.includes(pokemonId);
+}
+
+function isUncommonPokemon(pokemonId) {
+    return pokemonRarityDb.uncommon.includes(pokemonId);
+}
+
+function isRarePokemon(pokemonId) {
+    return pokemonRarityDb.rare.includes(pokemonId);
+}
+
+function isUltraPokemon(pokemonId) {
+    return pokemonRarityDb.ultra.includes(pokemonId);
+}
+
+function isLegendaryPokemon(pokemonId) {
+    return masterfile.pokemon[pokemonId].legendary;
+}
+
+function isMythicalPokemon(pokemonId) {
+    return masterfile.pokemon[pokemonId].mythic;
+}
+
+function isAlolanPokemon(pokemonId, formId) {
+    if (masterfile.pokemon[pokemonId]) {
+        const pkmn = masterfile.pokemon[pokemonId];
+        if (pkmn.forms && pkmn.forms[formId]) {
+            const form = pkmn.forms[formId];
+            if (form.name === 'Alola') {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function isGalarianPokemon(pokemonId, formId) {
+    if (masterfile.pokemon[pokemonId]) {
+        const pkmn = masterfile.pokemon[pokemonId];
+        if (pkmn.forms && pkmn.forms[formId]) {
+            const form = pkmn.forms[formId];
+            if (form.name === 'Galarian') {
+                return true;
+            }
+        }
+    }
+}
+
+function isRegionalPokemon(pokemonId) {
+    return pokemonRarityDb.regional.includes(pokemonId);
+}
+
+function isEventPokemon(pokemonId) {
+    return pokemonRarityDb.event.includes(pokemonId);
+}
+
+function isKantoPokemon(pokemonId) {
+    return pokemonRarityDb.kanto.includes(pokemonId);
+}
+
+function isJohtoPokemon(pokemonId) {
+    return pokemonRarityDb.johto.includes(pokemonId);
+}
+
+function isHoennPokemon(pokemonId) {
+    return pokemonRarityDb.hoenn.includes(pokemonId);
+}
+
+function isSinnohPokemon(pokemonId) {
+    return pokemonRarityDb.sinnoh.includes(pokemonId);
+}
+
+function isUnovaPokemon(pokemonId) {
+    return pokemonRarityDb.unova.includes(pokemonId);
 }
 
 function sendWebhook(encounterId) {
@@ -6705,10 +6504,571 @@ function loadFilterSettings (e) {
     reader.readAsText(file);
 }
 
-function clearSiteCache() {
+function clearSiteCache(type) {
+    if (type === 'storage') {
+        localStorage.clear();
+        //return;
+    }
     if (window.location.reload.length == 1) {
         window.location.reload(true);
     } else {
-        window.location.href = '/purge?target=' + encodeURIComponent(window.location.pathname);
+        window.location.href = '/purge/?target=' + encodeURIComponent(window.location.pathname);
+    }
+}
+
+function registerFilterButtonCallbacks() {
+    // TOOD: Make convienent method instead of 1000s of the same >.>
+
+    // Pokemon filter buttons
+    $('#reset-pokemon-filter').on('click', function (event) {
+        const defaultPokemonFilter = {};
+        let i;
+        for (i = 1; i <= maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
+                if (skipForms.includes(pkmn.forms[formId].name)) {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === '0' ? i : i + '-' + formId;
+                defaultPokemonFilter[id] = { show: true, size: 'normal' };
+            }
+        }
+        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
+        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
+        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
+        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        pokemonFilterNew = defaultPokemonFilter;
+
+        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#reset-common-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('common', true);
+    });
+
+    $('#reset-uncommon-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('uncommon', true);
+    });
+
+    $('#reset-rare-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('rare', true);
+    });
+
+    $('#reset-ultra-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('ultra', true);
+    });
+
+    $('#reset-regional-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('regional', true);
+    });
+
+    $('#reset-kanto-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('kanto', true);
+    });
+
+    $('#reset-johto-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('johto', true);
+    });
+
+    $('#reset-hoenn-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('hoenn', true);
+    });
+
+    $('#reset-sinnoh-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('sinnoh', true);
+    });
+
+    $('#reset-unova-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('unova', true);
+    });
+
+    $('#reset-alolan-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('alolan', true);
+    });
+
+    $('#reset-galarian-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('galarian', true);
+    });
+
+    $('#disable-all-pokemon-filter').on('click', function (event) {
+        const defaultPokemonFilter = {};
+        let i;
+        for (i = 1; i <= maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
+                if (skipForms.includes(pkmn.forms[formId].name)) {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === '0' ? i : i + '-' + formId;
+                defaultPokemonFilter[id] = { show: false, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
+            }
+        }
+        defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
+        defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
+        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
+        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        pokemonFilterNew = defaultPokemonFilter;
+
+        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-common-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('common', false);
+    });
+
+    $('#disable-uncommon-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('uncommon', false);
+    });
+
+    $('#disable-rare-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('rare', false);
+    });
+
+    $('#disable-ultra-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('ultra', false);
+    });
+
+    $('#disable-regional-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('regional', false);
+    });
+
+    $('#disable-kanto-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('kanto', false);
+    });
+
+    $('#disable-johto-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('johto', false);
+    });
+
+    $('#disable-hoenn-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('hoenn', false);
+    });
+
+    $('#disable-sinnoh-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('sinnoh', false);
+    });
+
+    $('#disable-unova-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('unova', false);
+    });
+
+    $('#disable-alolan-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('alolan', false);
+    });
+
+    $('#disable-galarian-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('galarian', false);
+    });
+    
+    
+    $('#recommended-pokemon-filter').on('click', function(event) {
+        const defaultPokemonFilter = {};
+        let i;
+        for (i = 1; i <= maxPokemonId; i++) {
+            const pkmn = masterfile.pokemon[i];
+            const forms = Object.keys(pkmn.forms);
+            for (let j = 0; j < forms.length; j++) {
+                const formId = forms[j];
+                if (skipForms.includes(pkmn.forms[formId].name)) {
+                    // Skip Shadow and Purified forms
+                    continue;
+                }
+                const id = formId === '0' ? i : i + '-' + formId;
+                defaultPokemonFilter[id] = { show: isRecommendedPokemon(i) === true, size: 'normal' };
+            }
+        }
+
+        defaultPokemonFilter.iv_and = { on: false, filter: '90-100' };
+        defaultPokemonFilter.iv_or = { on: true, filter: '95-100' };
+        defaultPokemonFilter.pvp_and = { on: false, filter: '1-3' };
+        defaultPokemonFilter.pvp_or = { on: false, filter: '1-3' };
+        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+        store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+        pokemonFilterNew = defaultPokemonFilter;
+
+        $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Quest filter buttons
+    $('#reset-quest-filter').on('click', function (event) {
+        const defaultQuestFilter = {};
+        let i;
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
+        }
+        $.each(availableItems, function (index, itemId) {
+            defaultQuestFilter['i' + itemId] = { show: true, size: 'normal' };
+        });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
+        }
+
+        store('quest_filter', JSON.stringify(defaultQuestFilter));
+        questFilterNew = defaultQuestFilter;
+
+        $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-quest-filter').on('click', function (event) {
+        const defaultQuestFilter = {};
+        let i;
+        for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
+            let id = availableQuestRewards.pokemon[i];
+            defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
+        }
+        $.each(availableItems, function (index, itemId) {
+            defaultQuestFilter['i' + itemId] = { show: false, size: questFilterNew['i' + itemId].size };
+        });
+        for (i = 0; i < availableQuestRewards.items.length; i++) {
+            let id = availableQuestRewards.items[i];
+            defaultQuestFilter['i' + id] = { show: false, size: questFilterNew['i' + id].size };
+        }
+
+        store('quest_filter', JSON.stringify(defaultQuestFilter));
+        questFilterNew = defaultQuestFilter;
+
+        $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Raid filter buttons
+    $('#reset-raid-filter').on('click', function (event) {
+        const defaultRaidFilter = {};
+        defaultRaidFilter.timers = { show: true, size: 'normal' };
+        let i;
+        for (i = 1; i <= 5; i++) {
+            defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
+        }
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
+            defaultRaidFilter['p' + id] = { show: true, size: 'normal' };
+        }
+
+        store('raid_filter', JSON.stringify(defaultRaidFilter));
+        raidFilterNew = defaultRaidFilter;
+
+        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-raid-filter').on('click', function (event) {
+        const defaultRaidFilter = {};
+        defaultRaidFilter.timers = { show: false, size: raidFilterNew.timers.size };
+        let i;
+        for (i = 1; i <= 5; i++) {
+            defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
+        }
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let poke = availableRaidBosses[i];
+            console.log(poke);
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
+            defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
+        }
+
+        store('raid_filter', JSON.stringify(defaultRaidFilter));
+        raidFilterNew = defaultRaidFilter;
+
+        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#legendary-raid-filter').on('click', function (event) {
+        const defaultRaidFilter = {};
+        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
+        let i;
+        for (i = 1; i <= 5; i++) {
+            defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
+        }
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
+            defaultRaidFilter['p' + id] = { show: isLegendaryPokemon(poke.id) || isMythicalPokemon(poke.id), size: 'normal' };
+        }
+
+        store('raid_filter', JSON.stringify(defaultRaidFilter));
+        raidFilterNew = defaultRaidFilter;
+
+        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#normal-raid-filter').on('click', function (event) {
+        const defaultRaidFilter = {};
+        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
+        let i;
+        for (i = 1; i <= 5; i++) {
+            defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
+        }
+        for (i = 0; i < availableRaidBosses.length; i++) {
+            let poke = availableRaidBosses[i];
+            let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
+            defaultRaidFilter['p' + id] = { show: !isLegendaryPokemon(poke.id) && !isMythicalPokemon(poke.id), size: 'normal' };
+        }
+
+        store('raid_filter', JSON.stringify(defaultRaidFilter));
+        raidFilterNew = defaultRaidFilter;
+
+        $('#table-filter-raid').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Gym filter buttons
+    $('#reset-gym-filter').on('click', function (event) {
+        const defaultGymFilter = {};
+        let i;
+        for (i = 0; i <= 3; i++) {
+            defaultGymFilter['t' + i] = { show: true, size: 'normal' };
+        }
+        defaultGymFilter.ex = { show: false, size: 'normal' };
+        defaultGymFilter.battle = { show: false, size: 'normal' };
+        for (i = 0; i <= 6; i++) {
+            defaultGymFilter['s' + i] = { show: true, size: 'normal' };
+        }
+
+        store('gym_filter', JSON.stringify(defaultGymFilter));
+        gymFilterNew = defaultGymFilter;
+
+        $('#table-filter-gym').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-gym-filter').on('click', function (event) {
+        const defaultGymFilter = {};
+        let i;
+        for (i = 0; i <= 3; i++) {
+            defaultGymFilter['t' + i] = { show: false, size: gymFilterNew['t' + i].size };
+        }
+        defaultGymFilter.ex = { show: false, size: gymFilterNew.ex.size };
+        defaultGymFilter.battle = { show: false, size: gymFilterNew.ex.size };
+        for (i = 0; i <= 6; i++) {
+            defaultGymFilter['s' + i] = { show: false, size: gymFilterNew['s' + i].size };
+        }
+
+        store('gym_filter', JSON.stringify(defaultGymFilter));
+        gymFilterNew = defaultGymFilter;
+
+        $('#table-filter-gym').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Pokestop filter buttons
+    $('#reset-pokestop-filter').on('click', function (event) {
+        const defaultPokestopFilter = {};
+        defaultPokestopFilter.normal = { show: true, size: 'normal' };
+        for (let i = 1; i < 5; i++) {
+            defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
+        }
+
+        store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
+        pokestopFilterNew = defaultPokestopFilter;
+
+        $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-pokestop-filter').on('click', function (event) {
+        const defaultPokestopFilter = {};
+        defaultPokestopFilter.normal = { show: false, size: pokestopFilterNew.normal.size };
+        for (let i = 1; i < 5; i++) {
+            defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
+        }
+
+        store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
+        pokestopFilterNew = defaultPokestopFilter;
+
+        $('#table-filter-pokestop').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Invasion filter buttons
+    $('#reset-invasion-filter').on('click', function (event) {
+        const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: true, size: 'normal' };
+        for (let i = 1; i <= 50; i++) {
+            defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
+        }
+
+        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
+        invasionFilterNew = defaultInvasionFilter;
+
+        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-invasion-filter').on('click', function (event) {
+        const defaultInvasionFilter = {};
+        defaultInvasionFilter.timers = { show: false, size: invasionFilterNew.timers.size };
+        for (let i = 1; i <= 50; i++) {
+            defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
+        }
+
+        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
+        invasionFilterNew = defaultInvasionFilter;
+
+        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Spawnpoint filter buttons
+    $('#reset-spawnpoint-filter').on('click', function (event) {
+        const defaultSpawnpointFilter = {};
+        defaultSpawnpointFilter['no-timer'] = { show: true, size: 'normal' };
+        defaultSpawnpointFilter['with-timer'] = { show: true, size: 'normal' };
+
+        store('spawnpoint_filter', JSON.stringify(defaultSpawnpointFilter));
+        spawnpointFilterNew = defaultSpawnpointFilter;
+
+        $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-spawnpoint-filter').on('click', function (event) {
+        const defaultSpawnpointFilter = {};
+        defaultSpawnpointFilter['no-timer'] = { show: false, size: spawnpointFilterNew['no-timer'].size };
+        defaultSpawnpointFilter['with-timer'] = { show: false, size: spawnpointFilterNew['with-timer'].size };
+
+        store('spawnpoint_filter', JSON.stringify(defaultSpawnpointFilter));
+        spawnpointFilterNew = defaultSpawnpointFilter;
+
+        $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Nest filter buttons
+    $('#reset-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        defaultNestFilter['avg'] = { on: false, filter: '5' };
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: true, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-nest-filter').on('click', function (event) {
+        const defaultNestFilter = {};
+        defaultNestFilter['avg'] = { on: false, filter: '5' };
+        for (i = 0; i < availableNestPokemon.length; i++) {
+            let id = availableNestPokemon[i];
+            defaultNestFilter['p' + id] = { show: false, size: 'normal' };
+        }
+
+        store('nest_filter', JSON.stringify(defaultNestFilter));
+        nestFilterNew = defaultNestFilter;
+
+        $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Weather filter buttons
+    $('#reset-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultWeatherFilter[i] = { show: true, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-weather-filter').on('click', function (event) {
+        const defaultWeatherFilter = {};
+        for (i = 1; i <= 7; i++) {
+            defaultWeatherFilter[i] = { show: false, size: 'normal' };
+        }
+
+        store('weather_filter', JSON.stringify(defaultWeatherFilter));
+        weatherFilterNew = defaultWeatherFilter;
+
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Device filter buttons
+    $('#reset-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: true, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: true, size: 'normal' };
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-device-filter').on('click', function (event) {
+        const defaultDeviceFilter = {};
+        defaultDeviceFilter['online'] = { show: false, size: 'normal' };
+        defaultDeviceFilter['offline'] = { show: false, size: 'normal' };
+
+        store('device_filter', JSON.stringify(defaultDeviceFilter));
+        deviceFilterNew = defaultDeviceFilter;
+
+        $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+    });
+}
+
+function setPokemonFilters(type, show) {
+    const defaultPokemonFilter = {};
+    for (let i = 1; i <= maxPokemonId; i++) {
+        const pkmn = masterfile.pokemon[i];
+        const forms = Object.keys(pkmn.forms);
+        for (let j = 0; j < forms.length; j++) {
+            const formId = forms[j];
+            if (skipForms.includes(pkmn.forms[formId].name)) {
+                // Skip Shadow and Purified forms
+                continue;
+            }
+            let matches = false;
+            switch (type) {
+                case 'common':   matches = isCommonPokemon(i); break;
+                case 'uncommon': matches = isUncommonPokemon(i); break;
+                case 'rare':     matches = isRarePokemon(i); break;
+                case 'ultra':    matches = isUltraPokemon(i); break;
+                case 'regional': matches = isRegionalPokemon(i); break;
+                case 'kanto':    matches = isKantoPokemon(i); break;
+                case 'johto':    matches = isJohtoPokemon(i); break;
+                case 'hoenn':    matches = isHoennPokemon(i); break;
+                case 'sinnoh':   matches = isSinnohPokemon(i); break;
+                case 'unova':    matches = isUnovaPokemon(i); break;
+                case 'alolan':   matches = isAlolanPokemon(i, formId); break;
+                case 'galarian': matches = isGalarianPokemon(i, formId); break;
+            }
+            const id = formId === '0' ? i : i + '-' + formId;
+            if (matches) {
+                defaultPokemonFilter[id] = { show: show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
+            } else {
+                defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: pokemonFilterNew[id].size, filter: pokemonFilterNew[id].filter };
+            }
+        }
+    }
+    defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
+    defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
+    defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
+    defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
+    defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
+    defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+
+    store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
+    pokemonFilterNew = defaultPokemonFilter;
+
+    $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+}
+
+function setPopupStyle() {
+    if ('{{style}}' === 'dark') {
+        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
+        $('.leaflet-popup-content-wrapper').css('color', 'white');
+        $('.leaflet-popup-tip').css('background-color', 'rgb(33, 37, 31)');
     }
 }
