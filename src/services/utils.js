@@ -63,29 +63,12 @@ const fileExists = async (path) => {
     });
 };
 
-const fileRead = async (path) => {
-    return new Promise((resolve, reject) => {
-        try {
-            fs.readFile(path, 'utf-8', (err, data) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(data);
-            });
-        } catch (e) {
-            return reject(e);
-        }
-    });
-};
-
 const render = async (name, data) => {
     return new Promise(async (resolve, reject) => {
         try {
             const filePath = path.resolve(TemplatesDir, name + '.ejs');
             if (!await fileExists(filePath)) {
-                const errMsg = `Template ${filePath} does not exist!`
-                console.error(errMsg);
-                return reject(errMsg);
+                return reject(`Template ${filePath} does not exist!`);
             }
             ejs.renderFile(filePath, data, (err, str) => {
                 if (err) {
@@ -107,6 +90,5 @@ module.exports = {
     hasRole,
     zeroPad,
     fileExists,
-    fileRead,
     render
 };
