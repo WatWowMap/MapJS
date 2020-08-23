@@ -82,6 +82,7 @@
         "redirectUri": "http://localhost:8080/api/discord/callback",
         "allowedGuilds": [],
         "blockedGuilds": [],
+        "allowedUsers": [],
         "perms": {
             "map": {
                 "enabled": true,
