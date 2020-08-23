@@ -1143,7 +1143,7 @@ const getSearchData = async (lat, lon, id, value) => {
             }
             sql = `
             SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id, quest_reward_type,
-                json_extract(json_extract('quest_rewards','$[*].info.form_id'),'$[0]') AS quest_pokemon_form_id,
+                JSON_VALUE(quest_rewards, '$[0].info.form_id') AS quest_pokemon_form_id
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
