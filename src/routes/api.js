@@ -402,7 +402,60 @@ const getData = async (perms, filter) => {
         const pokemonTypeString = i18n.__('filter_pokemon');
         const miscTypeString = i18n.__('filter_misc');
         const itemsTypeString = i18n.__('filter_items');
+        const onString = i18n.__('filter_on');
+        const offString = i18n.__('filter_off');
+        const globalCandyString = i18n.__('filter_global_candy_count');
+        const globalStardustString = i18n.__('filter_global_stardust_count');
+        const globalFiltersString = i18n.__('filter_global_filters');
+        const configureString = i18n.__('filter_configure');
         let questData = [];
+
+        // Global filters
+        const candyFilter = `
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-off select-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="off">
+                <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+            </label>
+            <label class="btn btn-sm btn-on select-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="on">
+                <input type="radio" name="options" id="show" autocomplete="off">${onString}
+            </label>
+        </div>
+        `;
+        const candySize = `<button class="btn btn-sm btn-primary configure-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="global-candy-count">${configureString}</button>`;
+        questData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': globalCandyString,
+            'image': `CANDY`, // TODO: Use rare candy image
+            'filter': candyFilter,
+            'size': candySize,
+            'type': globalFiltersString
+        });
+
+        const stardustFilter = `
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-off select-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="off">
+                <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+            </label>
+            <label class="btn btn-sm btn-on select-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="on">
+                <input type="radio" name="options" id="show" autocomplete="off">${onString}
+            </label>
+        </div>
+        `;
+        const stardustSize = `<button class="btn btn-sm btn-primary configure-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="global-stardust-count">${configureString}</button>`;
+        questData.push({
+            'id': {
+                'formatted': utils.zeroPad(1, 3),
+                'sort': 1
+            },
+            'name': globalStardustString,
+            'image': `STARDUST`, // TODO: Use rare candy image
+            'filter': stardustFilter,
+            'size': stardustSize,
+            'type': globalFiltersString
+        });
 
         // Misc
         for (let i = 1; i <= 3; i++) {
