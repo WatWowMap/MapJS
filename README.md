@@ -25,6 +25,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Follow my location  
 - Cache previous location  
 - Global search for quest rewards, nest pokemon, gyms, and pokestops
+- Minimum candy and stardust amount quest filter
+- Quick Start Pokemon filter button for new users
 - Fast  
 
 ## Installation
