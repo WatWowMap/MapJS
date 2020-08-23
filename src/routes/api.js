@@ -428,7 +428,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': globalCandyString,
-            'image': `CANDY`, // TODO: Use rare candy image
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/1301.png" style="height:50px; width:50px;">`,
             'filter': candyFilter,
             'size': candySize,
             'type': globalFiltersString
@@ -451,7 +451,7 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': globalStardustString,
-            'image': `STARDUST`, // TODO: Use rare candy image
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/-1.png" style="height:50px; width:50px;">`,
             'filter': stardustFilter,
             'size': stardustSize,
             'type': globalFiltersString
