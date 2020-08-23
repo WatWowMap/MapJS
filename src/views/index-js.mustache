@@ -669,6 +669,8 @@ function loadStorage () {
     const questFilterValue = retrieve('quest_filter');
     if (questFilterValue === null) {
         const defaultQuestFilter = {};
+        defaultQuestFilter['candy-count'] = { on: false, filter: '0' };
+        defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
             let id = availableQuestRewards.pokemon[i];
@@ -686,6 +688,12 @@ function loadStorage () {
         questFilter = defaultQuestFilter;
     } else {
         questFilter = JSON.parse(questFilterValue);
+        if (questFilter['candy-count'] === undefined) {
+            questFilter['candy-count'] = { on: false, filter: '0' };
+        }
+        if (questFilter['stardust-count'] === undefined) {
+            questFilter['stardust-count'] = { on: false, filter: '0' };
+        }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
             let id = availableQuestRewards.pokemon[i];
@@ -1549,6 +1557,12 @@ function loadData () {
 
     const questFilterExclude = [];
     if (showQuests) {
+        if (questFilter['candy-count'].on === true) {
+            questFilterExclude.push('candy' + questFilter['candy-count'].filter.replace(/\s/g, ''));
+        }
+        if (questFilter['stardust-count'].on === true) {
+            questFilterExclude.push('stardust' + questFilter['stardust-count'].filter.replace(/\s/g, ''));
+        }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
             let id = availableQuestRewards.pokemon[i];
@@ -3937,6 +3951,36 @@ function manageSelectButton (e, isNew) {
             shouldShow = questFilterNew['p' + id].size === 'huge';
             break;
         }
+    } else if (type === 'quest-candy-count') {
+        switch (info) {
+        case 'off':
+            shouldShow = !questFilterNew[id].on;
+            break;
+        case 'on':
+            shouldShow = questFilterNew[id].on === true;
+            break;
+        case 'hide':
+            shouldShow = questFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = questFilterNew[id].show === true;
+            break;
+        }
+    } else if (type === 'quest-stardust-count') {
+        switch (info) {
+        case 'off':
+            shouldShow = !questFilterNew[id].on;
+            break;
+        case 'on':
+            shouldShow = questFilterNew[id].on === true;
+            break;
+        case 'hide':
+            shouldShow = questFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = questFilterNew[id].show === true;
+            break;
+        }
     } else if (type === 'raid-timers') {
         switch (info) {
         case 'hide':
@@ -4406,6 +4450,36 @@ function manageSelectButton (e, isNew) {
                     questFilterNew['p' + id].size = 'huge';
                     break;
                 }
+            } else if (type === 'quest-candy-count') {
+                switch (info) {
+                case 'off':
+                    questFilterNew[id].on = false;
+                    break;
+                case 'on':
+                    questFilterNew[id].on = true;
+                    break;
+                case 'hide':
+                    questFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    questFilterNew[id].show = true;
+                    break;
+                }
+            } else if (type === 'quest-stardust-count') {
+                switch (info) {
+                case 'off':
+                    questFilterNew[id].on = false;
+                    break;
+                case 'on':
+                    questFilterNew[id].on = true;
+                    break;
+                case 'hide':
+                    questFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    questFilterNew[id].show = true;
+                    break;
+                }
             } else if (type === 'raid-timers') {
                 switch (info) {
                 case 'hide':
@@ -4751,7 +4825,7 @@ function manageConfigureButton (e, isNew) {
         e.addClass('configure-button');
         e.on('click', function (e) {
             e.preventDefault();
-            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'nest-avg') {
+            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'nest-avg' || type === 'quest-candy-count' || type === 'quest-stardust-count') {
                 switch (info) {
                 case 'global-iv':
                     return manageGlobalIVPopup(id, pokemonFilterNew);
@@ -4759,6 +4833,10 @@ function manageConfigureButton (e, isNew) {
                     return manageGlobalPVPPopup(id, pokemonFilterNew);
                 case 'global-avg':
                     return manageGlobalAveragePopup(id, nestFilterNew);
+                case 'global-candy-count':
+                    return manageGlobalCandyCountPopup(id, questFilterNew);
+                case 'global-stardust-count':
+                    return manageGlobalStardustCountPopup(id, questFilterNew);
                 }
             }
         });
@@ -4858,6 +4936,32 @@ function manageGlobalAveragePopup (id, filter) {
         return true;
     } else {
         alert('Invalid Nest Filter!');
+        return false;
+    }
+}
+
+function manageGlobalCandyCountPopup (id, filter) {
+    const result = prompt('Please enter a candy count to filter. Example: 2', filter[id].filter);
+    if (result === null) {
+        return false;
+    } else if (checkIVFilterValid(result)) {
+        filter[id].filter = result;
+        return true;
+    } else {
+        alert('Invalid Quest Filter!');
+        return false;
+    }
+}
+
+function manageGlobalStardustCountPopup (id, filter) {
+    const result = prompt('Please enter a stardust amount to filter. Example: 0, 200, 500, 1000, 1500, etc', filter[id].filter);
+    if (result === null) {
+        return false;
+    } else if (checkIVFilterValid(result)) {
+        filter[id].filter = result;
+        return true;
+    } else {
+        alert('Invalid Quest Filter!');
         return false;
     }
 }
@@ -6480,6 +6584,8 @@ function registerFilterButtonCallbacks() {
     // Quest filter buttons
     $('#reset-quest-filter').on('click', function (event) {
         const defaultQuestFilter = {};
+        defaultQuestFilter['candy-count'] = { on: false, filter: '0' };
+        defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
             let id = availableQuestRewards.pokemon[i];
@@ -6501,6 +6607,8 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-quest-filter').on('click', function (event) {
         const defaultQuestFilter = {};
+        defaultQuestFilter['candy-count'] = { on: false, filter: '0' };
+        defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
             let id = availableQuestRewards.pokemon[i];

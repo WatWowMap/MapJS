@@ -431,6 +431,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
     let excludedLures = []; //int
     let excludedInvasions = [];
     let excludeNormal = false;
+    let minimumCandyCount = 0;
+    let minimumStardustCount = 0;
 
     if (showQuests && questFilterExclude) {
         for (let i = 0; i < questFilterExclude.length; i++) {
@@ -445,6 +447,10 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else if (id < 0) {
                     excludedTypes.push(-id);
                 }
+            } else if (filter.includes('candy')) {
+                minimumCandyCount = parseInt(filter.replace('candy', ''));
+            } else if (filter.includes('stardust')) {
+                minimumStardustCount = parseInt(filter.replace('stardust', ''));
             }
         }
     }
@@ -483,7 +489,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
             // exclude pokemon/item quests; they will be included in subsequent clauses
             excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7))';
         } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
+            let sqlExcludeCreate = 'OR ((quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
             for (let i = 0; i < excludedTypes.length; i++) {
                 if (i === excludedTypes.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -493,6 +499,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 const id = parseInt(excludedTypes[i]);
                 switch (id) {
                 case 1:
+                    // Stardust
                     args.push(3);
                     break;
                 case 2:
@@ -508,6 +515,11 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
+            if (minimumStardustCount > 0) {
+                excludeTypeSQL += ' AND quest_reward_type = 3 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?';
+                args.push(minimumStardustCount);
+            }
+            excludeTypeSQL += ')';
         }
 
         if (excludedPokemon.length === 0) {
@@ -529,7 +541,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
         if (excludedItems.length === 0) {
             excludeItemSQL = 'OR (quest_item_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
+            let sqlExcludeCreate = 'OR ((quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -539,6 +551,12 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 args.push(excludedItems[i]);
             }
             excludeItemSQL = sqlExcludeCreate;
+
+            if (minimumCandyCount > 0) {
+                excludeItemSQL += ' AND (quest_item_id = 1301 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                args.push(minimumCandyCount);
+            }
+            excludeItemSQL += ')';
         }
     }
 
