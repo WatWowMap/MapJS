@@ -78,9 +78,29 @@ class DiscordClient {
         };
         const user = await this.getUser();
         const guilds = await this.getGuilds();
-        for (let i = 0; i < config.discord.guilds.length; i++) {
+        if (config.discord.allowedUsers.includes(user.id)) {
+            Object.keys(perms).forEach((key) => perms[key] = true);
+            console.log(`User ${user.username}#${user.discriminator} (${user.id}) in allowed users list, skipping guild and role check.`);
+            return perms;
+        }
+
+        let blocked = false;
+        for (let i = 0; i < config.discord.blockedGuilds.length; i++) {
+            const guildId = config.discord.blockedGuilds[i];
+            // Check if user's guilds contains blocked guild
+            if (guilds.includes(guildId)) {
+                // If so, user is not granted access
+                blocked = true;
+                break;
+            }
+        }
+        if (blocked) {
+            // User is in blocked guild
+            return perms;
+        }
+        for (let i = 0; i < config.discord.allowedGuilds.length; i++) {
             // Check if user is in config guilds
-            const guildId = config.discord.guilds[i];
+            const guildId = config.discord.allowedGuilds[i];
             if (!guilds.includes(guildId)) {
                 continue;
             }

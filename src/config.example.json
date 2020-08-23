@@ -81,7 +81,9 @@
         "clientId": "",
         "clientSecret": "",
         "redirectUri": "http://localhost:8080/api/discord/callback",
-        "guilds": [],
+        "allowedGuilds": [],
+        "blockedGuilds": [],
+        "allowedUsers": [],
         "perms": {
             "map": {
                 "enabled": true,

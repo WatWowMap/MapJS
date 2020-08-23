@@ -10,7 +10,7 @@ const hasGuild = (guilds) => {
     if (!config.discord.enabled) {
         return true;
     }
-    if (config.discord.guilds.length === 0) {
+    if (config.discord.allowedGuilds.length === 0) {
         return true;
     }
     if (guilds.length === 0) {
@@ -18,7 +18,7 @@ const hasGuild = (guilds) => {
     }
     for (let i = 0; i < guilds.length; i++) {
         const guild = guilds[i];
-        if (config.discord.guilds.includes(guild)) {
+        if (config.discord.allowedGuilds.includes(guild)) {
             return true;
         }
     }
