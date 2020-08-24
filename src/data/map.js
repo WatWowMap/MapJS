@@ -1221,7 +1221,7 @@ const getSearchData = async (lat, lon, id, value) => {
                         result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${utils.zeroPad(formId, 2)}.png`;
                     } else if (result.quest_reward_type === 3) {
                         result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
                     }
