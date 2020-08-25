@@ -318,14 +318,13 @@ module.exports = {
 - Heatmaps  
 - Basic statistics  
 - Separate cluster layers by type
-- Notification sounds, bouncing icons
 - Possibly change filter selection from a list to a grid
-- Finish custom user settings modal
 - Force logout of other devices if logged into multiple
 - Glow for top pvp ranks
 - Only clear layers if filter changed
-- Filter candy/stardust quest by amount
 - Icon spacing
+- Search quest by task name
+- Filter by Pokemon type for Pokemon/raids/quests?
 
 ## Credits  
 [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
