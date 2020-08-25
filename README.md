@@ -327,4 +327,5 @@ module.exports = {
 - Filter by Pokemon type for Pokemon/raids/quests?
 
 ## Credits  
-[RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
+- [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
+- [PMSF](https://github.com/pmsf/pmsf)  
