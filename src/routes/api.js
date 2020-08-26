@@ -88,7 +88,7 @@ const getData = async (perms, filter) => {
     const permShowQuests = perms ? perms.quests !== false : true;
     const permShowPokestops = perms ? perms.pokestops !== false : true;
     const permShowInvasions = perms ? perms.invasions !== false : true;
-    const permShowSpawnpoints = perms ? perms.pokestops !== false : true;
+    const permShowSpawnpoints = perms ? perms.spawnpoints !== false : true;
     const permShowDevices = perms ? perms.devices !== false : true;
     const permShowS2Cells = perms ? perms.cells !== false : true;
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
