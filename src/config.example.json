@@ -156,7 +156,11 @@
         "adsense": ""
     },
     "icons": {
-        "Default": "/img/"
+        "Default": {
+            "path": "/img/",
+            "gymAnchorY": 0.917,
+            "pokestopAnchorY": 0.896
+        }
     },
     "scouting": {
         "enabled": false,

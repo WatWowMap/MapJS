@@ -1218,19 +1218,19 @@ const getSearchData = async (lat, lon, id, value) => {
                     let result = results[i];
                     // TODO: Check quest types
                     if (result.quest_item_id > 0) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + '/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }
