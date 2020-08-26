@@ -864,13 +864,7 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allCoords.length; i++) {
         let coord = allCoords[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 17;
-        regionCoverer.maxLevel = 17;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level17Cell = coveringCells[0].parentL(17);
+        let level17Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(17);
         let cellId = BigInt(level17Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -921,13 +915,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0].parentL(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -937,13 +925,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0].parentL(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
