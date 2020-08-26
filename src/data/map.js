@@ -927,7 +927,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         regionCoverer.maxLevel = 14;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = coveringCells[0].parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -944,7 +944,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = coveringCells[0].parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
