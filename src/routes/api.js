@@ -94,7 +94,7 @@ const getData = async (perms, filter) => {
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
-    const iconStylePath = config.icons[iconStyle];
+    const iconStylePath = config.icons[iconStyle].path;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
