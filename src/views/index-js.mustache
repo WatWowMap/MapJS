@@ -6329,12 +6329,12 @@ function loadFilterSettings (e) {
 
         showPokemon = obj.show_pokemon;
         pokemonFilterNew = obj.pokemon;
-        store('show_pokemon', showRaids);
+        store('show_pokemon', showPokemon);
         store('pokemon_filter', JSON.stringify(pokemonFilterNew));
 
         showQuests = obj.show_quests;
         questFilterNew = obj.quest;
-        store('show_quests', showRaids);
+        store('show_quests', showQuests);
         store('quest_filter', JSON.stringify(questFilterNew));
 
         showPokestops = obj.show_pokestops;
@@ -6398,6 +6398,14 @@ function loadFilterSettings (e) {
         } else {
             $('#hide-pokestops').addClass('active');
             $('#show-pokestops').removeClass('active');
+        }
+
+        if (showInvasions) {
+            $('#show-invasions').addClass('active');
+            $('#hide-invasions').removeClass('active');
+        } else {
+            $('#hide-invasions').addClass('active');
+            $('#show-invasions').removeClass('active');
         }
 
         if (showQuests) {
