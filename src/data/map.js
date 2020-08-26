@@ -863,8 +863,8 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
             'polygon': polygon
         };
     }
-    for (let i = 0; i < allGymCoods.length; i++) {
-        let coord = allGymCoods[i];
+    for (let i = 0; i < allCoords.length; i++) {
+        let coord = allCoords[i];
         let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 17;
