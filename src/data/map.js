@@ -843,7 +843,6 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let allCoords = allGymCoods.concat(allStopCoods);
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -869,7 +868,6 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 17;
         regionCoverer.maxLevel = 17;
-        regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level17Cell = coveringCells[0].parentL(17);
@@ -900,7 +898,6 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -928,7 +925,6 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 14;
         regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level14Cell = coveringCells[0];// TODO: .parent(14);
