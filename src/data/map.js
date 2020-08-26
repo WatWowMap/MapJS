@@ -941,7 +941,6 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
         let regionCoverer = new S2.S2RegionCoverer();
         regionCoverer.minLevel = 14;
         regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
         let region = level1Cell.getRectBound();
         let coveringCells = regionCoverer.getCoveringCells(region);
         let level14Cell = coveringCells[0].parentL(14);
