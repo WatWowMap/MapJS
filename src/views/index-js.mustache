@@ -138,13 +138,7 @@ let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true';
 let defaultShowDevices = '{{default_show_devices}}' === 'true';
 
     
-const quickStartPokemon = JSON.parse('{{{quickStart_pokemon_json}}}');
-const commonPokemon = JSON.parse('{{{common_pokemon_json}}}');
-const uncommonPokemon = JSON.parse('{{{uncommon_pokemon_json}}}');
-const rarePokemon = JSON.parse('{{{rare_pokemon_json}}}');
-const ultraRarePokemon = JSON.parse('{{{ultraRare_pokemon_json}}}');
-const regionalPokemon = JSON.parse('{{{regional_pokemon_json}}}');
-const eventPokemon = JSON.parse('{{{event_pokemon_json}}}');
+const configPokemon = JSON.parse('{{{config_pokemon_json}}}');
 
 const cpMultipliers = {
 	"1": 0.09399999678134918,
@@ -5162,23 +5156,23 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
 }
 
 function isQuickStartPokemon(pokemonId) {
-    return quickStartPokemon.includes(pokemonId);
+    return configPokemon.quickStart.includes(pokemonId);
 }
 
 function isCommonPokemon(pokemonId) {
-    return commonPokemon.includes(pokemonId);
+    return configPokemon.common.includes(pokemonId);
 }
 
 function isUncommonPokemon(pokemonId) {
-    return uncommonPokemon.includes(pokemonId);
+    return configPokemon.uncommon.includes(pokemonId);
 }
 
 function isRarePokemon(pokemonId) {
-    return rarePokemon.includes(pokemonId);
+    return configPokemon.rare.includes(pokemonId);
 }
 
 function isUltraRarePokemon(pokemonId) {
-    return ultraRarePokemon.includes(pokemonId);
+    return configPokemon.ultraRare.includes(pokemonId);
 }
 
 function isLegendaryPokemon(pokemonId) {
@@ -5190,11 +5184,11 @@ function isMythicalPokemon(pokemonId) {
 }
 
 function isRegionalPokemon(pokemonId) {
-    return regionalPokemon.includes(pokemonId);
+    return configPokemon.regional.includes(pokemonId);
 }
 
 function isEventPokemon(pokemonId) {
-    return eventPokemon.includes(pokemonId);
+    return configPokemon.event.includes(pokemonId);
 }
 
 function isKantoPokemon(pokemonId) {
