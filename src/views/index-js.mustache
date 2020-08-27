@@ -5235,7 +5235,7 @@ function isGalarianPokemon(pokemonId, formId) {
         const pkmn = masterfile.pokemon[pokemonId];
         if (pkmn.forms && pkmn.forms[formId]) {
             const form = pkmn.forms[formId];
-            if (form.name === 'Galarian') {
+            if (form.name === 'Galarian' || 'Galarian standard' || 'Galarian zen') {
                 return true;
             }
         }
