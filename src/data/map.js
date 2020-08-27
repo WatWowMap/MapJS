@@ -202,7 +202,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     return pokemon;
 };
 
-const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showGyms, raidFilterExclude = null, gymFilterExclude = null) => {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
@@ -424,7 +424,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokestops, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
@@ -834,16 +834,15 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = minLon - 0.001;
     let maxLonReal = maxLon + 0.001;
 
-    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
+    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allCoords = allGymCoods.concat(allStopCoods);
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -863,16 +862,9 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
             'polygon': polygon
         };
     }
-    for (let i = 0; i < allGymCoods.length; i++) {
-        let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 17;
-        regionCoverer.maxLevel = 17;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level17Cell = coveringCells[0].parentL(17);
+    for (let i = 0; i < allCoords.length; i++) {
+        let coord = allCoords[i];
+        let level17Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(17);
         let cellId = BigInt(level17Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -892,15 +884,14 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = minLon - 0.01;
     let maxLonReal = maxLon + 0.01;
 
-    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
+    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -924,14 +915,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -941,14 +925,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -1218,19 +1195,19 @@ const getSearchData = async (lat, lon, id, value) => {
                     let result = results[i];
                     // TODO: Check quest types
                     if (result.quest_item_id > 0) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
-                        const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
+                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + '/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }
