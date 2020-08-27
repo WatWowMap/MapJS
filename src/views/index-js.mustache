@@ -804,7 +804,7 @@ function loadStorage () {
             defaultRaidFilter.timers = { show: true, size: 'normal' };
         }
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             if (defaultRaidFilter['l' + i] === undefined) {
                 defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -828,7 +828,7 @@ function loadStorage () {
             showRaidTimers = raidFilter.timers.show;
         }
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             if (raidFilter['l' + i] === undefined) {
                 raidFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -1672,7 +1672,7 @@ function loadData () {
             raidFilterExclude.push('timers');
         }
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             if (raidFilter['l' + i].show === false) {
                 raidFilterExclude.push('l' + i);
             }
@@ -6733,7 +6733,7 @@ function registerFilterButtonCallbacks() {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: true, size: 'normal' };
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -6752,7 +6752,7 @@ function registerFilterButtonCallbacks() {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: false, size: raidFilterNew.timers.size };
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -6772,7 +6772,7 @@ function registerFilterButtonCallbacks() {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -6791,7 +6791,7 @@ function registerFilterButtonCallbacks() {
         const defaultRaidFilter = {};
         defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
         let i;
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {

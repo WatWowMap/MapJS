@@ -291,7 +291,7 @@ const getData = async (perms, filter) => {
         });
 
         //Level
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 6; i++) {
             const raidLevel = i18n.__('filter_raid_level_' + i);
             raidData.push({
                 'id': {
