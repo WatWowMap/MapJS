@@ -2983,6 +2983,8 @@ function getGymPopupContent (gym) {
             if (gym.raid_pokemon_cp !== null) {
                 if (gym.raid_is_exclusive) {
                     content += '<b>Level:</b> EX<br>';
+                } else if (gym.raid_level === 6) {
+                    content += '<b>Level:</b> Mega<br>';
                 } else {
                     content += '<b>Level:</b> ' + gym.raid_level + '<br>';
                 }
