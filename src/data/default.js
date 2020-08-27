@@ -31,6 +31,12 @@ data.default_show_submissioncells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
 data.default_show_scanareas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
-data.recommended_pokemon_json = JSON.stringify(config.recommendedPokemon);
+data.quickStart_pokemon_json = JSON.stringify(config.pokemon.quickStart);
+data.common_pokemon_json = JSON.stringify(config.pokemon.common);
+data.uncommon_pokemon_json = JSON.stringify(config.pokemon.uncommon);
+data.rare_pokemon_json = JSON.stringify(config.pokemon.rare);
+data.ultraRare_pokemon_json = JSON.stringify(config.pokemon.ultraRare);
+data.regional_pokemon_json = JSON.stringify(config.pokemon.regional);
+data.event_pokemon_json = JSON.stringify(config.pokemon.event);
 
 module.exports = data;
