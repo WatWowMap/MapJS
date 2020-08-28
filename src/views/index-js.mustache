@@ -6686,10 +6686,10 @@ function registerFilterButtonCallbacks() {
             }
         }
 
-        defaultPokemonFilter.iv_and = { on: false, filter: pokemonRarity.quickStart.ivAnd };
-        defaultPokemonFilter.iv_or = { on: true, filter: pokemonRarity.quickStart.ivOr };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonRarity.quickStart.pvpAnd };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonRarity.quickStart.pvpOr };
+        defaultPokemonFilter.iv_and = { on: pokemonRarity.quickStart.ivAnd.enabled, filter: pokemonRarity.quickStart.ivAnd.value };
+        defaultPokemonFilter.iv_or = { on: pokemonRarity.quickStart.ivOr.enabled, filter: pokemonRarity.quickStart.ivOr.value };
+        defaultPokemonFilter.pvp_and = { on: pokemonRarity.quickStart.pvpAnd.enabled, filter: pokemonRarity.quickStart.pvpAnd.value };
+        defaultPokemonFilter.pvp_or = { on: pokemonRarity.quickStart.pvpOr.enabled, filter: pokemonRarity.quickStart.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
