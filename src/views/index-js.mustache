@@ -2982,9 +2982,7 @@ function getGymPopupContent (gym) {
             '</div>' + // END 1ST COLUMN
             '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
-        console.log('hmmm:', hasRaidBoss, isRaidBattle, gym.raid_pokemon_evolution)
         if (hasRaidBoss && isRaidBattle && gym.raid_pokemon_evolution) {
-            console.log("Hi:", gym.raid_pokemon_evolution);
             content += '<b>Evolution:</b> ' + getEvolutionName(gym.raid_pokemon_evolution) + '<br>'
         }
         if (hasRaidBoss && isRaidBattle) {
