@@ -139,6 +139,7 @@ let defaultShowDevices = '{{default_show_devices}}' === 'true';
 
 const recommendedPokemon = JSON.parse('{{{recommended_pokemon_json}}}');
 
+// TODO: External file
 const cpMultipliers = {
 	"1": 0.09399999678134918,
 	"1.5": 0.13513743132352830,
@@ -1852,7 +1853,8 @@ function loadData () {
                             oldGym.total_cp !== gym.total_cp ||
                             oldGym.raid_end_timestamp !== gym.raid_end_timestamp ||
                             oldGym.raid_pokemon_id !== gym.raid_pokemon_id ||
-                            oldGym.raid_pokemon_form !== gym.raid_pokemon_form) {
+                            oldGym.raid_pokemon_form !== gym.raid_pokemon_form ||
+                            oldGym.raid_pokemon_evolution !== gym.raid_pokemon_evolution) {
                             oldGym.availble_slots = gym.availble_slots;
                             oldGym.team_id = gym.team_id;
                             oldGym.guarding_pokemon_id = gym.guarding_pokemon_id;
@@ -1868,6 +1870,7 @@ function loadData () {
                             oldGym.raid_pokemon_move_2 = gym.raid_pokemon_move_2;
                             oldGym.raid_level = gym.raid_level;
                             oldGym.raid_is_exclusive = gym.raid_is_exclusive;
+                            oldGym.raid_pokemon_evolution = gym.raid_pokemon_evolution;
                             oldGym.marker.setIcon(getGymMarkerIcon(oldGym, ts));
                             if (oldGym.raid_end_timestamp >= ts && !oldGym.raidTimerSet) {
                                 startRaidTimer(oldGym, ts);
@@ -2979,6 +2982,11 @@ function getGymPopupContent (gym) {
             '</div>' + // END 1ST COLUMN
             '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
+        console.log('hmmm:', hasRaidBoss, isRaidBattle, gym.raid_pokemon_evolution)
+        if (hasRaidBoss && isRaidBattle && gym.raid_pokemon_evolution) {
+            console.log("Hi:", gym.raid_pokemon_evolution);
+            content += '<b>Evolution:</b> ' + getEvolutionName(gym.raid_pokemon_evolution) + '<br>'
+        }
         if (hasRaidBoss && isRaidBattle) {
             if (gym.raid_pokemon_cp !== null) {
                 if (gym.raid_is_exclusive) {
@@ -3064,9 +3072,11 @@ function getGymPopupContent (gym) {
         content += '<b>Raid Start:</b> ' + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntill(raidBattleDate) + ')<br>';
     }
     if (isRaid) {
-        content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br>`;
-        content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
-        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntill(raidEndDate) + ')<br><br>';
+        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntill(raidEndDate) + ')<br>';
+        if (gym.raid_pokemon_id > 0) {
+            content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
+            content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br><br>`;
+        }
     }
     content += '</div>';
 
@@ -3256,6 +3266,10 @@ function getTeamName (teamId) {
 
 function getGenderIcon (genderId) {
     return i18n('gender_icon_' + genderId);
+}
+
+function getEvolutionName (evolutionId) {
+    return i18n('evo_' + evolutionId);
 }
 
 // function getWeatherIcon (weatherId) {
