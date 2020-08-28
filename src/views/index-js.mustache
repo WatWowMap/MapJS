@@ -2982,10 +2982,10 @@ function getGymPopupContent (gym) {
             '</div>' + // END 1ST COLUMN
             '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
-        if (hasRaidBoss && isRaidBattle && gym.raid_pokemon_evolution) {
-            content += '<b>Evolution:</b> ' + getEvolutionName(gym.raid_pokemon_evolution) + '<br>'
-        }
         if (hasRaidBoss && isRaidBattle) {
+            if (gym.raid_pokemon_evolution) {
+                content += '<b>Evolution:</b> ' + getEvolutionName(gym.raid_pokemon_evolution) + '<br>';
+            }
             if (gym.raid_pokemon_cp !== null) {
                 if (gym.raid_is_exclusive) {
                     content += '<b>Level:</b> EX<br>';
