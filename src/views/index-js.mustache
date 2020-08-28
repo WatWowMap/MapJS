@@ -3667,11 +3667,13 @@ function getPokestopMarkerIcon (pokestop, ts) {
     }
     const stopSize = getPokestopSize(sizeId);
     const iconWidth = Math.max(questSize, stopSize);
+    const iconHeight = questSize + stopSize;
     const iconAnchorY = questSize + stopSize * availableIconStyles[selectedIconStyle].pokestopAnchorY;
     const icon = L.divIcon({
-        iconSize: [iconWidth, questSize + stopSize],
+        iconSize: [iconWidth, iconHeight],
         iconAnchor: [iconWidth / 2, iconAnchorY],
         popupAnchor: [0, -8 - iconAnchorY],
+        tooltipAnchor: [0, iconHeight - iconAnchorY],
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle].path}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${stopSize}px;height:${stopSize}px; background-color:transparent;"/></center>`
@@ -3777,11 +3779,13 @@ function getGymMarkerIcon (gym, ts) {
         iconHtml += `<img src="${availableIconStyles[selectedIconStyle].path}/gym/${gym.team_id}_${size}.png" style="width:${gymSize}px;height:${gymSize}px; background-color:transparent;"/>`;
     }
     const iconWidth = Math.max(raidSize, gymSize);
+    const iconHeight = raidSize + gymSize;
     const iconAnchorY = raidSize + gymSize * availableIconStyles[selectedIconStyle].gymAnchorY;
     const icon = L.divIcon({
-        iconSize: [iconWidth, raidSize + gymSize],
+        iconSize: [iconWidth, iconHeight],
         iconAnchor: [iconWidth / 2, iconAnchorY],
         popupAnchor: [0, -8 - iconAnchorY],
+        tooltipAnchor: [0, iconHeight - iconAnchorY],
         className: 'gym-marker',
         html: `<center>${iconHtml}</center>`
     });
