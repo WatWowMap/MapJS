@@ -268,7 +268,16 @@ const getAvailableForms = () => {
     if (files) {
         files.forEach(file => {
             const split = file.replace('.png', '').split('_');
-            if (split.length === 4) {
+            if (split.length === 5) {
+                const pokemonId = parseInt(split[2]);
+                const formId = parseInt(split[3]);
+                const evolutionId = parseInt(split[4]);
+                if (evolutionId > 0) {
+                    availableForms.push(`${pokemonId}-${formId}-${evolutionId}`);    
+                } else { 
+                    availableForms.push(`${pokemonId}-${formId}`); // TODO: Costumes?
+                }
+            } else if (split.length === 4) {
                 const pokemonId = parseInt(split[2]);
                 const formId = parseInt(split[3]);
                 availableForms.push(`${pokemonId}-${formId}`);

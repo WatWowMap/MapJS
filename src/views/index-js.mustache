@@ -2546,7 +2546,7 @@ function getPokemonPopupContent (pokemon) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
 
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form)
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0);
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -2948,7 +2948,7 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-6 col-md-4">' + // START 1ST COL
@@ -3538,7 +3538,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconAnchor: [40 / 2, 40 / 2],
                 popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
-                html: `<center><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(nest.pokemon_id, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
+                html: `<center><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(nest.pokemon_id, 0, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
             });
             /*
             const icon = L.icon({
@@ -3574,7 +3574,7 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form);
+    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0);
     const color = '{{glow_color}}';
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
@@ -3658,12 +3658,12 @@ function getPokestopMarkerIcon (pokestop, ts) {
             if (info.form_id !== 0 && info.form_id !== null) {
                 const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
                 if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id)}`;
+                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id, 0)}`;
                 } else {
-                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
+                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0, 0)}`;
                 }
             } else {
-                iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0)}`;
+                iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0, 0)}`;
             }
         }
         questSize = getQuestSize(rewardString);
@@ -3766,7 +3766,7 @@ function getGymMarkerIcon (gym, ts) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
+            iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution)}" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
@@ -5131,18 +5131,20 @@ function getSize (size) {
     return 'Big';
 }
 
-function getPokemonIcon(pokemonId, pokemonForm) {
-    let pokemonIdString;
+function getPokemonIcon(pokemonId, pokemonForm, evolutionId) {
     const pokeId = zeroPad(pokemonId, 3);
-    if (pokemonForm !== 0 && pokemonForm !== null) {
-        if ($.inArray(pokemonId + '-' + pokemonForm, availableForms) !== -1) {
-            pokemonIdString = pokeId + '_' + pokemonForm;
-        } else {
-            // If form icon doesn't exist, use default
-            pokemonIdString = pokeId + '_00';
-        }
+    let pokemonIdString = pokeId;
+    if (pokemonForm > 0 && $.inArray(pokemonId + '-' + pokemonForm, availableForms) !== -1) {
+        pokemonIdString += '_' + pokemonForm;
     } else {
-        pokemonIdString = pokeId + '_00';
+        pokemonIdString += '_00';
+    }
+    if (evolutionId > 0) {
+        if ($.inArray(pokemonId + '-' + pokemonForm + '-' + evolutionId, availableForms) !== -1) {
+            pokemonIdString += '_' + evolutionId;
+        } else {
+            pokemonIdString += '';
+        }
     }
     return 'pokemon_icon_' + pokemonIdString + '.png';
 }
@@ -6781,7 +6783,6 @@ function registerFilterButtonCallbacks() {
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
-            console.log(poke);
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
             defaultRaidFilter['p' + id] = { show: false, size: 'normal' };
         }
