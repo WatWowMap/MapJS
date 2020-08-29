@@ -158,7 +158,9 @@
     "icons": {
         "Default": {
             "path": "/img/",
-            "gymAnchorY": 0.917,
+            "raidOffsetY": 0.269,
+            "questOffsetY": 0,
+            "gymAnchorY": 0.849,
             "pokestopAnchorY": 0.896
         }
     },

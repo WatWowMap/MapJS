@@ -3634,6 +3634,15 @@ function getPokestopMarkerIcon (pokestop, ts) {
     const lureIconId = getLureIconId(pokestop.lure_id);
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
+    let sizeId = '0';
+    if (activeInvasion && activeLure) {
+        sizeId = 'i' + lureIconId;
+    } else if (activeInvasion) {
+        sizeId = 'i0';
+    } else if (activeLure) {
+        sizeId = lureIconId;
+    }
+    const stopSize = getPokestopSize(sizeId);
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
@@ -3667,27 +3676,18 @@ function getPokestopMarkerIcon (pokestop, ts) {
             }
         }
         questSize = getQuestSize(rewardString);
-        iconHtml += `<img src="${iconUrl}" style="width:${questSize}px;height:${questSize}px; background-color:transparent; display:inline-block; padding:0; margin:0 0 0 0;"/><br>`;
+        let questLeft = (availableIconStyles[selectedIconStyle].questOffsetX || .5);
+        iconHtml = `<div class="marker-image-holder" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize}px;"><img src="${iconUrl}"/></div>`;
     }
-    let sizeId = '0';
-    if (activeInvasion && activeLure) {
-        sizeId = 'i' + lureIconId;
-    } else if (activeInvasion) {
-        sizeId = 'i0';
-    } else if (activeLure) {
-        sizeId = lureIconId;
-    }
-    const stopSize = getPokestopSize(sizeId);
-    const iconWidth = Math.max(questSize, stopSize);
-    const iconAnchorY = questSize + stopSize * availableIconStyles[selectedIconStyle].pokestopAnchorY;
+    const iconAnchorY = stopSize * availableIconStyles[selectedIconStyle].pokestopAnchorY;
     const icon = L.divIcon({
-        iconSize: [iconWidth, questSize + stopSize],
-        iconAnchor: [iconWidth / 2, iconAnchorY],
+        iconSize: [stopSize, stopSize],
+        iconAnchor: [stopSize / 2, iconAnchorY],
         popupAnchor: [0, -8 - iconAnchorY],
         className: 'pokestop-marker',
         html: activeInvasion
-            ? `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle].path}/invasion/${sizeId}_${pokestop.grunt_type}.png" style="width:${stopSize}px;height:${stopSize}px; background-color:transparent;"/></center>`
-            : `<center>${iconHtml}<img src="${availableIconStyles[selectedIconStyle].path}/pokestop/${sizeId}.png" style="width:${stopSize}px;height:${stopSize}px; background-color:transparent;"/></center>`
+            ? `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/invasion/${sizeId}_${pokestop.grunt_type}.png"/></div>${iconHtml}`
+            : `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/pokestop/${sizeId}.png"/></div>${iconHtml}`
     });
     return icon;
 }
@@ -3759,40 +3759,41 @@ function getGymMarkerIcon (gym, ts) {
         size = (6 - gym.availble_slots);
     }
 
+    // Gym
+    let gymSize;
+    let iconHtml = '';
+    if (gym.in_battle) {
+        // Gym Battle
+        gymSize = 55; //Set Larger Size For Battle
+        iconHtml = `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/battle/${gym.team_id}_${size}.png"/></div>`;
+    } else {
+        // Gym
+        gymSize = getGymSize(gym.team_id);
+        iconHtml = `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/gym/${gym.team_id}_${size}.png"/></div>`;
+    }
+
+    // Raid overlay
     const raidLevel = gym.raid_level;
     let raidSize = 0;
-    let iconHtml = '';
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
+            iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}"/></div>`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
-            iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/unknown_egg/${raidLevel}.png" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
+            iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/unknown_egg/${raidLevel}.png"/></div>`;
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
         raidSize = getRaidSize('l' + raidLevel);
-        iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/egg/${raidLevel}.png" style="width:${raidSize}px;height:${raidSize}px; background-color:transparent;"/><br>`;
+        iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/egg/${raidLevel}.png"/></div>`;
     }
-    // Gym
-    let gymSize;
-    if (gym.in_battle) {
-        // Gym Battle
-        gymSize = 55; //Set Larger Size For Battle
-        iconHtml += `<img src="${availableIconStyles[selectedIconStyle].path}/battle/${gym.team_id}_${size}.png" style="width:${gymSize}px;height:${gymSize}px; background-color:transparent;"/>`;
-    } else {
-        // Gym
-        gymSize = getGymSize(gym.team_id);
-        iconHtml += `<img src="${availableIconStyles[selectedIconStyle].path}/gym/${gym.team_id}_${size}.png" style="width:${gymSize}px;height:${gymSize}px; background-color:transparent;"/>`;
-    }
-    const iconWidth = Math.max(raidSize, gymSize);
-    const iconAnchorY = raidSize + gymSize * availableIconStyles[selectedIconStyle].gymAnchorY;
+    const iconAnchorY = gymSize * availableIconStyles[selectedIconStyle].gymAnchorY;
     const icon = L.divIcon({
-        iconSize: [iconWidth, raidSize + gymSize],
-        iconAnchor: [iconWidth / 2, iconAnchorY],
+        iconSize: [gymSize, gymSize],
+        iconAnchor: [gymSize / 2, iconAnchorY],
         popupAnchor: [0, -8 - iconAnchorY],
         className: 'gym-marker',
         html: `<center>${iconHtml}</center>`
