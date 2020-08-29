@@ -3643,6 +3643,8 @@ function getPokestopMarkerIcon (pokestop, ts) {
         sizeId = lureIconId;
     }
     const stopSize = getPokestopSize(sizeId);
+    const iconAnchorY = stopSize * availableIconStyles[selectedIconStyle].pokestopAnchorY;
+    let popupAnchorY = -8 - iconAnchorY;
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
         const id = pokestop.quest_rewards[0].type;
         const info = pokestop.quest_rewards[0].info;
@@ -3676,14 +3678,14 @@ function getPokestopMarkerIcon (pokestop, ts) {
             }
         }
         questSize = getQuestSize(rewardString);
-        let questLeft = (availableIconStyles[selectedIconStyle].questOffsetX || .5);
-        iconHtml = `<div class="marker-image-holder" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize}px;"><img src="${iconUrl}"/></div>`;
+        const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
+        iconHtml = `<div class="marker-image-holder" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>`;
+        popupAnchorY += offsetY;
     }
-    const iconAnchorY = stopSize * availableIconStyles[selectedIconStyle].pokestopAnchorY;
     const icon = L.divIcon({
         iconSize: [stopSize, stopSize],
         iconAnchor: [stopSize / 2, iconAnchorY],
-        popupAnchor: [0, -8 - iconAnchorY],
+        popupAnchor: [0, popupAnchorY],
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/invasion/${sizeId}_${pokestop.grunt_type}.png"/></div>${iconHtml}`
@@ -3771,30 +3773,37 @@ function getGymMarkerIcon (gym, ts) {
         gymSize = getGymSize(gym.team_id);
         iconHtml = `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/gym/${gym.team_id}_${size}.png"/></div>`;
     }
+    const iconAnchorY = gymSize * availableIconStyles[selectedIconStyle].gymAnchorY;
+    let popupAnchorY = -8 - iconAnchorY;
 
     // Raid overlay
     const raidLevel = gym.raid_level;
     let raidSize = 0;
+    let raidIcon;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution)}"/></div>`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution)}`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
-            iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/unknown_egg/${raidLevel}.png"/></div>`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/unknown_egg/${raidLevel}.png`;
         }
     } else if (gym.raid_end_timestamp >= ts && parseInt(gym.raid_level) > 0 && showRaids) {
         // Egg
         raidSize = getRaidSize('l' + raidLevel);
-        iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize}px;"><img src="${availableIconStyles[selectedIconStyle].path}/egg/${raidLevel}.png"/></div>`;
+        raidIcon = `${availableIconStyles[selectedIconStyle].path}/egg/${raidLevel}.png`;
     }
-    const iconAnchorY = gymSize * availableIconStyles[selectedIconStyle].gymAnchorY;
+    if (raidSize > 0) {
+        let offsetY = gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize;
+        iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${raidIcon}"/></div>`;
+        popupAnchorY += offsetY;
+    }
     const icon = L.divIcon({
         iconSize: [gymSize, gymSize],
         iconAnchor: [gymSize / 2, iconAnchorY],
-        popupAnchor: [0, -8 - iconAnchorY],
+        popupAnchor: [0, popupAnchorY],
         className: 'gym-marker',
         html: iconHtml
     });
