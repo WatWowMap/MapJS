@@ -3667,7 +3667,8 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/reward/reward_1301_${info.amount}.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
-            iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(info.pokemon_id, info.form_id)}.png`;
+            // TODO: evolution https://github.com/versx/DataParser/issues/10
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id == 2, info.costume_id, info.shiny)}.png`;
         }
         questSize = getQuestSize(rewardString);
         const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
@@ -5133,24 +5134,25 @@ function getSize (size) {
     return 'Big';
 }
 
-function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = false, costumeId = 0) {
+function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = false, costumeId = 0, shiny = false) {
     const pokeId = zeroPad(pokemonId, 3);
     const costumeSuffix = costumeId ? `_${costumeId}` : '';
+    const shinySuffix = shinyId ? '_shiny' : '';
     if (evolutionId) {
-        let pokemonIdString = `${pokeId}_v${evolutionId}${costumeSuffix}`;
+        let pokemonIdString = `${pokeId}_v${evolutionId}${costumeSuffix}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
-        pokemonIdString = `${pokeId}_v${evolutionId}`;
+        pokemonIdString = `${pokeId}_v${evolutionId}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
     const realForm = pokemonForm || masterfile.pokemon[pokemonId].default_form_id;
     const femaleSuffix = female ? '_female' : '';
-    let pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}${costumeSuffix}`;
+    let pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${realForm}${costumeSuffix}`;
+    pokemonIdString = `${pokeId}_${realForm}${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}`;
+    pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    return `${pokeId}_${realForm}`;
+    return `${pokeId}_${realForm}${shinySuffix}`;
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
