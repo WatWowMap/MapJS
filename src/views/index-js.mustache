@@ -5144,15 +5144,25 @@ function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = fa
         pokemonIdString = `${pokeId}_v${evolutionId}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
-    const realForm = pokemonForm || masterfile.pokemon[pokemonId].default_form_id;
     const femaleSuffix = female ? '_female' : '';
-    let pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+    if (pokemonForm) {
+        let pokemonIdString = `${pokeId}_${pokemonForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${femaleSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    }
+    const defaultForm = masterfile.pokemon[pokemonId].default_form_id;
+    let pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${realForm}${costumeSuffix}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_${defaultForm}${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${realForm}${femaleSuffix}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    return `${pokeId}_${realForm}${shinySuffix}`;
+    return `${pokeId}_${defaultForm}${shinySuffix}`;
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
