@@ -6402,6 +6402,11 @@ function loadFilterSettings (e) {
         store('show_devices', showDevices);
         store('device_filter', JSON.stringify(deviceFilterNew));
 
+        showRaidTimers = obj.show_raid_timers;
+        store('show_raid_timers', showRaidTimers);
+        showInvasionTimers = obj.show_invasion_timers;
+        store('show_invasion_timers', showInvasionTimers);
+
         if (showGyms) {
             $('#show-gyms').addClass('active');
             $('#hide-gyms').removeClass('active');
