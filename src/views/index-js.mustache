@@ -5141,7 +5141,7 @@ function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = fa
         pokemonIdString = `${pokeId}_${pokemonForm}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
-    const defaultForm = masterfile.pokemon[pokemonId].default_form_id;
+    const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
     if (defaultForm) {
         let pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
