@@ -5142,13 +5142,23 @@ function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = fa
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
     const defaultForm = masterfile.pokemon[pokemonId].default_form_id;
-    let pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+    if (defaultForm) {
+        let pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    }
+    let pokemonIdString = `${pokeId}_00${femaleSuffix}${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${defaultForm}${costumeSuffix}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_00${costumeSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_00${femaleSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    pokemonIdString = `${pokeId}_${defaultForm}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_00${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
     return '000';   // substitute
 }
