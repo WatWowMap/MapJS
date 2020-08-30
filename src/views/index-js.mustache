@@ -5123,7 +5123,7 @@ function getSize (size) {
 function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = false, costumeId = 0, shiny = false) {
     const pokeId = zeroPad(pokemonId, 3);
     const costumeSuffix = costumeId ? `_${costumeId}` : '';
-    const shinySuffix = shinyId ? '_shiny' : '';
+    const shinySuffix = shiny ? '_shiny' : '';
     if (evolutionId) {
         let pokemonIdString = `${pokeId}_v${evolutionId}${costumeSuffix}${shinySuffix}`;
         if (availableForms.has(pokemonIdString)) return pokemonIdString;
