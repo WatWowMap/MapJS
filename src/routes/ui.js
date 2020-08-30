@@ -83,10 +83,6 @@ const handlePage = async (req, res) => {
 
     data.available_icon_styles_json = JSON.stringify(config.iconStyles);
 
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
-
     // Build available items list
     const availableItems = [-3, -2, -1];
     //const keys = Object.keys(InventoryItemId);
@@ -211,7 +207,7 @@ const handleHomeJs = async (req, res) => {
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available forms list
-    const availableForms = getAvailableForms();
+    const availableForms = await getAvailableForms();
     data.available_forms_json = JSON.stringify(availableForms);
 
     // Build available items list
@@ -260,27 +256,18 @@ const getAvailableTileservers = () => {
     return tileservers;
 };
 
-const getAvailableForms = () => {
+const getAvailableForms = async () => {
     const availableForms = [];
     // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
+    // TODO: who puts :joy: in a comment???
     const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
+    const files = await fs.promises.readdir(pokemonIconsDir);
+    const matcher = /^pokemon_icon_(.+)\.png$/.compile();
     if (files) {
         files.forEach(file => {
-            const split = file.replace('.png', '').split('_');
-            if (split.length === 5) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                const evolutionId = parseInt(split[4]);
-                if (evolutionId > 0) {
-                    availableForms.push(`${pokemonId}-${formId}-${evolutionId}`);    
-                } else { 
-                    availableForms.push(`${pokemonId}-${formId}`); // TODO: Costumes?
-                }
-            } else if (split.length === 4) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                availableForms.push(`${pokemonId}-${formId}`);
+            const match = matcher.exec(file);
+            if (match !== null) {
+                availableForms.push(match.groups[1]);
             }
         });
     }
