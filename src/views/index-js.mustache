@@ -5162,7 +5162,9 @@ function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = fa
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
     pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${shinySuffix}`;
     if (availableForms.has(pokemonIdString)) return pokemonIdString;
-    return `${pokeId}_${defaultForm}${shinySuffix}`;
+    pokemonIdString = `${pokeId}_${defaultForm}${shinySuffix}`;
+    if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    return '000';   // substitute
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
