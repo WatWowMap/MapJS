@@ -257,12 +257,18 @@ fieldset[disabled] .btn-size.active {
     border: 4px solid gray;
 }
 
+.filter-image-holder {
+    width: 50px;
+    height: 50px;
+}
 .marker-image-holder {
     position: absolute;
     width: 100%;
     height: 100%;
 }
-.marker-image-holder > img, .leaflet-container .leaflet-marker-pane .marker-image-holder > img {
+.filter-image-holder > img,
+.marker-image-holder > img,
+.leaflet-container .leaflet-marker-pane .marker-image-holder > img {
     position: absolute;
     max-width: 100% !important;
     max-height: 100% !important;

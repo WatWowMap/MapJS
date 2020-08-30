@@ -1802,7 +1802,6 @@ function loadData () {
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
         show_weather: showWeather,
         show_active_devices: showDevices,
-        icon_style: selectedIconStyle,
         last_update: lastUpdateServer,
         _csrf: '{{csrf}}'
     };
@@ -5364,6 +5363,18 @@ function getCpAtLevel(id, level, isMax) {
 
 // MARK: - Init Filter
 
+function populateImage (row, type, set, meta) {
+    const input = row.image;
+    switch (input.type) {
+        case 'img':
+            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}${input.path}"/></div>`;
+        case 'pokemon':
+            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(input.pokemonId, input.form)}.png"/></div>`;
+        default:
+            return input;
+    }
+}
+
 function loadPokemonFilter () {
     const table = $('#table-filter-pokemon').DataTable({
         language: {
@@ -5382,7 +5393,7 @@ function loadPokemonFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5481,7 +5492,7 @@ function loadQuestFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5578,7 +5589,7 @@ function loadRaidFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5675,7 +5686,7 @@ function loadGymFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5772,7 +5783,7 @@ function loadPokestopFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5869,7 +5880,7 @@ function loadInvasionFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5966,7 +5977,7 @@ function loadSpawnpointFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6063,7 +6074,7 @@ function loadNestFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6160,7 +6171,7 @@ function loadWeatherFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6256,7 +6267,7 @@ function loadDeviceFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
