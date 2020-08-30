@@ -290,7 +290,6 @@ $(function () {
         async: true
     });
 
-    availableForms = new Set(JSON.parse('{{{available_forms_json}}}'));
     availableItems = JSON.parse('{{{available_items_json}}}');
     availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
     availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
@@ -454,6 +453,7 @@ $(function () {
         selectedIconStyle = this.value;
         store('iconstyle', this.value);
 
+        buildAvailableForms();
         // TODO: Redraw markers/update icons for markers, invalidate map
     });
 
@@ -543,6 +543,10 @@ $(function () {
 
 // MARK: - Setup
 
+function buildAvailableForms () {
+    availableForms = new Set(availableIconStyles[selectedIconStyle].pokemonList);
+}
+
 function loadStorage () {
     const selectedTileserverTmp = retrieve('tileserver');
     if (selectedTileserverTmp === undefined) {
@@ -565,6 +569,7 @@ function loadStorage () {
             selectedIconStyle = selectedIconStyleTmp;
         }
     }
+    buildAvailableForms();
 
     const showGymsValue = retrieve('show_gyms');
     if (showGymsValue === null) {

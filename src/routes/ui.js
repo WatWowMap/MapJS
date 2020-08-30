@@ -204,11 +204,9 @@ const handleHomeJs = async (req, res) => {
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    data.available_icon_styles_json = JSON.stringify(config.icons);
-
     // Build available forms list
-    const availableForms = await getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
+    await updateAvailableForms(config.icons);
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
     const availableItems = [-3, -2, -1];
@@ -256,21 +254,23 @@ const getAvailableTileservers = () => {
     return tileservers;
 };
 
-const getAvailableForms = async () => {
-    const availableForms = [];
-    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
-    // TODO: who puts :joy: in a comment???
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = await fs.promises.readdir(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const match = /^pokemon_icon_(.+)\.png$/.exec(file);
-            if (match !== null) {
-                availableForms.push(match[1]);
+const updateAvailableForms = async (icons) => {
+    for (const icon of Object.values(icons)) {
+        if (icon.path.startsWith('/')) {
+            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}/pokemon`);
+            const files = await fs.promises.readdir(pokemonIconsDir);
+            if (files) {
+                const availableForms = [];
+                files.forEach(file => {
+                    const match = /^pokemon_icon_(.+)\.png$/.exec(file);
+                    if (match !== null) {
+                        availableForms.push(match[1]);
+                    }
+                });
+                icon.pokemonList = availableForms;
             }
-        });
+        }
     }
-    return availableForms;
 };
 
 module.exports = router;
