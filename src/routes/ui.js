@@ -262,12 +262,11 @@ const getAvailableForms = async () => {
     // TODO: who puts :joy: in a comment???
     const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
     const files = await fs.promises.readdir(pokemonIconsDir);
-    const matcher = /^pokemon_icon_(.+)\.png$/.compile();
     if (files) {
         files.forEach(file => {
-            const match = matcher.exec(file);
+            const match = /^pokemon_icon_(.+)\.png$/.exec(file);
             if (match !== null) {
-                availableForms.push(match.groups[1]);
+                availableForms.push(match[1]);
             }
         });
     }
