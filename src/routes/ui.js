@@ -83,10 +83,6 @@ const handlePage = async (req, res) => {
 
     data.available_icon_styles_json = JSON.stringify(config.iconStyles);
 
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
-
     // Build available items list
     const availableItems = [-3, -2, -1];
     //const keys = Object.keys(InventoryItemId);
@@ -208,11 +204,9 @@ const handleHomeJs = async (req, res) => {
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    data.available_icon_styles_json = JSON.stringify(config.icons);
-
     // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
+    await updateAvailableForms(config.icons);
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
     const availableItems = [-3, -2, -1];
@@ -260,31 +254,23 @@ const getAvailableTileservers = () => {
     return tileservers;
 };
 
-const getAvailableForms = () => {
-    const availableForms = [];
-    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('_');
-            if (split.length === 5) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                const evolutionId = parseInt(split[4]);
-                if (evolutionId > 0) {
-                    availableForms.push(`${pokemonId}-${formId}-${evolutionId}`);    
-                } else { 
-                    availableForms.push(`${pokemonId}-${formId}`); // TODO: Costumes?
-                }
-            } else if (split.length === 4) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                availableForms.push(`${pokemonId}-${formId}`);
+const updateAvailableForms = async (icons) => {
+    for (const icon of Object.values(icons)) {
+        if (icon.path.startsWith('/')) {
+            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}/pokemon`);
+            const files = await fs.promises.readdir(pokemonIconsDir);
+            if (files) {
+                const availableForms = [];
+                files.forEach(file => {
+                    const match = /^pokemon_icon_(.+)\.png$/.exec(file);
+                    if (match !== null) {
+                        availableForms.push(match[1]);
+                    }
+                });
+                icon.pokemonList = availableForms;
             }
-        });
+        }
     }
-    return availableForms;
 };
 
 module.exports = router;

@@ -351,7 +351,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
-            raid_pokemon_evolution
+            raid_pokemon_evolution, raid_pokemon_costume
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} AND (
@@ -419,7 +419,8 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 cell_id: result.cell_id,
                 total_cp: result.total_cp,
                 sponsor_id: result.sponsor_id,
-                raid_pokemon_evolution: result.raid_pokemon_evolution
+                raid_pokemon_evolution: result.raid_pokemon_evolution,
+                raid_pokemon_costume: result.raid_pokemon_costume,
             });
         }
     }

@@ -290,7 +290,6 @@ $(function () {
         async: true
     });
 
-    availableForms = JSON.parse('{{{available_forms_json}}}');
     availableItems = JSON.parse('{{{available_items_json}}}');
     availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
     availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
@@ -454,6 +453,7 @@ $(function () {
         selectedIconStyle = this.value;
         store('iconstyle', this.value);
 
+        buildAvailableForms();
         // TODO: Redraw markers/update icons for markers, invalidate map
     });
 
@@ -543,6 +543,10 @@ $(function () {
 
 // MARK: - Setup
 
+function buildAvailableForms () {
+    availableForms = new Set(availableIconStyles[selectedIconStyle].pokemonList);
+}
+
 function loadStorage () {
     const selectedTileserverTmp = retrieve('tileserver');
     if (selectedTileserverTmp === undefined) {
@@ -565,6 +569,7 @@ function loadStorage () {
             selectedIconStyle = selectedIconStyleTmp;
         }
     }
+    buildAvailableForms();
 
     const showGymsValue = retrieve('show_gyms');
     if (showGymsValue === null) {
@@ -1802,7 +1807,6 @@ function loadData () {
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
         show_weather: showWeather,
         show_active_devices: showDevices,
-        icon_style: selectedIconStyle,
         last_update: lastUpdateServer,
         _csrf: '{{csrf}}'
     };
@@ -2546,7 +2550,8 @@ function getPokemonPopupContent (pokemon) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
 
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0);
+    // TODO: add evolution https://github.com/versx/DataParser/issues/9
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender == 2, pokemon.costume);
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -2565,8 +2570,8 @@ function getPokemonPopupContent (pokemon) {
 
     '<div class="row">' + // START 2ND ROW
         '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
-            '<div class="row' + (hasIV ? '' : 'text-center') + '" style="margin: auto;">' +
-                `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${pokemonIcon}" height="64" width="64">` +
+            '<div class="row pokemon-popup-image-holder">' +
+                `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${pokemonIcon}.png">` +
             '</div>' + // END POKEMON ROW
             '<div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">';
     const pkmn = masterfile.pokemon[pokemon.pokemon_id];
@@ -2948,15 +2953,15 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender == 2, gym.raid_pokemon_costume);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-6 col-md-4">' + // START 1ST COL
-                '<div class="row" style="margin:auto;">';
+                '<div class="row pokemon-popup-image-holder">';
         if (hasRaidBoss && isRaidBattle) {
-            content += `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${pokemonIcon}" height="64" width="64">`;
+            content += `<img src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${pokemonIcon}.png">`;
         } else {
-            content += `<img src="${availableIconStyles[selectedIconStyle].path}/egg/${gym.raid_level}.png" height="64" width="64">`;
+            content += `<img src="${availableIconStyles[selectedIconStyle].path}/egg/${gym.raid_level}.png">`;
         }
         content +=
                 '</div>' + // END POKEMON ROW
@@ -3494,19 +3499,6 @@ function getWeatherMarker (weather, ts) {
 }
 
 function getNestMarker (nest, geojson, ts) {
-    const pkmn = masterfile.pokemon[nest.pokemon_id];
-    let typesIcon = '';
-    if (pkmn !== undefined && pkmn !== null) {
-        const types = pkmn.types;
-        if (types !== null && types.length > 0) {
-            if (types.length === 2) {
-                typesIcon += `<span class="text-nowrap"><img src="${availableIconStyles[selectedIconStyle].path}/type/${types[0].toLowerCase()}.png" height="24" width="24">&nbsp;`;
-                typesIcon += `<img src="${availableIconStyles[selectedIconStyle].path}/type/${types[1].toLowerCase()}.png" height="24" width="24"></span>`;
-            } else {
-                typesIcon += `<img src="${availableIconStyles[selectedIconStyle].path}/type/${types[0].toLowerCase()}.png" height="24" width="24">`;
-            }
-        }
-    }
     const nestPolygonMarker = L.geoJson(geojson, {
         /*
         pointToLayer: function(feature, latlng) {
@@ -3538,7 +3530,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconAnchor: [40 / 2, 40 / 2],
                 popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
-                html: `<center><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(nest.pokemon_id, 0, 0)}" style="width:40px;height:auto; background-color:transparent;"/><br>${typesIcon}</center>`
+                html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(nest.pokemon_id)}.png"/></div>`
             });
             /*
             const icon = L.icon({
@@ -3574,7 +3566,7 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0);
+    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender == 2, pokemon.costume);
     const color = '{{glow_color}}';
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
@@ -3587,19 +3579,19 @@ function getPokemonMarkerIcon (pokemon, ts) {
                 ? 'first'
                 : '';
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
-        ? `<img src="${availableIconStyles[selectedIconStyle].path}/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto; background-color:transparent; padding:0; margin:-15px 0 0 15px;" />`
+        ? `<img src="${availableIconStyles[selectedIconStyle].path}/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto;position:absolute;right:0;bottom:0;" />`
         : '';
     const icon = L.divIcon({
         iconSize: [size, size],
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
-        html: `<center><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/${pokemonIdString}" style="width:${size}px;height:auto; background-color:transparent; ` +
+        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${pokemonIdString}.png" style="` +
         (
             iv >= glowIV
             ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
             : ''
-        ) + `"/>${iconHtml}</center>`
+        ) + `"/></div>${iconHtml}`
     });
     return icon;
 }
@@ -3666,20 +3658,12 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/reward/reward_1301_${info.amount}.png`;
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
-            if (info.form_id !== 0 && info.form_id !== null) {
-                const pokemonIdStringTmp = info.pokemon_id + '-' + info.form_id;
-                if ($.inArray(pokemonIdStringTmp, availableForms) !== -1) {
-                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, info.form_id, 0)}`;
-                } else {
-                    iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0, 0)}`;
-                }
-            } else {
-                iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(info.pokemon_id, 0, 0)}`;
-            }
+            // TODO: evolution https://github.com/versx/DataParser/issues/10
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id == 2, info.costume_id, info.shiny)}.png`;
         }
         questSize = getQuestSize(rewardString);
         const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
-        iconHtml = `<div class="marker-image-holder" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>`;
+        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
@@ -3784,7 +3768,7 @@ function getGymMarkerIcon (gym, ts) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            raidIcon = `${availableIconStyles[selectedIconStyle].path}/pokemon/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution)}`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender == 2, gym.raid_pokemon_costume)}.png`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
@@ -3797,7 +3781,7 @@ function getGymMarkerIcon (gym, ts) {
     }
     if (raidSize > 0) {
         let offsetY = gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize;
-        iconHtml += `<div class="marker-image-holder" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${raidIcon}"/></div>`;
+        iconHtml += `<div class="marker-image-holder top-overlay" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${raidIcon}"/></div>`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
@@ -5141,22 +5125,47 @@ function getSize (size) {
     return 'Big';
 }
 
-function getPokemonIcon(pokemonId, pokemonForm, evolutionId) {
+function getPokemonIcon(pokemonId, pokemonForm = 0, evolutionId = 0, female = false, costumeId = 0, shiny = false) {
     const pokeId = zeroPad(pokemonId, 3);
-    let pokemonIdString = pokeId;
-    if (pokemonForm > 0 && $.inArray(pokemonId + '-' + pokemonForm, availableForms) !== -1) {
-        pokemonIdString += '_' + pokemonForm;
-    } else {
-        pokemonIdString += '_00';
+    const costumeSuffix = costumeId ? `_${costumeId}` : '';
+    const shinySuffix = shiny ? '_shiny' : '';
+    if (evolutionId) {
+        let pokemonIdString = `${pokeId}_v${evolutionId}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_v${evolutionId}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
-    if (evolutionId > 0) {
-        if ($.inArray(pokemonId + '-' + pokemonForm + '-' + evolutionId, availableForms) !== -1) {
-            pokemonIdString += '_' + evolutionId;
-        } else {
-            pokemonIdString += '';
-        }
+    const femaleSuffix = female ? '_female' : '';
+    if (pokemonForm) {
+        let pokemonIdString = `${pokeId}_${pokemonForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${femaleSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${pokemonForm}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
     }
-    return 'pokemon_icon_' + pokemonIdString + '.png';
+    const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+    if (defaultForm) {
+        let pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${costumeSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${femaleSuffix}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+        pokemonIdString = `${pokeId}_${defaultForm}${shinySuffix}`;
+        if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    }
+    let pokemonIdString = `${pokeId}_00${femaleSuffix}${costumeSuffix}${shinySuffix}`;
+    if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    pokemonIdString = `${pokeId}_00${costumeSuffix}${shinySuffix}`;
+    if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    pokemonIdString = `${pokeId}_00${femaleSuffix}${shinySuffix}`;
+    if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    pokemonIdString = `${pokeId}_00${shinySuffix}`;
+    if (availableForms.has(pokemonIdString)) return pokemonIdString;
+    return '000';   // substitute
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
@@ -5356,6 +5365,18 @@ function getCpAtLevel(id, level, isMax) {
 
 // MARK: - Init Filter
 
+function populateImage (row, type, set, meta) {
+    const input = row.image;
+    switch (input.type) {
+        case 'img':
+            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}${input.path}"/></div>`;
+        case 'pokemon':
+            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(input.pokemonId, input.form)}.png"/></div>`;
+        default:
+            return input;
+    }
+}
+
 function loadPokemonFilter () {
     const table = $('#table-filter-pokemon').DataTable({
         language: {
@@ -5374,7 +5395,7 @@ function loadPokemonFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5473,7 +5494,7 @@ function loadQuestFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5570,7 +5591,7 @@ function loadRaidFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5667,7 +5688,7 @@ function loadGymFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5764,7 +5785,7 @@ function loadPokestopFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5861,7 +5882,7 @@ function loadInvasionFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -5958,7 +5979,7 @@ function loadSpawnpointFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6055,7 +6076,7 @@ function loadNestFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6152,7 +6173,7 @@ function loadWeatherFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
@@ -6248,7 +6269,7 @@ function loadDeviceFilter () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
+            { data: populateImage, width: '5%', className: 'details-control' },
             { data: 'name', width: '15%' },
             {
                 data: {
