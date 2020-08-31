@@ -33,7 +33,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 1.) Clone repository `git clone https://github.com/versx/MapJS`  
 2.) Install dependencies `npm install`  
 3.) Copy config `cp src/config.example.json src/config.json`  
-4.) Copy rarity `cp src/rarity.example.json src/rarity.json`
+4.) Copy rarity `cp src/rarity.example.json src/rarity.json`  
 5.) Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`  
 6.) Fill out config `vi src/config.json`  
 7.) Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)  
