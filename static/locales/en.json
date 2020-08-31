@@ -45,6 +45,7 @@
 	"filter_raids_legendary": "Legendary",
 	"filter_raids_normal": "Normal",
 	"filter_pokemon_filter": "Pokemon Filter",
+	"recommended_pokemon_btn": "Quick Start",
 	"filter_quest_filter": "Quest Filter",
 	"filter_invasion_filter": "Invasion Filter",
 	"filter_raid_filter": "Raid Filter",
@@ -67,6 +68,9 @@
 	"filter_global_filters": "Global Filters",
 	"filter_global_iv": "IV/Level Limit",
 	"filter_global_pvp": "PVP Limit",
+	"filter_global_avg": "Nest Avg Limit",
+	"filter_global_candy_count": "Candy Limit",
+	"filter_global_stardust_count": "Stardust Limit",
 	"filter_and": "And",
 	"filter_or": "Or",
 	"filter_on": "On",
@@ -3604,6 +3608,7 @@
 	"grunt_48": "Ghost - Male Grunt",
 	"grunt_49": "Electric - Female Grunt",
 	"grunt_50": "Electric - Male Grunt",
+	"gender_icon_0": "",
 	"gender_icon_1": "♂",
 	"gender_icon_2": "♀",
 	"gender_icon_3": "⚲",
@@ -3620,6 +3625,7 @@
 	"filter_raid_level_3": "Level 3",
 	"filter_raid_level_4": "Level 4",
 	"filter_raid_level_5": "Level 5",
+	"filter_raid_level_6": "Mega",
 	"filter_raid_levels": "Raid Levels",
 	"filter_raid_ex": "Only EX Raids",
 	"filter_gym_in_battle": "Only In-Battle",
@@ -3658,5 +3664,8 @@
 	"quest_36": "quest_36",
 	"quest_37": "quest_37",
 	"quest_38": "quest_38",
-	"form_0": "form_0"
+	"form_0": "form_0",
+	"evo_1": "Mega",
+	"evo_2": "Mega X",
+	"evo_3": "Mega Y"
 }

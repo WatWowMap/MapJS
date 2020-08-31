@@ -88,13 +88,13 @@ const getData = async (perms, filter) => {
     const permShowQuests = perms ? perms.quests !== false : true;
     const permShowPokestops = perms ? perms.pokestops !== false : true;
     const permShowInvasions = perms ? perms.invasions !== false : true;
-    const permShowSpawnpoints = perms ? perms.pokestops !== false : true;
+    const permShowSpawnpoints = perms ? perms.spawnpoints !== false : true;
     const permShowDevices = perms ? perms.devices !== false : true;
     const permShowS2Cells = perms ? perms.cells !== false : true;
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
-    const iconStylePath = config.icons[iconStyle];
+    const iconStylePath = config.icons[iconStyle].path;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -291,7 +291,7 @@ const getData = async (perms, filter) => {
         });
 
         //Level
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 6; i++) {
             const raidLevel = i18n.__('filter_raid_level_' + i);
             raidData.push({
                 'id': {
@@ -402,7 +402,60 @@ const getData = async (perms, filter) => {
         const pokemonTypeString = i18n.__('filter_pokemon');
         const miscTypeString = i18n.__('filter_misc');
         const itemsTypeString = i18n.__('filter_items');
+        const onString = i18n.__('filter_on');
+        const offString = i18n.__('filter_off');
+        const globalCandyString = i18n.__('filter_global_candy_count');
+        const globalStardustString = i18n.__('filter_global_stardust_count');
+        const globalFiltersString = i18n.__('filter_global_filters');
+        const configureString = i18n.__('filter_configure');
         let questData = [];
+
+        // Global filters
+        const candyFilter = `
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-off select-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="off">
+                <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+            </label>
+            <label class="btn btn-sm btn-on select-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="on">
+                <input type="radio" name="options" id="show" autocomplete="off">${onString}
+            </label>
+        </div>
+        `;
+        const candySize = `<button class="btn btn-sm btn-primary configure-button-new" data-id="candy-count" data-type="quest-candy-count" data-info="global-candy-count">${configureString}</button>`;
+        questData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': globalCandyString,
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/1301.png" style="height:50px; width:50px;">`,
+            'filter': candyFilter,
+            'size': candySize,
+            'type': globalFiltersString
+        });
+
+        const stardustFilter = `
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-off select-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="off">
+                <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+            </label>
+            <label class="btn btn-sm btn-on select-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="on">
+                <input type="radio" name="options" id="show" autocomplete="off">${onString}
+            </label>
+        </div>
+        `;
+        const stardustSize = `<button class="btn btn-sm btn-primary configure-button-new" data-id="stardust-count" data-type="quest-stardust-count" data-info="global-stardust-count">${configureString}</button>`;
+        questData.push({
+            'id': {
+                'formatted': utils.zeroPad(1, 3),
+                'sort': 1
+            },
+            'name': globalStardustString,
+            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/-1.png" style="height:50px; width:50px;">`,
+            'filter': stardustFilter,
+            'size': stardustSize,
+            'type': globalFiltersString
+        });
 
         // Misc
         for (let i = 1; i <= 3; i++) {
@@ -482,19 +535,21 @@ const getData = async (perms, filter) => {
             'type': pokestopOptionsString
         });
 
-        for (let i = 1; i <= 4; i++) {
-            const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
-            pokestopData.push({
-                'id': {
-                    'formatted': utils.zeroPad(i, 3),
-                    'sort': i
-                },
-                'name': pokestopLure,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
-                'filter': generateShowHideButtons(i, 'pokestop-lure'),
-                'size': generateSizeButtons(i, 'pokestop-lure'),
-                'type': pokestopOptionsString
-            });
+        if (permShowLures) {
+            for (let i = 1; i <= 4; i++) {
+                const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
+                pokestopData.push({
+                    'id': {
+                        'formatted': utils.zeroPad(i, 3),
+                        'sort': i
+                    },
+                    'name': pokestopLure,
+                    'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
+                    'filter': generateShowHideButtons(i, 'pokestop-lure'),
+                    'size': generateSizeButtons(i, 'pokestop-lure'),
+                    'type': pokestopOptionsString
+                });
+            }
         }
         data['pokestop_filters'] = pokestopData;
     }
@@ -568,7 +623,36 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showNestFilter) {
         const pokemonString = i18n.__('filter_pokemon');
+        const onString = i18n.__('filter_on');
+        const offString = i18n.__('filter_off');
+        const globalAverageString = i18n.__('filter_global_avg');
+        const globalFiltersString = i18n.__('filter_global_filters');
+        const configureString = i18n.__('filter_configure');
+
         let nestData = [];
+        const filter = `
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-off select-button-new" data-id="avg" data-type="nest-avg" data-info="off">
+                <input type="radio" name="options" id="hide" autocomplete="off">${offString}
+            </label>
+            <label class="btn btn-sm btn-on select-button-new" data-id="avg" data-type="nest-avg" data-info="on">
+                <input type="radio" name="options" id="show" autocomplete="off">${onString}
+            </label>
+        </div>
+        `;
+        const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="avg" data-type="nest-avg" data-info="global-avg">${configureString}</button>`;
+        nestData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': globalAverageString,
+            'image': `AVG`,
+            'filter': filter,
+            'size': size,
+            'type': globalFiltersString
+        });
+
         //Pokemon
         let pokemon = await map.getAvailableNestPokemon();
         for (let i = 0; i < pokemon.length; i++) {

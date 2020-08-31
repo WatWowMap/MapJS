@@ -25,6 +25,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Follow my location  
 - Cache previous location  
 - Global search for quest rewards, nest pokemon, gyms, and pokestops
+- Minimum candy and stardust amount quest filter
+- Quick Start Pokemon filter button for new users
 - Fast  
 
 ## Installation
@@ -124,7 +126,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     },
     // Available tileservers
     "tileservers": {
-        "Default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
+        "Default": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png;Map tiles by Carto, under CC BY 3.0. Data by  <a href='https://www.openstreetmap.org/'>OpenStreetMap</a>, under ODbL.",
+        "OSM": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
         "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>",
         "Alidade Smooth Dark": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png;&copy; <a href='https://stadiamaps.com/'>Stadia Maps</a>, &copy; <a href='https://openmaptiles.org/'>OpenMapTiles</a> &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors",
         "Thunder Forest": "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png;&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
@@ -155,6 +158,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "discord": {
         // Enable discord authentication
         "enabled": true,
+        // Channel ID for logging
+        "logChannelId": "",
+        // Status display message for the bot
+        "status": "Map Status: Online",
         // Discord bot token
         "botToken": "",
         // Discord bot client id
@@ -261,7 +268,17 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         "maxScouts": 15
     },
     // Maximum search results for global search to return
-    "searchMaxResults": 20
+    "searchMaxResults": 20,
+    // Set a custom list of Pokemon to be activated if a user selects the "Quick Start" filter button on the Pokemon Filter menu
+    "recommendedPokemon": [
+        3,6,9,65,68,76,94,99,106,107,108,112,113,114,115,122,125,130,131,134,135,136,137,142,143,144,145,146,147,148,149,150,151,154,157,160,169,176,196,197,201,
+        214,221,222,233,237,241,242,243,244,245,246,247,248,249,250,251,254,257,260,280,281,282,286,287,288,289,290,291,292,297,303,306,327,328,329,330,349,350,357,
+        358,359,361,362,365,366,369,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,389,392,395,403,404,405,408,409,410,411,417,443,444,445,447,448,
+        480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,496,497,499,500,502,503,522,523,524,525,526,530,531,532,533,534,538,539,550,551,552,553,554,555,
+        556,559,560,561,564,565,566,567,570,574,575,576,587,596,597,599,600,601,607,608,609,610,611,612,618,622,623,626,631,632,633,634,635,636,637,638,639,640,
+        641,642,643,644,645,646,647,648,649
+    ]
+    
 }
 ```
 
@@ -301,14 +318,14 @@ module.exports = {
 - Heatmaps  
 - Basic statistics  
 - Separate cluster layers by type
-- Notification sounds, bouncing icons
 - Possibly change filter selection from a list to a grid
-- Finish custom user settings modal
 - Force logout of other devices if logged into multiple
 - Glow for top pvp ranks
 - Only clear layers if filter changed
-- Filter candy/stardust quest by amount
 - Icon spacing
+- Search quest by task name
+- Filter by Pokemon type for Pokemon/raids/quests?
 
 ## Credits  
-[RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
+- [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)  
+- [PMSF](https://github.com/pmsf/pmsf)  

@@ -261,6 +261,7 @@
                                     <a id="reset-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="reset-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
+                            <button id="recommended-pokemon-filter" type="button" class="btn btn-sm btn-success">{{recommended_pokemon_btn}}</button>
                             </div>
                         </div>
                     </div>
@@ -653,10 +654,7 @@
                                     {{clear_data}}
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="clearSiteCache('*');" href="#">{{clear_all_data}}</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" onclick="clearSiteCache('cache');" href="#">{{clear_cache}}</a>
-                                    <a class="dropdown-item" onclick="clearSiteCache('cookies');" href="#">{{clear_cookies}}</a>
                                     <a class="dropdown-item" onclick="clearSiteCache('storage');" href="#">{{clear_storage}}</a>
                                 </div>
                             </div>
@@ -681,22 +679,22 @@
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-pills nav-fill mb-3 justify-content-center" id="pills-tab" role="tablist">
-                        <li class="nav-item">
+                        <li class="nav-item {{#hide_quests}}d-none{{/hide_quests}}">
                             <a class="nav-link active" id="pills-reward-tab" data-toggle="pill" href="#pills-reward" role="tab" aria-controls="pills-reward" aria-selected="true">
                                 <img src="/img/misc/reward.png" width="32" height="auto"/>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{#hide_nests}}d-none{{/hide_nests}}">
                             <a class="nav-link" id="pills-nest-tab" data-toggle="pill" href="#pills-nest" role="tab" aria-controls="pills-nest" aria-selected="false">
                                 <img src="/img/misc/nest.png" width="32" height="auto"/>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{#hide_gyms}}d-none{{/hide_gyms}}">
                             <a class="nav-link" id="pills-gym-tab" data-toggle="pill" href="#pills-gym" role="tab" aria-controls="pills-gym" aria-selected="false">
                                 <img src="/img/misc/gym.png" width="32" height="auto"/>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{#hide_pokestops}}d-none{{/hide_pokestops}}">
                             <a class="nav-link" id="pills-pokestop-tab" data-toggle="pill" href="#pills-pokestop" role="tab" aria-controls="pills-pokestop" aria-selected="false">
                                 <img src="/img/misc/pokestop.png" width="32" height="auto"/>
                             </a>
@@ -743,6 +741,8 @@
         $('.modal-body').css('background-color', 'rgb(33, 37, 31)');
         $('.modal-footer').css('background-color', 'rgb(33, 37, 31)');
         $('.close').css('color', 'rgb(255, 255, 255)');
+        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
+        $('.leaflet-popup-content-wrapper').css('color', 'white');
         //$('.leaflet-control-custom').css('background-color', 'rgb(33, 37, 31)');
         //$('.leaflet-tooltip').css('background-color', 'rgb(33, 37, 31)');
         //$('.leaflet-control').css('background-color', 'rgb(33, 37, 31)');
