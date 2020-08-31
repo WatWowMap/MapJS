@@ -118,7 +118,7 @@ let masterfile = {};
 let weatherTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
-let pokemonRarityDb = [];
+let pokemonGenerationDb = [];
 
 let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
@@ -137,7 +137,7 @@ let defaultShowNests = '{{default_show_nests}}' === 'true';
 let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true';
 let defaultShowDevices = '{{default_show_devices}}' === 'true';
 
-const recommendedPokemon = JSON.parse('{{{recommended_pokemon_json}}}');
+const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
 
 // TODO: External file
 const cpMultipliers = {
@@ -279,8 +279,8 @@ $(function () {
         masterfile = data;
     });
 
-    $.getJSON('/data/rarity.json', function (data) {
-        pokemonRarityDb = data;
+    $.getJSON('/data/generation.json', function (data) {
+        pokemonGenerationDb = data;
     });
 
     $.getJSON('/data/weathertypes.json', function (data) {
@@ -702,10 +702,10 @@ function loadStorage () {
                 defaultPokemonFilter[id] = { show: isCommonPokemon(i) === false, size: 'normal' };
             }
         }
-        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
-        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
+        defaultPokemonFilter.iv_and = { on: pokemonRarity.Default.ivAnd.enabled, filter: pokemonRarity.Default.ivAnd.value };
+        defaultPokemonFilter.iv_or = { on: pokemonRarity.Default.ivOr.enabled, filter: pokemonRarity.Default.ivOr.value };
+        defaultPokemonFilter.pvp_and = { on: pokemonRarity.Default.pvpAnd.enabled, filter: pokemonRarity.Default.pvpAnd.value };
+        defaultPokemonFilter.pvp_or = { on: pokemonRarity.Default.pvpOr.enabled, filter: pokemonRarity.Default.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -5180,24 +5180,24 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     return 4096;
 }
 
-function isRecommendedPokemon(pokemonId) {
-    return recommendedPokemon.includes(pokemonId);
+function isQuickStartPokemon(pokemonId) {
+    return pokemonRarity.quickStart.pokemon.includes(pokemonId);
 }
 
 function isCommonPokemon(pokemonId) {
-    return pokemonRarityDb.common.includes(pokemonId);
+    return pokemonRarity.common.includes(pokemonId);
 }
 
 function isUncommonPokemon(pokemonId) {
-    return pokemonRarityDb.uncommon.includes(pokemonId);
+    return pokemonRarity.uncommon.includes(pokemonId);
 }
 
 function isRarePokemon(pokemonId) {
-    return pokemonRarityDb.rare.includes(pokemonId);
+    return pokemonRarity.rare.includes(pokemonId);
 }
 
-function isUltraPokemon(pokemonId) {
-    return pokemonRarityDb.ultra.includes(pokemonId);
+function isUltraRarePokemon(pokemonId) {
+    return pokemonRarity.ultraRare.includes(pokemonId);
 }
 
 function isLegendaryPokemon(pokemonId) {
@@ -5206,6 +5206,34 @@ function isLegendaryPokemon(pokemonId) {
 
 function isMythicalPokemon(pokemonId) {
     return masterfile.pokemon[pokemonId].mythic;
+}
+
+function isRegionalPokemon(pokemonId) {
+    return pokemonRarity.regional.includes(pokemonId);
+}
+
+function isEventPokemon(pokemonId) {
+    return pokemonRarity.event.includes(pokemonId);
+}
+
+function isKantoPokemon(pokemonId) {
+    return pokemonGenerationDb.kanto.includes(pokemonId);
+}
+
+function isJohtoPokemon(pokemonId) {
+    return pokemonGenerationDb.johto.includes(pokemonId);
+}
+
+function isHoennPokemon(pokemonId) {
+    return pokemonGenerationDb.hoenn.includes(pokemonId);
+}
+
+function isSinnohPokemon(pokemonId) {
+    return pokemonGenerationDb.sinnoh.includes(pokemonId);
+}
+
+function isUnovaPokemon(pokemonId) {
+    return pokemonGenerationDb.unova.includes(pokemonId);
 }
 
 function isAlolanPokemon(pokemonId, formId) {
@@ -5226,39 +5254,11 @@ function isGalarianPokemon(pokemonId, formId) {
         const pkmn = masterfile.pokemon[pokemonId];
         if (pkmn.forms && pkmn.forms[formId]) {
             const form = pkmn.forms[formId];
-            if (form.name === 'Galarian') {
+            if (form.name === 'Galarian' || 'Galarian standard' || 'Galarian zen') {
                 return true;
             }
         }
     }
-}
-
-function isRegionalPokemon(pokemonId) {
-    return pokemonRarityDb.regional.includes(pokemonId);
-}
-
-function isEventPokemon(pokemonId) {
-    return pokemonRarityDb.event.includes(pokemonId);
-}
-
-function isKantoPokemon(pokemonId) {
-    return pokemonRarityDb.kanto.includes(pokemonId);
-}
-
-function isJohtoPokemon(pokemonId) {
-    return pokemonRarityDb.johto.includes(pokemonId);
-}
-
-function isHoennPokemon(pokemonId) {
-    return pokemonRarityDb.hoenn.includes(pokemonId);
-}
-
-function isSinnohPokemon(pokemonId) {
-    return pokemonRarityDb.sinnoh.includes(pokemonId);
-}
-
-function isUnovaPokemon(pokemonId) {
-    return pokemonRarityDb.unova.includes(pokemonId);
 }
 
 function sendWebhook(encounterId) {
@@ -6553,10 +6553,10 @@ function registerFilterButtonCallbacks() {
                 defaultPokemonFilter[id] = { show: true, size: 'normal' };
             }
         }
-        defaultPokemonFilter.iv_and = { on: false, filter: '0-100' };
-        defaultPokemonFilter.iv_or = { on: false, filter: '0-100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-100' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-100' };
+        defaultPokemonFilter.iv_and = { on: pokemonRarity.Default.ivAnd.enabled, filter: pokemonRarity.Default.ivAnd.value };
+        defaultPokemonFilter.iv_or = { on: pokemonRarity.Default.ivOr.enabled, filter: pokemonRarity.Default.ivOr.value };
+        defaultPokemonFilter.pvp_and = { on: pokemonRarity.Default.pvpAnd.enabled, filter: pokemonRarity.Default.pvpAnd.value };
+        defaultPokemonFilter.pvp_or = { on: pokemonRarity.Default.pvpOr.enabled, filter: pokemonRarity.Default.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -6584,6 +6584,10 @@ function registerFilterButtonCallbacks() {
 
     $('#reset-regional-pokemon-filter').on('click', function(event) {
         setPokemonFilters('regional', true);
+    });
+
+    $('#reset-event-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('eventP', true);
     });
 
     $('#reset-kanto-pokemon-filter').on('click', function(event) {
@@ -6663,6 +6667,10 @@ function registerFilterButtonCallbacks() {
         setPokemonFilters('regional', false);
     });
 
+    $('#disable-event-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('eventP', false);
+    });
+
     $('#disable-kanto-pokemon-filter').on('click', function(event) {
         setPokemonFilters('kanto', false);
     });
@@ -6692,7 +6700,7 @@ function registerFilterButtonCallbacks() {
     });
     
     
-    $('#recommended-pokemon-filter').on('click', function(event) {
+    $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
@@ -6705,14 +6713,14 @@ function registerFilterButtonCallbacks() {
                     continue;
                 }
                 const id = formId === '0' ? i : i + '-' + formId;
-                defaultPokemonFilter[id] = { show: isRecommendedPokemon(i) === true, size: 'normal' };
+                defaultPokemonFilter[id] = { show: isQuickStartPokemon(i) === true, size: 'normal' };
             }
         }
 
-        defaultPokemonFilter.iv_and = { on: false, filter: '90-100' };
-        defaultPokemonFilter.iv_or = { on: true, filter: '95-100' };
-        defaultPokemonFilter.pvp_and = { on: false, filter: '1-3' };
-        defaultPokemonFilter.pvp_or = { on: false, filter: '1-3' };
+        defaultPokemonFilter.iv_and = { on: pokemonRarity.quickStart.ivAnd.enabled, filter: pokemonRarity.quickStart.ivAnd.value };
+        defaultPokemonFilter.iv_or = { on: pokemonRarity.quickStart.ivOr.enabled, filter: pokemonRarity.quickStart.ivOr.value };
+        defaultPokemonFilter.pvp_and = { on: pokemonRarity.quickStart.pvpAnd.enabled, filter: pokemonRarity.quickStart.pvpAnd.value };
+        defaultPokemonFilter.pvp_or = { on: pokemonRarity.quickStart.pvpOr.enabled, filter: pokemonRarity.quickStart.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -7054,8 +7062,9 @@ function setPokemonFilters(type, show) {
                 case 'common':   matches = isCommonPokemon(i); break;
                 case 'uncommon': matches = isUncommonPokemon(i); break;
                 case 'rare':     matches = isRarePokemon(i); break;
-                case 'ultra':    matches = isUltraPokemon(i); break;
+                case 'ultra':    matches = isUltraRarePokemon(i); break;
                 case 'regional': matches = isRegionalPokemon(i); break;
+                case 'eventP':   matches = isEventPokemon(i); break;
                 case 'kanto':    matches = isKantoPokemon(i); break;
                 case 'johto':    matches = isJohtoPokemon(i); break;
                 case 'hoenn':    matches = isHoennPokemon(i); break;

@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('../config.json');
+const rarity = require('../rarity.json');
 const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
 data.header_title = config.headerTitle;
@@ -31,6 +32,6 @@ data.default_show_submissioncells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
 data.default_show_scanareas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
-data.recommended_pokemon_json = JSON.stringify(config.recommendedPokemon);
+data.pokemon_rarity_json = JSON.stringify(rarity);
 
 module.exports = data;
