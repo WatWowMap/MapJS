@@ -69,7 +69,7 @@
 	"filter_global_iv": "IV/Level Limit",
 	"filter_global_pvp": "PVP Limit",
 	"filter_global_avg": "Nest Avg Limit",
-	"filter_global_candy_count": "Candy Limit",
+	"filter_global_candy_count": "Rare Candy Limit",
 	"filter_global_stardust_count": "Stardust Limit",
 	"filter_and": "And",
 	"filter_or": "Or",
