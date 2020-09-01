@@ -3662,6 +3662,9 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id == 2, info.costume_id, info.shiny)}.png`;
+        } else if (id === 12 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
+            // Mega energy
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/reward/reward_mega_energy.png`;
         }
         questSize = getQuestSize(rewardString);
         const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
