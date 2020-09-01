@@ -519,7 +519,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             }
             excludeTypeSQL = sqlExcludeCreate;
             if (minimumStardustCount > 0) {
-                excludeTypeSQL += ' AND quest_reward_type = 3 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?';
+                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
                 args.push(minimumStardustCount);
             }
             excludeTypeSQL += ')';
@@ -556,7 +556,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             excludeItemSQL = sqlExcludeCreate;
 
             if (minimumCandyCount > 0) {
-                excludeItemSQL += ' AND (quest_item_id = 1301 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
                 args.push(minimumCandyCount);
             }
             excludeItemSQL += ')';
