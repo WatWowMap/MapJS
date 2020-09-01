@@ -502,11 +502,10 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 const id = parseInt(excludedTypes[i]);
                 const questTypeLookup = [3, 1, 4, 5, 6, 8, 11, 12];
                 if (id > 0 && id <= questTypeLookup.length) {
-                    args.push(questTypeLookup[id + 1]);
+                    args.push(questTypeLookup[id - 1]);
                 } else {
                     console.warn('Unrecognized excludedType', id);
                     args.push(-1);
-                    break;
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
