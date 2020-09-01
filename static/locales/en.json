@@ -3428,6 +3428,8 @@
 	"quest_reward_8": "Pokecoin",
 	"quest_reward_8_formatted": "%{amount} Pokecoins",
 	"quest_reward_11": "Sticker",
+	"quest_reward_12": "Mega Energy",
+	"quest_reward_12_formatted": "%{amount} %{pokemon} Mega Energy",
 	"poke_type_1": "Normal",
 	"poke_type_2": "Fighting",
 	"poke_type_3": "Flying",
