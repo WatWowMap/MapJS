@@ -4,6 +4,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 ## Features  
 - Everything from RealDeviceMap UI Map  
+- Discord authentication or no authentication  
 - Pokemon form filtering  
 - Raid Pokemon form filtering  
 - Nests and nest filtering  
