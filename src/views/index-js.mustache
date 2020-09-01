@@ -3310,6 +3310,8 @@ function getQuestReward (reward) {
             string += ' (Shiny)';
         }
         return string;
+    } else if (id === 12 && info !== undefined && info.pokemon_id !== undefined && info.item_id !== undefined) {
+        return i18n('quest_reward_12_formatted', { amount: info.amount, pokemon: getPokemonName(info.pokemon_id) });
     } else {
         return i18n('quest_reward_' + id);
     }
