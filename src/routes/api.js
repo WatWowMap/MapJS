@@ -491,25 +491,23 @@ const getData = async (perms, filter) => {
         });
 
         // Misc
-        for (let i = 1; i <= 3; i++) {
-            let itemName = '';
-            switch (i) {
-            case 1:
-                itemName = i18n.__('filter_stardust');
-                break;
-            case 2:
-                itemName = i18n.__('filter_xp');
-                break;
-            default:
-                itemName = i18n.__('filter_candy');
-                break;
-            }
+        const itemNames = [
+            'filter_stardust',
+            'filter_xp',
+            'filter_candy',
+            'filter_avatar_clothing',
+            'filter_quest',
+            'filter_pokecoin',
+            'filter_sticker',
+            'filter_mega_resource',
+        ];
+        for (let i = 1; i <= itemNames.length; i++) {
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
-                'name': itemName,
+                'name': i18n.__(itemNames[i - 1]),
                 'image': {
                     type: 'img',
                     path: `/item/${-i}.png`

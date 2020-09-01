@@ -3659,9 +3659,26 @@ function getPokestopMarkerIcon (pokestop, ts) {
             // Candy
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/reward/reward_1301_${info.amount}.png`;
-        } else if (id === 7 && info !== undefined && info.pokemon_id !== undefined) {
+        } else if (id === 5) {
+            // Avatar clothing
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-4.png`;
+        } else if (id === 6) {
+            // Quest
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-5.png`;
+        } else if (id === 7 && info !== undefined) {
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/pokemon/pokemon_icon_${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id == 2, info.costume_id, info.shiny)}.png`;
+        } else if (id === 8) {
+            // Pokecoin
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-6.png`;
+        } else if (id === 11) {
+            // Sticker
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-7.png`;
+        } else if (id === 12) {
+            // Mega resource
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-8.png`;
+        } else {
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-0.png`;
         }
         questSize = getQuestSize(rewardString);
         const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
