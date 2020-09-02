@@ -363,7 +363,7 @@ const getData = async (perms, filter) => {
                 'name': gymTeam,
                 'image': {
                     type: 'img',
-                    path: `gym/${i}_${i}.png`
+                    path: `/gym/${i}_${i}.png`
                 },
                 'filter': generateShowHideButtons(i, 'gym-team'),
                 'size': generateSizeButtons(i, 'gym-team'),

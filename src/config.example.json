@@ -157,7 +157,7 @@
     },
     "icons": {
         "Default": {
-            "path": "/img/",
+            "path": "/img",
             "raidOffsetY": 0.269,
             "questOffsetY": 0,
             "gymAnchorY": 0.849,
