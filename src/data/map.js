@@ -535,17 +535,15 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         if (excludedItems.length === 0) {
             excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 3 AND quest_item_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 3 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 3 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
-                    sqlExcludeCreate += '?))';
+                    excludeItemSQL += '?)';
                 } else {
-                    sqlExcludeCreate += '?, ';
+                    excludeItemSQL += '?, ';
                 }
                 args.push(excludedItems[i]);
             }
-            excludeItemSQL = sqlExcludeCreate;
-
             if (minimumCandyCount > 0) {
                 excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
                 args.push(minimumCandyCount);
