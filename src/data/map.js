@@ -1047,7 +1047,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL} ${excludeAverageSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludeAverageSQL} ${excludePokemonSQL}
     `;
     for (let i = 0; i < excludedPokemon.length; i++) {
         args.push(excludedPokemon[i]);
