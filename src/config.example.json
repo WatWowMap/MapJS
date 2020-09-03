@@ -14,7 +14,10 @@
         "minZoom": 10,
         "maxZoom": 18,
         "clusters": {
-            "pokemon": true
+            "pokemon": true,
+            "gyms": true,
+            "pokestops": true,
+            "zoomLevel": 13
         },
         "filters": {
             "gyms": true,
