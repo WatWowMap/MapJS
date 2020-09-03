@@ -200,7 +200,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-pokemon" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-pokemon" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -283,7 +283,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-gym" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-gym" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -318,7 +318,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-raid" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-raid" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -355,7 +355,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-pokestop" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-pokestop" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -390,7 +390,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-quest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-quest" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -425,7 +425,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-invasion" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-invasion" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -460,7 +460,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-spawnpoint" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-spawnpoint" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -495,7 +495,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-nest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-nest" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -530,7 +530,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-weather" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-weather" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -564,7 +564,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-device" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-device" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -731,25 +731,3 @@
     </div>
 
 {{> footer}}
-
-<script type='text/javascript'>
-    if ("{{style}}" === 'dark') {
-        $('#settingsModal').css('color', 'rgb(255, 255, 255)');
-        $('#filtersModal').css('color', 'rgb(255, 255, 255)');
-        $('#searchModal').css('color', 'rgb(255, 255, 255)');
-        $('#mapstyleModal').css('color', 'rgb(255, 255, 255)');
-        
-        //$('.darkInvert').css('filter', 'invert(100%)');
-        $('.modal-header').css('background-color', 'rgb(33, 37, 31)');
-        $('.modal-header').css('color', 'white');
-        $('.modal-body').css('background-color', 'rgb(33, 37, 31)');
-        $('.modal-footer').css('background-color', 'rgb(33, 37, 31)');
-        $('.close').css('color', 'rgb(255, 255, 255)');
-        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
-        $('.leaflet-popup-content-wrapper').css('color', 'white');
-        //$('.leaflet-control-custom').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-tooltip').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-control').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-bar').css('background-color', 'rgb(33, 37, 31)');
-    }
-</script>

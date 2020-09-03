@@ -75,6 +75,9 @@ router.get('/purge', async (req, res) => {
 
 const handlePage = async (req, res) => {
     const data = defaultData;
+    data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
+    data.tableClass = config.style === 'dark' ? 'table-dark' : '';
+
     data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
