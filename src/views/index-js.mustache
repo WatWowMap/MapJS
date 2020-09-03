@@ -1160,13 +1160,21 @@ function initMap () {
         }
         if (newShowInvasions !== showInvasions && newShowInvasions === false) {
             $.each(pokestopMarkers, function (index, pokestop) {
-                map.removeLayer(pokestop.marker);
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
             });
             pokestopMarkers = [];
         }
         if (newShowQuests !== showQuests) {
             $.each(pokestopMarkers, function (index, pokestop) {
-                map.removeLayer(pokestop.marker);
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
             });
             pokestopMarkers = [];
         }
