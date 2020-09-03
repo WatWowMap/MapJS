@@ -533,9 +533,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
 
         if (excludedItems.length === 0) {
-            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 3 AND quest_item_id IS NOT NULL)';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL)';
         } else {
-            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 3 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
                     excludeItemSQL += '?)';
