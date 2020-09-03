@@ -8,6 +8,7 @@ data.header_title = config.headerTitle;
 data.locale = config.locale;
 data.style = config.style === 'dark' ? 'dark' : '';
 data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
+data.tableClass = config.style === 'dark' ? 'table-dark' : '';
 data.max_pokemon_id = config.map.maxPokemonId; // TODO: Fix, no idea why index.js isn't picking up max_pokemon_id anymore
 data.pokemon_count = config.map.maxPokemonId;
 data.google_analytics_id = config.google.analytics;
