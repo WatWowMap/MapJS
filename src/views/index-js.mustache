@@ -2262,9 +2262,6 @@ function loadScanAreaPolygons () {
                 let areaSize = geodesicArea(coords);
                 let size = convertAreaToSqkm(areaSize).toFixed(2);
                 featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
-                featureLayer.on('popupopen', function(event) {
-                    setPopupStyle();
-                });
             }
         });
         scanAreaLayer.addLayer(areaGeoPolys);
@@ -3444,7 +3441,6 @@ function getCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedCell = cell;
         polygon._popup.setContent(getCellPopupContent(cell));
-        setPopupStyle();
     });
     return polygon;
 }
@@ -3501,7 +3497,6 @@ function getSubmissionTypeCellMarker (cell, ts) {
     polygon.on('popupopen', function (popup) {
         openedSubmissionTypeCell = cell;
         polygon._popup.setContent(getSubmissionTypeCellPopupContent(cell));
-        setPopupStyle();
     });
     return polygon;
 }
@@ -3525,7 +3520,6 @@ function getWeatherMarker (weather, ts) {
     polygon.on('popupopen', function (popup) {
         openedWeather = weather;
         polygon._popup.setContent(getWeatherPopupContent(weather));
-        setPopupStyle();
     });
     return polygon;
 }
@@ -3546,9 +3540,6 @@ function getNestMarker (nest, geojson, ts) {
         */
         onEachFeature: function(features, featureLayer) {
             featureLayer.bindPopup(getNestPopupContent(nest));
-            featureLayer.on('popupopen', function(event) {
-                setPopupStyle();
-            });
             featureLayer.setStyle({
                 //'weight': 1,
                 'stroke': features.properties['stroke'],
@@ -3638,7 +3629,6 @@ function getPokemonMarker (pokemon, ts) {
     marker.on('popupopen', function (popup) {
         openedPokemon = pokemon;
         marker._popup.setContent(getPokemonPopupContent(pokemon));
-        setPopupStyle();
     });
     /*
     marker.setBouncingOptions({
@@ -3761,7 +3751,6 @@ function getPokestopMarker (pokestop, ts) {
     marker.on('popupopen', function (popup) {
         openedPokestop = pokestop;
         marker._popup.setContent(getPokestopPopupContent(pokestop));
-        setPopupStyle();
     });
     return marker;
 }
@@ -3780,9 +3769,6 @@ function getSpawnpointMarker (spawnpoint, ts) {
         radius: 1.0
     });
     circle.bindPopup(content);
-    circle.on('popupopen', function(event) {
-        setPopupStyle();
-    });
     return circle;
 }
 
@@ -3860,7 +3846,6 @@ function getGymMarker (gym, ts) {
     marker.on('popupopen', function (popup) {
         openedGym = gym;
         marker._popup.setContent(getGymPopupContent(gym));
-        setPopupStyle();
     });
 
     return marker;
@@ -3888,7 +3873,6 @@ function getDeviceMarker (device, ts) {
             // TODO: Make outline color configurable
             polyline = L.polyline(route, {color: 'red'}).addTo(map);
         }
-        setPopupStyle();
     });
     marker.on('popupclose', function (popup) {
         if (polyline) {
@@ -5491,16 +5475,6 @@ function loadPokemonFilter () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-                $('.dtrg-level-1').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-1').css('color', 'white');
-            }
-        },
         responsive: true
     });
 
@@ -5589,14 +5563,6 @@ function loadQuestFilter () {
             $('.configure-button-new').each(function (button) {
                 manageConfigureButton($(this), true);
             });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
         },
         responsive: true
     });
@@ -5687,14 +5653,6 @@ function loadRaidFilter () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
         responsive: true
     });
 
@@ -5783,14 +5741,6 @@ function loadGymFilter () {
             $('.configure-button-new').each(function (button) {
                 manageConfigureButton($(this), true);
             });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
         },
         responsive: true
     });
@@ -5881,14 +5831,6 @@ function loadPokestopFilter () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
         responsive: true
     });
 
@@ -5977,14 +5919,6 @@ function loadInvasionFilter () {
             $('.configure-button-new').each(function (button) {
                 manageConfigureButton($(this), true);
             });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
         },
         responsive: true
     });
@@ -6075,14 +6009,6 @@ function loadSpawnpointFilter () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
         responsive: true
     });
 
@@ -6172,14 +6098,6 @@ function loadNestFilter () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
         responsive: true
     });
 
@@ -6267,14 +6185,6 @@ function loadWeatherFilter () {
             $('.configure-button-new').each(function (button) {
                 manageConfigureButton($(this), true);
             });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
         },
         responsive: true
     });
@@ -6364,14 +6274,6 @@ function loadDeviceFilter () {
             $('.configure-button-new').each(function (button) {
                 manageConfigureButton($(this), true);
             });
-        },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
         },
         responsive: true
     });
@@ -7162,12 +7064,4 @@ function setPokemonFilters(type, show) {
     pokemonFilterNew = defaultPokemonFilter;
 
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-}
-
-function setPopupStyle() {
-    if ('{{style}}' === 'dark') {
-        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
-        $('.leaflet-popup-content-wrapper').css('color', 'white');
-        $('.leaflet-popup-tip').css('background-color', 'rgb(33, 37, 31)');
-    }
 }
