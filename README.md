@@ -277,9 +277,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "raidOffsetY": 0.269,
             // Optional quest image vertical offset value
             "questOffsetY": 0,
-            // Optional gym image anchors veritical offset value
             "gymAnchorY": 0.849,
-            // Optional pokestop image anchors vertical offset value
             "pokestopAnchorY": 0.896
         }
     },
