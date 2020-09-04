@@ -266,8 +266,12 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "gymAnchorY": 0.849,
             "pokestopAnchorY": 0.896
         },
+        // Remote icon repository
         "RemotePokemonExample": {
             "path": "https://example.com/pokemon_images",
+            // Since we can't traverse a remote directory easily, you'll need to provide
+	    // a list of available forms, shiny, or gender icons so the map is aware of
+	    // available icons so invalid icons are not shown.
             "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"],
             "raidOffsetY": 0.269,
             "questOffsetY": 0,
