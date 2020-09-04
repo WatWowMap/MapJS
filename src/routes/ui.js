@@ -75,6 +75,9 @@ router.get('/purge', async (req, res) => {
 
 const handlePage = async (req, res) => {
     const data = defaultData;
+    data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
+    data.tableClass = config.style === 'dark' ? 'table-dark' : '';
+
     data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
@@ -209,7 +212,7 @@ const handleHomeJs = async (req, res) => {
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
-    const availableItems = [-3, -2, -1];
+    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
     //const keys = Object.keys(InventoryItemId);
     //keys.forEach(key => {
     //    const itemId = InventoryItemId[key];

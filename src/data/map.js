@@ -121,7 +121,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
-    FROM pokemon
+    FROM pokemon FORCE KEY (${updated > 0 ? 'ix_updated' : 'ix_expire_timestamp'})
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
             (form = 0 ${sqlExcludePokemon})
@@ -500,35 +500,26 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                     sqlExcludeCreate += '?, ';
                 }
                 const id = parseInt(excludedTypes[i]);
-                switch (id) {
-                case 1:
-                    // Stardust
-                    args.push(3);
-                    break;
-                case 2:
-                    args.push(1);
-                    break;
-                case 3:
-                    args.push(4);
-                    break;
-                default:
+                const questTypeLookup = [3, 1, 4, 5, 6, 8, 11, 12];
+                if (id > 0 && id <= questTypeLookup.length) {
+                    args.push(questTypeLookup[id - 1]);
+                } else {
                     console.warn('Unrecognized excludedType', id);
                     args.push(-1);
-                    break;
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
             if (minimumStardustCount > 0) {
-                excludeTypeSQL += ' AND quest_reward_type = 3 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?';
+                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
                 args.push(minimumStardustCount);
             }
             excludeTypeSQL += ')';
         }
 
         if (excludedPokemon.length === 0) {
-            excludePokemonSQL = 'OR (quest_pokemon_id IS NOT NULL)';
+            excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
                 if (i === excludedPokemon.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -542,21 +533,19 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
 
         if (excludedItems.length === 0) {
-            excludeItemSQL = 'OR (quest_item_id IS NOT NULL)';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR ((quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
-                    sqlExcludeCreate += '?))';
+                    excludeItemSQL += '?)';
                 } else {
-                    sqlExcludeCreate += '?, ';
+                    excludeItemSQL += '?, ';
                 }
                 args.push(excludedItems[i]);
             }
-            excludeItemSQL = sqlExcludeCreate;
-
             if (minimumCandyCount > 0) {
-                excludeItemSQL += ' AND (quest_item_id = 1301 AND JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
                 args.push(minimumCandyCount);
             }
             excludeItemSQL += ')';
@@ -1056,7 +1045,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL} ${excludeAverageSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludeAverageSQL} ${excludePokemonSQL}
     `;
     for (let i = 0; i < excludedPokemon.length; i++) {
         args.push(excludedPokemon[i]);
