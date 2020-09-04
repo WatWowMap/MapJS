@@ -271,11 +271,15 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "path": "https://example.com/pokemon_images",
             // Since we can't traverse a remote directory easily, you'll need to provide
 	    // a list of available forms, shiny, or gender icons so the map is aware of
-	    // available icons so invalid icons are not shown.
+	    // available icons that way invalid icons are not shown.
             "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"],
+            // Optional raid image vertical offset value  
             "raidOffsetY": 0.269,
+            // Optional quest image vertical offset value
             "questOffsetY": 0,
+            // Optional gym image anchors veritical offset value
             "gymAnchorY": 0.849,
+            // Optional pokestop image anchors vertical offset value
             "pokestopAnchorY": 0.896
         }
     },
