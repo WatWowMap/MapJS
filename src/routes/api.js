@@ -798,7 +798,7 @@ const getData = async (perms, filter) => {
 };
 
 const getSearch = async (filter) => {
-    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value);
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style);
     return searchData;
 };
 

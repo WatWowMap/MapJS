@@ -259,19 +259,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "icons": {
         // Default local icon repository
         "Default": {
-            "path": "/img/",
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+            "path": "/img"
         },
-        "RemotePokemonExample": {
-            "path": "https://example.com/pokemon_images",
-            "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"],
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+        "POGO": {
+            "path": "https://raw.githubusercontent.com/Mygod/pokicons/master/v1"
         }
     },
     // Scouting settings
