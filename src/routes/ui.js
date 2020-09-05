@@ -274,13 +274,14 @@ const updateAvailableForms = async (icons) => {
                 });
                 icon.pokemonList = availableForms;
             }
-        } else {
+        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
             axios({
                 method: 'GET',
                 url: icon.path + '/index.json',
                 responseType: 'json'
             }).then((response) => {
                 icon.pokemonList = response ? response.data : [];
+                icon.lastRetrieved = Date.now();
             });
         }
     }
