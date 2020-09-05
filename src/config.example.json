@@ -159,8 +159,12 @@
         "adsense": ""
     },
     "icons": {
-        "Default": "/img/pokemon",
-        "POGO": "https://raw.githubusercontent.com/Mygod/pokicons/master/v1"
+        "Default": {
+            "path": "/img"
+        },
+        "POGO": {
+            "path": "https://raw.githubusercontent.com/Mygod/pokicons/master/v1"
+        }
     },
     "scouting": {
         "enabled": false,
