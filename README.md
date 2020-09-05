@@ -271,7 +271,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             // For repo without index.json support, since we can't traverse a remote directory easily,
             // you'll need to provide a list of available forms, shiny, or gender icons so the map is
             // aware of available icons that way invalid icons are not shown.
-            "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"]
+            "pokemonList": ["001_00", "002_00", "002_00_shiny", "003_00", "003_00_female", "003_950"]
+            // expected format is <xxx pokemon id>(_00|_<form id>|_v<temp evolution id>)[_female][_<xx costume id>][_shiny]
+            // automatic fallback is in place, so the bare minimum you need to provide is "xxx_00" for each pokemon
+            // and "000" for new pokemon fallback (000 does not need to appear in pokemonList)
         }
     },
     // Scouting settings
