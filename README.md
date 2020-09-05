@@ -56,6 +56,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "locale": "en",
     // Theme style
     "style": "dark",
+    // Cookie session secret key, make sure to randomize and NOT use default
+    "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     // Map settings
     "map": {
         // Maximum available Pokemon
