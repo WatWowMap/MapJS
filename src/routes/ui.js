@@ -267,7 +267,7 @@ const updateAvailableForms = async (icons) => {
             if (files) {
                 const availableForms = [];
                 files.forEach(file => {
-                    const match = /^pokemon_icon_(.+)\.png$/.exec(file);
+                    const match = /^(.+)\.png$/.exec(file);
                     if (match !== null) {
                         availableForms.push(match[1]);
                     }

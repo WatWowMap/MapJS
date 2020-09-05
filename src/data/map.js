@@ -1190,7 +1190,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
                         result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons[iconStyle].path + `/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
                         result.url2 = '/item/-1.png';
                     }
@@ -1199,7 +1199,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons[iconStyle].path + `/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }

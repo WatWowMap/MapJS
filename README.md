@@ -271,7 +271,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "path": "/img/pokemon"
         },
         "POGO": {
-            "path": "https://mygod.github.io/pokicons/v1"
+            "path": "https://mygod.github.io/pokicons/v2"
         },
         // Remote icon repository
         "RemotePokemonExample": {
