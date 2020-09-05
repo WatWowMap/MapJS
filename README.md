@@ -19,16 +19,17 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - 400k+ less icons  
 - Pokemon clustering  
 - Mobile friendly filters  
-- Available raid boss and quest rewards from database for smaller filter lists
+- Available raid boss and quest rewards from database for smaller filter lists  
 - Scan area polygons  
-- Disable trash pokemon button  
+- Configurable Quick Start Pokemon filter button for new users  
+- Quickly filter Pokemon by generation/rarity/event  
 - Legendary and normal raid buttons  
 - Follow my location  
 - Cache previous location  
-- Global search for quest rewards, nest pokemon, gyms, and pokestops
-- Minimum candy and stardust amount quest filter
-- Quick Start Pokemon filter button for new users
-- Fast  
+- Global search for quest rewards, nest pokemon, gyms, and pokestops  
+- Minimum candy and stardust amount quest filter  
+- Zoom zoom zoom, fast  
+- Much more...
 
 ## Installation
 1.) Clone repository `git clone https://github.com/versx/MapJS`  
@@ -259,7 +260,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "icons": {
         // Default local icon repository
         "Default": {
-            "path": "/img"
+            "path": "/img/pokemon"
         },
         "POGO": {
             "path": "https://raw.githubusercontent.com/Mygod/pokicons/master/v1"

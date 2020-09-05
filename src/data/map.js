@@ -121,7 +121,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
-    FROM pokemon
+    FROM pokemon FORCE KEY (${updated > 0 ? 'ix_updated' : 'ix_expire_timestamp'})
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
             (form = 0 ${sqlExcludePokemon})
