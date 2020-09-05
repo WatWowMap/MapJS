@@ -275,6 +275,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             // expected format is <xxx pokemon id>(_00|_<form id>|_v<temp evolution id>)[_female][_<xx costume id>][_shiny]
             // automatic fallback is in place, so the bare minimum you need to provide is "xxx_00" for each pokemon
             // and "000" for new pokemon fallback (000 does not need to appear in pokemonList)
+	    // Reference: Asset icon processing tool: https://github.com/Mygod/pokemon-icon-postprocessor
         }
     },
     // Scouting settings
