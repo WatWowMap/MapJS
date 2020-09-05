@@ -160,7 +160,7 @@
     },
     "icons": {
         "Default": {
-            "path": "/img"
+            "path": "/img/pokemon"
         },
         "POGO": {
             "path": "https://mygod.github.io/pokicons/v1"
