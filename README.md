@@ -73,7 +73,13 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         // Clustering settings
         "clusters": {
             // Enable pokemon clustering
-            "pokemon": true
+            "pokemon": true,
+	    // Enable gym clustering
+            "gyms": true,
+	    // Enable pokestop clustering
+            "pokestops": true,
+	    // Zoom level when clustering starts/stops
+            "zoomLevel": 13
         },
         // Default filter settings for new users/cleared cache
         "filters": {
