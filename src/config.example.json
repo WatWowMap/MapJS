@@ -164,6 +164,12 @@
         },
         "POGO": {
             "path": "https://mygod.github.io/pokicons/v2"
+        },
+        "Home": {
+            "path": "https://raw.githubusercontent.com/Mygod/PkmnHomeIcons/icons/icons"
+        },
+        "Shuffle": {
+            "path": "https://raw.githubusercontent.com/Mygod/pokedave_shuffle_icons_-ICONS-/master"
         }
     },
     "scouting": {
