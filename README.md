@@ -89,12 +89,14 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "gyms": true,
             // Show raids
             "raids": false,
+            "raidTimers": false,
             // Show pokestops
             "pokestops": false,
             // Show quests
             "quests": false,
             // Show invasions
             "invasions": false,
+            "invasionTimers": false,
             // Show spawnpoints
             "spawnpoints": false,
             // Show Pokemon

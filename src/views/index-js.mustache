@@ -127,16 +127,18 @@ let skipForms = ['Shadow', 'Purified'];
 
 let defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
 let defaultShowRaids = '{{default_show_raids}}' === 'true';
+let defaultShowRaidTimers = '{{default_show_raid_timers}}' === 'true';
 let defaultShowGyms = '{{default_show_gyms}}' === 'true';
 let defaultShowPokestops = '{{default_show_pokestops}}' === 'true';
 let defaultShowQuests = '{{default_show_quests}}' === 'true';
 let defaultShowInvasions = '{{default_show_invasions}}' === 'true';
+let defaultShowInvasionTimers = '{{default_show_invasion_timers}}' === 'true';
 let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true';
 let defaultShowWeather = '{{default_show_weather}}' === 'true';
-let defaultShowScanCells = '{{default_show_scancells}}' === 'true';
-let defaultShowSubmissionCells = '{{default_show_submissioncells}}' === 'true';
+let defaultShowScanCells = '{{default_show_scan_cells}}' === 'true';
+let defaultShowSubmissionCells = '{{default_show_submission_cells}}' === 'true';
 let defaultShowNests = '{{default_show_nests}}' === 'true';
-let defaultShowScanAreas = '{{default_show_scanareas}}' === 'true';
+let defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
 let defaultShowDevices = '{{default_show_devices}}' === 'true';
 
 const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
@@ -509,6 +511,14 @@ function loadStorage () {
         showRaids = (showRaidsValue === 'true');
     }
 
+    const showRaidTimersValue = retrieve('show_raid_timers');
+    if (showRaidTimersValue === null) {
+        store('show_raid_timers', defaultShowRaidTimers);
+        showRaidTimers = defaultShowRaidTimers;
+    } else {
+        showRaidTimers = (showRaidTimersValue === 'true');
+    }
+
     const showPokestopsValue = retrieve('show_pokestops');
     if (showPokestopsValue === null) {
         store('show_pokestops', defaultShowPokestops);
@@ -531,6 +541,14 @@ function loadStorage () {
         showInvasions = defaultShowInvasions;
     } else {
         showInvasions = (showInvasionsValue === 'true');
+    }
+
+    const showInvasionTimersValue = retrieve('show_invasion_timers');
+    if (showInvasionTimersValue === null) {
+        store('show_invasion_timers', defaultShowInvasionTimers);
+        showInvasionTimers = defaultShowInvasionTimers;
+    } else {
+        showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
     const showSpawnpointsValue = retrieve('show_spawnpoints');
@@ -595,22 +613,6 @@ function loadStorage () {
         showDevices = defaultShowDevices;
     } else {
         showDevices = (showDevicesValue === 'true');
-    }
-
-    const showRaidTimersValue = retrieve('show_raid_timers');
-    if (showRaidTimersValue === null) {
-        store('show_raid_timers', true); // TODO: Set default option in config
-        showRaidTimers = true;
-    } else {
-        showRaidTimers = (showRaidTimersValue === 'true');
-    }
-
-    const showInvasionTimersValue = retrieve('show_invasion_timers');
-    if (showInvasionTimersValue === null) {
-        store('show_invasion_timers', false); // TODO: Set default option in config
-        showInvasionTimers = false;
-    } else {
-        showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
     const pokemonFilterValue = retrieve('pokemon_filter');
@@ -729,7 +731,7 @@ function loadStorage () {
     if (raidFilterValue === null) {
         const defaultRaidFilter = {};
         if (defaultRaidFilter.timers === undefined) {
-            defaultRaidFilter.timers = { show: true, size: 'normal' };
+            defaultRaidFilter.timers = { show: defaultShowRaidTimers, size: 'normal' };
         }
         let i;
         for (i = 1; i <= 6; i++) {
@@ -846,7 +848,7 @@ function loadStorage () {
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
         if (defaultInvasionFilter.timers === undefined) {
-            defaultInvasionFilter.timers = { show: false, size: 'normal' };
+            defaultInvasionFilter.timers = { show: defaultShowInvasionTimers, size: 'normal' };
         }
         let i;
         for (i = 1; i <= 50; i++) {
@@ -6285,6 +6287,7 @@ function loadFilterSettings (e) {
 
         showRaidTimers = obj.show_raid_timers;
         store('show_raid_timers', showRaidTimers);
+
         showInvasionTimers = obj.show_invasion_timers;
         store('show_invasion_timers', showInvasionTimers);
 
@@ -6661,7 +6664,7 @@ function registerFilterButtonCallbacks() {
     // Raid filter buttons
     $('#reset-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: true, size: 'normal' };
+        defaultRaidFilter.timers = { show: defaultShowRaidTimers, size: 'normal' };
         let i;
         for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
@@ -6802,7 +6805,7 @@ function registerFilterButtonCallbacks() {
     // Invasion filter buttons
     $('#reset-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
-        defaultInvasionFilter.timers = { show: true, size: 'normal' };
+        defaultInvasionFilter.timers = { show: defaultShowInvasionTimers, size: 'normal' };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
         }
