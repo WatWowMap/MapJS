@@ -16,13 +16,13 @@ const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 
-const RateLimitTime = config.rateLimit.time * 60 * 1000;
-const MaxRequestsPerHour = config.rateLimit.maxRequests * (RateLimitTime / 1000);
+const RateLimitTime = config.ratelimit.time * 60 * 1000;
+const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
 
 const requestRateLimiter = rateLimit({
     windowMs: RateLimitTime, // Time window in milliseconds
     max: MaxRequestsPerHour, // Start blocking after x requests
-    message: `Too many requests from this IP, please try again in ${config.rateLimit.time} minutes.`
+    message: `Too many requests from this IP, please try again in ${config.ratelimit.time} minutes.`
 });
 
 // Basic security protection middleware
@@ -139,13 +139,13 @@ app.use(async (req, res, next) => {
     res.redirect('/login');
 });
 
-app.use('/', requestRateLimiter);
+// UI routes
+app.use('/', uiRoutes);
+
+app.use('/api/', requestRateLimiter);
 
 // API routes
 app.use('/api', apiRoutes);
-
-// UI routes
-app.use('/', uiRoutes);
 
 // Start listener
 app.listen(config.port, config.interface, () => console.log(`Listening on port ${config.port}...`));
