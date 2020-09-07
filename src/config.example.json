@@ -22,9 +22,11 @@
         "filters": {
             "gyms": true,
             "raids": false,
+            "raidTimers": false,
             "pokestops": false,
             "quests": false,
             "invasions": false,
+            "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
             "nests": false,
