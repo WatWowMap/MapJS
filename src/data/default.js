@@ -23,16 +23,18 @@ data.glow_iv = config.map.glow.iv;
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
 data.default_show_raids = config.map.filters.raids;
+data.default_show_raidTimers = config.map.filters.raidTimers;
 data.default_show_gyms = config.map.filters.gyms;
 data.default_show_pokestops = config.map.filters.pokestops;
 data.default_show_quests = config.map.filters.quests;
 data.default_show_invasions = config.map.filters.invasions;
+data.default_show_invasionTimers = config.map.filters.invasionTimers;
 data.default_show_spawnpoints = config.map.filters.spawnpoints;
 data.default_show_weather = config.map.filters.weather;
-data.default_show_scancells = config.map.filters.scanCells;
-data.default_show_submissioncells = config.map.filters.submissionCells;
+data.default_show_scanCells = config.map.filters.scanCells;
+data.default_show_submissionCells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
-data.default_show_scanareas = config.map.filters.scanAreas;
+data.default_show_scanAreas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
 data.pokemon_rarity_json = JSON.stringify(rarity);
 
