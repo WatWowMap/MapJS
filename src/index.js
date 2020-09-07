@@ -4,7 +4,9 @@ const path = require('path');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const cookieSession = require('cookie-session')
+//const cookieSession = require('cookie-session');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
@@ -15,6 +17,26 @@ const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
+
+// MySQL session store
+const sessionStore = new MySQLStore({
+    // Database server IP address/hostname
+    host: config.db.scanner.host,
+    // Database server listening port
+    port: config.db.scanner.port,
+    // Database username
+    user: config.db.scanner.username,
+    // Password for the above database user
+    password: config.db.scanner.password,
+    // Database name to save sessions table to
+    database: config.db.scanner.database,
+    // Whether or not to automatically check for and clear expired sessions:
+    clearExpired: true,
+    // How frequently expired sessions will be cleared; milliseconds:
+    checkExpirationInterval: 900000,
+    // Whether or not to create the sessions database table, if one does not already exist
+    createDatabaseTable: true
+});
 
 // Basic security protection middleware
 app.use(helmet());
@@ -55,10 +77,20 @@ app.use((req, res, next) => {
 i18n.setLocale(config.locale);
 
 // Sessions middleware
+/*
 app.use(cookieSession({
     name: 'session',
     keys: [config.sessionSecret],
-    maxAge: 518400000
+    maxAge: 518400000,
+    store: sessionStore
+}));
+*/
+app.use(session({
+    key: 'session',
+    secret: config.sessionSecret,
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: false
 }));
 
 // CSRF token middleware
