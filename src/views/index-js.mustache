@@ -2217,7 +2217,7 @@ function loadData () {
                         } else {
                             weatherIcon = '';
                         }
-                        const weatherName = weatherTypes[weather.gameplay_condition].name;
+                        const weatherName = getWeatherName(weather.gameplay_condition);
                         const options = { permanent: true, className: 'leaflet-tooltip', direction: 'center', offset: [0, 15] };
                         /* let tooltip = */ weather.marker.bindTooltip('<center>' + weatherIcon + '</center><center><b>' + weatherName + '</b></center>', options);
                         weatherMarkers.push(weather);
@@ -3279,9 +3279,9 @@ function getMoveName (moveId) {
     return i18n('move_' + moveId);
 }
 
-// function getWeatherName (weatherId) {
-//  return i18n('weather_' + weatherId)
-// }
+function getWeatherName (weatherId) {
+  return i18n('weather_' + weatherId)
+}
 
 function getQuestName (questId, amount) {
     return i18n('quest_' + questId, { amount: amount });
