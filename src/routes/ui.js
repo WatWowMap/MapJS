@@ -1,5 +1,6 @@
 'use strict';
 
+const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -84,7 +85,8 @@ const handlePage = async (req, res) => {
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    data.available_icon_styles_json = JSON.stringify(config.iconStyles);
+    await updateAvailableForms(config.icons);
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
     const availableItems = [-3, -2, -1];
@@ -260,18 +262,27 @@ const getAvailableTileservers = () => {
 const updateAvailableForms = async (icons) => {
     for (const icon of Object.values(icons)) {
         if (icon.path.startsWith('/')) {
-            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}/pokemon`);
+            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}`);
             const files = await fs.promises.readdir(pokemonIconsDir);
             if (files) {
                 const availableForms = [];
                 files.forEach(file => {
-                    const match = /^pokemon_icon_(.+)\.png$/.exec(file);
+                    const match = /^(.+)\.png$/.exec(file);
                     if (match !== null) {
                         availableForms.push(match[1]);
                     }
                 });
                 icon.pokemonList = availableForms;
             }
+        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
+            axios({
+                method: 'GET',
+                url: icon.path + '/index.json',
+                responseType: 'json'
+            }).then((response) => {
+                icon.pokemonList = response ? response.data : [];
+                icon.lastRetrieved = Date.now();
+            });
         }
     }
 };

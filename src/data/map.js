@@ -121,7 +121,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
-    FROM pokemon FORCE KEY (${updated > 0 ? 'ix_updated' : 'ix_expire_timestamp'})
+    FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
             (form = 0 ${sqlExcludePokemon})
@@ -1058,7 +1058,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
-const getSearchData = async (lat, lon, id, value) => {
+const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
     let args = [lat, lon, lat];
     let useManualDb = false;
@@ -1187,19 +1187,19 @@ const getSearchData = async (lat, lon, id, value) => {
                     let result = results[i];
                     // TODO: Check quest types
                     if (result.quest_item_id > 0) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/item/${result.quest_item_id}.png`;
+                        result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + '/item/-1.png';
+                        result.url2 = '/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }
