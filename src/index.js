@@ -1,21 +1,29 @@
 'use strict';
 
 const path = require('path');
-const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
 const express = require('express');
+const compression = require('compression');
 const cookieSession = require('cookie-session')
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
+
+const RateLimitTime = config.rateLimit.time * 60 * 1000;
+const MaxRequestsPerHour = config.rateLimit.maxRequests * (RateLimitTime / 1000);
+
+const requestRateLimiter = rateLimit({
+    windowMs: RateLimitTime, // Time window in milliseconds
+    max: MaxRequestsPerHour, // Start blocking after x requests
+    message: `Too many requests from this IP, please try again in ${config.rateLimit.time} minutes.`
+});
 
 // Basic security protection middleware
 app.use(helmet());
@@ -64,19 +72,6 @@ app.use(cookieSession({
     keys: [config.sessionSecret],
     maxAge: 518400000
 }));
-
-// CSRF token middleware
-app.use(cookieParser());
-app.use(csrf({ cookie: true }));
-app.use((req, res, next) => {
-    var csrf = req.csrfToken();
-    defaultData.csrf = csrf;
-    //console.log("CSRF Token:", csrf);
-    res.cookie('x-csrf-token', csrf);
-    res.cookie('TOKEN', csrf);
-    res.locals.csrftoken = csrf;
-    next();
-});
 
 if (config.discord.enabled) {
     app.use('/api/discord', discordRoutes);
@@ -143,6 +138,8 @@ app.use(async (req, res, next) => {
     }
     res.redirect('/login');
 });
+
+app.use('/', requestRateLimiter);
 
 // API routes
 app.use('/api', apiRoutes);
