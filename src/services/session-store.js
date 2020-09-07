@@ -3,6 +3,8 @@
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const config = require('../config.json');
+const MySQLConnector = require('../services/mysql.js');
+const db = new MySQLConnector(config.db);
 
 // MySQL session store
 const sessionStore = new MySQLStore({
@@ -24,4 +26,33 @@ const sessionStore = new MySQLStore({
     createDatabaseTable: true
 });
 
-module.exports = sessionStore;
+const isValidSession = async (userId) => {
+    let sql = `
+    SELECT session_id
+    FROM sessions
+    WHERE
+        json_extract(data, '$.user_id') = "?"
+        AND expires >= UNIX_TIMESTAMP()
+    `;
+    let args = [userId];
+    let results = await db.query(sql, args);
+    return results.length === 1;
+};
+
+const clearOtherSessions = async (userId, currentSessionId) => {
+    let sql = `
+    DELETE FROM sessions
+    WHERE
+        json_extract(data, '$.user_id') = "?"
+        AND session_id != ?
+    `;
+    let args = [userId, currentSessionId];
+    let results = await db.query(sql, args);
+    console.log('[Session] Clear Result:', results);
+};
+
+module.exports = {
+    sessionStore,
+    isValidSession,
+    clearOtherSessions
+};

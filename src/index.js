@@ -16,7 +16,7 @@ const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
-const sessionStore = require('./services/session-store.js');
+const { sessionStore, isValidSession, clearOtherSessions } = require('./services/session-store.js');
 
 // TODO: Check sessions table and parse json
 
@@ -120,6 +120,14 @@ app.use(async (req, res, next) => {
         defaultData.username = req.session.username;
         if (!config.discord.enabled) {
             return next();
+        }
+        if (config.allowMultipleSessions) {
+            // Check if there are any other sessions in the database that are for the same user_id,
+            // if so delete all other sessions other than the current session.
+            if (!(await isValidSession(req.session.user_id))) {
+                console.debug('[Session] Detected multiple sessions, clearing old ones...')
+                await clearOtherSessions(req.session.user_id, req.sessionID);
+            }
         }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);

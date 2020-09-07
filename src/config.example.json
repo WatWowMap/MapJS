@@ -6,6 +6,7 @@
     "locale": "en",
     "style": "dark",
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+    "allowMultipleSessions": true,
     "map": {
         "maxPokemonId": 649,
         "startLat": 0,
