@@ -2587,7 +2587,7 @@ function getPokemonPopupContent (pokemon) {
     }
 
     // TODO: add evolution https://github.com/versx/DataParser/issues/9
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender == 2, pokemon.costume);
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -2989,7 +2989,7 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender == 2, gym.raid_pokemon_costume);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-6 col-md-4">' + // START 1ST COL
@@ -3598,7 +3598,7 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender == 2, pokemon.costume);
+    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
     const color = '{{glow_color}}';
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
@@ -3696,7 +3696,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             iconUrl = `/img/item/-5.png`;
         } else if (id === 7 && info !== undefined) {
             // TODO: evolution https://github.com/versx/DataParser/issues/10
-            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id == 2, info.costume_id, info.shiny)}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
             // Pokecoin
             iconUrl = `/img/item/-6.png`;
@@ -3813,7 +3813,7 @@ function getGymMarkerIcon (gym, ts) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender == 2, gym.raid_pokemon_costume)}.png`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}.png`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
