@@ -928,7 +928,7 @@ function loadStorage () {
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
         if (defaultInvasionFilter.timers === undefined) {
-            defaultInvasionFilter.timers = { show: showInvasionTimers, size: 'normal' };
+            defaultInvasionFilter.timers = { show: defaultShowInvasionTimers, size: 'normal' };
         }
         let i;
         for (i = 1; i <= 50; i++) {
