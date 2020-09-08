@@ -111,7 +111,6 @@ let clusters = L.markerClusterGroup({
     disableClusteringAtZoom: '{{cluster_zoom_level}}',
     removeOutsideVisibleBounds: true
 });
-
 let enableScouting = '{{scouting}}' === 'true';
 
 let currentPositionMarker;
@@ -3800,11 +3799,12 @@ function getDeviceMarker (device, ts) {
     marker.on('popupopen', function (popup) {
         openedDevice = device;
         marker._popup.setContent(getDevicePopupContent(device));
+        const data = JSON.parse(device.data);
+        const route = data.area;
         if (device.type === 'circle_pokemon') {
-            const data = JSON.parse(device.data);
-            const route = data.area;
-            // TODO: Make outline color configurable
-            polyline = L.polyline(route, {color: 'red'}).addTo(map);
+            polyline = L.polyline(route, {color: '{{device_path_color}}'}).addTo(map);
+        } else if (device.type == 'pokemon_iv' || 'auto_quest') {
+            polyline = L.polyline(route, {color: '{{device_path_color}}', fill: true, fillColor: '{{device_path_color}}'}).addTo(map);
         }
     });
     marker.on('popupclose', function (popup) {
@@ -5294,9 +5294,9 @@ function getCpAtLevel(id, level, isMax) {
     if (!masterfile.pokemon[id]) {
         return 0;
     }
-    if (cpMultipliers.level) {
+    if (cpMultipliers[level]) {
         let pkmn = masterfile.pokemon[id];
-        let multiplier = cpMultipliers.level;
+        let multiplier = cpMultipliers[level];
         let increment = isMax ? 15 : 10;
         let minAtk = ((pkmn.attack + increment) * multiplier) || 0;
         let minDef = ((pkmn.defense + increment) * multiplier) || 0;

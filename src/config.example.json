@@ -13,6 +13,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
+        "devicePathColor": "red",
         "clusters": {
             "pokemon": true,
             "gyms": true,
