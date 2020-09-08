@@ -23,14 +23,31 @@ fs.readdir(appLocalesFolder, (err, files) => {
         if (pogoLocalesFiles.includes(localeFile)) {
             console.log('Found pogo-translations for locale', locale);
 
-            const pogoTranslations = fs.readFileSync(path.resolve(pogoLocalesFolder, localeFile), { encoding: 'utf8', flag: 'r' });
+            const pogoTranslations = fs.readFileSync(
+                path.resolve(pogoLocalesFolder, localeFile),
+                { encoding: 'utf8', flag: 'r' }
+            );
             translations = JSON.parse(pogoTranslations.toString());
+        }
+
+        if (locale !== 'en') {
+            // include en as fallback first
+            const appTransFallback = fs.readFileSync(
+                path.resolve(appLocalesFolder, '_en.json'),
+                { encoding: 'utf8', flag: 'r' }
+            );
+            translations = Object.assign(translations, JSON.parse(appTransFallback.toString()));
         }
 
         const appTranslations = fs.readFileSync(path.resolve(appLocalesFolder, file), { encoding: 'utf8', flag: 'r' });
         translations = Object.assign(translations, JSON.parse(appTranslations.toString()));
 
-        fs.writeFile(path.resolve(appLocalesFolder, localeFile), JSON.stringify(translations, null, 2), 'utf8', () => { });
-        console.log(localeFile , 'file saved.');
+        fs.writeFile(
+            path.resolve(appLocalesFolder, localeFile),
+            JSON.stringify(translations, null, 2), 
+            'utf8', 
+            () => {}
+        );
+        console.log(localeFile, 'file saved.');
     });
 });
