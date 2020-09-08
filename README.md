@@ -72,6 +72,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         "minZoom": 10,
         // Map maximum zoom level
         "maxZoom": 18,
+        // Defines the color of 70m paths and Quest/IV Polygons
+        "devicePathColor": "red",
         // Clustering settings
         "clusters": {
             // Enable pokemon clustering
