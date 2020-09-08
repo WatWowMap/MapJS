@@ -121,7 +121,7 @@ app.use(async (req, res, next) => {
         if (!config.discord.enabled) {
             return next();
         }
-        if (config.allowMultipleSessions) {
+        if (!config.allowMultipleSessions) {
             // Check if there are any other sessions in the database that are for the same user_id,
             // if so delete all other sessions other than the current session.
             if (!(await isValidSession(req.session.user_id))) {
