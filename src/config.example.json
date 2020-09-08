@@ -17,6 +17,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
+        "devicePathColor": "red",
         "clusters": {
             "pokemon": true,
             "gyms": true,
@@ -26,9 +27,11 @@
         "filters": {
             "gyms": true,
             "raids": false,
+            "raidTimers": false,
             "pokestops": false,
             "quests": false,
             "invasions": false,
+            "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
             "nests": false,

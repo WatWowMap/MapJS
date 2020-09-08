@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const compression = require('compression');
 const express = require('express');
 const cookieSession = require('cookie-session')
 const app = express();
@@ -31,6 +32,9 @@ app.use(helmet());
 app.set('view engine', 'mustache');
 app.set('views', path.resolve(__dirname, 'views'));
 app.engine('mustache', mustacheExpress());
+
+// Compression middleware
+app.use(compression());
 
 // Static paths
 app.use(express.static(path.resolve(__dirname, '../static')));
