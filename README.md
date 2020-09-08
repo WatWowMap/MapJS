@@ -40,8 +40,9 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 6.) Fill out config `vi src/config.json`  
 7.) Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)  
 8.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)  
-9.) Run `npm start`  
-10.) Access via http://machineip:port/ login using your Discord account    
+9.) Run `npm run create-locales`  
+10.) Run `npm start`  
+11.) Access via http://machineip:port/ login using your Discord account    
 
 ## Configuration  
 ```js
@@ -395,7 +396,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 ## Updating  
 1.) `git pull`  
 2.) Run `npm install` in root folder  
-3.) Run `npm start`  
+3.) Run `npm run create-locales`  
+4.) Run `npm start`  
 
 ## Convert INI geofence format to GeoJSON format (for areas.json file to show scan areas)  
 1.) Create `geofences` directory in root of project (with src folder)  
