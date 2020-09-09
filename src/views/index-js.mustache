@@ -2234,7 +2234,7 @@ function getPokemonIndex (pokemon) {
             }
         });
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 1400 && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 2400 && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
@@ -5113,16 +5113,15 @@ function getPokemonIcon(pokemonId, form = 0, evolution = 0, gender = 0, costume 
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
-    if ((greatLeague !== null && hasRelevantLeagueStats(greatLeague, true)) ||
-        (ultraLeague !== null && hasRelevantLeagueStats(ultraLeague, false))) {
+    if ((greatLeague !== null ) || (ultraLeague !== null )) {
         let bestRank = 4;
         $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 1400 && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 2400 && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
