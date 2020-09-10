@@ -145,5 +145,9 @@
 	"filter_device_offline": "Offline",
 	"filter_big_karp": "Big Karp",
 	"filter_tiny_rat": "Tiny Rat",
-	"filter_grunt_type": "Grunt Type"
+	"filter_grunt_type": "Grunt Type",
+	"settings_pokemon": "Pokemon Settings",
+	"settings_pokemon_glow": "Pokemon Glow",
+	"settings_color": "Color",
+	"settings_cluster_pokemon": "Cluster Pokemon"
 }
