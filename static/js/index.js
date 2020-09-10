@@ -99,6 +99,10 @@ let settingsLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
+let clusterPokemon = '{{cluster_pokemon}}' === 'true';
+let clusterGyms = '{{cluster_gyms}}' === 'true';
+let clusterPokestops = '{{cluster_pokestops}}' === 'true';
+
 let showPokemonGlow = true;
 
 let tileLayer;
@@ -306,22 +310,6 @@ $(function () {
         if (!deviceFilterLoaded) {
             deviceFilterLoaded = true;
             loadDeviceFilter();
-        }
-    });
-
-    $('#settingsModal').on('show.bs.modal', function () {
-        settingsNew = $.extend(true, {}, settings);
-
-        $('.select-button').each(function (button) {
-            manageSelectButton($(this), false);
-        });
-        $('.configure-button').each(function (button) {
-            manageConfigureButton($(this), false);
-        });
-
-        if (!settingsLoaded) {
-            settingsLoaded = true;
-            loadSettings();
         }
     });
 
@@ -3623,8 +3611,6 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    console.log('settings:', settings);
-    const showPokemonGlow = settings['pokemon-glow'].show;
     const color = settings['pokemon-glow'].color;
     const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
