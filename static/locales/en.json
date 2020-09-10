@@ -3608,8 +3608,8 @@
 	"filter_big_karp": "Big Karp",
 	"filter_tiny_rat": "Tiny Rat",
 	"filter_grunt_type": "Grunt Type",
-	"settings_color": "settings_color",
-	"settings_pokemon": "settings_pokemon",
-	"settings_pokemon_glow": "settings_pokemon_glow",
-	"settings_cluster_pokemon": "settings_cluster_pokemon"
+	"settings_pokemon": "Pokemon Settings",
+	"settings_pokemon_glow": "Pokemon Glow",
+	"settings_color": "Color",
+	"settings_cluster_pokemon": "Cluster Pokemon"
 }
