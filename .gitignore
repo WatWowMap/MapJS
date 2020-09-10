@@ -105,6 +105,7 @@ dist
 
 # No main configs
 config.json
+rarity.json
 
 # No logs
 logs
@@ -114,6 +115,8 @@ static/custom/nests.json
 static/img/pokemon/*
 static/img/raid/*
 static/img/quest/*
+static/locales/*
+!static/locales/_*
 
 # No docker-compose.yml files
 docker-compose.yml

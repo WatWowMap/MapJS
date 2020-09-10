@@ -202,7 +202,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     return pokemon;
 };
 
-const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showGyms, raidFilterExclude = null, gymFilterExclude = null) => {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
@@ -350,7 +350,8 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
-            raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id
+            raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
+            raid_pokemon_evolution, raid_pokemon_costume
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} AND (
@@ -417,20 +418,24 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated, showRaids, showG
                 raid_is_exclusive: result.raid_is_exclusive,
                 cell_id: result.cell_id,
                 total_cp: result.total_cp,
-                sponsor_id: result.sponsor_id
+                sponsor_id: result.sponsor_id,
+                raid_pokemon_evolution: result.raid_pokemon_evolution,
+                raid_pokemon_costume: result.raid_pokemon_costume,
             });
         }
     }
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokestops, showQuests, showLures, showInvasions, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     let excludedItems = []; //int
     let excludedLures = []; //int
     let excludedInvasions = [];
     let excludeNormal = false;
+    let minimumCandyCount = 0;
+    let minimumStardustCount = 0;
 
     if (showQuests && questFilterExclude) {
         for (let i = 0; i < questFilterExclude.length; i++) {
@@ -445,6 +450,10 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                 } else if (id < 0) {
                     excludedTypes.push(-id);
                 }
+            } else if (filter.includes('candy')) {
+                minimumCandyCount = parseInt(filter.replace('candy', ''));
+            } else if (filter.includes('stardust')) {
+                minimumStardustCount = parseInt(filter.replace('stardust', ''));
             }
         }
     }
@@ -483,7 +492,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
             // exclude pokemon/item quests; they will be included in subsequent clauses
             excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7))';
         } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
+            let sqlExcludeCreate = 'OR ((quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
             for (let i = 0; i < excludedTypes.length; i++) {
                 if (i === excludedTypes.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -491,29 +500,27 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
                     sqlExcludeCreate += '?, ';
                 }
                 const id = parseInt(excludedTypes[i]);
-                switch (id) {
-                case 1:
-                    args.push(3);
-                    break;
-                case 2:
-                    args.push(1);
-                    break;
-                case 3:
-                    args.push(4);
-                    break;
-                default:
+                const questTypeLookup = [3, 1, 4, 5, 6, 8, 11, 12];
+                if (id > 0 && id <= questTypeLookup.length) {
+                    args.push(questTypeLookup[id - 1]);
+                } else {
                     console.warn('Unrecognized excludedType', id);
                     args.push(-1);
-                    break;
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
+            if (minimumStardustCount > 0) {
+                //excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
+                args.push(minimumStardustCount);
+            }
+            excludeTypeSQL += ')';
         }
 
         if (excludedPokemon.length === 0) {
-            excludePokemonSQL = 'OR (quest_pokemon_id IS NOT NULL)';
+            excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
                 if (i === excludedPokemon.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -527,18 +534,23 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated, showPokesto
         }
 
         if (excludedItems.length === 0) {
-            excludeItemSQL = 'OR (quest_item_id IS NOT NULL)';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
+            excludeItemSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 2 AND quest_item_id IS NOT NULL AND quest_item_id NOT IN (';
             for (let i = 0; i < excludedItems.length; i++) {
                 if (i === excludedItems.length - 1) {
-                    sqlExcludeCreate += '?))';
+                    excludeItemSQL += '?)';
                 } else {
-                    sqlExcludeCreate += '?, ';
+                    excludeItemSQL += '?, ';
                 }
                 args.push(excludedItems[i]);
             }
-            excludeItemSQL = sqlExcludeCreate;
+            if (minimumCandyCount > 0) {
+                //excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeItemSQL += ' AND (quest_item_id <> 1301 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
+                args.push(minimumCandyCount);
+            }
+            excludeItemSQL += ')';
         }
     }
 
@@ -816,16 +828,15 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = minLon - 0.001;
     let maxLonReal = maxLon + 0.001;
 
-    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, true, false, false, false, null, null, null);
+    let allStops = await getPokestops(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002, 0, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.002, maxLatReal + 0.002, minLonReal - 0.002, maxLonReal + 0.002);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allCoords = allGymCoods.concat(allStopCoods);
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 17;
     regionCoverer.maxLevel = 17;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -845,16 +856,9 @@ const getSubmissionPlacementCells = async (minLat, maxLat, minLon, maxLon) => {
             'polygon': polygon
         };
     }
-    for (let i = 0; i < allGymCoods.length; i++) {
-        let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 17;
-        regionCoverer.maxLevel = 17;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level17Cell = coveringCells[0].parentL(17);
+    for (let i = 0; i < allCoords.length; i++) {
+        let coord = allCoords[i];
+        let level17Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(17);
         let cellId = BigInt(level17Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -874,15 +878,14 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     let minLonReal = minLon - 0.01;
     let maxLonReal = maxLon + 0.01;
 
-    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, true, false, false, false, null, null, null);
+    let allStops = await getPokestops(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02);
     allStops = allStops.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
-    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02, 0, false, true, null, null);
+    let allGyms = await getGyms(minLatReal - 0.02, maxLatReal + 0.02, minLonReal - 0.02, maxLonReal + 0.02);
     allGyms = allGyms.filter(x => x.sponsor_id === null || x.sponsor_id === 0);
     let allStopCoods = allStops.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
     let allGymCoods = allGyms.map(x => { return { 'lat': x.lat, 'lon': x.lon }; });
 
     let regionCoverer = new S2.S2RegionCoverer();
-    regionCoverer.maxCells = 1000;
     regionCoverer.minLevel = 14;
     regionCoverer.maxLevel = 14;
     let region = S2.S2LatLngRect.fromLatLng(
@@ -906,14 +909,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allGymCoods.length; i++) {
         let coord = allGymCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -923,14 +919,7 @@ const getSubmissionTypeCells = async (minLat, maxLat, minLon, maxLon) => {
     }
     for (let i = 0; i < allStopCoods.length; i++) {
         let coord = allStopCoods[i];
-        let level1Cell = S2.S2Cell.fromLatLng(S2.S2LatLng.fromDegrees(coord.lat, coord.lon));
-        let regionCoverer = new S2.S2RegionCoverer();
-        regionCoverer.minLevel = 14;
-        regionCoverer.maxLevel = 14;
-        regionCoverer.maxCells = 1;
-        let region = level1Cell.getRectBound();
-        let coveringCells = regionCoverer.getCoveringCells(region);
-        let level14Cell = coveringCells[0];// TODO: .parent(14);
+        let level14Cell = S2.S2CellId.fromPoint(S2.S2LatLng.fromDegrees(coord.lat, coord.lon).toPoint()).parentL(14);
         let cellId = BigInt(level14Cell.id).toString();
         let cell = indexedCells[cellId];
         if (cell) {
@@ -1058,7 +1047,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludePokemonSQL} ${excludeAverageSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludeAverageSQL} ${excludePokemonSQL}
     `;
     for (let i = 0; i < excludedPokemon.length; i++) {
         args.push(excludedPokemon[i]);
@@ -1071,7 +1060,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
-const getSearchData = async (lat, lon, id, value) => {
+const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
     let args = [lat, lon, lat];
     let useManualDb = false;
@@ -1143,7 +1132,7 @@ const getSearchData = async (lat, lon, id, value) => {
             }
             sql = `
             SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id, quest_reward_type,
-                JSON_VALUE(quest_rewards, '$[0].info.form_id') AS quest_pokemon_form_id
+                json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS quest_pokemon_form_id,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
@@ -1200,19 +1189,19 @@ const getSearchData = async (lat, lon, id, value) => {
                     let result = results[i];
                     // TODO: Check quest types
                     if (result.quest_item_id > 0) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/item/${result.quest_item_id}.png`;
+                        result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
-                        const formId = result.quest_pokemon_form_id ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
+                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */] + '/item/-1.png';
+                        result.url2 = '/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons['Default'/* TODO: Add icon style */] + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }

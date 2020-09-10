@@ -1,5 +1,6 @@
 'use strict';
 
+const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -75,17 +76,17 @@ router.get('/purge', async (req, res) => {
 
 const handlePage = async (req, res) => {
     const data = defaultData;
+    data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
+    data.tableClass = config.style === 'dark' ? 'table-dark' : '';
+
     data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    data.available_icon_styles_json = JSON.stringify(config.iconStyles);
-
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
+    await updateAvailableForms(config.icons);
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
     const availableItems = [-3, -2, -1];
@@ -208,14 +209,12 @@ const handleHomeJs = async (req, res) => {
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
+    // Build available forms list
+    await updateAvailableForms(config.icons);
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
-
     // Build available items list
-    const availableItems = [-3, -2, -1];
+    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
     //const keys = Object.keys(InventoryItemId);
     //keys.forEach(key => {
     //    const itemId = InventoryItemId[key];
@@ -260,22 +259,32 @@ const getAvailableTileservers = () => {
     return tileservers;
 };
 
-const getAvailableForms = () => {
-    const availableForms = [];
-    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('_');
-            if (split.length === 4) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                availableForms.push(`${pokemonId}-${formId}`);
+const updateAvailableForms = async (icons) => {
+    for (const icon of Object.values(icons)) {
+        if (icon.path.startsWith('/')) {
+            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}`);
+            const files = await fs.promises.readdir(pokemonIconsDir);
+            if (files) {
+                const availableForms = [];
+                files.forEach(file => {
+                    const match = /^(.+)\.png$/.exec(file);
+                    if (match !== null) {
+                        availableForms.push(match[1]);
+                    }
+                });
+                icon.pokemonList = availableForms;
             }
-        });
+        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
+            axios({
+                method: 'GET',
+                url: icon.path + '/index.json',
+                responseType: 'json'
+            }).then((response) => {
+                icon.pokemonList = response ? response.data : [];
+                icon.lastRetrieved = Date.now();
+            });
+        }
     }
-    return availableForms;
 };
 
 module.exports = router;

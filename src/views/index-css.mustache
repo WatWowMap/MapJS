@@ -257,6 +257,46 @@ fieldset[disabled] .btn-size.active {
     border: 4px solid gray;
 }
 
+.pokemon-popup-image-holder {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    position: relative;
+}
+.filter-image-holder {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    position: relative;
+}
+.marker-image-holder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.pokemon-popup-image-holder > img,
+.filter-image-holder > img,
+.marker-image-holder > img,
+.leaflet-container .leaflet-marker-pane .marker-image-holder > img {
+    position: absolute;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.marker-image-holder.top-overlay > img,
+.leaflet-container .leaflet-marker-pane .marker-image-holder.top-overlay > img {
+    top: auto;
+}
+
+img {
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+}
+
 @media (max-height: 600px) {
     .fill {
         top: 0;
@@ -552,4 +592,27 @@ fieldset[disabled] .btn-size.active {
   position: absolute;
   z-index: 1000;
   pointer-events: none;
+}
+
+.theme-dark #settingsModal,
+.theme-dark #filtersModal,
+.theme-dark #searchModal,
+.theme-dark #mapstyleModal,
+.theme-dark .close {
+    color: white;
+}
+
+.theme-dark .modal-header,
+.theme-dark .leaflet-popup-content-wrapper {
+    background-color: rgb(33, 37, 31);
+    color: white;
+}
+
+.theme-dark table.dataTable tr.dtrg-group td,
+.theme-dark div.DTS div.dataTables_scrollBody table,
+.theme-dark .modal-body,
+.theme-dark .modal-content,
+.theme-dark .modal-footer,
+.theme-dark .leaflet-popup-tip {
+    background-color: rgb(33, 37, 31);
 }
