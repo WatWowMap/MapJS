@@ -149,5 +149,9 @@
 	"settings_pokemon": "Pokemon Settings",
 	"settings_pokemon_glow": "Pokemon Glow",
 	"settings_color": "Color",
-	"settings_cluster_pokemon": "Cluster Pokemon"
+	"settings_cluster_pokemon": "Cluster Pokemon",
+	"settings_gym": "Gym Settings",
+	"settings_cluster_gyms": "Cluster Gyms",
+	"settings_pokestop": "Pokestop Settings",
+	"settings_cluster_pokestops": "Cluster Pokestops"
 }

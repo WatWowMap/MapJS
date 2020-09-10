@@ -977,6 +977,12 @@ function loadStorage () {
         if (defaultSettings['pokemon-cluster'] === undefined) {
             defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
         }
+        if (defaultSettings['gym-cluster'] === undefined) {
+            defaultSettings['gym-cluster'] = { show: clusterGyms };
+        }
+        if (defaultSettings['pokestop-cluster'] === undefined) {
+            defaultSettings['pokestop-cluster'] = { show: clusterPokestops };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
@@ -987,8 +993,16 @@ function loadStorage () {
         if (settings['pokemon-cluster'] === undefined) {
             settings['pokemon-cluster'] = { show: true };
         }
+        if (settings['gym-cluster'] === undefined) {
+            settings['gym-cluster'] = { show: true };
+        }
+        if (settings['pokestop-cluster'] === undefined) {
+            settings['pokestop-cluster'] = { show: true };
+        }
     }
     clusterPokemon = settings['pokemon-cluster'].show;
+    clusterGyms = settings['gym-cluster'].show;
+    clusterPokestops = settings['pokestop-cluster'].show;
     showPokemonGlow = settings['pokemon-glow'].show;
 }
 
@@ -1316,10 +1330,41 @@ function initMap () {
             });
             pokemonMarkers = [];
         }
+        const newClusterGyms = settingsNew['gym-cluster'].show;
+        if (clusterGyms !== newClusterGyms) {
+            $.each(gymMarkers, function (index, gym) {
+                if (clusterGyms) {
+                    clusters.removeLayer(gym.marker);
+                } else {
+                    map.removeLayer(gym.marker);
+                }
+            });
+        }
+        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
+        if (clusterPokestops !== newClusterPokestops) {
+            $.each(pokestopMarkers, function (index, pokestop) {
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
+            });
+            pokestopMarkers = [];
+        }
         clusterPokemon = newClusterPokemon;
         showPokemonGlow = newShowPokemonGlow;
         //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterGyms = newClusterGyms;
+        clusterPokestops = newClusterPokestops;
+
         $('#settingsModal').modal('hide');
+    });
+
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+        let input = e.target;
+        if (input) {
+            loadSearchData(input.id, input.value);
+        }
     });
 
     const CustomControlFilters = L.Control.extend({
@@ -4023,7 +4068,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === 'filter';
             break;
         }
-    } else if (type === 'pokemon-cluster') {
+    } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
         switch (info) {
         case 'hide':
             shouldShow = settingsNew[id].show === false;
@@ -4555,7 +4600,7 @@ function manageSelectButton (e, isNew) {
                 case 'color':
                     return manageColorPopup(id, settings);
                 }
-            } else if (type === 'pokemon-cluster') {
+            } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
                 switch (info) {
                 case 'hide':
                     settingsNew[id].show = false;
