@@ -1291,10 +1291,13 @@ function initMap () {
 
     $('#saveSettings').on('click', function (event) {
         $(this).toggleClass('active');
-
         settings = settingsNew;
         store('settings', JSON.stringify(settings));
-
+        //showPokemonGlow = settings['pokemon-glow'].show;
+        //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterPokemon = settings['pokemon-cluster'].show;
+        // TODO: Invalidate map/force a redraw of markers if changed
+        map.invalidateSize();
         $('#settingsModal').modal('hide');
     });
 
@@ -6305,6 +6308,103 @@ function loadDeviceFilter () {
 
     $('#filterDeviceModal').on('shown.bs.modal', function () {
         const dataTable = $('#table-filter-device').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
+function loadSettings () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-settings').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_settings_table_empty'),
+            zeroRecords: i18n('filter_settings_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' }
+        ],
+        ajax: {
+            url: '/api/get_settings',
+            dataSrc: 'data.settings',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        createdRow: function(row, data, dataIndex) {
+            if ('{{style}}' === 'dark') {
+                $(row).css('background-color', 'rgb(33, 37, 41)');
+                $(row).css('color', 'white');
+                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
+                $('.dtrg-level-0').css('color', 'white');
+            }
+        },
+        responsive: true
+    });
+
+    $('#table-settings tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#settingsModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-settings').DataTable();
         dataTable.responsive.recalc();
         dataTable.columns.adjust();
     });
