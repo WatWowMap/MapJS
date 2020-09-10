@@ -6477,14 +6477,6 @@ function loadSettings () {
                 manageConfigureButton($(this), true);
             });
         },
-        createdRow: function(row, data, dataIndex) {
-            if ('{{style}}' === 'dark') {
-                $(row).css('background-color', 'rgb(33, 37, 41)');
-                $(row).css('color', 'white');
-                $('.dtrg-level-0').children().css('background-color', '#1a1a1a');
-                $('.dtrg-level-0').css('color', 'white');
-            }
-        },
         responsive: true
     });
 

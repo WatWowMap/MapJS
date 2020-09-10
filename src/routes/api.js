@@ -70,7 +70,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(2, 3),
+            'formatted': utils.zeroPad(0, 3),
             'sort': 1
         },
         'name': clusterGymsString,
@@ -80,7 +80,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(1, 3),
+            'formatted': utils.zeroPad(0, 3),
             'sort': 1
         },
         'name': clusterPokestopsString,
