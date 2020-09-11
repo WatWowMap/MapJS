@@ -19,11 +19,24 @@ const uiRoutes = require('./routes/ui.js');
 const RateLimitTime = config.ratelimit.time * 60 * 1000;
 const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
 
-const requestRateLimiter = rateLimit({
+const rateLimitOptions = {
     windowMs: RateLimitTime, // Time window in milliseconds
     max: MaxRequestsPerHour, // Start blocking after x requests
-    message: `Too many requests from this IP, please try again in ${config.ratelimit.time} minutes.`
-});
+    headers: true,
+    message: {
+        status: 429, // optional, of course
+        limiter: true,
+        type: 'error',
+        message: `Too many requests from this IP, please try again in ${config.ratelimit.time} minutes.`
+    },
+    onLimitReached: (req, res, options) => {
+        //console.error('Rate limit reached! Redirect to landing page.');
+        //res.status(options.message.status).send(options.message.message);
+        // TODO: Fix redirect
+        res.redirect('/429');
+    }
+};
+const requestRateLimiter = rateLimit(rateLimitOptions);
 
 // Basic security protection middleware
 app.use(helmet());
@@ -142,7 +155,7 @@ app.use(async (req, res, next) => {
 // UI routes
 app.use('/', uiRoutes);
 
-app.use('/api/', requestRateLimiter);
+app.use('/api', requestRateLimiter);
 
 // API routes
 app.use('/api', apiRoutes);
