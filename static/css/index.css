@@ -148,12 +148,10 @@ fieldset[disabled] .btn-off.active {
     background-color: #FFFFFF;
 }
 
-
 .btn-size {
     color: #FFFFFF;
     background-color: #6C757D;
 }
-
 
 .btn-size:active,
 .btn-size.active,
@@ -223,7 +221,7 @@ fieldset[disabled] .btn-size.active {
 .circle-image {
     height: 96px;
     width: 96px;
-    border: 4px; solid white;
+    border: 4px solid white;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -248,7 +246,7 @@ fieldset[disabled] .btn-size.active {
     border: 4px solid blue;
 }
 .team-valor {
-    border: 4px solid red; //rgba(255, 0, 0, 0.5)
+    border: 4px solid red;
 }
 .team-instinct {
     border: 4px solid yellow;
