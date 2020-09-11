@@ -99,10 +99,6 @@ let settingsLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
-let clusterPokemon = '{{cluster_pokemon}}' === 'true';
-let clusterGyms = '{{cluster_gyms}}' === 'true';
-let clusterPokestops = '{{cluster_pokestops}}' === 'true';
-
 let showPokemonGlow = true;
 
 let tileLayer;
