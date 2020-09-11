@@ -99,17 +99,15 @@ let settingsLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
-let clusterPokemon = '{{cluster_pokemon}}' === 'true';
-let clusterGyms = '{{cluster_gyms}}' === 'true';
-let clusterPokestops = '{{cluster_pokestops}}' === 'true';
+let clusterPokemon;
+let clusterGyms;
+let clusterPokestops;
 
 let showPokemonGlow = true;
 
 let tileLayer;
 let nestLayer = new L.LayerGroup();
 let scanAreaLayer = new L.LayerGroup();
-
-let currentPositionMarker;
 
 let masterfile = {};
 let weatherTypes = {};
@@ -3627,8 +3625,7 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = settings['pokemon-glow'].color;
-    const glowIV = parseFloat('{{glow_iv}}');
+    const color = glowColor; // TODO: settings['pokemon-glow'].color;
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
