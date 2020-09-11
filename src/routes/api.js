@@ -94,17 +94,6 @@ const getSettings = () => {
             'formatted': utils.zeroPad(1, 3),
             'sort': 1
         },
-        'name': clusterPokemonString,
-        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
-        'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
-        'type': pokemonSettingsString
-    });
-    /*
-    settingsData.push({
-        'id': {
-            'formatted': utils.zeroPad(1, 3),
-            'sort': 1
-        },
         'name': 'Glow Color',
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
         'filter': generateTextBox('glow-color', 'pokemon-glow'),

@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "btoa": "^1.2.1",
+    "compression": "^1.7.4",
     "cookie-session": "^1.4.0",
     "discord-oauth2": "^2.2.0",
     "discord.js": "^12.2.0",
