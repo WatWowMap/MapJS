@@ -3789,38 +3789,50 @@ function getPokestopMarkerIcon (pokestop, ts) {
         let iconUrl;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
             // XP
+            rewardString = 'i-2';
             iconUrl = `/img/item/-2.png`;
         } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
             // Item
+            rewardString = 'i' + info.item_id;
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/${info.item_id}.png`;
             iconUrl = `/img/reward/reward_${info.item_id}_${info.amount}.png`;
         } else if (id === 3 && info !== undefined && info.amount !== undefined) {
             // Stardust
+            rewardString = 'i-1';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-1.png`;
             iconUrl = `/img/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
         } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
             // Candy
+            rewardString = 'i-3';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = `/img/reward/reward_1301_${info.amount}.png`;
         } else if (id === 5) {
             // Avatar clothing
+            rewardString = 'i-4';
             iconUrl = `/img/item/-4.png`;
         } else if (id === 6) {
             // Quest
+            rewardString = 'i-5';
             iconUrl = `/img/item/-5.png`;
         } else if (id === 7 && info !== undefined) {
+            // Pokemon
+            rewardString = 'p' + info.pokemon_id;
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
             // Pokecoin
+            rewardString = 'i-6';
             iconUrl = `/img/item/-6.png`;
         } else if (id === 11) {
             // Sticker
+            rewardString = 'i-7';
             iconUrl = `/img/item/-7.png`;
         } else if (id === 12) {
             // Mega resource
+            rewardString = 'i-8';
             iconUrl = `/img/item/-8.png`;
         } else {
+            rewardString = 'i0';
             iconUrl = `/img/item/-0.png`;
         }
         questSize = getQuestSize(rewardString);
