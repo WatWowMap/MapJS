@@ -327,22 +327,6 @@ $(function () {
         }
     });
 
-    $('#settingsModal').on('show.bs.modal', function () {
-        settingsNew = $.extend(true, {}, settings);
-
-        $('.select-button').each(function (button) {
-            manageSelectButton($(this), false);
-        });
-        $('.configure-button').each(function (button) {
-            manageConfigureButton($(this), false);
-        });
-
-        if (!settingsLoaded) {
-            settingsLoaded = true;
-            loadSettings();
-        }
-    });
-
     // TODO: Bandaid for zindex
     $('#mapstyleModal').on('shown.bs.modal', function () {
         $('#settingsModal').modal('hide');
@@ -1300,6 +1284,111 @@ function initMap () {
         loadData();
 
         $('#filtersModal').modal('hide');
+    });
+    
+    $('#saveSettings').on('click', function (event) {
+        $(this).toggleClass('active');
+
+        settings = settingsNew;
+        store('settings', JSON.stringify(settings));
+
+        const newClusterPokemon = settingsNew['pokemon-cluster'].show;
+        const newShowPokemonGlow = settingsNew['pokemon-glow'].show;
+        if (clusterPokemon !== newClusterPokemon ||
+            showPokemonGlow !== newShowPokemonGlow) {
+            $.each(pokemonMarkers, function (index, pokemon) {
+                if (clusterPokemon) {
+                    clusters.removeLayer(pokemon.marker);
+                } else {
+                    map.removeLayer(pokemon.marker);
+                }
+            });
+            pokemonMarkers = [];
+        }
+        const newClusterGyms = settingsNew['gym-cluster'].show;
+        if (clusterGyms !== newClusterGyms) {
+            $.each(gymMarkers, function (index, gym) {
+                if (clusterGyms) {
+                    clusters.removeLayer(gym.marker);
+                } else {
+                    map.removeLayer(gym.marker);
+                }
+            });
+        }
+        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
+        if (clusterPokestops !== newClusterPokestops) {
+            $.each(pokestopMarkers, function (index, pokestop) {
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
+            });
+            pokestopMarkers = [];
+        }
+        clusterPokemon = newClusterPokemon;
+        showPokemonGlow = newShowPokemonGlow;
+        //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterGyms = newClusterGyms;
+        clusterPokestops = newClusterPokestops;
+
+        $('#settingsModal').modal('hide');
+    });
+
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+        let input = e.target;
+        if (input) {
+            loadSearchData(input.id, input.value);
+        }
+    });
+
+    $('#saveSettings').on('click', function (event) {
+        $(this).toggleClass('active');
+        settings = settingsNew;
+        store('settings', JSON.stringify(settings));
+
+        //console.log('settings:', settings);
+        const newClusterPokemon = settings['pokemon-cluster'].show;
+        const newShowPokemonGlow = settings['pokemon-glow'].show;
+        if (clusterPokemon !== newClusterPokemon ||
+            showPokemonGlow !== newShowPokemonGlow) {
+            $.each(pokemonMarkers, function (index, pokemon) {
+                if (clusterPokemon) {
+                    clusters.removeLayer(pokemon.marker);
+                } else {
+                    map.removeLayer(pokemon.marker);
+                }
+            });
+            pokemonMarkers = [];
+        }
+        const newClusterGyms = settingsNew['gym-cluster'].show;
+        if (clusterGyms !== newClusterGyms) {
+            $.each(gymMarkers, function (index, gym) {
+                if (clusterGyms) {
+                    clusters.removeLayer(gym.marker);
+                } else {
+                    map.removeLayer(gym.marker);
+                }
+            });
+        }
+        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
+        if (clusterPokestops !== newClusterPokestops) {
+            $.each(pokestopMarkers, function (index, pokestop) {
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
+            });
+            pokestopMarkers = [];
+        }
+        clusterPokemon = newClusterPokemon;
+        showPokemonGlow = newShowPokemonGlow;
+        //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterGyms = newClusterGyms;
+        clusterPokestops = newClusterPokestops;
+
+        $('#settingsModal').modal('hide');
     });
 
     $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
@@ -4592,11 +4681,6 @@ function manageSelectButton (e, isNew) {
                 case 'show':
                     settingsNew[id].show = true;
                     break;
-                }
-            } else if (type === 'glow-color') {
-                switch (info) {
-                case 'color':
-                    return manageColorPopup(id, settings);
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
