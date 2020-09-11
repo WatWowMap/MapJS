@@ -19,16 +19,17 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - 400k+ less icons  
 - Pokemon clustering  
 - Mobile friendly filters  
-- Available raid boss and quest rewards from database for smaller filter lists
+- Available raid boss and quest rewards from database for smaller filter lists  
 - Scan area polygons  
-- Disable trash pokemon button  
+- Configurable Quick Start Pokemon filter button for new users  
+- Quickly filter Pokemon by generation/rarity/event  
 - Legendary and normal raid buttons  
 - Follow my location  
 - Cache previous location  
-- Global search for quest rewards, nest pokemon, gyms, and pokestops
-- Minimum candy and stardust amount quest filter
-- Quick Start Pokemon filter button for new users
-- Fast  
+- Global search for quest rewards, nest pokemon, gyms, and pokestops  
+- Minimum candy and stardust amount quest filter  
+- Zoom zoom zoom, fast  
+- Much more...
 
 ## Installation
 1.) Clone repository `git clone https://github.com/versx/MapJS`  
@@ -39,8 +40,9 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 6.) Fill out config `vi src/config.json`  
 7.) Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)  
 8.) Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)  
-9.) Run `npm start`  
-10.) Access via http://machineip:port/ login using your Discord account    
+9.) Run `npm run create-locales`  
+10.) Run `npm start`  
+11.) Access via http://machineip:port/ login using your Discord account    
 
 ## Configuration  
 ```js
@@ -55,6 +57,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "locale": "en",
     // Theme style
     "style": "dark",
+    // Cookie session secret key, make sure to randomize and NOT use default
+    "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     // Map settings
     "map": {
         // Maximum available Pokemon
@@ -69,10 +73,18 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         "minZoom": 10,
         // Map maximum zoom level
         "maxZoom": 18,
+        // Defines the color of 70m paths and Quest/IV Polygons
+        "devicePathColor": "red",
         // Clustering settings
         "clusters": {
             // Enable pokemon clustering
-            "pokemon": true
+            "pokemon": true,
+	    // Enable gym clustering
+            "gyms": true,
+	    // Enable pokestop clustering
+            "pokestops": true,
+	    // Zoom level when clustering starts/stops
+            "zoomLevel": 13
         },
         // Default filter settings for new users/cleared cache
         "filters": {
@@ -80,12 +92,14 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "gyms": true,
             // Show raids
             "raids": false,
+            "raidTimers": false,
             // Show pokestops
             "pokestops": false,
             // Show quests
             "quests": false,
             // Show invasions
             "invasions": false,
+            "invasionTimers": false,
             // Show spawnpoints
             "spawnpoints": false,
             // Show Pokemon
@@ -259,19 +273,22 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "icons": {
         // Default local icon repository
         "Default": {
-            "path": "/img/",
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+            "path": "/img/pokemon"
         },
+        "POGO": {
+            "path": "https://mygod.github.io/pokicons/v2"
+        },
+        // Remote icon repository
         "RemotePokemonExample": {
             "path": "https://example.com/pokemon_images",
-            "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"],
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+            // For repo without index.json support, since we can't traverse a remote directory easily,
+            // you'll need to provide a list of available forms, shiny, or gender icons so the map is
+            // aware of available icons that way invalid icons are not shown.
+            "pokemonList": ["001_00", "002_00", "002_00_shiny", "003_00", "003_00_female", "003_950"]
+            // expected format is <xxx pokemon id>(_00|_<form id>|_v<temp evolution id>)[_female][_<xx costume id>][_shiny]
+            // automatic fallback is in place, so the bare minimum you need to provide is "xxx_00" for each pokemon
+            // and "000" for new pokemon fallback (000 does not need to appear in pokemonList)
+	    // Reference: Asset icon processing tool: https://github.com/Mygod/pokemon-icon-postprocessor
         }
     },
     // Scouting settings
@@ -379,7 +396,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 ## Updating  
 1.) `git pull`  
 2.) Run `npm install` in root folder  
-3.) Run `npm start`  
+3.) Run `npm run create-locales`  
+4.) Run `npm start`  
 
 ## Convert INI geofence format to GeoJSON format (for areas.json file to show scan areas)  
 1.) Create `geofences` directory in root of project (with src folder)  

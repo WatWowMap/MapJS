@@ -510,7 +510,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             }
             excludeTypeSQL = sqlExcludeCreate;
             if (minimumStardustCount > 0) {
-                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                //excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
                 args.push(minimumStardustCount);
             }
             excludeTypeSQL += ')';
@@ -545,7 +546,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 args.push(excludedItems[i]);
             }
             if (minimumCandyCount > 0) {
-                excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                //excludeItemSQL += ' AND (quest_item_id <> 1301 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
+                excludeItemSQL += ' AND (quest_item_id <> 1301 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
                 args.push(minimumCandyCount);
             }
             excludeItemSQL += ')';
@@ -1058,7 +1060,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
-const getSearchData = async (lat, lon, id, value) => {
+const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
     let args = [lat, lon, lat];
     let useManualDb = false;
@@ -1130,7 +1132,7 @@ const getSearchData = async (lat, lon, id, value) => {
             }
             sql = `
             SELECT id, name, lat, lon, url, quest_type, quest_pokemon_id, quest_item_id, quest_reward_type,
-                JSON_VALUE(quest_rewards, '$[*].info.form_id') AS quest_pokemon_form_id,
+                json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS quest_pokemon_form_id,
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
@@ -1187,19 +1189,19 @@ const getSearchData = async (lat, lon, id, value) => {
                     let result = results[i];
                     // TODO: Check quest types
                     if (result.quest_item_id > 0) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/item/${result.quest_item_id}.png`;
+                        result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = config.icons['Default'/* TODO: Add icon style */].path + '/item/-1.png';
+                        result.url2 = '/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons['Default'/* TODO: Add icon style */].path + `/pokemon/pokemon_icon_${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }

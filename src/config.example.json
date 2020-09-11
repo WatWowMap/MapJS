@@ -7,6 +7,10 @@
     "style": "dark",
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     "allowMultipleSessions": true,
+    "ratelimit": {
+        "time": 60,
+        "requests": 100
+    },
     "map": {
         "maxPokemonId": 649,
         "startLat": 0,
@@ -14,6 +18,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
+        "devicePathColor": "red",
         "clusters": {
             "pokemon": true,
             "gyms": true,
@@ -23,9 +28,11 @@
         "filters": {
             "gyms": true,
             "raids": false,
+            "raidTimers": false,
             "pokestops": false,
             "quests": false,
             "invasions": false,
+            "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
             "nests": false,
@@ -145,6 +152,10 @@
                 "enabled": true,
                 "roles": []
             },
+            "scanAreas": {
+                "enabled": true,
+                "roles": []
+            },
             "weather": {
                 "enabled": true,
                 "roles": []
@@ -161,19 +172,16 @@
     },
     "icons": {
         "Default": {
-            "path": "/img",
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+            "path": "/img/pokemon"
         },
-        "RemotePokemonExample": {
-            "path": "https://example.com/pokemon_images",
-            "pokemonList": ["001_163", "002_166", "002_166_shiny", "003_169", "003_169_female"],
-            "raidOffsetY": 0.269,
-            "questOffsetY": 0,
-            "gymAnchorY": 0.849,
-            "pokestopAnchorY": 0.896
+        "POGO": {
+            "path": "https://mygod.github.io/pokicons/v2"
+        },
+        "Home": {
+            "path": "https://raw.githubusercontent.com/Mygod/PkmnHomeIcons/icons/icons"
+        },
+        "Shuffle": {
+            "path": "https://raw.githubusercontent.com/Mygod/pokedave_shuffle_icons_-ICONS-/master"
         }
     },
     "scouting": {

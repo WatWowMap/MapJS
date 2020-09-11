@@ -1,8 +1,7 @@
 'use strict';
 
 const path = require('path');
-const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const express = require('express');
 //const cookieSession = require('cookie-session');
 const session = require('express-session');
@@ -10,6 +9,7 @@ const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const config = require('./config.json');
 const defaultData = require('./data/default.js');
@@ -20,6 +20,28 @@ const { sessionStore, isValidSession, clearOtherSessions } = require('./services
 
 // TODO: Check sessions table and parse json
 
+const RateLimitTime = config.ratelimit.time * 60 * 1000;
+const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
+
+const rateLimitOptions = {
+    windowMs: RateLimitTime, // Time window in milliseconds
+    max: MaxRequestsPerHour, // Start blocking after x requests
+    headers: true,
+    message: {
+        status: 429, // optional, of course
+        limiter: true,
+        type: 'error',
+        message: `Too many requests from this IP, please try again in ${config.ratelimit.time} minutes.`
+    },
+    onLimitReached: (req, res, options) => {
+        //console.error('Rate limit reached! Redirect to landing page.');
+        //res.status(options.message.status).send(options.message.message);
+        // TODO: Fix redirect
+        res.redirect('/429');
+    }
+};
+const requestRateLimiter = rateLimit(rateLimitOptions);
+
 // Basic security protection middleware
 app.use(helmet());
 
@@ -27,6 +49,9 @@ app.use(helmet());
 app.set('view engine', 'mustache');
 app.set('views', path.resolve(__dirname, 'views'));
 app.engine('mustache', mustacheExpress());
+
+// Compression middleware
+app.use(compression());
 
 // Static paths
 app.use(express.static(path.resolve(__dirname, '../static')));
@@ -74,19 +99,6 @@ app.use(session({
     resave: true,
     saveUninitialized: false
 }));
-
-// CSRF token middleware
-app.use(cookieParser());
-app.use(csrf({ cookie: true }));
-app.use((req, res, next) => {
-    var csrf = req.csrfToken();
-    defaultData.csrf = csrf;
-    //console.log("CSRF Token:", csrf);
-    res.cookie('x-csrf-token', csrf);
-    res.cookie('TOKEN', csrf);
-    res.locals.csrftoken = csrf;
-    next();
-});
 
 if (config.discord.enabled) {
     app.use('/api/discord', discordRoutes);
@@ -154,6 +166,7 @@ app.use(async (req, res, next) => {
         defaultData.hide_cells = !perms.s2cells;
         defaultData.hide_submission_cells = !perms.submissionCells;
         defaultData.hide_nests = !perms.nests;
+        defaultData.hide_scan_areas = !perms.scanAreas;
         defaultData.hide_weather = !perms.weather;
         defaultData.hide_devices = !perms.devices;
         return next();
@@ -161,11 +174,13 @@ app.use(async (req, res, next) => {
     res.redirect('/login');
 });
 
-// API routes
-app.use('/api', apiRoutes);
-
 // UI routes
 app.use('/', uiRoutes);
+
+app.use('/api', requestRateLimiter);
+
+// API routes
+app.use('/api', apiRoutes);
 
 // Start listener
 app.listen(config.port, config.interface, () => console.log(`Listening on port ${config.port}...`));
