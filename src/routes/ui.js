@@ -29,17 +29,6 @@ router.get(['/', '/index'], async (req, res) => {
     res.render('index', data);
 });
 
-router.get('/index.js', async (req, res) => {
-    res.setHeader('Content-Type', 'application/javascript');
-    const data = await handleHomeJs(req, res);
-    res.render('index-js', data);
-});
-
-router.get('/index.css', (req, res) => {
-    res.setHeader('Content-Type', 'text/css');
-    res.render('index-css', defaultData);
-});
-
 // Location endpoints
 router.get('/@/:lat/:lon', async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
@@ -73,6 +62,11 @@ router.get('/purge', async (req, res) => {
     res.redirect(target);
 });
 
+router.get('/429', (req, res) => {
+    const data = defaultData;
+    res.render('429', data);
+});
+
 
 const handlePage = async (req, res) => {
     const data = defaultData;
@@ -89,7 +83,7 @@ const handlePage = async (req, res) => {
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
-    const availableItems = [-3, -2, -1];
+    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
     //const keys = Object.keys(InventoryItemId);
     //keys.forEach(key => {
     //    const itemId = InventoryItemId[key];
@@ -198,49 +192,11 @@ const handlePage = async (req, res) => {
     data.zoom = zoom || config.map.startZoom || 12;
     data.min_zoom = config.map.minZoom || 10;
     data.max_zoom = config.map.maxZoom || 18;
-    return data;
-};
 
-const handleHomeJs = async (req, res) => {
-    const data = defaultData;
-    data.max_pokemon_id = config.map.maxPokemonId;
-
-    // Build available tile servers list
-    const tileservers = getAvailableTileservers();
-    data.available_tileservers_json = JSON.stringify(tileservers);
-
-    // Build available forms list
-    await updateAvailableForms(config.icons);
-    data.available_icon_styles_json = JSON.stringify(config.icons);
-
-    // Build available items list
-    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
-    //const keys = Object.keys(InventoryItemId);
-    //keys.forEach(key => {
-    //    const itemId = InventoryItemId[key];
-    //    availableItems.push(itemId);
-    //});
-    data.available_items_json = JSON.stringify(availableItems);
-
-    // Available raid boss filters
-    const availableRaidBosses = await map.getAvailableRaidBosses();
-    data.available_raid_bosses_json = JSON.stringify(availableRaidBosses);
-
-    // Available quest filters
-    const availableQuestRewards = await map.getAvailableQuests();
-    data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
-
-    // Available nest pokemon filter
-    const availableNestPokemon = await map.getAvailableNestPokemon();
-    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
-
-    // Map settings
-    data.min_zoom = req.query.min_zoom || config.map.minZoom;
-    data.max_zoom = req.query.max_zoom || config.map.maxZoom;
-    data.max_pokemon_id = config.maxPokemonId;
-    //data.start_pokemon = req.params.start_pokemon
-    //data.start_pokestop = req.params.start_pokestop
-    //data.start_gym = req.params.start_gym
+    data.locale_last_modified = (await fs.promises.stat(path.resolve(__dirname, `../../static/locales/${data.locale}.json`))).mtimeMs;
+    data.css_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/css/index.css'))).mtimeMs;
+    data.js_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/js/index.js'))).mtimeMs;
+    
     return data;
 };
 
