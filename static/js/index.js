@@ -50,6 +50,9 @@ let weatherFilterNew = {};
 let deviceFilter = {};
 let deviceFilterNew = {};
 
+let settings = {};
+let settingsNew = {};
+
 const hiddenPokemonIds = [];
 
 let openedPokemon;
@@ -91,15 +94,20 @@ let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
 let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
+let settingsLoaded = false;
 
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
+let clusterPokemon;
+let clusterGyms;
+let clusterPokestops;
+
+let showPokemonGlow = true;
+
 let tileLayer;
 let nestLayer = new L.LayerGroup();
 let scanAreaLayer = new L.LayerGroup();
-
-let currentPositionMarker;
 
 let masterfile = {};
 let weatherTypes = {};
@@ -300,6 +308,22 @@ $(function () {
         if (!deviceFilterLoaded) {
             deviceFilterLoaded = true;
             loadDeviceFilter();
+        }
+    });
+
+    $('#settingsModal').on('show.bs.modal', function () {
+        settingsNew = $.extend(true, {}, settings);
+
+        $('.select-button').each(function (button) {
+            manageSelectButton($(this), false);
+        });
+        $('.configure-button').each(function (button) {
+            manageConfigureButton($(this), false);
+        });
+
+        if (!settingsLoaded) {
+            settingsLoaded = true;
+            loadSettings();
         }
     });
 
@@ -925,6 +949,43 @@ function loadStorage () {
             deviceFilter['offline'] = { show: true, size: 'normal' };
         }
     }
+    
+    const settingsValue = retrieve('settings');
+    if (settingsValue === null) {
+        const defaultSettings = {};
+        if (defaultSettings['pokemon-glow'] === undefined) {
+            defaultSettings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
+        }
+        if (defaultSettings['pokemon-cluster'] === undefined) {
+            defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
+        }
+        if (defaultSettings['gym-cluster'] === undefined) {
+            defaultSettings['gym-cluster'] = { show: clusterGyms };
+        }
+        if (defaultSettings['pokestop-cluster'] === undefined) {
+            defaultSettings['pokestop-cluster'] = { show: clusterPokestops };
+        }
+        store('settings', JSON.stringify(defaultSettings));
+        settings = defaultSettings;
+    } else {
+        settings = JSON.parse(settingsValue);
+        if (settings['pokemon-glow'] === undefined) {
+            settings['pokemon-glow'] = { show: true, filter: 'red', color: 'red' };
+        }
+        if (settings['pokemon-cluster'] === undefined) {
+            settings['pokemon-cluster'] = { show: true };
+        }
+        if (settings['gym-cluster'] === undefined) {
+            settings['gym-cluster'] = { show: true };
+        }
+        if (settings['pokestop-cluster'] === undefined) {
+            settings['pokestop-cluster'] = { show: true };
+        }
+    }
+    clusterPokemon = settings['pokemon-cluster'].show;
+    clusterGyms = settings['gym-cluster'].show;
+    clusterPokestops = settings['pokestop-cluster'].show;
+    showPokemonGlow = settings['pokemon-glow'].show;
 }
 
 function initMap () {
@@ -1223,6 +1284,55 @@ function initMap () {
         loadData();
 
         $('#filtersModal').modal('hide');
+    });
+    
+    $('#saveSettings').on('click', function (event) {
+        $(this).toggleClass('active');
+
+        settings = settingsNew;
+        store('settings', JSON.stringify(settings));
+
+        const newClusterPokemon = settingsNew['pokemon-cluster'].show;
+        const newShowPokemonGlow = settingsNew['pokemon-glow'].show;
+        if (clusterPokemon !== newClusterPokemon ||
+            showPokemonGlow !== newShowPokemonGlow) {
+            $.each(pokemonMarkers, function (index, pokemon) {
+                if (clusterPokemon) {
+                    clusters.removeLayer(pokemon.marker);
+                } else {
+                    map.removeLayer(pokemon.marker);
+                }
+            });
+            pokemonMarkers = [];
+        }
+        const newClusterGyms = settingsNew['gym-cluster'].show;
+        if (clusterGyms !== newClusterGyms) {
+            $.each(gymMarkers, function (index, gym) {
+                if (clusterGyms) {
+                    clusters.removeLayer(gym.marker);
+                } else {
+                    map.removeLayer(gym.marker);
+                }
+            });
+        }
+        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
+        if (clusterPokestops !== newClusterPokestops) {
+            $.each(pokestopMarkers, function (index, pokestop) {
+                if (clusterPokestops) {
+                    clusters.removeLayer(pokestop.marker);
+                } else {
+                    map.removeLayer(pokestop.marker);
+                }
+            });
+            pokestopMarkers = [];
+        }
+        clusterPokemon = newClusterPokemon;
+        showPokemonGlow = newShowPokemonGlow;
+        //pokemonGlowColor = settings['pokemon-glow'].color;
+        clusterGyms = newClusterGyms;
+        clusterPokestops = newClusterPokestops;
+
+        $('#settingsModal').modal('hide');
     });
 
     $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
@@ -3478,7 +3588,9 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = glowColor;
+    //console.log('settings:', settings);
+    const showPokemonGlow = settings['pokemon-glow'].show;
+    const color = settings['pokemon-glow'].color;
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3498,7 +3610,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
         className: 'pokemon-marker',
         html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` +
         (
-            iv >= glowIV
+            showPokemonGlow !== false && iv >= glowIV
             ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
             : ''
         ) + `"/></div>${iconHtml}`
@@ -3903,6 +4015,28 @@ function manageSelectButton (e, isNew) {
             break;
         case 'huge':
             shouldShow = pokemonFilterNew[id]['size'] === "huge";
+            break;
+        }
+    } else if (type === 'pokemon-glow') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settingsNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settingsNew[id].show === true;
+            break;
+        case 'color':
+            //shouldShow = settings[id].show === 'color';
+            shouldShow = settingsNew[id].show === 'filter';
+            break;
+        }
+    } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
+        switch (info) {
+        case 'hide':
+            shouldShow = settingsNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = settingsNew[id].show === true;
             break;
         }
     } else if (type === 'quest-misc') {
@@ -4402,6 +4536,26 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     pokemonFilterNew[id]['size'] = 'huge';
+                    break;
+                }
+            } else if (type === 'pokemon-glow') {
+                switch (info) {
+                case 'hide':
+                    settingsNew[id].show = false;
+                    break;
+                case 'show':
+                    settingsNew[id].show = true;
+                    break;
+                case 'color':
+                    return manageColorPopup(id, settings);
+                }
+            } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
+                switch (info) {
+                case 'hide':
+                    settingsNew[id].show = false;
+                    break;
+                case 'show':
+                    settingsNew[id].show = true;
                     break;
                 }
             } else if (type === 'quest-misc') {
@@ -4907,6 +5061,34 @@ function manageIVPopup (id, filter) {
     } else {
         success = false;
         alert('Invalid IV Filter!');
+    }
+    if (!success) {
+        if (prevShow === true) {
+            $('.select-button[data-id="' + id + '"][data-info="show"]').addClass('active');
+        } else if (prevShow === false) {
+            $('.select-button[data-id="' + id + '"][data-info="hide"]').addClass('active');
+        }
+    }
+    return success;
+}
+
+function manageColorPopup (id, filter) {
+    const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
+    const prevShow = filter[id].show;
+    let success;
+    const validColors = ['red','green','blue','yellow','orange','purple'];
+    if (result == null) {
+        success = false;
+    } else if (validColors.includes(result.toLowerCase())) {
+        //filter[id].show = 'color';
+        //filter[id].filter = result;
+        filter[id].color = result.toLowerCase();
+        filter[id].filter = result.toLowerCase();
+        console.log('Filter:', filter);
+        success = true;
+    } else {
+        success = false;
+        alert('Invalid color value!');
     }
     if (!success) {
         if (prevShow === true) {
@@ -6166,6 +6348,95 @@ function loadDeviceFilter () {
 
     $('#filterDeviceModal').on('shown.bs.modal', function () {
         const dataTable = $('#table-filter-device').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
+function loadSettings () {
+    const scrollHeight = $(document).height() * 0.5;
+    const table = $('#table-settings').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_settings_table_empty'),
+            zeroRecords: i18n('filter_settings_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: 'image', width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' }
+        ],
+        ajax: {
+            url: '/api/get_settings',
+            dataSrc: 'data.settings',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: scrollHeight,
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        responsive: true
+    });
+
+    $('#table-settings tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#settingsModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-settings').DataTable();
         dataTable.responsive.recalc();
         dataTable.columns.adjust();
     });

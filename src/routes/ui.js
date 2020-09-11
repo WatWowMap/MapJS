@@ -62,6 +62,11 @@ router.get('/purge', async (req, res) => {
     res.redirect(target);
 });
 
+router.get('/429', (req, res) => {
+    const data = defaultData;
+    res.render('429', data);
+});
+
 
 const handlePage = async (req, res) => {
     const data = defaultData;
