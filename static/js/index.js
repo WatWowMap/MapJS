@@ -3798,7 +3798,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/${info.item_id}.png`;
             iconUrl = `/img/item/${item}.png`;
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else if (id === 3) {
             // Stardust
@@ -3806,7 +3806,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-1.png`;
             iconUrl = '/img/item/-1.png';
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else if (id === 4) {
             // Candy
@@ -3814,7 +3814,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = '/img/item/-3.png';
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else if (id === 5) {
             // Avatar clothing
@@ -3838,14 +3838,14 @@ function getPokestopMarkerIcon (pokestop, ts) {
             rewardString = 'i-7';
             iconUrl = `/img/item/-7.png`;
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else if (id === 12) {
             // Mega resource
             rewardString = 'i-8';
             iconUrl = `/img/item/-8.png`;
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else {
             rewardString = 'i0';
