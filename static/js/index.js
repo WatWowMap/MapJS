@@ -81,14 +81,8 @@ let showInvasionTimers;
 let showSubmissionCells;
 
 let availableForms = [];
-let availableItems = [];
-let availableTileservers = {};
-let availableIconStyles = {};
 let selectedTileserver = 'Default';
 let selectedIconStyle = 'Default';
-let availableRaidBosses = [];
-let availableQuestRewards = [];
-let availableNestPokemon = [];
 
 let pokemonFilterLoaded = false;
 let questFilterLoaded = false;
@@ -105,22 +99,15 @@ let settingsLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
-let clusterPokemon = '{{cluster_pokemon}}' === 'true';
-let clusterGyms = '{{cluster_gyms}}' === 'true';
-let clusterPokestops = '{{cluster_pokestops}}' === 'true';
+let clusterPokemon;
+let clusterGyms;
+let clusterPokestops;
 
 let showPokemonGlow = true;
 
 let tileLayer;
 let nestLayer = new L.LayerGroup();
 let scanAreaLayer = new L.LayerGroup();
-let clusters = L.markerClusterGroup({
-    disableClusteringAtZoom: '{{cluster_zoom_level}}',
-    removeOutsideVisibleBounds: true
-});
-let enableScouting = '{{scouting}}' === 'true';
-
-let currentPositionMarker;
 
 let masterfile = {};
 let weatherTypes = {};
@@ -128,26 +115,7 @@ let nestsDb = {};
 let scanAreasDb = {};
 let pokemonGenerationDb = [];
 
-let maxPokemonId = '{{pokemon_count}}'; // Bandaid
 let skipForms = ['Shadow', 'Purified'];
-
-let defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
-let defaultShowRaids = '{{default_show_raids}}' === 'true';
-let defaultShowRaidTimers = '{{default_show_raid_timers}}' === 'true';
-let defaultShowGyms = '{{default_show_gyms}}' === 'true';
-let defaultShowPokestops = '{{default_show_pokestops}}' === 'true';
-let defaultShowQuests = '{{default_show_quests}}' === 'true';
-let defaultShowInvasions = '{{default_show_invasions}}' === 'true';
-let defaultShowInvasionTimers = '{{default_show_invasion_timers}}' === 'true';
-let defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true';
-let defaultShowWeather = '{{default_show_weather}}' === 'true';
-let defaultShowScanCells = '{{default_show_scan_cells}}' === 'true';
-let defaultShowSubmissionCells = '{{default_show_submission_cells}}' === 'true';
-let defaultShowNests = '{{default_show_nests}}' === 'true';
-let defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
-let defaultShowDevices = '{{default_show_devices}}' === 'true';
-
-const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -195,7 +163,7 @@ $(function () {
         }
     });
 
-    $.getJSON('/locales/{{{locale}}}.json', { _: '{{{locale_last_modified}}}' }, function (data) {
+    $.getJSON(`/locales/${locale}.json`, { _: localeLastModified }, function (data) {
         i18n.translator.add(data);
     });
 
@@ -219,13 +187,6 @@ $(function () {
     $.ajaxSetup({
         async: true
     });
-
-    availableItems = JSON.parse('{{{available_items_json}}}');
-    availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
-    availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
-    availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
-    availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
-    availableNestPokemon = JSON.parse('{{{available_nest_pokemon_json}}}');
 
     loadStorage();
 
@@ -387,8 +348,8 @@ $(function () {
         }
         tileLayer = L.tileLayer(availableTileservers[selectedTileserver].url, {
             attribution: availableTileservers[selectedTileserver].attribution,
-            minZoom: '{{min_zoom}}',
-            maxZoom: '{{max_zoom}}',
+            minZoom: minZoom,
+            maxZoom: maxZoom,
             scale: scale,
             hq: L.Browser.retina
         });
@@ -468,19 +429,19 @@ $(function () {
     }
 
     // eslint-disable-next-line no-constant-condition
-    if ('{{google_analytics_id}}' !== 'false') {
+    if (googleAnalyticsId !== 'false') {
         window.ga = window.ga || function () {
             (ga.q = ga.q || []).push(arguments);
         };
         ga.l = +new Date();
-        ga('create', '{{google_analytics_id}}', 'auto');
+        ga('create', googleAnalyticsId, 'auto');
         ga('send', 'pageview');
     }
 
     // eslint-disable-next-line no-constant-condition
-    if ('{{google_adsense_id}}' !== 'false') {
+    if (googleAdsenseId !== 'false') {
         (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: '{{google_adsense_id}}',
+            google_ad_client: googleAdsenseId,
             enable_page_level_ads: true
         });
     }
@@ -1034,7 +995,7 @@ function initMap () {
         updateWhenIdle: true,
         updateWhenZooming: false,
         layers: [nestLayer, scanAreaLayer, clusters],
-        maxZoom: '{{max_zoom}}',
+        maxZoom: maxZoom,
         //renderer: L.canvas()
     });
 
@@ -1059,8 +1020,8 @@ function initMap () {
     }
     tileLayer = L.tileLayer(availableTileservers[selectedTileserver].url, {
         attribution: availableTileservers[selectedTileserver].attribution,
-        minZoom: '{{min_zoom}}',
-        maxZoom: '{{max_zoom}}',
+        minZoom: minZoom,
+        maxZoom: maxZoom,
         scale: scale,
         hq: L.Browser.retina
     });
@@ -1632,7 +1593,7 @@ function loadSearchData (id, value) {
 function centerOnMap(lat, lon) {
     $('#searchModal').modal('toggle');
     let latlng = new L.LatLng(lat, lon);
-    let zoom = '{{max_zoom}}';
+    let zoom = maxZoom;
     map.setView(latlng, zoom);
     // TODO: Click marker popup? Search markers, if lat/lon same open popup
 }
@@ -3630,7 +3591,6 @@ function getPokemonMarkerIcon (pokemon, ts) {
     //console.log('settings:', settings);
     const showPokemonGlow = settings['pokemon-glow'].show;
     const color = settings['pokemon-glow'].color;
-    const glowIV = parseFloat('{{glow_iv}}');
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3911,9 +3871,9 @@ function getDeviceMarker (device, ts) {
         const data = JSON.parse(device.data);
         const route = data.area;
         if (device.type === 'circle_pokemon') {
-            polyline = L.polyline(route, {color: '{{device_path_color}}'}).addTo(map);
+            polyline = L.polyline(route, {color: devicePathColor}).addTo(map);
         } else if (device.type == 'pokemon_iv' || 'auto_quest') {
-            polyline = L.polyline(route, {color: '{{device_path_color}}', fill: true, fillColor: '{{device_path_color}}'}).addTo(map);
+            polyline = L.polyline(route, {color: devicePathColor, fill: true, fillColor: devicePathColor}).addTo(map);
         }
     });
     marker.on('popupclose', function (popup) {
@@ -5395,7 +5355,6 @@ function isGalarianPokemon(pokemonId, formId) {
 function sendWebhook(encounterId) {
     // Limit scouts per user
     let scoutCount = 0;
-    let scoutMaxCount = parseInt('{{scouting_count}}' || 15);
     const scoutCountValue = parseInt(retrieve('scout_count') || 0);
     if (scoutCountValue === null) {
         scoutCount = 1;
@@ -5427,7 +5386,7 @@ function sendWebhook(encounterId) {
     data.message.individual_stamina = data.message.sta_iv;
     data.message.spawnpoint_id = data.message.spawn_id;
     $.ajax({
-        url: '{{{scouting_url}}}',
+        url: scoutingUrl,
         type: 'POST',
         data: data,
         async: true,
