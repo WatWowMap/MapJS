@@ -55,7 +55,7 @@ const getSettings = () => {
         },
         'name': pokemonGlowString,
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
-        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow', glowColorLabel),
+        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
         'type': pokemonSettingsString
     });
     settingsData.push({
