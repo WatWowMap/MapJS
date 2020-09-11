@@ -6,6 +6,10 @@
     "locale": "en",
     "style": "dark",
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+    "ratelimit": {
+        "time": 60,
+        "requests": 100
+    },
     "map": {
         "maxPokemonId": 649,
         "startLat": 0,

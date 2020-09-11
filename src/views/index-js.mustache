@@ -1602,8 +1602,7 @@ function loadSearchData (id, value) {
             value: value,
             lat: center.lat,
             lon: center.lng,
-            icon_style: selectedIconStyle,
-            _csrf: '{{csrf}}'
+            icon_style: selectedIconStyle
         },
         timeout: 30000,
         dataType: 'json',
@@ -1864,8 +1863,7 @@ function loadData () {
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
         show_weather: showWeather,
         show_active_devices: showDevices,
-        last_update: lastUpdateServer,
-        _csrf: '{{csrf}}'
+        last_update: lastUpdateServer
     };
 
     loadRequest = $.ajax({
