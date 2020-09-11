@@ -3791,21 +3791,31 @@ function getPokestopMarkerIcon (pokestop, ts) {
             // XP
             rewardString = 'i-2';
             iconUrl = `/img/item/-2.png`;
-        } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
+        } else if (id === 2) {
             // Item
-            rewardString = 'i' + info.item_id;
+            const item = info && info.item_id;
+            rewardString = 'i' + item;
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/${info.item_id}.png`;
-            iconUrl = `/img/reward/reward_${info.item_id}_${info.amount}.png`;
-        } else if (id === 3 && info !== undefined && info.amount !== undefined) {
+            iconUrl = `/img/item/${item}.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+            }
+        } else if (id === 3) {
             // Stardust
             rewardString = 'i-1';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-1.png`;
-            iconUrl = `/img/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
-        } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
+            iconUrl = '/img/item/-1.png';
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+            }
+        } else if (id === 4) {
             // Candy
             rewardString = 'i-3';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
-            iconUrl = `/img/reward/reward_1301_${info.amount}.png`;
+            iconUrl = '/img/item/-3.png';
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+            }
         } else if (id === 5) {
             // Avatar clothing
             rewardString = 'i-4';
@@ -3827,10 +3837,16 @@ function getPokestopMarkerIcon (pokestop, ts) {
             // Sticker
             rewardString = 'i-7';
             iconUrl = `/img/item/-7.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+            }
         } else if (id === 12) {
             // Mega resource
             rewardString = 'i-8';
             iconUrl = `/img/item/-8.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder">${info.amount}</div>`;
+            }
         } else {
             rewardString = 'i0';
             iconUrl = `/img/item/-0.png`;
@@ -3838,7 +3854,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
         questSize = getQuestSize(rewardString);
         //const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
         const offsetY = stopSize * 0 - questSize;
-        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>`;
+        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>${iconHtml}`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
