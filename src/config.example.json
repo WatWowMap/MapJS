@@ -147,6 +147,10 @@
                 "enabled": true,
                 "roles": []
             },
+            "scanAreas": {
+                "enabled": true,
+                "roles": []
+            },
             "weather": {
                 "enabled": true,
                 "roles": []
