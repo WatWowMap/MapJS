@@ -110,7 +110,15 @@ if (config.discord.enabled) {
 
 // Login middleware
 app.use(async (req, res, next) => {
-    if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
+    // If Discord auth enabled and visiting any of the following
+    // endpoint paths, allow viewing the endpoint
+    if (config.discord.enabled &&
+        (
+            req.path === '/api/discord/login' ||
+            req.path === '/login' ||
+            (config.homePage && req.path === '/home')
+        )
+    ) {
         return next();
     }
     if (!config.discord.enabled || req.session.logged_in) {
@@ -121,7 +129,11 @@ app.use(async (req, res, next) => {
         }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);
-            res.redirect('/login');
+            if (config.homePage) {
+                res.redirect('/home');
+            } else {
+                res.redirect('/login');
+            }
             return;
         }
         const perms = req.session.perms;
@@ -129,7 +141,11 @@ app.use(async (req, res, next) => {
         if (defaultData.hide_map) {
             // No view map permissions, go to login screen
             console.error('Invalid view map permissions for user', req.session.user_id);
-            res.redirect('/login');
+            if (config.homePage) {
+                res.redirect('/home');
+            } else {
+                res.redirect('/login');
+            }
             return;
         }
         defaultData.hide_pokemon = !perms.pokemon;
@@ -149,7 +165,11 @@ app.use(async (req, res, next) => {
         defaultData.hide_devices = !perms.devices;
         return next();
     }
-    res.redirect('/login');
+    if (config.homePage) {
+        res.redirect('/home');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 // UI routes

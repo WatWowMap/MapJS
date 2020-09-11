@@ -29,6 +29,14 @@ router.get(['/', '/index'], async (req, res) => {
     res.render('index', data);
 });
 
+if (config.homePage) {
+    router.get('/home', (req, res) => {
+        const data = {};
+        data.discord_invite = config.discord.invite;
+        res.render('home', data);
+    });
+}
+
 // Location endpoints
 router.get('/@/:lat/:lon', async (req, res) => {
     res.setHeader('Content-Type', 'text/html');

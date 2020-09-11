@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html,
+            body {
+                height: 80%;
+                width: 100%;
+                margin: 0px;
+                background-color: #2c2f33;
+                background-image: url('/img/discord.png');
+            }
+
+            .title {
+                font-size: 2em;
+                color: #ffffff;
+                margin-left: 10px;
+            }
+
+            .description {
+                opacity: 0.5;
+                color: #ffffff;
+                margin-left: 10px;
+                margin-bottom: 10px;
+            }
+
+            .discord-login {
+                min-width: 7em;
+                margin-top: 2em;
+                margin-right: 0em;
+                padding: 0.5em 2em;
+                outline: none;
+                border: 2px solid #7289da;
+                border-radius: 8em;
+                color: #7289da;
+                cursor: pointer;
+                transition-duration: 0.2s;
+                font-size: 0.95em;
+                font-family: 'Righteous';
+                margin-left: 10px;
+            } 
+
+            .discord-login--active {
+                background-color: #7289da;
+                border: 2px solid #7289da;
+                color: white;
+            }
+
+            .discord-login--active:hover {
+                box-shadow: 0px 0px 10px 1px rgba(114,137,218,1);
+                color: #2c2f33;
+            }
+
+            .discord-join {
+                min-width: 7em;
+                margin-top: 2em;
+                margin-right: 0em;
+                padding: 0.5em 2em;
+                outline: none;
+                border: 2px solid #7289da;
+                background-color: transparent;
+                border-radius: 8em;
+                color: #7289da;
+                cursor: pointer;
+                transition-duration: 0.2s;
+                font-size: 0.95em;
+                font-family: 'Righteous';
+                margin-left: 10px;
+            }
+
+            .discord-join:hover {
+                color: white;
+            }
+
+            img {
+                width: 98%;
+                height: 100%;
+                border: 2px solid #7289da;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 5px;
+                margin-bottom: 3px; 
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="/img/landing.png"/ >
+        <div class="title">WELCOME!</div>
+          <div class="description">The best place to find pokemon</div>
+          <div class="description">Please login or join discord for more info</div>
+              <a href="/login" class="discord-login discord-login--active">Login</a>
+              <a href="{{discord_invite}}" class="discord-join">Join Our Discord</a> 
+        </div>
+    </body>
+</html> 
+
+<!--created by anonymous All images are copyright and belong to their respective owners, 
+this document is for educational purpose-->
