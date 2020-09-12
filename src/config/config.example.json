@@ -36,8 +36,7 @@
         "discord": {
             "enabled": false,
             "logChannelId": "",
-            "status": "Online",
-            "presence": "Map Status: Online",
+            "status": "Map Status: Online",
             "botToken": "",
             "clientId": "",
             "clientSecret": "",
