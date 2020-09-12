@@ -5,18 +5,28 @@
     "headerTitle": "MapJS - NodeJS Map Replacement",
     "locale": "en",
     "style": "dark",
+    "searchMaxResults": 20,
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     "ratelimit": {
         "time": 60,
         "requests": 100
     },
+    "google": {
+        "analytics": "",
+        "adsense": ""
+    },
+    "scouting": {
+        "enabled": false,
+        "url": "",
+        "maxScouts": 15
+    },
     "map": {
-        "maxPokemonId": 649,
         "startLat": 0,
         "startLon": 0,
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
+        "maxPokemonId": 649,
         "devicePathColor": "red",
         "clusters": {
             "pokemon": true,
@@ -45,9 +55,6 @@
             "iv": 100,
             "color": "red"
         }
-    },
-    "areas": {
-        "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
     },
     "header": {
         "left": [
@@ -157,21 +164,17 @@
             }
         }
     },
-    "google": {
-        "analytics": "",
-        "adsense": ""
-    },
+    "tileservers": {
+        "Default": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png;Map tiles by Carto, under CC BY 3.0. Data by  <a href='https://www.openstreetmap.org/'>OpenStreetMap</a>, under ODbL.",
+        "OSM": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
+        "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>",
+        "Satellite": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x};Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+        },
     "icons": {
         "Default": {
             "path": "https://mygod.github.io/pokicons/v2"
         }
     },
-    "scouting": {
-        "enabled": false,
-        "url": "",
-        "maxScouts": 15
-    },
-    "searchMaxResults": 20,
     "rarity": {
         "Default": {
             "ivAnd": {
