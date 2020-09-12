@@ -19,6 +19,7 @@ data.scouting_url = config.scouting.url;
 data.scouting_count = config.scouting.maxScouts;
 data.glow_color = config.map.glow.color;
 data.glow_iv = config.map.glow.iv;
+data.favicon = config.favicon;
 data.device_path_color = config.map.devicePathColor;
 
 // Default filter options for new users/cache clears
