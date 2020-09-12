@@ -3789,44 +3789,78 @@ function getPokestopMarkerIcon (pokestop, ts) {
         let iconUrl;
         if (id === 1 && info !== undefined && info.amount !== undefined) {
             // XP
+            rewardString = 'i-2';
             iconUrl = `/img/item/-2.png`;
-        } else if (id === 2 && info !== undefined && info.amount !== undefined && info.item_id !== undefined) {
+        } else if (id === 2) {
             // Item
+            const item = info && info.item_id;
+            rewardString = 'i' + item;
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/${info.item_id}.png`;
-            iconUrl = `/img/reward/reward_${info.item_id}_${info.amount}.png`;
-        } else if (id === 3 && info !== undefined && info.amount !== undefined) {
+            iconUrl = `/img/item/${item}.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
+        } else if (id === 3) {
             // Stardust
+            rewardString = 'i-1';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-1.png`;
-            iconUrl = `/img/reward/reward_stardust${info.amount > 0 ? '_' + info.amount : ''}.png`;
-        } else if (id === 4 && info !== undefined && info.amount !== undefined && info.pokemon_id !== undefined) {
+            iconUrl = '/img/item/-1.png';
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
+        } else if (id === 4) {
             // Candy
+            rewardString = 'i-3';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
-            iconUrl = `/img/reward/reward_1301_${info.amount}.png`;
+            iconUrl = '/img/item/-3.png';
+            if (info && info.pokemon_id) {
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+            }
+            if (info && info.amount > 1) {
+                iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
         } else if (id === 5) {
             // Avatar clothing
+            rewardString = 'i-4';
             iconUrl = `/img/item/-4.png`;
         } else if (id === 6) {
             // Quest
+            rewardString = 'i-5';
             iconUrl = `/img/item/-5.png`;
         } else if (id === 7 && info !== undefined) {
+            // Pokemon
+            rewardString = 'p' + info.pokemon_id;
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
             // Pokecoin
+            rewardString = 'i-6';
             iconUrl = `/img/item/-6.png`;
         } else if (id === 11) {
             // Sticker
+            rewardString = 'i-7';
             iconUrl = `/img/item/-7.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
         } else if (id === 12) {
             // Mega resource
-            iconUrl = `/img/item/-8.png`;
+            rewardString = 'i-8';
+            iconUrl = '/img/item/-8.png';
+            if (info && info.pokemon_id) {
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+            }
+            if (info && info.amount > 1) {
+                iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
         } else {
+            rewardString = 'i0';
             iconUrl = `/img/item/-0.png`;
         }
         questSize = getQuestSize(rewardString);
         //const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
         const offsetY = stopSize * 0 - questSize;
-        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>`;
+        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/>${iconHtml}</div>`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
