@@ -4,6 +4,9 @@
     <script type="text/javascript">
         const defaultStartLocation = ['{{lat}}', '{{lon}}'];
         const defaultStartZoom = '{{zoom}}';
+        let clusterPokemon = '{{cluster_pokemon}}' === 'true';
+        let clusterGyms = '{{cluster_gyms}}' === 'true';
+        let clusterPokestops = '{{cluster_pokestops}}' === 'true';
         const clusters = L.markerClusterGroup({
             disableClusteringAtZoom: '{{cluster_zoom_level}}',
             removeOutsideVisibleBounds: true
