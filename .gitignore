@@ -105,7 +105,6 @@ dist
 
 # No main configs
 config.json
-rarity.json
 
 # No logs
 logs
