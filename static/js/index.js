@@ -3854,7 +3854,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
         questSize = getQuestSize(rewardString);
         //const offsetY = stopSize * (availableIconStyles[selectedIconStyle].questOffsetY || 0) - questSize;
         const offsetY = stopSize * 0 - questSize;
-        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/></div>${iconHtml}`;
+        iconHtml = `<div class="marker-image-holder top-overlay" style="width:${questSize}px;height:${questSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${iconUrl}"/>${iconHtml}</div>`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
