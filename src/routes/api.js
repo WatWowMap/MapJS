@@ -34,7 +34,7 @@ router.get('/get_settings', async (req, res) => {
 const getSettings = () => {
     let data = {};
     let settingsData = [];
-    const settingColorString = i18n.__('settings_color');
+    //const settingColorString = i18n.__('settings_color');
     const pokemonSettingsString = i18n.__('settings_pokemon');
     const pokemonGlowString = i18n.__('settings_pokemon_glow');
     const clusterPokemonString = i18n.__('settings_cluster_pokemon');
@@ -43,11 +43,13 @@ const getSettings = () => {
     const pokestopSettingsString = i18n.__('settings_pokestop');
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
 
-    let glowColorLabel = `
+    /*
+    const glowColorLabel = `
     <label class="btn btn-sm btn-size select-button-new" data-id="pokemon-glow" data-type="pokemon-glow" data-info="color">
         <input type="radio" name="options" id="color" autocomplete="off">${settingColorString}
     </label>
     `;
+    */
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(0, 3),
@@ -297,7 +299,7 @@ const getData = async (perms, filter) => {
 
         const bigKarpString = i18n.__('filter_big_karp');
         const tinyRatString = i18n.__('filter_tiny_rat');
-        for (var i = 0; i <= 1; i++) {
+        for (let i = 0; i <= 1; i++) {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
@@ -824,7 +826,7 @@ const getData = async (perms, filter) => {
     if (permViewMap && showWeatherFilter) {
         const weatherOptionsString = i18n.__('filter_weather_options');
         let weatherData = [];
-        for (i = 1; i <= 7; i++) {
+        for (let i = 1; i <= 7; i++) {
             const weatherNameString = i18n.__('weather_' + i);
             weatherData.push({
                 'id': {

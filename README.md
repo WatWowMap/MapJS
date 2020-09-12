@@ -51,14 +51,24 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "interface": "0.0.0.0",
     // Listening port
     "port": 8080,
-    // Map title
+    // Map title shown in navigation bar
     "title": "MapJS",
-    // Localization
+    // Web page title (shown in tab)
+    "headerTitle": "MapJS - NodeJS Map Replacement",
+    // Localization to use for the map
     "locale": "en",
-    // Theme style
+    // Theme style (dark/light)
     "style": "dark",
     // Cookie session secret key, make sure to randomize and NOT use default
+    // either keyboard mash or a generator https://browserling.com/tools/random-hex
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+    // API rate limiting
+    "ratelimit": {
+        // Amount of cooldown time period if rate limit is reached (minutes)
+        "time": 60,
+	// Maximum number of API requests that can be made within a minute
+        "requests": 100
+    },
     // Map settings
     "map": {
         // Maximum available Pokemon
@@ -92,6 +102,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "gyms": true,
             // Show raids
             "raids": false,
+	    // Show raid timers
             "raidTimers": false,
             // Show pokestops
             "pokestops": false,
@@ -99,6 +110,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "quests": false,
             // Show invasions
             "invasions": false,
+	    // Show invasion timers
             "invasionTimers": false,
             // Show spawnpoints
             "spawnpoints": false,
@@ -125,17 +137,17 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "color": "red"
         }
     },
-    // Areas list with location and zoom for dropdwon
+    // Areas list with location and zoom dropdown in navbar
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
     },
     // Custom navigation headers
     "header": {
-        // Left side navigation headers
+        // Left side navigation headers (leave empty `[]` if not needed)
         "left": [
             { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
         ],
-        // Right side navigation headers
+        // Right side navigation headers (leave empty `[]` if not needed)
         "right": [
             { "name": "Discord", "url": "https://discord.com/invite/example", "icon": "fab fa-discord" }
         ]
@@ -186,7 +198,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
         "clientSecret": "",
         // Discord bot redirect uri
         "redirectUri": "http://localhost:8080/api/discord/callback",
-        // Required guilds in order to authenticate successfully
+        // Required guilds in order to authenticate successfully (i.e. ["9834983749834", "9834983743", etc])
+	// leave empty `[]` for no guild requirement although not recommended.
         "guilds": [],
         // Map permissions
         "perms": {
@@ -195,6 +208,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
                 // Enable map (probably redundant)
                 "enabled": true,
                 // Discord roles required in order to view map (leave empty `[]` for no role requirement)
+		// (i.e ["803948098", "983409830", etc]
                 "roles": []
             },
             // View Pokemon permissions
@@ -202,6 +216,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
                 // Enable Pokemon
                 "enabled": true,
                 // Discord roles required in order to view Pokemon (leave empty `[]` for no role requirement)
+		// (i.e ["803948098", "983409830", etc]
                 "roles": []
             },
             "raids": {
@@ -252,6 +267,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
                 "enabled": true,
                 "roles": []
             },
+	    "scanAreas": {
+	        "enabled": true,
+		"roles": []
+	    },
             "weather": {
                 "enabled": true,
                 "roles": []

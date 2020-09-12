@@ -164,7 +164,7 @@ const handlePage = async (req, res) => {
     }
 
     if (city) {
-        for (var i = 0; i < areaKeys.length; i++) {
+        for (let i = 0; i < areaKeys.length; i++) {
             const key = areaKeys[i];
             if (city.toLowerCase() === key.toLowerCase()) {
                 const area = config.areas[key];
