@@ -111,6 +111,7 @@ let scanAreaLayer = new L.LayerGroup();
 
 let masterfile = {};
 let weatherTypes = {};
+let gruntTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
 let pokemonGenerationDb = [];
@@ -180,6 +181,9 @@ $(function () {
 
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
+    });
+    $.getJSON('/data/grunttypes.json', function (data) {
+        gruntTypes = data;
     });
     $.getJSON('/data/cpm.json', function (data) {
         cpMultipliers = data;
@@ -2990,7 +2994,9 @@ function getPokestopPopupContent (pokestop) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
         content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
-        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br><br>';
+        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br>';
+        // TODO: Show possible rewards
+        content += getPossibleInvasionRewards(pokestop);
     }
 
     if (pokestop.quest_type !== null) {
@@ -3053,6 +3059,58 @@ function getPokestopPopupContent (pokestop) {
         '</div>' +
     '</div>';
     return content;
+}
+
+function getPossibleInvasionRewards (pokestop) {
+    let item = gruntTypes[pokestop.grunt_type];
+    let content = '';
+	content +=
+	//'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
+    //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
+    '<div class="grunt-encounter-wrapper text-center" style="background-color:#1c1c1c; border-radius:10px; border:1px solid black;">'
+	if (item['second_reward'] === 'false') {
+		content += `<div>100% Encounter Chance:<br>`;
+		item['encounters']['first'].forEach(function (data) {
+            content += `
+            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
+            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
+            `;
+		});
+        content += `</div>
+        </div>`;
+	} else if (item['second_reward'] === 'true') {
+		content += `<div>85% Encounter Chance:<br>`;
+		item['encounters']['first'].forEach(function (data) {
+            content += `
+            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
+            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
+            `;
+		});
+		content += `</div>
+		<div class="m-1">15% Encounter Chance:<br>`;
+		item['encounters']['second'].forEach(function (data) {
+            content += `
+            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
+            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
+            `;
+		});
+        content += `
+        </div>
+    </div>`;
+	}
+    return content;
+}
+
+function showHideGruntEncounter() {
+    var x = document.getElementsByClassName('grunt-encounter-wrapper')
+    var i
+    for (i = 0; i < x.length; i++) {
+        if (x[i].style.display === 'none') {
+            x[i].style.display = 'block'
+        } else {
+            x[i].style.display = 'none'
+        }
+    }
 }
 
 function getGymPopupContent (gym) {
