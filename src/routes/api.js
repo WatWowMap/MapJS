@@ -35,13 +35,15 @@ const getSettings = () => {
     let data = {};
     let settingsData = [];
     //const settingColorString = i18n.__('settings_color');
-    const pokemonSettingsString = i18n.__('settings_pokemon');
+    const pokemonSettingsString = i18n.__('filter_pokemon');
     const pokemonGlowString = i18n.__('settings_pokemon_glow');
     const clusterPokemonString = i18n.__('settings_cluster_pokemon');
-    const gymSettingsString = i18n.__('settings_gym');
+    const gymSettingsString = i18n.__('filter_gyms');
     const clusterGymsString = i18n.__('settings_cluster_gyms');
-    const pokestopSettingsString = i18n.__('settings_pokestop');
+    const pokestopSettingsString = i18n.__('filter_pokestops');
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
+    const nestSettingsString = i18n.__('filter_nests');
+    const nestPolygonsString = i18n.__('settings_nest_polygons');
 
     /*
     const glowColorLabel = `
@@ -52,43 +54,43 @@ const getSettings = () => {
     */
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(0, 3),
             'sort': 0
         },
         'name': pokemonGlowString,
-        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
         'type': pokemonSettingsString
     });
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(1, 3),
             'sort': 1
         },
         'name': clusterPokemonString,
-        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
         'type': pokemonSettingsString
     });
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(0, 3),
-            'sort': 1
+            'sort': 10
         },
         'name': clusterGymsString,
-        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('gym-cluster', 'gym-cluster'),
         'type': gymSettingsString
     });
     settingsData.push({
         'id': {
-            'formatted': utils.zeroPad(0, 3),
-            'sort': 1
+            'sort': 20
         },
         'name': clusterPokestopsString,
-        'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
         'type': pokestopSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 30
+        },
+        'name': nestPolygonsString,
+        'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
+        'type': nestSettingsString
     });
     /*
     settingsData.push({

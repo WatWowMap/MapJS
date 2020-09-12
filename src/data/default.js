@@ -20,6 +20,7 @@ data.scouting_count = config.scouting.maxScouts;
 data.glow_color = config.map.glow.color;
 data.glow_iv = config.map.glow.iv;
 data.device_path_color = config.map.devicePathColor;
+data.nest_polygons = config.map.nestPolygons;
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
