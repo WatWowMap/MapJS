@@ -183,7 +183,7 @@ $(function () {
     });
     $.getJSON('/data/cpm.json', function (data) {
         cpMultipliers = data;
-    });    
+    });
     $.ajaxSetup({
         async: true
     });
@@ -240,7 +240,7 @@ $(function () {
         iconAnchor: [30 / 2, 30 / 2],
         popupAnchor: [0, 30 * -.6]
     });
-    
+
     $('#filtersModal').on('show.bs.modal', function () {
         pokemonFilterNew = $.extend(true, {}, pokemonFilter);
         questFilterNew = $.extend(true, {}, questFilter);
@@ -892,7 +892,7 @@ function loadStorage () {
                 defaultNestFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
-        
+
         store('nest_filter', JSON.stringify(defaultNestFilter));
         nestFilter = defaultNestFilter;
     } else {
@@ -916,7 +916,7 @@ function loadStorage () {
                 defaultWeatherFilter[i] = { show: true, size: 'normal' };
             }
         }
-        
+
         store('weather_filter', JSON.stringify(defaultWeatherFilter));
         weatherFilter = defaultWeatherFilter;
     } else {
@@ -949,7 +949,7 @@ function loadStorage () {
             deviceFilter['offline'] = { show: true, size: 'normal' };
         }
     }
-    
+
     const settingsValue = retrieve('settings');
     if (settingsValue === null) {
         const defaultSettings = {};
@@ -1272,7 +1272,7 @@ function initMap () {
 
         showScanAreas = newShowScanAreas;
         store('show_scanareas', newShowScanAreas);
-    
+
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
         store('device_filter', JSON.stringify(deviceFilter));
@@ -1285,7 +1285,7 @@ function initMap () {
 
         $('#filtersModal').modal('hide');
     });
-    
+
     $('#saveSettings').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -2145,7 +2145,7 @@ function loadData () {
                         } else {
                             pokemon.marker.addTo(map);
                         }
-                        
+
                     } else {
                         if (oldPokemon.expire_timestamp !== pokemon.expire_timestamp) {
                             oldPokemon.expire_timestamp = pokemon.expire_timestamp;
@@ -2450,7 +2450,7 @@ function getPokemonIndex (pokemon) {
     }
     return 2;
 }
-  
+
 function hasRelevantLeagueStats (leagueStats, greatLeague) {
     let found = false;
     let minCP = greatLeague !== false ? 1400 : 2400;
@@ -2465,7 +2465,7 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
         }
     }
     return found;
-}  
+}
 
 function getQuestSize (questId) {
     if (questFilter[questId] === undefined || questFilter[questId].size === undefined) {
@@ -3058,42 +3058,33 @@ function getPokestopPopupContent (pokestop) {
 }
 
 function getPossibleInvasionRewards (pokestop) {
+    function makeShadowPokemon (pokemonId) {
+        return `<div class="invasion-reward">
+            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(pokemonId)}.png"/>
+            <img class="invasion-reward-shadow" src="/img/misc/shadow.png"/>
+        </div>`;
+    }
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';
-	content +=
-	//'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
+    content +=
+    //'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
     //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
-    '<div class="grunt-encounter-wrapper text-center" style="background-color:#1c1c1c; border-radius:10px; border:1px solid black;">'
-	if (item['second_reward'] === 'false') {
-		content += `<div>100% Encounter Chance:<br>`;
-		item['encounters']['first'].forEach(function (data) {
-            content += `
-            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
-            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
-            `;
-		});
+    '<div class="grunt-encounter-wrapper text-center">';
+    if (item['second_reward'] === 'false') {
+        content += '<div>100% Encounter Chance:<br>';
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
         </div>`;
-	} else if (item['second_reward'] === 'true') {
-		content += `<div>85% Encounter Chance:<br>`;
-		item['encounters']['first'].forEach(function (data) {
-            content += `
-            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
-            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
-            `;
-		});
-		content += `</div>
+    } else if (item['second_reward'] === 'true') {
+        content += '<div>85% Encounter Chance:<br>';
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
 		<div class="m-1">15% Encounter Chance:<br>`;
-		item['encounters']['second'].forEach(function (data) {
-            content += `
-            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(data)}.png" class="invasion-reward" />
-            <img src="img/misc/shadow.png" class="invasion-reward-shadow m-1"/>
-            `;
-		});
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `
         </div>
     </div>`;
-	}
+    }
     return content;
 }
 
