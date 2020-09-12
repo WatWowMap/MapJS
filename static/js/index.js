@@ -3813,8 +3813,11 @@ function getPokestopMarkerIcon (pokestop, ts) {
             rewardString = 'i-3';
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = '/img/item/-3.png';
+            if (info && info.pokemon_id) {
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+            }
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+                iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else if (id === 5) {
             // Avatar clothing
@@ -3843,9 +3846,12 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 12) {
             // Mega resource
             rewardString = 'i-8';
-            iconUrl = `/img/item/-8.png`;
+            iconUrl = '/img/item/-8.png';
+            if (info && info.pokemon_id) {
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+            }
             if (info && info.amount > 1) {
-                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+                iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
             }
         } else {
             rewardString = 'i0';
