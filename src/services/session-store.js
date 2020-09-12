@@ -32,7 +32,7 @@ const isValidSession = async (userId) => {
     SELECT session_id
     FROM sessions
     WHERE
-        json_extract(data, '$.user_id') = "?"
+        json_extract(data, '$.user_id') = ?
         AND expires >= UNIX_TIMESTAMP()
     `;
     let args = [userId];
@@ -44,7 +44,7 @@ const clearOtherSessions = async (userId, currentSessionId) => {
     let sql = `
     DELETE FROM sessions
     WHERE
-        json_extract(data, '$.user_id') = "?"
+        json_extract(data, '$.user_id') = ?
         AND session_id != ?
     `;
     let args = [userId, currentSessionId];
