@@ -2385,7 +2385,7 @@ function loadScanAreaPolygons () {
         return;
     }
     try {
-        var areaGeoPolys = L.geoJson(scanAreasDb, {
+        let areaGeoPolys = L.geoJson(scanAreasDb, {
             onEachFeature: function(features, featureLayer) {
                 let coords = features.geometry.coordinates[0];
                 let areaSize = geodesicArea(coords);
@@ -2452,12 +2452,12 @@ function getPokemonIndex (pokemon) {
 }
   
 function hasRelevantLeagueStats (leagueStats, greatLeague) {
-    var found = false;
-    var minCP = greatLeague !== false ? 1400 : 2400;
-    var maxCP = greatLeague !== false ? 1500 : 2500;
-    var maxRank = 100;
+    let found = false;
+    let minCP = greatLeague !== false ? 1400 : 2400;
+    let maxCP = greatLeague !== false ? 1500 : 2500;
+    let maxRank = 100;
     if (leagueStats) {
-        for (var i = 0; i < leagueStats.length; i++) {
+        for (let i = 0; i < leagueStats.length; i++) {
             if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
                 found = true;
                 break;
@@ -3098,13 +3098,12 @@ function getPossibleInvasionRewards (pokestop) {
 }
 
 function showHideGruntEncounter() {
-    var x = document.getElementsByClassName('grunt-encounter-wrapper')
-    var i
-    for (i = 0; i < x.length; i++) {
-        if (x[i].style.display === 'none') {
-            x[i].style.display = 'block'
+    let container = document.getElementsByClassName('grunt-encounter-wrapper');
+    for (let i = 0; i < x.length; i++) {
+        if (container[i].style.display === 'none') {
+            container[i].style.display = 'block';
         } else {
-            x[i].style.display = 'none'
+            container[i].style.display = 'none';
         }
     }
 }

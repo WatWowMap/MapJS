@@ -299,7 +299,7 @@ const getData = async (perms, filter) => {
 
         const bigKarpString = i18n.__('filter_big_karp');
         const tinyRatString = i18n.__('filter_tiny_rat');
-        for (var i = 0; i <= 1; i++) {
+        for (let i = 0; i <= 1; i++) {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
@@ -826,7 +826,7 @@ const getData = async (perms, filter) => {
     if (permViewMap && showWeatherFilter) {
         const weatherOptionsString = i18n.__('filter_weather_options');
         let weatherData = [];
-        for (i = 1; i <= 7; i++) {
+        for (let i = 1; i <= 7; i++) {
             const weatherNameString = i18n.__('weather_' + i);
             weatherData.push({
                 'id': {
