@@ -73,7 +73,7 @@ const getSettings = () => {
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(0, 3),
-            'sort': 1
+            'sort': 0 + 10
         },
         'name': clusterGymsString,
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
@@ -83,12 +83,22 @@ const getSettings = () => {
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(0, 3),
-            'sort': 1
+            'sort': 0 + 20
         },
         'name': clusterPokestopsString,
         'image': '<img class="lazy_load" data-src="/img/spawnpoint/0.png" style="height:50px; width:50px;">',
         'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
         'type': pokestopSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'formatted': utils.zeroPad(0, 3),
+            'sort': 0 + 30
+        },
+        'name': 'Nest Polygons',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px;">',
+        'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
+        'type': 'Nest Settings'
     });
     /*
     settingsData.push({

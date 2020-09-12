@@ -11,6 +11,7 @@
             disableClusteringAtZoom: '{{cluster_zoom_level}}',
             removeOutsideVisibleBounds: true
         });
+        let showNestPolygons = '{{nest_polygons}}' === 'true';
         const enableScouting = '{{scouting}}' === 'true';
         const scoutingUrl = '{{{scouting_url}}}';
         const scoutMaxCount = parseInt('{{scouting_count}}' || 15);

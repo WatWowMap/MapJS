@@ -961,6 +961,9 @@ function loadStorage () {
         if (defaultSettings['pokestop-cluster'] === undefined) {
             defaultSettings['pokestop-cluster'] = { show: clusterPokestops };
         }
+        if (defaultSettings['nest-polygon'] === undefined) {
+            defaultSettings['nest-polygon'] = { show: showNestPolygons };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
@@ -977,11 +980,15 @@ function loadStorage () {
         if (settings['pokestop-cluster'] === undefined) {
             settings['pokestop-cluster'] = { show: true };
         }
+        if (settings['nest-polygon'] === undefined) {
+            settings['nest-polygon'] = { show: true };
+        }
     }
     clusterPokemon = settings['pokemon-cluster'].show;
     clusterGyms = settings['gym-cluster'].show;
     clusterPokestops = settings['pokestop-cluster'].show;
     showPokemonGlow = settings['pokemon-glow'].show;
+    showNestPolygons = settings['nest-polygon'].show;
 }
 
 function initMap () {
@@ -1322,123 +1329,19 @@ function initMap () {
             });
             pokestopMarkers = [];
         }
-        clusterPokemon = newClusterPokemon;
-        showPokemonGlow = newShowPokemonGlow;
-        //pokemonGlowColor = settings['pokemon-glow'].color;
-        clusterGyms = newClusterGyms;
-        clusterPokestops = newClusterPokestops;
-
-        $('#settingsModal').modal('hide');
-    });
-
-    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
-        let input = e.target;
-        if (input) {
-            loadSearchData(input.id, input.value);
-        }
-    });
-
-    $('#saveSettings').on('click', function (event) {
-        $(this).toggleClass('active');
-        settings = settingsNew;
-        store('settings', JSON.stringify(settings));
-
-        //console.log('settings:', settings);
-        const newClusterPokemon = settings['pokemon-cluster'].show;
-        const newShowPokemonGlow = settings['pokemon-glow'].show;
-        if (clusterPokemon !== newClusterPokemon ||
-            showPokemonGlow !== newShowPokemonGlow) {
-            $.each(pokemonMarkers, function (index, pokemon) {
-                if (clusterPokemon) {
-                    clusters.removeLayer(pokemon.marker);
-                } else {
-                    map.removeLayer(pokemon.marker);
-                }
+        const newShowNestPolygons = settingsNew['nest-polygon'].show;
+        if (showNestPolygons !== newShowNestPolygons) {
+            $.each(nestMarkers, function (index, nest) {
+                nestLayer.removeLayer(nest.marker);
             });
-            pokemonMarkers = [];
-        }
-        const newClusterGyms = settingsNew['gym-cluster'].show;
-        if (clusterGyms !== newClusterGyms) {
-            $.each(gymMarkers, function (index, gym) {
-                if (clusterGyms) {
-                    clusters.removeLayer(gym.marker);
-                } else {
-                    map.removeLayer(gym.marker);
-                }
-            });
-        }
-        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
-        if (clusterPokestops !== newClusterPokestops) {
-            $.each(pokestopMarkers, function (index, pokestop) {
-                if (clusterPokestops) {
-                    clusters.removeLayer(pokestop.marker);
-                } else {
-                    map.removeLayer(pokestop.marker);
-                }
-            });
-            pokestopMarkers = [];
+            nestMarkers = [];
         }
         clusterPokemon = newClusterPokemon;
         showPokemonGlow = newShowPokemonGlow;
         //pokemonGlowColor = settings['pokemon-glow'].color;
         clusterGyms = newClusterGyms;
         clusterPokestops = newClusterPokestops;
-
-        $('#settingsModal').modal('hide');
-    });
-
-    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
-        let input = e.target;
-        if (input) {
-            loadSearchData(input.id, input.value);
-        }
-    });
-
-    $('#saveSettings').on('click', function (event) {
-        $(this).toggleClass('active');
-        settings = settingsNew;
-        store('settings', JSON.stringify(settings));
-
-        //console.log('settings:', settings);
-        const newClusterPokemon = settings['pokemon-cluster'].show;
-        const newShowPokemonGlow = settings['pokemon-glow'].show;
-        if (clusterPokemon !== newClusterPokemon ||
-            showPokemonGlow !== newShowPokemonGlow) {
-            $.each(pokemonMarkers, function (index, pokemon) {
-                if (clusterPokemon) {
-                    clusters.removeLayer(pokemon.marker);
-                } else {
-                    map.removeLayer(pokemon.marker);
-                }
-            });
-            pokemonMarkers = [];
-        }
-        const newClusterGyms = settingsNew['gym-cluster'].show;
-        if (clusterGyms !== newClusterGyms) {
-            $.each(gymMarkers, function (index, gym) {
-                if (clusterGyms) {
-                    clusters.removeLayer(gym.marker);
-                } else {
-                    map.removeLayer(gym.marker);
-                }
-            });
-        }
-        const newClusterPokestops = settingsNew['pokestop-cluster'].show;
-        if (clusterPokestops !== newClusterPokestops) {
-            $.each(pokestopMarkers, function (index, pokestop) {
-                if (clusterPokestops) {
-                    clusters.removeLayer(pokestop.marker);
-                } else {
-                    map.removeLayer(pokestop.marker);
-                }
-            });
-            pokestopMarkers = [];
-        }
-        clusterPokemon = newClusterPokemon;
-        showPokemonGlow = newShowPokemonGlow;
-        //pokemonGlowColor = settings['pokemon-glow'].color;
-        clusterGyms = newClusterGyms;
-        clusterPokestops = newClusterPokestops;
+        showNestPolygons = newShowNestPolygons;
 
         $('#settingsModal').modal('hide');
     });
@@ -3662,11 +3565,11 @@ function getNestMarker (nest, geojson, ts) {
             featureLayer.bindPopup(getNestPopupContent(nest));
             featureLayer.setStyle({
                 //'weight': 1,
-                'stroke': features.properties['stroke'],
-                'strokeOpacity': features.properties['stroke-opacity'],
-                'strokeWidth': features.properties['stroke-width'],
-                'fillColor': features.properties['fill'],
-                'fillOpacity': features.properties['fill-opacity']
+                'stroke': showNestPolygons ? features.properties['stroke'] : 0,
+                'strokeOpacity': showNestPolygons ? features.properties['stroke-opacity'] : 0,
+                'strokeWidth': showNestPolygons ? features.properties['stroke-width'] : 0,
+                'fillColor': showNestPolygons ? features.properties['fill'] : 0,
+                'fillOpacity': showNestPolygons ? features.properties['fill-opacity'] : 0
             });
             const icon = L.divIcon({
                 iconSize: [40, 40],
@@ -4184,7 +4087,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === 'filter';
             break;
         }
-    } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
+    } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster' || type === 'nest-polygon') {
         switch (info) {
         case 'hide':
             shouldShow = settingsNew[id].show === false;
@@ -4703,7 +4606,7 @@ function manageSelectButton (e, isNew) {
                 case 'color':
                     return manageColorPopup(id, settings);
                 }
-            } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster') {
+            } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster' || type === 'nest-polygon') {
                 switch (info) {
                 case 'hide':
                     settingsNew[id].show = false;

@@ -18,6 +18,7 @@
         "minZoom": 10,
         "maxZoom": 18,
         "devicePathColor": "red",
+        "nestPolygons": true,
         "clusters": {
             "pokemon": true,
             "gyms": true,
