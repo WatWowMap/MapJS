@@ -307,6 +307,17 @@ fieldset[disabled] .btn-size.active {
     content: "×";
 }
 
+.invasion-reward {
+  width: 30px;
+  height: auto;
+  position: absolute;
+}
+
+.invasion-reward-shadow {
+    width: 28px;
+    height: 28px;
+}
+
 img {
     image-rendering: crisp-edges;
     image-rendering: -webkit-optimize-contrast;
