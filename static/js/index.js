@@ -3063,10 +3063,10 @@ function getPokestopPopupContent (pokestop) {
 
 function getPossibleInvasionRewards (pokestop) {
     function makeShadowPokemon (pokemonId) {
-        return `<span class="invasion-reward">
+        return `<div class="invasion-reward">
             <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(pokemonId)}.png"/>
             <img class="invasion-reward-shadow" src="/img/misc/shadow.png"/>
-        </span>`;
+        </div>`;
     }
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';

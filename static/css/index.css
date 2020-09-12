@@ -314,6 +314,7 @@ fieldset[disabled] .btn-size.active {
     border: 1px solid black;
 }
 .invasion-reward {
+    display: inline-block;
     width: 30px;
     height: 30px;
     position: relative;
