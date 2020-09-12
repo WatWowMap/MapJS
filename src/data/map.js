@@ -5,7 +5,7 @@ const i18n = require('i18n');
 const S2 = require('nodes2ts');
 const sanitizer = require('sanitizer');
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const MySQLConnector = require('../services/mysql.js');
 const utils = require('../services/utils.js');
 

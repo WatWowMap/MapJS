@@ -6,8 +6,10 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
+const uConfig = require('../config.json');
 const defaultData = require('../data/default.js');
+
 //const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');
 
@@ -73,14 +75,14 @@ const handlePage = async (req, res) => {
     data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
     data.tableClass = config.style === 'dark' ? 'table-dark' : '';
 
-    data.max_pokemon_id = config.map.maxPokemonId;
+    data.max_pokemon_id = config.default.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    await updateAvailableForms(config.icons);
-    data.available_icon_styles_json = JSON.stringify(config.icons);
+    await updateAvailableForms(uConfig.map.icons);
+    data.available_icon_styles_json = JSON.stringify(uConfig.map.icons);
 
     // Build available items list
     const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
@@ -148,8 +150,8 @@ const handlePage = async (req, res) => {
     data.page_is_areas = true;
     data.show_areas = true;
     data.timestamp = Date.now();
-    let lat = parseFloat(req.params.lat || config.map.startLat);
-    let lon = parseFloat(req.params.lon || config.map.startLon);
+    let lat = parseFloat(req.params.lat || config.default.startLat);
+    let lon = parseFloat(req.params.lon || config.default.startLon);
     let city = req.params.city || null;
     let zoom = req.params.zoom;
 
@@ -171,27 +173,27 @@ const handlePage = async (req, res) => {
                 lat = parseFloat(area.lat);
                 lon = parseFloat(area.lon);
                 if (!zoom) {
-                    zoom = parseInt(area.zoom || config.map.startZoom);
+                    zoom = parseInt(area.zoom || config.default.startZoom);
                 }
                 break;
             }
         }
     }
 
-    if ((zoom || config.map.startZoom) > config.map.maxZoom) {
-        zoom = config.map.maxZoom;
-    } else if ((zoom || config.map.startZoom) < config.map.minZoom) {
-        zoom = config.map.minZoom;
+    if ((zoom || config.default.startZoom) > config.default.maxZoom) {
+        zoom = config.default.maxZoom;
+    } else if ((zoom || config.default.startZoom) < config.default.minZoom) {
+        zoom = config.default.minZoom;
     }
 
     data.start_lat = lat || 0;
     data.start_lon = lon || 0;
-    data.start_zoom = zoom || config.map.startZoom || 12;
+    data.start_zoom = zoom || config.default.startZoom || 12;
     data.lat = lat || 0;
     data.lon = lon || 0;
-    data.zoom = zoom || config.map.startZoom || 12;
-    data.min_zoom = config.map.minZoom || 10;
-    data.max_zoom = config.map.maxZoom || 18;
+    data.zoom = zoom || config.default.startZoom || 12;
+    data.min_zoom = config.default.minZoom || 10;
+    data.max_zoom = config.default.maxZoom || 18;
 
     data.locale_last_modified = (await fs.promises.stat(path.resolve(__dirname, `../../static/locales/${data.locale}.json`))).mtimeMs;
     data.css_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/css/index.css'))).mtimeMs;
@@ -229,6 +231,7 @@ const updateAvailableForms = async (icons) => {
                     }
                 });
                 icon.pokemonList = availableForms;
+                console.log(pokemonIconsDir);
             }
         } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
             axios({

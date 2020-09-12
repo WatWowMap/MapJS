@@ -4,7 +4,7 @@ const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 
@@ -319,7 +319,7 @@ const getData = async (perms, filter) => {
         }
 
 
-        for (let i = 1; i < config.map.maxPokemonId; i++) {
+        for (let i = 1; i < config.default.maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
