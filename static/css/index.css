@@ -324,6 +324,7 @@ fieldset[disabled] .btn-size.active {
     height: 15px;
     right: auto;
     top: auto;
+    filter: drop-shadow(0 0 2px #000);
 }
 
 img {
