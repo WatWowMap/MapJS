@@ -6423,16 +6423,15 @@ function loadSettings () {
         },
         autoWidth: false,
         columns: [
-            { data: 'image', width: '5%', className: 'details-control' },
-            { data: 'name', width: '15%' },
             {
                 data: {
-                    _: 'id.formatted',
                     sort: 'id.sort'
                 },
-                width: '5%'
+                visible: false,
+                className: 'dt-body-left'
             },
-            { data: 'filter' }
+            { data: 'name' },
+            { data: 'filter', width: '40%' }
         ],
         ajax: {
             url: '/api/get_settings',
@@ -6440,14 +6439,11 @@ function loadSettings () {
             async: true
         },
         info: false,
-        order: [[2, 'asc']],
+        order: [[0, 'asc']],
         'search.caseInsensitive': true,
         columnDefs: [{
-            targets: [0, 3],
+            targets: [2],
             orderable: false
-        }, {
-            type: 'num',
-            targets: 2
         }],
         deferRender: true,
         scrollY: scrollHeight,
