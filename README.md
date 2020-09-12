@@ -59,6 +59,13 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     "style": "dark",
     // Cookie session secret key, make sure to randomize and NOT use default
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+    // API rate limiting
+    "ratelimit": {
+        // Amount of cooldown time period if rate limit is reached (minutes)
+        "time": 60,
+	// Maximum number of API requests that can be made within a minute
+        "requests": 100
+    },
     // Map settings
     "map": {
         // Maximum available Pokemon
@@ -92,6 +99,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "gyms": true,
             // Show raids
             "raids": false,
+	    // Show raid timers
             "raidTimers": false,
             // Show pokestops
             "pokestops": false,
@@ -99,6 +107,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
             "quests": false,
             // Show invasions
             "invasions": false,
+	    // Show invasion timers
             "invasionTimers": false,
             // Show spawnpoints
             "spawnpoints": false,
@@ -252,6 +261,10 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
                 "enabled": true,
                 "roles": []
             },
+	    "scanAreas": {
+	        "enabled": true,
+		"roles": []
+	    },
             "weather": {
                 "enabled": true,
                 "roles": []
