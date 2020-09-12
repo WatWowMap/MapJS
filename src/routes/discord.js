@@ -7,7 +7,7 @@ const router = express.Router();
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const redirect = encodeURIComponent(config.discord.redirectUri);
 
 const catchAsyncErrors = fn => ((req, res, next) => {
