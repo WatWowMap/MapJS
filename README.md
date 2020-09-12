@@ -45,7 +45,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 ## Configuration  
 
-Depending on how your want to work you `config.json` file is only required for a few options. Anything you do not include will use the `default.json` as a fallback.
+Your `config.json` file is only required for a few options. Anything you do not include will use the `default.json` as a fallback. When viewing the `default.json` file you will see additional settings that can be applied to your `config.json` in order to modify the values. **Please note** json files can not have code comments (`//`) as such we have provided notes on the configuration settings in the below snippet.
 
 ```js
 {
