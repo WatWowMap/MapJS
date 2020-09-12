@@ -3,7 +3,7 @@
 const path = require('path');
 const compression = require('compression');
 const express = require('express');
-const cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
@@ -30,7 +30,9 @@ const rateLimitOptions = {
         type: 'error',
         message: `Too many requests from this IP, please try again in ${defaultConfig.ratelimit.time} minutes.`
     },
+    /* eslint-disable no-unused-vars */
     onLimitReached: (req, res, options) => {
+    /* eslint-enable no-unused-vars */
         //console.error('Rate limit reached! Redirect to landing page.');
         //res.status(options.message.status).send(options.message.message);
         // TODO: Fix redirect
@@ -94,16 +96,16 @@ if (config.discord.enabled) {
     /* eslint-disable no-unused-vars */
     app.use((err, req, res, next) => {
         switch (err.message) {
-        case 'NoCodeProvided':
-            return res.status(400).send({
-                status: 'ERROR',
-                error: err.message,
-            });
-        default:
-            return res.status(500).send({
-                status: 'ERROR',
-                error: err.message,
-            });
+            case 'NoCodeProvided':
+                return res.status(400).send({
+                    status: 'ERROR',
+                    error: err.message,
+                });
+            default:
+                return res.status(500).send({
+                    status: 'ERROR',
+                    error: err.message,
+                });
         }
     });
     /* eslint-enable no-unused-vars */

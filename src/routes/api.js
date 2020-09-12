@@ -35,7 +35,7 @@ router.get('/get_settings', async (req, res) => {
 const getSettings = () => {
     let data = {};
     let settingsData = [];
-    const settingColorString = i18n.__('settings_color');
+    //const settingColorString = i18n.__('settings_color');
     const pokemonSettingsString = i18n.__('settings_pokemon');
     const pokemonGlowString = i18n.__('settings_pokemon_glow');
     const clusterPokemonString = i18n.__('settings_cluster_pokemon');
@@ -44,11 +44,13 @@ const getSettings = () => {
     const pokestopSettingsString = i18n.__('settings_pokestop');
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
 
-    let glowColorLabel = `
+    /*
+    const glowColorLabel = `
     <label class="btn btn-sm btn-size select-button-new" data-id="pokemon-glow" data-type="pokemon-glow" data-info="color">
         <input type="radio" name="options" id="color" autocomplete="off">${settingColorString}
     </label>
     `;
+    */
     settingsData.push({
         'id': {
             'formatted': utils.zeroPad(0, 3),

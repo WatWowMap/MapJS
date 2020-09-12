@@ -230,16 +230,16 @@ fieldset[disabled] .btn-size.active {
     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 .lure-normal {
-    border: 4px solid rgb(255, 0, 255);
+    border: 4px solid rgb(204, 50, 165);
 }
 .lure-glacial {
-    border: 4px solid rgb(68, 165, 255);
+    border: 4px solid rgb(74, 164, 255);
 }
 .lure-mossy {
-    border: 4px solid rgb(44, 90, 49);
+    border: 4px solid lawngreen;
 }
 .lure-magnetic {
-    border: 4px solid rgb(77, 84, 98);
+    border: 4px solid yellow;
 }
 
 .team-mystic {
@@ -288,6 +288,23 @@ fieldset[disabled] .btn-size.active {
 .marker-image-holder.top-overlay > img,
 .leaflet-container .leaflet-marker-pane .marker-image-holder.top-overlay > img {
     top: auto;
+}
+
+.amount-holder {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    min-width: 100%;
+    color: white;
+    text-shadow: #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px;
+    font-weight: 700;
+}
+.amount-holder > div {
+    text-align: right;
+}
+.amount-holder > div:before {
+    content: "×";
 }
 
 img {

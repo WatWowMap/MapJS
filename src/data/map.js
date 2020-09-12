@@ -1060,6 +1060,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
+/* eslint-disable no-case-declarations */
 const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
     let args = [lat, lon, lat];
@@ -1209,6 +1210,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
     }
     return null;
 };
+/* eslint-enable no-case-declarations */
 
 const getPolygon = (s2cellId) => {
     let s2cell = new S2.S2Cell(new S2.S2CellId(BigInt(s2cellId).toString()));
