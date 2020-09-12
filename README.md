@@ -60,6 +60,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
     // Theme style (dark/light)
     "style": "dark",
     // Cookie session secret key, make sure to randomize and NOT use default
+    // either keyboard mash or a generator https://browserling.com/tools/random-hex
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
     // API rate limiting
     "ratelimit": {
