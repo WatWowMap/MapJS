@@ -3090,7 +3090,7 @@ function getPossibleInvasionRewards (pokestop) {
 
 function showHideGruntEncounter() {
     let container = document.getElementsByClassName('grunt-encounter-wrapper');
-    for (let i = 0; i < x.length; i++) {
+    for (let i = 0; i < container.length; i++) {
         if (container[i].style.display === 'none') {
             container[i].style.display = 'block';
         } else {
