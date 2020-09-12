@@ -112,7 +112,7 @@ logs
 
 # Keep default favicon.ico, ignore the rest
 static/custom/*
-!static/custom/{nests,areas}.json
+!static/custom/{nests,areas}.example.json
 !static/custom/favicon.ico
 
 # Only base icons
