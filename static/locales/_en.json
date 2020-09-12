@@ -26,6 +26,7 @@
 	"filter_name": "Name",
 	"filter_general": "General",
 	"filter_filter": "Filter",
+	"filter_option": "Option",
 	"filter_image": "Image",
 	"filter_size_properties": "Properties",
 	"filter_save": "Save",
@@ -153,5 +154,6 @@
 	"settings_gym": "Gym Settings",
 	"settings_cluster_gyms": "Cluster Gyms",
 	"settings_pokestop": "Pokestop Settings",
-	"settings_cluster_pokestops": "Cluster Pokestops"
+	"settings_cluster_pokestops": "Cluster Pokestops",
+	"settings_nest_polygons": "Nest Polygons"
 }

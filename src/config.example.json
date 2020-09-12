@@ -6,6 +6,7 @@
     "locale": "en",
     "style": "dark",
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+    "allowMultipleSessions": true,
     "ratelimit": {
         "time": 60,
         "requests": 100
@@ -18,6 +19,7 @@
         "minZoom": 10,
         "maxZoom": 18,
         "devicePathColor": "red",
+        "nestPolygons": true,
         "clusters": {
             "pokemon": true,
             "gyms": true,
