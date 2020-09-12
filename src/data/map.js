@@ -6,14 +6,14 @@ const S2 = require('nodes2ts');
 const sanitizer = require('sanitizer');
 
 const config = require('../services/config.js');
+const defaultConfig = require('../services/default.js');
+const defaultExtras = require('../config/default.json');
 const MySQLConnector = require('../services/mysql.js');
 const utils = require('../services/utils.js');
-
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
-
 
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     const excludePokemonIds = [];
@@ -1178,7 +1178,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             `;
             break;
     }
-    sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
+    sql += ` ORDER BY distance LIMIT ${defaultConfig.searchMaxResults || 20}`;
     let results = useManualDb
         ? await dbManual.query(sql, args)
         : await db.query(sql, args);
@@ -1192,7 +1192,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
                         result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
                         const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        result.url2 = defaultExtras.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
                         result.url2 = '/item/-1.png';
                     }
@@ -1201,7 +1201,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = defaultExtras.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
                 }
                 break;
         }

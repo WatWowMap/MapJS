@@ -1,0 +1,120 @@
+{
+    "version": 1.0,
+    "map": {
+        "interface": "0.0.0.0",
+        "port": 8080,
+        "title": "MapJS",
+        "headerTitle": "MapJS - NodeJS Map Replacement",
+        "locale": "en",
+        "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
+        "header": {
+            "left": [
+                { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
+            ],
+            "right": [
+                { "name": "Discord", "url": "https://discord.com", "icon": "fab fa-discord" }
+            ]
+        },
+        "db": {
+            "scanner": {
+                "host": "127.0.0.1",
+                "port": 3306,
+                "username": "user",
+                "password": "pass123!",
+                "database": "rdmdb",
+                "charset": "utf8mb4"
+            },
+            "manualdb": {
+                "host": "127.0.0.1",
+                "port": 3306,
+                "username": "user",
+                "password": "pass123!",
+                "database": "manualdb",
+                "charset": "utf8mb4"
+            }
+        },
+        "discord": {
+            "enabled": false,
+            "logChannelId": "",
+            "status": "Online",
+            "presence": "Map Status: Online",
+            "botToken": "",
+            "clientId": "",
+            "clientSecret": "",
+            "redirectUri": "http://localhost:8080/api/discord/callback",
+            "allowedGuilds": [],
+            "blockedGuilds": [],
+            "allowedUsers": [],
+            "perms": {
+                "map": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "pokemon": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "raids": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "gyms": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "pokestops": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "quests": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "lures": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "invasions": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "spawnpoints": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "iv": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "pvp": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "s2cells": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "submissionCells": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "nests": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "scanAreas": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "weather": {
+                    "enabled": true,
+                    "roles": []
+                },
+                "devices": {
+                    "enabled": true,
+                    "roles": []
+                }
+            }
+        }
+    }
+}

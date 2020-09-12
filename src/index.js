@@ -11,13 +11,14 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
 const config = require('./services/config.js');
+const defaultConfig = require('./services/default.js');
 const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 
-const RateLimitTime = config.ratelimit.time * 60 * 1000;
-const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
+const RateLimitTime = defaultConfig.ratelimit.time * 60 * 1000;
+const MaxRequestsPerHour = defaultConfig.ratelimit.requests * (RateLimitTime / 1000);
 
 const rateLimitOptions = {
     windowMs: RateLimitTime, // Time window in milliseconds
@@ -27,7 +28,7 @@ const rateLimitOptions = {
         status: 429, // optional, of course
         limiter: true,
         type: 'error',
-        message: `Too many requests from this IP, please try again in ${config.ratelimit.time} minutes.`
+        message: `Too many requests from this IP, please try again in ${defaultConfig.ratelimit.time} minutes.`
     },
     onLimitReached: (req, res, options) => {
         //console.error('Rate limit reached! Redirect to landing page.');

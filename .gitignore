@@ -106,6 +106,7 @@ dist
 # No main configs
 config.json
 rarity.json
+default.json
 
 # No logs
 logs

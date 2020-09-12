@@ -7,7 +7,8 @@ const express = require('express');
 const router = express.Router();
 
 const config = require('../services/config.js');
-const uConfig = require('../config.json');
+const defaultConfig = require('../services/default.js');
+const defaultExtras = require('../config/default.json');
 const defaultData = require('../data/default.js');
 
 //const InventoryItemId = require('../data/item.js');
@@ -72,17 +73,17 @@ router.get('/429', (req, res) => {
 
 const handlePage = async (req, res) => {
     const data = defaultData;
-    data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
-    data.tableClass = config.style === 'dark' ? 'table-dark' : '';
+    data.bodyClass = defaultConfig.mode === 'dark' ? 'theme-dark' : '';
+    data.tableClass = defaultConfig.mode === 'dark' ? 'table-dark' : '';
 
-    data.max_pokemon_id = config.default.maxPokemonId;
+    data.max_pokemon_id = defaultConfig.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    await updateAvailableForms(uConfig.map.icons);
-    data.available_icon_styles_json = JSON.stringify(uConfig.map.icons);
+    await updateAvailableForms(defaultExtras.icons);
+    data.available_icon_styles_json = JSON.stringify(defaultExtras.icons);
 
     // Build available items list
     const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
@@ -95,7 +96,7 @@ const handlePage = async (req, res) => {
 
     // Build available areas list
     const areas = [];
-    const areaKeys = Object.keys(config.areas).sort();
+    const areaKeys = Object.keys(defaultExtras.areas).sort();
     areaKeys.forEach(key => {
         areas.push({ 'area': key });
     });
@@ -150,8 +151,8 @@ const handlePage = async (req, res) => {
     data.page_is_areas = true;
     data.show_areas = true;
     data.timestamp = Date.now();
-    let lat = parseFloat(req.params.lat || config.default.startLat);
-    let lon = parseFloat(req.params.lon || config.default.startLon);
+    let lat = parseFloat(req.params.lat || defaultConfig.startLat);
+    let lon = parseFloat(req.params.lon || defaultConfig.startLon);
     let city = req.params.city || null;
     let zoom = req.params.zoom;
 
@@ -169,31 +170,31 @@ const handlePage = async (req, res) => {
         for (var i = 0; i < areaKeys.length; i++) {
             const key = areaKeys[i];
             if (city.toLowerCase() === key.toLowerCase()) {
-                const area = config.areas[key];
+                const area = defaultConfig.areas[key];
                 lat = parseFloat(area.lat);
                 lon = parseFloat(area.lon);
                 if (!zoom) {
-                    zoom = parseInt(area.zoom || config.default.startZoom);
+                    zoom = parseInt(area.zoom || defaultConfig.startZoom);
                 }
                 break;
             }
         }
     }
 
-    if ((zoom || config.default.startZoom) > config.default.maxZoom) {
-        zoom = config.default.maxZoom;
-    } else if ((zoom || config.default.startZoom) < config.default.minZoom) {
-        zoom = config.default.minZoom;
+    if ((zoom || defaultConfig.startZoom) > defaultConfig.maxZoom) {
+        zoom = defaultConfig.maxZoom;
+    } else if ((zoom || defaultConfig.startZoom) < defaultConfig.minZoom) {
+        zoom = defaultConfig.minZoom;
     }
 
     data.start_lat = lat || 0;
     data.start_lon = lon || 0;
-    data.start_zoom = zoom || config.default.startZoom || 12;
+    data.start_zoom = zoom || defaultConfig.startZoom || 12;
     data.lat = lat || 0;
     data.lon = lon || 0;
-    data.zoom = zoom || config.default.startZoom || 12;
-    data.min_zoom = config.default.minZoom || 10;
-    data.max_zoom = config.default.maxZoom || 18;
+    data.zoom = zoom || defaultConfig.startZoom || 12;
+    data.min_zoom = defaultConfig.minZoom || 10;
+    data.max_zoom = defaultConfig.maxZoom || 18;
 
     data.locale_last_modified = (await fs.promises.stat(path.resolve(__dirname, `../../static/locales/${data.locale}.json`))).mtimeMs;
     data.css_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/css/index.css'))).mtimeMs;
@@ -204,10 +205,10 @@ const handlePage = async (req, res) => {
 
 const getAvailableTileservers = () => {
     const tileservers = {};
-    const tileKeys = Object.keys(config.tileservers);
+    const tileKeys = Object.keys(defaultExtras.tileservers);
     if (tileKeys) {
         tileKeys.forEach(tileKey => {
-            const tileData = config.tileservers[tileKey].split(';');
+            const tileData = defaultExtras.tileservers[tileKey].split(';');
             tileservers[tileKey] = {
                 url: tileData[0],
                 attribution: tileData[1]
@@ -231,7 +232,6 @@ const updateAvailableForms = async (icons) => {
                     }
                 });
                 icon.pokemonList = availableForms;
-                console.log(pokemonIconsDir);
             }
         } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
             axios({
