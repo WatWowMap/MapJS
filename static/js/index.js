@@ -99,10 +99,6 @@ let settingsLoaded = false;
 let deviceOnlineIcon;
 let deviceOfflineIcon;
 
-let clusterPokemon;
-let clusterGyms;
-let clusterPokestops;
-
 let showPokemonGlow = true;
 
 let tileLayer;
@@ -111,6 +107,7 @@ let scanAreaLayer = new L.LayerGroup();
 
 let masterfile = {};
 let weatherTypes = {};
+let gruntTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
 let pokemonGenerationDb = [];
@@ -181,9 +178,12 @@ $(function () {
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
     });
+    $.getJSON('/data/grunttypes.json', function (data) {
+        gruntTypes = data;
+    });
     $.getJSON('/data/cpm.json', function (data) {
         cpMultipliers = data;
-    });    
+    });
     $.ajaxSetup({
         async: true
     });
@@ -240,7 +240,7 @@ $(function () {
         iconAnchor: [30 / 2, 30 / 2],
         popupAnchor: [0, 30 * -.6]
     });
-    
+
     $('#filtersModal').on('show.bs.modal', function () {
         pokemonFilterNew = $.extend(true, {}, pokemonFilter);
         questFilterNew = $.extend(true, {}, questFilter);
@@ -892,7 +892,7 @@ function loadStorage () {
                 defaultNestFilter['p' + id] = { show: true, size: 'normal' };
             }
         }
-        
+
         store('nest_filter', JSON.stringify(defaultNestFilter));
         nestFilter = defaultNestFilter;
     } else {
@@ -916,7 +916,7 @@ function loadStorage () {
                 defaultWeatherFilter[i] = { show: true, size: 'normal' };
             }
         }
-        
+
         store('weather_filter', JSON.stringify(defaultWeatherFilter));
         weatherFilter = defaultWeatherFilter;
     } else {
@@ -949,7 +949,7 @@ function loadStorage () {
             deviceFilter['offline'] = { show: true, size: 'normal' };
         }
     }
-    
+
     const settingsValue = retrieve('settings');
     if (settingsValue === null) {
         const defaultSettings = {};
@@ -1272,7 +1272,7 @@ function initMap () {
 
         showScanAreas = newShowScanAreas;
         store('show_scanareas', newShowScanAreas);
-    
+
         showDevices = newShowDevices;
         store('show_devices', newShowDevices);
         store('device_filter', JSON.stringify(deviceFilter));
@@ -1285,7 +1285,7 @@ function initMap () {
 
         $('#filtersModal').modal('hide');
     });
-    
+
     $('#saveSettings').on('click', function (event) {
         $(this).toggleClass('active');
 
@@ -2145,7 +2145,7 @@ function loadData () {
                         } else {
                             pokemon.marker.addTo(map);
                         }
-                        
+
                     } else {
                         if (oldPokemon.expire_timestamp !== pokemon.expire_timestamp) {
                             oldPokemon.expire_timestamp = pokemon.expire_timestamp;
@@ -2385,7 +2385,7 @@ function loadScanAreaPolygons () {
         return;
     }
     try {
-        var areaGeoPolys = L.geoJson(scanAreasDb, {
+        let areaGeoPolys = L.geoJson(scanAreasDb, {
             onEachFeature: function(features, featureLayer) {
                 let coords = features.geometry.coordinates[0];
                 let areaSize = geodesicArea(coords);
@@ -2450,14 +2450,14 @@ function getPokemonIndex (pokemon) {
     }
     return 2;
 }
-  
+
 function hasRelevantLeagueStats (leagueStats, greatLeague) {
-    var found = false;
-    var minCP = greatLeague !== false ? 1400 : 2400;
-    var maxCP = greatLeague !== false ? 1500 : 2500;
-    var maxRank = 100;
+    let found = false;
+    let minCP = greatLeague !== false ? 1400 : 2400;
+    let maxCP = greatLeague !== false ? 1500 : 2500;
+    let maxRank = 100;
     if (leagueStats) {
-        for (var i = 0; i < leagueStats.length; i++) {
+        for (let i = 0; i < leagueStats.length; i++) {
             if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
                 found = true;
                 break;
@@ -2465,7 +2465,7 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
         }
     }
     return found;
-}  
+}
 
 function getQuestSize (questId) {
     if (questFilter[questId] === undefined || questFilter[questId].size === undefined) {
@@ -2990,7 +2990,9 @@ function getPokestopPopupContent (pokestop) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
         content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
-        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br><br>';
+        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br>';
+        // TODO: Show possible rewards
+        content += getPossibleInvasionRewards(pokestop);
     }
 
     if (pokestop.quest_type !== null) {
@@ -3053,6 +3055,48 @@ function getPokestopPopupContent (pokestop) {
         '</div>' +
     '</div>';
     return content;
+}
+
+function getPossibleInvasionRewards (pokestop) {
+    function makeShadowPokemon (pokemonId) {
+        return `<div class="invasion-reward">
+            <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(pokemonId)}.png"/>
+            <img class="invasion-reward-shadow" src="/img/misc/shadow.png"/>
+        </div>`;
+    }
+    let item = gruntTypes[pokestop.grunt_type];
+    let content = '';
+    content +=
+    //'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
+    //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
+    '<div class="grunt-encounter-wrapper text-center">';
+    if (item['second_reward'] === 'false') {
+        content += '<div>100% Encounter Chance:<br>';
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+        </div>`;
+    } else if (item['second_reward'] === 'true') {
+        content += '<div>85% Encounter Chance:<br>';
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+		<div class="m-1">15% Encounter Chance:<br>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `
+        </div>
+    </div>`;
+    }
+    return content;
+}
+
+function showHideGruntEncounter() {
+    let container = document.getElementsByClassName('grunt-encounter-wrapper');
+    for (let i = 0; i < container.length; i++) {
+        if (container[i].style.display === 'none') {
+            container[i].style.display = 'block';
+        } else {
+            container[i].style.display = 'none';
+        }
+    }
 }
 
 function getGymPopupContent (gym) {

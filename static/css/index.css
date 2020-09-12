@@ -275,6 +275,7 @@ fieldset[disabled] .btn-size.active {
 .pokemon-popup-image-holder > img,
 .filter-image-holder > img,
 .marker-image-holder > img,
+.invasion-reward > img,
 .leaflet-container .leaflet-marker-pane .marker-image-holder > img {
     position: absolute;
     max-width: 100% !important;
@@ -305,6 +306,25 @@ fieldset[disabled] .btn-size.active {
 }
 .amount-holder > div:before {
     content: "×";
+}
+
+.grunt-encounter-wrapper {
+    background-color: #1c1c1c;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.invasion-reward {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+.invasion-reward > img.invasion-reward-shadow {
+    width: 15px;
+    height: 15px;
+    right: auto;
+    top: auto;
+    filter: drop-shadow(0 0 2px #000);
 }
 
 img {
