@@ -2610,7 +2610,7 @@ function getPokemonPopupContent (pokemon) {
     }
 
     // TODO: add evolution https://github.com/versx/DataParser/issues/9
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume, didIFindAShinyPokemon(pokemon.pokemon_id, pokemon.form, `wild-${pokemon.id}`));
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -3056,7 +3056,7 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume, didIFindAShinyPokemon(gym.raid_pokemon_id, gym.raid_pokemon_form, `raid-${gym.id}-${gym.raid_battle_timestamp}`));
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-6 col-md-4">' + // START 1ST COL
