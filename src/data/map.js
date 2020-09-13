@@ -148,7 +148,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 costume: result.costume,
                 weather: result.weather,
                 shiny: result.shiny,
-                username: result.username,
                 pokestop_id: result.pokestop_id,
                 first_seen_timestamp: result.first_seen_timestamp,
                 updated: result.updated,
