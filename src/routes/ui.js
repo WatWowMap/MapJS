@@ -193,6 +193,9 @@ const handlePage = async (req, res) => {
     data.min_zoom = config.map.minZoom || 10;
     data.max_zoom = config.map.maxZoom || 18;
 
+    data.pokemon_rarity_json = JSON.stringify(config.rarity);
+    data.pokemon_shiny_rates_json = JSON.stringify(config.shinyRates);
+
     data.locale_last_modified = (await fs.promises.stat(path.resolve(__dirname, `../../static/locales/${data.locale}.json`))).mtimeMs;
     data.css_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/css/index.css'))).mtimeMs;
     data.js_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/js/index.js'))).mtimeMs;
