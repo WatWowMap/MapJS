@@ -328,10 +328,9 @@ Your `config.json` file is only required for a few options. Anything you do not 
 ```
 
 ## Updating  
-1.) `git pull`  
-2.) Run `npm install` in root folder  
-3.) Run `npm run create-locales`  
-4.) Run `npm start`  
+1. `git pull`  
+1. Run `npm update` in root folder  
+1. Run `npm start`  
 
 ## Convert INI geofence format to GeoJSON format (for areas.json file to show scan areas)  
 1.) Create `geofences` directory in root of project (with src folder)  
