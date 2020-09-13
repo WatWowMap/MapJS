@@ -1,0 +1,24 @@
+site_name: MapJS
+site_url: https://github.com/versx/MapJS
+site_description: MapJS
+site_author: versx
+
+repo_url: https://github.com/versx/MapJS
+edit_uri: ""
+
+theme:
+    name: readthedocs
+
+nav:
+    - Home: index.md
+    - Configuration: config.md
+    - Images: images.md
+    - Localization: locales.md
+    - Contributors: contributors.md
+
+plugins:
+    - search
+
+extra_css:
+    - css/base.css
+    - css/bootstrap-custom.min.css
