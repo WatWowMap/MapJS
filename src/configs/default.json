@@ -60,12 +60,8 @@
         }
     },
     "header": {
-        "left": [
-            { "name": "Stats", "url": "https://stats.example.com", "icon": "fas fa-chart-bar" }
-        ],
-        "right": [
-            { "name": "Discord", "url": "https://discord.com", "icon": "fab fa-discord" }
-        ]
+        "left": [],
+        "right": []
     },
     "db": {
         "scanner": {
