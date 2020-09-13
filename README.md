@@ -138,10 +138,9 @@ Your `config.json` file is only required for a few options. Anything you do not 
         },
         // Pokemon glow settings
         "glow": {
-            // Minimum IV to add glow effect
-            "iv": 100,
-            // Glow color
-            "color": "red"
+            "iv": { "value": 100, "color": "red" }, //min IV for glow
+            "pvp": { "value": 1, "color": "blue" }, //min PVP for glow
+            "both": { "color": "purple" } //color if a Pokemon meets IV & PVP requirements
         }
     },
     // Areas list with location and zoom dropdown in navbar
