@@ -3761,7 +3761,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = '/img/item/-3.png';
             if (info && info.pokemon_id) {
-                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png" style="bottom: 15px;"/>`;
             }
             if (info && info.amount > 1) {
                 iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
@@ -3795,7 +3795,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             rewardString = 'i-8';
             iconUrl = '/img/item/-8.png';
             if (info && info.pokemon_id) {
-                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png"/>`;
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png" style="bottom: 15px;"/>`;
             }
             if (info && info.amount > 1) {
                 iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
