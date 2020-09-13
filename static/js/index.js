@@ -3657,7 +3657,6 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = glowColor; // TODO: settings['pokemon-glow'].color;
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3667,6 +3666,13 @@ function getPokemonMarkerIcon (pokemon, ts) {
             : bestRank === 1
                 ? 'first'
                 : '';
+    const glowColor = (iv >= glow.iv.value && bestRank <= glow.pvp.value)
+        ? glow.both.color
+        : (iv >= glow.iv.value && bestRank >= glow.pvp.value)
+            ? glow.iv.color
+            : (iv <= glow.iv.value && bestRank <= glow.pvp.value)
+                ? glow.pvp.color
+                : ''; // TODO: settings['pokemon-glow'].color;
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
         ? `<img src="/img/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto;position:absolute;right:0;bottom:0;" />`
         : '';
@@ -3675,10 +3681,10 @@ function getPokemonMarkerIcon (pokemon, ts) {
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
-        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` +
+        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` + 
         (
-            showPokemonGlow !== false && iv >= glowIV
-            ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
+            showPokemonGlow !== false && glowColor !== ''
+            ? `filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});-webkit-filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});`
             : ''
         ) + `"/></div>${iconHtml}`
     });
