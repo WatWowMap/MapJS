@@ -3454,7 +3454,7 @@ function getQuestCondition (condition) {
             } else {
                 formatted = ', ';
             }
-            levelsString += formatted + level;
+            levelsString += formatted + (level === 6 ? i18n('filter_raid_level_6') : level);
         });
         return i18n('quest_condition_7_formatted', { levels: levelsString });
     } else if (id === 8 && info && info.throw_type_id) {
