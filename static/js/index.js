@@ -7309,7 +7309,7 @@ function setPokemonFilters(type, show) {
 
 function didIFindAShinyPokemon(pokemonId, form, description) {
     let rate = pokemonShinyRates[form ? `${pokemonId}-f${form}` : `${pokemonId}`];
-    if (!rate) {
+    if (rate === undefined) {
         rate = pokemonShinyRates['default'];
     }
     if (!rate) {
