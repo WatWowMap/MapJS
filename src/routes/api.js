@@ -265,7 +265,8 @@ const getData = async (perms, filter) => {
                     'image': `IV-${andOrString}`,
                     'filter': filter,
                     'size': size,
-                    'type': globalFiltersString
+                    'type': globalFiltersString,
+                    'types': null
                 });
             }
         }
@@ -294,7 +295,8 @@ const getData = async (perms, filter) => {
                     'image': `PVP-${andOrString}`,
                     'filter': filter,
                     'size': size,
-                    'type': globalFiltersString
+                    'type': globalFiltersString,
+                    'types': null
                 });
             }
         }
@@ -318,7 +320,8 @@ const getData = async (perms, filter) => {
                 },
                 'filter': filter,
                 'size': size,
-                'type': globalFiltersString
+                'type': globalFiltersString,
+                'types': null
             });
         }
 
@@ -328,6 +331,7 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
+                const types = JSON.stringify(pkmn.types);
                 //const form = pkmn.forms[formId];
                 let formName = pkmn.forms[formId].name;//i18n.__('form_' + formId);
                 if (skipForms.includes(formName.toLowerCase())) {
@@ -361,7 +365,8 @@ const getData = async (perms, filter) => {
                     },
                     'filter': filter,
                     'size': size,
-                    'type': pokemonTypeString
+                    'type': pokemonTypeString,
+                    'types': types
                 });
             }
         }
