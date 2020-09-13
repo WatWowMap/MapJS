@@ -2371,10 +2371,6 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
 }
 
 function getQuestSize (questId) {
-    console.log('quest id:', questId, questFilter);
-    if (questFilter[questId] === undefined || questFilter[questId].size === undefined) {
-        return 30;
-    }
     const size = questFilter[questId].size;
     if (size === 'huge') {
         return 65;
