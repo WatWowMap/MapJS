@@ -3668,9 +3668,9 @@ function getPokemonMarkerIcon (pokemon, ts) {
                 : '';
     const glowColor = (iv >= glow.iv.value && bestRank <= glow.pvp.value)
         ? glow.both.color
-        : (iv >= glow.iv.value && bestRank >= glow.pvp.value)
+        : (iv >= glow.iv.value && bestRank > glow.pvp.value)
             ? glow.iv.color
-            : (iv <= glow.iv.value && bestRank <= glow.pvp.value)
+            : (iv < glow.iv.value && bestRank <= glow.pvp.value)
                 ? glow.pvp.color
                 : ''; // TODO: settings['pokemon-glow'].color;
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
