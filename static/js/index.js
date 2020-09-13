@@ -5591,7 +5591,9 @@ function loadPokemonFilter () {
                 width: '5%'
             },
             { data: 'filter' },
-            { data: 'size' }
+            { data: 'size' },
+            { data: 'types',
+                visible: false}
         ],
         ajax: {
             url: '/api/get_data?show_pokemon_filter=true',
@@ -5602,7 +5604,7 @@ function loadPokemonFilter () {
         order: [[2, 'asc']],
         'search.caseInsensitive': true,
         columnDefs: [{
-            targets: [0, 3, 4],
+            targets: [0, 3, 4, 5],
             orderable: false
         }, {
             type: 'num',
