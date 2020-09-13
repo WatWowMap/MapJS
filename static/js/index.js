@@ -7308,7 +7308,10 @@ function setPokemonFilters(type, show) {
 // MARK: minigames that nobody asks for
 
 function didIFindAShinyPokemon(pokemonId, form, description) {
-    const rate = pokemonShinyRates[form ? `${pokemonId}-f${form}` : `${pokemonId}`];
+    let rate = pokemonShinyRates[form ? `${pokemonId}-f${form}` : `${pokemonId}`];
+    if (!rate) {
+        rate = pokemonShinyRates['default'];
+    }
     if (!rate) {
         return false;
     }
