@@ -6,7 +6,7 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const defaultData = require('../data/default.js');
 //const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');

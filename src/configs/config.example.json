@@ -3,51 +3,15 @@
     "port": 8080,
     "title": "MapJS",
     "headerTitle": "MapJS - NodeJS Map Replacement",
-    "favicon": "favicon.ico",
     "locale": "en",
     "style": "dark",
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
-    "allowMultipleSessions": true,
-    "ratelimit": {
-        "time": 60,
-        "requests": 100
-    },
     "map": {
-        "maxPokemonId": 649,
         "startLat": 0,
         "startLon": 0,
         "startZoom": 12,
         "minZoom": 10,
-        "maxZoom": 18,
-        "devicePathColor": "red",
-        "nestPolygons": true,
-        "clusters": {
-            "pokemon": true,
-            "gyms": true,
-            "pokestops": true,
-            "zoomLevel": 13
-        },
-        "filters": {
-            "gyms": true,
-            "raids": false,
-            "raidTimers": false,
-            "pokestops": false,
-            "quests": false,
-            "invasions": false,
-            "invasionTimers": false,
-            "spawnpoints": false,
-            "pokemon": false,
-            "nests": false,
-            "scanCells": false,
-            "submissionCells": false,
-            "weather": false,
-            "scanAreas": false,
-            "devices": false
-        },
-        "glow": {
-            "iv": 100,
-            "color": "red"
-        }
+        "maxZoom": 18
     },
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
@@ -59,14 +23,6 @@
         "right": [
             { "name": "Discord", "url": "https://discord.com", "icon": "fab fa-discord" }
         ]
-    },
-    "tileservers": {
-        "Default": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png;Map tiles by Carto, under CC BY 3.0. Data by  <a href='https://www.openstreetmap.org/'>OpenStreetMap</a>, under ODbL.",
-        "OSM": "https://tile.openstreetmap.org/{z}/{x}/{y}.png;Map data Â© <a href='https://www.openstreetmap.org'>OpenStreetMap</a> contributors",
-        "Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png;Â© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors Â© <a href='https://carto.com/attributions'>CARTO</a>",
-        "Alidade Smooth Dark": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png; &copy; <a href='https://stadiamaps.com/'>Stadia Maps</a>, &copy; <a href='https://openmaptiles.org/'>OpenMapTiles</a> &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors",
-        "Thunder Forest": "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png;&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
-        "Satellite": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x};Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
     },
     "db": {
         "scanner": {
@@ -168,16 +124,16 @@
             }
         }
     },
-    "google": {
-        "analytics": "",
-        "adsense": ""
-    },
+    "tileservers": {
+        "Alidade Smooth Dark": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png; &copy; <a href='https://stadiamaps.com/'>Stadia Maps</a>, &copy; <a href='https://openmaptiles.org/'>OpenMapTiles</a> &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors",
+        "Thunder Forest": "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png;&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+        },
     "icons": {
         "Default": {
-            "path": "/img/pokemon"
-        },
-        "POGO": {
             "path": "https://mygod.github.io/pokicons/v2"
+        },
+        "Local Example": {
+            "path": "/img/pokemon"
         },
         "Home": {
             "path": "https://raw.githubusercontent.com/Mygod/PkmnHomeIcons/icons/icons"
@@ -185,11 +141,5 @@
         "Shuffle": {
             "path": "https://raw.githubusercontent.com/Mygod/pokedave_shuffle_icons_-ICONS-/master"
         }
-    },
-    "scouting": {
-        "enabled": false,
-        "url": "",
-        "maxScouts": 15
-    },
-    "searchMaxResults": 20
+    }
 }

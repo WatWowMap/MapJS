@@ -3,18 +3,22 @@
 const path = require('path');
 const compression = require('compression');
 const express = require('express');
-const cookieSession = require('cookie-session');
+//const cookieSession = require('cookie-session');
+const session = require('express-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
 const i18n = require('i18n');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-const config = require('./config.json');
+const config = require('./services/config.js');
 const defaultData = require('./data/default.js');
 const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
+const { sessionStore, isValidSession, clearOtherSessions } = require('./services/session-store.js');
+
+// TODO: Check sessions table and parse json
 
 const RateLimitTime = config.ratelimit.time * 60 * 1000;
 const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
@@ -82,10 +86,20 @@ app.use((req, res, next) => {
 i18n.setLocale(config.locale);
 
 // Sessions middleware
+/*
 app.use(cookieSession({
     name: 'session',
     keys: [config.sessionSecret],
-    maxAge: 518400000
+    maxAge: 518400000,
+    store: sessionStore
+}));
+*/
+app.use(session({
+    key: 'session',
+    secret: config.sessionSecret,
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: false
 }));
 
 if (config.discord.enabled) {
@@ -120,6 +134,14 @@ app.use(async (req, res, next) => {
         defaultData.username = req.session.username;
         if (!config.discord.enabled) {
             return next();
+        }
+        if (!config.allowMultipleSessions) {
+            // Check if there are any other sessions in the database that are for the same user_id,
+            // if so delete all other sessions other than the current session.
+            if (!(await isValidSession(req.session.user_id))) {
+                console.debug('[Session] Detected multiple sessions, clearing old ones...')
+                await clearOtherSessions(req.session.user_id, req.sessionID);
+            }
         }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);

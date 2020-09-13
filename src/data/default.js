@@ -1,7 +1,6 @@
 'use strict';
 
-const config = require('../config.json');
-const rarity = require('../rarity.json');
+const config = require('../services/config.js');
 const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
 data.header_title = config.headerTitle;
@@ -19,7 +18,9 @@ data.scouting_url = config.scouting.url;
 data.scouting_count = config.scouting.maxScouts;
 data.glow_color = config.map.glow.color;
 data.glow_iv = config.map.glow.iv;
+data.favicon = config.favicon;
 data.device_path_color = config.map.devicePathColor;
+data.nest_polygons = config.map.nestPolygons;
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
@@ -37,6 +38,6 @@ data.default_show_submission_cells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
 data.default_show_scan_areas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
-data.pokemon_rarity_json = JSON.stringify(rarity);
+data.pokemon_rarity_json = JSON.stringify(config.rarity);
 
 module.exports = data;
