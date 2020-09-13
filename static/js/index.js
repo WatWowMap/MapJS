@@ -2371,6 +2371,7 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
 }
 
 function getQuestSize (questId) {
+    console.log('quest id:', questId, questFilter);
     if (questFilter[questId] === undefined || questFilter[questId].size === undefined) {
         return 30;
     }
@@ -2414,9 +2415,9 @@ function getRaidSize (id) {
 }
 
 function getPokestopSize (id) {
-    return 30;
-    // TODO: Fix or just remove size
-    const size = showInvasions ? invasionFilter[id].size : pokestopFilter[id].size;
+    const size = id.includes('i')
+        ? invasionFilter[id].size
+        : pokestopFilter[id].size;
     if (size === 'huge') {
         return 65;
     }
@@ -3719,14 +3720,18 @@ function getPokestopMarkerIcon (pokestop, ts) {
     const activeLure = showPokestops && lureIconId > 0 && pokestop.lure_expire_timestamp >= ts;
     const activeInvasion = showInvasions && pokestop.incident_expire_timestamp >= ts;
     let sizeId = '0';
+    let id = 'normal';
     if (activeInvasion && activeLure) {
         sizeId = 'i' + lureIconId;
-    } else if (activeInvasion) {
+        id = 'l' + lureIconId;
+    } else if (activeInvasion && !activeLure) {
         sizeId = 'i0';
-    } else if (activeLure) {
+        id = 'i' + pokestop.grunt_type;
+    } else if (!activeInvasion && activeLure) {
         sizeId = lureIconId;
+        id = 'l' + lureIconId;
     }
-    const stopSize = getPokestopSize(sizeId);
+    const stopSize = getPokestopSize(id);
     const iconAnchorY = stopSize * .896; //availableIconStyles[selectedIconStyle].pokestopAnchorY;
     let popupAnchorY = -8 - iconAnchorY;
     if (showQuests && pokestop.quest_type !== null && pokestop.quest_rewards[0] !== undefined) {
