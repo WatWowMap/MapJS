@@ -139,7 +139,7 @@ app.use(async (req, res, next) => {
             // Check if there are any other sessions in the database that are for the same user_id,
             // if so delete all other sessions other than the current session.
             if (!(await isValidSession(req.session.user_id))) {
-                console.debug('[Session] Detected multiple sessions, clearing old ones...')
+                console.debug('[Session] Detected multiple sessions, clearing old ones...');
                 await clearOtherSessions(req.session.user_id, req.sessionID);
             }
         }
