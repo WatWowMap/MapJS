@@ -38,14 +38,14 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         //const client = DiscordClient.instance;
         DiscordClient.setAccessToken(response.data.access_token);
         const user = await DiscordClient.getUser();
-        const guilds = await DiscordClient.getGuilds();
+        //const guilds = await DiscordClient.getGuilds();
 
         req.session.logged_in = true;
         req.session.user_id = user.id;
         req.session.username = `${user.username}#${user.discriminator}`;
-        const perms = await DiscordClient.getPerms();
+        const perms = await DiscordClient.getPerms(user);
         req.session.perms = perms;
-        req.session.guilds = guilds;
+        //req.session.guilds = guilds;
         const valid = perms.map !== false;
         req.session.valid = valid;
         req.session.save();
