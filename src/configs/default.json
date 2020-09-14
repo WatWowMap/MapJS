@@ -29,6 +29,10 @@
         "minZoom": 10,
         "maxZoom": 18,
         "maxPokemonId": 649,
+        "minPvpCp": {
+            "great": 1400,
+            "ultra": 2400
+        },
         "devicePathColor": "red",
         "nestPolygons": true,
         "clusters": {
