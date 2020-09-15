@@ -18,19 +18,8 @@ const masterfile = require('../../static/data/masterfile.json');
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     const excludePokemonIds = [];
     const excludeFormIds = [];
-    let keys = Object.keys(pokemonFilterIV || []);
-    if (keys && keys.length > 0 && showIV) {
-        for (let i = 0; i < keys.length; i++) {
-            const id = keys[i];
-            if (id) {
-                if (!pokemonFilterExclude.includes(id)) {
-                    pokemonFilterExclude.push(id);
-                }
-            }
-        }
-    }
 
-    keys = Object.values(pokemonFilterExclude || []);
+    let keys = Object.values(pokemonFilterExclude || []);
     let sqlIncludeBigKarp = '';
     let sqlIncludeTinyRat = '';
     if (keys && keys.length > 0) {
@@ -81,9 +70,11 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         args.push(excludeFormIds[i]);
     }
 
-    let sqlIncludeIv = '';
     let sqlOrIv = '';
     let sqlAndIv = '';
+    let sqlExcludeIvPokemon = '';
+    let sqlExcludeIvForms = '';
+    let sqlIncludeIv = '';
     if (showIV) {
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(key => {
@@ -95,6 +86,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 if (split.length === 2) {
                     const pokemonId = parseInt(split[0]);
                     const formId = parseInt(split[1]);
+                    sqlExcludeIvForms += `, ${formId}`;
                     sqlPokemon = `form = ${formId}`;
                     if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
                         sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
@@ -108,12 +100,20 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 } else {
                     const id = parseInt(key);
                     if (id) {
+                        if (sqlExcludeIvPokemon === '') {
+                            sqlExcludeIvPokemon = `AND pokemon_id NOT IN (${id}`;
+                        } else {
+                            sqlExcludeIvPokemon += `, ${id}`;
+                        }
                         sqlPokemon = `pokemon_id = ${id} AND form = 0`;
                     }
                 }
                 sqlIncludeIv += ` OR ((${sqlPokemon}) AND (${sqlFilter}))`;
             }
         });
+        if (sqlExcludeIvPokemon !== '') {
+            sqlExcludeIvPokemon += ')';
+        }
     }
 
     const sql = `
@@ -124,10 +124,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
-            (form = 0 ${sqlExcludePokemon})
-            OR form NOT IN (0 ${sqlExcludeForms})
-            ${sqlIncludeIv} ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
-        ) ${sqlAndIv} ${sqlOrIv}
+            (
+                (form = 0 ${sqlExcludePokemon}) OR form NOT IN (0 ${sqlExcludeForms})
+                ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
+            ) ${sqlAndIv} ${sqlOrIv}
+        ) AND (
+            (form = 0 ${sqlExcludeIvPokemon}) OR form NOT IN (0 ${sqlExcludeIvForms})
+        ) ${sqlIncludeIv}
     )`;
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
