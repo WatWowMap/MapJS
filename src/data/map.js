@@ -1230,7 +1230,7 @@ const getPolygon = (s2cellId) => {
 
 // need to keep consistency with client-side implementation checkIVFilterValid
 const sqlifyIvFilter = (filter) => {
-    let tokenizer = /\s*([()|&!]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1249,6 +1249,7 @@ const sqlifyIvFilter = (filter) => {
                     case 'D': column = 'def_iv'; break;
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
+                    case 'CP': column = 'cp';    break;
                 }
                 let higher = lower;
                 if (match[4] !== undefined) {
