@@ -2,7 +2,8 @@
 
 !!! warning
     This page is a work in progress. As it stands the ICONS scheme has not been widely
-    adopted by the mapping community. The Pokémon file name structure is complete.
+    adopted by the mapping community. MapJS currently supports the Pokémon file name
+    structure is complete.
 
 Images for this project use the ICONS "Intermapping Cooperative Object Naming Standard"
 naming scheme. This specific file naming scheme allows for advanced features like
