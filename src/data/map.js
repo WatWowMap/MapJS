@@ -1228,8 +1228,9 @@ const getPolygon = (s2cellId) => {
     return polygon;
 };
 
+// need to keep consistency with client-side implementation checkIVFilterValid
 const sqlifyIvFilter = (filter) => {
-    let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1255,18 +1256,25 @@ const sqlifyIvFilter = (filter) => {
                 }
                 result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
                 expectClause = false;
-            } else if (match[1] === '(') {
-                if (++stack > 1000000000) {
+            } else switch (match[1]) {
+                case '(':
+                    if (++stack > 1000000000) {
+                        return null;
+                    }
+                    result += '(';
+                    break;
+                case '!':
+                    result += 'NOT ';
+                    break;
+                default:
                     return null;
-                }
-                result += '(';
-            } else {
-                return null;
             }
         } else if (match[3] !== undefined) {
             return null;
         } else switch (match[1]) {
-            case '(': return null;
+            case '(':
+            case '!':
+                return null;
             case ')':
                 result += ')';
                 if (--stack < 0) {
@@ -1274,11 +1282,11 @@ const sqlifyIvFilter = (filter) => {
                 }
                 break;
             case '&':
-                result += 'AND';
+                result += 'AND ';
                 expectClause = true;
                 break;
             case '|':
-                result += 'OR';
+                result += 'OR ';
                 expectClause = true;
                 break;
         }
