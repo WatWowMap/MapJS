@@ -5271,7 +5271,7 @@ function manageGlobalStardustCountPopup (id, filter) {
 }
 
 function checkIVFilterValid (filter) {
-    let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
@@ -5283,17 +5283,23 @@ function checkIVFilterValid (filter) {
         if (expectClause) {
             if (match[3] !== undefined) {
                 expectClause = false;
-            } else if (match[1] === '(') {
-                if (++stack > 1000000000) {
+            } else switch (match[1]) {
+                case '(':
+                    if (++stack > 1000000000) {
+                        return null;
+                    }
+                    break;
+                case '!':
+                    break;
+                default:
                     return null;
-                }
-            } else {
-                return null;
             }
         } else if (match[3] !== undefined) {
             return null;
         } else switch (match[1]) {
-            case '(': return null;
+            case '(':
+            case '!':
+                return null;
             case ')':
                 if (--stack < 0) {
                     return null;
