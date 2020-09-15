@@ -1,6 +1,8 @@
 # Configuration
 
-Your `config.json` file is only required for a few options. Anything you do not include will use the `default.json` as a fallback. When viewing the `default.json` file you will see additional settings that can be applied to your `config.json` in order to modify the values. **Please note** json files can not have code comments (`//`) as such we have provided notes on the configuration settings in the below snippet.
+All server customization values are currently stored in your `src/configs/config.json` file. To get started please use the `config.example.json` file.
+
+Anything you do not include will use the `default.json` as a fallback. When viewing the `default.json` file you will see additional settings that can be applied to your `config.json` in order to modify the values. **Please note** json files can not have code comments (`//`) as such we have provided notes on the configuration settings in the below snippet.
 
 ```js
 {

@@ -1,6 +1,9 @@
 # Documentation
 
-The documentation site you're visiting is powered by [Read the Docs]{target=_blank}. All information is stored in the main git repo under the [docs]{target=_blank} folder. If you find a mistake or want to clarify something please feel free to open a pull request and contribute.
+The documentation site you're visiting is powered by [Read the Docs]{target=_blank}.
+All information is stored in the main git repo under the [docs]{target=_blank}
+folder. If you find a mistake or want to clarify something please feel free to
+open a pull request and contribute.
 
 ## Local install
 
