@@ -4,21 +4,29 @@ site_description: MapJS
 site_author: versx
 
 repo_url: https://github.com/versx/MapJS
-edit_uri: ""
 
 theme:
-    name: readthedocs
+  name: flatly
 
 nav:
-    - Home: index.md
-    - Configuration: config.md
-    - Images: images.md
-    - Localization: locales.md
-    - Contributors: contributors.md
+  - Home: 'index.md'
+  - Install Guide:
+    - Standard: install/standard.md
+    - Docker: install/docker.md
+  - Configuration:
+    - Config: configuration/config.md
+    - GeoJSON: configuration/geojson.md
+    - Images: configuration/images.md
+    - Locales: configuration/locales.md
+  - Docs: documentation.md
+
+markdown_extensions:
+  - toc:
+      permalink: '#'
+      separator: "-"
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
 
 plugins:
     - search
-
-extra_css:
-    - css/base.css
-    - css/bootstrap-custom.min.css
