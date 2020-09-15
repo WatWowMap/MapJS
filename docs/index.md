@@ -34,33 +34,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Zoom zoom zoom, fast
 - Much more...
 
-## Quick Start
+## Screenshots
 
-1. Clone the repository
+![placeholder image](https://via.placeholder.com/600x320.png?text=Placeholder+Landing+Page)
 
-    ```sh
-    git clone https://github.com/versx/MapJS
-    ```
-
-1. Install dependencies
-
-    ```sh
-    npm run update
-    ```
-
-1. Copy config
-
-    ```sh
-    cp src/configs/config.example.json src/configs/config.json
-    ```
-
-1. Fill out config
-
-    ```sh
-    vi src/configs/config.json
-    ```
-
-1. Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)
-1. Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)
-1. Run `npm run start`
-1. Access via [http://machineip:port/]() login using your Discord account
+![placeholder image](https://via.placeholder.com/600x320.png?text=Placeholder+Pokemon+Filter)

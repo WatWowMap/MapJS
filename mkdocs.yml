@@ -11,6 +11,7 @@ theme:
 nav:
   - Home: 'index.md'
   - Install Guide:
+    - Quick Start: install/quick-start.md
     - Standard: install/standard.md
     - Docker: install/docker.md
   - Configuration:
