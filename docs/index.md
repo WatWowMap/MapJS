@@ -38,26 +38,25 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 1. Clone the repository
 
-    ```
+    ```sh
     git clone https://github.com/versx/MapJS
     ```
 
 1. Install dependencies
 
-    ```
+    ```sh
     npm run update
     ```
 
 1. Copy config
 
-    ```
+    ```sh
     cp src/configs/config.example.json src/configs/config.json
     ```
 
-1. Create a Discord bot at [https://discord.com/developers](https://discord.com/developers){target=_blank} and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`
 1. Fill out config
 
-    ```
+    ```sh
     vi src/configs/config.json
     ```
 
