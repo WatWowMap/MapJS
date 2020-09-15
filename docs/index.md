@@ -1,8 +1,11 @@
+title: Home
+
 # Welcome to MapJS
 
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)
 
-### Features
+## Features
+
 - Everything from RealDeviceMap UI Map
 - Discord authentication or no authentication
 - Pokemon form filtering
@@ -31,14 +34,34 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Zoom zoom zoom, fast
 - Much more...
 
-### Getting Started
-1. Clone repository `git clone https://github.com/versx/MapJS`
-1. Install dependencies `npm install`
-1. Copy config `cp src/configs/config.example.json src/configs/config.json`
-1. Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`
-1. Fill out config `vi src/configs/config.json`
+## Quick Start
+
+1. Clone the repository
+
+    ```
+    git clone https://github.com/versx/MapJS
+    ```
+
+1. Install dependencies
+
+    ```
+    npm run update
+    ```
+
+1. Copy config
+
+    ```
+    cp src/configs/config.example.json src/configs/config.json
+    ```
+
+1. Create a Discord bot at [https://discord.com/developers](https://discord.com/developers){target=_blank} and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`
+1. Fill out config
+
+    ```
+    vi src/configs/config.json
+    ```
+
 1. Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)
 1. Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)
-1. Run `npm run create-locales`
-1. Run `npm start`
-1. Access via http://machineip:port/ login using your Discord account
+1. Run `npm run start`
+1. Access via [http://machineip:port/]() login using your Discord account
