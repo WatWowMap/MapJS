@@ -37,7 +37,6 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
     }).then(async (response) => {
         DiscordClient.setAccessToken(response.data.access_token);
         const user = await DiscordClient.getUser();
-        //const guilds = await DiscordClient.getGuilds();
 
         req.session.logged_in = true;
         req.session.user_id = user.id;
