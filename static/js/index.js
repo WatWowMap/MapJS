@@ -5159,8 +5159,10 @@ function getTimeSince (date) {
     return str;
 }
 
+const ivFilterPrompt = 'Please enter an IV Filter. Example: (S0-1 & A15 & D15 & (CP1400-1500 | CP2400-2500)) | L35 | 90-100';
+
 function manageIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter[id].filter).toUpperCase();
+    const result = prompt(ivFilterPrompt, filter[id].filter);
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5212,7 +5214,7 @@ function manageColorPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter['iv_' + id].filter);
+    const result = prompt(ivFilterPrompt, filter['iv_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5277,29 +5279,36 @@ function manageGlobalStardustCountPopup (id, filter) {
 }
 
 function checkIVFilterValid (filter) {
-    let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    const input = filter.toUpperCase();
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
     let match;
-    while ((match = tokenizer.exec(filter)) !== null) {
+    while ((match = tokenizer.exec(input)) !== null) {
         if (match.index > lastIndex) {
             return null;
         }
         if (expectClause) {
             if (match[3] !== undefined) {
                 expectClause = false;
-            } else if (match[1] === '(') {
-                if (++stack > 1000000000) {
+            } else switch (match[1]) {
+                case '(':
+                    if (++stack > 1000000000) {
+                        return null;
+                    }
+                    break;
+                case '!':
+                    break;
+                default:
                     return null;
-                }
-            } else {
-                return null;
             }
         } else if (match[3] !== undefined) {
             return null;
         } else switch (match[1]) {
-            case '(': return null;
+            case '(':
+            case '!':
+                return null;
             case ')':
                 if (--stack < 0) {
                     return null;
