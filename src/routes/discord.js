@@ -43,7 +43,6 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.username = `${user.username}#${user.discriminator}`;
         const perms = await DiscordClient.getPerms(user);
         req.session.perms = perms;
-        //req.session.guilds = guilds;
         const valid = perms.map !== false;
         req.session.valid = valid;
         req.session.save();
