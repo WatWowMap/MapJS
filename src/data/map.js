@@ -1230,13 +1230,14 @@ const getPolygon = (s2cellId) => {
 
 // need to keep consistency with client-side implementation checkIVFilterValid
 const sqlifyIvFilter = (filter) => {
+    const input = filter.toUpperCase();
     let tokenizer = /\s*([()|&!]|([ADSL]?|CP)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
     let lastIndex = 0;
     let match;
-    while ((match = tokenizer.exec(filter)) !== null) {
+    while ((match = tokenizer.exec(input)) !== null) {
         if (match.index > lastIndex) {
             return null;
         }
