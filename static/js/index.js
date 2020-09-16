@@ -5162,7 +5162,7 @@ function getTimeSince (date) {
 const ivFilterPrompt = 'Please enter an IV Filter. Example: (S0-1 & A15 & D15 & (CP1400-1500 | CP2400-2500)) | L35 | 90-100';
 
 function manageIVPopup (id, filter) {
-    const result = prompt(ivFilterPrompt, filter[id].filter).toUpperCase();
+    const result = prompt(ivFilterPrompt, filter[id].filter);
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5279,12 +5279,13 @@ function manageGlobalStardustCountPopup (id, filter) {
 }
 
 function checkIVFilterValid (filter) {
+    const input = filter.toUpperCase();
     let tokenizer = /\s*([()|&!]|([ADSL]?|CP)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
     let match;
-    while ((match = tokenizer.exec(filter)) !== null) {
+    while ((match = tokenizer.exec(input)) !== null) {
         if (match.index > lastIndex) {
             return null;
         }
