@@ -2331,12 +2331,12 @@ function getPokemonIndex (pokemon) {
     if (pokemon.pvp_rankings_great_league !== null && pokemon.pvp_rankings_ultra_league !== null) {
         let bestRank = 4;
         $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 1400 && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 2400 && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
@@ -2356,7 +2356,7 @@ function getPokemonIndex (pokemon) {
 
 function hasRelevantLeagueStats (leagueStats, greatLeague) {
     let found = false;
-    let minCP = greatLeague !== false ? 1400 : 2400;
+    let minCP = greatLeague !== false ? minPvpCp.great : minPvpCp.ultra;
     let maxCP = greatLeague !== false ? 1500 : 2500;
     let maxRank = 100;
     if (leagueStats) {
@@ -2706,7 +2706,7 @@ function getPokemonPopupContent (pokemon) {
             '<b>Great League:</b><br>';
         $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
           // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= 1400 && ranking.cp <= 1500 && ranking.rank <= 100) {
+            if (ranking.cp !== null && ranking.cp >= minPvpCp.great && ranking.cp <= 1500 && ranking.rank <= 100) {
                 let pokemonName;
                 if (ranking.form !== 0) {
                     pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
@@ -2732,7 +2732,7 @@ function getPokemonPopupContent (pokemon) {
             '<b>Ultra League:</b><br>';
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
             // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+            if (ranking.cp !== null && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500 && ranking.rank <= 100) {
                 let pokemonName;
                 if (ranking.form !== 0) {
                     pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
@@ -5375,12 +5375,12 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     if ((greatLeague !== null ) || (ultraLeague !== null )) {
         let bestRank = 4;
         $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 1400 && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 2400 && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
