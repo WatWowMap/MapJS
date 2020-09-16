@@ -186,8 +186,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                             ) {
                                 continue;
                             }
-                            let greatLeague = filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.great && x.cp <= 1500);
-                            let ultraLeague = filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.utlra && x.cp <= 2500);
+                            let greatLeague = filtered.pvp_rankings_great_league ? filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.great && x.cp <= 1500);
+                            let ultraLeague = filtered.pvp_rankings_ultra_league ? filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.utlra && x.cp <= 2500);
                             if (greatLeague.length === 0 && ultraLeague.length === 0) {
                                 continue;
                             }
