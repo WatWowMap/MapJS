@@ -76,7 +76,6 @@ class DiscordClient {
             weather: false,
             devices: false
         };
-        //const user = await this.getUser();
         const guilds = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
             Object.keys(perms).forEach((key) => perms[key] = true);
