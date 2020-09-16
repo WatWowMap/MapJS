@@ -55,8 +55,9 @@
             "devices": false
         },
         "glow": {
-            "iv": 100,
-            "color": "red"
+            "iv": { "value": 100, "color": "red" },
+            "pvp": { "value": 1, "color": "blue" },
+            "both": { "color": "purple" }
         }
     },
     "header": {
