@@ -35,7 +35,6 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
     axios.post('https://discord.com/api/oauth2/token', data, {
         headers: headers
     }).then(async (response) => {
-        //const client = DiscordClient.instance;
         DiscordClient.setAccessToken(response.data.access_token);
         const user = await DiscordClient.getUser();
         //const guilds = await DiscordClient.getGuilds();
