@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-    <div class="<%= has_iv ? 'col-6 col-md-4' : 'col text-center' %>">
+    <div class="<%= has_iv ? 'col-4' : 'col text-center' %>">
         <div class="row <%= has_iv ? '' : 'text-center' %>" style="margin: auto;">
             <img src="<%= pokemon_icon %>" height="64" width="64">
         </div>
@@ -24,7 +24,7 @@
             <% } %>
         </div>
     </div>
-    <div class="col-12 col-md-8 text-nowrap">
+    <div class="col-8 text-nowrap">
     <% if (has_iv) { %>
         <% const ivPercent = Math.round((atk_iv + def_iv + sta_iv) / 45 * 1000) / 10; %>
         <b>IV:</b> <%= ivPercent %>% (A<%= atk_iv %>|D<%= def_iv %>|S<%= sta_iv%>)<br>
