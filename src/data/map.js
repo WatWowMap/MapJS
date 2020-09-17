@@ -75,6 +75,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let sqlExcludeIvPokemon = '';
     let sqlExcludeIvForms = '';
     let sqlIncludeIv = '';
+    const addExcludeIvPokemon = (id) => {
+        if (sqlExcludeIvPokemon === '') {
+            sqlExcludeIvPokemon = `AND pokemon_id NOT IN (${id}`;
+        } else {
+            sqlExcludeIvPokemon += `, ${id}`;
+        }
+    };
     if (showIV) {
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(key => {
@@ -89,6 +96,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                     sqlExcludeIvForms += `, ${formId}`;
                     sqlPokemon = `form = ${formId}`;
                     if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                        addExcludeIvPokemon(pokemonId);
                         sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
                     }
                 } else if (key === 'and') {
@@ -100,11 +108,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 } else {
                     const id = parseInt(key);
                     if (id) {
-                        if (sqlExcludeIvPokemon === '') {
-                            sqlExcludeIvPokemon = `AND pokemon_id NOT IN (${id}`;
-                        } else {
-                            sqlExcludeIvPokemon += `, ${id}`;
-                        }
+                        addExcludeIvPokemon(id);
                         sqlPokemon = `pokemon_id = ${id} AND form = 0`;
                     }
                 }
