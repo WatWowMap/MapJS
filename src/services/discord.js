@@ -1,7 +1,7 @@
 /* global BigInt */
 'use strict';
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 
 const DiscordOauth2 = require('discord-oauth2');
 const oauth = new DiscordOauth2();
@@ -12,8 +12,7 @@ const client = new Discord.Client();
 if (config.discord.enabled) {
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}!`);
-            client.user.setPresence({ activity: { name: config.discord.status, type: 3 }
-        });
+        client.user.setPresence({ activity: { name: config.discord.status, type: 3 } });
     });
   
     client.login(config.discord.botToken);
@@ -57,7 +56,7 @@ class DiscordClient {
         return [];
     }
 
-    async getPerms() {
+    async getPerms(user) {
         const perms = {
             map: false,
             pokemon: false,
@@ -73,14 +72,34 @@ class DiscordClient {
             s2cells: false,
             submissionCells: false,
             nests: false,
+            scanAreas: false,
             weather: false,
             devices: false
         };
-        const user = await this.getUser();
         const guilds = await this.getGuilds();
-        for (let i = 0; i < config.discord.guilds.length; i++) {
+        if (config.discord.allowedUsers.includes(user.id)) {
+            Object.keys(perms).forEach((key) => perms[key] = true);
+            console.log(`User ${user.username}#${user.discriminator} (${user.id}) in allowed users list, skipping guild and role check.`);
+            return perms;
+        }
+
+        let blocked = false;
+        for (let i = 0; i < config.discord.blockedGuilds.length; i++) {
+            const guildId = config.discord.blockedGuilds[i];
+            // Check if user's guilds contains blocked guild
+            if (guilds.includes(guildId)) {
+                // If so, user is not granted access
+                blocked = true;
+                break;
+            }
+        }
+        if (blocked) {
+            // User is in blocked guild
+            return perms;
+        }
+        for (let i = 0; i < config.discord.allowedGuilds.length; i++) {
             // Check if user is in config guilds
-            const guildId = config.discord.guilds[i];
+            const guildId = config.discord.allowedGuilds[i];
             if (!guilds.includes(guildId)) {
                 continue;
             }

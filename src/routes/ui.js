@@ -1,11 +1,12 @@
 'use strict';
 
+const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const defaultData = require('../data/default.js');
 //const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');
@@ -26,17 +27,6 @@ router.get(['/', '/index'], async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     const data = await handlePage(req, res);
     res.render('index', data);
-});
-
-router.get('/index.js', async (req, res) => {
-    res.setHeader('Content-Type', 'application/javascript');
-    const data = await handleHomeJs(req, res);
-    res.render('index-js', data);
-});
-
-router.get('/index.css', (req, res) => {
-    res.setHeader('Content-Type', 'text/css');
-    res.render('index-css', defaultData);
 });
 
 // Location endpoints
@@ -65,31 +55,35 @@ router.get('/@/:city/:zoom', async (req, res) => {
 
 router.get('/purge', async (req, res) => {
     let target = req.query.target;
-    let type = req.query.type;
     if (!target || !target.startsWith('/')) {
         target = '/';
     }
-    res.set('Clear-Site-Data', `"${type}"`);
+    res.set('Clear-Site-Data', '"cache"');
     res.redirect(target);
+});
+
+router.get('/429', (req, res) => {
+    const data = defaultData;
+    res.render('429', data);
 });
 
 
 const handlePage = async (req, res) => {
     const data = defaultData;
+    data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
+    data.tableClass = config.style === 'dark' ? 'table-dark' : '';
+
     data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
 
-    data.available_icon_styles_json = JSON.stringify(config.iconStyles);
-
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
+    await updateAvailableForms(config.icons);
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
-    const availableItems = [-3, -2, -1];
+    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
     //const keys = Object.keys(InventoryItemId);
     //keys.forEach(key => {
     //    const itemId = InventoryItemId[key];
@@ -170,7 +164,7 @@ const handlePage = async (req, res) => {
     }
 
     if (city) {
-        for (var i = 0; i < areaKeys.length; i++) {
+        for (let i = 0; i < areaKeys.length; i++) {
             const key = areaKeys[i];
             if (city.toLowerCase() === key.toLowerCase()) {
                 const area = config.areas[key];
@@ -198,51 +192,11 @@ const handlePage = async (req, res) => {
     data.zoom = zoom || config.map.startZoom || 12;
     data.min_zoom = config.map.minZoom || 10;
     data.max_zoom = config.map.maxZoom || 18;
-    return data;
-};
 
-const handleHomeJs = async (req, res) => {
-    const data = defaultData;
-    data.max_pokemon_id = config.map.maxPokemonId;
-
-    // Build available tile servers list
-    const tileservers = getAvailableTileservers();
-    data.available_tileservers_json = JSON.stringify(tileservers);
-
-    data.available_icon_styles_json = JSON.stringify(config.icons);
-
-    // Build available forms list
-    const availableForms = getAvailableForms();
-    data.available_forms_json = JSON.stringify(availableForms);
-
-    // Build available items list
-    const availableItems = [-3, -2, -1];
-    //const keys = Object.keys(InventoryItemId);
-    //keys.forEach(key => {
-    //    const itemId = InventoryItemId[key];
-    //    availableItems.push(itemId);
-    //});
-    data.available_items_json = JSON.stringify(availableItems);
-
-    // Available raid boss filters
-    const availableRaidBosses = await map.getAvailableRaidBosses();
-    data.available_raid_bosses_json = JSON.stringify(availableRaidBosses);
-
-    // Available quest filters
-    const availableQuestRewards = await map.getAvailableQuests();
-    data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
-
-    // Available nest pokemon filter
-    const availableNestPokemon = await map.getAvailableNestPokemon();
-    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
-
-    // Map settings
-    data.min_zoom = req.query.min_zoom || config.map.minZoom;
-    data.max_zoom = req.query.max_zoom || config.map.maxZoom;
-    data.max_pokemon_id = config.maxPokemonId;
-    //data.start_pokemon = req.params.start_pokemon
-    //data.start_pokestop = req.params.start_pokestop
-    //data.start_gym = req.params.start_gym
+    data.locale_last_modified = (await fs.promises.stat(path.resolve(__dirname, `../../static/locales/${data.locale}.json`))).mtimeMs;
+    data.css_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/css/index.css'))).mtimeMs;
+    data.js_last_modified = (await fs.promises.stat(path.resolve(__dirname, '../../static/js/index.js'))).mtimeMs;
+    
     return data;
 };
 
@@ -261,22 +215,31 @@ const getAvailableTileservers = () => {
     return tileservers;
 };
 
-const getAvailableForms = () => {
-    const availableForms = [];
-    // TODO: Check icon repos, hopefully no one uses all remote icon repos :joy:
-    const pokemonIconsDir = path.resolve(__dirname, '../../static/img/pokemon');
-    const files = fs.readdirSync(pokemonIconsDir);
-    if (files) {
-        files.forEach(file => {
-            const split = file.replace('.png', '').split('_');
-            if (split.length === 4) {
-                const pokemonId = parseInt(split[2]);
-                const formId = parseInt(split[3]);
-                availableForms.push(`${pokemonId}-${formId}`);
+const updateAvailableForms = async (icons) => {
+    for (const icon of Object.values(icons)) {
+        if (icon.path.startsWith('/')) {
+            const pokemonIconsDir = path.resolve(__dirname, `../../static${icon.path}`);
+            const files = await fs.promises.readdir(pokemonIconsDir);
+            if (files) {
+                const availableForms = [];
+                files.forEach(file => {
+                    const match = /^(.+)\.png$/.exec(file);
+                    if (match !== null) {
+                        availableForms.push(match[1]);
+                    }
+                });
+                icon.pokemonList = availableForms;
             }
-        });
+        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
+            const response = await axios({
+                method: 'GET',
+                url: icon.path + '/index.json',
+                responseType: 'json'
+            });
+            icon.pokemonList = response ? response.data : [];
+            icon.lastRetrieved = Date.now();
+        }
     }
-    return availableForms;
 };
 
 module.exports = router;

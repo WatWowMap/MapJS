@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
 
-const config = require('../config.json');
 const TemplatesDir = path.resolve(__dirname, '../../templates');
+const config = require('../services/config.js');
 
 const generateString = () => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -15,7 +15,7 @@ const hasGuild = (guilds) => {
     if (!config.discord.enabled) {
         return true;
     }
-    if (config.discord.guilds.length === 0) {
+    if (config.discord.allowedGuilds.length === 0) {
         return true;
     }
     if (guilds.length === 0) {
@@ -23,7 +23,7 @@ const hasGuild = (guilds) => {
     }
     for (let i = 0; i < guilds.length; i++) {
         const guild = guilds[i];
-        if (config.discord.guilds.includes(guild)) {
+        if (config.discord.allowedGuilds.includes(guild)) {
             return true;
         }
     }
