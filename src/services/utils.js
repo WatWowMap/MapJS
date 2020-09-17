@@ -64,12 +64,12 @@ const fileExists = async (path) => {
 };
 
 const render = async (name, data) => {
-    return new Promise(async (resolve, reject) => {
+    const filePath = path.resolve(TemplatesDir, name + '.ejs');
+    if (!await fileExists(filePath)) {
+        throw `Template ${filePath} does not exist!`;
+    }
+    return new Promise((resolve, reject) => {
         try {
-            const filePath = path.resolve(TemplatesDir, name + '.ejs');
-            if (!await fileExists(filePath)) {
-                return reject(`Template ${filePath} does not exist!`);
-            }
             ejs.renderFile(filePath, data, (err, str) => {
                 if (err) {
                     console.error('Template render error:', err);
