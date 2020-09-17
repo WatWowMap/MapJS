@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-12 col-md-8 center-vertical">
+    <div class="col-8 center-vertical">
         <span class="text-nowrap" style="font-size:<%= title_size %>px;"><b><%= gym_name %></b></span>
     </div>
-    <div class="col-6 col-md-4 center-vertical">
+    <div class="col-4 center-vertical">
         <div style="float:right; margin: auto;">
             <img src="<%= icon_path %>/team/<%= team_id %>.png" height="32" width="32">
         </div>
@@ -10,11 +10,11 @@
 </div>
 
 <% if (is_raid) { %>
-    <div class="row" style="margin:auto;">
-        <div class="col-6 col-md-4">
+    <div class="row">
+        <div class="col-4">
             <div class="row" style="margin:auto;">
             <% if (has_raid_boss && is_raid_battle) { %>
-                <img src="<%= icon_path %>/pokemon/<%= pokemon_icon %>" height="64" width="64">
+                <img src="<%= pokemon_icon %>" height="64" width="64">
             <% } else { %>
                 <img src="<%= icon_path %>/egg/<%= raid_level %>.png" height="64" width="64">
             <% } %>
@@ -31,7 +31,7 @@
             <% } %>
             </div>
         </div>
-        <div class="col-12 col-md-8 text-nowrap">
+        <div class="col-8 text-nowrap">
             <h7><b><%= pokemon_name %></b></h7><br>
             <% if (has_raid_boss && is_raid_battle) { %>
                 <% if (raid_pokemon_cp) { %>
@@ -74,11 +74,11 @@
                         : '';
         url.replace('http://', 'https://');
         %> 
-        <div class="col-6 col-md-4">
+        <div class="col-4">
             <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="circle-image <%= teamClass %>" style="height:72px; width:72px;"></a>
         </div>
     <% } %>
-        <div class="col-12 col-md-8 center-vertical p-4">
+        <div class="col-8 center-vertical p-4">
             <b>Team:</b> <%= team_name %><br>
             <b>Slots Available:</b> <%= available_slots %><br>
         <% if (guarding_pokemon_id > 0) { %>
