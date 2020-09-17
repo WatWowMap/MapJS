@@ -125,3 +125,7 @@ static/locales/*
 
 # No docker-compose.yml files
 docker-compose.yml
+
+# Only keep example templates
+/templates/*
+!/templates/*.example.ejs
