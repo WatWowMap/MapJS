@@ -3188,7 +3188,7 @@ function getGymPopupContent (gym) {
     }
     gym.pokemon_types = pokemonTypes;
     if (hasRaidBoss) {
-        gym.pokemon_icon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form)}.png`;
+        gym.pokemon_icon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}.png`;
     }
     gym.pokemon_name = pokemonName;
     gym.move_1_name = getMoveName(gym.raid_pokemon_move_1);
