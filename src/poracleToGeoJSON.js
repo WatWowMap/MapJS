@@ -45,9 +45,9 @@ fs.readFile(inFilePath, 'utf8', (err, data) => {
             color: inGeofence.color,
             id: inGeofence.id
         };
-        for (let i = 0; i < inGeofence.path.length; i++) {
-            const coord = inGeofence.path[i];
-            inGeofence.path[i] = [coord[1], coord[0]];
+        for (let j = 0; j < inGeofence.path.length; j++) {
+            const coord = inGeofence.path[j];
+            inGeofence.path[j] = [coord[1], coord[0]];
         }
         outGeofence.geometry.coordinates[0] = inGeofence.path;
         outGeoJSON.features.push(outGeofence);
