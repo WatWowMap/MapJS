@@ -2608,9 +2608,10 @@ function getPokemonPopupContent (pokemon) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
     pokemon.pokemon_name = pokemonName;
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form)
-    pokemon.pokemon_icon = pokemonIcon;
-    pokemon.icon_path = availableIconStyles[selectedIconStyle];
+    // TODO: add evolution https://github.com/versx/DataParser/issues/9
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
+    pokemon.pokemon_icon = `${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png`;
+    pokemon.icon_path = '/img';
     const pkmn = masterfile.pokemon[pokemon.pokemon_id];
     let pokemonTypes = [];
     if (pkmn && pkmn.types && pkmn.types.length > 0) {
@@ -2643,9 +2644,6 @@ function getPokemonPopupContent (pokemon) {
     pokemon.time_utill_despawn = getTimeUntill(despawnDate);
     pokemon.time_since_first_seen = getTimeSince(firstSeenDate);
     pokemon.time_since_updated = getTimeSince(lastUpdatedDate);
-
-    // TODO: add evolution https://github.com/versx/DataParser/issues/9
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
 
     let greatLeagueRankings = [];
     if (pokemon.pvp_rankings_ultra_league && pokemon.pvp_rankings_ultra_league.length > 0 && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
@@ -2949,7 +2947,7 @@ function getPokestopPopupContent (pokestop) {
     pokestop.invasion_time_since = getTimeUntill(invasionExpireDate);
     pokestop.lure_expire_time = lureExpireDate.toLocaleTimeString();
     pokestop.invasion_expire_time = invasionExpireDate.toLocaleTimeString();
-    pokestop.icon_path = availableIconStyles[selectedIconStyle];
+    pokestop.icon_path = '/img';
     if (isActiveInvasion) {
         pokestop.grunt_name = getGruntName(pokestop.grunt_type);
     }
@@ -3197,7 +3195,7 @@ function getGymPopupContent (gym) {
     gym.move_2_name = getMoveName(gym.raid_pokemon_move_2);
     gym.guarding_pokemon_name = getPokemonName(gym.guarding_pokemon_id);
     gym.team_name = getTeamName(gym.team_id);
-    gym.icon_path = availableIconStyles[selectedIconStyle];
+    gym.icon_path = '/img';
     gym.time_until_battle = getTimeUntill(raidBattleDate);
     gym.time_until_end = getTimeUntill(raidEndDate);
     gym.time_since_updated = getTimeSince(updatedDate);
@@ -3395,14 +3393,45 @@ function getGymPopupContent (gym) {
 }
 
 function getCellPopupContent (cell) {
-    cell.time_since = getTimeSince(new Date(cell.updated * 1000));
-    const templateData = getTemplateData('cell', cell);
-    return templateData;
+    //cell.time_since = getTimeSince(new Date(cell.updated * 1000));
+    //const templateData = getTemplateData('cell', cell);
+    //return templateData;
+    const content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Last Updated:</b> ${new Date(cell.updated * 1000).toLocaleTimeString()} (${getTimeSince(new Date(cell.updated * 1000))})
+    </center>
+    `;
+    return content;
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
-    const templateData = getTemplateData('submission_cell', cell);
-    return templateData;
+    //const templateData = getTemplateData('submission_cell', cell);
+    //return templateData;
+    const gymThreshold = [2, 6, 20];
+    let content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Total Count:</b> ${cell.count}<br>
+        <b>Pokestop Count:</b> ${cell.count_pokestops}<br>
+        <b>Gym Count:</b> ${cell.count_gyms}<br>
+    `;
+    if (cell.count_gyms < 3) {
+        content += `<b>Submissions untill Gym:</b> ${gymThreshold[cell.count_gyms] - cell.count}`;
+    } else {
+        content += '<b>Submissions untill Gym:</b> Never';
+    }
+    if ((cell.count === 1 && cell.count_gyms < 1) ||
+        (cell.count === 5 && cell.count_gyms < 2) ||
+        (cell.count === 19 && cell.count_gyms < 3)) {
+        content += '<br><b>Next submission will cause a Gym!';
+    }
+    content += `
+    </center>
+    `;
+    return content;
 }
 
 function degreesToCardinal (d) {
@@ -3991,23 +4020,23 @@ function getPokestopMarker (pokestop, ts) {
 }
 
 function getSpawnpointMarker (spawnpoint, ts) {
-    /*
     let content = '<center><h6><b>Spawnpoint</b></h6></center>';
     const hasTimer = spawnpoint.despawn_second != null;
     if (hasTimer) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += '<br><b>Despawn Timer:</b> ' + timer + ' minutes';
     }
-    */
+    /*
     const hasTimer = spawnpoint.despawn_second !== null;
     const templateData = getTemplateData('spawnpoint', spawnpoint);
+    */
     const circle = L.circle([spawnpoint.lat, spawnpoint.lon], {
         color: hasTimer ? 'green' : 'red',
         fillColor: hasTimer ? 'green' : 'red',
         fillOpacity: 0.5,
         radius: 1.0
     });
-    circle.bindPopup(templateData);
+    circle.bindPopup(content);
     return circle;
 }
 
