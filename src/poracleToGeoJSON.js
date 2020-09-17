@@ -8,28 +8,26 @@ if (args.length === 0) {
     console.error('Error: No geofence file provided via command line arguments.');
     return;
 }
-const filePath = args[0];
-
-const geoJSON = {
+const inFilePath = args[0];
+const outGeoJSON = {
     type: 'FeatureCollection',
     features: [],
 };
 
-fs.readFile(filePath, (err, data) => {
+fs.readFile(inFilePath, 'utf8', (err, data) => {
     if (err) {
         console.error(err);
         return;
     }
-    const json = data.toString('utf8');
-    const objArray = JSON.parse(json);
-    if (objArray.length === 0) {
+    const inGeoJSON = JSON.parse(data);
+    if (inGeoJSON.length === 0) {
         console.error('Failed to parse poracle geofence file');
         return;
     }
-    for (let i = 0; i < objArray.length; i++) {
-        const obj = objArray[i];
-        console.log('Converting', obj.name);
-        const geofence = {
+    for (let i = 0; i < inGeoJSON.length; i++) {
+        const inGeofence = inGeoJSON[i];
+        console.log('Converting', inGeofence.name);
+        const outGeofence = {
             type: 'Feature',
             properties: {
                 name: '',
@@ -42,14 +40,20 @@ fs.readFile(filePath, (err, data) => {
                 coordinates: [[]]
             }
         };
-        geofence.properties.name = obj.name;
-        geofence.properties.color = obj.color;
-        geofence.properties.id = obj.id;
-        geofence.geometry.coordinates[0] = obj.path;
-
-        geoJSON.features.push(geofence);
+        outGeofence.properties = {
+            name: inGeofence.name,
+            color: inGeofence.color,
+            id: inGeofence.id
+        };
+        for (let i = 0; i < inGeofence.path.length; i++) {
+            const coord = inGeofence.path[i];
+            inGeofence.path[i] = [coord[1], coord[0]];
+        }
+        outGeofence.geometry.coordinates[0] = inGeofence.path;
+        outGeoJSON.features.push(outGeofence);
     }
-    const savePath = path.resolve(path.dirname(filePath), 'areas.json');
-    fs.writeFile(savePath, JSON.stringify(geoJSON, null, 2), 'utf8', () => { });
-    console.log('areas.json file saved.');
+    const outFilePath = path.resolve(path.dirname(inFilePath), 'areas.json');
+    fs.writeFile(outFilePath, JSON.stringify(outGeoJSON, null, 2), 'utf8', () => {
+        console.log(`${outFilePath} file saved.`);
+    });
 });
