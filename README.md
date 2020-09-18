@@ -337,11 +337,20 @@ Your `config.json` file is only required for a few options. Anything you do not 
 1. Run `npm run update` in root folder
 1. Run `npm start`
 
-## Convert INI geofence format to GeoJSON format (for areas.json file to show scan areas)
 
-1. Create `geofences` directory in root of project (with src folder)
+## Scan Areas (`static/custom/areas.json` file to show scan areas on the map)
+
+#### Convert INI geofence format to GeoJSON format
+
+1. Create `geofences` directory in the root of project folder (with src folder)
 1. Copy your `.txt` INI format geofence files to the `geofences` folder
-1. Run `npm run convert -- ./geofences/` which will convert your INI geofences to one `areas.json` GeoJSON format file in the root of the project
+1. Run `npm run convert -- ./geofences/` which will convert your INI geofences to one `areas.json` GeoJSON format file in the root of the project folder
+1. Copy `areas.json` to `static/custom/areas.json` to show the scan areas on the map
+
+#### Convert Poracle geofence format to GeoJSON format
+
+1. Copy your geofence.json file from Poracle to the root of the project folder (with src folder)
+1. Run `npm run convert-poracle -- geofence.json` which will convert the file to an `areas.json` GeoJSON format file in the root of the project folder
 1. Copy `areas.json` to `static/custom/areas.json` to show the scan areas on the map
 
 ## PM2 (recommended)
@@ -365,16 +374,11 @@ module.exports = {
 
 ## TODO
 
-- Finish custom user settings modal (user defined glow settings, cluster settings, etc)
 - Notifications
 - Notification sounds
 - Bouncing marker options
 - Heatmaps
-- Basic statistics
-- Separate cluster layers by type
 - Possibly change filter selection from a list to a grid
-- Force logout of other devices if logged into multiple
-- Glow for top pvp ranks
 - Only clear layers if filter changed
 - Icon spacing
 - Search quest by task name
