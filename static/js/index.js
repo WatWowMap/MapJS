@@ -5159,7 +5159,7 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = 'Please enter an IV Filter. Example: (S0-1 & A15 & D15 & (CP1400-1500 | CP2400-2500)) | L35 | 90-100';
+const ivFilterPrompt = 'Please enter an IV and/or Level Filter. Examples:\n(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100\n!0-100\nA0 & D0 & S0 | 100';
 
 function manageIVPopup (id, filter) {
     const result = prompt(ivFilterPrompt, filter[id].filter);
@@ -5227,7 +5227,7 @@ function manageGlobalIVPopup (id, filter) {
 }
 
 function manageGlobalPVPPopup (id, filter) {
-    const result = prompt('Please enter a PVP Filter. Example: 1-5', filter['pvp_' + id].filter);
+    const result = prompt('Please enter a PVP rank Filter. Example: 1-5', filter['pvp_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5253,7 +5253,7 @@ function manageGlobalAveragePopup (id, filter) {
 }
 
 function manageGlobalCandyCountPopup (id, filter) {
-    const result = prompt('Please enter a candy count to filter. Example: 2', filter[id].filter);
+    const result = prompt('Please enter a candy amount to filter. Example: 2', filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
