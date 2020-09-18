@@ -1,6 +1,6 @@
-[![Documentation Status](https://readthedocs.org/projects/mapjs/badge/?version=latest)](https://mapjs.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/mapjs/badge/?version=latest)](https://mapjs.readthedocs.io/en/latest/?badge=latest) 
 ![Node.js CI](https://github.com/versx/MapJS/workflows/Node.js%20CI/badge.svg)
-![Lint](https://github.com/versx/MapJS/workflows/Lint/badge.svg)
+![Lint](https://github.com/versx/MapJS/workflows/Lint/badge.svg)  
 
 # MapJS
 
@@ -40,7 +40,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 1. Clone repository `git clone https://github.com/versx/MapJS`
 1. Install dependencies `npm run update`
-1. Copy config `cp src/configs/config.example.json src/configs/config.json`
+1. Copy config `cp src/configs/config.example.json src/configs/config.json`  
 1. Create a Discord bot at https://discord.com/developers and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`
 1. Fill out config `vi src/configs/config.json`
 1. Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)

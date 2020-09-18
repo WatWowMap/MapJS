@@ -3681,7 +3681,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
-        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` +
+        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` + 
         (
             showPokemonGlow !== false && glowColor !== ''
             ? `filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});-webkit-filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});`
