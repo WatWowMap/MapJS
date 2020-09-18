@@ -19,7 +19,6 @@ nav:
     - GeoJSON: configuration/geojson.md
     - Images: configuration/images.md
     - Locales: configuration/locales.md
-  - Docs: documentation.md
 
 markdown_extensions:
   - toc:
