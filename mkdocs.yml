@@ -1,9 +1,9 @@
 site_name: MapJS
-site_url: https://github.com/versx/MapJS
+site_url: https://github.com/WatWowMap/MapJS
 site_description: MapJS
 site_author: versx
 
-repo_url: https://github.com/versx/MapJS
+repo_url: https://github.com/WatWowMap/MapJS
 
 theme:
   name: flatly
@@ -19,6 +19,7 @@ nav:
     - GeoJSON: configuration/geojson.md
     - Images: configuration/images.md
     - Locales: configuration/locales.md
+  - WatWowMap: /
 
 markdown_extensions:
   - toc:
