@@ -18,19 +18,8 @@ const masterfile = require('../../static/data/masterfile.json');
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
     const excludePokemonIds = [];
     const excludeFormIds = [];
-    let keys = Object.keys(pokemonFilterIV || []);
-    if (keys && keys.length > 0 && showIV) {
-        for (let i = 0; i < keys.length; i++) {
-            const id = keys[i];
-            if (id) {
-                if (!pokemonFilterExclude.includes(id)) {
-                    pokemonFilterExclude.push(id);
-                }
-            }
-        }
-    }
 
-    keys = Object.values(pokemonFilterExclude || []);
+    let keys = Object.values(pokemonFilterExclude || []);
     let sqlIncludeBigKarp = '';
     let sqlIncludeTinyRat = '';
     if (keys && keys.length > 0) {
@@ -81,9 +70,18 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         args.push(excludeFormIds[i]);
     }
 
-    let sqlIncludeIv = '';
     let sqlOrIv = '';
     let sqlAndIv = '';
+    let sqlExcludeIvPokemon = '';
+    let sqlExcludeIvForms = '';
+    let sqlIncludeIv = '';
+    const addExcludeIvPokemon = (id) => {
+        if (sqlExcludeIvPokemon === '') {
+            sqlExcludeIvPokemon = `AND pokemon_id NOT IN (${id}`;
+        } else {
+            sqlExcludeIvPokemon += `, ${id}`;
+        }
+    };
     if (showIV) {
         const keys = Object.keys(pokemonFilterIV);
         keys.forEach(key => {
@@ -95,8 +93,10 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 if (split.length === 2) {
                     const pokemonId = parseInt(split[0]);
                     const formId = parseInt(split[1]);
+                    sqlExcludeIvForms += `, ${formId}`;
                     sqlPokemon = `form = ${formId}`;
                     if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                        addExcludeIvPokemon(pokemonId);
                         sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
                     }
                 } else if (key === 'and') {
@@ -108,12 +108,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 } else {
                     const id = parseInt(key);
                     if (id) {
+                        addExcludeIvPokemon(id);
                         sqlPokemon = `pokemon_id = ${id} AND form = 0`;
                     }
                 }
                 sqlIncludeIv += ` OR ((${sqlPokemon}) AND (${sqlFilter}))`;
             }
         });
+        if (sqlExcludeIvPokemon !== '') {
+            sqlExcludeIvPokemon += ')';
+        }
     }
 
     const sql = `
@@ -124,10 +128,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
         (
-            (form = 0 ${sqlExcludePokemon})
-            OR form NOT IN (0 ${sqlExcludeForms})
-            ${sqlIncludeIv} ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
-        ) ${sqlAndIv} ${sqlOrIv}
+            (
+                (form = 0 ${sqlExcludePokemon}) OR form NOT IN (0 ${sqlExcludeForms})
+                ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
+            ) ${sqlAndIv} ${sqlOrIv}
+        ) AND (
+            (form = 0 ${sqlExcludeIvPokemon}) OR form NOT IN (0 ${sqlExcludeIvForms})
+        ) ${sqlIncludeIv}
     )`;
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
@@ -186,8 +193,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                             ) {
                                 continue;
                             }
-                            let greatLeague = filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 1400 && x.cp <= 1500);
-                            let ultraLeague = filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= 2400 && x.cp <= 2500);
+                            let greatLeague = filtered.pvp_rankings_great_league ? filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.great && x.cp <= 1500) : [];
+                            let ultraLeague = filtered.pvp_rankings_ultra_league ? filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.utlra && x.cp <= 2500) : [];
                             if (greatLeague.length === 0 && ultraLeague.length === 0) {
                                 continue;
                             }
@@ -1228,14 +1235,16 @@ const getPolygon = (s2cellId) => {
     return polygon;
 };
 
+// need to keep consistency with client-side implementation checkIVFilterValid
 const sqlifyIvFilter = (filter) => {
-    let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    const input = filter.toUpperCase();
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
     let lastIndex = 0;
     let match;
-    while ((match = tokenizer.exec(filter)) !== null) {
+    while ((match = tokenizer.exec(input)) !== null) {
         if (match.index > lastIndex) {
             return null;
         }
@@ -1248,6 +1257,7 @@ const sqlifyIvFilter = (filter) => {
                     case 'D': column = 'def_iv'; break;
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
+                    case 'CP': column = 'cp';    break;
                 }
                 let higher = lower;
                 if (match[4] !== undefined) {
@@ -1255,18 +1265,25 @@ const sqlifyIvFilter = (filter) => {
                 }
                 result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
                 expectClause = false;
-            } else if (match[1] === '(') {
-                if (++stack > 1000000000) {
+            } else switch (match[1]) {
+                case '(':
+                    if (++stack > 1000000000) {
+                        return null;
+                    }
+                    result += '(';
+                    break;
+                case '!':
+                    result += 'NOT ';
+                    break;
+                default:
                     return null;
-                }
-                result += '(';
-            } else {
-                return null;
             }
         } else if (match[3] !== undefined) {
             return null;
         } else switch (match[1]) {
-            case '(': return null;
+            case '(':
+            case '!':
+                return null;
             case ')':
                 result += ')';
                 if (--stack < 0) {
@@ -1274,11 +1291,11 @@ const sqlifyIvFilter = (filter) => {
                 }
                 break;
             case '&':
-                result += 'AND';
+                result += 'AND ';
                 expectClause = true;
                 break;
             case '|':
-                result += 'OR';
+                result += 'OR ';
                 expectClause = true;
                 break;
         }

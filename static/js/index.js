@@ -2331,12 +2331,12 @@ function getPokemonIndex (pokemon) {
     if (pokemon.pvp_rankings_great_league !== null && pokemon.pvp_rankings_ultra_league !== null) {
         let bestRank = 4;
         $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 1400 && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= 2400 && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
@@ -2356,7 +2356,7 @@ function getPokemonIndex (pokemon) {
 
 function hasRelevantLeagueStats (leagueStats, greatLeague) {
     let found = false;
-    let minCP = greatLeague !== false ? 1400 : 2400;
+    let minCP = greatLeague !== false ? minPvpCp.great : minPvpCp.ultra;
     let maxCP = greatLeague !== false ? 1500 : 2500;
     let maxRank = 100;
     if (leagueStats) {
@@ -2686,7 +2686,7 @@ function getPokemonPopupContent (pokemon) {
     } else {
         content += '<b>Despawn Time:</b> ~';
     }
-    content += despawnDate.toLocaleTimeString() + ' (' + getTimeUntill(despawnDate) + ')<br>' +
+    content += despawnDate.toLocaleTimeString() + ' (' + getTimeUntil(despawnDate) + ')<br>' +
         '</div>' +
         '<div class="col-sm text-nowrap">';
     if (pokemon.first_seen_timestamp !== 0 && pokemon.first_seen_timestamp !== undefined) {
@@ -2706,7 +2706,7 @@ function getPokemonPopupContent (pokemon) {
             '<b>Great League:</b><br>';
         $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
           // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= 1400 && ranking.cp <= 1500 && ranking.rank <= 100) {
+            if (ranking.cp !== null && ranking.cp >= minPvpCp.great && ranking.cp <= 1500 && ranking.rank <= 100) {
                 let pokemonName;
                 if (ranking.form !== 0) {
                     pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
@@ -2732,7 +2732,7 @@ function getPokemonPopupContent (pokemon) {
             '<b>Ultra League:</b><br>';
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
             // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+            if (ranking.cp !== null && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500 && ranking.rank <= 100) {
                 let pokemonName;
                 if (ranking.form !== 0) {
                     pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
@@ -2883,14 +2883,14 @@ function getPokestopPopupContent (pokestop) {
 
     if (isActiveLure) {
         content += '<b>Lure Type:</b> ' + getLureName(pokestop.lure_id) + '<br>';
-        content += '<b>Lure End Time:</b> ' + lureExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(lureExpireDate) + ')<br><br>';
+        content += '<b>Lure End Time:</b> ' + lureExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(lureExpireDate) + ')<br><br>';
     }
 
     if (invasionExpireDate >= now) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
         content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
-        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br>';
+        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(invasionExpireDate) + ')<br>';
         content += getPossibleInvasionRewards(pokestop);
     }
 
@@ -3171,10 +3171,10 @@ function getGymPopupContent (gym) {
 
     content += '<div class="text-center">';
     if (isRaid && !isRaidBattle) {
-        content += '<b>Raid Start:</b> ' + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntill(raidBattleDate) + ')<br>';
+        content += '<b>Raid Start:</b> ' + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntil(raidBattleDate) + ')<br>';
     }
     if (isRaid) {
-        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntill(raidEndDate) + ')<br>';
+        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntil(raidEndDate) + ')<br>';
         if (gym.raid_pokemon_id > 0) {
             content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
             content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br><br>`;
@@ -3236,9 +3236,9 @@ function getSubmissionTypeCellPopupContent (cell) {
     const gymThreshold = [2, 6, 20];
 
     if (cell.count_gyms < 3) {
-        content += '<b>Submissions untill Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
+        content += '<b>Submissions until Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
     } else {
-        content += '<b>Submissions untill Gym:</b> Never';
+        content += '<b>Submissions until Gym:</b> Never';
     }
 
     if ((cell.count === 1 && cell.count_gyms < 1) || (cell.count === 5 && cell.count_gyms < 2) || (cell.count === 19 && cell.count_gyms < 3)) {
@@ -3657,7 +3657,6 @@ function calcIV(atk, def, sta) {
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
-    const color = glowColor; // TODO: settings['pokemon-glow'].color;
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3667,6 +3666,13 @@ function getPokemonMarkerIcon (pokemon, ts) {
             : bestRank === 1
                 ? 'first'
                 : '';
+    const glowColor = (iv >= glow.iv.value && bestRank <= glow.pvp.value)
+        ? glow.both.color
+        : (iv >= glow.iv.value && bestRank > glow.pvp.value)
+            ? glow.iv.color
+            : (iv < glow.iv.value && bestRank <= glow.pvp.value)
+                ? glow.pvp.color
+                : ''; // TODO: settings['pokemon-glow'].color;
     let iconHtml = bestRank <= 3 && bestRankIcon !== ''
         ? `<img src="/img/misc/${bestRankIcon}.png" style="width:${size / 2}px;height:auto;position:absolute;right:0;bottom:0;" />`
         : '';
@@ -3675,10 +3681,10 @@ function getPokemonMarkerIcon (pokemon, ts) {
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
-        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` +
+        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` + 
         (
-            showPokemonGlow !== false && iv >= glowIV
-            ? `filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});-webkit-filter:drop-shadow(0 0 10px ${color})drop-shadow(0 0 10px ${color});`
+            showPokemonGlow !== false && glowColor !== ''
+            ? `filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});-webkit-filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});`
             : ''
         ) + `"/></div>${iconHtml}`
     });
@@ -4027,7 +4033,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
     }
 
     if (raidTimestamp > 0) {
-        const timer = getTimeUntill(new Date(raidTimestamp * 1000));
+        const timer = getTimeUntil(new Date(raidTimestamp * 1000));
         if (marker.marker.timerSet) {
             const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
@@ -4039,7 +4045,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
     }
 
     if (marker.incident_expire_timestamp >= ts && showInvasions) {
-        const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
+        const timer = getTimeUntil(new Date(marker.incident_expire_timestamp * 1000));
         if (marker.marker.timerSet) {
             const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
@@ -5119,7 +5125,7 @@ function manageConfigureButton (e, isNew) {
     }
 }
 
-function getTimeUntill (date) {
+function getTimeUntil (date) {
     const diff = Math.round((date - new Date()) / 1000);
     const h = Math.floor(diff / 3600);
     const m = Math.floor(diff % 3600 / 60);
@@ -5153,8 +5159,10 @@ function getTimeSince (date) {
     return str;
 }
 
+const ivFilterPrompt = 'Please enter an IV Filter. Example: (S0-1 & A15 & D15 & (CP1400-1500 | CP2400-2500)) | L35 | 90-100';
+
 function manageIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter[id].filter).toUpperCase();
+    const result = prompt(ivFilterPrompt, filter[id].filter);
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5206,7 +5214,7 @@ function manageColorPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt('Please enter an IV Filter. Example: (S0-1 & A15 & D15 & L0-20) | L35 | 90-100', filter['iv_' + id].filter);
+    const result = prompt(ivFilterPrompt, filter['iv_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5271,29 +5279,36 @@ function manageGlobalStardustCountPopup (id, filter) {
 }
 
 function checkIVFilterValid (filter) {
-    let tokenizer = /\s*([()|&]|([ADSL]?)([0-9]+(?:\.[0-9]*)?)(?:-([0-9]+(?:\.[0-9]*)?))?)/g;
+    const input = filter.toUpperCase();
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
     let match;
-    while ((match = tokenizer.exec(filter)) !== null) {
+    while ((match = tokenizer.exec(input)) !== null) {
         if (match.index > lastIndex) {
             return null;
         }
         if (expectClause) {
             if (match[3] !== undefined) {
                 expectClause = false;
-            } else if (match[1] === '(') {
-                if (++stack > 1000000000) {
+            } else switch (match[1]) {
+                case '(':
+                    if (++stack > 1000000000) {
+                        return null;
+                    }
+                    break;
+                case '!':
+                    break;
+                default:
                     return null;
-                }
-            } else {
-                return null;
             }
         } else if (match[3] !== undefined) {
             return null;
         } else switch (match[1]) {
-            case '(': return null;
+            case '(':
+            case '!':
+                return null;
             case ')':
                 if (--stack < 0) {
                     return null;
@@ -5360,12 +5375,12 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     if ((greatLeague !== null ) || (ultraLeague !== null )) {
         let bestRank = 4;
         $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 1400 && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= 2400 && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
