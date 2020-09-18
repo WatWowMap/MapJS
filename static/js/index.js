@@ -2611,10 +2611,10 @@ function getPokemonPopupContent (pokemon) {
 
     content +=
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical text-nowrap">' +
+        '<div class="col-8 center-vertical text-nowrap">' +
             '<h6><b>' + pokemonName + ' ' + getGenderIcon(pokemon.gender) + '</b></h6>' +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin-right:5px;">';
     if (!(pokemon.display_pokemon_id > 0) && pokemon.weather !== 0 && pokemon.weather !== null) {
         content += `<img src="/img/weather/${pokemon.weather}.png" height="32" width="32">`;
@@ -2625,7 +2625,7 @@ function getPokemonPopupContent (pokemon) {
     '</div>' + // END 1ST ROW
 
     '<div class="row">' + // START 2ND ROW
-        '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
+        '<div class="' + (hasIV ? 'col-4' : 'col text-center') + '">' +
             '<div class="row pokemon-popup-image-holder">' +
                 `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">` +
             '</div>' + // END POKEMON ROW
@@ -2647,7 +2647,7 @@ function getPokemonPopupContent (pokemon) {
     content +=
             '</div>' + // END TYPE ROW
         '</div>' + // END COLUMN
-        '<div class="col-12 col-md-8 text-nowrap">';
+        '<div class="col-8 text-nowrap">';
     if (hasIV) {
         const ivPercent = Math.round((pokemon.atk_iv + pokemon.def_iv + pokemon.sta_iv) / 45 * 1000) / 10;
         content += '<b>IV:</b> ' + ivPercent + '% (A' + pokemon.atk_iv + '|D' + pokemon.def_iv + '|S' + pokemon.sta_iv + ')<br>';
