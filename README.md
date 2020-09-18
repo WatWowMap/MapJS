@@ -69,9 +69,7 @@ Your `config.json` file is only required for a few options. Anything you do not 
     // Cookie session secret key, make sure to randomize and NOT use default
     // either keyboard mash or a generator https://browserling.com/tools/random-hex
     "sessionSecret": "98ki^e72~!@#(85o3kXLI*#c9wu5l!Z",
-    //when set to true, unlimited sessions are allowed
-    "allowMultipleSessions": true,
-    //if the above is set to false, you can specify how many sessions you would like to allow
+    //set the number of sessions (devices) a user is allowed to be signed in on
     "maxSessions": 1,
     // API rate limiting
     "ratelimit": {

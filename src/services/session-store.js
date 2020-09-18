@@ -46,8 +46,6 @@ const clearOtherSessions = async (userId, currentSessionId) => {
     WHERE
         json_extract(data, '$.user_id') = ?
         AND session_id != ?
-    ORDER BY expires
-    LIMIT 1
     `;
     let args = [userId, currentSessionId];
     let results = await db.query(sql, args);
