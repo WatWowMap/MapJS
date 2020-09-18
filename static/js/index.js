@@ -3027,10 +3027,10 @@ function getGymPopupContent (gym) {
 
     let content =
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical">' +
+        '<div class="col-8 center-vertical">' +
             `<span class="text-nowrap" style="font-size:${titleSize}px;"><b>${gymName}</b></span>` +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin: auto;">' +
                 `<img src="/img/team/${gym.team_id}.png" height="32" width="32">` +
             '</div>' +
@@ -3055,7 +3055,7 @@ function getGymPopupContent (gym) {
         const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 '<div class="row pokemon-popup-image-holder">';
         if (hasRaidBoss && isRaidBattle) {
             content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">`;
@@ -3084,7 +3084,7 @@ function getGymPopupContent (gym) {
         content +=
                 '</div>' + // END TYPE ROW
             '</div>' + // END 1ST COLUMN
-            '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
+            '<div class="col-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
         if (hasRaidBoss && isRaidBattle) {
             if (gym.raid_pokemon_evolution) {
@@ -3140,14 +3140,14 @@ function getGymPopupContent (gym) {
                             : '';
             let url = gym.url.replace('http://', 'https://');
             content +=
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 // '<a href="' + url + '" target="_blank"><img src="' + url + '" style="border-radius:50%; height:96px; width:96px;"></a>' +
                 `<a href="${url}" target="_blank"><img src="${url}" class="circle-image ${teamClass}" style="height:72px; width:72px;"></a>` +
             '</div>'; // END 1ST COL
         }
         content +=
             // '<div class="col-12 col-md-8 ' + (hasGymUrl ? 'text-center' : '') + ' center-vertical">' + //START 2ND COL
-            '<div class="col-12 col-md-8 center-vertical p-4">' + // START 2ND COL
+            '<div class="col-8 center-vertical p-4">' + // START 2ND COL
                 '<b>Team:</b> ' + getTeamName(gym.team_id) + '<br>' +
                 '<b>Slots Available:</b> ' + (gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots) + '<br>';
         if (gym.guarding_pokemon_id !== null) {
