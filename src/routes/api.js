@@ -274,18 +274,19 @@ const getData = async (perms, filter) => {
             // Pokemon PVP filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
+                const disablePvPOr = i === 1 ? 'disabled' : '';
                 const filter = `
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
+                    <label class="btn btn-sm btn-off select-button-new ${disablePvPOr}" data-id="${id}" data-type="pokemon-pvp" data-info="off">
                         <input type="radio" name="options" id="hide" autocomplete="off">${offString}
                     </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
+                    <label class="btn btn-sm btn-on select-button-new ${disablePvPOr}" data-id="${id}" data-type="pokemon-pvp" data-info="on">
                         <input type="radio" name="options" id="show" autocomplete="off">${onString}
                     </label>
                 </div>
                 `;
                 const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp" ${disablePvPOr}>${configureString}</button>`;
                 pokemonData.push({
                     'id': {
                         'formatted': andOrString,
