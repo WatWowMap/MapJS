@@ -332,6 +332,27 @@ img {
     image-rendering: -webkit-optimize-contrast;
 }
 
+.type-img {
+    color: black;
+    margin: 0 auto;
+    height: 56;
+    width: auto;
+    position: absolute;
+    mix-blend-mode: overlay;
+    -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    filter: contrast(2) drop-shadow(0 0 2px #000);
+}
+.type-img-2 {
+    color: black;
+    margin: 0 auto;
+    height: 56;
+    width: auto;
+    position: absolute;
+    mix-blend-mode: overlay;
+    -webkit-mask-image: -webkit-gradient(linear, right 50%, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    filter: contrast(2) drop-shadow(0 0 2px #000);
+}
+
 @media (max-height: 600px) {
     .fill {
         top: 0;

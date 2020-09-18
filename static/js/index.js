@@ -3597,12 +3597,19 @@ function getNestMarker (nest, geojson, ts) {
     if (pkmn) {
         const types = pkmn.types;
         if (types && types.length > 0) {
-            //if (types.length === 2) {
-                typesIcon += '<span class="text-nowrap"><img src="/img/nest/nest-' + types[0].toLowerCase() + '.png" height="56" width="auto" style="-webkit-mask-image: -webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))"></span>&nbsp;';
-            //    typesIcon += '<img src="/img/nest/nest-' + types[1].toLowerCase() + '.png" height="56" width="auto" style="-webkit-mask-image: -webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))"></span>';
-            //} else {
-            //    typesIcon += '<img src="/img/nest/nest-' + types[0].toLowerCase() + '.png" height="56" width="auto" style="-webkit-mask-image: -webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))">';
-            //}
+            if (types.length === 2) {
+                typesIcon += `
+                <span class="text-nowrap">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" class="type-img">
+                    <img src="/img/nest/nest-${types[1].toLowerCase()}.png" class="type-img-2">
+                </span>`;
+            } else {
+                typesIcon += `
+                <span class="text-nowrap">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" height="56" width="auto">
+                </span>
+                `;
+            }
         }
     }
     const nestPolygonMarker = L.geoJson(geojson, {
@@ -3633,18 +3640,10 @@ function getNestMarker (nest, geojson, ts) {
                 iconAnchor: [40 / 2, 40 / 2],
                 popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
-                html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`
+                html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`,
+                //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                //shadowSize:  [48, 48]
             });
-            /*
-            const icon = L.icon({
-                iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
-                iconSize: [30, 30],
-                iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -.6],
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                shadowSize:  [41, 41]
-            });
-            */
             L.marker([nest.lat, nest.lon], {icon: icon})
                 .bindPopup(getNestPopupContent(nest))
                 .addTo(nestLayer);
