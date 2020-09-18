@@ -19,7 +19,7 @@ nav:
     - GeoJSON: configuration/geojson.md
     - Images: configuration/images.md
     - Locales: configuration/locales.md
-  - WatWowMap: /
+  - WatWowMap: https://wwm.readthedocs.io/
 
 markdown_extensions:
   - toc:
