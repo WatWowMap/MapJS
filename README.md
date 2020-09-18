@@ -1,6 +1,10 @@
-[![Documentation Status](https://readthedocs.org/projects/mapjs/badge/?version=latest)](https://mapjs.readthedocs.io/en/latest/?badge=latest) 
+[![Documentation Status](https://readthedocs.org/projects/mapjs/badge/?version=latest)](https://mapjs.readthedocs.io/en/latest/?badge=latest)
 ![Node.js CI](https://github.com/versx/MapJS/workflows/Node.js%20CI/badge.svg)
 ![Lint](https://github.com/versx/MapJS/workflows/Lint/badge.svg)  
+
+[![GitHub Release](https://img.shields.io/github/release/WatWowMap/MapJS.svg)](https://github.com/WatWowMap/MapJS/releases/)
+[![GitHub Contributors](https://img.shields.io/github/contributors/WatWowMap/MapJS.svg)](https://github.com/WatWowMap/MapJS/graphs/contributors/)
+[![Discord](https://img.shields.io/discord/552003258000998401.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/zZ9h9Xa)  
 
 # MapJS
 
