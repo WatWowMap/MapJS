@@ -30,20 +30,15 @@ fs.readFile(inFilePath, 'utf8', (err, data) => {
         const outGeofence = {
             type: 'Feature',
             properties: {
-                name: '',
-                color: '#000000',
-                id: 0,
+                name: inGeofence.name || '',
+                color: inGeofence.color || '#000000',
+                id: inGeofence.id || 0,
 
             },
             geometry: {
                 type: 'Polygon',
                 coordinates: [[]]
             }
-        };
-        outGeofence.properties = {
-            name: inGeofence.name,
-            color: inGeofence.color,
-            id: inGeofence.id
         };
         for (let j = 0; j < inGeofence.path.length; j++) {
             const coord = inGeofence.path[j];
