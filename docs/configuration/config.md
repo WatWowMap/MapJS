@@ -115,10 +115,9 @@ Anything you do not include will use the `default.json` as a fallback. When view
         },
         // Pokemon glow settings
         "glow": {
-            // Minimum IV to add glow effect
-            "iv": 100,
-            // Glow color
-            "color": "red"
+            "iv": { "value": 100, "color": "red" }, //min IV for glow
+            "pvp": { "value": 1, "color": "blue" }, //min PVP for glow
+            "both": { "color": "purple" } //color if a Pokemon meets IV & PVP requirements
         }
     },
 ```
@@ -176,6 +175,15 @@ Anything you do not include will use the `default.json` as a fallback. When view
 ```
 
 ## discord
+
+This section is what allows sign in via Discord.
+
+1. Create a Discord bot at [https://discord.com/developers](https://discord.com/developers){target=_blank}
+1. Make sure to join this discord bot to your scanner server
+1. Enter your the `botToken`, `clientId`, and `clientSecret` values from Discord into the below section
+1. Add your `redirectUri` URL into the Discord Oauth section and update the value below. For testing locally you can use [http://localhost:8080/]() however for production systems we highly recommend a url secured via https.
+
+Make sure all roles and discord identifiers (ids) are entered as strings IE - "9834983749834". Additionally you can use your discord server id, also known as your @everyone tag, in order to grant access to an entire server.
 
 ```js
     // Discord authentication settings

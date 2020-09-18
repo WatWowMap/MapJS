@@ -6,9 +6,7 @@
 
 ## Setup
 
-1. Install nodejs v12
-1. Install nginx
-1. Install pm2
+1. Install [nodejs] v12
 
     ```sh
     npm i pm2 -g
@@ -17,7 +15,7 @@
 1. Clone the repository
 
     ```sh
-    git clone https://github.com/versx/MapJS
+    git clone https://github.com/versx/MapJS && cd MapJS
     ```
 
 1. Install dependencies
@@ -26,21 +24,20 @@
     npm run update
     ```
 
-1. Copy config
+1. Create your project config
 
     ```sh
     cp src/configs/config.example.json src/configs/config.json
     ```
 
-1. (Optional) Create a Discord bot at [https://discord.com/developers](https://discord.com/developers){target=_blank} and enter the `botToken`, `clientId`, and `clientSecret` in your `config.json`
-1. Fill out config
+1. Fill out config. See [config#discord] for Discord Auth instructions.
 
     ```sh
     vi src/configs/config.json
     ```
 
-1. Create/copy a `static/custom/nests.json` file to show nests (geoJSON file format)
-1. Create/copy a `static/custom/areas.json` file to show scan areas (geoJSON file format, see below)
+1. Create/copy a `static/custom/nests.json` file to show nests ([GeoJSON] format)
+1. Create/copy a `static/custom/areas.json` file to show scan areas ([GeoJSON] format)
 1. Run `npm run start` (see pm2 section for demonized run)
 1. Access via [http://machineip:port/]() login using your Discord account
 
@@ -53,6 +50,18 @@
 ## PM2
 
 Once everything is setup and running appropriately, you can add this to PM2 `ecosystem.config.js` file so it is automatically started:
+
+1. Install pm2 globally
+
+    ```sh
+    npm i pm2 -g
+    ```
+
+1. Start pm2 on system reboots. Follow the output from the prompt, it varies depending on the OS!
+
+    ```sh
+    pm2 startup
+    ```
 
 1. Create an `ecosystem.config.js` file, make sure to replace your `cwd` path.
 
@@ -72,6 +81,7 @@ Once everything is setup and running appropriately, you can add this to PM2 `eco
     ```
 
 1. Start with `pm2 start ecosystem.config.js`
+1. Save your configuration `pm2 save`
 
 ## Nginx example
 
@@ -107,5 +117,8 @@ Use Nginx or Apache but **not** both.
 </VirtualHost>
 ```
 
+[nodejs]: https://nodejs.org/en/download/
+[GeoJSON]: ../configuration/geojson.md
+[config#discord]: ../configuration/config.md#discord
 [nginx guide]: https://www.digitalocean.com/community/questions/how-to-run-node-js-server-with-nginx
 [apache guide]: https://tecadmin.net/apache-frontend-proxy-nodejs/

@@ -1,9 +1,9 @@
 # Images
 
 !!! warning
-    This page is a work in progress. As it stands the ICONS scheme has not been widely
-    adopted by the mapping community. MapJS currently supports the Pokémon file name
-    structure is complete.
+    This page should be considered a work in progress. As it stands, the ICONS scheme
+    has not been widely adopted by the mapping community. MapJS currently **only**
+    supports the Pokémon filename structure.
 
 Images for this project use the ICONS "Intermapping Cooperative Object Naming Standard"
 naming scheme. This specific file naming scheme allows for advanced features like
@@ -11,7 +11,7 @@ showing gender, costume, shiny, form, and mega evolutions of pokemon. Additional
 icon doesn't exist as part of the supplied icon repo we can fall back to the normal form.
 
 To learn more about this scheme please see the [Mygod/pokemon-icon-postprocessor] repo,
-which also includes notes on migrating from the common PMSF style image structure.
+which also includes notes on migrating from the more common PMSF style image structure.
 
 ## Using images
 
@@ -22,7 +22,8 @@ See [config](config.md) for usage.
 ## ICON structure
 
 We recommend the following directory structure. Options marked as "Legacy" are
-not required for MapJS but might be needed for other mapping systems.
+not required for MapJS but might be needed for other mapping systems. Currently, MapJS
+**only** supports the Pokémon filename structure.
 
 ```sh
 .
