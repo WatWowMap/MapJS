@@ -244,7 +244,10 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="filterPokemonModalLabel">{{filter_pokemon_filter}}</h5>
+                    <h5 class="modal-title" id="filterPokemonModalLabel">
+                        {{filter_pokemon_filter}}&nbsp;
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterPokemonHelpModal">{{filter_help}}</button>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -317,6 +320,57 @@
                             </div>
                         </div>
                     </div>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterPokemonHelpModal" tabindex="-1" role="dialog" aria-labelledby="filterPokemonHelpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content border border-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterPokemonHelpModalLabel">{{filter_pokemon_help}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="help-title"><h4>Ways To Filter</h4></div><br>
+
+                    <div class="help-title"><b>General Basics</b></div>
+                    <div class="help-description">
+                        <p>
+                            IV Range: <kbd>90-100</kbd> - 90-100% IV Pokemon<br>
+                            Level Range: <kbd>L30-35</kbd> - Level 30 to 35 Pokemon<br>
+                            Stats: <kbd>A0-1 & D14 & S15</kbd> - Pokemon with 0-1 Attack, 14 Defense & 15 Stamina<br>
+                            CP: <kbd>CP2000-3000</kbd> - All Pokemon with CP of 2000-3000<br>
+                            NOT: <kbd>!0-100</kbd> - All Pokemon that do not have their IVs scanned<br><br>
+                        </p>
+                    </div>
+
+                    <div class="help-title"><b>Stringing Conditions Together</b></div>
+                    <div class="help-description">
+                        <p>
+                            <b>|</b> - OR operator, for setting separate conditions<br>
+                            Example: <kbd>95-100 | L35 | CP2500-4000</kbd><br>
+                            Returns all Pokemon that are either 95-100% IV, L35, or have a CP of 2500-4000<br><br>
+
+                            <b>&</b> - AND operator, for chaining conditions together<br>
+                            Example: <kbd>80-100 & L25-30 & (A15 & D10 & S10)</kbd><br>
+                            All Pokemon with IVs between 80-100, are L25-30, and have stats of 15/10/10<br><br>
+                        </p>
+                    </div>
+
+                    <div class="help-title"><b>Advanced</b></div>
+                    <div class="help-description">
+                        <p>
+                            Example: <kbd>(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100</kbd><br>
+                            Returns all Pokemon that have either CP1400-1500 OR CP2400-2500 AND have 0-1 Attack, 15 Defense, 15 Stamina, OR level 34-35 OR 90-100% IVs.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
             </div>
@@ -791,3 +845,9 @@
     </div>
 
 {{> footer}}
+
+<script type="text/javascript">
+$(function () {
+    $('[data-toggle="popover"]').popover();
+})
+</script>
