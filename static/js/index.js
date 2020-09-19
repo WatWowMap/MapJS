@@ -2099,7 +2099,7 @@ function loadData () {
                             oldPokemon.updated = pokemon.updated;
                         }
                         // TODO: Check if IV = 100%
-                        if (oldPokemon.expire_timestamp >= ts && !oldPokemon.pokemonTimerSet && oldPokemon.iv === 100) {
+                        if (oldPokemon.expire_timestamp >= ts && !oldPokemon.pokemonTimerSet) {
                             startDespawnTimer(oldPokemon, ts);
                             oldPokemon.pokemonTimerSet = true;
                             if (showPokemonTimers) {
