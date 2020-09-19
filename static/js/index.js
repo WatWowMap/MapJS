@@ -2611,10 +2611,10 @@ function getPokemonPopupContent (pokemon) {
 
     content +=
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical text-nowrap">' +
+        '<div class="col-8 center-vertical text-nowrap">' +
             '<h6><b>' + pokemonName + ' ' + getGenderIcon(pokemon.gender) + '</b></h6>' +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin-right:5px;">';
     if (!(pokemon.display_pokemon_id > 0) && pokemon.weather !== 0 && pokemon.weather !== null) {
         content += `<img src="/img/weather/${pokemon.weather}.png" height="32" width="32">`;
@@ -2625,7 +2625,7 @@ function getPokemonPopupContent (pokemon) {
     '</div>' + // END 1ST ROW
 
     '<div class="row">' + // START 2ND ROW
-        '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
+        '<div class="' + (hasIV ? 'col-4' : 'col text-center') + '">' +
             '<div class="row pokemon-popup-image-holder">' +
                 `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">` +
             '</div>' + // END POKEMON ROW
@@ -2647,7 +2647,7 @@ function getPokemonPopupContent (pokemon) {
     content +=
             '</div>' + // END TYPE ROW
         '</div>' + // END COLUMN
-        '<div class="col-12 col-md-8 text-nowrap">';
+        '<div class="col-8 text-nowrap">';
     if (hasIV) {
         const ivPercent = Math.round((pokemon.atk_iv + pokemon.def_iv + pokemon.sta_iv) / 45 * 1000) / 10;
         content += '<b>IV:</b> ' + ivPercent + '% (A' + pokemon.atk_iv + '|D' + pokemon.def_iv + '|S' + pokemon.sta_iv + ')<br>';
@@ -2686,7 +2686,7 @@ function getPokemonPopupContent (pokemon) {
     } else {
         content += '<b>Despawn Time:</b> ~';
     }
-    content += despawnDate.toLocaleTimeString() + ' (' + getTimeUntill(despawnDate) + ')<br>' +
+    content += despawnDate.toLocaleTimeString() + ' (' + getTimeUntil(despawnDate) + ')<br>' +
         '</div>' +
         '<div class="col-sm text-nowrap">';
     if (pokemon.first_seen_timestamp !== 0 && pokemon.first_seen_timestamp !== undefined) {
@@ -2883,14 +2883,14 @@ function getPokestopPopupContent (pokestop) {
 
     if (isActiveLure) {
         content += '<b>Lure Type:</b> ' + getLureName(pokestop.lure_id) + '<br>';
-        content += '<b>Lure End Time:</b> ' + lureExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(lureExpireDate) + ')<br><br>';
+        content += '<b>Lure End Time:</b> ' + lureExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(lureExpireDate) + ')<br><br>';
     }
 
     if (invasionExpireDate >= now) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
         content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
-        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntill(invasionExpireDate) + ')<br>';
+        content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(invasionExpireDate) + ')<br>';
         content += getPossibleInvasionRewards(pokestop);
     }
 
@@ -3027,10 +3027,10 @@ function getGymPopupContent (gym) {
 
     let content =
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical">' +
+        '<div class="col-8 center-vertical">' +
             `<span class="text-nowrap" style="font-size:${titleSize}px;"><b>${gymName}</b></span>` +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin: auto;">' +
                 `<img src="/img/team/${gym.team_id}.png" height="32" width="32">` +
             '</div>' +
@@ -3055,7 +3055,7 @@ function getGymPopupContent (gym) {
         const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 '<div class="row pokemon-popup-image-holder">';
         if (hasRaidBoss && isRaidBattle) {
             content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">`;
@@ -3084,7 +3084,7 @@ function getGymPopupContent (gym) {
         content +=
                 '</div>' + // END TYPE ROW
             '</div>' + // END 1ST COLUMN
-            '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
+            '<div class="col-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
         if (hasRaidBoss && isRaidBattle) {
             if (gym.raid_pokemon_evolution) {
@@ -3140,14 +3140,14 @@ function getGymPopupContent (gym) {
                             : '';
             let url = gym.url.replace('http://', 'https://');
             content +=
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 // '<a href="' + url + '" target="_blank"><img src="' + url + '" style="border-radius:50%; height:96px; width:96px;"></a>' +
                 `<a href="${url}" target="_blank"><img src="${url}" class="circle-image ${teamClass}" style="height:72px; width:72px;"></a>` +
             '</div>'; // END 1ST COL
         }
         content +=
             // '<div class="col-12 col-md-8 ' + (hasGymUrl ? 'text-center' : '') + ' center-vertical">' + //START 2ND COL
-            '<div class="col-12 col-md-8 center-vertical p-4">' + // START 2ND COL
+            '<div class="col-8 center-vertical p-4">' + // START 2ND COL
                 '<b>Team:</b> ' + getTeamName(gym.team_id) + '<br>' +
                 '<b>Slots Available:</b> ' + (gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots) + '<br>';
         if (gym.guarding_pokemon_id !== null) {
@@ -3171,10 +3171,10 @@ function getGymPopupContent (gym) {
 
     content += '<div class="text-center">';
     if (isRaid && !isRaidBattle) {
-        content += '<b>Raid Start:</b> ' + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntill(raidBattleDate) + ')<br>';
+        content += '<b>Raid Start:</b> ' + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntil(raidBattleDate) + ')<br>';
     }
     if (isRaid) {
-        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntill(raidEndDate) + ')<br>';
+        content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntil(raidEndDate) + ')<br>';
         if (gym.raid_pokemon_id > 0) {
             content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
             content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br><br>`;
@@ -3236,9 +3236,9 @@ function getSubmissionTypeCellPopupContent (cell) {
     const gymThreshold = [2, 6, 20];
 
     if (cell.count_gyms < 3) {
-        content += '<b>Submissions untill Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
+        content += '<b>Submissions until Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
     } else {
-        content += '<b>Submissions untill Gym:</b> Never';
+        content += '<b>Submissions until Gym:</b> Never';
     }
 
     if ((cell.count === 1 && cell.count_gyms < 1) || (cell.count === 5 && cell.count_gyms < 2) || (cell.count === 19 && cell.count_gyms < 3)) {
@@ -4047,7 +4047,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
     }
 
     if (raidTimestamp > 0) {
-        const timer = getTimeUntill(new Date(raidTimestamp * 1000));
+        const timer = getTimeUntil(new Date(raidTimestamp * 1000));
         if (marker.marker.timerSet) {
             const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
@@ -4059,7 +4059,7 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
     }
 
     if (marker.incident_expire_timestamp >= ts && showInvasions) {
-        const timer = getTimeUntill(new Date(marker.incident_expire_timestamp * 1000));
+        const timer = getTimeUntil(new Date(marker.incident_expire_timestamp * 1000));
         if (marker.marker.timerSet) {
             const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
             marker.marker.setTooltipContent(text);
@@ -5139,7 +5139,7 @@ function manageConfigureButton (e, isNew) {
     }
 }
 
-function getTimeUntill (date) {
+function getTimeUntil (date) {
     const diff = Math.round((date - new Date()) / 1000);
     const h = Math.floor(diff / 3600);
     const m = Math.floor(diff % 3600 / 60);

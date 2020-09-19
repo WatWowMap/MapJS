@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "convert": "node src/geofenceToGeoJSON.js",
+    "convert-poracle": "node src/poracleToGeoJSON.js",
     "create-locales": "node src/createLocales.js",
     "start": "node src/index.js",
     "test": "npx eslint src/ --ext .js,.jsx,.ts,.tsx",
