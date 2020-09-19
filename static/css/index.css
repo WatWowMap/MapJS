@@ -332,13 +332,20 @@ img {
     image-rendering: -webkit-optimize-contrast;
 }
 
+.type-img-single {
+    width: 100%;
+    height: 56px;
+    object-fit: contain;
+    object-position: 50% 50%;
+}
+
 .type-img-1,
 .type-img-2 {
     position: absolute;
     top: 0;
     width: 100%;
     height: 56px;
-    background-size: contain;
+    object-fit: contain;
     mix-blend-mode: multiply;
 }
 

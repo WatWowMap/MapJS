@@ -3606,7 +3606,7 @@ function getNestMarker (nest, geojson, ts) {
             } else {
                 typesIcon += `
                 <span class="text-nowrap">
-                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" height="56" width="auto">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" class="type-img-single">
                 </span>
                 `;
             }
