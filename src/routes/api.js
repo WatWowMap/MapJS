@@ -325,9 +325,25 @@ const getData = async (perms, filter) => {
             });
         }
 
+        const pokemonTimersVerified = i18n.__('filter_pokemon_timers_verified');
+        pokemonData.push({
+            'id': {
+                'formatted': utils.zeroPad(2, 3),
+                'sort': 2 + 5
+            },
+            'name': pokemonTimersVerified,
+            'image': {
+                type: 'img',
+                path: '/misc/timer.png'
+            },
+            'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
+            'size': generateSizeButtons('timers-verified', 'pokemon-timers-verified'),
+            'type': globalFiltersString,
+            'types': null
+        });
+
         const generalString = i18n.__('filter_general');
         const pokemonTimers = i18n.__('filter_pokemon_timers');
-        const pokemonTimersVerified = i18n.__('filter_pokemon_timers_verified');
         pokemonData.push({
             'id': {
                 'formatted': utils.zeroPad(0, 3),
@@ -340,21 +356,6 @@ const getData = async (perms, filter) => {
             },
             'filter': generateShowHideButtons('timers', 'pokemon-timers'),
             'size': generateSizeButtons('timers', 'pokemon-timers'),
-            'type': generalString,
-            'types': null
-        });
-        pokemonData.push({
-            'id': {
-                'formatted': utils.zeroPad(1, 3),
-                'sort': 10 + 1
-            },
-            'name': pokemonTimersVerified,
-            'image': {
-                type: 'img',
-                path: '/misc/timer.png'
-            },
-            'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
-            'size': generateSizeButtons('timers-verified', 'pokemon-timers-verified'),
             'type': generalString,
             'types': null
         });
