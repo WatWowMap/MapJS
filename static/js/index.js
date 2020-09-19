@@ -76,6 +76,7 @@ let showCells;
 let showWeather;
 let showDevices;
 let showScanAreas;
+let showPokemonTimers;
 let showRaidTimers;
 let showInvasionTimers;
 let showSubmissionCells;
@@ -601,6 +602,9 @@ function loadStorage () {
     const pokemonFilterValue = retrieve('pokemon_filter');
     if (pokemonFilterValue === null) {
         const defaultPokemonFilter = {};
+        if (defaultPokemonFilter.timers === undefined) {
+            defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
+        }
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
@@ -625,6 +629,12 @@ function loadStorage () {
         pokemonFilter = defaultPokemonFilter;
     } else {
         pokemonFilter = JSON.parse(pokemonFilterValue);
+        if (pokemonFilter.timers === undefined) {
+            pokemonFilter.timers = { show: true, size: 'normal' };
+            showPokemonTimers = true;
+        } else {
+            showPokemonTimers = pokemonFilter.timers.show;
+        }
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
@@ -1225,6 +1235,11 @@ function initMap () {
         });
         gymMarkers = newGymMarkers;
 
+        const newShowPokemonTimers = pokemonFilter.timers.show;
+        if (newShowPokemonTimers !== showPokemonTimers) {
+            showPokemonTimers = newShowPokemonTimers;
+        }
+
         const newShowRaidTimers = raidFilter.timers.show;
         if (newShowRaidTimers !== showRaidTimers) {
             showRaidTimers = newShowRaidTimers;
@@ -1284,6 +1299,7 @@ function initMap () {
         store('show_devices', newShowDevices);
         store('device_filter', JSON.stringify(deviceFilter));
 
+        store('show_pokemon_timers', newShowPokemonTimers);
         store('show_raid_timers', newShowRaidTimers);
         store('show_invasion_timers', newShowInvasionTimers);
 
@@ -2043,6 +2059,10 @@ function loadData () {
                         pokemon.marker = getPokemonMarker(pokemon, ts);
                         pokemonMarkers.push(pokemon);
                         startDespawnTimer(pokemon, ts);
+                        pokemon.pokemonTimerSet = true;
+                        if (showPokemonTimers) {
+                            setDespawnTimer(pokemon);
+                        }
                         if (clusterPokemon) {
                             clusters.addLayer(pokemon.marker);
                         } else {
@@ -2067,11 +2087,20 @@ function loadData () {
                         if (oldPokemon.updated !== pokemon.updated) {
                             oldPokemon.updated = pokemon.updated;
                         }
-
+                        // TODO: Check if IV = 100%
+                        if (oldPokemon.expire_timestamp >= ts && !oldPokemon.pokemonTimerSet && oldPokemon.iv === 100) {
+                            startDespawnTimer(oldPokemon, ts);
+                            oldPokemon.pokemonTimerSet = true;
+                            if (showPokemonTimers) {
+                                setDespawnTimer(oldPokemon);
+                            }
+                        }
                         if (hiddenPokemonIds.includes(oldPokemon.id)) {
                             map.removeLayer(oldPokemon.marker);
                         }
                     }
+                } else {
+                    pokemon.pokemonTimerSet = false;
                 }
             });
 
@@ -2444,6 +2473,7 @@ function startDespawnTimer (pokemon, ts) {
             if (realPokemon === undefined) {
                 return;
             }
+            realPokemon.pokemonTimerSet = false;
             if (ts2 + 1 >= realPokemon.expire_timestamp) {
                 pokemonMarkers = pokemonMarkers.filter(function (obj) {
                     return obj.id !== realPokemon.id;
@@ -2569,6 +2599,16 @@ function updateDevicesLoop () {
 
 function updateMapTimers () {
     const bounds = map.getBounds();
+    $.each(pokemonMarkers, function (index, marker) {
+        if (!bounds.contains(marker)) {
+            return;
+        }
+        if (showPokemonTimers) {
+            setDespawnTimer(marker);
+        } else {
+            marker.marker.unbindTooltip();
+        }
+    });
     $.each(gymMarkers, function (index, marker) {
         if (!bounds.contains(marker)) {
             return;
@@ -4013,7 +4053,7 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
+function setDespawnTimer (marker) {
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;
@@ -4051,6 +4091,23 @@ function setDespawnTimer (marker) { // TODO: rename to marker or something more 
             marker.marker.setTooltipContent(text);
         } else {
             const options = { permanent: true, className: 'leaflet-tooltip invasion-timer span p-0', direction: 'bottom', offset: [0, 0] };
+            marker.marker.bindTooltip(timer, options);
+            marker.marker.timerSet = true;
+        }
+    }
+
+    if (marker.expire_timestamp >= ts && showPokemon) {
+        const iv = parseFloat(calcIV(marker.atk_iv, marker.def_iv, marker.sta_iv));
+        // TODO: Configurable
+        if (iv < 100) {
+            return;
+        }
+        const timer = getTimeUntil(new Date(marker.expire_timestamp * 1000));
+        if (marker.marker.timerSet) {
+            const text = `<div class='rounded pokemon-timer'><span class='p-1'>${timer}</span></div>`;
+            marker.marker.setTooltipContent(text);
+        } else {
+            const options = { permanent: true, className: 'leaflet-tooltip pokemon-timer span p-0', direction: 'bottom', offset: [0, 20] };
             marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }
@@ -4148,6 +4205,27 @@ function manageSelectButton (e, isNew) {
             break;
         case 'show':
             shouldShow = settingsNew[id].show === true;
+            break;
+        }
+    } else if (type === 'pokemon-timers') {
+        switch (info) {
+        case 'hide':
+            shouldShow = pokemonFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = pokemonFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = pokemonFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = pokemonFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = pokemonFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = pokemonFilterNew[id].size === 'huge';
             break;
         }
     } else if (type === 'quest-misc') {
@@ -4667,6 +4745,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'show':
                     settingsNew[id].show = true;
+                    break;
+                }
+            } else if (type === 'pokemon-timers') {
+                switch (info) {
+                case 'hide':
+                    pokemonFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    pokemonFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    pokemonFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    pokemonFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    pokemonFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    pokemonFilterNew[id].size = 'huge';
                     break;
                 }
             } else if (type === 'quest-misc') {
@@ -6629,6 +6728,9 @@ function loadFilterSettings (e) {
         store('show_devices', showDevices);
         store('device_filter', JSON.stringify(deviceFilterNew));
 
+        showPokemonTimers = obj.show_pokemon_timers;
+        store('show_pokemon_timers', showPokemonTimers);
+
         showRaidTimers = obj.show_raid_timers;
         store('show_raid_timers', showRaidTimers);
 
@@ -6767,6 +6869,7 @@ function registerFilterButtonCallbacks() {
     // Pokemon filter buttons
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
+        defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -6848,6 +6951,7 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
+        defaultPokemonFilter.timers = { show: false, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -6930,6 +7034,7 @@ function registerFilterButtonCallbacks() {
     
     $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
+        defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];

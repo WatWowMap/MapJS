@@ -51,6 +51,7 @@
             "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
+            "pokemonTimers": false,
             "nests": false,
             "scanCells": false,
             "submissionCells": false,

@@ -24,6 +24,7 @@ data.min_pvp_cp = JSON.stringify(config.map.minPvpCp);
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
+data.default_show_pokemon_timers = config.map.filters.pokemonTimers;
 data.default_show_raids = config.map.filters.raids;
 data.default_show_raid_timers = config.map.filters.raidTimers;
 data.default_show_gyms = config.map.filters.gyms;

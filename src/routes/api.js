@@ -325,6 +325,23 @@ const getData = async (perms, filter) => {
             });
         }
 
+        const generalString = i18n.__('filter_general');
+        const pokemonTimers = i18n.__('filter_pokemon_timers');
+        pokemonData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 10
+            },
+            'name': pokemonTimers,
+            'image': {
+                type: 'img',
+                path: '/misc/timer.png'
+            },
+            'filter': generateShowHideButtons('timers', 'pokemon-timers'),
+            'size': generateSizeButtons('timers', 'pokemon-timers'),
+            'type': generalString,
+            'types': null
+        });
 
         for (let i = 1; i < config.map.maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
