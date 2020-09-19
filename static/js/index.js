@@ -3597,7 +3597,6 @@ function getNestMarker (nest, geojson, ts) {
     if (pkmn) {
         const types = pkmn.types;
         if (types && types.length > 0) {
-            /*
             if (types.length === 2) {
                 typesIcon += `
                 <span class="text-nowrap">
@@ -3605,13 +3604,12 @@ function getNestMarker (nest, geojson, ts) {
                     <img src="/img/nest/nest-${types[1].toLowerCase()}.png" class="type-img-2">
                 </span>`;
             } else {
-                */
-            typesIcon += `
-            <span class="text-nowrap">
-                <img src="/img/nest/nest-${types[0].toLowerCase()}.png" height="56" width="auto">
-            </span>
-            `;
-            //}
+                typesIcon += `
+                <span class="text-nowrap">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" height="56" width="auto">
+                </span>
+                `;
+            }
         }
     }
     const nestPolygonMarker = L.geoJson(geojson, {
