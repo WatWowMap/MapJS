@@ -791,3 +791,31 @@
     </div>
 
 {{> footer}}
+
+<script type="text/javascript">
+    $.getJSON('https://bootswatch.com/api/4.json', function (data) {
+        var themes = data.themes;
+        var select = $('#theme-selector');
+        select.show();
+        themes.forEach(function(value, index){
+            select.append($('<option />'')
+                .val(index)
+                .text(value.name));
+        });
+        select.change(function(){
+            const value = $(this).val();
+            let css;
+            if (value.includes('http')) {
+                css = value;
+            } else {
+                const theme = themes[value];
+                css = theme.css;
+            }
+            //$("link").attr("href", theme.css);
+            $('.theme-css').attr('href', css);
+        }).change();
+
+    }, 'json').fail(function(){
+        console.error('Failed to get themes from api!');
+    });
+</script>
