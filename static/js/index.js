@@ -605,6 +605,10 @@ function loadStorage () {
         if (defaultPokemonFilter.timers === undefined) {
             defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
         }
+        if (defaultPokemonFilter['timers-verified'] === undefined) {
+            // TODO: Default value
+            defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
+        }
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
             const forms = Object.keys(pkmn.forms);
@@ -634,6 +638,9 @@ function loadStorage () {
             showPokemonTimers = true;
         } else {
             showPokemonTimers = pokemonFilter.timers.show;
+        }
+        if (pokemonFilter['timers-verified'] === undefined) {
+            pokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         }
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -1688,6 +1695,10 @@ function loadData () {
 
         if (pokemonFilter.tiny_rat.show !== false) {
             pokemonFilterExclude.push("tiny_rat");
+        }
+
+        if (pokemonFilter['timers-verified'].show !== false) {
+            pokemonFilterExclude.push("timers_verified");
         }
     }
 
@@ -4207,7 +4218,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === true;
             break;
         }
-    } else if (type === 'pokemon-timers') {
+    } else if (type === 'pokemon-timers' || type === 'pokemon-timers-verified') {
         switch (info) {
         case 'hide':
             shouldShow = pokemonFilterNew[id].show === false;
@@ -4747,7 +4758,7 @@ function manageSelectButton (e, isNew) {
                     settingsNew[id].show = true;
                     break;
                 }
-            } else if (type === 'pokemon-timers') {
+            } else if (type === 'pokemon-timers' || type === 'pokemon-timers-verified') {
                 switch (info) {
                 case 'hide':
                     pokemonFilterNew[id].show = false;
@@ -6870,6 +6881,8 @@ function registerFilterButtonCallbacks() {
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
         defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
+        // TODO: Default value
+        defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -6952,6 +6965,7 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
         defaultPokemonFilter.timers = { show: false, size: 'normal' };
+        defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -7035,6 +7049,8 @@ function registerFilterButtonCallbacks() {
     $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
         defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
+        // TODO: Default value
+        defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];

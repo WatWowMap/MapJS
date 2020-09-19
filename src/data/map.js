@@ -22,6 +22,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let keys = Object.values(pokemonFilterExclude || []);
     let sqlIncludeBigKarp = '';
     let sqlIncludeTinyRat = '';
+    let sqlIncludeOnlyVerifiedTimers = '';
     if (keys && keys.length > 0) {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -43,6 +44,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                     sqlIncludeBigKarp = 'OR (pokemon_id = 129 AND weight IS NOT NULL AND weight >= 13.125)';
                 } else if (key === 'tiny_rat') {
                     sqlIncludeTinyRat = 'OR (pokemon_id = 19 AND weight IS NOT NULL AND weight <= 2.40625)';
+                } else if (key === 'timers_verified') {
+                    sqlIncludeOnlyVerifiedTimers = 'AND expire_timestamp_verified = 1';
                 }
             }
         }
@@ -134,7 +137,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             ) ${sqlAndIv} ${sqlOrIv}
         ) AND (
             (form = 0 ${sqlExcludeIvPokemon}) OR form NOT IN (0 ${sqlExcludeIvForms})
-        ) ${sqlIncludeIv}
+        ) ${sqlIncludeIv} ${sqlIncludeOnlyVerifiedTimers}
     )`;
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
