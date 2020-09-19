@@ -5227,7 +5227,7 @@ function manageGlobalIVPopup (id, filter) {
 }
 
 function manageGlobalPVPPopup (id, filter) {
-    const result = prompt('Please enter a PVP rank Filter. Example: 1-5', filter['pvp_' + id].filter);
+    const result = prompt('Please enter a PVP rank Filter. Example: 1-5\nWill display all Pokemon that are rank 1-5 for Great and Ultra League.', filter['pvp_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
