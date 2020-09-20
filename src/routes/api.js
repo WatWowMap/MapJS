@@ -334,7 +334,7 @@ const getData = async (perms, filter) => {
             'name': pokemonTimersVerified,
             'image': {
                 type: 'img',
-                path: '/misc/timer.png'
+                path: '/misc/verified.png'
             },
             'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
             'size': generateSizeButtons('timers-verified', 'pokemon-timers-verified'),
