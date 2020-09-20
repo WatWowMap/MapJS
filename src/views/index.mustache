@@ -802,7 +802,11 @@
                 .val(index)
                 .text(value.name));
         });
-        select.change(function(){
+        const existingValue = localStorage.getItem('theme');
+        if (existingValue !== null) {
+            select.val(existingValue);
+        }
+        select.change(function() {
             const value = $(this).val();
             let css;
             if (value.includes('http')) {
@@ -811,6 +815,7 @@
                 const theme = themes[value];
                 css = theme.css;
             }
+            localStorage.setItem('theme', value);
             //$("link").attr("href", theme.css);
             $('.theme-css').attr('href', css);
         }).change();
