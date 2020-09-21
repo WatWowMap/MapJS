@@ -793,9 +793,10 @@
 {{> footer}}
 
 <script type="text/javascript">
-    $.getJSON('https://bootswatch.com/api/4.json', function (data) {
-        var themes = data.themes;
-        var select = $('#theme-selector');
+    const apiEndpoint = 'https://bootswatch.com/api/4.json';
+    $.getJSON(apiEndpoint, function(data) {
+        const themes = data.themes;
+        const select = $('#theme-selector');
         select.show();
         themes.forEach(function(value, index){
             select.append($('<option />')
@@ -820,7 +821,7 @@
             $('.theme-css').attr('href', css);
         }).change();
 
-    }, 'json').fail(function(){
+    }, 'json').fail(function() {
         console.error('Failed to get themes from api!');
     });
 </script>
