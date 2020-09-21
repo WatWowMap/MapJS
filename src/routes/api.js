@@ -265,7 +265,8 @@ const getData = async (perms, filter) => {
                     'image': `IV-${andOrString}`,
                     'filter': filter,
                     'size': size,
-                    'type': globalFiltersString
+                    'type': globalFiltersString,
+                    'types': null
                 });
             }
         }
@@ -273,18 +274,19 @@ const getData = async (perms, filter) => {
             // Pokemon PVP filters
             for (let i = 0; i <= 1; i++) {
                 const id = i === 0 ? 'and' : 'or';
+                const disablePvPOr = i === 1 ? 'disabled' : '';
                 const filter = `
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
+                    <label class="btn btn-sm btn-off select-button-new ${disablePvPOr}" data-id="${id}" data-type="pokemon-pvp" data-info="off">
                         <input type="radio" name="options" id="hide" autocomplete="off">${offString}
                     </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
+                    <label class="btn btn-sm btn-on select-button-new ${disablePvPOr}" data-id="${id}" data-type="pokemon-pvp" data-info="on">
                         <input type="radio" name="options" id="show" autocomplete="off">${onString}
                     </label>
                 </div>
                 `;
                 const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
+                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp" ${disablePvPOr}>${configureString}</button>`;
                 pokemonData.push({
                     'id': {
                         'formatted': andOrString,
@@ -294,7 +296,8 @@ const getData = async (perms, filter) => {
                     'image': `PVP-${andOrString}`,
                     'filter': filter,
                     'size': size,
-                    'type': globalFiltersString
+                    'type': globalFiltersString,
+                    'types': null
                 });
             }
         }
@@ -318,7 +321,8 @@ const getData = async (perms, filter) => {
                 },
                 'filter': filter,
                 'size': size,
-                'type': globalFiltersString
+                'type': globalFiltersString,
+                'types': null
             });
         }
 
@@ -328,6 +332,7 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
+                const types = JSON.stringify(pkmn.types);
                 //const form = pkmn.forms[formId];
                 let formName = pkmn.forms[formId].name;//i18n.__('form_' + formId);
                 if (skipForms.includes(formName.toLowerCase())) {
@@ -361,7 +366,8 @@ const getData = async (perms, filter) => {
                     },
                     'filter': filter,
                     'size': size,
-                    'type': pokemonTypeString
+                    'type': pokemonTypeString,
+                    'types': types
                 });
             }
         }

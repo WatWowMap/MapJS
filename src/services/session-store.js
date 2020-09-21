@@ -37,7 +37,7 @@ const isValidSession = async (userId) => {
     `;
     let args = [userId];
     let results = await db.query(sql, args);
-    return results.length === 1;
+    return results.length <= config.maxSessions;
 };
 
 const clearOtherSessions = async (userId, currentSessionId) => {

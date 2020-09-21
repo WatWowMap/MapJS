@@ -99,7 +99,8 @@ app.use(session({
     secret: config.sessionSecret,
     store: sessionStore,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {maxAge: 604800000}
 }));
 
 if (config.discord.enabled) {
@@ -135,13 +136,9 @@ app.use(async (req, res, next) => {
         if (!config.discord.enabled) {
             return next();
         }
-        if (!config.allowMultipleSessions) {
-            // Check if there are any other sessions in the database that are for the same user_id,
-            // if so delete all other sessions other than the current session.
-            if (!(await isValidSession(req.session.user_id))) {
-                console.debug('[Session] Detected multiple sessions, clearing old ones...')
-                await clearOtherSessions(req.session.user_id, req.sessionID);
-            }
+        if (!(await isValidSession(req.session.user_id))) {
+            console.debug('[Session] Detected multiple sessions, clearing old ones...');
+            await clearOtherSessions(req.session.user_id, req.sessionID);
         }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);

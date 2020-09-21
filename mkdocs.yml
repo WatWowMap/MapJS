@@ -1,0 +1,34 @@
+site_name: MapJS
+site_url: https://github.com/WatWowMap/MapJS
+site_description: MapJS
+site_author: versx
+
+repo_url: https://github.com/WatWowMap/MapJS
+
+theme:
+  name: flatly
+
+nav:
+  - Home: 'index.md'
+  - Install Guide:
+    - Quick Start: install/quick-start.md
+    - Standard: install/standard.md
+    - Docker: install/docker.md
+  - Configuration:
+    - Config: configuration/config.md
+    - GeoJSON: configuration/geojson.md
+    - Images: configuration/images.md
+    - Locales: configuration/locales.md
+  - WatWowMap: https://wwm.readthedocs.io/
+
+markdown_extensions:
+  - toc:
+      permalink: '#'
+      separator: "-"
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+
+plugins:
+    - search

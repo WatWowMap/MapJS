@@ -332,7 +332,7 @@ img {
     image-rendering: -webkit-optimize-contrast;
 }
 
-@media (max-height: 600px) {
+@media (max-height: 480px) {
     .fill {
         top: 0;
     }
