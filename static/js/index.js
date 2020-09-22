@@ -2399,15 +2399,13 @@ function getGymSize (teamId) {
 
 function getRaidSize (id) {
     if (raidFilter[id] === undefined) {
-        // TODO: Fix raid filter sizing
-        //console.log('raidFilter[id] undefined:', id, raidFilter);
-        return 40;
+        return 30;
     }
     const size = raidFilter[id].size;
     if (size === 'huge') {
-        return 75;
+        return 65;
     }
-    return 40;
+    return 30;
 }
 
 function getPokestopSize (id) {
