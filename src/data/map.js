@@ -16,7 +16,7 @@ const dbManual = new MySQLConnector(config.db.manualdb);
 const masterfile = require('../../static/data/masterfile.json');
 
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
     const pokemonLookup = {};
     const formLookup = {};
 
@@ -116,30 +116,11 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 filtered.display_pokemon_id = result.display_pokemon_id;
             }
             if (showPVP) {
-                filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
-                filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
-                if (pokemonFilterPVP) {
-                    let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
-                    if (pokemonFilterPVP[idString]) {
-                        let split = String(pokemonFilterPVP[idString]).split('-', 2);
-                        if (split.length === 2) {
-                            let minRank = parseInt(split[0]);
-                            let maxRank = parseInt(split[1]);
-                            if (
-                                (!filtered.pvp_rankings_great_league || filtered.pvp_rankings_great_league.length === 0) &&
-                                (!filtered.pvp_rankings_ultra_league || filtered.pvp_rankings_ultra_league.length === 0)
-                            ) {
-                                continue;
-                            }
-                            let greatLeague = filtered.pvp_rankings_great_league ? filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.great && x.cp <= 1500) : [];
-                            let ultraLeague = filtered.pvp_rankings_ultra_league ? filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.utlra && x.cp <= 2500) : [];
-                            if (greatLeague.length === 0 && ultraLeague.length === 0) {
-                                continue;
-                            }
-                        }
-                    }
-                }
+                filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league) || [];
+                filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league) || [];
             }
+            filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.great && x.cp <= 1500).map(x => x.rank));
+            filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
             let pokemonFilter = filtered.form === 0 ? pokemonLookup[filtered.pokemon_id] : formLookup[filtered.form];
             if (pokemonFilter === undefined) {
                 pokemonFilter = andIv(filtered) || orIv(filtered);
@@ -1189,7 +1170,7 @@ const getPolygon = (s2cellId) => {
 // need to keep consistency with client-side implementation checkIVFilterValid
 const jsifyIvFilter = (filter) => {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]R)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1209,6 +1190,8 @@ const jsifyIvFilter = (filter) => {
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                     case 'CP': column = 'cp';    break;
+                    case 'GR': column = 'great_rank'; break;
+                    case 'UR': column = 'ultra_rank'; break;
                 }
                 let upper = lower;
                 if (match[4] !== undefined) {

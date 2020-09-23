@@ -134,7 +134,6 @@ const getData = async (perms, filter) => {
     const showPokemon = filter.show_pokemon && filter.show_pokemon !== 'false' || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
-    const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -198,7 +197,7 @@ const getData = async (perms, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
