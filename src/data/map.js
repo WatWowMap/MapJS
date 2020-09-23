@@ -127,11 +127,11 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             input.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
             let pokemonFilter = filtered.form === 0 ? pokemonLookup[filtered.pokemon_id] : formLookup[filtered.form];
             if (pokemonFilter === undefined) {
-                pokemonFilter = andIv(filtered) || orIv(filtered);
+                pokemonFilter = andIv(input) || orIv(input);
             } else if (pokemonFilter === false) {
-                pokemonFilter = orIv(filtered);
+                pokemonFilter = orIv(input);
             } else {
-                pokemonFilter = pokemonFilter(filtered);
+                pokemonFilter = pokemonFilter(input);
             }
             if (!(pokemonFilter ||
                 includeBigKarp && filtered.pokemon_id === 129 && filtered.weight !== null && filtered.weight >= 13.125 ||
