@@ -229,7 +229,6 @@ const getData = async (perms, filter) => {
         const ivString = i18n.__('filter_iv');
     
         const globalIVString = i18n.__('filter_global_iv');
-        const globalPVPString = i18n.__('filter_global_pvp');
         const globalFiltersString = i18n.__('filter_global_filters');
         const pokemonTypeString = i18n.__('filter_pokemon');
     
