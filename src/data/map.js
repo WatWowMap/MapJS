@@ -129,7 +129,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
-    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
+    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${sqlIncludeOnlyVerifiedTimers} AND (
         (
             (
                 (form = 0 ${sqlExcludePokemon}) OR form NOT IN (0 ${sqlExcludeForms})
@@ -137,7 +137,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             ) ${sqlAndIv} ${sqlOrIv}
         ) AND (
             (form = 0 ${sqlExcludeIvPokemon}) OR form NOT IN (0 ${sqlExcludeIvForms})
-        ) ${sqlIncludeIv} ${sqlIncludeOnlyVerifiedTimers}
+        ) ${sqlIncludeIv}
     )`;
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
