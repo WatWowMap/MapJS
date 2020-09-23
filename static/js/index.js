@@ -3626,7 +3626,6 @@ function getNestMarker (nest, geojson, ts) {
         },
         */
         onEachFeature: function(features, featureLayer) {
-            featureLayer.bindPopup(getNestPopupContent(nest));
             featureLayer.setStyle({
                 //'weight': 1,
                 'stroke': showNestPolygons ? features.properties['stroke'] : 0,
