@@ -361,6 +361,15 @@ img {
     -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 
+.help-title {
+    color: white;
+    font-style: bold;
+}
+
+.help-description {
+    color: gray;
+}
+
 @media (max-height: 480px) {
     .fill {
         top: 0;
