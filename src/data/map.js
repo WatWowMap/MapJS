@@ -1238,7 +1238,7 @@ const jsifyIvFilter = (filter) => {
     if (expectClause || stack !== 0 || lastIndex < filter.length) {
         return null;
     }
-    return requireFromString(`module.export = (pokemon) => ${result};`);
+    return requireFromString(`module.exports = (pokemon) => ${result};`);
 };
 
 const getAvailableRaidBosses = async () => {
