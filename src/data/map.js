@@ -45,7 +45,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     // eslint-disable-next-line no-unused-vars
     let andIv = (_) => true;
     if (showIV) {
-        for (const [key, filter] of pokemonFilterIV || {}) {
+        for (const [key, filter] of Object.entries(pokemonFilterIV || {})) {
             const jsFilter = jsifyIvFilter(filter);
             if (!jsFilter) {
                 continue;
