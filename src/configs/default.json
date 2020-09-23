@@ -188,14 +188,6 @@
             "ivOr": {
                 "value": "95-100",
                 "enabled": false
-            },
-            "pvpAnd": {
-                "value": "1-10",
-                "enabled": false
-            },
-            "pvpOr": {
-                "value": "1-5",
-                "enabled": false
             }
         },
         "quickStart": {
@@ -206,14 +198,6 @@
             "ivOr": {
                 "value": "95-100",
                 "enabled": true
-            },
-            "pvpAnd": {
-                "value": "1-5",
-                "enabled": false
-            },
-            "pvpOr": {
-                "value": "1-3",
-                "enabled": false
             },
             "pokemon": [
                 3,6,9,65,68,76,94,99,106,107,108,112,113,114,115,122,125,130,131,134,135,136,137,142,143,144,145,146,147,148,149,150,151,154,157,160,169,176,196,197,201,
