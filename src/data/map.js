@@ -81,19 +81,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
-            let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
-            if (pokemonFilter === undefined) {
-                pokemonFilter = andIv(result) || orIv(result);
-            } else if (pokemonFilter === false) {
-                pokemonFilter = orIv(result);
-            } else {
-                pokemonFilter = pokemonFilter(result);
-            }
-            if (!(pokemonFilter ||
-                includeBigKarp && result.pokemon_id === 129 && result.weight !== null && result.weight >= 13.125 ||
-                includeTinyRat && result.pokemon_id === 19 && result.weight !== null && result.weight <= 2.40625)) {
-                continue;
-            }
             let filtered = {
                 id: result.id,
                 pokemon_id: result.pokemon_id,
@@ -152,6 +139,19 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                         }
                     }
                 }
+            }
+            let pokemonFilter = filtered.form === 0 ? pokemonLookup[filtered.pokemon_id] : formLookup[filtered.form];
+            if (pokemonFilter === undefined) {
+                pokemonFilter = andIv(filtered) || orIv(filtered);
+            } else if (pokemonFilter === false) {
+                pokemonFilter = orIv(filtered);
+            } else {
+                pokemonFilter = pokemonFilter(filtered);
+            }
+            if (!(pokemonFilter ||
+                includeBigKarp && filtered.pokemon_id === 129 && filtered.weight !== null && filtered.weight >= 13.125 ||
+                includeTinyRat && filtered.pokemon_id === 19 && filtered.weight !== null && filtered.weight <= 2.40625)) {
+                continue;
             }
             pokemon.push(filtered);
         }
