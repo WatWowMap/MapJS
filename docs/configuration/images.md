@@ -108,47 +108,6 @@ Unused: XP, candy, avatar, quest, unknown pokemon reward, pokecoin, stickers.
 * `weather` - `<weather id>`
 
 
-```sh
-gym:
-* 0[-battle][-sponsor] for neutral gyms
-* <teamid>[-battle][-sponsor][-short|-tall][-<slot count>]
-(legacy: slot count)
-
-invasion characters:
-* <invasion character id>
-
-misc: (optional)
-* pvp medals
-* grass
-
-pokemon:
-* <pokemon id>[-e<temp evolution id>][-f<form id>][-c<costume id>][-g<gender id>][-shiny]
-
-raid:
-* <raid level>[-hatched|-complete][-ex]
-
-reward:
-* 0 for fallback
-* 1[-a<amount>] for xp
-* 2[-i<item id>][-a<amount>] for item
-* 3[-a<amount>] for dust
-* 4[-p<pokemon id>][-a<amount>] for candy
-* 5[-t<template id>] for avatar
-* 6[-t<template id>] for quest
-* 7 for unknown pokemon reward
-* 8[-a<amount>] for pokecoin
-* 11[-i<id>][-a<amount>] for stickers
-* 12[-p<pokemon id>][-a<amount>] for mega energy
-* <type> for future proofing
-(legacy: amount)
-
-team: (logos for each team)
-* <team id>
-
-weather:
-* <weather id>
-```
-
 
 [Mygod/pokemon-icon-postprocessor]: https://github.com/Mygod/pokemon-icon-postprocessor
 [PMSF]: https://github.com/pmsf/PMSF
