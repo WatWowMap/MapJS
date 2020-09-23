@@ -171,11 +171,9 @@ $(function () {
     $.getJSON('/data/masterfile.json', function (data) {
         masterfile = data;
     });
-
     $.getJSON('/data/generation.json', function (data) {
         pokemonGenerationDb = data;
     });
-
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
     });
@@ -602,9 +600,6 @@ function loadStorage () {
     const pokemonFilterValue = retrieve('pokemon_filter');
     if (pokemonFilterValue === null) {
         const defaultPokemonFilter = {};
-        if (defaultPokemonFilter.timers === undefined) {
-            defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
-        }
         if (defaultPokemonFilter['timers-verified'] === undefined) {
             // TODO: Default value
             defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
@@ -633,12 +628,6 @@ function loadStorage () {
         pokemonFilter = defaultPokemonFilter;
     } else {
         pokemonFilter = JSON.parse(pokemonFilterValue);
-        if (pokemonFilter.timers === undefined) {
-            pokemonFilter.timers = { show: true, size: 'normal' };
-            showPokemonTimers = true;
-        } else {
-            showPokemonTimers = pokemonFilter.timers.show;
-        }
         if (pokemonFilter['timers-verified'] === undefined) {
             pokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         }
@@ -976,6 +965,9 @@ function loadStorage () {
         if (defaultSettings['pokemon-cluster'] === undefined) {
             defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
         }
+        if (defaultSettings['pokemon-timers'] === undefined) {
+            defaultSettings['pokemon-timers'] = { show: showPokemonTimers, size: 'normal' };
+        }
         if (defaultSettings['gym-cluster'] === undefined) {
             defaultSettings['gym-cluster'] = { show: clusterGyms };
         }
@@ -995,6 +987,9 @@ function loadStorage () {
         if (settings['pokemon-cluster'] === undefined) {
             settings['pokemon-cluster'] = { show: true };
         }
+        if (settings['pokemon-timers'] === undefined) {
+            settings['pokemon-timers'] = { show: true };
+        }
         if (settings['gym-cluster'] === undefined) {
             settings['gym-cluster'] = { show: true };
         }
@@ -1009,6 +1004,7 @@ function loadStorage () {
     clusterGyms = settings['gym-cluster'].show;
     clusterPokestops = settings['pokestop-cluster'].show;
     showPokemonGlow = settings['pokemon-glow'].show;
+    showPokemonTimers = settings['pokemon-timers'].show;
     showNestPolygons = settings['nest-polygon'].show;
 }
 
@@ -1242,7 +1238,7 @@ function initMap () {
         });
         gymMarkers = newGymMarkers;
 
-        const newShowPokemonTimers = pokemonFilter.timers.show;
+        const newShowPokemonTimers = settings['pokemon-timers'].show;
         if (newShowPokemonTimers !== showPokemonTimers) {
             showPokemonTimers = newShowPokemonTimers;
         }
@@ -1324,8 +1320,10 @@ function initMap () {
 
         const newClusterPokemon = settingsNew['pokemon-cluster'].show;
         const newShowPokemonGlow = settingsNew['pokemon-glow'].show;
+        const newShowPokemonTimers = settingsNew['pokemon-timers'].show;
         if (clusterPokemon !== newClusterPokemon ||
-            showPokemonGlow !== newShowPokemonGlow) {
+            showPokemonGlow !== newShowPokemonGlow ||
+            showPokemonTimers !== newShowPokemonTimers) {
             $.each(pokemonMarkers, function (index, pokemon) {
                 if (clusterPokemon) {
                     clusters.removeLayer(pokemon.marker);
@@ -1365,10 +1363,13 @@ function initMap () {
         }
         clusterPokemon = newClusterPokemon;
         showPokemonGlow = newShowPokemonGlow;
+        showPokemonTimers = newShowPokemonTimers;
         //pokemonGlowColor = settings['pokemon-glow'].color;
         clusterGyms = newClusterGyms;
         clusterPokestops = newClusterPokestops;
         showNestPolygons = newShowNestPolygons;
+
+        console.log('pokemon timers:', showPokemonTimers);
 
         $('#settingsModal').modal('hide');
     });
@@ -4209,7 +4210,11 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === 'filter';
             break;
         }
-    } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster' || type === 'nest-polygon') {
+    } else if (type === 'pokemon-cluster' || 
+                type === 'gym-cluster' || 
+                type === 'pokestop-cluster' || 
+                type === 'nest-polygon' ||
+                type === 'pokemon-timers') {
         switch (info) {
         case 'hide':
             shouldShow = settingsNew[id].show === false;
@@ -4218,7 +4223,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = settingsNew[id].show === true;
             break;
         }
-    } else if (type === 'pokemon-timers' || type === 'pokemon-timers-verified') {
+    } else if (type === 'pokemon-timers-verified') {
         switch (info) {
         case 'hide':
             shouldShow = pokemonFilterNew[id].show === false;
@@ -4302,22 +4307,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = questFilterNew['p' + id].size === 'huge';
             break;
         }
-    } else if (type === 'quest-candy-count') {
-        switch (info) {
-        case 'off':
-            shouldShow = !questFilterNew[id].on;
-            break;
-        case 'on':
-            shouldShow = questFilterNew[id].on === true;
-            break;
-        case 'hide':
-            shouldShow = questFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew[id].show === true;
-            break;
-        }
-    } else if (type === 'quest-stardust-count') {
+    } else if (type === 'quest-candy-count' || type === 'quest-stardust-count') {
         switch (info) {
         case 'off':
             shouldShow = !questFilterNew[id].on;
@@ -4749,7 +4739,11 @@ function manageSelectButton (e, isNew) {
                 case 'color':
                     return manageColorPopup(id, settings);
                 }
-            } else if (type === 'pokemon-cluster' || type === 'gym-cluster' || type === 'pokestop-cluster' || type === 'nest-polygon') {
+            } else if (type === 'pokemon-cluster' ||
+                    type === 'gym-cluster' ||
+                    type === 'pokestop-cluster' ||
+                    type === 'nest-polygon' ||
+                    type === 'pokemon-timers') {
                 switch (info) {
                 case 'hide':
                     settingsNew[id].show = false;
@@ -4758,7 +4752,7 @@ function manageSelectButton (e, isNew) {
                     settingsNew[id].show = true;
                     break;
                 }
-            } else if (type === 'pokemon-timers' || type === 'pokemon-timers-verified') {
+            } else if (type === 'pokemon-timers-verified') {
                 switch (info) {
                 case 'hide':
                     pokemonFilterNew[id].show = false;
@@ -4779,7 +4773,7 @@ function manageSelectButton (e, isNew) {
                     pokemonFilterNew[id].size = 'huge';
                     break;
                 }
-            } else if (type === 'quest-misc') {
+            } else if (type === 'quest-misc' || type === 'quest-item') {
                 switch (info) {
                 case 'hide':
                     questFilterNew['i' + -id].show = false;
@@ -4798,27 +4792,6 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     questFilterNew['i' + -id].size = 'huge';
-                    break;
-                }
-            } else if (type === 'quest-item') {
-                switch (info) {
-                case 'hide':
-                    questFilterNew['i' + id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew['i' + id].show = true;
-                    break;
-                case 'small':
-                    questFilterNew['i' + id].size = 'small';
-                    break;
-                case 'normal':
-                    questFilterNew['i' + id].size = 'normal';
-                    break;
-                case 'large':
-                    questFilterNew['i' + id].size = 'large';
-                    break;
-                case 'huge':
-                    questFilterNew['i' + id].size = 'huge';
                     break;
                 }
             } else if (type === 'quest-pokemon') {
@@ -4842,22 +4815,7 @@ function manageSelectButton (e, isNew) {
                     questFilterNew['p' + id].size = 'huge';
                     break;
                 }
-            } else if (type === 'quest-candy-count') {
-                switch (info) {
-                case 'off':
-                    questFilterNew[id].on = false;
-                    break;
-                case 'on':
-                    questFilterNew[id].on = true;
-                    break;
-                case 'hide':
-                    questFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew[id].show = true;
-                    break;
-                }
-            } else if (type === 'quest-stardust-count') {
+            } else if (type === 'quest-candy-count' || type === 'quest-stardust-count') {
                 switch (info) {
                 case 'off':
                     questFilterNew[id].on = false;
@@ -6880,7 +6838,6 @@ function registerFilterButtonCallbacks() {
     // Pokemon filter buttons
     $('#reset-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
-        defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
         // TODO: Default value
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
@@ -6964,7 +6921,6 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
-        defaultPokemonFilter.timers = { show: false, size: 'normal' };
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
         for (i = 1; i <= maxPokemonId; i++) {
@@ -7048,7 +7004,6 @@ function registerFilterButtonCallbacks() {
     
     $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
-        defaultPokemonFilter.timers = { show: defaultShowPokemonTimers, size: 'normal' };
         // TODO: Default value
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         let i;
