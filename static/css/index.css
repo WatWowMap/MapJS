@@ -332,7 +332,16 @@ img {
     image-rendering: -webkit-optimize-contrast;
 }
 
-@media (max-height: 600px) {
+.help-title {
+    color: white;
+    font-style: bold;
+}
+
+.help-description {
+    color: gray;
+}
+
+@media (max-height: 480px) {
     .fill {
         top: 0;
     }
