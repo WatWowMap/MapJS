@@ -100,7 +100,7 @@ app.use(session({
     store: sessionStore,
     resave: true,
     saveUninitialized: false,
-    cookie: {maxAge: 900000}
+    cookie: {maxAge: 604800000}
 }));
 
 if (config.discord.enabled) {
