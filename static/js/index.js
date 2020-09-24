@@ -5127,7 +5127,9 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = 'Please enter an IV and/or Level Filter. Examples:\n(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100 | GL1-3 | UL1-3';
+const ivFilterPrompt = '• Use this to enter a specific filter for this Pokemon.\n• These values override any global filters!\n• Refer to the Help button if you are unsure of how to use this. \nExamples:\n((L30-35 & 90-100) | (CP2500-4000 & A15 & D10 S10)) | GL1-10 | UL1-10';
+
+const globalFilterPrompt = `• Use AND when you want to filter the Pokemon you\'ve already selected below.\n• Use OR when you want to set a base filter for all Pokemon, regardless if you\'ve selected them below or not.\n\nIf you are unsure what to put here, click the Help button below.`
 
 function manageIVPopup (id, filter) {
     const result = prompt(ivFilterPrompt, filter[id].filter);
@@ -5182,7 +5184,7 @@ function manageColorPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt(ivFilterPrompt, filter['iv_' + id].filter);
+    const result = prompt(globalFilterPrompt, filter['iv_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
