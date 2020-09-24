@@ -119,7 +119,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
                 filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
             }
-            const input = {...filtered};
+            const input = {
+                atk_iv: filtered.atk_iv,
+                def_iv: filtered.def_iv,
+                sta_iv: filtered.sta_iv,
+                cp: filtered.cp,
+                level: filtered.level,
+            };
             if (filtered.atk_iv && filtered.def_iv && filtered.sta_iv) {
                 input.iv = (filtered.atk_iv + filtered.def_iv + filtered.sta_iv) / .45;
             }
