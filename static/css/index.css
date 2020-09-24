@@ -17,6 +17,9 @@
     font: bold 18px 'Lucida Console', Monaco, monospace;
     text-indent: 1px;
 }
+.leaflet-control-attribution.leaflet-control {
+    max-height: 15px;
+}
 .leaflet-tooltip {
     font: bold 12px, Monaco, monospace;
     border: none;
