@@ -1,0 +1,126 @@
+/* Navbar colors */
+nav.navbar { 
+    background-color: #343A40;
+    color: gray;
+}
+
+/* Navbar item colors */
+.nav-item > a { 
+    background-color: #343A40;
+    color: darkgray;
+}
+
+/* Navbar title colors */
+a.navbar-brand {
+    background-color: #343A40;
+    color: white;
+}
+
+/* Filter/Configure button colors */
+.btn-sm.btn-primary,
+.btn-sm.btn-primary.disabled {
+    background-color: dodgerblue;
+}
+
+/* Cancel button colors */
+.btn-sm.btn-secondary {
+    background-color: gray;
+}
+
+/* Filter hide and off button colors */
+.btn-off,
+.btn-off .active {
+    background-color: gray;
+    color: white;
+}
+
+/* Filter show and on buttons not selected colors */
+.btn-on {
+    background-color: gray;
+    color: white;
+}
+
+/* Filter show and on buttons selected colors */
+.btn-on.active {
+    background-color: #00AF00;
+    color: white;
+}
+
+/* Filter sizing buttons (M/XL) - Selected */
+.active.select-button {
+    background-color: #0000AF;
+}
+
+/* Filter sizing buttons (M/XL) - Not Selected */
+.select-button {
+    background-color: gray;
+}
+
+/* Save/OK/Close button colors */
+.btn-danger {
+    background-color: #DC3545;
+}
+
+/* Modal header colors */
+.modal > .modal-dialog > .modal-content > .modal-header {
+    background-color: #21251F;
+    color: white;
+}
+
+/* Modal table columns */
+th {
+    background-color: rgb(32, 32, 32);
+}
+
+/* Modal body/content colors */
+.modal-body, .modal-content {
+    background-color: #21251F;
+    color: white;
+}
+
+/* Modal footer colors */
+.modal-footer {
+    background-color: #21251F;
+    color: white;
+}
+
+/* Odd numbered row in a table */
+.table-dark.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(34, 34, 34);
+    color: white;
+}
+
+/* Even numbered row in a table */
+.table-dark.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgb(33, 37, 41);
+    color: white;
+}
+
+/* Group header colors */
+table.dataTable tr.dtrg-group td {
+    background-color: rgb(33, 37, 41);
+    color: white;
+}
+
+/* Close button (x) colors */
+button.close {
+    background-color: rgb(33, 37, 31);
+    color: white;
+}
+
+/* Button control colors */
+.leaflet-control > a {
+    background-color: seashell;
+    color: black;
+}
+
+/* Button control hover colors */
+.leaflet-control > a:hover {
+    background-color: darkgray;
+    color: black;
+}
+
+/* Empty space in filters */
+div.DTS div.dataTables_scrollBody {
+    background: repeating-linear-gradient(45deg, #33361f, #33361f 10px, #21251f 10px, #21251f 20px);
+}

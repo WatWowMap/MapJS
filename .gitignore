@@ -125,3 +125,7 @@ static/locales/*
 
 # No docker-compose.yml files
 docker-compose.yml
+
+static/css/themes/*
+!static/css/themes/default.css
+!static/css/themes/*.css.example
