@@ -619,8 +619,6 @@ function loadStorage () {
         }
         defaultPokemonFilter.iv_and = { on: pokemonRarity.Default.ivAnd.enabled, filter: pokemonRarity.Default.ivAnd.value };
         defaultPokemonFilter.iv_or = { on: pokemonRarity.Default.ivOr.enabled, filter: pokemonRarity.Default.ivOr.value };
-        defaultPokemonFilter.pvp_and = { on: pokemonRarity.Default.pvpAnd.enabled, filter: pokemonRarity.Default.pvpAnd.value };
-        defaultPokemonFilter.pvp_or = { on: pokemonRarity.Default.pvpOr.enabled, filter: pokemonRarity.Default.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -651,12 +649,6 @@ function loadStorage () {
         }
         if (pokemonFilter.iv_or === undefined) {
             pokemonFilter.iv_or = { on: false, filter: '0-100' };
-        }
-        if (pokemonFilter.pvp_and === undefined) {
-            pokemonFilter.pvp_and = { on: false, filter: '1-100' };
-        }
-        if (pokemonFilter.pvp_or === undefined) {
-            pokemonFilter.pvp_or = { on: false, filter: '1-100' };
         }
         if (pokemonFilter.big_karp === undefined) {
             pokemonFilter.big_karp = { show: false, size: 'normal'};
@@ -1653,7 +1645,6 @@ function loadData () {
 
     const pokemonFilterExclude = [];
     const pokemonFilterIV = {};
-    const pokemonFilterPVP = {};
     if (showPokemon) {
         for (let i = 1; i <= maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];
@@ -1680,14 +1671,6 @@ function loadData () {
 
         if (pokemonFilter.iv_or.on === true) {
             pokemonFilterIV.or = pokemonFilter.iv_or.filter.replace(/\s/g, '');
-        }
-
-        if (pokemonFilter.pvp_and.on === true) {
-            pokemonFilterPVP.and = pokemonFilter.pvp_and.filter.replace(/\s/g, '');
-        }
-
-        if (pokemonFilter.pvp_or.on === true) {
-            pokemonFilterPVP.or = pokemonFilter.pvp_or.filter.replace(/\s/g, '');
         }
 
         if (pokemonFilter.big_karp.show !== false) {
@@ -1851,7 +1834,6 @@ function loadData () {
         pokemon_filter_exclude: JSON.stringify(pokemonFilterExclude),
         quest_filter_exclude: JSON.stringify(questFilterExclude),
         pokemon_filter_iv: JSON.stringify(pokemonFilterIV),
-        pokemon_filter_pvp: JSON.stringify(pokemonFilterPVP),
         raid_filter_exclude: JSON.stringify(raidFilterExclude),
         gym_filter_exclude: JSON.stringify(gymFilterExclude),
         pokestop_filter_exclude: JSON.stringify(pokestopFilterExclude),
@@ -2440,15 +2422,13 @@ function getGymSize (teamId) {
 
 function getRaidSize (id) {
     if (raidFilter[id] === undefined) {
-        // TODO: Fix raid filter sizing
-        //console.log('raidFilter[id] undefined:', id, raidFilter);
-        return 40;
+        return 30;
     }
     const size = raidFilter[id].size;
     if (size === 'huge') {
-        return 75;
+        return 65;
     }
-    return 40;
+    return 30;
 }
 
 function getPokestopSize (id) {
@@ -2663,10 +2643,10 @@ function getPokemonPopupContent (pokemon) {
 
     content +=
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical text-nowrap">' +
+        '<div class="col-8 center-vertical text-nowrap">' +
             '<h6><b>' + pokemonName + ' ' + getGenderIcon(pokemon.gender) + '</b></h6>' +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin-right:5px;">';
     if (!(pokemon.display_pokemon_id > 0) && pokemon.weather !== 0 && pokemon.weather !== null) {
         content += `<img src="/img/weather/${pokemon.weather}.png" height="32" width="32">`;
@@ -2677,7 +2657,7 @@ function getPokemonPopupContent (pokemon) {
     '</div>' + // END 1ST ROW
 
     '<div class="row">' + // START 2ND ROW
-        '<div class="' + (hasIV ? 'col-6 col-md-4' : 'col text-center') + '">' +
+        '<div class="' + (hasIV ? 'col-4' : 'col text-center') + '">' +
             '<div class="row pokemon-popup-image-holder">' +
                 `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">` +
             '</div>' + // END POKEMON ROW
@@ -2699,7 +2679,7 @@ function getPokemonPopupContent (pokemon) {
     content +=
             '</div>' + // END TYPE ROW
         '</div>' + // END COLUMN
-        '<div class="col-12 col-md-8 text-nowrap">';
+        '<div class="col-8 text-nowrap">';
     if (hasIV) {
         const ivPercent = Math.round((pokemon.atk_iv + pokemon.def_iv + pokemon.sta_iv) / 45 * 1000) / 10;
         content += '<b>IV:</b> ' + ivPercent + '% (A' + pokemon.atk_iv + '|D' + pokemon.def_iv + '|S' + pokemon.sta_iv + ')<br>';
@@ -3079,10 +3059,10 @@ function getGymPopupContent (gym) {
 
     let content =
     '<div class="row">' + // START 1ST ROW
-        '<div class="col-12 col-md-8 center-vertical">' +
+        '<div class="col-8 center-vertical">' +
             `<span class="text-nowrap" style="font-size:${titleSize}px;"><b>${gymName}</b></span>` +
         '</div>' +
-        '<div class="col-6 col-md-4 center-vertical">' +
+        '<div class="col-4 center-vertical">' +
             '<div style="float:right; margin: auto;">' +
                 `<img src="/img/team/${gym.team_id}.png" height="32" width="32">` +
             '</div>' +
@@ -3107,7 +3087,7 @@ function getGymPopupContent (gym) {
         const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 '<div class="row pokemon-popup-image-holder">';
         if (hasRaidBoss && isRaidBattle) {
             content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">`;
@@ -3136,7 +3116,7 @@ function getGymPopupContent (gym) {
         content +=
                 '</div>' + // END TYPE ROW
             '</div>' + // END 1ST COLUMN
-            '<div class="col-12 col-md-8 text-nowrap">' + // START 2ND COL
+            '<div class="col-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
         if (hasRaidBoss && isRaidBattle) {
             if (gym.raid_pokemon_evolution) {
@@ -3192,14 +3172,14 @@ function getGymPopupContent (gym) {
                             : '';
             let url = gym.url.replace('http://', 'https://');
             content +=
-            '<div class="col-6 col-md-4">' + // START 1ST COL
+            '<div class="col-4">' + // START 1ST COL
                 // '<a href="' + url + '" target="_blank"><img src="' + url + '" style="border-radius:50%; height:96px; width:96px;"></a>' +
                 `<a href="${url}" target="_blank"><img src="${url}" class="circle-image ${teamClass}" style="height:72px; width:72px;"></a>` +
             '</div>'; // END 1ST COL
         }
         content +=
             // '<div class="col-12 col-md-8 ' + (hasGymUrl ? 'text-center' : '') + ' center-vertical">' + //START 2ND COL
-            '<div class="col-12 col-md-8 center-vertical p-4">' + // START 2ND COL
+            '<div class="col-8 center-vertical p-4">' + // START 2ND COL
                 '<b>Team:</b> ' + getTeamName(gym.team_id) + '<br>' +
                 '<b>Slots Available:</b> ' + (gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots) + '<br>';
         if (gym.guarding_pokemon_id !== null) {
@@ -4164,18 +4144,6 @@ function manageSelectButton (e, isNew) {
             shouldShow = pokemonFilterNew['iv_' + id].on;
             break;
         }
-    } else if (type === 'pokemon-pvp') {
-        switch (info) {
-        case 'iv':
-            shouldShow = pokemonFilterNew[id].show === 'filter';
-            break;
-        case 'off':
-            shouldShow = !pokemonFilterNew['pvp_' + id].on;
-            break;
-        case 'on':
-            shouldShow = pokemonFilterNew['pvp_' + id].on;
-            break;
-        }
     } else if (type === 'pokemon-size') {
         switch (info) {
         case 'hide':
@@ -4696,17 +4664,6 @@ function manageSelectButton (e, isNew) {
                     pokemonFilterNew['iv_' + id].on = true;
                     break;
                 }
-            } else if (type === 'pokemon-pvp') {
-                switch (info) {
-                case 'iv':
-                    return manageIVPopup(id, pokemonFilterNew);
-                case 'off':
-                    pokemonFilterNew['pvp_' + id].on = false;
-                    break;
-                case 'on':
-                    pokemonFilterNew['pvp_' + id].on = true;
-                    break;
-                }
             } else if (type === 'pokemon-size') {
                 switch (info) {
                 case 'hide':
@@ -5175,12 +5132,10 @@ function manageConfigureButton (e, isNew) {
         e.addClass('configure-button');
         e.on('click', function (e) {
             e.preventDefault();
-            if (type === 'pokemon-iv' || type === 'pokemon-pvp' || type === 'nest-avg' || type === 'quest-candy-count' || type === 'quest-stardust-count') {
+            if (type === 'pokemon-iv' || type === 'nest-avg' || type === 'quest-candy-count' || type === 'quest-stardust-count') {
                 switch (info) {
                 case 'global-iv':
                     return manageGlobalIVPopup(id, pokemonFilterNew);
-                case 'global-pvp':
-                    return manageGlobalPVPPopup(id, pokemonFilterNew);
                 case 'global-avg':
                     return manageGlobalAveragePopup(id, nestFilterNew);
                 case 'global-candy-count':
@@ -5227,7 +5182,7 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = 'Please enter an IV Filter. Example: (S0-1 & A15 & D15 & (CP1400-1500 | CP2400-2500)) | L35 | 90-100';
+const ivFilterPrompt = 'Please enter an IV and/or Level Filter. Examples:\n(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100 | GL1-3 | UL1-3';
 
 function manageIVPopup (id, filter) {
     const result = prompt(ivFilterPrompt, filter[id].filter);
@@ -5294,19 +5249,6 @@ function manageGlobalIVPopup (id, filter) {
     }
 }
 
-function manageGlobalPVPPopup (id, filter) {
-    const result = prompt('Please enter a PVP Filter. Example: 1-5', filter['pvp_' + id].filter);
-    if (result === null) {
-        return false;
-    } else if (checkIVFilterValid(result)) {
-        filter['pvp_' + id].filter = result;
-        return true;
-    } else {
-        alert('Invalid PVP Filter!');
-        return false;
-    }
-}
-
 function manageGlobalAveragePopup (id, filter) {
     const result = prompt('Please enter a nest count average to filter. Example: 5', filter[id].filter);
     if (result === null) {
@@ -5321,7 +5263,7 @@ function manageGlobalAveragePopup (id, filter) {
 }
 
 function manageGlobalCandyCountPopup (id, filter) {
-    const result = prompt('Please enter a candy count to filter. Example: 2', filter[id].filter);
+    const result = prompt('Please enter a candy amount to filter. Example: 2', filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5348,7 +5290,7 @@ function manageGlobalStardustCountPopup (id, filter) {
 
 function checkIVFilterValid (filter) {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
@@ -6856,8 +6798,6 @@ function registerFilterButtonCallbacks() {
         }
         defaultPokemonFilter.iv_and = { on: pokemonRarity.Default.ivAnd.enabled, filter: pokemonRarity.Default.ivAnd.value };
         defaultPokemonFilter.iv_or = { on: pokemonRarity.Default.ivOr.enabled, filter: pokemonRarity.Default.ivOr.value };
-        defaultPokemonFilter.pvp_and = { on: pokemonRarity.Default.pvpAnd.enabled, filter: pokemonRarity.Default.pvpAnd.value };
-        defaultPokemonFilter.pvp_or = { on: pokemonRarity.Default.pvpOr.enabled, filter: pokemonRarity.Default.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -6938,8 +6878,6 @@ function registerFilterButtonCallbacks() {
         }
         defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
         defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-        defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -7023,8 +6961,6 @@ function registerFilterButtonCallbacks() {
 
         defaultPokemonFilter.iv_and = { on: pokemonRarity.quickStart.ivAnd.enabled, filter: pokemonRarity.quickStart.ivAnd.value };
         defaultPokemonFilter.iv_or = { on: pokemonRarity.quickStart.ivOr.enabled, filter: pokemonRarity.quickStart.ivOr.value };
-        defaultPokemonFilter.pvp_and = { on: pokemonRarity.quickStart.pvpAnd.enabled, filter: pokemonRarity.quickStart.pvpAnd.value };
-        defaultPokemonFilter.pvp_or = { on: pokemonRarity.quickStart.pvpOr.enabled, filter: pokemonRarity.quickStart.pvpOr.value };
         defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
         defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
@@ -7387,8 +7323,6 @@ function setPokemonFilters(type, show) {
     }
     defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
     defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-    defaultPokemonFilter.pvp_and = { on: false, filter: pokemonFilterNew.pvp_and.filter };
-    defaultPokemonFilter.pvp_or = { on: false, filter: pokemonFilterNew.pvp_or.filter };
     defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
     defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
 
