@@ -28,31 +28,31 @@ a.navbar-brand {
 }
 
 /* Filter hide and off button colors */
-.btn-off,
-.btn-off .active {
+.btn-sm.btn-off,
+.btn-sm.btn-off .active {
     background-color: orange;
     color: white;
 }
 
 /* Filter show and on buttons not selected colors */
-.btn-on {
+.btn-sm.btn-on {
     background-color: gray;
     color: white;
 }
 
 /* Filter show and on buttons selected colors */
-.btn-on.active {
+.btn-sm.btn-on.active {
     background-color: purple;
     color: white;
 }
 
 /* Filter sizing buttons (M/XL) - Selected */
-.active.select-button {
+.btn-size.active.select-button {
     background-color: green;
 }
 
 /* Filter sizing buttons (M/XL) - Not Selected */
-.select-button {
+.btn-size.select-button {
     background-color: yellow;
 }
 

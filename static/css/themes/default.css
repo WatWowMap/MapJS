@@ -47,12 +47,12 @@ a.navbar-brand {
 }
 
 /* Filter sizing buttons (M/XL) - Selected */
-.active.select-button {
+.btn-size.active.select-button {
     background-color: #0000AF;
 }
 
 /* Filter sizing buttons (M/XL) - Not Selected */
-.select-button {
+.btn-size.select-button {
     background-color: gray;
 }
 
