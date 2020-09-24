@@ -4,9 +4,59 @@
     <script type="text/javascript">
         const defaultStartLocation = ['{{lat}}', '{{lon}}'];
         const defaultStartZoom = '{{zoom}}';
+        let clusterPokemon = '{{cluster_pokemon}}' === 'true';
+        let clusterGyms = '{{cluster_gyms}}' === 'true';
+        let clusterPokestops = '{{cluster_pokestops}}' === 'true';
+        const clusters = L.markerClusterGroup({
+            disableClusteringAtZoom: '{{cluster_zoom_level}}',
+            removeOutsideVisibleBounds: true
+        });
+        let showNestPolygons = '{{nest_polygons}}' === 'true';
+        const enableScouting = '{{scouting}}' === 'true';
+        const scoutingUrl = '{{{scouting_url}}}';
+        const scoutMaxCount = parseInt('{{scouting_count}}' || 15);
+
+        const maxPokemonId = '{{pokemon_count}}'; // Bandaid
+
+        const defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
+        const defaultShowRaids = '{{default_show_raids}}' === 'true';
+        const defaultShowRaidTimers = '{{default_show_raid_timers}}' === 'true';
+        const defaultShowGyms = '{{default_show_gyms}}' === 'true';
+        const defaultShowPokestops = '{{default_show_pokestops}}' === 'true';
+        const defaultShowQuests = '{{default_show_quests}}' === 'true';
+        const defaultShowInvasions = '{{default_show_invasions}}' === 'true';
+        const defaultShowInvasionTimers = '{{default_show_invasion_timers}}' === 'true';
+        const defaultShowSpawnpoints = '{{default_show_spawnpoints}}' === 'true';
+        const defaultShowWeather = '{{default_show_weather}}' === 'true';
+        const defaultShowScanCells = '{{default_show_scan_cells}}' === 'true';
+        const defaultShowSubmissionCells = '{{default_show_submission_cells}}' === 'true';
+        const defaultShowNests = '{{default_show_nests}}' === 'true';
+        const defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
+        const defaultShowDevices = '{{default_show_devices}}' === 'true';
+
+        const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
+        const glow = JSON.parse('{{{glow_json}}}');
+
+        const locale = '{{{locale}}}';
+        const localeLastModified = '{{{locale_last_modified}}}';
+
+        const availableItems = JSON.parse('{{{available_items_json}}}');
+        const availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
+        const availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
+        const availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
+        const availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
+        const availableNestPokemon = JSON.parse('{{{available_nest_pokemon_json}}}');
+
+        const minZoom = '{{min_zoom}}';
+        const maxZoom = '{{max_zoom}}';
+        const devicePathColor = '{{device_path_color}}';
+        const minPvpCp = JSON.parse('{{{min_pvp_cp}}}');
+
+        const googleAnalyticsId = '{{google_analytics_id}}';
+        const googleAdsenseId = '{{google_adsense_id}}';
     </script>
-    <link href="/index.css?timestamp={{timestamp}}" rel="stylesheet">
-    <script src="/index.js?timestamp={{timestamp}}" type="text/javascript"></script>
+    <link href="/css/index.css?_={{css_last_modified}}" rel="stylesheet">
+    <script src="/js/index.js?_={{js_last_modified}}" type="text/javascript"></script>
 
     <div class="fill" id="map"></div>
 
@@ -152,7 +202,7 @@
                         {{filter_weathers}}
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterWeatherModal">{{filter_filter}}</button>
                     </div>
-                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_scanareas}}class="d-none"{{/hide_scanareas}}>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_scan_areas}}class="d-none"{{/hide_scan_areas}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label id="hide-scanareas" class="btn btn-sm btn-off">
                                 <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
@@ -194,13 +244,15 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="filterPokemonModalLabel">{{filter_pokemon_filter}}</h5>
+                    <h5 class="modal-title" id="filterPokemonModalLabel">
+                        {{filter_pokemon_filter}}&nbsp;
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-pokemon" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-pokemon" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -229,6 +281,7 @@
                                     <a id="disable-rare-pokemon-filter" class="dropdown-item" href="#">Rare</a>
                                     <a id="disable-ultra-pokemon-filter" class="dropdown-item" href="#">Ultra Rare</a>
                                     <a id="disable-regional-pokemon-filter" class="dropdown-item" href="#">Regional</a>
+                                    <a id="disable-event-pokemon-filter" class="dropdown-item" href="#">Event</a>
                                     <div class="dropdown-header">By Generation</div>
                                     <a id="disable-kanto-pokemon-filter" class="dropdown-item" href="#">Kanto</a>
                                     <a id="disable-johto-pokemon-filter" class="dropdown-item" href="#">Johto</a>
@@ -252,6 +305,7 @@
                                     <a id="reset-rare-pokemon-filter" class="dropdown-item" href="#">Rare</a>
                                     <a id="reset-ultra-pokemon-filter" class="dropdown-item" href="#">Ultra Rare</a>
                                     <a id="reset-regional-pokemon-filter" class="dropdown-item" href="#">Regional</a>
+                                    <a id="reset-event-pokemon-filter" class="dropdown-item" href="#">Event</a>
                                     <div class="dropdown-header">By Generation</div>
                                     <a id="reset-kanto-pokemon-filter" class="dropdown-item" href="#">Kanto</a>
                                     <a id="reset-johto-pokemon-filter" class="dropdown-item" href="#">Johto</a>
@@ -261,10 +315,62 @@
                                     <a id="reset-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="reset-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
-                            <button id="recommended-pokemon-filter" type="button" class="btn btn-sm btn-success">{{recommended_pokemon_btn}}</button>
+                            <button id="quick-start-pokemon-filter" type="button" class="btn btn-sm btn-success">{{quick_start_pokemon_btn}}</button>
                             </div>
                         </div>
                     </div>
+                    <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterPokemonHelpModal">{{filter_help}}</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterPokemonHelpModal" tabindex="-1" role="dialog" aria-labelledby="filterPokemonHelpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content border border-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterPokemonHelpModalLabel">{{filter_pokemon_help}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="help-title"><h4>Ways To Filter</h4></div><br>
+
+                    <div class="help-title"><b>General Basics</b></div>
+                    <div class="help-description">
+                        <p>
+                            IV Range: <kbd>90-100</kbd> - 90-100% IV Pokemon<br>
+                            Level Range: <kbd>L30-35</kbd> - Level 30 to 35 Pokemon<br>
+                            Stats: <kbd>A0-1 & D14 & S15</kbd> - Pokemon with 0-1 Attack, 14 Defense & 15 Stamina<br>
+                            CP: <kbd>CP2000-3000</kbd> - All Pokemon with CP of 2000-3000<br>
+                            NOT: <kbd>!0-100</kbd> - All Pokemon that do not have their IVs scanned<br><br>
+                        </p>
+                    </div>
+
+                    <div class="help-title"><b>Stringing Conditions Together</b></div>
+                    <div class="help-description">
+                        <p>
+                            <b><kbd>|</kbd></b> - OR operator, for setting separate conditions<br>
+                            Example: <kbd>95-100 | L35 | CP2500-4000</kbd><br>
+                            Returns all Pokemon that are either 95-100% IV, L35, or have a CP of 2500-4000<br><br>
+
+                            <b><kbd>&</kbd></b> - AND operator, for chaining conditions together<br>
+                            Example: <kbd>80-100 & L25-30 & (A15 & D10 & S10)</kbd><br>
+                            All Pokemon with IVs between 80-100, are L25-30, and have stats of 15/10/10<br><br>
+                        </p>
+                    </div>
+
+                    <div class="help-title"><b>Advanced</b></div>
+                    <div class="help-description">
+                        <p>
+                            Example: <kbd>(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100</kbd><br>
+                            Returns all Pokemon that have either CP1400-1500 OR CP2400-2500 AND have 0-1 Attack, 15 Defense, 15 Stamina, OR level 34-35 OR 90-100% IVs.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
                 </div>
             </div>
@@ -281,7 +387,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-gym" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-gym" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -316,7 +422,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-raid" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-raid" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -353,7 +459,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-pokestop" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-pokestop" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -388,7 +494,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-quest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-quest" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -423,7 +529,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-invasion" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-invasion" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -458,7 +564,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-spawnpoint" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-spawnpoint" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -493,7 +599,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-nest" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-nest" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -528,7 +634,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-weather" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-weather" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -562,7 +668,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-filter-device" class="table table-{{style}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                    <table id="table-filter-device" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
                         <thead>
                             <tr>
                                 <th class="all">{{filter_image}}</th>
@@ -641,14 +747,26 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body modal-body-scroll">
-                    <p>TODO</p>
+                <div class="modal-body">
+                    <table id="table-settings" class="table {{tableClass}} table-sm table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="all">{{filter_option}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
                         <div class="btn-group">
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
+                            &nbsp;
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
+                            &nbsp;
                             <div class="dropdown">
                                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{clear_data}}
@@ -727,25 +845,3 @@
     </div>
 
 {{> footer}}
-
-<script type='text/javascript'>
-    if ("{{style}}" === 'dark') {
-        $('#settingsModal').css('color', 'rgb(255, 255, 255)');
-        $('#filtersModal').css('color', 'rgb(255, 255, 255)');
-        $('#searchModal').css('color', 'rgb(255, 255, 255)');
-        $('#mapstyleModal').css('color', 'rgb(255, 255, 255)');
-        
-        //$('.darkInvert').css('filter', 'invert(100%)');
-        $('.modal-header').css('background-color', 'rgb(33, 37, 31)');
-        $('.modal-header').css('color', 'white');
-        $('.modal-body').css('background-color', 'rgb(33, 37, 31)');
-        $('.modal-footer').css('background-color', 'rgb(33, 37, 31)');
-        $('.close').css('color', 'rgb(255, 255, 255)');
-        $('.leaflet-popup-content-wrapper').css('background-color', 'rgb(33, 37, 31)');
-        $('.leaflet-popup-content-wrapper').css('color', 'white');
-        //$('.leaflet-control-custom').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-tooltip').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-control').css('background-color', 'rgb(33, 37, 31)');
-        //$('.leaflet-bar').css('background-color', 'rgb(33, 37, 31)');
-    }
-</script>

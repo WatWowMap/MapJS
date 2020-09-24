@@ -109,11 +109,19 @@ config.json
 # No logs
 logs
 
-static/custom/areas.json
-static/custom/nests.json
+# Keep default favicon.ico, ignore the rest
+static/custom/*
+!static/custom/{nests,areas}.example.json
+!static/custom/favicon.ico
+
+# Only base icons
 static/img/pokemon/*
 static/img/raid/*
 static/img/quest/*
+
+# Only default locale files
+static/locales/*
+!static/locales/_*
 
 # No docker-compose.yml files
 docker-compose.yml

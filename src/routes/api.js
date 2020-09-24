@@ -4,7 +4,7 @@ const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 
@@ -26,6 +26,98 @@ router.post('/search', async (req, res) => {
     res.json({ data: data });
 });
 
+router.get('/get_settings', async (req, res) => {
+    const data = getSettings();
+    res.json({ data: data });
+});
+
+const getSettings = () => {
+    let data = {};
+    let settingsData = [];
+    //const settingColorString = i18n.__('settings_color');
+    const pokemonSettingsString = i18n.__('filter_pokemon');
+    const pokemonGlowString = i18n.__('settings_pokemon_glow');
+    const clusterPokemonString = i18n.__('settings_cluster_pokemon');
+    const gymSettingsString = i18n.__('filter_gyms');
+    const clusterGymsString = i18n.__('settings_cluster_gyms');
+    const pokestopSettingsString = i18n.__('filter_pokestops');
+    const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
+    const nestSettingsString = i18n.__('filter_nests');
+    const nestPolygonsString = i18n.__('settings_nest_polygons');
+
+    /*
+    const glowColorLabel = `
+    <label class="btn btn-sm btn-size select-button-new" data-id="pokemon-glow" data-type="pokemon-glow" data-info="color">
+        <input type="radio" name="options" id="color" autocomplete="off">${settingColorString}
+    </label>
+    `;
+    */
+    settingsData.push({
+        'id': {
+            'sort': 0
+        },
+        'name': pokemonGlowString,
+        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
+        'type': pokemonSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 1
+        },
+        'name': clusterPokemonString,
+        'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
+        'type': pokemonSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 10
+        },
+        'name': clusterGymsString,
+        'filter': generateShowHideButtons('gym-cluster', 'gym-cluster'),
+        'type': gymSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 20
+        },
+        'name': clusterPokestopsString,
+        'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
+        'type': pokestopSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 30
+        },
+        'name': nestPolygonsString,
+        'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
+        'type': nestSettingsString
+    });
+    /*
+    settingsData.push({
+        'id': {
+            'formatted': utils.zeroPad(1, 3),
+            'sort': 1
+        },
+        'name': 'Glow Color',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
+        'filter': generateTextBox('glow-color', 'pokemon-glow'),
+        'type': pokemonSettingsLabel
+    });
+    settingsData.push({
+        'id': {
+            'formatted': utils.zeroPad(2, 3),
+            'sort': 2
+        },
+        'name': 'Minimum IV Glow',
+        'image': '<img class="lazy_load" data-src="/img/spawnpoint/1.png" style="height:50px; width:50px">',
+        'filter': generateShowHideButtons('glow-iv', 'pokemon-glow'),
+        'type': pokemonSettingsLabel
+    });
+    */
+    data['settings'] = settingsData;
+
+    return data;
+};
 
 const getData = async (perms, filter) => {
     //console.log('Filter:', filter);
@@ -42,7 +134,6 @@ const getData = async (perms, filter) => {
     const showPokemon = filter.show_pokemon && filter.show_pokemon !== 'false' || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
-    const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -68,7 +159,6 @@ const getData = async (perms, filter) => {
     const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
     const showWeatherFilter = filter.show_weather_filter && filter.show_weather_filter !== 'false' || false;
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
-    const iconStyle = filter.icon_style || 'Default';
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showQuests || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showActiveDevices) &&
@@ -94,7 +184,6 @@ const getData = async (perms, filter) => {
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
-    const iconStylePath = config.icons[iconStyle].path;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -108,7 +197,7 @@ const getData = async (perms, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -140,7 +229,6 @@ const getData = async (perms, filter) => {
         const ivString = i18n.__('filter_iv');
     
         const globalIVString = i18n.__('filter_global_iv');
-        const globalPVPString = i18n.__('filter_global_pvp');
         const globalFiltersString = i18n.__('filter_global_filters');
         const pokemonTypeString = i18n.__('filter_pokemon');
     
@@ -175,43 +263,15 @@ const getData = async (perms, filter) => {
                     'image': `IV-${andOrString}`,
                     'filter': filter,
                     'size': size,
-                    'type': globalFiltersString
-                });
-            }
-        }
-        if (permShowPVP) {
-            // Pokemon PVP filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 2
-                    },
-                    'name': globalPVPString,
-                    'image': `PVP-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString
+                    'type': globalFiltersString,
+                    'types': null
                 });
             }
         }
 
         const bigKarpString = i18n.__('filter_big_karp');
         const tinyRatString = i18n.__('filter_tiny_rat');
-        for (var i = 0; i <= 1; i++) {
+        for (let i = 0; i <= 1; i++) {
             const id = i === 0 ? 'big_karp' : 'tiny_rat';            
             const filter = generateShowHideButtons(id, 'pokemon-size');
             const sizeString = i === 0 ? bigKarpString : tinyRatString;
@@ -222,10 +282,14 @@ const getData = async (perms, filter) => {
                     'sort': i + 5
                 },
                 'name': sizeString,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i === 0 ? 129 : 19, '0')}" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'pokemon',
+                    pokemonId: i === 0 ? 129 : 19
+                },
                 'filter': filter,
                 'size': size,
-                'type': globalFiltersString
+                'type': globalFiltersString,
+                'types': null
             });
         }
 
@@ -235,6 +299,7 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
+                const types = JSON.stringify(pkmn.types);
                 //const form = pkmn.forms[formId];
                 let formName = pkmn.forms[formId].name;//i18n.__('form_' + formId);
                 if (skipForms.includes(formName.toLowerCase())) {
@@ -261,10 +326,15 @@ const getData = async (perms, filter) => {
                         'sort': i * 100 + j
                     },
                     'name': i18n.__('poke_' + i) + (formId === '0' ? '' : ' ' + formName),
-                    'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(i, formId)}" style="height:50px; width:50px;">`,
+                    'image': {
+                        type: 'pokemon',
+                        pokemonId: i,
+                        form: formId
+                    },
                     'filter': filter,
                     'size': size,
-                    'type': pokemonTypeString
+                    'type': pokemonTypeString,
+                    'types': types
                 });
             }
         }
@@ -284,7 +354,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': raidTimers,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/misc/timer.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/misc/timer.png'
+            },
             'filter': generateShowHideButtons('timers', 'raid-timers'),
             'size': generateSizeButtons('timers', 'raid-timers'),
             'type': generalString
@@ -299,7 +372,10 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': raidLevel,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/egg/${i}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/egg/${i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'raid-level'),
                 'size': generateSizeButtons(i, 'raid-level'),
                 'type': raidLevelsString
@@ -322,7 +398,11 @@ const getData = async (perms, filter) => {
                     'sort': i+200
                 },
                 'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokemonId, formId)}" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'pokemon',
+                    pokemonId: pokemonId,
+                    form: formId
+                },
                 'filter': generateShowHideButtons(id, 'raid-pokemon'),
                 'size': generateSizeButtons(id, 'raid-pokemon'),
                 'type': pokemonString
@@ -346,7 +426,10 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': gymTeam,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/gym/${i}_${i}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/gym/${i}_${i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'gym-team'),
                 'size': generateSizeButtons(i, 'gym-team'),
                 'type': gymTeamString
@@ -360,7 +443,10 @@ const getData = async (perms, filter) => {
                 'sort': 5
             },
             'name': i18n.__('filter_raid_ex') ,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/1403.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/item/1403.png'
+            },
             'filter': generateShowHideButtons('ex', 'gym-ex'),
             'size': generateSizeButtons('ex', 'gym-ex'),
             'type': gymOptionsString
@@ -373,7 +459,10 @@ const getData = async (perms, filter) => {
                 'sort': 6
             },
             'name': i18n.__('filter_gym_in_battle') ,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/battle/0_0.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/battle/0_0.png'
+            },
             'filter': generateShowHideButtons('battle', 'gym-battle'),
             'size': generateSizeButtons('battle', 'gym-battle'),
             'type': gymOptionsString
@@ -389,7 +478,10 @@ const getData = async (perms, filter) => {
                     'sort': i + 100
                 },
                 'name': availableSlots,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/gym/${(i == 6 ? 0 : team)}_${(6 - i)}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/gym/${i == 6 ? 0 : team}_${6 - i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'gym-slots'),
                 'size': generateSizeButtons(i, 'gym-slots'),
                 'type': availableSlotsString
@@ -428,7 +520,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': globalCandyString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/1301.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/item/1301.png'
+            },
             'filter': candyFilter,
             'size': candySize,
             'type': globalFiltersString
@@ -451,33 +546,37 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': globalStardustString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/item/-1.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/item/-1.png'
+            },
             'filter': stardustFilter,
             'size': stardustSize,
             'type': globalFiltersString
         });
 
         // Misc
-        for (let i = 1; i <= 3; i++) {
-            let itemName = '';
-            switch (i) {
-            case 1:
-                itemName = i18n.__('filter_stardust');
-                break;
-            case 2:
-                itemName = i18n.__('filter_xp');
-                break;
-            default:
-                itemName = i18n.__('filter_candy');
-                break;
-            }
+        const itemNames = [
+            'filter_stardust',
+            'filter_xp',
+            'filter_candy',
+            'filter_avatar_clothing',
+            'filter_quest',
+            'filter_pokecoin',
+            'filter_sticker',
+            'filter_mega_resource',
+        ];
+        for (let i = 1; i <= itemNames.length; i++) {
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(i, 3),
                     'sort': i
                 },
-                'name': itemName,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/item/${-i}.png" style="height:50px; width:50px;">`,
+                'name': i18n.__(itemNames[i - 1]),
+                'image': {
+                    type: 'img',
+                    path: `/item/${-i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'quest-misc'),
                 'size': generateSizeButtons(i, 'quest-misc'),
                 'type': miscTypeString
@@ -494,7 +593,10 @@ const getData = async (perms, filter) => {
                     'sort': itemId + 100
                 },
                 'name': i18n.__('item_' + itemId) ,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/item/${itemId}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/item/${itemId}.png`
+                },
                 'filter': generateShowHideButtons(itemId, 'quest-item'),
                 'size': generateSizeButtons(itemId, 'quest-item'),
                 'type': itemsTypeString
@@ -510,7 +612,10 @@ const getData = async (perms, filter) => {
                     'sort': pokeId + 2000
                 },
                 'name': i18n.__('poke_' + pokeId),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(pokeId, '0')}" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'pokemon',
+                    pokemonId: pokeId
+                },
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),
                 'type': pokemonTypeString
@@ -529,7 +634,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': pokestopNormal,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/0.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/pokestop/0.png'
+            },
             'filter': generateShowHideButtons('normal', 'pokestop-normal'),
             'size': generateSizeButtons('normal', 'pokestop-normal'),
             'type': pokestopOptionsString
@@ -544,7 +652,10 @@ const getData = async (perms, filter) => {
                         'sort': i
                     },
                     'name': pokestopLure,
-                    'image': `<img class="lazy_load" data-src="${iconStylePath}/pokestop/${i}.png" style="height:50px; width:50px;">`,
+                    'image': {
+                        type: 'img',
+                        path: `/pokestop/${i}.png`
+                    },
                     'filter': generateShowHideButtons(i, 'pokestop-lure'),
                     'size': generateSizeButtons(i, 'pokestop-lure'),
                     'type': pokestopOptionsString
@@ -566,7 +677,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': invasionTimers,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/misc/timer.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/misc/timer.png'
+            },
             'filter': generateShowHideButtons('timers', 'invasion-timers'),
             'size': generateSizeButtons('timers', 'invasion-timers'),
             'type': generalString
@@ -580,7 +694,10 @@ const getData = async (perms, filter) => {
                     'sort': i
                 },
                 'name': i18n.__('grunt_' + i),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/grunt/${i}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/grunt/${i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'invasion-grunt'),
                 'size': generateSizeButtons(i, 'invasion-grunt'),
                 'type': gruntTypeString
@@ -601,7 +718,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': spawnpointWithoutTimerString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/spawnpoint/0.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/spawnpoint/0.png'
+            },
             'filter': generateShowHideButtons('no-timer', 'spawnpoint-timer'),
             'size': generateSizeButtons('no-timer', 'spawnpoint-timer'),
             'type': spawnpointOptionsString
@@ -613,7 +733,10 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': spawnpointWithTimerString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/spawnpoint/1.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/spawnpoint/1.png'
+            },
             'filter': generateShowHideButtons('with-timer', 'spawnpoint-timer'),
             'size': generateSizeButtons('with-timer', 'spawnpoint-timer'),
             'type': spawnpointOptionsString
@@ -647,7 +770,7 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': globalAverageString,
-            'image': `AVG`,
+            'image': 'AVG',
             'filter': filter,
             'size': size,
             'type': globalFiltersString
@@ -663,7 +786,10 @@ const getData = async (perms, filter) => {
                     'sort': id
                 },
                 'name': i18n.__('poke_' + id),
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/pokemon/${getPokemonIcon(id, '0')}" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'pokemon',
+                    pokemonId: id
+                },
                 'filter': generateShowHideButtons(id, 'nest-pokemon'),
                 'size': generateSizeButtons(id, 'nest-pokemon'),
                 'type': pokemonString
@@ -675,7 +801,7 @@ const getData = async (perms, filter) => {
     if (permViewMap && showWeatherFilter) {
         const weatherOptionsString = i18n.__('filter_weather_options');
         let weatherData = [];
-        for (i = 1; i <= 7; i++) {
+        for (let i = 1; i <= 7; i++) {
             const weatherNameString = i18n.__('weather_' + i);
             weatherData.push({
                 'id': {
@@ -683,7 +809,10 @@ const getData = async (perms, filter) => {
                     'sort': 0
                 },
                 'name': weatherNameString,
-                'image': `<img class="lazy_load" data-src="${iconStylePath}/weather/${i}.png" style="height:50px; width:50px;">`,
+                'image': {
+                    type: 'img',
+                    path: `/weather/${i}.png`
+                },
                 'filter': generateShowHideButtons(i, 'weather-type'),
                 'size': generateSizeButtons(i, 'weather-type'),
                 'type': weatherOptionsString
@@ -704,7 +833,10 @@ const getData = async (perms, filter) => {
                 'sort': 0
             },
             'name': deviceOnlineString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/device/0.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/device/0.png'
+            },
             'filter': generateShowHideButtons('online', 'device-status'),
             'size': generateSizeButtons('online', 'device-status'),
             'type': deviceOptionsString
@@ -716,7 +848,10 @@ const getData = async (perms, filter) => {
                 'sort': 1
             },
             'name': deviceOfflineString,
-            'image': `<img class="lazy_load" data-src="${iconStylePath}/device/1.png" style="height:50px; width:50px;">`,
+            'image': {
+                type: 'img',
+                path: '/device/1.png'
+            },
             'filter': generateShowHideButtons('offline', 'device-status'),
             'size': generateSizeButtons('offline', 'device-status'),
             'type': deviceOptionsString
@@ -728,7 +863,7 @@ const getData = async (perms, filter) => {
 };
 
 const getSearch = async (filter) => {
-    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value);
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style);
     return searchData;
 };
 
@@ -765,12 +900,6 @@ const generateSizeButtons = (id, type) => {
     </div>
     `;
     return size;
-};
-
-const getPokemonIcon = (pokemonId, formId) => {
-    let pokeId = utils.zeroPad(pokemonId, 3);
-    let form = formId === '0' ? '00' : formId;
-    return `pokemon_icon_${pokeId}_${form}.png`;
 };
 
 module.exports = router;
