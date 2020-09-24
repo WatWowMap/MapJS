@@ -3572,6 +3572,26 @@ function getWeatherMarker (weather, ts) {
 }
 
 function getNestMarker (nest, geojson, ts) {
+    const pkmn = masterfile.pokemon[nest.pokemon_id];
+    let typesIcon = '';
+    if (pkmn) {
+        const types = pkmn.types;
+        if (types && types.length > 0) {
+            if (types.length === 2) {
+                typesIcon += `
+                <span class="text-nowrap">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" class="type-img-1">
+                    <img src="/img/nest/nest-${types[1].toLowerCase()}.png" class="type-img-2">
+                </span>`;
+            } else {
+                typesIcon += `
+                <span class="text-nowrap">
+                    <img src="/img/nest/nest-${types[0].toLowerCase()}.png" class="type-img-single">
+                </span>
+                `;
+            }
+        }
+    }
     const nestPolygonMarker = L.geoJson(geojson, {
         /*
         pointToLayer: function(feature, latlng) {
@@ -3586,7 +3606,6 @@ function getNestMarker (nest, geojson, ts) {
         },
         */
         onEachFeature: function(features, featureLayer) {
-            featureLayer.bindPopup(getNestPopupContent(nest));
             featureLayer.setStyle({
                 //'weight': 1,
                 'stroke': showNestPolygons ? features.properties['stroke'] : 0,
@@ -3600,19 +3619,13 @@ function getNestMarker (nest, geojson, ts) {
                 iconAnchor: [40 / 2, 40 / 2],
                 popupAnchor: [0, 40 * -.6],
                 className: 'nest-marker',
-                html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`
+                html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`,
+                //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                //shadowSize:  [48, 48]
             });
-            /*
-            const icon = L.icon({
-                iconUrl: '/img/pokemon/' + nest.pokemon_id + '.png',
-                iconSize: [30, 30],
-                iconAnchor: [30 / 2, 30 / 2],
-                popupAnchor:  [0, 30 * -.6],
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                shadowSize:  [41, 41]
-            });
-            */
-            L.marker([nest.lat, nest.lon], {icon: icon}).addTo(nestLayer);
+            L.marker([nest.lat, nest.lon], {icon: icon})
+                .bindPopup(getNestPopupContent(nest))
+                .addTo(nestLayer);
         }
     });
     return nestPolygonMarker;
