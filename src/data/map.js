@@ -1184,7 +1184,7 @@ const getPolygon = (s2cellId) => {
 // need to keep consistency with client-side implementation checkIVFilterValid
 const jsifyIvFilter = (filter) => {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]R)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1204,8 +1204,8 @@ const jsifyIvFilter = (filter) => {
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                     case 'CP': column = 'cp';    break;
-                    case 'GR': column = 'great_rank'; break;
-                    case 'UR': column = 'ultra_rank'; break;
+                    case 'GL': column = 'great_rank'; break;
+                    case 'UL': column = 'ultra_rank'; break;
                 }
                 let upper = lower;
                 if (match[4] !== undefined) {

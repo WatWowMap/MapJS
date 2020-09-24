@@ -5114,7 +5114,7 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = 'Please enter an IV and/or Level Filter. Examples:\n(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100 | GR1-3 | UR1-3';
+const ivFilterPrompt = 'Please enter an IV and/or Level Filter. Examples:\n(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100 | GL1-3 | UL1-3';
 
 function manageIVPopup (id, filter) {
     const result = prompt(ivFilterPrompt, filter[id].filter);
@@ -5222,7 +5222,7 @@ function manageGlobalStardustCountPopup (id, filter) {
 
 function checkIVFilterValid (filter) {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]R)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
