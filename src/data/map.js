@@ -81,72 +81,64 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
-            let filtered = {
-                id: result.id,
-                pokemon_id: result.pokemon_id,
-                lat: result.lat,
-                lon: result.lon,
-                spawn_id: result.spawn_id,
-                expire_timestamp: result.expire_timestamp,
-                gender: result.gender,
-                form: result.form,
-                costume: result.costume,
-                weather: result.weather,
-                shiny: result.shiny,
-                pokestop_id: result.pokestop_id,
-                first_seen_timestamp: result.first_seen_timestamp,
-                updated: result.updated,
-                changed: result.changed,
-                cellId: result.cell_id,
-                expire_timestamp_verified: result.expire_timestamp_verified,
-                capture_1: result.capture_1,
-                capture_2: result.capture_2,
-                capture_3: result.capture_3,
-            };
+            const filtered = {};
             if (showIV) {
                 filtered.atk_iv = result.atk_iv;
                 filtered.def_iv = result.def_iv;
                 filtered.sta_iv = result.sta_iv;
-                filtered.move_1 = result.move_1;
-                filtered.move_2 = result.move_2;
                 filtered.cp = result.cp;
                 filtered.level = result.level;
+                if (result.atk_iv && result.def_iv && result.sta_iv) {
+                    filtered.iv = (result.atk_iv + result.def_iv + result.sta_iv) / .45;
+                }
+            }
+            if (showPVP) {
+                if ((filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league))) {
+                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.great && x.cp <= 1500).map(x => x.rank));
+                }
+                if ((filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league))) {
+                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
+                }
+            }
+            let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
+            if (pokemonFilter === undefined) {
+                pokemonFilter = andIv(filtered) || orIv(filtered);
+            } else if (pokemonFilter === false) {
+                pokemonFilter = orIv(filtered);
+            } else {
+                pokemonFilter = pokemonFilter(filtered);
+            }
+            if (!(pokemonFilter ||
+                includeBigKarp && result.pokemon_id === 129 && result.weight !== null && result.weight >= 13.125 ||
+                includeTinyRat && result.pokemon_id === 19 && result.weight !== null && result.weight <= 2.40625)) {
+                continue;
+            }
+            filtered.id = result.id;
+            filtered.pokemon_id = result.pokemon_id;
+            filtered.lat = result.lat;
+            filtered.lon = result.lon;
+            filtered.spawn_id = result.spawn_id;
+            filtered.expire_timestamp = result.expire_timestamp;
+            filtered.gender = result.gender;
+            filtered.form = result.form;
+            filtered.costume = result.costume;
+            filtered.weather = result.weather;
+            filtered.shiny = result.shiny;
+            filtered.pokestop_id = result.pokestop_id;
+            filtered.first_seen_timestamp = result.first_seen_timestamp;
+            filtered.updated = result.updated;
+            filtered.changed = result.changed;
+            filtered.cellId = result.cell_id;
+            filtered.expire_timestamp_verified = result.expire_timestamp_verified;
+            filtered.capture_1 = result.capture_1;
+            filtered.capture_2 = result.capture_2;
+            filtered.capture_3 = result.capture_3;
+            if (showIV) {
+                filtered.move_1 = result.move_1;
+                filtered.move_2 = result.move_2;
                 filtered.weight = result.weight;
                 filtered.size = result.size;
                 filtered.display_pokemon_id = result.display_pokemon_id;
-            }
-            if (showPVP) {
-                filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
-                filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
-            }
-            const input = {
-                atk_iv: filtered.atk_iv,
-                def_iv: filtered.def_iv,
-                sta_iv: filtered.sta_iv,
-                cp: filtered.cp,
-                level: filtered.level,
-            };
-            if (filtered.atk_iv && filtered.def_iv && filtered.sta_iv) {
-                input.iv = (filtered.atk_iv + filtered.def_iv + filtered.sta_iv) / .45;
-            }
-            if (filtered.pvp_rankings_great_league) {
-                input.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.great && x.cp <= 1500).map(x => x.rank));
-            }
-            if (filtered.pvp_rankings_ultra_league) {
-                input.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
-            }
-            let pokemonFilter = filtered.form === 0 ? pokemonLookup[filtered.pokemon_id] : formLookup[filtered.form];
-            if (pokemonFilter === undefined) {
-                pokemonFilter = andIv(input) || orIv(input);
-            } else if (pokemonFilter === false) {
-                pokemonFilter = orIv(input);
-            } else {
-                pokemonFilter = pokemonFilter(input);
-            }
-            if (!(pokemonFilter ||
-                includeBigKarp && filtered.pokemon_id === 129 && filtered.weight !== null && filtered.weight >= 13.125 ||
-                includeTinyRat && filtered.pokemon_id === 19 && filtered.weight !== null && filtered.weight <= 2.40625)) {
-                continue;
             }
             pokemon.push(filtered);
         }
