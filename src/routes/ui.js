@@ -83,7 +83,7 @@ const handlePage = async (req, res) => {
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     const themes = await getAvailableThemes();
-    data.available_themes_json = JSON.stringify(themes);;
+    data.available_themes_json = JSON.stringify(themes);
 
     // Build available items list
     const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
@@ -95,7 +95,7 @@ const handlePage = async (req, res) => {
     data.available_items_json = JSON.stringify(availableItems);    
 
     // Build available areas list
-    const areas = Object.keys(config.areas).sort().map(x => { return { 'area': x } });
+    const areas = Object.keys(config.areas).sort().map(x => { return { 'area': x }; });
     data.areas = areas;
 
     // Available raid boss filters
@@ -163,8 +163,8 @@ const handlePage = async (req, res) => {
     }
 
     if (city) {
-        for (let i = 0; i < areaKeys.length; i++) {
-            const key = areaKeys[i];
+        for (let i = 0; i < areas.length; i++) {
+            const key = areas[i];
             if (city.toLowerCase() === key.toLowerCase()) {
                 const area = config.areas[key];
                 lat = parseFloat(area.lat);
@@ -224,7 +224,7 @@ const getAvailableThemes = async () => {
             if (ext !== '.css') {
                 return;
             }
-            let name = path.basename(file, '.css');
+            let name = path.basename(file, ext);
             name = name.charAt(0).toUpperCase() + name.slice(1);
             themes[name] = `/css/themes/${file}`;
         });
