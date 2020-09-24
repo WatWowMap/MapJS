@@ -1,3 +1,9 @@
+/* Popup marker content colors */
+.leaflet-popup-content-wrapper {
+    background-color: rgb(33, 37, 31);
+    color: lightgray;
+}
+
 /* Navbar colors */
 nav.navbar { 
     background-color: rgb(33, 37, 31);

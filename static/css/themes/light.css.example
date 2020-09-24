@@ -1,24 +1,24 @@
 /* Popup marker content colors */
 .leaflet-popup-content-wrapper {
-    background-color: rgb(33, 37, 31);
-    color: lightgray;
+    background-color: lightgray;
+    color: black;
 }
 
 /* Navbar colors */
 nav.navbar { 
-    background-color: #343A40;
+    background-color: #777a7e;
     color: gray;
 }
 
 /* Navbar item colors */
 .nav-item > a { 
-    background-color: #343A40;
-    color: darkgray;
+    background-color: #777a7e;
+    color: black;
 }
 
 /* Navbar title colors */
 a.navbar-brand {
-    background-color: #343A40;
+    background-color: #777a7e;
     color: white;
 }
 
@@ -69,8 +69,8 @@ a.navbar-brand {
 
 /* Modal header colors */
 .modal > .modal-dialog > .modal-content > .modal-header {
-    background-color: #21251F;
-    color: white;
+    background-color: lightgray;
+    color: black;
 }
 
 /* Modal table columns */
@@ -80,14 +80,14 @@ th {
 
 /* Modal body/content colors */
 .modal-body, .modal-content {
-    background-color: #21251F;
-    color: white;
+    background-color: lightgray;
+    color: black;
 }
 
 /* Modal footer colors */
 .modal-footer {
-    background-color: #21251F;
-    color: white;
+    background-color: lightgray;
+    color: black;
 }
 
 /* Odd numbered row in a table */
@@ -104,14 +104,14 @@ th {
 
 /* Group header colors */
 table.dataTable tr.dtrg-group td {
-    background-color: rgb(33, 37, 41);
-    color: white;
+    background-color: gray;
+    color: black;
 }
 
 /* Close button (x) colors */
 button.close {
-    background-color: rgb(33, 37, 31);
-    color: white;
+    background-color: lightgray;
+    color: black;
 }
 
 /* Button control colors */
