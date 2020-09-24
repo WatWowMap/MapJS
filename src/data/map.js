@@ -496,7 +496,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     if (showQuests) {
         if (excludedTypes.length === 0) {
             // exclude pokemon/item quests; they will be included in subsequent clauses
-            excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7))';
+            excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7)';
         } else {
             let sqlExcludeCreate = 'OR ((quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
             for (let i = 0; i < excludedTypes.length; i++) {
@@ -515,13 +515,12 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
-            if (minimumStardustCount > 0) {
-                //excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
-                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
-                args.push(minimumStardustCount);
-            }
-            excludeTypeSQL += ')';
         }
+        if (minimumStardustCount > 0) {
+            excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
+            args.push(minimumStardustCount);
+        }
+        excludeTypeSQL += ')';
 
         if (excludedPokemon.length === 0) {
             excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL)';
