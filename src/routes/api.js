@@ -256,11 +256,11 @@ const getData = async (perms, filter) => {
                 const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-iv" data-info="global-iv">${configureString}</button>`;
                 pokemonData.push({
                     'id': {
-                        'formatted': andOrString,
+                        'formatted': utils.zeroPad(i, 3),
                         'sort': i
                     },
                     'name': globalIVString,
-                    'image': `IV-${andOrString}`,
+                    'image': `${andOrString}`,
                     'filter': filter,
                     'size': size,
                     'type': globalFiltersString,
@@ -278,8 +278,8 @@ const getData = async (perms, filter) => {
             const size = generateSizeButtons(id, 'pokemon-size');      
             pokemonData.push({
                 'id': {
-                    'formatted': utils.zeroPad(i, 3),
-                    'sort': i + 5
+                    'formatted': utils.zeroPad(i+2, 3),
+                    'sort': i + 3
                 },
                 'name': sizeString,
                 'image': {
