@@ -113,6 +113,9 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 includeTinyRat && result.pokemon_id === 19 && result.weight !== null && result.weight <= 2.40625)) {
                 continue;
             }
+            delete filtered.iv;
+            delete filtered.great_rank;
+            delete filtered.ultra_rank;
             filtered.id = result.id;
             filtered.pokemon_id = result.pokemon_id;
             filtered.lat = result.lat;
