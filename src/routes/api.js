@@ -141,7 +141,6 @@ const getData = async (perms, filter) => {
     const showPokemon = filter.show_pokemon && filter.show_pokemon !== 'false' || false;
     const pokemonFilterExclude = filter.pokemon_filter_exclude ? JSON.parse(filter.pokemon_filter_exclude || {}) : []; //int
     const pokemonFilterIV = filter.pokemon_filter_iv ? JSON.parse(filter.pokemon_filter_iv || {}) : []; //dictionary
-    const pokemonFilterPVP = filter.pokemon_filter_pvp ? JSON.parse(filter.pokemon_filter_pvp || {}) : []; //dictionary
     const raidFilterExclude = filter.raid_filter_exclude ? JSON.parse(filter.raid_filter_exclude || {}) : [];
     const gymFilterExclude = filter.gym_filter_exclude ? JSON.parse(filter.gym_filter_exclude || {}) : [];
     const pokestopFilterExclude = filter.pokestop_filter_exclude ? JSON.parse(filter.pokestop_filter_exclude || {}) : [];
@@ -205,7 +204,7 @@ const getData = async (perms, filter) => {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate, permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions, questFilterExclude, pokestopFilterExclude, invasionFilterExclude);
     }
     if (permShowPokemon && showPokemon) {
-        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV, pokemonFilterPVP);
+        data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate, pokemonFilterExclude, pokemonFilterIV);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate, spawnpointFilterExclude);
@@ -237,7 +236,6 @@ const getData = async (perms, filter) => {
         const ivString = i18n.__('filter_iv');
     
         const globalIVString = i18n.__('filter_global_iv');
-        const globalPVPString = i18n.__('filter_global_pvp');
         const globalFiltersString = i18n.__('filter_global_filters');
         const pokemonTypeString = i18n.__('filter_pokemon');
     
@@ -270,36 +268,6 @@ const getData = async (perms, filter) => {
                     },
                     'name': globalIVString,
                     'image': `IV-${andOrString}`,
-                    'filter': filter,
-                    'size': size,
-                    'type': globalFiltersString,
-                    'types': null
-                });
-            }
-        }
-        if (permShowPVP) {
-            // Pokemon PVP filters
-            for (let i = 0; i <= 1; i++) {
-                const id = i === 0 ? 'and' : 'or';
-                const filter = `
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-sm btn-off select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="off">
-                        <input type="radio" name="options" id="hide" autocomplete="off">${offString}
-                    </label>
-                    <label class="btn btn-sm btn-on select-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="on">
-                        <input type="radio" name="options" id="show" autocomplete="off">${onString}
-                    </label>
-                </div>
-                `;
-                const andOrString = i === 0 ? andString : orString;
-                const size = `<button class="btn btn-sm btn-primary configure-button-new" data-id="${id}" data-type="pokemon-pvp" data-info="global-pvp">${configureString}</button>`;
-                pokemonData.push({
-                    'id': {
-                        'formatted': andOrString,
-                        'sort': i + 2
-                    },
-                    'name': globalPVPString,
-                    'image': `PVP-${andOrString}`,
                     'filter': filter,
                     'size': size,
                     'type': globalFiltersString,

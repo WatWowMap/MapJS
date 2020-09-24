@@ -4,6 +4,7 @@
 const i18n = require('i18n');
 const S2 = require('nodes2ts');
 const sanitizer = require('sanitizer');
+const requireFromString = require('require-from-string');
 
 const config = require('../services/config.js');
 const MySQLConnector = require('../services/mysql.js');
@@ -15,108 +16,55 @@ const dbManual = new MySQLConnector(config.db.manualdb);
 const masterfile = require('../../static/data/masterfile.json');
 
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, pokemonFilterPVP = null) => {
-    const excludePokemonIds = [];
-    const excludeFormIds = [];
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
+    const pokemonLookup = {};
+    const formLookup = {};
 
-    let keys = Object.values(pokemonFilterExclude || []);
-    let sqlIncludeBigKarp = '';
-    let sqlIncludeTinyRat = '';
-    if (keys && keys.length > 0) {
-        for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
+    let includeBigKarp = false;
+    let includeTinyRat = false;
+    for (const key of pokemonFilterExclude || []) {
+        const split = key.split('-', 2);
+        if (split.length === 2) {
+            const pokemonId = parseInt(split[0]);
+            const formId = parseInt(split[1]);
+            if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                pokemonLookup[pokemonId] = false;
+            }
+            formLookup[formId] = false;
+        } else if (key === 'big_karp') {
+            includeBigKarp = true;
+        } else if (key === 'tiny_rat') {
+            includeTinyRat = true;
+        } else {
+            console.warn('Unrecognized key', key);
+        }
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    let orIv = (_) => false;
+    // eslint-disable-next-line no-unused-vars
+    let andIv = (_) => true;
+    if (showIV) {
+        for (const [key, filter] of Object.entries(pokemonFilterIV || {})) {
+            const jsFilter = jsifyIvFilter(filter);
+            if (!jsFilter) {
+                continue;
+            }
             const split = key.split('-', 2);
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
                 const formId = parseInt(split[1]);
                 if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
-                    excludePokemonIds.push(pokemonId);
+                    pokemonLookup[pokemonId] = jsFilter;
                 }
-                excludeFormIds.push(formId);
+                formLookup[formId] = jsFilter;
+            } else if (key === 'and') {
+                andIv = jsFilter;
+            } else if (key === 'or') {
+                orIv = jsFilter;
             } else {
-                const id = parseInt(key);
-                if (id) {
-                    if (!excludePokemonIds.includes(id)) {
-                        excludePokemonIds.push(id);
-                    }
-                } else if (key === 'big_karp') {
-                    sqlIncludeBigKarp = 'OR (pokemon_id = 129 AND weight IS NOT NULL AND weight >= 13.125)';
-                } else if (key === 'tiny_rat') {
-                    sqlIncludeTinyRat = 'OR (pokemon_id = 19 AND weight IS NOT NULL AND weight <= 2.40625)';
-                }
+                console.warn('Unrecognized key', key);
             }
-        }
-    }
-
-    let args = [minLat, maxLat, minLon, maxLon, updated];
-
-    let sqlExcludePokemon = '';
-    if (excludePokemonIds.length > 0) {
-        let sqlExcludeCreate = 'AND pokemon_id NOT IN (';
-        for (let i = 0; i < excludePokemonIds.length; i++) {
-            if (i === excludePokemonIds.length - 1) {
-                sqlExcludeCreate += '?)';
-            } else {
-                sqlExcludeCreate += '?, ';
-            }
-            args.push(excludePokemonIds[i]);
-        }
-        sqlExcludePokemon = sqlExcludeCreate;
-    }
-
-    let sqlExcludeForms = '';
-    for (let i = 0; i < excludeFormIds.length; i++) {
-        sqlExcludeForms += ', ?';
-        args.push(excludeFormIds[i]);
-    }
-
-    let sqlOrIv = '';
-    let sqlAndIv = '';
-    let sqlExcludeIvPokemon = '';
-    let sqlExcludeIvForms = '';
-    let sqlIncludeIv = '';
-    const addExcludeIvPokemon = (id) => {
-        if (sqlExcludeIvPokemon === '') {
-            sqlExcludeIvPokemon = `AND pokemon_id NOT IN (${id}`;
-        } else {
-            sqlExcludeIvPokemon += `, ${id}`;
-        }
-    };
-    if (showIV) {
-        const keys = Object.keys(pokemonFilterIV);
-        keys.forEach(key => {
-            const filter = pokemonFilterIV[key];
-            const sqlFilter = sqlifyIvFilter(filter);
-            if (sqlFilter) {
-                const split = key.split('-', 2);
-                let sqlPokemon = 'FALSE';
-                if (split.length === 2) {
-                    const pokemonId = parseInt(split[0]);
-                    const formId = parseInt(split[1]);
-                    sqlExcludeIvForms += `, ${formId}`;
-                    sqlPokemon = `form = ${formId}`;
-                    if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
-                        addExcludeIvPokemon(pokemonId);
-                        sqlPokemon += ` OR pokemon_id = ${pokemonId} AND form = 0`;
-                    }
-                } else if (key === 'and') {
-                    sqlAndIv = `AND (${sqlFilter})`;
-                    return;
-                } else if (key === 'or') {
-                    sqlOrIv = `OR (${sqlFilter})`;
-                    return;
-                } else {
-                    const id = parseInt(key);
-                    if (id) {
-                        addExcludeIvPokemon(id);
-                        sqlPokemon = `pokemon_id = ${id} AND form = 0`;
-                    }
-                }
-                sqlIncludeIv += ` OR ((${sqlPokemon}) AND (${sqlFilter}))`;
-            }
-        });
-        if (sqlExcludeIvPokemon !== '') {
-            sqlExcludeIvPokemon += ')';
         }
     }
 
@@ -126,16 +74,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
-    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND (
-        (
-            (
-                (form = 0 ${sqlExcludePokemon}) OR form NOT IN (0 ${sqlExcludeForms})
-                ${sqlIncludeBigKarp} ${sqlIncludeTinyRat}
-            ) ${sqlAndIv} ${sqlOrIv}
-        ) AND (
-            (form = 0 ${sqlExcludeIvPokemon}) OR form NOT IN (0 ${sqlExcludeIvForms})
-        ) ${sqlIncludeIv}
-    )`;
+    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?`;
+    const args = [minLat, maxLat, minLon, maxLon, updated];
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
     });
@@ -143,64 +83,67 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
-            let filtered = {
-                id: result.id,
-                pokemon_id: result.pokemon_id,
-                lat: result.lat,
-                lon: result.lon,
-                spawn_id: result.spawn_id,
-                expire_timestamp: result.expire_timestamp,
-                gender: result.gender,
-                form: result.form,
-                costume: result.costume,
-                weather: result.weather,
-                shiny: result.shiny,
-                pokestop_id: result.pokestop_id,
-                first_seen_timestamp: result.first_seen_timestamp,
-                updated: result.updated,
-                changed: result.changed,
-                cellId: result.cell_id,
-                expire_timestamp_verified: result.expire_timestamp_verified,
-                capture_1: result.capture_1,
-                capture_2: result.capture_2,
-                capture_3: result.capture_3,
-            };
+            const filtered = {};
             if (showIV) {
                 filtered.atk_iv = result.atk_iv;
                 filtered.def_iv = result.def_iv;
                 filtered.sta_iv = result.sta_iv;
-                filtered.move_1 = result.move_1;
-                filtered.move_2 = result.move_2;
                 filtered.cp = result.cp;
                 filtered.level = result.level;
+                if (result.atk_iv && result.def_iv && result.sta_iv) {
+                    filtered.iv = (result.atk_iv + result.def_iv + result.sta_iv) / .45;
+                }
+            }
+            if (showPVP) {
+                if ((filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league))) {
+                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.great && x.cp <= 1500).map(x => x.rank));
+                }
+                if ((filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league))) {
+                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
+                }
+            }
+            let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
+            if (pokemonFilter === undefined) {
+                pokemonFilter = andIv(filtered) || orIv(filtered);
+            } else if (pokemonFilter === false) {
+                pokemonFilter = orIv(filtered);
+            } else {
+                pokemonFilter = pokemonFilter(filtered);
+            }
+            if (!(pokemonFilter ||
+                includeBigKarp && result.pokemon_id === 129 && result.weight !== null && result.weight >= 13.125 ||
+                includeTinyRat && result.pokemon_id === 19 && result.weight !== null && result.weight <= 2.40625)) {
+                continue;
+            }
+            delete filtered.iv;
+            delete filtered.great_rank;
+            delete filtered.ultra_rank;
+            filtered.id = result.id;
+            filtered.pokemon_id = result.pokemon_id;
+            filtered.lat = result.lat;
+            filtered.lon = result.lon;
+            filtered.spawn_id = result.spawn_id;
+            filtered.expire_timestamp = result.expire_timestamp;
+            filtered.gender = result.gender;
+            filtered.form = result.form;
+            filtered.costume = result.costume;
+            filtered.weather = result.weather;
+            filtered.shiny = result.shiny;
+            filtered.pokestop_id = result.pokestop_id;
+            filtered.first_seen_timestamp = result.first_seen_timestamp;
+            filtered.updated = result.updated;
+            filtered.changed = result.changed;
+            filtered.cellId = result.cell_id;
+            filtered.expire_timestamp_verified = result.expire_timestamp_verified;
+            filtered.capture_1 = result.capture_1;
+            filtered.capture_2 = result.capture_2;
+            filtered.capture_3 = result.capture_3;
+            if (showIV) {
+                filtered.move_1 = result.move_1;
+                filtered.move_2 = result.move_2;
                 filtered.weight = result.weight;
                 filtered.size = result.size;
                 filtered.display_pokemon_id = result.display_pokemon_id;
-            }
-            if (showPVP) {
-                filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league);
-                filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league);
-                if (pokemonFilterPVP) {
-                    let idString = pokemonFilterPVP['and'] ? 'and' : 'or';
-                    if (pokemonFilterPVP[idString]) {
-                        let split = String(pokemonFilterPVP[idString]).split('-', 2);
-                        if (split.length === 2) {
-                            let minRank = parseInt(split[0]);
-                            let maxRank = parseInt(split[1]);
-                            if (
-                                (!filtered.pvp_rankings_great_league || filtered.pvp_rankings_great_league.length === 0) &&
-                                (!filtered.pvp_rankings_ultra_league || filtered.pvp_rankings_ultra_league.length === 0)
-                            ) {
-                                continue;
-                            }
-                            let greatLeague = filtered.pvp_rankings_great_league ? filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.great && x.cp <= 1500) : [];
-                            let ultraLeague = filtered.pvp_rankings_ultra_league ? filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank >= minRank && x.rank <= maxRank && x.cp >= config.map.minPvpCp.utlra && x.cp <= 2500) : [];
-                            if (greatLeague.length === 0 && ultraLeague.length === 0) {
-                                continue;
-                            }
-                        }
-                    }
-                }
             }
             pokemon.push(filtered);
         }
@@ -496,7 +439,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     if (showQuests) {
         if (excludedTypes.length === 0) {
             // exclude pokemon/item quests; they will be included in subsequent clauses
-            excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7))';
+            excludeTypeSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7)';
         } else {
             let sqlExcludeCreate = 'OR ((quest_reward_type IS NOT NULL AND quest_reward_type NOT IN (2, 7, ';
             for (let i = 0; i < excludedTypes.length; i++) {
@@ -515,13 +458,12 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 }
             }
             excludeTypeSQL = sqlExcludeCreate;
-            if (minimumStardustCount > 0) {
-                //excludeTypeSQL += ' AND (quest_reward_type <> 3 OR JSON_VALUE(quest_rewards, "$[0].info.amount") >= ?)';
-                excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
-                args.push(minimumStardustCount);
-            }
-            excludeTypeSQL += ')';
         }
+        if (minimumStardustCount > 0) {
+            excludeTypeSQL += ' AND (quest_reward_type <> 3 OR json_extract(json_extract(quest_rewards, "$[*].info.amount"), "$[0]") >= ?)';
+            args.push(minimumStardustCount);
+        }
+        excludeTypeSQL += ')';
 
         if (excludedPokemon.length === 0) {
             excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL)';
@@ -1236,9 +1178,9 @@ const getPolygon = (s2cellId) => {
 };
 
 // need to keep consistency with client-side implementation checkIVFilterValid
-const sqlifyIvFilter = (filter) => {
+const jsifyIvFilter = (filter) => {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!]|([ADSL]?|CP)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1258,12 +1200,14 @@ const sqlifyIvFilter = (filter) => {
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                     case 'CP': column = 'cp';    break;
+                    case 'GL': column = 'great_rank'; break;
+                    case 'UL': column = 'ultra_rank'; break;
                 }
-                let higher = lower;
+                let upper = lower;
                 if (match[4] !== undefined) {
-                    higher = parseFloat(match[4]);
+                    upper = parseFloat(match[4]);
                 }
-                result += `(${column} IS NOT NULL AND ${column} >= ${lower} AND ${column} <= ${higher})`;
+                result += `(pokemon['${column}'] !== null && pokemon['${column}'] >= ${lower} && pokemon['${column}'] <= ${upper})`;
                 expectClause = false;
             } else switch (match[1]) {
                 case '(':
@@ -1273,7 +1217,7 @@ const sqlifyIvFilter = (filter) => {
                     result += '(';
                     break;
                 case '!':
-                    result += 'NOT ';
+                    result += '!';
                     break;
                 default:
                     return null;
@@ -1291,11 +1235,11 @@ const sqlifyIvFilter = (filter) => {
                 }
                 break;
             case '&':
-                result += 'AND ';
+                result += '&&';
                 expectClause = true;
                 break;
             case '|':
-                result += 'OR ';
+                result += '||';
                 expectClause = true;
                 break;
         }
@@ -1304,7 +1248,7 @@ const sqlifyIvFilter = (filter) => {
     if (expectClause || stack !== 0 || lastIndex < filter.length) {
         return null;
     }
-    return result;
+    return requireFromString(`module.exports = (pokemon) => ${result};`);
 };
 
 const getAvailableRaidBosses = async () => {
