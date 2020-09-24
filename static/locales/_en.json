@@ -68,7 +68,6 @@
 	"filter_device_table_empty": "No matching Devices found",
 	"filter_global_filters": "Global Filters",
 	"filter_global_iv": "IV/Level Limit",
-	"filter_global_pvp": "PVP Limit",
 	"filter_global_avg": "Nest Avg Limit",
 	"filter_global_candy_count": "Rare Candy Limit",
 	"filter_global_stardust_count": "Stardust Limit",
