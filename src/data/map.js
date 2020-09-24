@@ -62,6 +62,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 andIv = jsFilter;
             } else if (key === 'or') {
                 orIv = jsFilter;
+            } else {
+                console.warn('Unrecognized key', key);
             }
         }
     }
