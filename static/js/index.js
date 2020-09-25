@@ -1395,7 +1395,7 @@ function initMap () {
         $('#settingsModal').modal('hide');
     });
 
-    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-portal"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
         let input = e.target;
         if (input) {
             loadSearchData(input.id, input.value);

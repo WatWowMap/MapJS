@@ -856,6 +856,11 @@
                                 <img src="/img/misc/nest.png" width="32" height="auto"/>
                             </a>
                         </li>
+                        <li class="nav-item {{#hide_portals}}d-none{{/hide_portals}}">
+                            <a class="nav-link" id="pills-nest-tab" data-toggle="pill" href="#pills-portal" role="tab" aria-controls="pills-portal" aria-selected="false">
+                                <img src="/img/misc/portal.png" width="32" height="auto"/>
+                            </a>
+                        </li>
                         <li class="nav-item {{#hide_gyms}}d-none{{/hide_gyms}}">
                             <a class="nav-link" id="pills-gym-tab" data-toggle="pill" href="#pills-gym" role="tab" aria-controls="pills-gym" aria-selected="false">
                                 <img src="/img/misc/gym.png" width="32" height="auto"/>
@@ -875,6 +880,10 @@
                         <div class="tab-pane fade" id="pills-nest" role="tabpanel" aria-labelledby="pills-nest-tab">
                             <input id="search-nest" type="text" class="form-control" placeholder="Enter nest Pokemon or Type..." autocomplete="off" />
                             <div id="search-nest-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-portal" role="tabpanel" aria-labelledby="pills-portal-tab">
+                            <input id="search-portal" type="text" class="form-control" placeholder="Enter Portal Name..." autocomplete="off" />
+                            <div id="search-portal-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-gym" role="tabpanel" aria-labelledby="pills-gym-tab">
                             <input id="search-gym" type="text" class="form-control" placeholder="Enter Gym Name..." autocomplete="off" />
