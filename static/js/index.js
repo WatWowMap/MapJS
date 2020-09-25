@@ -54,6 +54,7 @@ let settings = {};
 let settingsNew = {};
 
 const hiddenPokemonIds = [];
+const pokemonWithTimers = [];
 
 let openedPokemon;
 let openedPokestop;
@@ -2053,10 +2054,6 @@ function loadData () {
                         pokemon.marker = getPokemonMarker(pokemon, ts);
                         pokemonMarkers.push(pokemon);
                         startDespawnTimer(pokemon, ts);
-                        pokemon.pokemonTimerSet = true;
-                        if (showPokemonTimers) {
-                            setDespawnTimer(pokemon);
-                        }
                         if (clusterPokemon) {
                             clusters.addLayer(pokemon.marker);
                         } else {
@@ -2080,14 +2077,6 @@ function loadData () {
                         }
                         if (oldPokemon.updated !== pokemon.updated) {
                             oldPokemon.updated = pokemon.updated;
-                        }
-                        // TODO: Check if IV = 100%
-                        if (oldPokemon.expire_timestamp >= ts && !oldPokemon.pokemonTimerSet) {
-                            startDespawnTimer(oldPokemon, ts);
-                            oldPokemon.pokemonTimerSet = true;
-                            if (showPokemonTimers) {
-                                setDespawnTimer(oldPokemon);
-                            }
                         }
                         if (hiddenPokemonIds.includes(oldPokemon.id)) {
                             map.removeLayer(oldPokemon.marker);
@@ -2595,7 +2584,7 @@ function updateMapTimers () {
         if (!bounds.contains(marker)) {
             return;
         }
-        if (showPokemonTimers) {
+        if (showPokemonTimers && pokemonWithTimers.includes(marker.id)) {
             setDespawnTimer(marker);
         } else {
             marker.marker.unbindTooltip();
@@ -2789,6 +2778,7 @@ function getPokemonPopupContent (pokemon) {
     '</div>' + // END 3RD ROW
     '<br>' +
     '<div class="text-center">' +
+        (showPokemonTimers ? '<a id="h' + pokemon.id + '" title="Show Despawn Timer" href="#" onclick="addPokemonTimer(\'' + pokemon.id + '\');return false;"><b>[Show Timer]</b></a>&nbsp;' : '') +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
         '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
         '<br>' +
@@ -2837,6 +2827,28 @@ function setIndividualPokemonHidden (id) {
             console.log('Failed to find pokemon marker', id);
         } else {
             map.removeLayer(pokemonMarker.marker);
+        }
+    }
+}
+
+function addPokemonTimer (id) {
+    const ts = new Date() / 1000;
+    if (id > 0 && !pokemonWithTimers.includes(id)) {
+        pokemonWithTimers.push(id);
+        const pokemonMarker = pokemonMarkers.find(function (value) {
+            return id === value.id;
+        });
+
+        if (pokemonMarker === null) {
+            console.log('Failed to find pokemon marker', id);
+        } else {
+            if (pokemonMarker.expire_timestamp >= ts && !pokemonMarker.pokemonTimerSet) {
+                startDespawnTimer(pokemonMarker, ts);
+                if (showPokemonTimers) {
+                    setDespawnTimer(pokemonMarker);
+                    pokemonMarker.pokemonTimerSet = true;
+                }
+            }
         }
     }
 }
@@ -4089,11 +4101,6 @@ function setDespawnTimer (marker) {
     }
 
     if (marker.expire_timestamp >= ts && showPokemon) {
-        const iv = parseFloat(calcIV(marker.atk_iv, marker.def_iv, marker.sta_iv));
-        // TODO: Configurable
-        if (iv < 100) {
-            return;
-        }
         const timer = getTimeUntil(new Date(marker.expire_timestamp * 1000));
         if (marker.marker.timerSet) {
             const text = `<div class='rounded'>${timer}</div>`;
