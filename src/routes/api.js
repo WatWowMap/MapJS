@@ -140,6 +140,7 @@ const getData = async (perms, filter) => {
     const invasionFilterExclude = filter.invasion_filter_exclude ? JSON.parse(filter.invasion_filter_exclude || {}) : [];
     const spawnpointFilterExclude = filter.spawnpoint_filter_exclude ? JSON.parse(filter.spawnpoint_filter_exclude || {}) : [];
     const nestFilterExclude = filter.nest_filter_exclude ? JSON.parse(filter.nest_filter_exclude || {}) : [];
+    const portalFilterExclude = filter.portal_filter_exclude ? JSON.parse(filter.portal_filter_exclude || {}) : [];
     const weatherFilterExclude = filter.weather_filter_exclude ? JSON.parse(filter.weather_filter_exclude || {}) : [];
     const deviceFilterExclude = filter.device_filter_exclude ? JSON.parse(filter.device_filter_exclude || {}) : [];
     const showSpawnpoints = filter.show_spawnpoints && filter.show_spawnpoints !== 'false' || false;
@@ -148,6 +149,7 @@ const getData = async (perms, filter) => {
     const showSubmissionTypeCells = filter.show_submission_type_cells && filter.show_submission_type_cells !== 'false' || false;
     const showWeather = filter.show_weather && filter.show_weather !== 'false' || false;
     const showNests = filter.show_nests && filter.show_nests !== 'false' || false;
+    const showPortals = filter.show_portals && filter.show_portals !== 'false' || false;
     const showActiveDevices = filter.show_active_devices && filter.show_active_devices !== 'false' || false;
     const showPokemonFilter = filter.show_pokemon_filter && filter.show_pokemon_filter !== 'false' || false;
     const showQuestFilter = filter.show_quest_filter && filter.show_quest_filter !== 'false' || false;
@@ -157,11 +159,12 @@ const getData = async (perms, filter) => {
     const showPokestopFilter = filter.show_pokestop_filter && filter.show_pokestop_filter !== 'false' || false;
     const showSpawnpointFilter = filter.show_spawnpoint_filter && filter.show_spawnpoint_filter !== 'false' || false;
     const showNestFilter = filter.show_nest_filter && filter.show_nest_filter !== 'false' || false;
+    const showPortalFilter = filter.show_portal_filter && filter.show_portal_filter !== 'false' || false;
     const showWeatherFilter = filter.show_weather_filter && filter.show_weather_filter !== 'false' || false;
     const showDeviceFilter = filter.show_device_filter && filter.show_device_filter !== 'false' || false;
     const lastUpdate = filter.last_update || 0;
     if ((showGyms || showRaids || showPokestops || showQuests || showInvasions || showPokemon || showSpawnpoints ||
-        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showActiveDevices) &&
+        showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showPortals || showActiveDevices) &&
         (minLat === null || maxLat === null || minLon === null || maxLon === null)) {
         //res.respondWithError(BadRequest);
         return;
@@ -184,6 +187,7 @@ const getData = async (perms, filter) => {
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
+    const permShowPortals = true;//perms ? perms.portals !== false : true;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -221,6 +225,9 @@ const getData = async (perms, filter) => {
     }
     if (permShowNests && showNests) {
         data['nests'] = await map.getNests(minLat, maxLat, minLon, maxLon, nestFilterExclude);
+    }
+    if (permShowPortals && showPortals) {
+        data['portals'] = await map.getPortals(minLat, maxLat, minLon, maxLon, portalFilterExclude);
     }
 
     if (permViewMap && showPokemonFilter) {
@@ -796,6 +803,23 @@ const getData = async (perms, filter) => {
             });
         }
         data['nest_filters'] = nestData;
+    }
+
+    if (permViewMap && showPortalFilter) {
+        const generalString = i18n.__('filter_general');
+        let portalData = [];
+        portalData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 0
+            },
+            'name': 'Only New Portals (Last 24 Hours)',
+            'image': 'New',
+            'filter': generateShowHideButtons('new', 'portal-new'),
+            'size': generateSizeButtons('new', 'portal-new'),
+            'type': generalString
+        });
+        data['portal_filters'] = portalData;
     }
 
     if (permViewMap && showWeatherFilter) {

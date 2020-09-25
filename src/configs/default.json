@@ -52,6 +52,7 @@
             "spawnpoints": false,
             "pokemon": false,
             "nests": false,
+            "portals": false,
             "scanCells": false,
             "submissionCells": false,
             "weather": false,
