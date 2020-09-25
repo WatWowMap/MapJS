@@ -4067,7 +4067,7 @@ function setDespawnTimer (marker) {
     if (raidTimestamp > 0) {
         const timer = getTimeUntil(new Date(raidTimestamp * 1000));
         if (marker.marker.timerSet) {
-            const text = `<div class='rounded raid-timer'><span class='p-1'>${timer}</span></div>`;
+            const text = `<div class='rounded'>${timer}</div>`;
             marker.marker.setTooltipContent(text);
         } else {
             const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
@@ -4079,10 +4079,10 @@ function setDespawnTimer (marker) {
     if (marker.incident_expire_timestamp >= ts && showInvasions) {
         const timer = getTimeUntil(new Date(marker.incident_expire_timestamp * 1000));
         if (marker.marker.timerSet) {
-            const text = `<div class='rounded invasion-timer'><span class='p-1'>${timer}</span></div>`;
+            const text = `<div class='rounded'>${timer}</div>`;
             marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip invasion-timer span p-0', direction: 'bottom', offset: [0, 0] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 0] };
             marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }
@@ -4096,10 +4096,10 @@ function setDespawnTimer (marker) {
         }
         const timer = getTimeUntil(new Date(marker.expire_timestamp * 1000));
         if (marker.marker.timerSet) {
-            const text = `<div class='rounded pokemon-timer'><span class='p-1'>${timer}</span></div>`;
+            const text = `<div class='rounded'>${timer}</div>`;
             marker.marker.setTooltipContent(text);
         } else {
-            const options = { permanent: true, className: 'leaflet-tooltip pokemon-timer span p-0', direction: 'bottom', offset: [0, 20] };
+            const options = { permanent: true, className: 'leaflet-tooltip', direction: 'bottom', offset: [0, 20] };
             marker.marker.bindTooltip(timer, options);
             marker.marker.timerSet = true;
         }

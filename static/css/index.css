@@ -24,6 +24,10 @@
     box-shadow: none;
     background: none;
     max-height: 20px;
+    padding: 0px 4px 0px 4px !important;
+    background-color: gray;
+    border-radius: .25rem !important;
+    color: white;
 }
 .leaflet-container a.leaflet-popup-close-button {
   width: 28px;
@@ -193,36 +197,6 @@ fieldset[disabled] .btn-size.active {
 .btn-size .badge {
     color: #6C757D;
     background-color: #FFFFFF;
-}
-
-.raid-timer {
-    background-color: gray;
-    color: white;
-    font-weight: bold;
-}
-
-.pokemon-timer {
-    background-color: gray;
-    border-radius: .25rem !important;
-    color: white;
-    font-weight: bold;
-    font: bold 12px, Monaco, monospace;
-    border: none;
-    border-color: none;
-    box-shadow: none;
-    max-height: 20px;
-}
-
-.invasion-timer {
-    background-color: gray;
-    border-radius: .25rem !important;
-    color: white;
-    font-weight: bold;
-    font: bold 12px, Monaco, monospace;
-    border: none;
-    border-color: none;
-    box-shadow: none;
-    max-height: 20px;
 }
 
 .center-vertical {
