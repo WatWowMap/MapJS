@@ -1140,7 +1140,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM ingress_portals
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
-            `
+            `;
             useManualDb = true;
             break;
         case 'search-gym':
