@@ -155,6 +155,10 @@
                 "enabled": true,
                 "roles": []
             },
+            "portals": {
+                "enabled": true,
+                "roles": []
+            },
             "scanAreas": {
                 "enabled": true,
                 "roles": []

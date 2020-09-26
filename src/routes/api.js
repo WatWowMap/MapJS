@@ -187,7 +187,7 @@ const getData = async (perms, filter) => {
     const permShowSubmissionCells = perms ? perms.submissionCells !== false : true;
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
-    const permShowPortals = true;//perms ? perms.portals !== false : true;
+    const permShowPortals = perms ? perms.portals !== false : true;
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
@@ -215,7 +215,7 @@ const getData = async (perms, filter) => {
     if (permShowSubmissionCells && showSubmissionPlacementCells) {
         let placementCells = await map.getSubmissionPlacementCells(minLat, maxLat, minLon, maxLon);
         data['submission_placement_cells'] = placementCells.cells;
-        data['submission_placement_rings'] = placementCells.rings;
+        data['submission_placement_rings'] = placementCells.rings; // TODO: Maybe remove since we can show ingress portals now
     }
     if (permShowSubmissionCells && showSubmissionTypeCells) {
         data['submission_type_cells'] = await map.getSubmissionTypeCells(minLat, maxLat, minLon, maxLon);
