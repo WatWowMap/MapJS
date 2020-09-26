@@ -2487,6 +2487,16 @@ function getPokestopSize (id) {
     return 30;
 }
 
+function getPortalSize (portal, ts) {
+    const yesterday = ts - (60 * 60 * 24);
+    if (portal.imported > yesterday) {
+        if (portalFilter['new'].size === 'huge') {
+            return 50;
+        }
+    }
+    return 25;
+}
+
 
 // MARK: - Local Storage
 
@@ -3691,7 +3701,7 @@ function getSubmissionTypeCellStyle (cell, ts) {
 
 function getPortalMarker (portal, ts) {
     const circle = L.circle([portal.lat, portal.lon], {
-        radius: portal.radius || 20,
+        radius: getPortalSize(portal, ts),
         forceZIndex: 1,
     });
     circle.setStyle(getPortalStyle(portal, ts));
