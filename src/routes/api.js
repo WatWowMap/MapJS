@@ -618,7 +618,7 @@ const getData = async (perms, filter) => {
                 },
                 'filter': generateShowHideButtons(pokemonId, 'quest-evolution'),
                 'size': generateSizeButtons(pokemonId, 'quest-evolution'),
-                'type': 'Mega Energy'
+                'type': i18n.__('filter_quest_mega_energy')
             });
         }
 
