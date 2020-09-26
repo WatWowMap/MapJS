@@ -1171,12 +1171,12 @@ function initMap () {
             nestMarkers = [];
         //}
 
-        if (newShowPortals !== showPortals && newShowPortals === false) {
+        //if (newShowPortals !== showPortals && newShowPortals === false) {
             $.each(portalMarkers, function (index, portal) {
                 map.removeLayer(portal.marker);
             });
             portalMarkers = [];
-        }
+        //}
 
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
@@ -3296,15 +3296,16 @@ function getCellPopupContent (cell) {
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
-    let content = '<center>';
-    content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
-    content += '<b>Id:</b> ' + cell.id + '<br>';
-    content += '<b>Total Count:</b> ' + cell.count + '<br>';
-    content += '<b>Pokestop Count:</b> ' + cell.count_pokestops + '<br>';
-    content += '<b>Gym Count:</b> ' + cell.count_gyms + '<br>';
+    let content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Total Count:</b> ${cell.count}<br>
+        <b>Pokestop Count:</b> ${cell.count_pokestops}<br>
+        <b>Gym Count:</b> ${cell.count_gyms}<br>
+    `;
 
     const gymThreshold = [2, 6, 20];
-
     if (cell.count_gyms < 3) {
         content += '<b>Submissions until Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
     } else {
@@ -3329,34 +3330,35 @@ function degreesToCardinal (d) {
 function getWeatherPopupContent (weather) {
     const weatherName = weatherTypes[weather.gameplay_condition].name;
     const weatherType = weatherTypes[weather.gameplay_condition].types;
-    let content = `<center>
-    <h6><b>${weatherName}</b><br></h6>
-    <b>Boosted Types:</b><br>${weatherType}<br>
-    <b>Cell ID:</b> ${weather.id}<br>
-    <b>Cell Level:</b> ${weather.level}<br>
-    <b>Lat:</b> ${weather.latitude.toFixed(5)}<br>
-    <b>Lon:</b> ${weather.longitude.toFixed(5)}<br>
-    <b>Gameplay Condition:</b> ${getWeatherName(weather.gameplay_condition)}<br>
-    <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
-    <b>Cloud Level:</b> ${weather.cloud_level}<br>
-    <b>Rain Level:</b> ${weather.rain_level}<br>
-    <b>Wind Level:</b> ${weather.wind_level}<br>
-    <b>Snow Level:</b> ${weather.snow_level}<br>
-    <b>Fog Level:</b> ${weather.fog_level}<br>
-    <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
-    <b>Severity:</b> ${weather.severity}<br>
-    <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
-    `;
     const updatedDate = new Date(weather.updated * 1000);
-    content += `<b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
-    </center>`;
+    const content = `
+    <center>
+        <h6><b>${weatherName}</b><br></h6>
+        <b>Boosted Types:</b><br>${weatherType}<br>
+        <b>Cell ID:</b> ${weather.id}<br>
+        <b>Cell Level:</b> ${weather.level}<br>
+        <b>Lat:</b> ${weather.latitude.toFixed(5)}<br>
+        <b>Lon:</b> ${weather.longitude.toFixed(5)}<br>
+        <b>Gameplay Condition:</b> ${getWeatherName(weather.gameplay_condition)}<br>
+        <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
+        <b>Cloud Level:</b> ${weather.cloud_level}<br>
+        <b>Rain Level:</b> ${weather.rain_level}<br>
+        <b>Wind Level:</b> ${weather.wind_level}<br>
+        <b>Snow Level:</b> ${weather.snow_level}<br>
+        <b>Fog Level:</b> ${weather.fog_level}<br>
+        <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
+        <b>Severity:</b> ${weather.severity}<br>
+        <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
+        <b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
+    </center>
+    `;
     return content;
 }
 
 function getNestPopupContent(nest) {
     const lastUpdated = new Date(nest.updated * 1000);
     const pokemonName = getPokemonName(nest.pokemon_id);
-    let content = `
+    const content = `
     <center>
         <h6>Park: <b>${nest.name}</b></h6>
         Pokemon: <b>${pokemonName}</b><br>
@@ -3374,8 +3376,8 @@ function getPortalPopupContent(portal) {
     const imported = new Date(portal.imported * 1000).toLocaleString();
     const content = `
     <center>
-        <div style="font-weight:900;font-size:12px;margin-left:10px;">${portal.name}</div><br>
-        <img src="${portal.url}" align="middle" style="width:175px;height:auto;" /><br>
+        <h6><b>${portal.name}</b></h6><br>
+        <img src="${portal.url}" class="portal-image-holder" /><br>
         <br>
         <div>
             <small><b>Last Updated:</b> ${updated}</small><br>

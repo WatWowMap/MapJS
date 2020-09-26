@@ -272,6 +272,10 @@ fieldset[disabled] .btn-size.active {
     width: 100%;
     height: 100%;
 }
+.portal-image-holder {
+    width: 175px;
+    height: auto;
+}
 .pokemon-popup-image-holder > img,
 .filter-image-holder > img,
 .marker-image-holder > img,

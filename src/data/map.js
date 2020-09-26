@@ -1016,7 +1016,7 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
 
     let onlyNewPortalsSQL = '';
     if (portalFilterExclude.includes('new')) {
-        onlyNewPortalsSQL = 'AND updated >= UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+        onlyNewPortalsSQL = 'AND imported >= UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
     }
 
     const sql = `
