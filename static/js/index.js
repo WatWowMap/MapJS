@@ -3692,7 +3692,7 @@ function getSubmissionTypeCellStyle (cell, ts) {
 function getPortalMarker (portal, ts) {
     const circle = L.circle([portal.lat, portal.lon], {
         radius: portal.radius || 20,
-        forceZIndex: 4,
+        forceZIndex: 1,
     });
     circle.setStyle(getPortalStyle(portal, ts));
     circle.bindPopup(getPortalPopupContent(portal));
