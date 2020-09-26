@@ -807,14 +807,16 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showPortalFilter) {
         const generalString = i18n.__('filter_general');
+        const newString = i18n.__('filter_new');
+        const newPortalsString = i18n.__('filter_new_portals');
         let portalData = [];
         portalData.push({
             'id': {
                 'formatted': utils.zeroPad(0, 3),
                 'sort': 0
             },
-            'name': 'Only New Portals (Last 24 Hours)',
-            'image': 'New',
+            'name': newPortalsString,
+            'image': newString,
             'filter': generateShowHideButtons('new', 'portal-new'),
             'size': generateSizeButtons('new', 'portal-new'),
             'type': generalString
