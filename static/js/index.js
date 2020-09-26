@@ -3902,7 +3902,7 @@ function getGymMarkerIcon (gym, ts) {
     // Raid overlay
     const raidLevel = gym.raid_level;
     let raidSize = 0;
-    let raidIcon;
+    let raidIcon, offsetY;
     if (gym.raid_battle_timestamp <= ts && gym.raid_end_timestamp >= ts && showRaids && parseInt(gym.raid_level) > 0) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
@@ -3917,11 +3917,17 @@ function getGymMarkerIcon (gym, ts) {
         // Egg
         raidSize = getRaidSize('l' + raidLevel);
         raidIcon = `/img/egg/${raidLevel}.png`;
+    } else {
+        raidIcon = `/img/egg/${gym.team_id}.png`;
     }
     if (raidSize > 0) {
         //let offsetY = gymSize * (availableIconStyles[selectedIconStyle].raidOffsetY || .269) - raidSize;
-        let offsetY = gymSize * .269 - raidSize;
+        offsetY = gymSize * .269 - raidSize;
         iconHtml += `<div class="marker-image-holder top-overlay" style="width:${raidSize}px;height:${raidSize}px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="${raidIcon}"/></div>`;
+        popupAnchorY += offsetY;
+    } else {
+        offsetY = gymSize * .269 - 30;
+        iconHtml += `<div class="marker-image-holder top-overlay" style="width:30px;height:30px;left:50%;transform:translateX(-50%);top:${offsetY}px;"><img src="/img/shield/${gym.team_id}.png"/></div>`;
         popupAnchorY += offsetY;
     }
     const icon = L.divIcon({
