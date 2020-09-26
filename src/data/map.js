@@ -8,7 +8,6 @@ const requireFromString = require('require-from-string');
 
 const config = require('../services/config.js');
 const MySQLConnector = require('../services/mysql.js');
-const utils = require('../services/utils.js');
 
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
