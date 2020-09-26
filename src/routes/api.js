@@ -44,6 +44,8 @@ const getSettings = () => {
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
     const nestSettingsString = i18n.__('filter_nests');
     const nestPolygonsString = i18n.__('settings_nest_polygons');
+    const raidTimersString = i18n.__('filter_raid_timers');
+    const invasionTimersString = i18n.__('filter_invasion_timers');
 
     /*
     const glowColorLabel = `
@@ -78,11 +80,27 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
+            'sort': 11
+        },
+        'name': raidTimersString,
+        'filter': generateShowHideButtons('raid-timers', 'raid-timers'),
+        'type': gymSettingsString // TODO: Change to Raid Settings
+    });
+    settingsData.push({
+        'id': {
             'sort': 20
         },
         'name': clusterPokestopsString,
         'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
         'type': pokestopSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': 21
+        },
+        'name': invasionTimersString,
+        'filter': generateShowHideButtons('invasion-timers', 'invasion-timers'),
+        'type': pokestopSettingsString // TODO: Change to Invasion Settings
     });
     settingsData.push({
         'id': {
@@ -236,7 +254,7 @@ const getData = async (perms, filter) => {
         const andString = i18n.__('filter_and');
         const orString = i18n.__('filter_or');
     
-        let pokemonData = [];
+        const pokemonData = [];
 
         if (permShowIV) {
             // Pokemon IV filters
@@ -342,26 +360,9 @@ const getData = async (perms, filter) => {
     }
 
     if (permViewMap && showRaidFilter) {
-        const generalString = i18n.__('filter_general');
         const raidLevelsString = i18n.__('filter_raid_levels');
         const pokemonString = i18n.__('filter_pokemon');
-
-        const raidTimers = i18n.__('filter_raid_timers');
-        let raidData = [];
-        raidData.push({
-            'id': {
-                'formatted': utils.zeroPad(0, 3),
-                'sort': 0
-            },
-            'name': raidTimers,
-            'image': {
-                type: 'img',
-                path: '/misc/timer.png'
-            },
-            'filter': generateShowHideButtons('timers', 'raid-timers'),
-            'size': generateSizeButtons('timers', 'raid-timers'),
-            'type': generalString
-        });
+        const raidData = [];
 
         //Level
         for (let i = 1; i <= 6; i++) {
@@ -415,7 +416,7 @@ const getData = async (perms, filter) => {
         const gymTeamString = i18n.__('filter_gym_team');
         const gymOptionsString = i18n.__('filter_gym_options');
         const availableSlotsString = i18n.__('filter_gym_available_slots');
-        let gymData = [];
+        const gymData = [];
 
         //Team
         for (let i = 0; i <= 3; i++) {
@@ -500,7 +501,7 @@ const getData = async (perms, filter) => {
         const globalStardustString = i18n.__('filter_global_stardust_count');
         const globalFiltersString = i18n.__('filter_global_filters');
         const configureString = i18n.__('filter_configure');
-        let questData = [];
+        const questData = [];
 
         // Global filters
         const candyFilter = `
@@ -627,7 +628,7 @@ const getData = async (perms, filter) => {
     if (permViewMap && showPokestopFilter) {
         const pokestopOptionsString = i18n.__('filter_pokestop_options');
         const pokestopNormal = i18n.__('filter_pokestop_normal');
-        let pokestopData = [];
+        const pokestopData = [];
         pokestopData.push({
             'id': {
                 'formatted': utils.zeroPad(0, 3),
@@ -666,25 +667,8 @@ const getData = async (perms, filter) => {
     }
 
     if (permViewMap && showInvasionFilter) {
-        const generalString = i18n.__('filter_general');
         const gruntTypeString = i18n.__('filter_grunt_type');
-        const invasionTimers = i18n.__('filter_invasion_timers');
-        let invasionData = [];
-
-        invasionData.push({
-            'id': {
-                'formatted': utils.zeroPad(0, 3),
-                'sort': 0
-            },
-            'name': invasionTimers,
-            'image': {
-                type: 'img',
-                path: '/misc/timer.png'
-            },
-            'filter': generateShowHideButtons('timers', 'invasion-timers'),
-            'size': generateSizeButtons('timers', 'invasion-timers'),
-            'type': generalString
-        });
+        const invasionData = [];
 
         // Grunt Type
         for (let i = 1; i <= 50; i++) {
@@ -710,8 +694,7 @@ const getData = async (perms, filter) => {
         const spawnpointOptionsString = i18n.__('filter_spawnpoint_options');
         const spawnpointWithTimerString = i18n.__('filter_spawnpoint_with_timer');
         const spawnpointWithoutTimerString = i18n.__('filter_spawnpoint_without_timer');
-
-        let spawnpointData = [];
+        const spawnpointData = [];
         spawnpointData.push({
             'id': {
                 'formatted': utils.zeroPad(0, 3),
@@ -751,8 +734,7 @@ const getData = async (perms, filter) => {
         const globalAverageString = i18n.__('filter_global_avg');
         const globalFiltersString = i18n.__('filter_global_filters');
         const configureString = i18n.__('filter_configure');
-
-        let nestData = [];
+        const nestData = [];
         const filter = `
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label class="btn btn-sm btn-off select-button-new" data-id="avg" data-type="nest-avg" data-info="off">
@@ -777,7 +759,7 @@ const getData = async (perms, filter) => {
         });
 
         //Pokemon
-        let pokemon = await map.getAvailableNestPokemon();
+        const pokemon = await map.getAvailableNestPokemon();
         for (let i = 0; i < pokemon.length; i++) {
             let id = pokemon[i];
             nestData.push({
@@ -800,7 +782,7 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showWeatherFilter) {
         const weatherOptionsString = i18n.__('filter_weather_options');
-        let weatherData = [];
+        const weatherData = [];
         for (let i = 1; i <= 7; i++) {
             const weatherNameString = i18n.__('weather_' + i);
             weatherData.push({
@@ -825,8 +807,7 @@ const getData = async (perms, filter) => {
         const deviceOptionsString = i18n.__('filter_device_options');
         const deviceOnlineString = i18n.__('filter_device_online');
         const deviceOfflineString = i18n.__('filter_device_offline');
-
-        let deviceData = [];
+        const deviceData = [];
         deviceData.push({
             'id': {
                 'formatted': utils.zeroPad(0, 3),
