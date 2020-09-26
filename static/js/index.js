@@ -3614,10 +3614,11 @@ function getNestMarker (nest, geojson, ts) {
                 'fillColor': showNestPolygons ? features.properties['fill'] : 0,
                 'fillOpacity': showNestPolygons ? features.properties['fill-opacity'] : 0
             });
+            const anchorY = 56 * .9375;
             const icon = L.divIcon({
                 iconSize: [40, 40],
-                iconAnchor: [40 / 2, 40 / 2],
-                popupAnchor: [0, 40 * -.6],
+                iconAnchor: [40 / 2, anchorY],
+                popupAnchor: [0, -8 - anchorY],
                 className: 'nest-marker',
                 html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`,
                 //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
