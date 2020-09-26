@@ -2236,7 +2236,7 @@ function loadData () {
 
             const submissionPlacementRings = data.data.submission_placement_rings;
             $.each(submissionPlacementRings, function (index, ring) {
-                if (showSubmissionCells && map.getZoom() >= 16) {
+                if (showSubmissionCells && !showPortals && map.getZoom() >= 16) {
                     if (lastUpdateServer === 0) {
                         lastUpdateServer = 1;
                     }
@@ -7493,7 +7493,7 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-portal-filter').on('click', function (event) {
         const defaultPortalFilter = {};
-        defaultPortalFilter['new'] = { show: true, size: 'normal' };
+        defaultPortalFilter['new'] = { show: false, size: 'normal' };
 
         store('portal_filter', JSON.stringify(defaultPortalFilter));
         portalFilterNew = defaultPortalFilter;
