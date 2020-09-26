@@ -968,10 +968,10 @@ function loadStorage () {
             settings['nest-polygon'] = { show: true };
         }
         if (settings['raid-timers'] === undefined) {
-            settings['raid-timers'] = { show: true };
+            settings['raid-timers'] = { show: false };
         }
         if (settings['invasion-timers'] === undefined) {
-            settings['invasion-timers'] = { show: true };
+            settings['invasion-timers'] = { show: false };
         }        
     }
     clusterPokemon = settings['pokemon-cluster'].show;
