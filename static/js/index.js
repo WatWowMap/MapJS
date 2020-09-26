@@ -670,6 +670,10 @@ function loadStorage () {
             let id = availableQuestRewards.items[i];
             defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
         }
+        for (i = 0; i < availableQuestRewards.evolutions.length; i++) {
+            let id = availableQuestRewards.evolutions[i].id;
+            defaultQuestFilter['e' + id] = { show: true, size: 'normal' };
+        }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
         questFilter = defaultQuestFilter;
@@ -697,6 +701,12 @@ function loadStorage () {
             let id = availableQuestRewards.items[i];
             if (questFilter['i' + id] === undefined) {
                 questFilter['i' + id] = { show: true, size: 'normal' };
+            }
+        }
+        for (i = 0; i < availableQuestRewards.evolutions.length; i++) {
+            let id = availableQuestRewards.evolutions[i].id;
+            if (questFilter['e' + id] === undefined) {
+                questFilter['e' + id] = { show: true, size: 'normal' };
             }
         }
         store('quest_filter', JSON.stringify(questFilter));
@@ -1682,6 +1692,12 @@ function loadData () {
             let id = availableQuestRewards.items[i];
             if (questFilter['i' + id].show === false) {
                 questFilterExclude.push('i' + id);
+            }
+        }
+        for (i = 0; i < availableQuestRewards.evolutions.length; i++) {
+            let id = availableQuestRewards.evolutions[i].id;
+            if (questFilter['e' + id].show === false) {
+                questFilterExclude.push('e' + id);
             }
         }
     }
@@ -4174,6 +4190,27 @@ function manageSelectButton (e, isNew) {
             shouldShow = questFilterNew['i' + id].size === 'huge';
             break;
         }
+    } else if (type === 'quest-evolution') {
+        switch (info) {
+        case 'hide':
+            shouldShow = questFilterNew['e' + id].show === false;
+            break;
+        case 'show':
+            shouldShow = questFilterNew['e' + id].show === true;
+            break;
+        case 'small':
+            shouldShow = questFilterNew['e' + id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = questFilterNew['e' + id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = questFilterNew['e' + id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = questFilterNew['e' + id].size === 'huge';
+            break;
+        }
     } else if (type === 'quest-pokemon') {
         switch (info) {
         case 'hide':
@@ -4680,6 +4717,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     questFilterNew['i' + id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'quest-evolution') {
+                switch (info) {
+                case 'hide':
+                    questFilterNew['e' + id].show = false;
+                    break;
+                case 'show':
+                    questFilterNew['e' + id].show = true;
+                    break;
+                case 'small':
+                    questFilterNew['e' + id].size = 'small';
+                    break;
+                case 'normal':
+                    questFilterNew['e' + id].size = 'normal';
+                    break;
+                case 'large':
+                    questFilterNew['e' + id].size = 'large';
+                    break;
+                case 'huge':
+                    questFilterNew['e' + id].size = 'huge';
                     break;
                 }
             } else if (type === 'quest-pokemon') {
@@ -6928,6 +6986,10 @@ function registerFilterButtonCallbacks() {
             let id = availableQuestRewards.items[i];
             defaultQuestFilter['i' + id] = { show: true, size: 'normal' };
         }
+        for (i = 0; i < availableQuestRewards.evolutions.length; i++) {
+            let id = availableQuestRewards.evolutions[i].id;
+            defaultQuestFilter['e' + id] = { show: true, size: 'normal' };
+        }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
         questFilterNew = defaultQuestFilter;
@@ -6950,6 +7012,10 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableQuestRewards.items.length; i++) {
             let id = availableQuestRewards.items[i];
             defaultQuestFilter['i' + id] = { show: false, size: questFilterNew['i' + id].size };
+        }
+        for (i = 0; i < availableQuestRewards.evolutions.length; i++) {
+            let id = availableQuestRewards.evolutions[i].id;
+            defaultQuestFilter['e' + id] = { show: false, size: questFilterNew['e' + id].size };
         }
 
         store('quest_filter', JSON.stringify(defaultQuestFilter));
