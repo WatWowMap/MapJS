@@ -1014,15 +1014,26 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
     const minLonReal = minLon - 0.01;
     const maxLonReal = maxLon + 0.01;
 
-    let onlyNewPortalsSQL = '';
-    if (portalFilterExclude.includes('new')) {
-        onlyNewPortalsSQL = 'AND imported >= UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+    let showNewPortals = false;
+    let showOldPortals = false;
+    if (portalFilterExclude.length > 0) {
+        showOldPortals = portalFilterExclude.includes('old');
+        showNewPortals = portalFilterExclude.includes('new');
+    }
+
+    let sqlExcludeCreate = '';
+    if (!showNewPortals && showOldPortals) {
+        sqlExcludeCreate = 'AND imported < UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+    } else if (showNewPortals && !showOldPortals) {
+        sqlExcludeCreate = 'AND imported >= UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+    } else if (!showNewPortals && !showOldPortals) {
+        sqlExcludeCreate = 'AND FALSE';
     }
 
     const sql = `
     SELECT id, external_id, lat, lon, name, url, updated, imported, checked
     FROM ingress_portals
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${onlyNewPortalsSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${sqlExcludeCreate}
     `;
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
     const results = await dbManual.query(sql, args);

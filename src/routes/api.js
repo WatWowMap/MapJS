@@ -807,20 +807,27 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showPortalFilter) {
         const generalString = i18n.__('filter_general');
+        const oldString = i18n.__('filter_old');
         const newString = i18n.__('filter_new');
+        const oldPortalsString = i18n.__('filter_old_portals');
         const newPortalsString = i18n.__('filter_new_portals');
-        let portalData = [];
-        portalData.push({
-            'id': {
-                'formatted': utils.zeroPad(0, 3),
-                'sort': 0
-            },
-            'name': newPortalsString,
-            'image': newString,
-            'filter': generateShowHideButtons('new', 'portal-new'),
-            'size': generateSizeButtons('new', 'portal-new'),
-            'type': generalString
-        });
+        const portalData = [];
+        for (let i = 0; i <= 1; i++) {
+            const id = i === 0 ? 'old' : 'new';
+            const name = i === 0 ? oldPortalsString : newPortalsString;
+            const image = i === 0 ? oldString : newString;
+            portalData.push({
+                'id': {
+                    'formatted': utils.zeroPad(i, 3),
+                    'sort': i
+                },
+                'name': name,
+                'image': image,
+                'filter': generateShowHideButtons(id, 'portal'),
+                'size': generateSizeButtons(id, 'portal'),
+                'type': generalString
+            });
+        }
         data['portal_filters'] = portalData;
     }
 

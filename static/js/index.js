@@ -926,6 +926,9 @@ function loadStorage () {
     const portalFilterValue = retrieve('portal_filter');
     if (portalFilterValue === null) {
         const defaultPortalFilter = {};
+        if (defaultPortalFilter['old'] === undefined) {
+            defaultPortalFilter['old'] = { show: false, size: 'normal' };
+        }
         if (defaultPortalFilter['new'] === undefined) {
             defaultPortalFilter['new'] = { show: true, size: 'normal' };
         }
@@ -934,6 +937,9 @@ function loadStorage () {
         portalFilter = defaultPortalFilter;
     } else {
         portalFilter = JSON.parse(portalFilterValue);
+        if (portalFilter['old'] === undefined) {
+            portalFilter['old'] = { show: false, size: 'normal' };
+        }
         if (portalFilter['new'] === undefined) {
             portalFilter['new'] = { show: true, size: 'normal' };
         }
@@ -1835,6 +1841,9 @@ function loadData () {
 
     const portalFilterExclude = [];
     if (showPortals) {
+        if (portalFilter['old'].show === true) {
+            portalFilterExclude.push('old');
+        }
         if (portalFilter['new'].show === true) {
             portalFilterExclude.push('new');
         }
@@ -2490,6 +2499,7 @@ function getPokestopSize (id) {
 function getPortalSize (portal, ts) {
     const yesterday = ts - (60 * 60 * 24);
     if (portal.imported > yesterday) {
+        // TODO: Portal size
         if (portalFilter['new'].size === 'huge') {
             return 50;
         }
@@ -4681,7 +4691,7 @@ function manageSelectButton (e, isNew) {
             shouldShow = nestFilterNew[id].show === true;
             break;
         }
-    } else if (type === 'portal-new') {
+    } else if (type === 'portal') {
         switch (info) {
         case 'hide':
             shouldShow = portalFilterNew[id].show === false;
@@ -5210,7 +5220,7 @@ function manageSelectButton (e, isNew) {
                     nestFilterNew[id].show = true;
                     break;
                 }
-            } else if (type === 'portal-new') {
+            } else if (type === 'portal') {
                 switch (info) {
                 case 'hide':
                     portalFilterNew[id].show = false;
@@ -7493,6 +7503,7 @@ function registerFilterButtonCallbacks() {
     // Ingress Portals filter buttons
     $('#reset-portal-filter').on('click', function (event) {
         const defaultPortalFilter = {};
+        defaultPortalFilter['old'] = { show: false, size: 'normal' };
         defaultPortalFilter['new'] = { show: true, size: 'normal' };
 
         store('portal_filter', JSON.stringify(defaultPortalFilter));
@@ -7503,6 +7514,7 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-portal-filter').on('click', function (event) {
         const defaultPortalFilter = {};
+        defaultPortalFilter['old'] = { show: false, size: 'normal' };
         defaultPortalFilter['new'] = { show: false, size: 'normal' };
 
         store('portal_filter', JSON.stringify(defaultPortalFilter));
