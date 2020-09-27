@@ -487,9 +487,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
 
         if (excludedEvolutions.length === 0) {
-            excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND quest_pokemon_id IS NOT NULL)';
+            excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") NOT IN (';
             for (let i = 0; i < excludedEvolutions.length; i++) {
                 if (i === excludedEvolutions.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -1297,11 +1297,9 @@ const getAvailableQuests = async () => {
     const pokemonResults = await db.query(sql);
     sql = `
     SELECT
-        quest_pokemon_id AS id,
-        json_extract(json_extract(quest_rewards, '$[*].info.amount'), '$[0]') AS amount
-    FROM rdmdb.pokestop
+        DISTINCT json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") AS id
+    FROM pokestop
     WHERE quest_reward_type = 12
-    GROUP BY quest_pokemon_id
     `;
     const evoResults = await db.query(sql);
     return {
