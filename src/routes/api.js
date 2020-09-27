@@ -299,7 +299,7 @@ const getData = async (perms, filter) => {
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
                 const types = JSON.stringify(pkmn.types);
-                // Grab form from masterfile for consistant language
+                // Grab form from masterfile for consistent language
                 let formName = pkmn.forms[formId].name;
                 if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
