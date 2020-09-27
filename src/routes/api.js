@@ -563,7 +563,7 @@ const getData = async (perms, filter) => {
             'filter_quest',
             'filter_pokecoin',
             'filter_sticker',
-            'filter_mega_resource',
+            //'filter_mega_resource',
         ];
         for (let i = 1; i <= itemNames.length; i++) {
             questData.push({
