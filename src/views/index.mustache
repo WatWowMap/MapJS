@@ -2,6 +2,7 @@
 {{> navbar}}
 
     <script type="text/javascript">
+        const myUsername = '{{{username}}}';
         const defaultStartLocation = ['{{lat}}', '{{lon}}'];
         const defaultStartZoom = '{{zoom}}';
         let clusterPokemon = '{{cluster_pokemon}}' === 'true';
@@ -35,6 +36,7 @@
         const defaultShowDevices = '{{default_show_devices}}' === 'true';
 
         const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
+        const pokemonShinyRates = JSON.parse('{{{pokemon_shiny_rates_json}}}');
         const glow = JSON.parse('{{{glow_json}}}');
 
         const locale = '{{{locale}}}';

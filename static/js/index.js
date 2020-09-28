@@ -2587,7 +2587,7 @@ function getPokemonPopupContent (pokemon) {
     }
 
     // TODO: add evolution https://github.com/versx/DataParser/issues/9
-    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
+    const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume, didIFindAShinyPokemon(pokemon.pokemon_id, pokemon.form, `wild-${pokemon.id}`));
 
     content +=
     '<div class="row">' + // START 1ST ROW
@@ -3032,7 +3032,7 @@ function getGymPopupContent (gym) {
         } else {
             pokemonName = 'Level ' + gym.raid_level + ' Egg';
         }
-        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume);
+        const pokemonIcon = getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume, didIFindAShinyPokemon(gym.raid_pokemon_id, gym.raid_pokemon_form, `raid-${gym.id}-${gym.raid_battle_timestamp}`));
         content +=
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-4">' + // START 1ST COL
@@ -3650,7 +3650,8 @@ function calcIV(atk, def, sta) {
 
 function getPokemonMarkerIcon (pokemon, ts) {
     const size = getPokemonSize(pokemon.pokemon_id, pokemon.form);
-    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
+    const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume, didIFindAShinyPokemon(pokemon.pokemon_id, pokemon.form, `wild-${pokemon.id}`));
+    const color = glowColor; // TODO: settings['pokemon-glow'].color;
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
     const bestRankIcon = bestRank === 3
@@ -3778,7 +3779,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             // Pokemon
             rewardString = 'p' + info.pokemon_id;
             // TODO: evolution https://github.com/versx/DataParser/issues/10
-            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny || info.form_id && didIFindAShinyPokemon(info.pokemon_id, info.form_id, `quest-${pokestop.id}-${pokestop.quest_timestamp}`))}.png`;
         } else if (id === 8) {
             // Pokecoin
             rewardString = 'i-6';
@@ -3908,7 +3909,7 @@ function getGymMarkerIcon (gym, ts) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getRaidSize('p' + gym.raid_pokemon_id);
-            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}.png`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume, didIFindAShinyPokemon(gym.raid_pokemon_id, gym.raid_pokemon_form, `raid-${gym.id}-${gym.raid_battle_timestamp}`))}.png`;
         } else {
             // Egg
             raidSize = getRaidSize('l' + raidLevel);
@@ -7271,4 +7272,30 @@ function setPokemonFilters(type, show) {
     pokemonFilterNew = defaultPokemonFilter;
 
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+}
+
+// MARK: minigames that nobody asks for
+
+function didIFindAShinyPokemon(pokemonId, form, description) {
+    let rate = pokemonShinyRates[form ? `${pokemonId}-f${form}` : `${pokemonId}`];
+    if (rate === undefined) {
+        rate = pokemonShinyRates['default'];
+    }
+    if (!rate) {
+        return false;
+    }
+    // https://stackoverflow.com/a/52171480/2245107
+    const cyrb53 = function(str, seed = 0) {
+        let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+        for (let i = 0, ch; i < str.length; i++) {
+            ch = str.charCodeAt(i);
+            h1 = Math.imul(h1 ^ ch, 2654435761);
+            h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+        return 4294967296 * (2097151 & h2) + (h1>>>0);
+    };
+    const lottery = `${myUsername}-${description}`;
+    return cyrb53(lottery) % rate === 0;
 }
