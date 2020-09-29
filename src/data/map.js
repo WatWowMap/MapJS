@@ -1010,6 +1010,41 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
+const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = null) => {
+    const minLatReal = minLat - 0.01;
+    const maxLatReal = maxLat + 0.01;
+    const minLonReal = minLon - 0.01;
+    const maxLonReal = maxLon + 0.01;
+
+    let showNewPortals = false;
+    let showOldPortals = false;
+    if (portalFilterExclude.length > 0) {
+        showOldPortals = portalFilterExclude.includes('old');
+        showNewPortals = portalFilterExclude.includes('new');
+    }
+
+    let sqlExcludeCreate = '';
+    if (!showNewPortals && showOldPortals) {
+        sqlExcludeCreate = 'AND imported < UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+    } else if (showNewPortals && !showOldPortals) {
+        sqlExcludeCreate = 'AND imported >= UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)';
+    } else if (!showNewPortals && !showOldPortals) {
+        sqlExcludeCreate = 'AND FALSE';
+    }
+
+    const sql = `
+    SELECT id, external_id, lat, lon, name, url, updated, imported, checked
+    FROM ingress_portals
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${sqlExcludeCreate}
+    `;
+    const args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
+    const results = await dbManual.query(sql, args);
+    if (results && results.length > 0) {
+        return results;
+    }
+    return null;
+};
+
 /* eslint-disable no-case-declarations */
 const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
@@ -1109,6 +1144,15 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
                 ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
             FROM nests
             WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
+            `;
+            useManualDb = true;
+            break;
+        case 'search-portal':
+            sql = `
+            SELECT name, lat, lon, url, 
+                ROUND(( 3959 * acos( cos( radians(?) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(?) ) + sin( radians(?) ) * sin( radians( lat ) ) ) ),2) AS distance
+            FROM ingress_portals
+            WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
             useManualDb = true;
             break;
@@ -1365,6 +1409,7 @@ module.exports = {
     getSubmissionTypeCells,
     getWeather,
     getNests,
+    getPortals,
     getSearchData,
     getAvailableRaidBosses,
     getAvailableQuests,

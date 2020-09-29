@@ -18,6 +18,7 @@ let submissionPlacementRingMarkers = [];
 let submissionTypeCellMarkers = [];
 let weatherMarkers = [];
 let nestMarkers = [];
+let portalMarkers = [];
 let deviceMarkers = [];
 
 let pokemonFilter = {};
@@ -44,6 +45,9 @@ let spawnpointFilterNew = {};
 let nestFilter = {};
 let nestFilterNew = {};
 
+let portalFilter = {};
+let portalFilterNew = {};
+
 let weatherFilter = {};
 let weatherFilterNew = {};
 
@@ -63,6 +67,7 @@ let openedCell;
 let openedSubmissionTypeCell;
 let openedWeather;
 let openedNest;
+let openedPortal;
 let openedDevice;
 
 let showPokestops;
@@ -73,6 +78,7 @@ let showRaids;
 let showPokemon;
 let showSpawnpoints;
 let showNests;
+let showPortals;
 let showCells;
 let showWeather;
 let showDevices;
@@ -94,6 +100,7 @@ let pokestopFilterLoaded = false;
 let invasionFilterLoaded = false;
 let spawnpointFilterLoaded = false;
 let nestFilterLoaded = false;
+let portalFilterLoaded = false;
 let weatherFilterLoaded = false;
 let deviceFilterLoaded = false;
 let settingsLoaded = false;
@@ -250,6 +257,7 @@ $(function () {
         invasionFilterNew = $.extend(true, {}, invasionFilter);
         spawnpointFilterNew = $.extend(true, {}, spawnpointFilter);
         nestFilterNew = $.extend(true, {}, nestFilter);
+        portalFilterNew = $.extend(true, {}, portalFilter);
         weatherFilterNew = $.extend(true, {}, weatherFilter);
         deviceFilterNew = $.extend(true, {}, deviceFilter);
 
@@ -298,6 +306,11 @@ $(function () {
         if (!nestFilterLoaded) {
             nestFilterLoaded = true;
             loadNestFilter();
+        }
+
+        if (!portalFilterLoaded) {
+            portalFilterLoaded = true;
+            loadPortalFilter();
         }
 
         if (!weatherFilterLoaded) {
@@ -374,6 +387,7 @@ $(function () {
             show_invasions: showInvasions,
             show_spawnpoints: showSpawnpoints,
             show_nests: showNests,
+            show_portals: showPortals,
             show_devices: showDevices,
             show_cells: showCells,
             show_submission_cells: showSubmissionCells,
@@ -387,6 +401,7 @@ $(function () {
             invasion: invasionFilterNew,
             spawnpoint: spawnpointFilterNew,
             nest: nestFilterNew,
+            portal: portalFilterNew,
             weather: weatherFilterNew,
             device: deviceFilterNew,
         };
@@ -548,6 +563,14 @@ function loadStorage () {
         showNests = defaultShowNests;
     } else {
         showNests = (showNestsValue === 'true');
+    }
+
+    const showPortalsValue = retrieve('show_portals');
+    if (showPortalsValue === null) {
+        store('show_portals', defaultShowPortals);
+        showPortals = defaultShowPortals;
+    } else {
+        showPortals = (showPortalsValue === 'true');
     }
 
     const showPokemonValue = retrieve('show_pokemon');
@@ -889,6 +912,28 @@ function loadStorage () {
         }
     }
 
+    const portalFilterValue = retrieve('portal_filter');
+    if (portalFilterValue === null) {
+        const defaultPortalFilter = {};
+        if (defaultPortalFilter['old'] === undefined) {
+            defaultPortalFilter['old'] = { show: false, size: 'normal' };
+        }
+        if (defaultPortalFilter['new'] === undefined) {
+            defaultPortalFilter['new'] = { show: true, size: 'normal' };
+        }
+
+        store('portal_filter', JSON.stringify(defaultPortalFilter));
+        portalFilter = defaultPortalFilter;
+    } else {
+        portalFilter = JSON.parse(portalFilterValue);
+        if (portalFilter['old'] === undefined) {
+            portalFilter['old'] = { show: false, size: 'normal' };
+        }
+        if (portalFilter['new'] === undefined) {
+            portalFilter['new'] = { show: true, size: 'normal' };
+        }
+    }
+
     const weatherFilterValue = retrieve('weather_filter');
     if (weatherFilterValue === null) {
         const defaultWeatherFilter = {};
@@ -1055,6 +1100,7 @@ function initMap () {
         const newShowPokemon = $('#show-pokemon').hasClass('active');
         const newShowSpawnpoints = $('#show-spawnpoints').hasClass('active');
         const newShowNests = $('#show-nests').hasClass('active');
+        const newShowPortals = $('#show-portals').hasClass('active');
         const newShowCells = $('#show-cells').hasClass('active');
         const newShowSubmissionCells = $('#show-submission-cells').hasClass('active');
         const newShowWeather = $('#show-weather').hasClass('active');
@@ -1140,6 +1186,14 @@ function initMap () {
             nestLayer.clearLayers();
             nestMarkers = [];
         //}
+
+        //if (newShowPortals !== showPortals && newShowPortals === false) {
+            $.each(portalMarkers, function (index, portal) {
+                map.removeLayer(portal.marker);
+            });
+            portalMarkers = [];
+        //}
+
         if (newShowCells !== showCells && newShowCells === false) {
             $.each(cellMarkers, function (index, cell) {
                 map.removeLayer(cell.marker);
@@ -1214,6 +1268,7 @@ function initMap () {
         raidFilter = raidFilterNew;
         spawnpointFilter = spawnpointFilterNew;
         nestFilter = nestFilterNew;
+        portalFilter = portalFilterNew;
         weatherFilter = weatherFilterNew;
         deviceFilter = deviceFilterNew;
 
@@ -1258,6 +1313,10 @@ function initMap () {
         showNests = newShowNests;
         store('show_nests', newShowNests);
         store('nest_filter', JSON.stringify(nestFilter));
+
+        showPortals = newShowPortals;
+        store('show_portals', newShowPortals);
+        store('portal_filter', JSON.stringify(portalFilter));
 
         showCells = newShowCells;
         store('show_cells', newShowCells);
@@ -1358,7 +1417,7 @@ function initMap () {
         $('#settingsModal').modal('hide');
     });
 
-    $('input[id="search-reward"], input[id="search-nest"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
+    $('input[id="search-reward"], input[id="search-nest"], input[id="search-portal"], input[id="search-gym"], input[id="search-pokestop"]').bind('input', function (e) {
         let input = e.target;
         if (input) {
             loadSearchData(input.id, input.value);
@@ -1435,6 +1494,14 @@ function initMap () {
                 } else {
                     $('#hide-nests').addClass('active');
                     $('#show-nests').removeClass('active');
+                }
+
+                if (retrieve('show_portals') === 'true') {
+                    $('#show-portals').addClass('active');
+                    $('#hide_portals').removeClass('active');
+                } else {
+                    $('#hide-portals').addClass('active');
+                    $('#show-portals').removeClass('active');
                 }
 
                 if (retrieve('show_cells') === 'true') {
@@ -1788,6 +1855,16 @@ function loadData () {
         }
     }
 
+    const portalFilterExclude = [];
+    if (showPortals) {
+        if (portalFilter['old'].show === true) {
+            portalFilterExclude.push('old');
+        }
+        if (portalFilter['new'].show === true) {
+            portalFilterExclude.push('new');
+        }
+    }
+
     const weatherFilterExclude = [];
     if (showWeather) {
         for (let i = 1; i <= 7; i++) {
@@ -1828,10 +1905,12 @@ function loadData () {
         invasion_filter_exclude: JSON.stringify(invasionFilterExclude),
         spawnpoint_filter_exclude: JSON.stringify(spawnpointFilterExclude),
         nest_filter_exclude: JSON.stringify(nestFilterExclude),
+        portal_filter_exclude: JSON.stringify(portalFilterExclude),
         weather_filter_exclude: JSON.stringify(weatherFilterExclude),
         device_filter_exclude: JSON.stringify(deviceFilterExclude),
         show_spawnpoints: showSpawnpoints,
         show_nests: showNests,
+        show_portals: showPortals,
         show_cells: showCells && map.getZoom() >= 13,
         show_submission_placement_cells: showSubmissionCells && map.getZoom() >= 16,
         show_submission_type_cells: showSubmissionCells && map.getZoom() >= 14,
@@ -2183,7 +2262,7 @@ function loadData () {
 
             const submissionPlacementRings = data.data.submission_placement_rings;
             $.each(submissionPlacementRings, function (index, ring) {
-                if (showSubmissionCells && map.getZoom() >= 16) {
+                if (showSubmissionCells && !showPortals && map.getZoom() >= 16) {
                     if (lastUpdateServer === 0) {
                         lastUpdateServer = 1;
                     }
@@ -2264,6 +2343,23 @@ function loadData () {
                             nestMarkers.push(nest);
                             nest.marker.addTo(nestLayer);
                         }
+                    }
+                }
+            });
+
+            const portals = data.data.portals;
+            $.each(portals, function (index, portal) {
+                if (showPortals) {
+                    const oldPortal = portalMarkers.find(function (value) {
+                        return portal.external_id === value.external_id;
+                    });
+                    if (oldPortal === undefined) {
+                        portal.marker = getPortalMarker(portal, ts);
+                        portalMarkers.push(portal);
+                        portal.marker.addTo(map);
+                    } else {
+                        oldPortal.updated = portal.updated;
+                        oldPortal.marker.setStyle(getPortalMarker(portal, ts));
                     }
                 }
             });
@@ -2417,6 +2513,17 @@ function getPokestopSize (id) {
     return 30;
 }
 
+function getPortalSize (portal, ts) {
+    const yesterday = ts - (60 * 60 * 24);
+    if (portal.imported > yesterday) {
+        // TODO: Portal size
+        if (portalFilter['new'].size === 'huge') {
+            return 50;
+        }
+    }
+    return 25;
+}
+
 
 // MARK: - Local Storage
 
@@ -2542,6 +2649,9 @@ function updateOpenedPopupLoop () {
     }
     if (openedNest !== undefined) {
         openedNest.marker._popup.setContent(getNestPopupContent(openedNest));
+    }
+    if (openedPortal !== undefined) {
+        openedPortal.marker._popup.setContent(getPortalPopupContent(openedPortal));
     }
     if (openedDevice !== undefined) {
         openedDevice.marker._popup.setContent(getDevicePopupContent(openedDevice));
@@ -3257,15 +3367,16 @@ function getCellPopupContent (cell) {
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
-    let content = '<center>';
-    content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
-    content += '<b>Id:</b> ' + cell.id + '<br>';
-    content += '<b>Total Count:</b> ' + cell.count + '<br>';
-    content += '<b>Pokestop Count:</b> ' + cell.count_pokestops + '<br>';
-    content += '<b>Gym Count:</b> ' + cell.count_gyms + '<br>';
+    let content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Total Count:</b> ${cell.count}<br>
+        <b>Pokestop Count:</b> ${cell.count_pokestops}<br>
+        <b>Gym Count:</b> ${cell.count_gyms}<br>
+    `;
 
     const gymThreshold = [2, 6, 20];
-
     if (cell.count_gyms < 3) {
         content += '<b>Submissions until Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
     } else {
@@ -3290,34 +3401,35 @@ function degreesToCardinal (d) {
 function getWeatherPopupContent (weather) {
     const weatherName = weatherTypes[weather.gameplay_condition].name;
     const weatherType = weatherTypes[weather.gameplay_condition].types;
-    let content = `<center>
-    <h6><b>${weatherName}</b><br></h6>
-    <b>Boosted Types:</b><br>${weatherType}<br>
-    <b>Cell ID:</b> ${weather.id}<br>
-    <b>Cell Level:</b> ${weather.level}<br>
-    <b>Lat:</b> ${weather.latitude.toFixed(5)}<br>
-    <b>Lon:</b> ${weather.longitude.toFixed(5)}<br>
-    <b>Gameplay Condition:</b> ${getWeatherName(weather.gameplay_condition)}<br>
-    <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
-    <b>Cloud Level:</b> ${weather.cloud_level}<br>
-    <b>Rain Level:</b> ${weather.rain_level}<br>
-    <b>Wind Level:</b> ${weather.wind_level}<br>
-    <b>Snow Level:</b> ${weather.snow_level}<br>
-    <b>Fog Level:</b> ${weather.fog_level}<br>
-    <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
-    <b>Severity:</b> ${weather.severity}<br>
-    <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
-    `;
     const updatedDate = new Date(weather.updated * 1000);
-    content += `<b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
-    </center>`;
+    const content = `
+    <center>
+        <h6><b>${weatherName}</b><br></h6>
+        <b>Boosted Types:</b><br>${weatherType}<br>
+        <b>Cell ID:</b> ${weather.id}<br>
+        <b>Cell Level:</b> ${weather.level}<br>
+        <b>Lat:</b> ${weather.latitude.toFixed(5)}<br>
+        <b>Lon:</b> ${weather.longitude.toFixed(5)}<br>
+        <b>Gameplay Condition:</b> ${getWeatherName(weather.gameplay_condition)}<br>
+        <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
+        <b>Cloud Level:</b> ${weather.cloud_level}<br>
+        <b>Rain Level:</b> ${weather.rain_level}<br>
+        <b>Wind Level:</b> ${weather.wind_level}<br>
+        <b>Snow Level:</b> ${weather.snow_level}<br>
+        <b>Fog Level:</b> ${weather.fog_level}<br>
+        <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
+        <b>Severity:</b> ${weather.severity}<br>
+        <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
+        <b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
+    </center>
+    `;
     return content;
 }
 
 function getNestPopupContent(nest) {
     const lastUpdated = new Date(nest.updated * 1000);
     const pokemonName = getPokemonName(nest.pokemon_id);
-    let content = `
+    const content = `
     <center>
         <h6>Park: <b>${nest.name}</b></h6>
         Pokemon: <b>${pokemonName}</b><br>
@@ -3325,6 +3437,43 @@ function getNestPopupContent(nest) {
         Count: <b>${nest.pokemon_count.toLocaleString()}</b><br>
         <br>
         <small>Last Updated: <b>${lastUpdated.toLocaleString()}</b></small><br>
+    </center>
+    `;
+    return content;
+}
+
+function getPortalPopupContent(portal) {
+    const updated = new Date(portal.updated * 1000).toLocaleString();
+    const imported = new Date(portal.imported * 1000).toLocaleString();
+    const content = `
+    <center>
+        <h6><b>${portal.name}</b></h6><br>
+        <img src="${portal.url}" class="portal-image-holder" /><br>
+        <br>
+        <div>
+            <small><b>Last Updated:</b> ${updated}</small><br>
+            <small><b>Date Imported:</b> ${imported}</small>
+        </div>
+        <br>
+        <div class="row text-center">
+            <br>
+            <div class="col">
+                <a href="https://www.google.com/maps/place/${portal.lat},${portal.lon}" title="Open in Google Maps">
+                    <img src="/img/navigation/gmaps.png" height="32" width="32">
+                </a>
+            </div>
+            <div class="col">
+                <a href="https://maps.apple.com/maps?daddr=${portal.lat},${portal.lon}" title="Open in Apple Maps">
+                    <img src="/img/navigation/applemaps.png" height="32" width="32">
+                </a>
+            </div>
+            <div class="col">
+                <a href="https://www.waze.com/ul?ll=${portal.lat},${portal.lon}&navigate=yes" title="Open in Waze">
+                    <img src="/img/navigation/othermaps.png" height="32" width="32">
+                </a>
+            </div>
+        </div>
+    </div>
     </center>
     `;
     return content;
@@ -3611,6 +3760,32 @@ function getSubmissionTypeCellStyle (cell, ts) {
     }
 }
 
+function getPortalMarker (portal, ts) {
+    const circle = L.circle([portal.lat, portal.lon], {
+        radius: getPortalSize(portal, ts),
+        forceZIndex: 1,
+    });
+    circle.setStyle(getPortalStyle(portal, ts));
+    circle.bindPopup(getPortalPopupContent(portal));
+    circle.on('popupopen', function (popup) {
+        openedPortal = portal;
+        circle._popup.setContent(getPortalPopupContent(portal));
+    });
+    return circle;
+}
+
+function getPortalStyle (portal, ts) {
+    const yesterday = ts - (60 * 60 * 24);
+    if (portal.checked === 1) {
+        color = 'red';
+    } else if (portal.imported > yesterday) {
+        color = 'green';
+    } else {
+        color = 'blue';
+    }
+    return { fillColor: color, color: 'black', opacity: 0.75, fillOpacity: 0.25, weight: 0.1 };
+}
+
 function getWeatherMarker (weather, ts) {
     const polygon = L.polygon(weather.polygon);
     polygon.setStyle(getWeatherStyle(weather, ts));
@@ -3675,9 +3850,13 @@ function getNestMarker (nest, geojson, ts) {
                 //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 //shadowSize:  [48, 48]
             });
-            L.marker([nest.lat, nest.lon], {icon: icon})
+            const pokemonMArker = L.marker([nest.lat, nest.lon], {icon: icon})
                 .bindPopup(getNestPopupContent(nest))
                 .addTo(nestLayer);
+            pokemonMarker.on('popupopen', function (popup) {
+                openedNest = nest;
+                marker._popup.setContent(getNestPopupContent(nest));
+            });
         }
     });
     return nestPolygonMarker;
@@ -3913,7 +4092,7 @@ function getPokestopMarker (pokestop, ts) {
 
 function getSpawnpointMarker (spawnpoint, ts) {
     let content = '<center><h6><b>Spawnpoint</b></h6></center>';
-    const hasTimer = spawnpoint.despawn_second != null;
+    const hasTimer = spawnpoint.despawn_second !== null;
     if (hasTimer) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += '<br><b>Despawn Timer:</b> ' + timer + ' minutes';
@@ -4546,6 +4725,27 @@ function manageSelectButton (e, isNew) {
             shouldShow = nestFilterNew[id].show === true;
             break;
         }
+    } else if (type === 'portal') {
+        switch (info) {
+        case 'hide':
+            shouldShow = portalFilterNew[id].show === false;
+            break;
+        case 'show':
+            shouldShow = portalFilterNew[id].show === true;
+            break;
+        case 'small':
+            shouldShow = portalFilterNew[id].size === 'small';
+            break;
+        case 'normal':
+            shouldShow = portalFilterNew[id].size === 'normal';
+            break;
+        case 'large':
+            shouldShow = portalFilterNew[id].size === 'large';
+            break;
+        case 'huge':
+            shouldShow = portalFilterNew[id].size === 'huge';
+            break;
+        }
     } else if (type === 'weather-type') {
         switch (info) {
         case 'hide':
@@ -5001,6 +5201,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'show':
                     nestFilterNew[id].show = true;
+                    break;
+                }
+            } else if (type === 'portal') {
+                switch (info) {
+                case 'hide':
+                    portalFilterNew[id].show = false;
+                    break;
+                case 'show':
+                    portalFilterNew[id].show = true;
+                    break;
+                case 'small':
+                    portalFilterNew[id].size = 'small';
+                    break;
+                case 'normal':
+                    portalFilterNew[id].size = 'normal';
+                    break;
+                case 'large':
+                    portalFilterNew[id].size = 'large';
+                    break;
+                case 'huge':
+                    portalFilterNew[id].size = 'huge';
                     break;
                 }
             } else if (type === 'weather-type') {
@@ -6239,6 +6460,95 @@ function loadNestFilter () {
     });
 }
 
+function loadPortalFilter () {
+    const table = $('#table-filter-portal').DataTable({
+        language: {
+            search: i18n('filter_table_search'),
+            emptyTable: i18n('filter_portal_table_empty'),
+            zeroRecords: i18n('filter_portal_table_empty')
+        },
+        rowGroup: {
+            dataSrc: 'type'
+        },
+        autoWidth: false,
+        columns: [
+            { data: populateImage, width: '5%', className: 'details-control' },
+            { data: 'name', width: '15%' },
+            {
+                data: {
+                    _: 'id.formatted',
+                    sort: 'id.sort'
+                },
+                width: '5%'
+            },
+            { data: 'filter' },
+            { data: 'size' }
+        ],
+        ajax: {
+            url: '/api/get_data?show_portal_filter=true',
+            dataSrc: 'data.portal_filters',
+            async: true
+        },
+        info: false,
+        order: [[2, 'asc']],
+        'search.caseInsensitive': true,
+        columnDefs: [{
+            targets: [0, 3, 4],
+            orderable: false
+        }, {
+            type: 'num',
+            targets: 2
+        }],
+        deferRender: true,
+        scrollY: '50vh',
+        scrollCollapse: false,
+        scroller: true,
+        lengthChange: false,
+        dom: 'lfrti',
+        drawCallback: function (settings) {
+            $('.lazy_load').each(function () {
+                const img = $(this);
+                img.removeClass('lazy_load');
+                img.attr('src', img.data('src'));
+            });
+
+            $('.select-button-new').each(function (button) {
+                manageSelectButton($(this), true);
+            });
+            $('.configure-button-new').each(function (button) {
+                manageConfigureButton($(this), true);
+            });
+        },
+        responsive: true
+    });
+
+    $('#table-filter-portal tbody').on('click', 'td.details-control', function () {
+        $('.select-button-new').each(function (button) {
+            manageSelectButton($(this), true);
+        });
+        $('.configure-button-new').each(function (button) {
+            manageConfigureButton($(this), true);
+        });
+    });
+
+    table.on('search.dt', function () {
+        $('tr').each(function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('parent');
+            }
+        });
+    });
+
+    $('#filterPortalModal').on('shown.bs.modal', function () {
+        const dataTable = $('#table-filter-portal').DataTable();
+        dataTable.responsive.recalc();
+        dataTable.columns.adjust();
+    });
+}
+
 function loadWeatherFilter () {
     const table = $('#table-filter-weather').DataTable({
         language: {
@@ -6551,6 +6861,11 @@ function loadFilterSettings (e) {
         store('show_nests', showNests);
         store('nest_filter', JSON.stringify(nestFilterNew));
 
+        showPortals = obj.show_portals;
+        portalFilterNew = obj.portal;
+        store('show_portals', showPortals);
+        store('portal_filter', JSON.stringify(portalFilterNew));
+
         showCells = obj.show_cells;
         store('show_cells', showCells);
 
@@ -6643,6 +6958,14 @@ function loadFilterSettings (e) {
             $('#show-nests').removeClass('active');
         }
 
+        if (showPortals) {
+            $('#show-portals').addClass('active');
+            $('#hide-portals').removeClass('active');
+        } else {
+            $('#hide-portals').addClass('active');
+            $('#show-portals').removeClass('active');
+        }
+
         if (showCells) {
             $('#show-cells').addClass('active');
             $('#hide-cells').removeClass('active');
@@ -6690,6 +7013,7 @@ function loadFilterSettings (e) {
         $('#table-filter-quest').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-spawnpoint').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-portal').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     };
     reader.readAsText(file);
@@ -7160,6 +7484,29 @@ function registerFilterButtonCallbacks() {
         nestFilterNew = defaultNestFilter;
 
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    // Ingress Portals filter buttons
+    $('#reset-portal-filter').on('click', function (event) {
+        const defaultPortalFilter = {};
+        defaultPortalFilter['old'] = { show: false, size: 'normal' };
+        defaultPortalFilter['new'] = { show: true, size: 'normal' };
+
+        store('portal_filter', JSON.stringify(defaultPortalFilter));
+        portalFilterNew = defaultPortalFilter;
+
+        $('#table-filter-portal').DataTable().rows().invalidate('data').draw(false);
+    });
+
+    $('#disable-all-portal-filter').on('click', function (event) {
+        const defaultPortalFilter = {};
+        defaultPortalFilter['old'] = { show: false, size: 'normal' };
+        defaultPortalFilter['new'] = { show: false, size: 'normal' };
+
+        store('portal_filter', JSON.stringify(defaultPortalFilter));
+        portalFilterNew = defaultPortalFilter;
+
+        $('#table-filter-portal').DataTable().rows().invalidate('data').draw(false);
     });
 
     // Weather filter buttons

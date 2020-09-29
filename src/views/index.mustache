@@ -32,6 +32,7 @@
         const defaultShowScanCells = '{{default_show_scan_cells}}' === 'true';
         const defaultShowSubmissionCells = '{{default_show_submission_cells}}' === 'true';
         const defaultShowNests = '{{default_show_nests}}' === 'true';
+        const defaultShowPortals = '{{default_show_portals}}' === 'true';
         const defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
         const defaultShowDevices = '{{default_show_devices}}' === 'true';
 
@@ -166,6 +167,18 @@
                         </div>
                         {{filter_nests}}
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterNestModal">{{filter_filter}}</button>
+                    </div>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_portals}}class="d-none"{{/hide_portals}}>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label id="hide-portals" class="btn btn-sm btn-off">
+                                <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
+                            </label>
+                            <label id="show-portals" class="btn btn-sm btn-on">
+                                <input type="radio" name="options" id="show" autocomplete="off">{{filter_show}}
+                            </label>
+                        </div>
+                        {{filter_portals}}
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterPortalModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_cells}}class="d-none"{{/hide_cells}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -626,6 +639,41 @@
         </div>
     </div>
 
+    <div class="modal fade" id="filterPortalModal" tabindex="-1" role="dialog" aria-labelledby="filterPortalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterPortalModalLabel">{{filter_portal_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-portal" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-portal-filter" type="button" class="btn btn-sm btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-portal-filter" type="button" class="btn btn-sm btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="filterWeatherModal" tabindex="-1" role="dialog" aria-labelledby="filterWeatherModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -809,6 +857,11 @@
                                 <img src="/img/misc/nest.png" width="32" height="auto"/>
                             </a>
                         </li>
+                        <li class="nav-item {{#hide_portals}}d-none{{/hide_portals}}">
+                            <a class="nav-link" id="pills-nest-tab" data-toggle="pill" href="#pills-portal" role="tab" aria-controls="pills-portal" aria-selected="false">
+                                <img src="/img/misc/portal.png" width="32" height="auto"/>
+                            </a>
+                        </li>
                         <li class="nav-item {{#hide_gyms}}d-none{{/hide_gyms}}">
                             <a class="nav-link" id="pills-gym-tab" data-toggle="pill" href="#pills-gym" role="tab" aria-controls="pills-gym" aria-selected="false">
                                 <img src="/img/misc/gym.png" width="32" height="auto"/>
@@ -828,6 +881,10 @@
                         <div class="tab-pane fade" id="pills-nest" role="tabpanel" aria-labelledby="pills-nest-tab">
                             <input id="search-nest" type="text" class="form-control" placeholder="Enter nest Pokemon or Type..." autocomplete="off" />
                             <div id="search-nest-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-portal" role="tabpanel" aria-labelledby="pills-portal-tab">
+                            <input id="search-portal" type="text" class="form-control" placeholder="Enter Portal Name..." autocomplete="off" />
+                            <div id="search-portal-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-gym" role="tabpanel" aria-labelledby="pills-gym-tab">
                             <input id="search-gym" type="text" class="form-control" placeholder="Enter Gym Name..." autocomplete="off" />
