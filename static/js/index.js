@@ -3203,7 +3203,9 @@ function getGymPopupContent (gym) {
             } else {
                 pokemonName = getPokemonName(gym.raid_pokemon_id);
             }
-            pokemonName += ' ' + getGenderIcon(gym.raid_pokemon_gender);
+            if (gym.raid_pokemon_gender > 0) {
+                pokemonName += ' ' + getGenderIcon(gym.raid_pokemon_gender);
+            }
         } else if (isRaidBattle) {
             pokemonName = 'Unknown Raid Boss';
         } else {
