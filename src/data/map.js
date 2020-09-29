@@ -21,6 +21,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
 
     let includeBigKarp = false;
     let includeTinyRat = false;
+    let onlyVerifiedTimersSQL = '';
     for (const key of pokemonFilterExclude || []) {
         const split = key.split('-', 2);
         if (split.length === 2) {
@@ -34,6 +35,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             includeBigKarp = true;
         } else if (key === 'tiny_rat') {
             includeTinyRat = true;
+        } else if (key === 'timers_verified') {
+            onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else {
             console.warn('Unrecognized key', key);
         }
@@ -73,7 +76,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
-    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?`;
+    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${onlyVerifiedTimersSQL}`;
     const args = [minLat, maxLat, minLon, maxLon, updated];
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
