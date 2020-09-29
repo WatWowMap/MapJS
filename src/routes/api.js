@@ -193,7 +193,6 @@ const getData = async (perms, filter) => {
     if ((showGyms || showRaids || showPokestops || showQuests || showInvasions || showPokemon || showSpawnpoints ||
         showCells || showSubmissionTypeCells || showSubmissionPlacementCells || showWeather || showNests || showPortals || showActiveDevices) &&
         (minLat === null || maxLat === null || minLon === null || maxLon === null)) {
-        //res.respondWithError(BadRequest);
         return;
     }
 
@@ -350,8 +349,8 @@ const getData = async (perms, filter) => {
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
                 const types = JSON.stringify(pkmn.types);
-                //const form = pkmn.forms[formId];
-                let formName = pkmn.forms[formId].name;//i18n.__('form_' + formId);
+                // Grab form from masterfile for consistent language
+                let formName = pkmn.forms[formId].name;
                 if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
                     continue;
@@ -597,7 +596,7 @@ const getData = async (perms, filter) => {
             'filter_quest',
             'filter_pokecoin',
             'filter_sticker',
-            'filter_mega_resource',
+            //'filter_mega_resource',
         ];
         for (let i = 1; i <= itemNames.length; i++) {
             questData.push({
@@ -623,9 +622,9 @@ const getData = async (perms, filter) => {
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(itemId, 3),
-                    'sort': itemId + 100
+                    'sort': itemId + 10
                 },
-                'name': i18n.__('item_' + itemId) ,
+                'name': i18n.__('item_' + itemId),
                 'image': {
                     type: 'img',
                     path: `/item/${itemId}.png`
@@ -636,13 +635,33 @@ const getData = async (perms, filter) => {
             });
         }
 
+        // Mega energy
+        for (let i = 0; i < rewards.evolutions.length; i++) {
+            const pokemonId = parseInt(rewards.evolutions[i].id);
+            //const amount = rewards.mega[i].amount;
+            questData.push({
+                'id': {
+                    'formatted': utils.zeroPad(pokemonId, 3),
+                    'sort': pokemonId + 2000
+                },
+                'name': i18n.__('poke_' + pokemonId) ,
+                'image': {
+                    type: 'pokemon',
+                    pokemonId: pokemonId
+                },
+                'filter': generateShowHideButtons(pokemonId, 'quest-evolution'),
+                'size': generateSizeButtons(pokemonId, 'quest-evolution'),
+                'type': i18n.__('filter_quest_mega_energy')
+            });
+        }
+
         // Pokemon
         for (let i = 0; i < rewards.pokemon.length; i++) {
             const pokeId = rewards.pokemon[i];
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokeId, 3),
-                    'sort': pokeId + 2000
+                    'sort': pokeId + 5000
                 },
                 'name': i18n.__('poke_' + pokeId),
                 'image': {
