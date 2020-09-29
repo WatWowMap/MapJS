@@ -712,9 +712,6 @@ function loadStorage () {
     const raidFilterValue = retrieve('raid_filter');
     if (raidFilterValue === null) {
         const defaultRaidFilter = {};
-        if (defaultRaidFilter.timers === undefined) {
-            defaultRaidFilter.timers = { show: defaultShowRaidTimers, size: 'normal' };
-        }
         let i;
         for (i = 1; i <= 6; i++) {
             if (defaultRaidFilter['l' + i] === undefined) {
@@ -733,12 +730,6 @@ function loadStorage () {
         raidFilter = defaultRaidFilter;
     } else {
         raidFilter = JSON.parse(raidFilterValue);
-        if (raidFilter.timers === undefined) {
-            raidFilter.timers = { show: true, size: 'normal' };
-            showRaidTimers = true;
-        } else {
-            showRaidTimers = raidFilter.timers.show;
-        }
         let i;
         for (i = 1; i <= 6; i++) {
             if (raidFilter['l' + i] === undefined) {
@@ -829,9 +820,6 @@ function loadStorage () {
     const invasionFilterValue = retrieve('invasion_filter');
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
-        if (defaultInvasionFilter.timers === undefined) {
-            defaultInvasionFilter.timers = { show: defaultShowInvasionTimers, size: 'normal' };
-        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (defaultInvasionFilter['i' + i] === undefined) {
@@ -843,12 +831,6 @@ function loadStorage () {
         invasionFilter = defaultInvasionFilter;
     } else {
         invasionFilter = JSON.parse(invasionFilterValue);
-        if (invasionFilter.timers === undefined) {
-            invasionFilter.timers = { show: false, size: 'normal' };
-            showInvasionTimers = true;
-        } else {
-            showInvasionTimers = invasionFilter.timers.show;
-        }
         let i;
         for (i = 1; i <= 50; i++) {
             if (invasionFilter['i' + i] === undefined) {
@@ -970,6 +952,12 @@ function loadStorage () {
         if (defaultSettings['nest-polygon'] === undefined) {
             defaultSettings['nest-polygon'] = { show: showNestPolygons };
         }
+        if (defaultSettings['raid-timers'] === undefined) {
+            defaultSettings['raid-timers'] = { show: showRaidTimers };
+        }
+        if (defaultSettings['invasion-timers'] === undefined) {
+            defaultSettings['invasion-timers'] = { show: showInvasionTimers };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
@@ -992,6 +980,12 @@ function loadStorage () {
         if (settings['nest-polygon'] === undefined) {
             settings['nest-polygon'] = { show: true };
         }
+        if (settings['raid-timers'] === undefined) {
+            settings['raid-timers'] = { show: false };
+        }
+        if (settings['invasion-timers'] === undefined) {
+            settings['invasion-timers'] = { show: false };
+        }        
     }
     clusterPokemon = settings['pokemon-cluster'].show;
     clusterGyms = settings['gym-cluster'].show;
@@ -999,6 +993,8 @@ function loadStorage () {
     showPokemonGlow = settings['pokemon-glow'].show;
     showPokemonTimers = settings['pokemon-timers'].show;
     showNestPolygons = settings['nest-polygon'].show;
+    showRaidTimers = settings['raid-timers'].show;
+    showInvasionTimers = settings['invasion-timers'].show;
 }
 
 function initMap () {
@@ -1231,21 +1227,6 @@ function initMap () {
         });
         gymMarkers = newGymMarkers;
 
-        const newShowPokemonTimers = settings['pokemon-timers'].show;
-        if (newShowPokemonTimers !== showPokemonTimers) {
-            showPokemonTimers = newShowPokemonTimers;
-        }
-
-        const newShowRaidTimers = raidFilter.timers.show;
-        if (newShowRaidTimers !== showRaidTimers) {
-            showRaidTimers = newShowRaidTimers;
-        }
-
-        const newShowInvasionTimers = invasionFilter.timers.show;
-        if (newShowInvasionTimers !== showInvasionTimers) {
-            showInvasionTimers = newShowInvasionTimers;
-        }
-
         showGyms = newShowGyms;
         store('show_gyms', newShowGyms);
         store('gym_filter', JSON.stringify(gymFilter));
@@ -1295,10 +1276,6 @@ function initMap () {
         store('show_devices', newShowDevices);
         store('device_filter', JSON.stringify(deviceFilter));
 
-        store('show_pokemon_timers', newShowPokemonTimers);
-        store('show_raid_timers', newShowRaidTimers);
-        store('show_invasion_timers', newShowInvasionTimers);
-
         lastUpdateServer = 0;
         loadData();
 
@@ -1327,6 +1304,7 @@ function initMap () {
             pokemonMarkers = [];
         }
         const newClusterGyms = settingsNew['gym-cluster'].show;
+        const newShowRaidTimers = settingsNew['raid-timers'].show;
         if (clusterGyms !== newClusterGyms) {
             $.each(gymMarkers, function (index, gym) {
                 if (clusterGyms) {
@@ -1337,6 +1315,7 @@ function initMap () {
             });
         }
         const newClusterPokestops = settingsNew['pokestop-cluster'].show;
+        const newShowInvasionTimers = settingsNew['invasion-timers'].show;
         if (clusterPokestops !== newClusterPokestops) {
             $.each(pokestopMarkers, function (index, pokestop) {
                 if (clusterPokestops) {
@@ -1361,8 +1340,20 @@ function initMap () {
         clusterGyms = newClusterGyms;
         clusterPokestops = newClusterPokestops;
         showNestPolygons = newShowNestPolygons;
+        showRaidTimers = newShowRaidTimers;
+        showInvasionTimers = newShowInvasionTimers;
 
-        console.log('pokemon timers:', showPokemonTimers);
+        store('show_pokemon_timers', newShowPokemonTimers);
+        store('show_raid_timers', newShowRaidTimers);
+        store('show_invasion_timers', newShowInvasionTimers);
+
+        if (pokemonMarkers.length === 0 ||
+            gymMarkers.length === 0 ||
+            pokestopMarkers.length === 0 ||
+            nestMarkers.length === 0) {
+            lastUpdateServer = 0;
+            loadData();
+        }
 
         $('#settingsModal').modal('hide');
     });
@@ -4199,7 +4190,9 @@ function manageSelectButton (e, isNew) {
                 type === 'gym-cluster' || 
                 type === 'pokestop-cluster' || 
                 type === 'nest-polygon' ||
-                type === 'pokemon-timers') {
+                type === 'pokemon-timers' ||
+                type === 'raid-timers' ||
+                type === 'invasion-timers') {
         switch (info) {
         case 'hide':
             shouldShow = settingsNew[id].show === false;
@@ -4305,27 +4298,6 @@ function manageSelectButton (e, isNew) {
             break;
         case 'show':
             shouldShow = questFilterNew[id].show === true;
-            break;
-        }
-    } else if (type === 'raid-timers') {
-        switch (info) {
-        case 'hide':
-            shouldShow = raidFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = raidFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = raidFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = raidFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = raidFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = raidFilterNew[id].size === 'huge';
             break;
         }
     } else if (type === 'raid-level') {
@@ -4517,27 +4489,6 @@ function manageSelectButton (e, isNew) {
             shouldShow = invasionFilterNew['i' + id].size === 'huge';
             break;
         }
-    } else if (type === 'invasion-timers') {
-        switch (info) {
-        case 'hide':
-            shouldShow = invasionFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = invasionFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = invasionFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = invasionFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = invasionFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = invasionFilterNew[id].size === 'huge';
-            break;
-        }
     } else if (type === 'spawnpoint-timer') {
         switch (info) {
         case 'hide':
@@ -4717,7 +4668,9 @@ function manageSelectButton (e, isNew) {
                     type === 'gym-cluster' ||
                     type === 'pokestop-cluster' ||
                     type === 'nest-polygon' ||
-                    type === 'pokemon-timers') {
+                    type === 'pokemon-timers' ||
+                    type === 'raid-timers' ||
+                    type === 'invasion-timers') {
                 switch (info) {
                 case 'hide':
                     settingsNew[id].show = false;
@@ -4802,27 +4755,6 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'show':
                     questFilterNew[id].show = true;
-                    break;
-                }
-            } else if (type === 'raid-timers') {
-                switch (info) {
-                case 'hide':
-                    raidFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    raidFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    raidFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    raidFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    raidFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    raidFilterNew[id].size = 'huge';
                     break;
                 }
             } else if (type === 'raid-level') {
@@ -5012,27 +4944,6 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     invasionFilterNew['i' + id].size = 'huge';
-                    break;
-                }
-            } else if (type === 'invasion-timers') {
-                switch (info) {
-                case 'hide':
-                    invasionFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    invasionFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    invasionFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    invasionFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    invasionFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    invasionFilterNew[id].size = 'huge';
                     break;
                 }
             } else if (type === 'spawnpoint-timer') {
@@ -7040,7 +6951,6 @@ function registerFilterButtonCallbacks() {
     // Raid filter buttons
     $('#reset-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: defaultShowRaidTimers, size: 'normal' };
         let i;
         for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
@@ -7059,7 +6969,6 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: false, size: raidFilterNew.timers.size };
         let i;
         for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
@@ -7078,7 +6987,6 @@ function registerFilterButtonCallbacks() {
 
     $('#legendary-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
         let i;
         for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
@@ -7097,7 +7005,6 @@ function registerFilterButtonCallbacks() {
 
     $('#normal-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
-        defaultRaidFilter.timers = { show: raidFilterNew.timers.show, size: raidFilterNew.timers.size };
         let i;
         for (i = 1; i <= 6; i++) {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
@@ -7181,7 +7088,6 @@ function registerFilterButtonCallbacks() {
     // Invasion filter buttons
     $('#reset-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
-        defaultInvasionFilter.timers = { show: defaultShowInvasionTimers, size: 'normal' };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
         }
@@ -7194,7 +7100,6 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
-        defaultInvasionFilter.timers = { show: false, size: invasionFilterNew.timers.size };
         for (let i = 1; i <= 50; i++) {
             defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
         }
