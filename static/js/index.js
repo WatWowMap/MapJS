@@ -1688,10 +1688,6 @@ function loadData () {
 
     const raidFilterExclude = [];
     if (showRaids) {
-        // REVIEW: Probably not needed
-        if (raidFilter.timers.show === false) {
-            raidFilterExclude.push('timers');
-        }
         let i;
         for (i = 1; i <= 6; i++) {
             if (raidFilter['l' + i].show === false) {
@@ -4007,7 +4003,7 @@ function isDeviceOffline (device, ts) {
     return isOffline;
 }
 
-function setDespawnTimer (marker) { // TODO: rename to marker or something more generic
+function setDespawnTimer (marker) {
     let date = new Date();
     const ts = date.getTime() / 1000;
     let raidTimestamp = 0;

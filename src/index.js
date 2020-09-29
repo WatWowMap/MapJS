@@ -18,8 +18,6 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const { sessionStore, isValidSession, clearOtherSessions } = require('./services/session-store.js');
 
-// TODO: Check sessions table and parse json
-
 const RateLimitTime = config.ratelimit.time * 60 * 1000;
 const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
 
