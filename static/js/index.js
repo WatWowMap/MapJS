@@ -996,7 +996,7 @@ function loadStorage () {
             defaultSettings['pokemon-cluster'] = { show: clusterPokemon };
         }
         if (defaultSettings['pokemon-timers'] === undefined) {
-            defaultSettings['pokemon-timers'] = { show: showPokemonTimers, size: 'normal' };
+            defaultSettings['pokemon-timers'] = { show: defaultShowPokemonTimers };
         }
         if (defaultSettings['gym-cluster'] === undefined) {
             defaultSettings['gym-cluster'] = { show: clusterGyms };
@@ -1008,10 +1008,10 @@ function loadStorage () {
             defaultSettings['nest-polygon'] = { show: showNestPolygons };
         }
         if (defaultSettings['raid-timers'] === undefined) {
-            defaultSettings['raid-timers'] = { show: showRaidTimers };
+            defaultSettings['raid-timers'] = { show: defaultShowRaidTimers };
         }
         if (defaultSettings['invasion-timers'] === undefined) {
-            defaultSettings['invasion-timers'] = { show: showInvasionTimers };
+            defaultSettings['invasion-timers'] = { show: defaultShowInvasionTimers };
         }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
@@ -1024,7 +1024,7 @@ function loadStorage () {
             settings['pokemon-cluster'] = { show: true };
         }
         if (settings['pokemon-timers'] === undefined) {
-            settings['pokemon-timers'] = { show: true };
+            settings['pokemon-timers'] = { show: defaultShowPokemonTimers };
         }
         if (settings['gym-cluster'] === undefined) {
             settings['gym-cluster'] = { show: true };
@@ -1036,10 +1036,10 @@ function loadStorage () {
             settings['nest-polygon'] = { show: true };
         }
         if (settings['raid-timers'] === undefined) {
-            settings['raid-timers'] = { show: false };
+            settings['raid-timers'] = { show: defaultShowRaidTimers };
         }
         if (settings['invasion-timers'] === undefined) {
-            settings['invasion-timers'] = { show: false };
+            settings['invasion-timers'] = { show: defaultShowInvasionTimers };
         }        
     }
     clusterPokemon = settings['pokemon-cluster'].show;
