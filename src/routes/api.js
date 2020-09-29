@@ -32,12 +32,12 @@ router.get('/get_settings', async (req, res) => {
 });
 
 const getSettings = () => {
-    let data = {};
-    let settingsData = [];
+    const settingsData = [];
     //const settingColorString = i18n.__('settings_color');
     const pokemonSettingsString = i18n.__('filter_pokemon');
     const pokemonGlowString = i18n.__('settings_pokemon_glow');
     const clusterPokemonString = i18n.__('settings_cluster_pokemon');
+    const pokemonTimers = i18n.__('filter_pokemon_timers');
     const gymSettingsString = i18n.__('filter_gyms');
     const clusterGymsString = i18n.__('settings_cluster_gyms');
     const pokestopSettingsString = i18n.__('filter_pokestops');
@@ -56,7 +56,7 @@ const getSettings = () => {
     */
     settingsData.push({
         'id': {
-            'sort': 0
+            'sort': utils.zeroPad(0, 3)
         },
         'name': pokemonGlowString,
         'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
@@ -64,7 +64,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 1
+            'sort': utils.zeroPad(1, 3)
         },
         'name': clusterPokemonString,
         'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
@@ -72,7 +72,15 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 10
+            'sort': utils.zeroPad(2, 3)
+        },
+        'name': pokemonTimers,
+        'filter': generateShowHideButtons('pokemon-timers', 'pokemon-timers'),
+        'type': pokemonSettingsString,
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(10, 3)
         },
         'name': clusterGymsString,
         'filter': generateShowHideButtons('gym-cluster', 'gym-cluster'),
@@ -80,7 +88,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 11
+            'sort': utils.zeroPad(11, 3)
         },
         'name': raidTimersString,
         'filter': generateShowHideButtons('raid-timers', 'raid-timers'),
@@ -88,7 +96,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 20
+            'sort': utils.zeroPad(20, 3)
         },
         'name': clusterPokestopsString,
         'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
@@ -96,7 +104,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 21
+            'sort': utils.zeroPad(21, 3)
         },
         'name': invasionTimersString,
         'filter': generateShowHideButtons('invasion-timers', 'invasion-timers'),
@@ -104,7 +112,7 @@ const getSettings = () => {
     });
     settingsData.push({
         'id': {
-            'sort': 30
+            'sort': utils.zeroPad(30, 3)
         },
         'name': nestPolygonsString,
         'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
@@ -132,8 +140,9 @@ const getSettings = () => {
         'type': pokemonSettingsLabel
     });
     */
-    data['settings'] = settingsData;
-
+    const data = {
+        settings: settingsData
+    };
     return data;
 };
 
@@ -311,6 +320,22 @@ const getData = async (perms, filter) => {
             });
         }
 
+        const pokemonTimersVerified = i18n.__('filter_pokemon_timers_verified');
+        pokemonData.push({
+            'id': {
+                'formatted': utils.zeroPad(2, 3),
+                'sort': 2 + 5
+            },
+            'name': pokemonTimersVerified,
+            'image': {
+                type: 'img',
+                path: '/misc/verified.png'
+            },
+            'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
+            'size': generateSizeButtons('timers-verified', 'pokemon-timers-verified'),
+            'type': globalFiltersString,
+            'types': null
+        });
 
         for (let i = 1; i < config.map.maxPokemonId; i++) {
             const pkmn = masterfile.pokemon[i];

@@ -8,7 +8,6 @@ const requireFromString = require('require-from-string');
 
 const config = require('../services/config.js');
 const MySQLConnector = require('../services/mysql.js');
-const utils = require('../services/utils.js');
 
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
@@ -22,6 +21,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
 
     let includeBigKarp = false;
     let includeTinyRat = false;
+    let onlyVerifiedTimersSQL = '';
     for (const key of pokemonFilterExclude || []) {
         const split = key.split('-', 2);
         if (split.length === 2) {
@@ -35,6 +35,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             includeBigKarp = true;
         } else if (key === 'tiny_rat') {
             includeTinyRat = true;
+        } else if (key === 'timers_verified') {
+            onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else {
             console.warn('Unrecognized key', key);
         }
@@ -74,7 +76,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
-    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?`;
+    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${onlyVerifiedTimersSQL}`;
     const args = [minLat, maxLat, minLon, maxLon, updated];
     const results = await db.query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\n:Error:', err);
@@ -1140,17 +1142,17 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
                     if (result.quest_item_id > 0) {
                         result.url2 = `/img/item/${result.quest_item_id}.png`;
                     } else if (result.quest_pokemon_id > 0) {
-                        const formId = result.quest_pokemon_form_id > 0 ? result.quest_pokemon_form_id : '00';
-                        result.url2 = config.icons[iconStyle].path + `/${utils.zeroPad(result.quest_pokemon_id, 3)}_${formId}.png`;
+                        const formId = result.quest_pokemon_form_id > 0 ? '-f' + result.quest_pokemon_form_id : '';
+                        result.url2 = config.icons[iconStyle].path + `/${result.quest_pokemon_id}${formId}.png`;
                     } else if (result.quest_reward_type === 3) {
-                        result.url2 = '/item/-1.png';
+                        result.url2 = '/img/item/-1.png';
                     }
                 }
                 break;
             case 'search-nest':
                 for (let i = 0; i < results.length; i++) {
                     let result = results[i];
-                    result.url = config.icons[iconStyle].path + `/${utils.zeroPad(result.pokemon_id, 3)}_00.png`;
+                    result.url = config.icons[iconStyle].path + `/${result.pokemon_id}.png`;
                 }
                 break;
         }
@@ -1270,7 +1272,6 @@ const getAvailableRaidBosses = async () => {
 };
 
 const getAvailableQuests = async () => {
-    //const rewards = ['stardust']; // TODO: Localize
     let sql = 'SELECT quest_item_id AS id FROM pokestop WHERE quest_reward_type=2 GROUP BY quest_item_id';
     const itemResults = await db.query(sql);
     sql = 'SELECT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type=7 GROUP BY quest_pokemon_id';
