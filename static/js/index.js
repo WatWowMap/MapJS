@@ -1998,11 +1998,13 @@ function loadData () {
                             oldGym.raid_pokemon_id = gym.raid_pokemon_id;
                             oldGym.raid_pokemon_form = gym.raid_pokemon_form;
                             oldGym.raid_pokemon_cp = gym.raid_pokemon_cp;
+                            oldGym.raid_pokemon_gender = gym.raid_pokemon_gender;
                             oldGym.raid_pokemon_move_1 = gym.raid_pokemon_move_1;
                             oldGym.raid_pokemon_move_2 = gym.raid_pokemon_move_2;
                             oldGym.raid_level = gym.raid_level;
                             oldGym.raid_is_exclusive = gym.raid_is_exclusive;
                             oldGym.raid_pokemon_evolution = gym.raid_pokemon_evolution;
+                            oldGym.raid_pokemon_costume = gym.raid_pokemon_costume;
                             oldGym.marker.setIcon(getGymMarkerIcon(oldGym, ts));
                             if (oldGym.raid_end_timestamp >= ts && !oldGym.raidTimerSet) {
                                 startRaidTimer(oldGym, ts);
