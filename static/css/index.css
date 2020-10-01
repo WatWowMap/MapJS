@@ -665,6 +665,7 @@ img {
 .theme-dark #filtersModal,
 .theme-dark #searchModal,
 .theme-dark #mapstyleModal,
+.theme-dark #iconstyleModal,
 .theme-dark .close {
     color: white;
 }
