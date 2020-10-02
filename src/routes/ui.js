@@ -83,7 +83,7 @@ const handlePage = async (req, res) => {
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
-    const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
+    const availableItems = [-1, -2, -3, -4, -5, -6, -7];
     //const keys = Object.keys(InventoryItemId);
     //keys.forEach(key => {
     //    const itemId = InventoryItemId[key];
