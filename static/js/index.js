@@ -4939,7 +4939,7 @@ function manageSelectButton (e, isNew) {
                     pokemonFilterNew[id].size = 'huge';
                     break;
                 }
-            } else if (type === 'quest-misc' || type === 'quest-item') {
+            } else if (type === 'quest-misc') {
                 switch (info) {
                 case 'hide':
                     questFilterNew['i' + -id].show = false;
@@ -4958,6 +4958,27 @@ function manageSelectButton (e, isNew) {
                     break;
                 case 'huge':
                     questFilterNew['i' + -id].size = 'huge';
+                    break;
+                }
+            } else if (type === 'quest-item') {
+                switch (info) {
+                case 'hide':
+                    questFilterNew['i' + id].show = false;
+                    break;
+                case 'show':
+                    questFilterNew['i' + id].show = true;
+                    break;
+                case 'small':
+                    questFilterNew['i' + id].size = 'small';
+                    break;
+                case 'normal':
+                    questFilterNew['i' + id].size = 'normal';
+                    break;
+                case 'large':
+                    questFilterNew['i' + id].size = 'large';
+                    break;
+                case 'huge':
+                    questFilterNew['i' + id].size = 'huge';
                     break;
                 }
             } else if (type === 'quest-evolution') {
