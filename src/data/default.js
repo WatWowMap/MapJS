@@ -16,11 +16,11 @@ data.cluster_zoom_level = config.map.clusters.zoomLevel;
 data.scouting = config.scouting.enabled;
 data.scouting_url = config.scouting.url;
 data.scouting_count = config.scouting.maxScouts;
-data.glow_json = JSON.stringify(JSON.stringify(config.map.glow));
+data.glow_json = JSON.stringify(config.map.glow);
 data.favicon = config.favicon;
 data.device_path_color = config.map.devicePathColor;
 data.nest_polygons = config.map.nestPolygons;
-data.min_pvp_cp = JSON.stringify(JSON.stringify(config.map.minPvpCp));
+data.min_pvp_cp = JSON.stringify(config.map.minPvpCp);
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
@@ -40,6 +40,6 @@ data.default_show_nests = config.map.filters.nests;
 data.default_show_portals = config.map.filters.portals;
 data.default_show_scan_areas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
-data.pokemon_rarity_json = JSON.stringify(JSON.stringify(config.rarity));
+data.pokemon_rarity_json = JSON.stringify(config.rarity);
 
 module.exports = data;

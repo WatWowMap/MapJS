@@ -77,10 +77,10 @@ const handlePage = async (req, res) => {
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
-    data.available_tileservers_json = JSON.stringify(JSON.stringify(tileservers));
+    data.available_tileservers_json = JSON.stringify(tileservers);
 
     await updateAvailableForms(config.icons);
-    data.available_icon_styles_json = JSON.stringify(JSON.stringify(config.icons));
+    data.available_icon_styles_json = JSON.stringify(config.icons);
 
     // Build available items list
     const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
@@ -89,7 +89,7 @@ const handlePage = async (req, res) => {
     //    const itemId = InventoryItemId[key];
     //    availableItems.push(itemId);
     //});
-    data.available_items_json = JSON.stringify(JSON.stringify(availableItems));
+    data.available_items_json = JSON.stringify(availableItems);    
 
     // Build available areas list
     const areas = [];
@@ -101,15 +101,15 @@ const handlePage = async (req, res) => {
 
     // Available raid boss filters
     const availableRaidBosses = await map.getAvailableRaidBosses();
-    data.available_raid_bosses_json = JSON.stringify(JSON.stringify(availableRaidBosses));
+    data.available_raid_bosses_json = JSON.stringify(availableRaidBosses);
 
     // Available quest filters
     const availableQuestRewards = await map.getAvailableQuests();
-    data.available_quest_rewards_json = JSON.stringify(JSON.stringify(availableQuestRewards));
+    data.available_quest_rewards_json = JSON.stringify(availableQuestRewards);
 
     // Available nest pokemon filter
     const availableNestPokemon = await map.getAvailableNestPokemon();
-    data.available_nest_pokemon_json = JSON.stringify(JSON.stringify(availableNestPokemon));
+    data.available_nest_pokemon_json = JSON.stringify(availableNestPokemon);
 
     // Custom navigation bar headers
     data.buttons_left = config.header.left;
