@@ -3868,7 +3868,7 @@ function getNestMarker (nest, geojson, ts) {
                 //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 //shadowSize:  [48, 48]
             });
-            const pokemonMArker = L.marker([nest.lat, nest.lon], {icon: icon})
+            const pokemonMarker = L.marker([nest.lat, nest.lon], {icon: icon})
                 .bindPopup(getNestPopupContent(nest))
                 .addTo(nestLayer);
             pokemonMarker.on('popupopen', function (popup) {
