@@ -668,7 +668,7 @@ const getData = async (perms, filter) => {
                     'formatted': utils.zeroPad(pokemonId, 3),
                     'sort': parseInt(pokemonId) + 5000
                 },
-                'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
+                'name': i18n.__('poke_' + pokemonId) + (formId ? '' : ' ' + formName),
                 'image': {
                     type: 'pokemon',
                     pokemonId: pokemonId,
