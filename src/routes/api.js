@@ -665,8 +665,8 @@ const getData = async (perms, filter) => {
             formName = formName === 'Normal' ? '' : formName;
             questData.push({
                 'id': {
-                    'formatted': utils.zeroPad(pokeId, 3),
-                    'sort': pokeId + 5000
+                    'formatted': utils.zeroPad(pokemonId, 3),
+                    'sort': pokemonId + 5000
                 },
                 'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
                 'image': {
