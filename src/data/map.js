@@ -477,7 +477,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
         excludeTypeSQL += ')';
 
-        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((quest_pokemon_form_id = NULL OR quest_pokemon_form_id = 0)';
+        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = NULL OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = 0)';
         if (excludedPokemon.length !== 0) {
             excludePokemonSQL += 'AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
@@ -490,9 +490,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 args.push(id);
             }
         }
-        excludePokemonSQL += 'OR quest_pokemon_form_id <> NULL AND quest_pokemon_form_id <> 0';
+        excludePokemonSQL += 'OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') <> NULL AND json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') <> 0';
         if (excludedForms.length !== 0) {
-            excludePokemonSQL += ' AND quest_pokemon_form_id NOT IN (';
+            excludePokemonSQL += ' AND json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') NOT IN (';
             for (const [i, form] of excludedForms.entries()) {
                 if (i === excludedForms.length - 1) {
                     excludePokemonSQL += '?)';
@@ -589,7 +589,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
-            json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS quest_pokemon_form_id,
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
             incident_expire_timestamp, grunt_type, sponsor_id
     FROM pokestop
