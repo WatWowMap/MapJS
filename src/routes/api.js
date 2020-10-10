@@ -657,16 +657,22 @@ const getData = async (perms, filter) => {
 
         // Pokemon
         for (let i = 0; i < rewards.pokemon.length; i++) {
-            const pokeId = rewards.pokemon[i];
+            const pokeId = rewards.pokemon[i].split('-', 2);
+            const pokemonId = pokeId[0];
+            const formId = pokeId.length === 2 ? pokeId[1] : null;
+            // TODO: Get form name from master file since locale form ids are off
+            let formName = i18n.__('form_' + formId);
+            formName = formName === 'Normal' ? '' : formName;
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokeId, 3),
                     'sort': pokeId + 5000
                 },
-                'name': i18n.__('poke_' + pokeId),
+                'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
                 'image': {
                     type: 'pokemon',
-                    pokemonId: pokeId
+                    pokemonId: pokemonId,
+                    form: formId
                 },
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),

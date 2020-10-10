@@ -381,6 +381,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
 const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
+    const excludedForms = [];
     let excludedEvolutions = [];
     let excludedItems = []; //int
     let excludedLures = []; //int
@@ -392,9 +393,13 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     if (showQuests && questFilterExclude) {
         for (let i = 0; i < questFilterExclude.length; i++) {
             const filter = questFilterExclude[i];
-            if (filter.includes('p')) {
-                const id = parseInt(filter.replace('p', ''));
-                excludedPokemon.push(id);
+            if (filter.startsWith('p')) {
+                const id = filter.substr(1).split('-', 2);
+                if (id.length === 2) {
+                    excludedForms.push(parseInt(id[1]));
+                } else {
+                    excludedPokemon.push(parseInt(id[0]));
+                }
             } else if (filter.includes('i')) {
                 const id = parseInt(filter.replace('i', ''));
                 if (id > 0) {
@@ -472,21 +477,32 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
         excludeTypeSQL += ')';
 
-        if (excludedPokemon.length === 0) {
-            excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL)';
-        } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND quest_pokemon_id NOT IN (';
+        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((quest_pokemon_form_id = NULL OR quest_pokemon_form_id = 0)';
+        if (excludedPokemon.length !== 0) {
+            excludePokemonSQL += 'AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
                 if (i === excludedPokemon.length - 1) {
-                    sqlExcludeCreate += '?))';
+                    excludePokemonSQL += '?)';
                 } else {
-                    sqlExcludeCreate += '?, ';
+                    excludePokemonSQL += '?,';
                 }
                 const id = parseInt(excludedPokemon[i]);
                 args.push(id);
             }
-            excludePokemonSQL = sqlExcludeCreate;
         }
+        excludePokemonSQL += 'OR quest_pokemon_form_id <> NULL AND quest_pokemon_form_id <> 0';
+        if (excludedForms.length !== 0) {
+            excludePokemonSQL += ' AND quest_pokemon_form_id NOT IN (';
+            for (const [i, form] of excludedForms.entries()) {
+                if (i === excludedForms.length - 1) {
+                    excludePokemonSQL += '?)';
+                } else {
+                    excludePokemonSQL += '?,';
+                }
+                args.push(parseInt(form));
+            }
+        }
+        excludePokemonSQL += '))';
 
         if (excludedEvolutions.length === 0) {
             excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND quest_pokemon_id IS NOT NULL)';
@@ -573,6 +589,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
+            json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS quest_pokemon_form_id,
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
             incident_expire_timestamp, grunt_type, sponsor_id
     FROM pokestop
@@ -1339,12 +1356,15 @@ const getAvailableRaidBosses = async () => {
 const getAvailableQuests = async () => {
     let sql = 'SELECT quest_item_id AS id FROM pokestop WHERE quest_reward_type=2 GROUP BY quest_item_id';
     const itemResults = await db.query(sql);
-    sql = 'SELECT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type=7 GROUP BY quest_pokemon_id';
+    sql = `SELECT DISTINCT
+            quest_pokemon_id AS id,
+            json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS form
+        FROM pokestop WHERE quest_reward_type=7`;
     const pokemonResults = await db.query(sql);
     sql = 'SELECT DISTINCT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type = 12';
     const evoResults = await db.query(sql);
     return {
-        pokemon: pokemonResults.map(x => x.id),
+        pokemon: pokemonResults.map(x => x.form ? `${x.id}-${x.form}` : String(x.id)),
         items: itemResults.map(x => x.id),
         evolutions: evoResults
     };
