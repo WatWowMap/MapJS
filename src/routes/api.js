@@ -637,7 +637,7 @@ const getData = async (perms, filter) => {
 
         // Mega energy
         for (let i = 0; i < rewards.evolutions.length; i++) {
-            const pokemonId = parseInt(rewards.evolutions[i].id);
+            const pokemonId = parseInt(rewards.evolutions[i]);
             //const amount = rewards.mega[i].amount;
             questData.push({
                 'id': {
@@ -666,7 +666,7 @@ const getData = async (perms, filter) => {
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokemonId, 3),
-                    'sort': pokemonId + 5000
+                    'sort': parseInt(pokemonId) + 5000
                 },
                 'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
                 'image': {
