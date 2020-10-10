@@ -1363,7 +1363,7 @@ const getAvailableQuests = async () => {
     sql = 'SELECT DISTINCT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type = 12';
     const evoResults = await db.query(sql);
     return {
-        pokemon: pokemonResults.map(x => x.form && x.form !== '0' ? `${x.id}-${x.form}` : String(x.id)),
+        pokemon: pokemonResults,
         items: itemResults.map(x => x.id),
         evolutions: evoResults
     };

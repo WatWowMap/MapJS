@@ -637,7 +637,7 @@ const getData = async (perms, filter) => {
 
         // Mega energy
         for (let i = 0; i < rewards.evolutions.length; i++) {
-            const pokemonId = parseInt(rewards.evolutions[i]);
+            const pokemonId = parseInt(rewards.evolutions[i].id);
             //const amount = rewards.mega[i].amount;
             questData.push({
                 'id': {
@@ -657,22 +657,22 @@ const getData = async (perms, filter) => {
 
         // Pokemon
         for (let i = 0; i < rewards.pokemon.length; i++) {
-            const pokeId = rewards.pokemon[i].split('-', 2);
-            const pokemonId = pokeId[0];
-            const formId = pokeId.length === 2 ? pokeId[1] : null;
+            const poke = rewards.pokemon[i];
+            const pokemonId = parseInt(poke.id);
+            const form = parseInt(poke.form);
+            const pokeId = form ? `${pokemonId}-${form}` : poke.id;
             // TODO: Get form name from master file since locale form ids are off
-            let formName = i18n.__('form_' + formId);
-            formName = formName === 'Normal' ? '' : formName;
+            let formName = i18n.__('form_' + form);
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokemonId, 3),
                     'sort': parseInt(pokemonId) + 5000
                 },
-                'name': i18n.__('poke_' + pokemonId) + (formId ? '' : ' ' + formName),
+                'name': i18n.__('poke_' + pokemonId) + (form ? '' : ' ' + formName),
                 'image': {
                     type: 'pokemon',
                     pokemonId: pokemonId,
-                    form: formId
+                    form: form
                 },
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),

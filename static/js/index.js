@@ -690,7 +690,8 @@ function loadStorage () {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -717,7 +718,8 @@ function loadStorage () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id] === undefined) {
                 questFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -1765,7 +1767,8 @@ function loadData () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id].show === false) {
                 questFilterExclude.push('p' + id);
             }
@@ -7313,7 +7316,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -7340,7 +7344,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
         }
         $.each(availableItems, function (index, itemId) {
