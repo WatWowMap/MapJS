@@ -2993,20 +2993,22 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
-function addQuestFilter (pokemonId, itemId, show) {
-    if (pokemonId > 0) {
-        questFilter['p' + pokemonId].show = show;
+function addQuestFilter (questInfo, show) {
+    if (questInfo.pokemon_id > 0) {
+        let id = 'p' + pokemon_id;
+        if (questInfo.form_id > 0) {
+            id += '-' + form_id;
+        }
+        questFilter[id].show = show;
     }
-    if (itemId > 0) {
-        questFilter['i' + itemId].show = show;
+    if (questInfo.item_id > 0) {
+        questFilter['i' + questInfo.item_id].show = show;
     }
     store('quest_filter', JSON.stringify(questFilter));
 
     $.each(pokestopMarkers, function (index, pokestop) {
         const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
-        const rewardPokemonId = reward.info.pokemon_id || 0;
-        const rewardItemId = reward.info.item_id || 0;
-        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+        if (questInfo.pokemon_id === reward.info.pokemon_id && questInfo.form_id === reward.info.form_id && questInfo.item_id === reward.info.item_id) {
             map.removeLayer(pokestop.marker);
         }
     });
@@ -3092,7 +3094,7 @@ function getPokestopPopupContent (pokestop) {
     content +=
         '<br>';
     if (pokestop.quest_type !== null) {
-        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
+        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + JSON.stringify(questReward.info) + ', false);return false;"><b>[Exclude]</b></a></center>';
     }
     content +=
         '<br>' +
