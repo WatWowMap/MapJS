@@ -427,7 +427,7 @@ const getData = async (perms, filter) => {
             raidData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokemonId, 3),
-                    'sort': i+200
+                    'sort': parseInt(pokemonId) * 100000 + parseInt(poke.form_id)
                 },
                 'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
                 'image': {
@@ -666,7 +666,7 @@ const getData = async (perms, filter) => {
             questData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokemonId, 3),
-                    'sort': parseInt(pokemonId) + 5000
+                    'sort': pokemonId * 100000 + form
                 },
                 'name': i18n.__('poke_' + pokemonId) + (form ? ' ' + formName : ''),
                 'image': {
