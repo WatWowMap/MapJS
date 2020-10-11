@@ -3531,9 +3531,9 @@ function getPokemonType (typeId) {
     return i18n('poke_type_' + typeId);
 }
 
-function getFormName (formId) {
+function getFormName (formId, showNormal = false) {
     let form = i18n('form_' + formId);
-    return form !== 'Normal' ? form : ''; // TODO: Localize
+    return showNormal || form !== 'Normal' ? form : ''; // TODO: Localize
 }
 
 function getMoveName (moveId) {
@@ -3599,7 +3599,7 @@ function getQuestReward (reward) {
     } else if (id === 7 && info && info.pokemon_id) {
         let string;
         if (info.form_id !== 0 && info.form_id !== null) {
-            string = getFormName(info.form_id) + ' ' + getPokemonName(info.pokemon_id);
+            string = getFormName(info.form_id, true) + ' ' + getPokemonName(info.pokemon_id);
         } else {
             string = getPokemonName(info.pokemon_id);
         }
