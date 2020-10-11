@@ -54,8 +54,9 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)
-- [darthbutcher](https://github.com/darthbutcher)
 - [sabregreen](https://github.com/sabregreen)
+- [darthbutcher](https://github.com/darthbutcher)
+- [LordJavi](https://github.com/LordJavi)
 
 ## Credits
 

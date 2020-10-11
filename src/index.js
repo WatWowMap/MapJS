@@ -18,8 +18,6 @@ const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const { sessionStore, isValidSession, clearOtherSessions } = require('./services/session-store.js');
 
-// TODO: Check sessions table and parse json
-
 const RateLimitTime = config.ratelimit.time * 60 * 1000;
 const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
 
@@ -165,6 +163,7 @@ app.use(async (req, res, next) => {
         defaultData.hide_cells = !perms.s2cells;
         defaultData.hide_submission_cells = !perms.submissionCells;
         defaultData.hide_nests = !perms.nests;
+        defaultData.hide_portals = !perms.portals;
         defaultData.hide_scan_areas = !perms.scanAreas;
         defaultData.hide_weather = !perms.weather;
         defaultData.hide_devices = !perms.devices;

@@ -51,7 +51,9 @@
             "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
+            "pokemonTimers": false,
             "nests": false,
+            "portals": false,
             "scanCells": false,
             "submissionCells": false,
             "weather": false,
@@ -151,6 +153,10 @@
                 "roles": []
             },
             "nests": {
+                "enabled": true,
+                "roles": []
+            },
+            "portals": {
                 "enabled": true,
                 "roles": []
             },

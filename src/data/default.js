@@ -24,6 +24,7 @@ data.min_pvp_cp = JSON.stringify(config.map.minPvpCp);
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
+data.default_show_pokemon_timers = config.map.filters.pokemonTimers;
 data.default_show_raids = config.map.filters.raids;
 data.default_show_raid_timers = config.map.filters.raidTimers;
 data.default_show_gyms = config.map.filters.gyms;
@@ -36,6 +37,7 @@ data.default_show_weather = config.map.filters.weather;
 data.default_show_scan_cells = config.map.filters.scanCells;
 data.default_show_submission_cells = config.map.filters.submissionCells;
 data.default_show_nests = config.map.filters.nests;
+data.default_show_portals = config.map.filters.portals;
 data.default_show_scan_areas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
 data.pokemon_rarity_json = JSON.stringify(config.rarity);
