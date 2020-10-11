@@ -3094,7 +3094,7 @@ function getPokestopPopupContent (pokestop) {
     content +=
         '<br>';
     if (pokestop.quest_type !== null) {
-        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + JSON.stringify(questReward.info) + ', false);return false;"><b>[Exclude]</b></a></center>';
+        content += `<center><a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><b>[Exclude]</b></a></center>`;
     }
     content +=
         '<br>' +
