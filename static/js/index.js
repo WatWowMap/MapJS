@@ -4028,6 +4028,9 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 7 && info !== undefined) {
             // Pokemon
             rewardString = 'p' + info.pokemon_id;
+            if (info.form_id) {
+                rewardString += '-' + info.form_id;
+            }
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
