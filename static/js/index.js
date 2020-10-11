@@ -2995,9 +2995,9 @@ function addPokemonFilter (pokemonId, formId, show) {
 
 function addQuestFilter (questInfo, show) {
     if (questInfo.pokemon_id > 0) {
-        let id = 'p' + pokemon_id;
+        let id = 'p' + questInfo.pokemon_id;
         if (questInfo.form_id > 0) {
-            id += '-' + form_id;
+            id += '-' + questInfo.form_id;
         }
         questFilter[id].show = show;
     }
