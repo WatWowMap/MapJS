@@ -505,9 +505,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         excludePokemonSQL += '))';
 
         if (excludedEvolutions.length === 0) {
-            excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND quest_pokemon_id IS NOT NULL)';
+            excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") IS NOT NULL)';
         } else {
-            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND quest_pokemon_id NOT IN (';
+            let sqlExcludeCreate = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") NOT IN (';
             for (let i = 0; i < excludedEvolutions.length; i++) {
                 if (i === excludedEvolutions.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -1360,7 +1360,12 @@ const getAvailableQuests = async () => {
             json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS form
         FROM pokestop WHERE quest_reward_type=7`;
     const pokemonResults = await db.query(sql);
-    sql = 'SELECT DISTINCT quest_pokemon_id AS id FROM pokestop WHERE quest_reward_type = 12';
+    sql = `
+    SELECT
+        DISTINCT json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") AS id
+    FROM pokestop
+    WHERE quest_reward_type = 12
+    `;
     const evoResults = await db.query(sql);
     return {
         pokemon: pokemonResults,
