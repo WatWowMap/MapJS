@@ -7649,6 +7649,7 @@ function registerFilterButtonCallbacks() {
 
 function setPokemonFilters(type, show) {
     const defaultPokemonFilter = {};
+    defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
     for (let i = 1; i <= maxPokemonId; i++) {
         const pkmn = masterfile.pokemon[i];
         const forms = Object.keys(pkmn.forms);
