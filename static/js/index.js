@@ -3048,7 +3048,7 @@ function getPokestopPopupContent (pokestop) {
     if (invasionExpireDate >= now) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
-        content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
+        content += '<b>Type:</b> ' + gruntType + '<br>';
         content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(invasionExpireDate) + ')<br>';
         content += getPossibleInvasionRewards(pokestop);
     }
@@ -3128,20 +3128,39 @@ function getPossibleInvasionRewards (pokestop) {
     //'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
     //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
     '<div class="grunt-encounter-wrapper text-center">';
-    if (item['second_reward'] === 'false') {
-        content += '<div>100% Encounter Chance:<br>';
+    if (item['type'] === "Giovanni") {
+        content += '<div>1st Pokemon:<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+	    <div class="m-1">2nd Pokemon:<br>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+        <div class="m-1">(100% Encounter)<br>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
         </div>`;
-    } else if (item['second_reward'] === 'true') {
-        content += '<div>85% Encounter Chance:<br>';
+    } else if (item['second_reward'] === false) {
+        content += '<div>1st Pokemon: (100% Encounter)<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
-		<div class="m-1">15% Encounter Chance:<br>`;
+	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `
-        </div>
-    </div>`;
+        content += `</div>
+        <div class="m-1">3rd Pokemon:<br>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+        </div>`;
+    } else if (item['second_reward'] === true) {
+        content += '<div>1st Pokemon: (85% Encounter)<br>';
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+	    <div class="m-1">2nd Pokemon: (15% Encounter)<br>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+        <div class="m-1">3rd Pokemon:<br>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</div>
+        </div>`;
     }
     return content;
 }
