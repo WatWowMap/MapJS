@@ -92,7 +92,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 filtered.sta_iv = result.sta_iv;
                 filtered.cp = result.cp;
                 filtered.level = result.level;
-                if (result.atk_iv && result.def_iv && result.sta_iv) {
+                if (result.atk_iv !== null && result.def_iv !== null && result.sta_iv !== null) {
                     filtered.iv = (result.atk_iv + result.def_iv + result.sta_iv) / .45;
                 }
             }
