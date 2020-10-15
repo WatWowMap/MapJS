@@ -3125,13 +3125,11 @@ function getPossibleInvasionRewards (pokestop) {
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';
     content +=
-    //'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
-    //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
-    '<div class="grunt-encounter-wrapper text-center">';
+    '<details class="grunt-encounter-wrapper text-center">';
     if (item['type'] === "Giovanni") {
-        content += '<div>1st Pokemon:<br>';
+        content += '<summary>1st Pokemon:<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
+        content += `</summary>
 	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
@@ -3140,9 +3138,9 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</div>
         </div>`;
     } else if (item['second_reward'] === false) {
-        content += '<div>1st Pokemon: (100% Encounter)<br>';
+        content += '<summary>1st Pokemon: (100% Encounter)<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
+        content += `</summary>
 	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
@@ -3151,29 +3149,18 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</div>
         </div>`;
     } else if (item['second_reward'] === true) {
-        content += '<div>1st Pokemon: (85% Encounter)<br>';
+        content += '<summary>1st Pokemon: (85% Encounter)<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
+        content += `</summary>
 	    <div class="m-1">2nd Pokemon: (15% Encounter)<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
         <div class="m-1">3rd Pokemon:<br>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
-        </div>`;
+        </details>`;
     }
     return content;
-}
-
-function showHideGruntEncounter() {
-    let container = document.getElementsByClassName('grunt-encounter-wrapper');
-    for (let i = 0; i < container.length; i++) {
-        if (container[i].style.display === 'none') {
-            container[i].style.display = 'block';
-        } else {
-            container[i].style.display = 'none';
-        }
-    }
 }
 
 function getGymPopupContent (gym) {
