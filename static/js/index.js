@@ -3125,11 +3125,11 @@ function getPossibleInvasionRewards (pokestop) {
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';
     content +=
-    '<details class="grunt-encounter-wrapper text-center">';
+    '<div class="grunt-encounter-wrapper text-center">';
     if (item['type'] === "Giovanni") {
-        content += '<summary>1st Pokemon:<br>';
+        content += '<div>1st Pokemon:<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</summary>
+        content += `</div>
 	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
@@ -3138,9 +3138,9 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</div>
         </div>`;
     } else if (item['second_reward'] === false) {
-        content += '<summary>1st Pokemon: (100% Encounter)<br>';
+        content += '<div>1st Pokemon: (100% Encounter)<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</summary>
+        content += `</div>
 	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
@@ -3149,16 +3149,16 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</div>
         </div>`;
     } else if (item['second_reward'] === true) {
-        content += '<summary>1st Pokemon: (85% Encounter)<br>';
+        content += '<div>1st Pokemon: (85% Encounter)<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</summary>
+        content += `</div>
 	    <div class="m-1">2nd Pokemon: (15% Encounter)<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
         <div class="m-1">3rd Pokemon:<br>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
-        </details>`;
+        </div>`;
     }
     return content;
 }
