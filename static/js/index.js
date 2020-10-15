@@ -3135,7 +3135,7 @@ function getPossibleInvasionRewards (pokestop) {
 	    <div class="m-1">2nd Pokemon:<br>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
-        <div class="m-1">(100% Encounter)<br>`;
+        <div class="m-1">3rd (100% Encounter)<br>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
         </div>`;
