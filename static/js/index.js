@@ -3163,42 +3163,6 @@ function getPossibleInvasionRewards (pokestop) {
     }
     return content;
 }
-        /*if (item['type'] === "Giovanni") {
-        content += '<div>1st Pokemon:<br>';
-        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-	    <div class="m-1">2nd Pokemon:<br>`;
-        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        <div class="m-1">3rd (100% Encounter)<br>`;
-        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        </div>`;
-    } else if (item['second_reward'] === false) {
-        content += '<div>1st Pokemon: (100% Encounter)<br>';
-        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-	    <div class="m-1">2nd Pokemon:<br>`;
-        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        <div class="m-1">3rd Pokemon:<br>`;
-        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        </div>`;
-    } else if (item['second_reward'] === true) {
-        content += '<div>1st Pokemon: (85% Encounter)<br>';
-        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-	    <div class="m-1">2nd Pokemon: (15% Encounter)<br>`;
-        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        <div class="m-1">3rd Pokemon:<br>`;
-        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        </div>`;
-    }
-    return content;
-}*/
 
 function getGymPopupContent (gym) {
     const now = new Date();
