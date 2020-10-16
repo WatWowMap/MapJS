@@ -3125,8 +3125,45 @@ function getPossibleInvasionRewards (pokestop) {
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';
     content +=
-    '<div class="grunt-encounter-wrapper text-center">';
+    `<div class="grunt-encounter-wrapper">
+        <table class="table-invasion">`;
     if (item['type'] === "Giovanni") {
+        content += `<tr><td>#1</td><td>`;
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td></tr>
+        <tr><td>#2</td><td>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>100%</td></tr>
+        </table></div>`;
+    } else if (item['second_reward'] === false) {
+        content += `<tr><td>#1</td><td>`;
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>100%</td></tr>
+        <tr><td>#2</td><td>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td></tr>
+        </table></div>`;
+    } else if (item['second_reward'] === true) {
+        content += `<tr><td>#1</td><td>`;
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>85%</td></tr>
+        <tr><td>#2</td><td>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>15%</td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td></tr>
+        </table></div>`;
+    }
+    return content;
+}
+        /*if (item['type'] === "Giovanni") {
         content += '<div>1st Pokemon:<br>';
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
         content += `</div>
@@ -3161,7 +3198,7 @@ function getPossibleInvasionRewards (pokestop) {
         </div>`;
     }
     return content;
-}
+}*/
 
 function getGymPopupContent (gym) {
     const now = new Date();

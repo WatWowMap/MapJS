@@ -307,6 +307,20 @@ fieldset[disabled] .btn-size.active {
     border-radius: 10px;
     border: 1px solid black;
 }
+
+.table-invasion {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bold;
+}
+.table-invasion td:first-child {
+    padding-right: 15px;
+}
+.table-invasion td:last-child {
+    padding-left: 12px;
+}
+
 .invasion-reward {
     display: inline-block;
     width: 30px;
@@ -325,7 +339,7 @@ img {
     image-rendering: crisp-edges;
     image-rendering: -webkit-optimize-contrast;
 }
-
+  
 .type-img-single {
     width: 100%;
     height: 56px;
