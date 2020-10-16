@@ -3130,10 +3130,10 @@ function getPossibleInvasionRewards (pokestop) {
     if (item['type'] === "Giovanni") {
         content += `<tr><td>#1</td><td>`;
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td></tr>
+        content += `</td><td></td></tr>
         <tr><td>#2</td><td>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td></tr>
+        content += `</td><td></td></tr>
         <tr><td>#3</td><td>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
         content += `</td><td>100%</td></tr>
@@ -3144,10 +3144,10 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</td><td>100%</td></tr>
         <tr><td>#2</td><td>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td></tr>
+        content += `</td><td></td></tr>
         <tr><td>#3</td><td>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td></tr>
+        content += `</td><td></td></tr>
         </table></div>`;
     } else if (item['second_reward'] === true) {
         content += `<tr><td>#1</td><td>`;
@@ -3158,7 +3158,7 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</td><td>15%</td></tr>
         <tr><td>#3</td><td>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td></tr>
+        content += `</td><td></td></tr>
         </table></div>`;
     }
     return content;
