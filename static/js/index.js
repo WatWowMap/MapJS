@@ -3071,10 +3071,10 @@ function getPokestopPopupContent (pokestop) {
             conditionsString += ')';
         }
 
-        content += '<b>Quest Condition:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
+        content += '<b>Quest:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
 
         $.each(pokestop.quest_rewards, function (index, reward) {
-            content += '<b>Quest Reward:</b> ' + getQuestReward(reward) + '<br>';
+            content += '<b>Reward:</b> ' + getQuestReward(reward) + '<br>';
         });
 
         content += '<br>';
@@ -3082,12 +3082,10 @@ function getPokestopPopupContent (pokestop) {
 
     const updatedDate = new Date(pokestop.updated * 1000);
     if (updatedDate) {
-        content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
+        content += '<center><small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small></center>';
     }
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
-    content +=
-        '<br>';
     if (pokestop.quest_type !== null) {
         content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
     }
@@ -3158,8 +3156,7 @@ function getPossibleInvasionRewards (pokestop) {
         content += `</td><td>15%</td></tr>
         <tr><td>#3</td><td>`;
         item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
-        content += `</td><td></td></tr>
-        </table></div>`;
+        content += `</td><td></td></tr></table></div>`;
     }
     return content;
 }
