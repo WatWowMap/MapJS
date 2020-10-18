@@ -20,7 +20,7 @@
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [143],
+            "first": [142],
             "second": [62, 143, 282],
             "third": [130, 143, 149]
         }
@@ -59,7 +59,7 @@
         "second_reward": false,
         "encounters": {
             "first": [434],
-            "second": [302, 434, 435],
+            "second": [302, 434],
             "third": [275, 435]
         }
     },
@@ -110,7 +110,7 @@
         "encounters": {
             "first": [37, 228],
             "second": [38, 229],
-            "third": [5, 229]
+            "third": [5, 59, 229]
         }
     },
     "19": {
@@ -124,7 +124,7 @@
         "encounters": {
             "first": [41, 42, 227],
             "second": [42, 123, 169],
-            "third": [130, 169]
+            "third": [130, 149, 169]
         }
     },
     "21": {
@@ -164,8 +164,8 @@
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [91],
-            "second": [459],
+            "first": [91, 459],
+            "second": [459, 460],
             "third": [131, 460]
         }
     },
@@ -201,7 +201,7 @@
         "second_reward": false,
         "encounters": {
             "first": [29, 32],
-            "second": [42, 88],
+            "second": [42, 88, 89],
             "third": [30, 33]
         }
     },
@@ -216,9 +216,9 @@
     "35": {
         "type": "Psychic",
         "grunt": "Male",
-        "second_reward": true,
+        "second_reward": false,
         "encounters": {
-            "first": [79, 202],
+            "first": [63, 79, 202],
             "second": [96, 97, 280],
             "third": [64, 97, 281]
         }
