@@ -306,7 +306,37 @@ fieldset[disabled] .btn-size.active {
     background-color: #1c1c1c;
     border-radius: 10px;
     border: 1px solid black;
+    text-align: center;
+    padding: 5px;
 }
+
+.last-updated {
+    text-align: center;
+    font-size: x-small;
+    padding: 5px;
+}
+
+.exclude {
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    padding: 5px;
+}
+.table-invasion {
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+.table-invasion td:first-child {
+    padding-right: 15px;
+}
+.table-invasion td:nth-child(2) {
+    width: 100px
+}
+.table-invasion td:last-child {
+    padding-left: 12px;
+}
+
 .invasion-reward {
     display: inline-block;
     width: 30px;

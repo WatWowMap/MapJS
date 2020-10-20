@@ -2895,9 +2895,7 @@ function getPokemonPopupContent (pokemon) {
     '<div class="text-center">' +
         (showPokemonTimers ? '<a id="h' + pokemon.id + '" title="Show Despawn Timer" href="#" onclick="addPokemonTimer(\'' + pokemon.id + '\');return false;"><b>[Show Timer]</b></a>&nbsp;' : '') +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
-        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><b>[Exclude]</b></a>' +
-        '<br>' +
-        '<br>' +
+        '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><div class="exclude">[Exclude]</div></a>' +
         '<div class="row">' +
             '<div class="col">' +
                 '<a href="https://www.google.com/maps/place/' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Google Maps">' +
@@ -3048,7 +3046,7 @@ function getPokestopPopupContent (pokestop) {
     if (invasionExpireDate >= now) {
         const gruntType = getGruntName(pokestop.grunt_type);
         content += '<b>Team Rocket Invasion</b><br>';
-        content += '<b>Grunt Type:</b> ' + gruntType + '<br>';
+        content += '<b>Type:</b> ' + gruntType + '<br>';
         content += '<b>End Time:</b> ' + invasionExpireDate.toLocaleTimeString() + ' (' + getTimeUntil(invasionExpireDate) + ')<br>';
         content += getPossibleInvasionRewards(pokestop);
     }
@@ -3071,28 +3069,23 @@ function getPokestopPopupContent (pokestop) {
             conditionsString += ')';
         }
 
-        content += '<b>Quest Condition:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
+        content += '<b>Quest:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
 
         $.each(pokestop.quest_rewards, function (index, reward) {
-            content += '<b>Quest Reward:</b> ' + getQuestReward(reward) + '<br>';
+            content += '<b>Reward:</b> ' + getQuestReward(reward) + '<br>';
         });
-
-        content += '<br>';
     }
 
     const updatedDate = new Date(pokestop.updated * 1000);
     if (updatedDate) {
-        content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
+        content += '<div class="last-updated"><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')</div>';
     }
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
-    content +=
-        '<br>';
     if (pokestop.quest_type !== null) {
-        content += '<center><a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><b>[Exclude]</b></a></center>';
+        content += '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><div class="exclude">[Exclude]</div></a>';
     }
     content +=
-        '<br>' +
         '<div class="row text-center">' +
             '<br>' +
             '<div class="col">' +
@@ -3125,36 +3118,42 @@ function getPossibleInvasionRewards (pokestop) {
     let item = gruntTypes[pokestop.grunt_type];
     let content = '';
     content +=
-    //'<input class="button" name="button" type="button" onclick="showHideGruntEncounter()" value="Show / Hide Possible Rewards" style="margin-top:2px; outline:none; font-size:9pt">' +
-    //'<div class="grunt-encounter-wrapper text-center" style="display:none; background-color:#1f1f1f; border-radius:10px; border:1px solid black;">'
-    '<div class="grunt-encounter-wrapper text-center">';
-    if (item['second_reward'] === 'false') {
-        content += '<div>100% Encounter Chance:<br>';
+    `<div class="grunt-encounter-wrapper">
+        <table class="table-invasion">`;
+    if (item['type'] === "Giovanni") {
+        content += `<tr><td>#1</td><td>`;
         item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-        </div>`;
-    } else if (item['second_reward'] === 'true') {
-        content += '<div>85% Encounter Chance:<br>';
-        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
-        content += `</div>
-		<div class="m-1">15% Encounter Chance:<br>`;
+        content += `</td><td></td></tr>
+        <tr><td>#2</td><td>`;
         item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
-        content += `
-        </div>
-    </div>`;
+        content += `</td><td></td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>100%</td></tr>
+        </table></div>`;
+    } else if (item['second_reward'] === false) {
+        content += `<tr><td>#1</td><td>`;
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>100%</td></tr>
+        <tr><td>#2</td><td>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td></td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td></td></tr>
+        </table></div>`;
+    } else if (item['second_reward'] === true) {
+        content += `<tr><td>#1</td><td>`;
+        item['encounters']['first'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>85%</td></tr>
+        <tr><td>#2</td><td>`;
+        item['encounters']['second'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td>15%</td></tr>
+        <tr><td>#3</td><td>`;
+        item['encounters']['third'].forEach(data => content += makeShadowPokemon(data));
+        content += `</td><td></td></tr></table></div>`;
     }
     return content;
-}
-
-function showHideGruntEncounter() {
-    let container = document.getElementsByClassName('grunt-encounter-wrapper');
-    for (let i = 0; i < container.length; i++) {
-        if (container[i].style.display === 'none') {
-            container[i].style.display = 'block';
-        } else {
-            container[i].style.display = 'none';
-        }
-    }
 }
 
 function getGymPopupContent (gym) {
@@ -3344,10 +3343,10 @@ function getGymPopupContent (gym) {
     const updatedDate = new Date(gym.updated * 1000);
     const modifiedDate = new Date(gym.last_modified_timestamp * 1000);
     if (updatedDate) {
-        content += '<small><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></small>';
+        content += '<div class="last-updated"><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')<br></div>';
     }
     if (modifiedDate) {
-        content += '<small><b>Last Modified:</b> ' + modifiedDate.toLocaleDateString() + ' ' + modifiedDate.toLocaleTimeString() + ' (' + getTimeSince(modifiedDate) + ')<br></small>';
+        content += '<div class="last-updated"><b>Last Modified:</b> ' + modifiedDate.toLocaleDateString() + ' ' + modifiedDate.toLocaleTimeString() + ' (' + getTimeSince(modifiedDate) + ')<br></div>';
     }
 
     content +=
@@ -3454,7 +3453,7 @@ function getNestPopupContent(nest) {
         Average: <b>${nest.pokemon_avg.toLocaleString()}</b><br>
         Count: <b>${nest.pokemon_count.toLocaleString()}</b><br>
         <br>
-        <small>Last Updated: <b>${lastUpdated.toLocaleString()}</b></small><br>
+        <div class="last-updated"><b>Last Updated: </b>${lastUpdated.toLocaleString()}</div><br>
     </center>
     `;
     return content;
@@ -3469,7 +3468,7 @@ function getPortalPopupContent(portal) {
         <img src="${portal.url}" class="portal-image-holder" /><br>
         <br>
         <div>
-            <small><b>Last Updated:</b> ${updated}</small><br>
+            <div class="last-updated"><b>Last Updated:</b> ${updated}</div><br>
             <small><b>Date Imported:</b> ${imported}</small>
         </div>
         <br>
@@ -7649,6 +7648,7 @@ function registerFilterButtonCallbacks() {
 
 function setPokemonFilters(type, show) {
     const defaultPokemonFilter = {};
+    defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
     for (let i = 1; i <= maxPokemonId; i++) {
         const pkmn = masterfile.pokemon[i];
         const forms = Object.keys(pkmn.forms);
