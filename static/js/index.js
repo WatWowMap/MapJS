@@ -2896,23 +2896,7 @@ function getPokemonPopupContent (pokemon) {
         (showPokemonTimers ? '<a id="h' + pokemon.id + '" title="Show Despawn Timer" href="#" onclick="addPokemonTimer(\'' + pokemon.id + '\');return false;"><b>[Show Timer]</b></a>&nbsp;' : '') +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
         '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><div class="exclude">[Exclude]</div></a>' +
-        '<div class="row">' +
-            '<div class="col">' +
-                '<a href="https://www.google.com/maps/place/' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Google Maps">' +
-                    `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://maps.apple.com/maps?daddr=' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Apple Maps">' +
-                    `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://www.waze.com/ul?ll=' + pokemon.lat + ',' + pokemon.lon + '&navigate=yes" title="Open in Waze">' +
-                    `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-        '</div>' +
+        getNavigation(pokemon) +
         // Only show scouting option if enabled
         (
             enableScouting
@@ -3085,26 +3069,7 @@ function getPokestopPopupContent (pokestop) {
     if (pokestop.quest_type !== null) {
         content += '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><div class="exclude">[Exclude]</div></a>';
     }
-    content +=
-        '<div class="row text-center">' +
-            '<br>' +
-            '<div class="col">' +
-                '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
-                    `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://maps.apple.com/maps?daddr=' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Apple Maps">' +
-                    `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://www.waze.com/ul?ll=' + pokestop.lat + ',' + pokestop.lon + '&navigate=yes" title="Open in Waze">' +
-                    `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-        '</div>' +
-    '</div>';
+    content += getNavigation(pokestop);
     return content;
 }
 
@@ -3348,26 +3313,7 @@ function getGymPopupContent (gym) {
     if (modifiedDate) {
         content += '<div class="last-updated"><b>Last Modified:</b> ' + modifiedDate.toLocaleDateString() + ' ' + modifiedDate.toLocaleTimeString() + ' (' + getTimeSince(modifiedDate) + ')<br></div>';
     }
-
-    content +=
-    '<br>' +
-    '<div class="row text-center">' +
-        '<div class="col">' +
-            '<a href="https://www.google.com/maps/place/' + gym.lat + ',' + gym.lon + '" title="Open in Google Maps">' +
-                `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-        '<div class="col">' +
-            '<a href="https://maps.apple.com/maps?daddr=' + gym.lat + ',' + gym.lon + '" title="Open in Apple Maps">' +
-                `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-        '<div class="col">' +
-            '<a href="https://www.waze.com/ul?ll=' + gym.lat + ',' + gym.lon + '&navigate=yes" title="Open in Waze">' +
-                `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-    '</div>';
+    content += getNavigation(gym);
     return content;
 }
 
@@ -3470,27 +3416,7 @@ function getPortalPopupContent(portal) {
         <div>
             <div class="last-updated"><b>Last Updated:</b> ${updated}</div><br>
             <small><b>Date Imported:</b> ${imported}</small>
-        </div>
-        <br>
-        <div class="row text-center">
-            <br>
-            <div class="col">
-                <a href="https://www.google.com/maps/place/${portal.lat},${portal.lon}" title="Open in Google Maps">
-                    <img src="/img/navigation/gmaps.png" height="32" width="32">
-                </a>
-            </div>
-            <div class="col">
-                <a href="https://maps.apple.com/maps?daddr=${portal.lat},${portal.lon}" title="Open in Apple Maps">
-                    <img src="/img/navigation/applemaps.png" height="32" width="32">
-                </a>
-            </div>
-            <div class="col">
-                <a href="https://www.waze.com/ul?ll=${portal.lat},${portal.lon}&navigate=yes" title="Open in Waze">
-                    <img src="/img/navigation/othermaps.png" height="32" width="32">
-                </a>
-            </div>
-        </div>
-    </div>
+        </div>` + getNavigation(portal) + `
     </center>
     `;
     return content;
@@ -3506,6 +3432,26 @@ function getScanAreaPopupContent(name, size) {
     return content;
 }
 
+function getNavigation(data) {
+    return '<br>' +
+    '<div class="row text-center">' +
+        '<div class="col">' +
+            '<a href="https://www.google.com/maps/place/' + data.lat + ',' + data.lon + '" title="Open in Google Maps" target="_blank">' +
+                `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+        '<div class="col">' +
+            '<a href="https://maps.apple.com/maps?daddr=' + data.lat + ',' + data.lon + '" title="Open in Apple Maps" target="_blank">' +
+                `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+        '<div class="col">' +
+            '<a href="https://www.waze.com/ul?ll=' + data.lat + ',' + data.lon + '&navigate=yes" title="Open in Waze" target="_blank">' +
+                `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+    '</div>';
+}
 
 // MARK: - Translation
 
