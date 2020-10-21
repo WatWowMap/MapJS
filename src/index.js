@@ -3,7 +3,6 @@
 const path = require('path');
 const compression = require('compression');
 const express = require('express');
-//const cookieSession = require('cookie-session');
 const session = require('express-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
