@@ -17,13 +17,21 @@
     font: bold 18px 'Lucida Console', Monaco, monospace;
     text-indent: 1px;
 }
+.leaflet-control-attribution.leaflet-control {
+    max-height: 15px;
+}
 .leaflet-tooltip {
     font: bold 12px, Monaco, monospace;
+    font-weight: bold;
     border: none;
     border-color: none;
     box-shadow: none;
     background: none;
     max-height: 20px;
+    padding: 0px 4px 0px 4px !important;
+    background-color: gray;
+    border-radius: .25rem !important;
+    color: white;
 }
 .leaflet-container a.leaflet-popup-close-button {
   width: 28px;
@@ -195,24 +203,6 @@ fieldset[disabled] .btn-size.active {
     background-color: #FFFFFF;
 }
 
-.raid-timer {
-    background-color: gray;
-    color: white;
-    font-weight: bold;
-}
-
-.invasion-timer {
-    background-color: gray;
-    border-radius: .25rem !important;
-    color: white;
-    font-weight: bold;
-    font: bold 12px, Monaco, monospace;
-    border: none;
-    border-color: none;
-    box-shadow: none;
-    max-height: 20px;
-}
-
 .center-vertical {
     margin-top: auto;
     margin-bottom: auto;
@@ -272,6 +262,10 @@ fieldset[disabled] .btn-size.active {
     width: 100%;
     height: 100%;
 }
+.portal-image-holder {
+    width: 175px;
+    height: auto;
+}
 .pokemon-popup-image-holder > img,
 .filter-image-holder > img,
 .marker-image-holder > img,
@@ -312,7 +306,37 @@ fieldset[disabled] .btn-size.active {
     background-color: #1c1c1c;
     border-radius: 10px;
     border: 1px solid black;
+    text-align: center;
+    padding: 5px;
 }
+
+.last-updated {
+    text-align: center;
+    font-size: x-small;
+    padding: 5px;
+}
+
+.exclude {
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    padding: 5px;
+}
+.table-invasion {
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+.table-invasion td:first-child {
+    padding-right: 15px;
+}
+.table-invasion td:nth-child(2) {
+    width: 100px
+}
+.table-invasion td:last-child {
+    padding-left: 12px;
+}
+
 .invasion-reward {
     display: inline-block;
     width: 30px;
@@ -671,6 +695,7 @@ img {
 .theme-dark #filtersModal,
 .theme-dark #searchModal,
 .theme-dark #mapstyleModal,
+.theme-dark #iconstyleModal,
 .theme-dark .close {
     color: white;
 }
