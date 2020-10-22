@@ -427,7 +427,7 @@ const getData = async (perms, filter) => {
             raidData.push({
                 'id': {
                     'formatted': utils.zeroPad(pokemonId, 3),
-                    'sort': i+200
+                    'sort': parseInt(pokemonId) * 100000 + parseInt(poke.form_id)
                 },
                 'name': i18n.__('poke_' + pokemonId) + (formId === '0' ? '' : ' ' + formName),
                 'image': {
@@ -657,16 +657,22 @@ const getData = async (perms, filter) => {
 
         // Pokemon
         for (let i = 0; i < rewards.pokemon.length; i++) {
-            const pokeId = rewards.pokemon[i];
+            const poke = rewards.pokemon[i];
+            const pokemonId = parseInt(poke.id);
+            const form = parseInt(poke.form);
+            const pokeId = form ? `${pokemonId}-${form}` : poke.id;
+            // TODO: Get form name from master file since locale form ids are off
+            let formName = i18n.__('form_' + form);
             questData.push({
                 'id': {
-                    'formatted': utils.zeroPad(pokeId, 3),
-                    'sort': pokeId + 5000
+                    'formatted': utils.zeroPad(pokemonId, 3),
+                    'sort': pokemonId * 100000 + form
                 },
-                'name': i18n.__('poke_' + pokeId),
+                'name': i18n.__('poke_' + pokemonId) + (form ? ' ' + formName : ''),
                 'image': {
                     type: 'pokemon',
-                    pokemonId: pokeId
+                    pokemonId: pokemonId,
+                    form: form
                 },
                 'filter': generateShowHideButtons(pokeId, 'quest-pokemon'),
                 'size': generateSizeButtons(pokeId, 'quest-pokemon'),

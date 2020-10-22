@@ -690,7 +690,8 @@ function loadStorage () {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -717,7 +718,8 @@ function loadStorage () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id] === undefined) {
                 questFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -1765,7 +1767,8 @@ function loadData () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id].show === false) {
                 questFilterExclude.push('p' + id);
             }
@@ -2972,20 +2975,22 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
-function addQuestFilter (pokemonId, itemId, show) {
-    if (pokemonId > 0) {
-        questFilter['p' + pokemonId].show = show;
+function addQuestFilter (questInfo, show) {
+    if (questInfo.pokemon_id > 0) {
+        let id = 'p' + questInfo.pokemon_id;
+        if (questInfo.form_id > 0) {
+            id += '-' + questInfo.form_id;
+        }
+        questFilter[id].show = show;
     }
-    if (itemId > 0) {
-        questFilter['i' + itemId].show = show;
+    if (questInfo.item_id > 0) {
+        questFilter['i' + questInfo.item_id].show = show;
     }
     store('quest_filter', JSON.stringify(questFilter));
 
     $.each(pokestopMarkers, function (index, pokestop) {
         const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
-        const rewardPokemonId = reward.info.pokemon_id || 0;
-        const rewardItemId = reward.info.item_id || 0;
-        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+        if (questInfo.pokemon_id === reward.info.pokemon_id && questInfo.form_id === reward.info.form_id && questInfo.item_id === reward.info.item_id) {
             map.removeLayer(pokestop.marker);
         }
     });
@@ -3067,7 +3072,7 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     if (pokestop.quest_type !== null) {
-        content += '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><div class="exclude">[Exclude]</div></a>';
+        content += `<a title="Filter Quest" href="#" onclick="addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;"><div class="exclude">[Exclude]</div></a>`;
     }
     content += getNavigation(pokestop);
     return content;
@@ -3471,9 +3476,9 @@ function getPokemonType (typeId) {
     return i18n('poke_type_' + typeId);
 }
 
-function getFormName (formId) {
+function getFormName (formId, showNormal = false) {
     let form = i18n('form_' + formId);
-    return form !== 'Normal' ? form : ''; // TODO: Localize
+    return showNormal || form !== 'Normal' ? form : ''; // TODO: Localize
 }
 
 function getMoveName (moveId) {
@@ -3539,7 +3544,7 @@ function getQuestReward (reward) {
     } else if (id === 7 && info && info.pokemon_id) {
         let string;
         if (info.form_id !== 0 && info.form_id !== null) {
-            string = getFormName(info.form_id) + ' ' + getPokemonName(info.pokemon_id);
+            string = getFormName(info.form_id, true) + ' ' + getPokemonName(info.pokemon_id);
         } else {
             string = getPokemonName(info.pokemon_id);
         }
@@ -3970,6 +3975,9 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 7 && info !== undefined) {
             // Pokemon
             rewardString = 'p' + info.pokemon_id;
+            if (info.form_id) {
+                rewardString += '-' + info.form_id;
+            }
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
@@ -7263,7 +7271,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -7290,7 +7299,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
         }
         $.each(availableItems, function (index, itemId) {
