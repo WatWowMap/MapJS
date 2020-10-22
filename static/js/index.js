@@ -690,7 +690,8 @@ function loadStorage () {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -717,7 +718,8 @@ function loadStorage () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id] === undefined) {
                 questFilter['p' + id] = { show: true, size: 'normal' };
             }
@@ -1765,7 +1767,8 @@ function loadData () {
         }
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             if (questFilter['p' + id].show === false) {
                 questFilterExclude.push('p' + id);
             }
@@ -2896,23 +2899,7 @@ function getPokemonPopupContent (pokemon) {
         (showPokemonTimers ? '<a id="h' + pokemon.id + '" title="Show Despawn Timer" href="#" onclick="addPokemonTimer(\'' + pokemon.id + '\');return false;"><b>[Show Timer]</b></a>&nbsp;' : '') +
         '<a id="h' + pokemon.id + '" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden(\'' + pokemon.id + '\');return false;"><b>[Hide]</b></a>&nbsp;' +
         '<a title="Filter Pokemon" href="#" onclick="addPokemonFilter(' + pokemon.pokemon_id + ', ' + pokemon.form + ', false);return false;"><div class="exclude">[Exclude]</div></a>' +
-        '<div class="row">' +
-            '<div class="col">' +
-                '<a href="https://www.google.com/maps/place/' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Google Maps">' +
-                    `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://maps.apple.com/maps?daddr=' + pokemon.lat + ',' + pokemon.lon + '" title="Open in Apple Maps">' +
-                    `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://www.waze.com/ul?ll=' + pokemon.lat + ',' + pokemon.lon + '&navigate=yes" title="Open in Waze">' +
-                    `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-        '</div>' +
+        getNavigation(pokemon) +
         // Only show scouting option if enabled
         (
             enableScouting
@@ -2988,20 +2975,22 @@ function addPokemonFilter (pokemonId, formId, show) {
     });
 }
 
-function addQuestFilter (pokemonId, itemId, show) {
-    if (pokemonId > 0) {
-        questFilter['p' + pokemonId].show = show;
+function addQuestFilter (questInfo, show) {
+    if (questInfo.pokemon_id > 0) {
+        let id = 'p' + questInfo.pokemon_id;
+        if (questInfo.form_id > 0) {
+            id += '-' + questInfo.form_id;
+        }
+        questFilter[id].show = show;
     }
-    if (itemId > 0) {
-        questFilter['i' + itemId].show = show;
+    if (questInfo.item_id > 0) {
+        questFilter['i' + questInfo.item_id].show = show;
     }
     store('quest_filter', JSON.stringify(questFilter));
 
     $.each(pokestopMarkers, function (index, pokestop) {
         const reward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
-        const rewardPokemonId = reward.info.pokemon_id || 0;
-        const rewardItemId = reward.info.item_id || 0;
-        if (rewardPokemonId === pokemonId && rewardItemId === itemId) {
+        if (questInfo.pokemon_id === reward.info.pokemon_id && questInfo.form_id === reward.info.form_id && questInfo.item_id === reward.info.item_id) {
             map.removeLayer(pokestop.marker);
         }
     });
@@ -3083,28 +3072,9 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     if (pokestop.quest_type !== null) {
-        content += '<a title="Filter Quest" href="#" onclick="addQuestFilter(' + ((questReward.info || {}).pokemon_id || 0) + ', ' + ((questReward.info || {}).item_id || 0) + ', false);return false;"><div class="exclude">[Exclude]</div></a>';
+        content += `<a title="Filter Quest" href="#" onclick="addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;"><div class="exclude">[Exclude]</div></a>`;
     }
-    content +=
-        '<div class="row text-center">' +
-            '<br>' +
-            '<div class="col">' +
-                '<a href="https://www.google.com/maps/place/' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Google Maps">' +
-                    `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://maps.apple.com/maps?daddr=' + pokestop.lat + ',' + pokestop.lon + '" title="Open in Apple Maps">' +
-                    `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-            '<div class="col">' +
-                '<a href="https://www.waze.com/ul?ll=' + pokestop.lat + ',' + pokestop.lon + '&navigate=yes" title="Open in Waze">' +
-                    `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-                '</a>' +
-            '</div>' +
-        '</div>' +
-    '</div>';
+    content += getNavigation(pokestop);
     return content;
 }
 
@@ -3334,8 +3304,8 @@ function getGymPopupContent (gym) {
     if (isRaid) {
         content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntil(raidEndDate) + ')<br>';
         if (gym.raid_pokemon_id > 0) {
-            content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
-            content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br><br>`;
+            content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
+            content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
     }
     content += '</div>';
@@ -3348,26 +3318,7 @@ function getGymPopupContent (gym) {
     if (modifiedDate) {
         content += '<div class="last-updated"><b>Last Modified:</b> ' + modifiedDate.toLocaleDateString() + ' ' + modifiedDate.toLocaleTimeString() + ' (' + getTimeSince(modifiedDate) + ')<br></div>';
     }
-
-    content +=
-    '<br>' +
-    '<div class="row text-center">' +
-        '<div class="col">' +
-            '<a href="https://www.google.com/maps/place/' + gym.lat + ',' + gym.lon + '" title="Open in Google Maps">' +
-                `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-        '<div class="col">' +
-            '<a href="https://maps.apple.com/maps?daddr=' + gym.lat + ',' + gym.lon + '" title="Open in Apple Maps">' +
-                `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-        '<div class="col">' +
-            '<a href="https://www.waze.com/ul?ll=' + gym.lat + ',' + gym.lon + '&navigate=yes" title="Open in Waze">' +
-                `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
-            '</a>' +
-        '</div>' +
-    '</div>';
+    content += getNavigation(gym);
     return content;
 }
 
@@ -3470,27 +3421,7 @@ function getPortalPopupContent(portal) {
         <div>
             <div class="last-updated"><b>Last Updated:</b> ${updated}</div><br>
             <small><b>Date Imported:</b> ${imported}</small>
-        </div>
-        <br>
-        <div class="row text-center">
-            <br>
-            <div class="col">
-                <a href="https://www.google.com/maps/place/${portal.lat},${portal.lon}" title="Open in Google Maps">
-                    <img src="/img/navigation/gmaps.png" height="32" width="32">
-                </a>
-            </div>
-            <div class="col">
-                <a href="https://maps.apple.com/maps?daddr=${portal.lat},${portal.lon}" title="Open in Apple Maps">
-                    <img src="/img/navigation/applemaps.png" height="32" width="32">
-                </a>
-            </div>
-            <div class="col">
-                <a href="https://www.waze.com/ul?ll=${portal.lat},${portal.lon}&navigate=yes" title="Open in Waze">
-                    <img src="/img/navigation/othermaps.png" height="32" width="32">
-                </a>
-            </div>
-        </div>
-    </div>
+        </div>` + getNavigation(portal) + `
     </center>
     `;
     return content;
@@ -3506,6 +3437,26 @@ function getScanAreaPopupContent(name, size) {
     return content;
 }
 
+function getNavigation(data) {
+    return '<br>' +
+    '<div class="row text-center">' +
+        '<div class="col">' +
+            '<a href="https://www.google.com/maps/place/' + data.lat + ',' + data.lon + '" title="Open in Google Maps" target="_blank">' +
+                `<img src="/img/navigation/gmaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+        '<div class="col">' +
+            '<a href="https://maps.apple.com/maps?daddr=' + data.lat + ',' + data.lon + '" title="Open in Apple Maps" target="_blank">' +
+                `<img src="/img/navigation/applemaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+        '<div class="col">' +
+            '<a href="https://www.waze.com/ul?ll=' + data.lat + ',' + data.lon + '&navigate=yes" title="Open in Waze" target="_blank">' +
+                `<img src="/img/navigation/othermaps.png" height="32" width="32">` +
+            '</a>' +
+        '</div>' +
+    '</div>';
+}
 
 // MARK: - Translation
 
@@ -3525,9 +3476,9 @@ function getPokemonType (typeId) {
     return i18n('poke_type_' + typeId);
 }
 
-function getFormName (formId) {
+function getFormName (formId, showNormal = false) {
     let form = i18n('form_' + formId);
-    return form !== 'Normal' ? form : ''; // TODO: Localize
+    return showNormal || form !== 'Normal' ? form : ''; // TODO: Localize
 }
 
 function getMoveName (moveId) {
@@ -3593,7 +3544,7 @@ function getQuestReward (reward) {
     } else if (id === 7 && info && info.pokemon_id) {
         let string;
         if (info.form_id !== 0 && info.form_id !== null) {
-            string = getFormName(info.form_id) + ' ' + getPokemonName(info.pokemon_id);
+            string = getFormName(info.form_id, true) + ' ' + getPokemonName(info.pokemon_id);
         } else {
             string = getPokemonName(info.pokemon_id);
         }
@@ -4024,6 +3975,9 @@ function getPokestopMarkerIcon (pokestop, ts) {
         } else if (id === 7 && info !== undefined) {
             // Pokemon
             rewardString = 'p' + info.pokemon_id;
+            if (info.form_id) {
+                rewardString += '-' + info.form_id;
+            }
             // TODO: evolution https://github.com/versx/DataParser/issues/10
             iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
         } else if (id === 8) {
@@ -5789,12 +5743,17 @@ function convertAreaToSqkm(value) {
     return value * 1.0E-6;
 }
 
-function getCpAtLevel(id, level, isMax) {
+function getCpAtLevel(id, form, level, isMax) {
     if (!masterfile.pokemon[id]) {
         return 0;
     }
+    let pkmn = [];
     if (cpMultipliers[level]) {
-        let pkmn = masterfile.pokemon[id];
+        if (form === 0 || typeof masterfile.pokemon[id].forms[form].attack === 'undefined') {
+            pkmn = masterfile.pokemon[id];
+        } else {
+            pkmn = masterfile.pokemon[id].forms[form];
+        }
         let multiplier = cpMultipliers[level];
         let increment = isMax ? 15 : 10;
         let minAtk = ((pkmn.attack + increment) * multiplier) || 0;
@@ -7312,7 +7271,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: true, size: 'normal' };
         }
         $.each(availableItems, function (index, itemId) {
@@ -7339,7 +7299,8 @@ function registerFilterButtonCallbacks() {
         defaultQuestFilter['stardust-count'] = { on: false, filter: '0' };
         let i;
         for (i = 0; i < availableQuestRewards.pokemon.length; i++) {
-            let id = availableQuestRewards.pokemon[i];
+            let pokemon = availableQuestRewards.pokemon[i];
+            let id = parseInt(pokemon.form) ? `${pokemon.id}-${pokemon.form}` : pokemon.id;
             defaultQuestFilter['p' + id] = { show: false, size: questFilterNew['p' + id].size };
         }
         $.each(availableItems, function (index, itemId) {
