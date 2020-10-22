@@ -3334,8 +3334,8 @@ function getGymPopupContent (gym) {
     if (isRaid) {
         content += '<b>Raid End:</b> ' + raidEndDate.toLocaleTimeString() + ' (' + getTimeUntil(raidEndDate) + ')<br>';
         if (gym.raid_pokemon_id > 0) {
-            content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, true)}<br>`;
-            content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, 25, false)}<br><br>`;
+            content += `<b>Perfect CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
+            content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
     }
     content += '</div>';
@@ -5789,12 +5789,17 @@ function convertAreaToSqkm(value) {
     return value * 1.0E-6;
 }
 
-function getCpAtLevel(id, level, isMax) {
+function getCpAtLevel(id, form, level, isMax) {
     if (!masterfile.pokemon[id]) {
         return 0;
     }
+    let pkmn = [];
     if (cpMultipliers[level]) {
-        let pkmn = masterfile.pokemon[id];
+        if (form === 0 || typeof masterfile.pokemon[id].forms[form].attack === 'undefined') {
+            pkmn = masterfile.pokemon[id];
+        } else {
+            pkmn = masterfile.pokemon[id].forms[form];
+        }
         let multiplier = cpMultipliers[level];
         let increment = isMax ? 15 : 10;
         let minAtk = ((pkmn.attack + increment) * multiplier) || 0;
