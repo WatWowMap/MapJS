@@ -3348,7 +3348,6 @@ function getGymPopupContent (gym) {
     if (modifiedDate) {
         content += '<div class="last-updated"><b>Last Modified:</b> ' + modifiedDate.toLocaleDateString() + ' ' + modifiedDate.toLocaleTimeString() + ' (' + getTimeSince(modifiedDate) + ')<br></div>';
     }
-    
 
     content +=
     '<br>' +
