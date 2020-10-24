@@ -628,8 +628,7 @@ function loadStorage () {
             // TODO: Default value
             defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         }
-        for (let i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
+        for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
@@ -1717,8 +1716,7 @@ function loadData () {
     const pokemonFilterExclude = [];
     const pokemonFilterIV = {};
     if (showPokemon) {
-        for (let i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
+        for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
@@ -7156,9 +7154,7 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
-        let i;
-        for (i = 1; i <= maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
+        for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
@@ -7610,8 +7606,7 @@ function registerFilterButtonCallbacks() {
 function setPokemonFilters(type, show) {
     const defaultPokemonFilter = {};
     defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
-    for (let i = 1; i <= maxPokemonId; i++) {
-        const pkmn = masterfile.pokemon[i];
+    for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
         const forms = Object.keys(pkmn.forms);
         for (let j = 0; j < forms.length; j++) {
             const formId = forms[j];

@@ -73,8 +73,6 @@ const handlePage = async (req, res) => {
     data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
     data.tableClass = config.style === 'dark' ? 'table-dark' : '';
 
-    data.max_pokemon_id = config.map.maxPokemonId;
-
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);

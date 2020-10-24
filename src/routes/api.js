@@ -343,8 +343,7 @@ const getData = async (perms, filter) => {
             'types': null
         });
 
-        for (let i = 1; i < config.map.maxPokemonId; i++) {
-            const pkmn = masterfile.pokemon[i];
+        for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
