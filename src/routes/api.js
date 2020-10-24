@@ -4,7 +4,6 @@ const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../services/config.js');
 const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 
