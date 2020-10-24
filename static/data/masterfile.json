@@ -628,6 +628,7 @@
 					"proto": "CATERPIE_PURIFIED"
 				}
 			},
+			"default_form_id": 953,
 			"pokedex_id": 10,
 			"types": [
 				"Bug"
@@ -674,6 +675,7 @@
 					"proto": "METAPOD_PURIFIED"
 				}
 			},
+			"default_form_id": 956,
 			"pokedex_id": 11,
 			"types": [
 				"Bug"
@@ -720,6 +722,7 @@
 					"proto": "BUTTERFREE_PURIFIED"
 				}
 			},
+			"default_form_id": 959,
 			"pokedex_id": 12,
 			"types": [
 				"Bug",
@@ -957,6 +960,7 @@
 					"proto": "PIDGEY_PURIFIED"
 				}
 			},
+			"default_form_id": 962,
 			"pokedex_id": 16,
 			"types": [
 				"Normal",
@@ -1006,6 +1010,7 @@
 					"proto": "PIDGEOTTO_PURIFIED"
 				}
 			},
+			"default_form_id": 965,
 			"pokedex_id": 17,
 			"types": [
 				"Normal",
@@ -1055,6 +1060,7 @@
 					"proto": "PIDGEOT_PURIFIED"
 				}
 			},
+			"default_form_id": 968,
 			"pokedex_id": 18,
 			"types": [
 				"Normal",
@@ -1262,6 +1268,7 @@
 					"proto": "SPEAROW_PURIFIED"
 				}
 			},
+			"default_form_id": 971,
 			"pokedex_id": 21,
 			"types": [
 				"Normal",
@@ -1311,6 +1318,7 @@
 					"proto": "FEAROW_PURIFIED"
 				}
 			},
+			"default_form_id": 974,
 			"pokedex_id": 22,
 			"types": [
 				"Normal",
@@ -2124,6 +2132,7 @@
 					"proto": "CLEFAIRY_PURIFIED"
 				}
 			},
+			"default_form_id": 981,
 			"pokedex_id": 35,
 			"types": [
 				"Fairy"
@@ -2172,6 +2181,7 @@
 					"proto": "CLEFABLE_PURIFIED"
 				}
 			},
+			"default_form_id": 984,
 			"pokedex_id": 36,
 			"types": [
 				"Fairy"
@@ -2373,6 +2383,7 @@
 					"proto": "JIGGLYPUFF_PURIFIED"
 				}
 			},
+			"default_form_id": 987,
 			"pokedex_id": 39,
 			"types": [
 				"Normal",
@@ -2422,6 +2433,7 @@
 					"proto": "WIGGLYTUFF_PURIFIED"
 				}
 			},
+			"default_form_id": 990,
 			"pokedex_id": 40,
 			"types": [
 				"Normal",
@@ -2795,6 +2807,7 @@
 					"proto": "PARAS_PURIFIED"
 				}
 			},
+			"default_form_id": 993,
 			"pokedex_id": 46,
 			"types": [
 				"Bug",
@@ -2844,6 +2857,7 @@
 					"proto": "PARASECT_PURIFIED"
 				}
 			},
+			"default_form_id": 996,
 			"pokedex_id": 47,
 			"types": [
 				"Bug",
@@ -3444,6 +3458,7 @@
 					"proto": "MANKEY_PURIFIED"
 				}
 			},
+			"default_form_id": 999,
 			"pokedex_id": 56,
 			"types": [
 				"Fighting"
@@ -3492,6 +3507,7 @@
 					"proto": "PRIMEAPE_PURIFIED"
 				}
 			},
+			"default_form_id": 1002,
 			"pokedex_id": 57,
 			"types": [
 				"Fighting"
@@ -4380,6 +4396,7 @@
 					"proto": "TENTACOOL_PURIFIED"
 				}
 			},
+			"default_form_id": 1005,
 			"pokedex_id": 72,
 			"types": [
 				"Water",
@@ -4429,6 +4446,7 @@
 					"proto": "TENTACRUEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1008,
 			"pokedex_id": 73,
 			"types": [
 				"Water",
@@ -5215,6 +5233,7 @@
 					"proto": "DODUO_PURIFIED"
 				}
 			},
+			"default_form_id": 1026,
 			"pokedex_id": 84,
 			"types": [
 				"Normal",
@@ -5264,6 +5283,7 @@
 					"proto": "DODRIO_PURIFIED"
 				}
 			},
+			"default_form_id": 1029,
 			"pokedex_id": 85,
 			"types": [
 				"Normal",
@@ -5309,6 +5329,7 @@
 					"proto": "SEEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1032,
 			"pokedex_id": 86,
 			"types": [
 				"Water"
@@ -5357,6 +5378,7 @@
 					"proto": "DEWGONG_PURIFIED"
 				}
 			},
+			"default_form_id": 1035,
 			"pokedex_id": 87,
 			"types": [
 				"Water",
@@ -5673,6 +5695,7 @@
 					"proto": "GASTLY_PURIFIED"
 				}
 			},
+			"default_form_id": 1038,
 			"pokedex_id": 92,
 			"types": [
 				"Ghost",
@@ -5722,6 +5745,7 @@
 					"proto": "HAUNTER_PURIFIED"
 				}
 			},
+			"default_form_id": 1041,
 			"pokedex_id": 93,
 			"types": [
 				"Ghost",
@@ -6131,6 +6155,7 @@
 					"proto": "VOLTORB_PURIFIED"
 				}
 			},
+			"default_form_id": 1047,
 			"pokedex_id": 100,
 			"types": [
 				"Electric"
@@ -6179,6 +6204,7 @@
 					"proto": "ELECTRODE_PURIFIED"
 				}
 			},
+			"default_form_id": 1050,
 			"pokedex_id": 101,
 			"types": [
 				"Electric"
@@ -6584,6 +6610,7 @@
 					"proto": "LICKITUNG_PURIFIED"
 				}
 			},
+			"default_form_id": 1053,
 			"pokedex_id": 108,
 			"types": [
 				"Normal"
@@ -6896,6 +6923,7 @@
 					"proto": "CHANSEY_PURIFIED"
 				}
 			},
+			"default_form_id": 1056,
 			"pokedex_id": 113,
 			"types": [
 				"Normal"
@@ -6943,6 +6971,7 @@
 					"proto": "TANGELA_PURIFIED"
 				}
 			},
+			"default_form_id": 1059,
 			"pokedex_id": 114,
 			"types": [
 				"Grass"
@@ -7036,6 +7065,7 @@
 					"proto": "HORSEA_PURIFIED"
 				}
 			},
+			"default_form_id": 1062,
 			"pokedex_id": 116,
 			"types": [
 				"Water"
@@ -7084,6 +7114,7 @@
 					"proto": "SEADRA_PURIFIED"
 				}
 			},
+			"default_form_id": 1065,
 			"pokedex_id": 117,
 			"types": [
 				"Water"
@@ -7131,6 +7162,7 @@
 					"proto": "GOLDEEN_PURIFIED"
 				}
 			},
+			"default_form_id": 1068,
 			"pokedex_id": 118,
 			"types": [
 				"Water"
@@ -7179,6 +7211,7 @@
 					"proto": "SEAKING_PURIFIED"
 				}
 			},
+			"default_form_id": 1071,
 			"pokedex_id": 119,
 			"types": [
 				"Water"
@@ -7223,6 +7256,7 @@
 					"proto": "STARYU_PURIFIED"
 				}
 			},
+			"default_form_id": 1074,
 			"pokedex_id": 120,
 			"types": [
 				"Water"
@@ -7271,6 +7305,7 @@
 					"proto": "STARMIE_PURIFIED"
 				}
 			},
+			"default_form_id": 1077,
 			"pokedex_id": 121,
 			"types": [
 				"Water",
@@ -7322,6 +7357,7 @@
 					"proto": "MR_MIME_GALARIAN"
 				}
 			},
+			"default_form_id": 1080,
 			"pokedex_id": 122,
 			"types": [
 				"Psychic",
@@ -7433,6 +7469,7 @@
 					"proto": "JYNX_PURIFIED"
 				}
 			},
+			"default_form_id": 1083,
 			"pokedex_id": 124,
 			"types": [
 				"Ice",
@@ -7656,6 +7693,7 @@
 					"proto": "TAUROS_PURIFIED"
 				}
 			},
+			"default_form_id": 1086,
 			"pokedex_id": 128,
 			"types": [
 				"Normal"
@@ -7862,6 +7900,7 @@
 					"proto": "DITTO_PURIFIED"
 				}
 			},
+			"default_form_id": 1089,
 			"pokedex_id": 132,
 			"types": [
 				"Normal"
@@ -7903,6 +7942,7 @@
 					"proto": "EEVEE_PURIFIED"
 				}
 			},
+			"default_form_id": 1092,
 			"pokedex_id": 133,
 			"types": [
 				"Normal"
@@ -7956,6 +7996,7 @@
 					"proto": "VAPOREON_PURIFIED"
 				}
 			},
+			"default_form_id": 1095,
 			"pokedex_id": 134,
 			"types": [
 				"Water"
@@ -7999,6 +8040,7 @@
 					"proto": "JOLTEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1098,
 			"pokedex_id": 135,
 			"types": [
 				"Electric"
@@ -8043,6 +8085,7 @@
 					"proto": "FLAREON_PURIFIED"
 				}
 			},
+			"default_form_id": 1101,
 			"pokedex_id": 136,
 			"types": [
 				"Fire"
@@ -8862,6 +8905,7 @@
 					"proto": "MEW_PURIFIED"
 				}
 			},
+			"default_form_id": 1115,
 			"pokedex_id": 151,
 			"types": [
 				"Psychic"
@@ -8938,6 +8982,7 @@
 					"proto": "CHIKORITA_PURIFIED"
 				}
 			},
+			"default_form_id": 1118,
 			"pokedex_id": 152,
 			"types": [
 				"Grass"
@@ -8986,6 +9031,7 @@
 					"proto": "BAYLEEF_PURIFIED"
 				}
 			},
+			"default_form_id": 1121,
 			"pokedex_id": 153,
 			"types": [
 				"Grass"
@@ -9034,6 +9080,7 @@
 					"proto": "MEGANIUM_PURIFIED"
 				}
 			},
+			"default_form_id": 1124,
 			"pokedex_id": 154,
 			"types": [
 				"Grass"
@@ -9078,6 +9125,7 @@
 					"proto": "CYNDAQUIL_PURIFIED"
 				}
 			},
+			"default_form_id": 1127,
 			"pokedex_id": 155,
 			"types": [
 				"Fire"
@@ -9126,6 +9174,7 @@
 					"proto": "QUILAVA_PURIFIED"
 				}
 			},
+			"default_form_id": 1130,
 			"pokedex_id": 156,
 			"types": [
 				"Fire"
@@ -9174,6 +9223,7 @@
 					"proto": "TYPHLOSION_PURIFIED"
 				}
 			},
+			"default_form_id": 1133,
 			"pokedex_id": 157,
 			"types": [
 				"Fire"
@@ -9218,6 +9268,7 @@
 					"proto": "TOTODILE_PURIFIED"
 				}
 			},
+			"default_form_id": 1136,
 			"pokedex_id": 158,
 			"types": [
 				"Water"
@@ -9266,6 +9317,7 @@
 					"proto": "CROCONAW_PURIFIED"
 				}
 			},
+			"default_form_id": 1139,
 			"pokedex_id": 159,
 			"types": [
 				"Water"
@@ -9314,6 +9366,7 @@
 					"proto": "FERALIGATR_PURIFIED"
 				}
 			},
+			"default_form_id": 1142,
 			"pokedex_id": 160,
 			"types": [
 				"Water"
@@ -9359,6 +9412,7 @@
 					"proto": "SENTRET_PURIFIED"
 				}
 			},
+			"default_form_id": 1145,
 			"pokedex_id": 161,
 			"types": [
 				"Normal"
@@ -9407,6 +9461,7 @@
 					"proto": "FURRET_PURIFIED"
 				}
 			},
+			"default_form_id": 1148,
 			"pokedex_id": 162,
 			"types": [
 				"Normal"
@@ -9451,6 +9506,7 @@
 					"proto": "HOOTHOOT_PURIFIED"
 				}
 			},
+			"default_form_id": 1151,
 			"pokedex_id": 163,
 			"types": [
 				"Normal",
@@ -9500,6 +9556,7 @@
 					"proto": "NOCTOWL_PURIFIED"
 				}
 			},
+			"default_form_id": 1154,
 			"pokedex_id": 164,
 			"types": [
 				"Normal",
@@ -9545,6 +9602,7 @@
 					"proto": "LEDYBA_PURIFIED"
 				}
 			},
+			"default_form_id": 1157,
 			"pokedex_id": 165,
 			"types": [
 				"Bug",
@@ -9594,6 +9652,7 @@
 					"proto": "LEDIAN_PURIFIED"
 				}
 			},
+			"default_form_id": 1160,
 			"pokedex_id": 166,
 			"types": [
 				"Bug",
@@ -9639,6 +9698,7 @@
 					"proto": "SPINARAK_PURIFIED"
 				}
 			},
+			"default_form_id": 1163,
 			"pokedex_id": 167,
 			"types": [
 				"Bug",
@@ -9688,6 +9748,7 @@
 					"proto": "ARIADOS_PURIFIED"
 				}
 			},
+			"default_form_id": 1166,
 			"pokedex_id": 168,
 			"types": [
 				"Bug",
@@ -9779,6 +9840,7 @@
 					"proto": "CHINCHOU_PURIFIED"
 				}
 			},
+			"default_form_id": 1169,
 			"pokedex_id": 170,
 			"types": [
 				"Water",
@@ -9828,6 +9890,7 @@
 					"proto": "LANTURN_PURIFIED"
 				}
 			},
+			"default_form_id": 1172,
 			"pokedex_id": 171,
 			"types": [
 				"Water",
@@ -9874,6 +9937,7 @@
 					"proto": "PICHU_PURIFIED"
 				}
 			},
+			"default_form_id": 1175,
 			"pokedex_id": 172,
 			"types": [
 				"Electric"
@@ -9920,6 +9984,7 @@
 					"proto": "CLEFFA_PURIFIED"
 				}
 			},
+			"default_form_id": 1178,
 			"pokedex_id": 173,
 			"types": [
 				"Fairy"
@@ -9967,6 +10032,7 @@
 					"proto": "IGGLYBUFF_PURIFIED"
 				}
 			},
+			"default_form_id": 1181,
 			"pokedex_id": 174,
 			"types": [
 				"Normal",
@@ -10015,6 +10081,7 @@
 					"proto": "TOGEPI_PURIFIED"
 				}
 			},
+			"default_form_id": 1184,
 			"pokedex_id": 175,
 			"types": [
 				"Fairy"
@@ -10062,6 +10129,7 @@
 					"proto": "TOGETIC_PURIFIED"
 				}
 			},
+			"default_form_id": 1187,
 			"pokedex_id": 176,
 			"types": [
 				"Fairy",
@@ -10110,6 +10178,7 @@
 					"proto": "NATU_PURIFIED"
 				}
 			},
+			"default_form_id": 1190,
 			"pokedex_id": 177,
 			"types": [
 				"Psychic",
@@ -10159,6 +10228,7 @@
 					"proto": "XATU_PURIFIED"
 				}
 			},
+			"default_form_id": 1193,
 			"pokedex_id": 178,
 			"types": [
 				"Psychic",
@@ -10429,6 +10499,7 @@
 					"proto": "MARILL_PURIFIED"
 				}
 			},
+			"default_form_id": 1196,
 			"pokedex_id": 183,
 			"types": [
 				"Water",
@@ -10478,6 +10549,7 @@
 					"proto": "AZUMARILL_PURIFIED"
 				}
 			},
+			"default_form_id": 1199,
 			"pokedex_id": 184,
 			"types": [
 				"Water",
@@ -10523,6 +10595,7 @@
 					"proto": "SUDOWOODO_PURIFIED"
 				}
 			},
+			"default_form_id": 1202,
 			"pokedex_id": 185,
 			"types": [
 				"Rock"
@@ -10858,6 +10931,7 @@
 					"proto": "SUNKERN_PURIFIED"
 				}
 			},
+			"default_form_id": 1217,
 			"pokedex_id": 191,
 			"types": [
 				"Grass"
@@ -10906,6 +10980,7 @@
 					"proto": "SUNFLORA_PURIFIED"
 				}
 			},
+			"default_form_id": 1220,
 			"pokedex_id": 192,
 			"types": [
 				"Grass"
@@ -10950,6 +11025,7 @@
 					"proto": "YANMA_PURIFIED"
 				}
 			},
+			"default_form_id": 1223,
 			"pokedex_id": 193,
 			"types": [
 				"Bug",
@@ -10998,6 +11074,7 @@
 					"proto": "WOOPER_PURIFIED"
 				}
 			},
+			"default_form_id": 1226,
 			"pokedex_id": 194,
 			"types": [
 				"Water",
@@ -11047,6 +11124,7 @@
 					"proto": "QUAGSIRE_PURIFIED"
 				}
 			},
+			"default_form_id": 1229,
 			"pokedex_id": 195,
 			"types": [
 				"Water",
@@ -11093,6 +11171,7 @@
 					"proto": "ESPEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1232,
 			"pokedex_id": 196,
 			"types": [
 				"Psychic"
@@ -11137,6 +11216,7 @@
 					"proto": "UMBREON_PURIFIED"
 				}
 			},
+			"default_form_id": 1235,
 			"pokedex_id": 197,
 			"types": [
 				"Dark"
@@ -11545,6 +11625,7 @@
 					"proto": "GIRAFARIG_PURIFIED"
 				}
 			},
+			"default_form_id": 1241,
 			"pokedex_id": 203,
 			"types": [
 				"Normal",
@@ -11704,6 +11785,7 @@
 					"proto": "DUNSPARCE_PURIFIED"
 				}
 			},
+			"default_form_id": 1250,
 			"pokedex_id": 206,
 			"types": [
 				"Normal"
@@ -11861,6 +11943,7 @@
 					"proto": "SNUBBULL_PURIFIED"
 				}
 			},
+			"default_form_id": 1253,
 			"pokedex_id": 209,
 			"types": [
 				"Fairy"
@@ -11909,6 +11992,7 @@
 					"proto": "GRANBULL_PURIFIED"
 				}
 			},
+			"default_form_id": 1256,
 			"pokedex_id": 210,
 			"types": [
 				"Fairy"
@@ -11954,6 +12038,7 @@
 					"proto": "QWILFISH_PURIFIED"
 				}
 			},
+			"default_form_id": 1259,
 			"pokedex_id": 211,
 			"types": [
 				"Water",
@@ -12093,6 +12178,7 @@
 					"proto": "HERACROSS_PURIFIED"
 				}
 			},
+			"default_form_id": 1262,
 			"pokedex_id": 214,
 			"types": [
 				"Bug",
@@ -12316,6 +12402,7 @@
 					"proto": "SLUGMA_PURIFIED"
 				}
 			},
+			"default_form_id": 1271,
 			"pokedex_id": 218,
 			"types": [
 				"Fire"
@@ -12364,6 +12451,7 @@
 					"proto": "MAGCARGO_PURIFIED"
 				}
 			},
+			"default_form_id": 1274,
 			"pokedex_id": 219,
 			"types": [
 				"Fire",
@@ -12409,6 +12497,7 @@
 					"proto": "SWINUB_PURIFIED"
 				}
 			},
+			"default_form_id": 1277,
 			"pokedex_id": 220,
 			"types": [
 				"Ice",
@@ -12458,6 +12547,7 @@
 					"proto": "PILOSWINE_PURIFIED"
 				}
 			},
+			"default_form_id": 1280,
 			"pokedex_id": 221,
 			"types": [
 				"Ice",
@@ -12510,6 +12600,7 @@
 					"proto": "CORSOLA_GALARIAN"
 				}
 			},
+			"default_form_id": 1283,
 			"pokedex_id": 222,
 			"types": [
 				"Water",
@@ -12555,6 +12646,7 @@
 					"proto": "REMORAID_PURIFIED"
 				}
 			},
+			"default_form_id": 1286,
 			"pokedex_id": 223,
 			"types": [
 				"Water"
@@ -12603,6 +12695,7 @@
 					"proto": "OCTILLERY_PURIFIED"
 				}
 			},
+			"default_form_id": 1289,
 			"pokedex_id": 224,
 			"types": [
 				"Water"
@@ -12694,6 +12787,7 @@
 					"proto": "MANTINE_PURIFIED"
 				}
 			},
+			"default_form_id": 1292,
 			"pokedex_id": 226,
 			"types": [
 				"Water",
@@ -12916,6 +13010,7 @@
 					"proto": "KINGDRA_PURIFIED"
 				}
 			},
+			"default_form_id": 1298,
 			"pokedex_id": 230,
 			"types": [
 				"Water",
@@ -12962,6 +13057,7 @@
 					"proto": "PHANPY_PURIFIED"
 				}
 			},
+			"default_form_id": 1301,
 			"pokedex_id": 231,
 			"types": [
 				"Ground"
@@ -13010,6 +13106,7 @@
 					"proto": "DONPHAN_PURIFIED"
 				}
 			},
+			"default_form_id": 1304,
 			"pokedex_id": 232,
 			"types": [
 				"Ground"
@@ -13167,6 +13264,7 @@
 					"proto": "SMEARGLE_PURIFIED"
 				}
 			},
+			"default_form_id": 1307,
 			"pokedex_id": 235,
 			"types": [
 				"Normal"
@@ -13203,6 +13301,7 @@
 					"proto": "TYROGUE_PURIFIED"
 				}
 			},
+			"default_form_id": 1310,
 			"pokedex_id": 236,
 			"types": [
 				"Fighting"
@@ -13252,6 +13351,7 @@
 					"proto": "HITMONTOP_PURIFIED"
 				}
 			},
+			"default_form_id": 1313,
 			"pokedex_id": 237,
 			"types": [
 				"Fighting"
@@ -13296,6 +13396,7 @@
 					"proto": "SMOOCHUM_PURIFIED"
 				}
 			},
+			"default_form_id": 1316,
 			"pokedex_id": 238,
 			"types": [
 				"Ice",
@@ -13345,6 +13446,7 @@
 					"proto": "ELEKID_PURIFIED"
 				}
 			},
+			"default_form_id": 1319,
 			"pokedex_id": 239,
 			"types": [
 				"Electric"
@@ -13392,6 +13494,7 @@
 					"proto": "MAGBY_PURIFIED"
 				}
 			},
+			"default_form_id": 1322,
 			"pokedex_id": 240,
 			"types": [
 				"Fire"
@@ -13439,6 +13542,7 @@
 					"proto": "MILTANK_PURIFIED"
 				}
 			},
+			"default_form_id": 1325,
 			"pokedex_id": 241,
 			"types": [
 				"Normal"
@@ -13485,6 +13589,7 @@
 					"proto": "BLISSEY_PURIFIED"
 				}
 			},
+			"default_form_id": 1328,
 			"pokedex_id": 242,
 			"types": [
 				"Normal"
@@ -13845,6 +13950,7 @@
 					"proto": "LUGIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1340,
 			"pokedex_id": 249,
 			"types": [
 				"Psychic",
@@ -13889,6 +13995,7 @@
 					"proto": "HO_OH_PURIFIED"
 				}
 			},
+			"default_form_id": 1343,
 			"pokedex_id": 250,
 			"types": [
 				"Fire",
@@ -13934,6 +14041,7 @@
 					"proto": "CELEBI_PURIFIED"
 				}
 			},
+			"default_form_id": 1346,
 			"pokedex_id": 251,
 			"types": [
 				"Psychic",
@@ -13978,6 +14086,7 @@
 					"proto": "TREECKO_PURIFIED"
 				}
 			},
+			"default_form_id": 1349,
 			"pokedex_id": 252,
 			"types": [
 				"Grass"
@@ -14025,6 +14134,7 @@
 					"proto": "GROVYLE_PURIFIED"
 				}
 			},
+			"default_form_id": 1352,
 			"pokedex_id": 253,
 			"types": [
 				"Grass"
@@ -14072,6 +14182,7 @@
 					"proto": "SCEPTILE_PURIFIED"
 				}
 			},
+			"default_form_id": 1355,
 			"pokedex_id": 254,
 			"types": [
 				"Grass"
@@ -14117,6 +14228,7 @@
 					"proto": "TORCHIC_PURIFIED"
 				}
 			},
+			"default_form_id": 1358,
 			"pokedex_id": 255,
 			"types": [
 				"Fire"
@@ -14164,6 +14276,7 @@
 					"proto": "COMBUSKEN_PURIFIED"
 				}
 			},
+			"default_form_id": 1361,
 			"pokedex_id": 256,
 			"types": [
 				"Fire",
@@ -14212,6 +14325,7 @@
 					"proto": "BLAZIKEN_PURIFIED"
 				}
 			},
+			"default_form_id": 1364,
 			"pokedex_id": 257,
 			"types": [
 				"Fire",
@@ -14436,6 +14550,7 @@
 					"proto": "POOCHYENA_PURIFIED"
 				}
 			},
+			"default_form_id": 1367,
 			"pokedex_id": 261,
 			"types": [
 				"Dark"
@@ -14483,6 +14598,7 @@
 					"proto": "MIGHTYENA_PURIFIED"
 				}
 			},
+			"default_form_id": 1370,
 			"pokedex_id": 262,
 			"types": [
 				"Dark"
@@ -14687,6 +14803,7 @@
 					"proto": "WURMPLE_SPRING_2020"
 				}
 			},
+			"default_form_id": 600,
 			"pokedex_id": 265,
 			"types": [
 				"Bug"
@@ -14733,6 +14850,7 @@
 					"proto": "SILCOON_PURIFIED"
 				}
 			},
+			"default_form_id": 1379,
 			"pokedex_id": 266,
 			"types": [
 				"Bug"
@@ -14778,6 +14896,7 @@
 					"proto": "BEAUTIFLY_PURIFIED"
 				}
 			},
+			"default_form_id": 1382,
 			"pokedex_id": 267,
 			"types": [
 				"Bug",
@@ -14823,6 +14942,7 @@
 					"proto": "CASCOON_PURIFIED"
 				}
 			},
+			"default_form_id": 1385,
 			"pokedex_id": 268,
 			"types": [
 				"Bug"
@@ -14868,6 +14988,7 @@
 					"proto": "DUSTOX_PURIFIED"
 				}
 			},
+			"default_form_id": 1388,
 			"pokedex_id": 269,
 			"types": [
 				"Bug",
@@ -14913,6 +15034,7 @@
 					"proto": "LOTAD_PURIFIED"
 				}
 			},
+			"default_form_id": 1391,
 			"pokedex_id": 270,
 			"types": [
 				"Water",
@@ -14960,6 +15082,7 @@
 					"proto": "LOMBRE_PURIFIED"
 				}
 			},
+			"default_form_id": 1394,
 			"pokedex_id": 271,
 			"types": [
 				"Water",
@@ -15008,6 +15131,7 @@
 					"proto": "LUDICOLO_PURIFIED"
 				}
 			},
+			"default_form_id": 1397,
 			"pokedex_id": 272,
 			"types": [
 				"Water",
@@ -15234,6 +15358,7 @@
 					"proto": "TAILLOW_PURIFIED"
 				}
 			},
+			"default_form_id": 1400,
 			"pokedex_id": 276,
 			"types": [
 				"Normal",
@@ -15280,6 +15405,7 @@
 					"proto": "SWELLOW_PURIFIED"
 				}
 			},
+			"default_form_id": 1403,
 			"pokedex_id": 277,
 			"types": [
 				"Normal",
@@ -15325,6 +15451,7 @@
 					"proto": "WINGULL_PURIFIED"
 				}
 			},
+			"default_form_id": 1406,
 			"pokedex_id": 278,
 			"types": [
 				"Water",
@@ -15373,6 +15500,7 @@
 					"proto": "PELIPPER_PURIFIED"
 				}
 			},
+			"default_form_id": 1409,
 			"pokedex_id": 279,
 			"types": [
 				"Water",
@@ -15614,6 +15742,7 @@
 					"proto": "SURSKIT_PURIFIED"
 				}
 			},
+			"default_form_id": 1412,
 			"pokedex_id": 283,
 			"types": [
 				"Bug",
@@ -15662,6 +15791,7 @@
 					"proto": "MASQUERAIN_PURIFIED"
 				}
 			},
+			"default_form_id": 1415,
 			"pokedex_id": 284,
 			"types": [
 				"Bug",
@@ -15709,6 +15839,7 @@
 					"proto": "SHROOMISH_PURIFIED"
 				}
 			},
+			"default_form_id": 1418,
 			"pokedex_id": 285,
 			"types": [
 				"Grass"
@@ -15756,6 +15887,7 @@
 					"proto": "BRELOOM_PURIFIED"
 				}
 			},
+			"default_form_id": 1421,
 			"pokedex_id": 286,
 			"types": [
 				"Grass",
@@ -15801,6 +15933,7 @@
 					"proto": "SLAKOTH_PURIFIED"
 				}
 			},
+			"default_form_id": 1424,
 			"pokedex_id": 287,
 			"types": [
 				"Normal"
@@ -15847,6 +15980,7 @@
 					"proto": "VIGOROTH_PURIFIED"
 				}
 			},
+			"default_form_id": 1427,
 			"pokedex_id": 288,
 			"types": [
 				"Normal"
@@ -15894,6 +16028,7 @@
 					"proto": "SLAKING_PURIFIED"
 				}
 			},
+			"default_form_id": 1430,
 			"pokedex_id": 289,
 			"types": [
 				"Normal"
@@ -15937,6 +16072,7 @@
 					"proto": "NINCADA_PURIFIED"
 				}
 			},
+			"default_form_id": 1433,
 			"pokedex_id": 290,
 			"types": [
 				"Bug",
@@ -15985,6 +16121,7 @@
 					"proto": "NINJASK_PURIFIED"
 				}
 			},
+			"default_form_id": 1436,
 			"pokedex_id": 291,
 			"types": [
 				"Bug",
@@ -16030,6 +16167,7 @@
 					"proto": "SHEDINJA_PURIFIED"
 				}
 			},
+			"default_form_id": 1439,
 			"pokedex_id": 292,
 			"types": [
 				"Bug",
@@ -16075,6 +16213,7 @@
 					"proto": "WHISMUR_PURIFIED"
 				}
 			},
+			"default_form_id": 1442,
 			"pokedex_id": 293,
 			"types": [
 				"Normal"
@@ -16122,6 +16261,7 @@
 					"proto": "LOUDRED_PURIFIED"
 				}
 			},
+			"default_form_id": 1445,
 			"pokedex_id": 294,
 			"types": [
 				"Normal"
@@ -16169,6 +16309,7 @@
 					"proto": "EXPLOUD_PURIFIED"
 				}
 			},
+			"default_form_id": 1448,
 			"pokedex_id": 295,
 			"types": [
 				"Normal"
@@ -16213,6 +16354,7 @@
 					"proto": "MAKUHITA_PURIFIED"
 				}
 			},
+			"default_form_id": 1451,
 			"pokedex_id": 296,
 			"types": [
 				"Fighting"
@@ -16260,6 +16402,7 @@
 					"proto": "HARIYAMA_PURIFIED"
 				}
 			},
+			"default_form_id": 1454,
 			"pokedex_id": 297,
 			"types": [
 				"Fighting"
@@ -16305,6 +16448,7 @@
 					"proto": "AZURILL_PURIFIED"
 				}
 			},
+			"default_form_id": 1457,
 			"pokedex_id": 298,
 			"types": [
 				"Normal",
@@ -16353,6 +16497,7 @@
 					"proto": "NOSEPASS_PURIFIED"
 				}
 			},
+			"default_form_id": 1460,
 			"pokedex_id": 299,
 			"types": [
 				"Rock"
@@ -16400,6 +16545,7 @@
 					"proto": "SKITTY_PURIFIED"
 				}
 			},
+			"default_form_id": 1463,
 			"pokedex_id": 300,
 			"types": [
 				"Normal"
@@ -16447,6 +16593,7 @@
 					"proto": "DELCATTY_PURIFIED"
 				}
 			},
+			"default_form_id": 1466,
 			"pokedex_id": 301,
 			"types": [
 				"Normal"
@@ -16591,6 +16738,7 @@
 					"proto": "ARON_PURIFIED"
 				}
 			},
+			"default_form_id": 1469,
 			"pokedex_id": 304,
 			"types": [
 				"Steel",
@@ -16639,6 +16787,7 @@
 					"proto": "LAIRON_PURIFIED"
 				}
 			},
+			"default_form_id": 1472,
 			"pokedex_id": 305,
 			"types": [
 				"Steel",
@@ -16687,6 +16836,7 @@
 					"proto": "AGGRON_PURIFIED"
 				}
 			},
+			"default_form_id": 1475,
 			"pokedex_id": 306,
 			"types": [
 				"Steel",
@@ -16733,6 +16883,7 @@
 					"proto": "MEDITITE_PURIFIED"
 				}
 			},
+			"default_form_id": 1478,
 			"pokedex_id": 307,
 			"types": [
 				"Fighting",
@@ -16781,6 +16932,7 @@
 					"proto": "MEDICHAM_PURIFIED"
 				}
 			},
+			"default_form_id": 1481,
 			"pokedex_id": 308,
 			"types": [
 				"Fighting",
@@ -16827,6 +16979,7 @@
 					"proto": "ELECTRIKE_PURIFIED"
 				}
 			},
+			"default_form_id": 1484,
 			"pokedex_id": 309,
 			"types": [
 				"Electric"
@@ -16874,6 +17027,7 @@
 					"proto": "MANECTRIC_PURIFIED"
 				}
 			},
+			"default_form_id": 1487,
 			"pokedex_id": 310,
 			"types": [
 				"Electric"
@@ -16918,6 +17072,7 @@
 					"proto": "PLUSLE_PURIFIED"
 				}
 			},
+			"default_form_id": 1490,
 			"pokedex_id": 311,
 			"types": [
 				"Electric"
@@ -16963,6 +17118,7 @@
 					"proto": "MINUN_PURIFIED"
 				}
 			},
+			"default_form_id": 1493,
 			"pokedex_id": 312,
 			"types": [
 				"Electric"
@@ -17008,6 +17164,7 @@
 					"proto": "VOLBEAT_PURIFIED"
 				}
 			},
+			"default_form_id": 1496,
 			"pokedex_id": 313,
 			"types": [
 				"Bug"
@@ -17052,6 +17209,7 @@
 					"proto": "ILLUMISE_PURIFIED"
 				}
 			},
+			"default_form_id": 1499,
 			"pokedex_id": 314,
 			"types": [
 				"Bug"
@@ -17096,6 +17254,7 @@
 					"proto": "ROSELIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1502,
 			"pokedex_id": 315,
 			"types": [
 				"Grass",
@@ -17144,6 +17303,7 @@
 					"proto": "GULPIN_PURIFIED"
 				}
 			},
+			"default_form_id": 1505,
 			"pokedex_id": 316,
 			"types": [
 				"Poison"
@@ -17191,6 +17351,7 @@
 					"proto": "SWALOT_PURIFIED"
 				}
 			},
+			"default_form_id": 1508,
 			"pokedex_id": 317,
 			"types": [
 				"Poison"
@@ -17348,6 +17509,7 @@
 					"proto": "WAILMER_PURIFIED"
 				}
 			},
+			"default_form_id": 1511,
 			"pokedex_id": 320,
 			"types": [
 				"Water"
@@ -17395,6 +17557,7 @@
 					"proto": "WAILORD_PURIFIED"
 				}
 			},
+			"default_form_id": 1514,
 			"pokedex_id": 321,
 			"types": [
 				"Water"
@@ -17439,6 +17602,7 @@
 					"proto": "NUMEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1517,
 			"pokedex_id": 322,
 			"types": [
 				"Fire",
@@ -17487,6 +17651,7 @@
 					"proto": "CAMERUPT_PURIFIED"
 				}
 			},
+			"default_form_id": 1520,
 			"pokedex_id": 323,
 			"types": [
 				"Fire",
@@ -17533,6 +17698,7 @@
 					"proto": "TORKOAL_PURIFIED"
 				}
 			},
+			"default_form_id": 1523,
 			"pokedex_id": 324,
 			"types": [
 				"Fire"
@@ -17577,6 +17743,7 @@
 					"proto": "SPOINK_PURIFIED"
 				}
 			},
+			"default_form_id": 1526,
 			"pokedex_id": 325,
 			"types": [
 				"Psychic"
@@ -17624,6 +17791,7 @@
 					"proto": "GRUMPIG_PURIFIED"
 				}
 			},
+			"default_form_id": 1529,
 			"pokedex_id": 326,
 			"types": [
 				"Psychic"
@@ -18069,6 +18237,7 @@
 					"proto": "SWABLU_PURIFIED"
 				}
 			},
+			"default_form_id": 1532,
 			"pokedex_id": 333,
 			"types": [
 				"Normal",
@@ -18117,6 +18286,7 @@
 					"proto": "ALTARIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1535,
 			"pokedex_id": 334,
 			"types": [
 				"Dragon",
@@ -18162,6 +18332,7 @@
 					"proto": "ZANGOOSE_PURIFIED"
 				}
 			},
+			"default_form_id": 1538,
 			"pokedex_id": 335,
 			"types": [
 				"Normal"
@@ -18206,6 +18377,7 @@
 					"proto": "SEVIPER_PURIFIED"
 				}
 			},
+			"default_form_id": 1541,
 			"pokedex_id": 336,
 			"types": [
 				"Poison"
@@ -18250,6 +18422,7 @@
 					"proto": "LUNATONE_PURIFIED"
 				}
 			},
+			"default_form_id": 1544,
 			"pokedex_id": 337,
 			"types": [
 				"Rock",
@@ -18295,6 +18468,7 @@
 					"proto": "SOLROCK_PURIFIED"
 				}
 			},
+			"default_form_id": 1547,
 			"pokedex_id": 338,
 			"types": [
 				"Rock",
@@ -18340,6 +18514,7 @@
 					"proto": "BARBOACH_PURIFIED"
 				}
 			},
+			"default_form_id": 1550,
 			"pokedex_id": 339,
 			"types": [
 				"Water",
@@ -18388,6 +18563,7 @@
 					"proto": "WHISCASH_PURIFIED"
 				}
 			},
+			"default_form_id": 1553,
 			"pokedex_id": 340,
 			"types": [
 				"Water",
@@ -18433,6 +18609,7 @@
 					"proto": "CORPHISH_PURIFIED"
 				}
 			},
+			"default_form_id": 1556,
 			"pokedex_id": 341,
 			"types": [
 				"Water"
@@ -18480,6 +18657,7 @@
 					"proto": "CRAWDAUNT_PURIFIED"
 				}
 			},
+			"default_form_id": 1559,
 			"pokedex_id": 342,
 			"types": [
 				"Water",
@@ -18526,6 +18704,7 @@
 					"proto": "BALTOY_PURIFIED"
 				}
 			},
+			"default_form_id": 1562,
 			"pokedex_id": 343,
 			"types": [
 				"Ground",
@@ -18574,6 +18753,7 @@
 					"proto": "CLAYDOL_PURIFIED"
 				}
 			},
+			"default_form_id": 1565,
 			"pokedex_id": 344,
 			"types": [
 				"Ground",
@@ -18621,6 +18801,7 @@
 					"proto": "LILEEP_PURIFIED"
 				}
 			},
+			"default_form_id": 1568,
 			"pokedex_id": 345,
 			"types": [
 				"Rock",
@@ -18669,6 +18850,7 @@
 					"proto": "CRADILY_PURIFIED"
 				}
 			},
+			"default_form_id": 1571,
 			"pokedex_id": 346,
 			"types": [
 				"Rock",
@@ -18715,6 +18897,7 @@
 					"proto": "ANORITH_PURIFIED"
 				}
 			},
+			"default_form_id": 1574,
 			"pokedex_id": 347,
 			"types": [
 				"Rock",
@@ -18763,6 +18946,7 @@
 					"proto": "ARMALDO_PURIFIED"
 				}
 			},
+			"default_form_id": 1577,
 			"pokedex_id": 348,
 			"types": [
 				"Rock",
@@ -18808,6 +18992,7 @@
 					"proto": "FEEBAS_PURIFIED"
 				}
 			},
+			"default_form_id": 1580,
 			"pokedex_id": 349,
 			"types": [
 				"Water"
@@ -18853,6 +19038,7 @@
 					"proto": "MILOTIC_PURIFIED"
 				}
 			},
+			"default_form_id": 1583,
 			"pokedex_id": 350,
 			"types": [
 				"Water"
@@ -18986,6 +19172,7 @@
 					"proto": "KECLEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1586,
 			"pokedex_id": 352,
 			"types": [
 				"Normal"
@@ -19273,6 +19460,7 @@
 					"proto": "TROPIUS_PURIFIED"
 				}
 			},
+			"default_form_id": 1589,
 			"pokedex_id": 357,
 			"types": [
 				"Grass",
@@ -19318,6 +19506,7 @@
 					"proto": "CHIMECHO_PURIFIED"
 				}
 			},
+			"default_form_id": 1592,
 			"pokedex_id": 358,
 			"types": [
 				"Psychic"
@@ -19408,6 +19597,7 @@
 					"proto": "WYNAUT_PURIFIED"
 				}
 			},
+			"default_form_id": 1595,
 			"pokedex_id": 360,
 			"types": [
 				"Psychic"
@@ -19453,6 +19643,7 @@
 					"proto": "SNORUNT_PURIFIED"
 				}
 			},
+			"default_form_id": 926,
 			"pokedex_id": 361,
 			"types": [
 				"Ice"
@@ -19503,6 +19694,7 @@
 					"proto": "GLALIE_PURIFIED"
 				}
 			},
+			"default_form_id": 929,
 			"pokedex_id": 362,
 			"types": [
 				"Ice"
@@ -19547,6 +19739,7 @@
 					"proto": "SPHEAL_PURIFIED"
 				}
 			},
+			"default_form_id": 1598,
 			"pokedex_id": 363,
 			"types": [
 				"Ice",
@@ -19595,6 +19788,7 @@
 					"proto": "SEALEO_PURIFIED"
 				}
 			},
+			"default_form_id": 1601,
 			"pokedex_id": 364,
 			"types": [
 				"Ice",
@@ -19643,6 +19837,7 @@
 					"proto": "WALREIN_PURIFIED"
 				}
 			},
+			"default_form_id": 1604,
 			"pokedex_id": 365,
 			"types": [
 				"Ice",
@@ -19688,6 +19883,7 @@
 					"proto": "CLAMPERL_PURIFIED"
 				}
 			},
+			"default_form_id": 1607,
 			"pokedex_id": 366,
 			"types": [
 				"Water"
@@ -19735,6 +19931,7 @@
 					"proto": "HUNTAIL_PURIFIED"
 				}
 			},
+			"default_form_id": 1610,
 			"pokedex_id": 367,
 			"types": [
 				"Water"
@@ -19779,6 +19976,7 @@
 					"proto": "GOREBYSS_PURIFIED"
 				}
 			},
+			"default_form_id": 1613,
 			"pokedex_id": 368,
 			"types": [
 				"Water"
@@ -19823,6 +20021,7 @@
 					"proto": "RELICANTH_PURIFIED"
 				}
 			},
+			"default_form_id": 1616,
 			"pokedex_id": 369,
 			"types": [
 				"Water",
@@ -19868,6 +20067,7 @@
 					"proto": "LUVDISC_PURIFIED"
 				}
 			},
+			"default_form_id": 1619,
 			"pokedex_id": 370,
 			"types": [
 				"Water"
@@ -20262,6 +20462,7 @@
 					"proto": "REGIROCK_PURIFIED"
 				}
 			},
+			"default_form_id": 1622,
 			"pokedex_id": 377,
 			"types": [
 				"Rock"
@@ -20306,6 +20507,7 @@
 					"proto": "REGICE_PURIFIED"
 				}
 			},
+			"default_form_id": 1625,
 			"pokedex_id": 378,
 			"types": [
 				"Ice"
@@ -20350,6 +20552,7 @@
 					"proto": "REGISTEEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1628,
 			"pokedex_id": 379,
 			"types": [
 				"Steel"
@@ -20394,6 +20597,7 @@
 					"proto": "LATIAS_PURIFIED"
 				}
 			},
+			"default_form_id": 1631,
 			"pokedex_id": 380,
 			"types": [
 				"Dragon",
@@ -20439,6 +20643,7 @@
 					"proto": "LATIOS_PURIFIED"
 				}
 			},
+			"default_form_id": 1634,
 			"pokedex_id": 381,
 			"types": [
 				"Dragon",
@@ -20483,6 +20688,7 @@
 					"proto": "KYOGRE_PURIFIED"
 				}
 			},
+			"default_form_id": 1637,
 			"pokedex_id": 382,
 			"types": [
 				"Water"
@@ -20526,6 +20732,7 @@
 					"proto": "GROUDON_PURIFIED"
 				}
 			},
+			"default_form_id": 1640,
 			"pokedex_id": 383,
 			"types": [
 				"Ground"
@@ -20569,6 +20776,7 @@
 					"proto": "RAYQUAZA_PURIFIED"
 				}
 			},
+			"default_form_id": 1643,
 			"pokedex_id": 384,
 			"types": [
 				"Dragon",
@@ -20613,6 +20821,7 @@
 					"proto": "JIRACHI_PURIFIED"
 				}
 			},
+			"default_form_id": 1646,
 			"pokedex_id": 385,
 			"types": [
 				"Steel",
@@ -21101,6 +21310,7 @@
 					"proto": "PIPLUP_PURIFIED"
 				}
 			},
+			"default_form_id": 1649,
 			"pokedex_id": 393,
 			"types": [
 				"Water"
@@ -21149,6 +21359,7 @@
 					"proto": "PRINPLUP_PURIFIED"
 				}
 			},
+			"default_form_id": 1652,
 			"pokedex_id": 394,
 			"types": [
 				"Water"
@@ -21197,6 +21408,7 @@
 					"proto": "EMPOLEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1655,
 			"pokedex_id": 395,
 			"types": [
 				"Water",
@@ -21244,6 +21456,7 @@
 					"proto": "STARLY_PURIFIED"
 				}
 			},
+			"default_form_id": 1658,
 			"pokedex_id": 396,
 			"types": [
 				"Normal",
@@ -21292,6 +21505,7 @@
 					"proto": "STARAVIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1661,
 			"pokedex_id": 397,
 			"types": [
 				"Normal",
@@ -21341,6 +21555,7 @@
 					"proto": "STARAPTOR_PURIFIED"
 				}
 			},
+			"default_form_id": 1664,
 			"pokedex_id": 398,
 			"types": [
 				"Normal",
@@ -21387,6 +21602,7 @@
 					"proto": "BIDOOF_PURIFIED"
 				}
 			},
+			"default_form_id": 1667,
 			"pokedex_id": 399,
 			"types": [
 				"Normal"
@@ -21435,6 +21651,7 @@
 					"proto": "BIBAREL_PURIFIED"
 				}
 			},
+			"default_form_id": 1670,
 			"pokedex_id": 400,
 			"types": [
 				"Normal",
@@ -21481,6 +21698,7 @@
 					"proto": "KRICKETOT_PURIFIED"
 				}
 			},
+			"default_form_id": 1673,
 			"pokedex_id": 401,
 			"types": [
 				"Bug"
@@ -21527,6 +21745,7 @@
 					"proto": "KRICKETUNE_PURIFIED"
 				}
 			},
+			"default_form_id": 1676,
 			"pokedex_id": 402,
 			"types": [
 				"Bug"
@@ -21572,6 +21791,7 @@
 					"proto": "SHINX_PURIFIED"
 				}
 			},
+			"default_form_id": 1679,
 			"pokedex_id": 403,
 			"types": [
 				"Electric"
@@ -21620,6 +21840,7 @@
 					"proto": "LUXIO_PURIFIED"
 				}
 			},
+			"default_form_id": 1682,
 			"pokedex_id": 404,
 			"types": [
 				"Electric"
@@ -21668,6 +21889,7 @@
 					"proto": "LUXRAY_PURIFIED"
 				}
 			},
+			"default_form_id": 1685,
 			"pokedex_id": 405,
 			"types": [
 				"Electric"
@@ -21714,6 +21936,7 @@
 					"proto": "BUDEW_PURIFIED"
 				}
 			},
+			"default_form_id": 1688,
 			"pokedex_id": 406,
 			"types": [
 				"Grass",
@@ -21762,6 +21985,7 @@
 					"proto": "ROSERADE_PURIFIED"
 				}
 			},
+			"default_form_id": 1691,
 			"pokedex_id": 407,
 			"types": [
 				"Grass",
@@ -21809,6 +22033,7 @@
 					"proto": "CRANIDOS_PURIFIED"
 				}
 			},
+			"default_form_id": 1694,
 			"pokedex_id": 408,
 			"types": [
 				"Rock"
@@ -21857,6 +22082,7 @@
 					"proto": "RAMPARDOS_PURIFIED"
 				}
 			},
+			"default_form_id": 1697,
 			"pokedex_id": 409,
 			"types": [
 				"Rock"
@@ -21902,6 +22128,7 @@
 					"proto": "SHIELDON_PURIFIED"
 				}
 			},
+			"default_form_id": 1700,
 			"pokedex_id": 410,
 			"types": [
 				"Rock",
@@ -21951,6 +22178,7 @@
 					"proto": "BASTIODON_PURIFIED"
 				}
 			},
+			"default_form_id": 1703,
 			"pokedex_id": 411,
 			"types": [
 				"Rock",
@@ -22184,6 +22412,7 @@
 					"proto": "MOTHIM_PURIFIED"
 				}
 			},
+			"default_form_id": 1712,
 			"pokedex_id": 414,
 			"types": [
 				"Bug",
@@ -22230,6 +22459,7 @@
 					"proto": "COMBEE_PURIFIED"
 				}
 			},
+			"default_form_id": 1715,
 			"pokedex_id": 415,
 			"types": [
 				"Bug",
@@ -22278,6 +22508,7 @@
 					"proto": "VESPIQUEN_PURIFIED"
 				}
 			},
+			"default_form_id": 1718,
 			"pokedex_id": 416,
 			"types": [
 				"Bug",
@@ -22328,6 +22559,7 @@
 					"proto": "PACHIRISU_PURIFIED"
 				}
 			},
+			"default_form_id": 1721,
 			"pokedex_id": 417,
 			"types": [
 				"Electric"
@@ -22373,6 +22605,7 @@
 					"proto": "BUIZEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1724,
 			"pokedex_id": 418,
 			"types": [
 				"Water"
@@ -22421,6 +22654,7 @@
 					"proto": "FLOATZEL_PURIFIED"
 				}
 			},
+			"default_form_id": 1727,
 			"pokedex_id": 419,
 			"types": [
 				"Water"
@@ -22466,6 +22700,7 @@
 					"proto": "CHERUBI_PURIFIED"
 				}
 			},
+			"default_form_id": 1730,
 			"pokedex_id": 420,
 			"types": [
 				"Grass"
@@ -22736,6 +22971,7 @@
 					"proto": "DRIFLOON_PURIFIED"
 				}
 			},
+			"default_form_id": 1745,
 			"pokedex_id": 425,
 			"types": [
 				"Ghost",
@@ -22785,6 +23021,7 @@
 					"proto": "DRIFBLIM_PURIFIED"
 				}
 			},
+			"default_form_id": 1748,
 			"pokedex_id": 426,
 			"types": [
 				"Ghost",
@@ -22831,6 +23068,7 @@
 					"proto": "BUNEARY_PURIFIED"
 				}
 			},
+			"default_form_id": 1751,
 			"pokedex_id": 427,
 			"types": [
 				"Normal"
@@ -22878,6 +23116,7 @@
 					"proto": "LOPUNNY_PURIFIED"
 				}
 			},
+			"default_form_id": 1754,
 			"pokedex_id": 428,
 			"types": [
 				"Normal"
@@ -23017,6 +23256,7 @@
 					"proto": "GLAMEOW_PURIFIED"
 				}
 			},
+			"default_form_id": 1757,
 			"pokedex_id": 431,
 			"types": [
 				"Normal"
@@ -23065,6 +23305,7 @@
 					"proto": "PURUGLY_PURIFIED"
 				}
 			},
+			"default_form_id": 1760,
 			"pokedex_id": 432,
 			"types": [
 				"Normal"
@@ -23110,6 +23351,7 @@
 					"proto": "CHINGLING_PURIFIED"
 				}
 			},
+			"default_form_id": 1763,
 			"pokedex_id": 433,
 			"types": [
 				"Psychic"
@@ -23272,6 +23514,7 @@
 					"proto": "BRONZOR_PURIFIED"
 				}
 			},
+			"default_form_id": 1766,
 			"pokedex_id": 436,
 			"types": [
 				"Steel",
@@ -23321,6 +23564,7 @@
 					"proto": "BRONZONG_PURIFIED"
 				}
 			},
+			"default_form_id": 1769,
 			"pokedex_id": 437,
 			"types": [
 				"Steel",
@@ -23369,6 +23613,7 @@
 					"proto": "BONSLY_PURIFIED"
 				}
 			},
+			"default_form_id": 1772,
 			"pokedex_id": 438,
 			"types": [
 				"Rock"
@@ -23417,6 +23662,7 @@
 					"proto": "MIME_JR_PURIFIED"
 				}
 			},
+			"default_form_id": 1775,
 			"pokedex_id": 439,
 			"types": [
 				"Psychic",
@@ -23466,6 +23712,7 @@
 					"proto": "HAPPINY_PURIFIED"
 				}
 			},
+			"default_form_id": 1778,
 			"pokedex_id": 440,
 			"types": [
 				"Normal"
@@ -23512,6 +23759,7 @@
 					"proto": "CHATOT_PURIFIED"
 				}
 			},
+			"default_form_id": 1781,
 			"pokedex_id": 441,
 			"types": [
 				"Normal",
@@ -23558,6 +23806,7 @@
 					"proto": "SPIRITOMB_PURIFIED"
 				}
 			},
+			"default_form_id": 1784,
 			"pokedex_id": 442,
 			"types": [
 				"Ghost",
@@ -23786,6 +24035,7 @@
 					"proto": "MUNCHLAX_PURIFIED"
 				}
 			},
+			"default_form_id": 1787,
 			"pokedex_id": 446,
 			"types": [
 				"Normal"
@@ -23834,6 +24084,7 @@
 					"proto": "RIOLU_PURIFIED"
 				}
 			},
+			"default_form_id": 1790,
 			"pokedex_id": 447,
 			"types": [
 				"Fighting"
@@ -23881,6 +24132,7 @@
 					"proto": "LUCARIO_PURIFIED"
 				}
 			},
+			"default_form_id": 1793,
 			"pokedex_id": 448,
 			"types": [
 				"Fighting",
@@ -24044,6 +24296,7 @@
 					"proto": "SKORUPI_PURIFIED"
 				}
 			},
+			"default_form_id": 1796,
 			"pokedex_id": 451,
 			"types": [
 				"Poison",
@@ -24093,6 +24346,7 @@
 					"proto": "DRAPION_PURIFIED"
 				}
 			},
+			"default_form_id": 1799,
 			"pokedex_id": 452,
 			"types": [
 				"Poison",
@@ -24142,6 +24396,7 @@
 					"proto": "CROAGUNK_PURIFIED"
 				}
 			},
+			"default_form_id": 1802,
 			"pokedex_id": 453,
 			"types": [
 				"Poison",
@@ -24191,6 +24446,7 @@
 					"proto": "TOXICROAK_PURIFIED"
 				}
 			},
+			"default_form_id": 1805,
 			"pokedex_id": 454,
 			"types": [
 				"Poison",
@@ -24237,6 +24493,7 @@
 					"proto": "CARNIVINE_PURIFIED"
 				}
 			},
+			"default_form_id": 1808,
 			"pokedex_id": 455,
 			"types": [
 				"Grass"
@@ -24282,6 +24539,7 @@
 					"proto": "FINNEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1811,
 			"pokedex_id": 456,
 			"types": [
 				"Water"
@@ -24330,6 +24588,7 @@
 					"proto": "LUMINEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1814,
 			"pokedex_id": 457,
 			"types": [
 				"Water"
@@ -24375,6 +24634,7 @@
 					"proto": "MANTYKE_PURIFIED"
 				}
 			},
+			"default_form_id": 1817,
 			"pokedex_id": 458,
 			"types": [
 				"Water",
@@ -24635,6 +24895,7 @@
 					"proto": "LICKILICKY_PURIFIED"
 				}
 			},
+			"default_form_id": 1820,
 			"pokedex_id": 463,
 			"types": [
 				"Normal"
@@ -24730,6 +24991,7 @@
 					"proto": "TANGROWTH_PURIFIED"
 				}
 			},
+			"default_form_id": 1823,
 			"pokedex_id": 465,
 			"types": [
 				"Grass"
@@ -24871,6 +25133,7 @@
 					"proto": "TOGEKISS_PURIFIED"
 				}
 			},
+			"default_form_id": 1826,
 			"pokedex_id": 468,
 			"types": [
 				"Fairy",
@@ -24919,6 +25182,7 @@
 					"proto": "YANMEGA_PURIFIED"
 				}
 			},
+			"default_form_id": 1829,
 			"pokedex_id": 469,
 			"types": [
 				"Bug",
@@ -24965,6 +25229,7 @@
 					"proto": "LEAFEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1832,
 			"pokedex_id": 470,
 			"types": [
 				"Grass"
@@ -25010,6 +25275,7 @@
 					"proto": "GLACEON_PURIFIED"
 				}
 			},
+			"default_form_id": 1835,
 			"pokedex_id": 471,
 			"types": [
 				"Ice"
@@ -25103,6 +25369,7 @@
 					"proto": "MAMOSWINE_PURIFIED"
 				}
 			},
+			"default_form_id": 1838,
 			"pokedex_id": 473,
 			"types": [
 				"Ice",
@@ -25245,6 +25512,7 @@
 					"proto": "PROBOPASS_PURIFIED"
 				}
 			},
+			"default_form_id": 1841,
 			"pokedex_id": 476,
 			"types": [
 				"Rock",
@@ -25337,6 +25605,7 @@
 					"proto": "FROSLASS_PURIFIED"
 				}
 			},
+			"default_form_id": 1844,
 			"pokedex_id": 478,
 			"types": [
 				"Ice",
@@ -25496,6 +25765,7 @@
 					"proto": "UXIE_PURIFIED"
 				}
 			},
+			"default_form_id": 1847,
 			"pokedex_id": 480,
 			"types": [
 				"Psychic"
@@ -25539,6 +25809,7 @@
 					"proto": "MESPRIT_PURIFIED"
 				}
 			},
+			"default_form_id": 1850,
 			"pokedex_id": 481,
 			"types": [
 				"Psychic"
@@ -25582,6 +25853,7 @@
 					"proto": "AZELF_PURIFIED"
 				}
 			},
+			"default_form_id": 1853,
 			"pokedex_id": 482,
 			"types": [
 				"Psychic"
@@ -25625,6 +25897,7 @@
 					"proto": "DIALGA_PURIFIED"
 				}
 			},
+			"default_form_id": 1856,
 			"pokedex_id": 483,
 			"types": [
 				"Steel",
@@ -25670,6 +25943,7 @@
 					"proto": "PALKIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1859,
 			"pokedex_id": 484,
 			"types": [
 				"Water",
@@ -25716,6 +25990,7 @@
 					"proto": "HEATRAN_PURIFIED"
 				}
 			},
+			"default_form_id": 1862,
 			"pokedex_id": 485,
 			"types": [
 				"Fire",
@@ -25762,6 +26037,7 @@
 					"proto": "REGIGIGAS_PURIFIED"
 				}
 			},
+			"default_form_id": 1865,
 			"pokedex_id": 486,
 			"types": [
 				"Normal"
@@ -25874,6 +26150,7 @@
 					"proto": "CRESSELIA_PURIFIED"
 				}
 			},
+			"default_form_id": 1871,
 			"pokedex_id": 488,
 			"types": [
 				"Psychic"
@@ -25918,6 +26195,7 @@
 					"proto": "PHIONE_PURIFIED"
 				}
 			},
+			"default_form_id": 1874,
 			"pokedex_id": 489,
 			"types": [
 				"Water"
@@ -25961,6 +26239,7 @@
 					"proto": "MANAPHY_PURIFIED"
 				}
 			},
+			"default_form_id": 1877,
 			"pokedex_id": 490,
 			"types": [
 				"Water"
@@ -26004,6 +26283,7 @@
 					"proto": "DARKRAI_PURIFIED"
 				}
 			},
+			"default_form_id": 1880,
 			"pokedex_id": 491,
 			"types": [
 				"Dark"
@@ -26263,6 +26543,7 @@
 					"proto": "VICTINI_PURIFIED"
 				}
 			},
+			"default_form_id": 1886,
 			"pokedex_id": 494,
 			"types": [
 				"Psychic",
@@ -26307,6 +26588,7 @@
 					"proto": "SNIVY_PURIFIED"
 				}
 			},
+			"default_form_id": 1889,
 			"pokedex_id": 495,
 			"types": [
 				"Grass"
@@ -26355,6 +26637,7 @@
 					"proto": "SERVINE_PURIFIED"
 				}
 			},
+			"default_form_id": 1892,
 			"pokedex_id": 496,
 			"types": [
 				"Grass"
@@ -26403,6 +26686,7 @@
 					"proto": "SERPERIOR_PURIFIED"
 				}
 			},
+			"default_form_id": 1895,
 			"pokedex_id": 497,
 			"types": [
 				"Grass"
@@ -26448,6 +26732,7 @@
 					"proto": "TEPIG_PURIFIED"
 				}
 			},
+			"default_form_id": 1898,
 			"pokedex_id": 498,
 			"types": [
 				"Fire"
@@ -26496,6 +26781,7 @@
 					"proto": "PIGNITE_PURIFIED"
 				}
 			},
+			"default_form_id": 1901,
 			"pokedex_id": 499,
 			"types": [
 				"Fire",
@@ -26545,6 +26831,7 @@
 					"proto": "EMBOAR_PURIFIED"
 				}
 			},
+			"default_form_id": 1904,
 			"pokedex_id": 500,
 			"types": [
 				"Fire",
@@ -26591,6 +26878,7 @@
 					"proto": "OSHAWOTT_PURIFIED"
 				}
 			},
+			"default_form_id": 1907,
 			"pokedex_id": 501,
 			"types": [
 				"Water"
@@ -26639,6 +26927,7 @@
 					"proto": "DEWOTT_PURIFIED"
 				}
 			},
+			"default_form_id": 1910,
 			"pokedex_id": 502,
 			"types": [
 				"Water"
@@ -26687,6 +26976,7 @@
 					"proto": "SAMUROTT_PURIFIED"
 				}
 			},
+			"default_form_id": 1913,
 			"pokedex_id": 503,
 			"types": [
 				"Water"
@@ -26732,6 +27022,7 @@
 					"proto": "PATRAT_PURIFIED"
 				}
 			},
+			"default_form_id": 1916,
 			"pokedex_id": 504,
 			"types": [
 				"Normal"
@@ -26780,6 +27071,7 @@
 					"proto": "WATCHOG_PURIFIED"
 				}
 			},
+			"default_form_id": 1919,
 			"pokedex_id": 505,
 			"types": [
 				"Normal"
@@ -26825,6 +27117,7 @@
 					"proto": "LILLIPUP_PURIFIED"
 				}
 			},
+			"default_form_id": 1922,
 			"pokedex_id": 506,
 			"types": [
 				"Normal"
@@ -26873,6 +27166,7 @@
 					"proto": "HERDIER_PURIFIED"
 				}
 			},
+			"default_form_id": 1925,
 			"pokedex_id": 507,
 			"types": [
 				"Normal"
@@ -26921,6 +27215,7 @@
 					"proto": "STOUTLAND_PURIFIED"
 				}
 			},
+			"default_form_id": 1928,
 			"pokedex_id": 508,
 			"types": [
 				"Normal"
@@ -26967,6 +27262,7 @@
 					"proto": "PURRLOIN_PURIFIED"
 				}
 			},
+			"default_form_id": 1931,
 			"pokedex_id": 509,
 			"types": [
 				"Dark"
@@ -27015,6 +27311,7 @@
 					"proto": "LIEPARD_PURIFIED"
 				}
 			},
+			"default_form_id": 1934,
 			"pokedex_id": 510,
 			"types": [
 				"Dark"
@@ -27060,6 +27357,7 @@
 					"proto": "PANSAGE_PURIFIED"
 				}
 			},
+			"default_form_id": 1937,
 			"pokedex_id": 511,
 			"types": [
 				"Grass"
@@ -27108,6 +27406,7 @@
 					"proto": "SIMISAGE_PURIFIED"
 				}
 			},
+			"default_form_id": 1940,
 			"pokedex_id": 512,
 			"types": [
 				"Grass"
@@ -27153,6 +27452,7 @@
 					"proto": "PANSEAR_PURIFIED"
 				}
 			},
+			"default_form_id": 1943,
 			"pokedex_id": 513,
 			"types": [
 				"Fire"
@@ -27201,6 +27501,7 @@
 					"proto": "SIMISEAR_PURIFIED"
 				}
 			},
+			"default_form_id": 1946,
 			"pokedex_id": 514,
 			"types": [
 				"Fire"
@@ -27246,6 +27547,7 @@
 					"proto": "PANPOUR_PURIFIED"
 				}
 			},
+			"default_form_id": 1949,
 			"pokedex_id": 515,
 			"types": [
 				"Water"
@@ -27294,6 +27596,7 @@
 					"proto": "SIMIPOUR_PURIFIED"
 				}
 			},
+			"default_form_id": 1952,
 			"pokedex_id": 516,
 			"types": [
 				"Water"
@@ -27339,6 +27642,7 @@
 					"proto": "MUNNA_PURIFIED"
 				}
 			},
+			"default_form_id": 1955,
 			"pokedex_id": 517,
 			"types": [
 				"Psychic"
@@ -27387,6 +27691,7 @@
 					"proto": "MUSHARNA_PURIFIED"
 				}
 			},
+			"default_form_id": 1958,
 			"pokedex_id": 518,
 			"types": [
 				"Psychic"
@@ -27432,6 +27737,7 @@
 					"proto": "PIDOVE_PURIFIED"
 				}
 			},
+			"default_form_id": 1961,
 			"pokedex_id": 519,
 			"types": [
 				"Normal",
@@ -27481,6 +27787,7 @@
 					"proto": "TRANQUILL_PURIFIED"
 				}
 			},
+			"default_form_id": 1964,
 			"pokedex_id": 520,
 			"types": [
 				"Normal",
@@ -27530,6 +27837,7 @@
 					"proto": "UNFEZANT_PURIFIED"
 				}
 			},
+			"default_form_id": 1967,
 			"pokedex_id": 521,
 			"types": [
 				"Normal",
@@ -27576,6 +27884,7 @@
 					"proto": "BLITZLE_PURIFIED"
 				}
 			},
+			"default_form_id": 1970,
 			"pokedex_id": 522,
 			"types": [
 				"Electric"
@@ -27624,6 +27933,7 @@
 					"proto": "ZEBSTRIKA_PURIFIED"
 				}
 			},
+			"default_form_id": 1973,
 			"pokedex_id": 523,
 			"types": [
 				"Electric"
@@ -27669,6 +27979,7 @@
 					"proto": "ROGGENROLA_PURIFIED"
 				}
 			},
+			"default_form_id": 1976,
 			"pokedex_id": 524,
 			"types": [
 				"Rock"
@@ -27717,6 +28028,7 @@
 					"proto": "BOLDORE_PURIFIED"
 				}
 			},
+			"default_form_id": 1979,
 			"pokedex_id": 525,
 			"types": [
 				"Rock"
@@ -27765,6 +28077,7 @@
 					"proto": "GIGALITH_PURIFIED"
 				}
 			},
+			"default_form_id": 1982,
 			"pokedex_id": 526,
 			"types": [
 				"Rock"
@@ -27811,6 +28124,7 @@
 					"proto": "WOOBAT_PURIFIED"
 				}
 			},
+			"default_form_id": 1985,
 			"pokedex_id": 527,
 			"types": [
 				"Psychic",
@@ -27860,6 +28174,7 @@
 					"proto": "SWOOBAT_PURIFIED"
 				}
 			},
+			"default_form_id": 1988,
 			"pokedex_id": 528,
 			"types": [
 				"Psychic",
@@ -27906,6 +28221,7 @@
 					"proto": "DRILBUR_PURIFIED"
 				}
 			},
+			"default_form_id": 1991,
 			"pokedex_id": 529,
 			"types": [
 				"Ground"
@@ -27954,6 +28270,7 @@
 					"proto": "EXCADRILL_PURIFIED"
 				}
 			},
+			"default_form_id": 1994,
 			"pokedex_id": 530,
 			"types": [
 				"Ground",
@@ -28001,6 +28318,7 @@
 					"proto": "AUDINO_PURIFIED"
 				}
 			},
+			"default_form_id": 1997,
 			"pokedex_id": 531,
 			"types": [
 				"Normal"
@@ -28046,6 +28364,7 @@
 					"proto": "TIMBURR_PURIFIED"
 				}
 			},
+			"default_form_id": 2000,
 			"pokedex_id": 532,
 			"types": [
 				"Fighting"
@@ -28094,6 +28413,7 @@
 					"proto": "GURDURR_PURIFIED"
 				}
 			},
+			"default_form_id": 2003,
 			"pokedex_id": 533,
 			"types": [
 				"Fighting"
@@ -28142,6 +28462,7 @@
 					"proto": "CONKELDURR_PURIFIED"
 				}
 			},
+			"default_form_id": 2006,
 			"pokedex_id": 534,
 			"types": [
 				"Fighting"
@@ -28187,6 +28508,7 @@
 					"proto": "TYMPOLE_PURIFIED"
 				}
 			},
+			"default_form_id": 2009,
 			"pokedex_id": 535,
 			"types": [
 				"Water"
@@ -28235,6 +28557,7 @@
 					"proto": "PALPITOAD_PURIFIED"
 				}
 			},
+			"default_form_id": 2012,
 			"pokedex_id": 536,
 			"types": [
 				"Water",
@@ -28284,6 +28607,7 @@
 					"proto": "SEISMITOAD_PURIFIED"
 				}
 			},
+			"default_form_id": 2015,
 			"pokedex_id": 537,
 			"types": [
 				"Water",
@@ -28330,6 +28654,7 @@
 					"proto": "THROH_PURIFIED"
 				}
 			},
+			"default_form_id": 2018,
 			"pokedex_id": 538,
 			"types": [
 				"Fighting"
@@ -28375,6 +28700,7 @@
 					"proto": "SAWK_PURIFIED"
 				}
 			},
+			"default_form_id": 2021,
 			"pokedex_id": 539,
 			"types": [
 				"Fighting"
@@ -28420,6 +28746,7 @@
 					"proto": "SEWADDLE_PURIFIED"
 				}
 			},
+			"default_form_id": 2024,
 			"pokedex_id": 540,
 			"types": [
 				"Bug",
@@ -28469,6 +28796,7 @@
 					"proto": "SWADLOON_PURIFIED"
 				}
 			},
+			"default_form_id": 2027,
 			"pokedex_id": 541,
 			"types": [
 				"Bug",
@@ -28518,6 +28846,7 @@
 					"proto": "LEAVANNY_PURIFIED"
 				}
 			},
+			"default_form_id": 2030,
 			"pokedex_id": 542,
 			"types": [
 				"Bug",
@@ -28564,6 +28893,7 @@
 					"proto": "VENIPEDE_PURIFIED"
 				}
 			},
+			"default_form_id": 2033,
 			"pokedex_id": 543,
 			"types": [
 				"Bug",
@@ -28613,6 +28943,7 @@
 					"proto": "WHIRLIPEDE_PURIFIED"
 				}
 			},
+			"default_form_id": 2036,
 			"pokedex_id": 544,
 			"types": [
 				"Bug",
@@ -28662,6 +28993,7 @@
 					"proto": "SCOLIPEDE_PURIFIED"
 				}
 			},
+			"default_form_id": 2039,
 			"pokedex_id": 545,
 			"types": [
 				"Bug",
@@ -28709,6 +29041,7 @@
 					"proto": "COTTONEE_PURIFIED"
 				}
 			},
+			"default_form_id": 2042,
 			"pokedex_id": 546,
 			"types": [
 				"Grass",
@@ -28758,6 +29091,7 @@
 					"proto": "WHIMSICOTT_PURIFIED"
 				}
 			},
+			"default_form_id": 2045,
 			"pokedex_id": 547,
 			"types": [
 				"Grass",
@@ -28804,6 +29138,7 @@
 					"proto": "PETILIL_PURIFIED"
 				}
 			},
+			"default_form_id": 2048,
 			"pokedex_id": 548,
 			"types": [
 				"Grass"
@@ -28851,6 +29186,7 @@
 					"proto": "LILLIGANT_PURIFIED"
 				}
 			},
+			"default_form_id": 2051,
 			"pokedex_id": 549,
 			"types": [
 				"Grass"
@@ -28938,6 +29274,7 @@
 					"proto": "SANDILE_PURIFIED"
 				}
 			},
+			"default_form_id": 2054,
 			"pokedex_id": 551,
 			"types": [
 				"Ground",
@@ -28987,6 +29324,7 @@
 					"proto": "KROKOROK_PURIFIED"
 				}
 			},
+			"default_form_id": 2057,
 			"pokedex_id": 552,
 			"types": [
 				"Ground",
@@ -29036,6 +29374,7 @@
 					"proto": "KROOKODILE_PURIFIED"
 				}
 			},
+			"default_form_id": 2060,
 			"pokedex_id": 553,
 			"types": [
 				"Ground",
@@ -29247,6 +29586,7 @@
 					"proto": "MARACTUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2066,
 			"pokedex_id": 556,
 			"types": [
 				"Grass"
@@ -29292,6 +29632,7 @@
 					"proto": "DWEBBLE_PURIFIED"
 				}
 			},
+			"default_form_id": 2069,
 			"pokedex_id": 557,
 			"types": [
 				"Bug",
@@ -29341,6 +29682,7 @@
 					"proto": "CRUSTLE_PURIFIED"
 				}
 			},
+			"default_form_id": 2072,
 			"pokedex_id": 558,
 			"types": [
 				"Bug",
@@ -29387,6 +29729,7 @@
 					"proto": "SCRAGGY_PURIFIED"
 				}
 			},
+			"default_form_id": 2075,
 			"pokedex_id": 559,
 			"types": [
 				"Dark",
@@ -29436,6 +29779,7 @@
 					"proto": "SCRAFTY_PURIFIED"
 				}
 			},
+			"default_form_id": 2078,
 			"pokedex_id": 560,
 			"types": [
 				"Dark",
@@ -29482,6 +29826,7 @@
 					"proto": "SIGILYPH_PURIFIED"
 				}
 			},
+			"default_form_id": 2081,
 			"pokedex_id": 561,
 			"types": [
 				"Psychic",
@@ -29615,6 +29960,7 @@
 					"proto": "COFAGRIGUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2087,
 			"pokedex_id": 563,
 			"types": [
 				"Ghost"
@@ -29660,6 +30006,7 @@
 					"proto": "TIRTOUGA_PURIFIED"
 				}
 			},
+			"default_form_id": 2090,
 			"pokedex_id": 564,
 			"types": [
 				"Water",
@@ -29709,6 +30056,7 @@
 					"proto": "CARRACOSTA_PURIFIED"
 				}
 			},
+			"default_form_id": 2093,
 			"pokedex_id": 565,
 			"types": [
 				"Water",
@@ -29755,6 +30103,7 @@
 					"proto": "ARCHEN_PURIFIED"
 				}
 			},
+			"default_form_id": 2096,
 			"pokedex_id": 566,
 			"types": [
 				"Rock",
@@ -29804,6 +30153,7 @@
 					"proto": "ARCHEOPS_PURIFIED"
 				}
 			},
+			"default_form_id": 2099,
 			"pokedex_id": 567,
 			"types": [
 				"Rock",
@@ -29850,6 +30200,7 @@
 					"proto": "TRUBBISH_PURIFIED"
 				}
 			},
+			"default_form_id": 2102,
 			"pokedex_id": 568,
 			"types": [
 				"Poison"
@@ -29898,6 +30249,7 @@
 					"proto": "GARBODOR_PURIFIED"
 				}
 			},
+			"default_form_id": 2105,
 			"pokedex_id": 569,
 			"types": [
 				"Poison"
@@ -29944,6 +30296,7 @@
 					"proto": "ZORUA_PURIFIED"
 				}
 			},
+			"default_form_id": 2108,
 			"pokedex_id": 570,
 			"types": [
 				"Dark"
@@ -29992,6 +30345,7 @@
 					"proto": "ZOROARK_PURIFIED"
 				}
 			},
+			"default_form_id": 2111,
 			"pokedex_id": 571,
 			"types": [
 				"Dark"
@@ -30037,6 +30391,7 @@
 					"proto": "MINCCINO_PURIFIED"
 				}
 			},
+			"default_form_id": 2114,
 			"pokedex_id": 572,
 			"types": [
 				"Normal"
@@ -30085,6 +30440,7 @@
 					"proto": "CINCCINO_PURIFIED"
 				}
 			},
+			"default_form_id": 2117,
 			"pokedex_id": 573,
 			"types": [
 				"Normal"
@@ -30130,6 +30486,7 @@
 					"proto": "GOTHITA_PURIFIED"
 				}
 			},
+			"default_form_id": 2120,
 			"pokedex_id": 574,
 			"types": [
 				"Psychic"
@@ -30178,6 +30535,7 @@
 					"proto": "GOTHORITA_PURIFIED"
 				}
 			},
+			"default_form_id": 2123,
 			"pokedex_id": 575,
 			"types": [
 				"Psychic"
@@ -30226,6 +30584,7 @@
 					"proto": "GOTHITELLE_PURIFIED"
 				}
 			},
+			"default_form_id": 2126,
 			"pokedex_id": 576,
 			"types": [
 				"Psychic"
@@ -30271,6 +30630,7 @@
 					"proto": "SOLOSIS_PURIFIED"
 				}
 			},
+			"default_form_id": 2129,
 			"pokedex_id": 577,
 			"types": [
 				"Psychic"
@@ -30319,6 +30679,7 @@
 					"proto": "DUOSION_PURIFIED"
 				}
 			},
+			"default_form_id": 2132,
 			"pokedex_id": 578,
 			"types": [
 				"Psychic"
@@ -30367,6 +30728,7 @@
 					"proto": "REUNICLUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2135,
 			"pokedex_id": 579,
 			"types": [
 				"Psychic"
@@ -30412,6 +30774,7 @@
 					"proto": "DUCKLETT_PURIFIED"
 				}
 			},
+			"default_form_id": 2138,
 			"pokedex_id": 580,
 			"types": [
 				"Water",
@@ -30461,6 +30824,7 @@
 					"proto": "SWANNA_PURIFIED"
 				}
 			},
+			"default_form_id": 2141,
 			"pokedex_id": 581,
 			"types": [
 				"Water",
@@ -30507,6 +30871,7 @@
 					"proto": "VANILLITE_PURIFIED"
 				}
 			},
+			"default_form_id": 2144,
 			"pokedex_id": 582,
 			"types": [
 				"Ice"
@@ -30555,6 +30920,7 @@
 					"proto": "VANILLISH_PURIFIED"
 				}
 			},
+			"default_form_id": 2147,
 			"pokedex_id": 583,
 			"types": [
 				"Ice"
@@ -30603,6 +30969,7 @@
 					"proto": "VANILLUXE_PURIFIED"
 				}
 			},
+			"default_form_id": 2150,
 			"pokedex_id": 584,
 			"types": [
 				"Ice"
@@ -30771,6 +31138,7 @@
 					"proto": "EMOLGA_PURIFIED"
 				}
 			},
+			"default_form_id": 2153,
 			"pokedex_id": 587,
 			"types": [
 				"Electric",
@@ -30817,6 +31185,7 @@
 					"proto": "KARRABLAST_PURIFIED"
 				}
 			},
+			"default_form_id": 2156,
 			"pokedex_id": 588,
 			"types": [
 				"Bug"
@@ -30866,6 +31235,7 @@
 					"proto": "ESCAVALIER_PURIFIED"
 				}
 			},
+			"default_form_id": 2159,
 			"pokedex_id": 589,
 			"types": [
 				"Bug",
@@ -30913,6 +31283,7 @@
 					"proto": "FOONGUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2162,
 			"pokedex_id": 590,
 			"types": [
 				"Grass",
@@ -30962,6 +31333,7 @@
 					"proto": "AMOONGUSS_PURIFIED"
 				}
 			},
+			"default_form_id": 2165,
 			"pokedex_id": 591,
 			"types": [
 				"Grass",
@@ -31123,6 +31495,7 @@
 					"proto": "ALOMOMOLA_PURIFIED"
 				}
 			},
+			"default_form_id": 2174,
 			"pokedex_id": 594,
 			"types": [
 				"Water"
@@ -31168,6 +31541,7 @@
 					"proto": "JOLTIK_PURIFIED"
 				}
 			},
+			"default_form_id": 2177,
 			"pokedex_id": 595,
 			"types": [
 				"Bug",
@@ -31217,6 +31591,7 @@
 					"proto": "GALVANTULA_PURIFIED"
 				}
 			},
+			"default_form_id": 2180,
 			"pokedex_id": 596,
 			"types": [
 				"Bug",
@@ -31265,6 +31640,7 @@
 					"proto": "FERROSEED_PURIFIED"
 				}
 			},
+			"default_form_id": 2183,
 			"pokedex_id": 597,
 			"types": [
 				"Grass",
@@ -31314,6 +31690,7 @@
 					"proto": "FERROTHORN_PURIFIED"
 				}
 			},
+			"default_form_id": 2186,
 			"pokedex_id": 598,
 			"types": [
 				"Grass",
@@ -31362,6 +31739,7 @@
 					"proto": "KLINK_PURIFIED"
 				}
 			},
+			"default_form_id": 2189,
 			"pokedex_id": 599,
 			"types": [
 				"Steel"
@@ -31410,6 +31788,7 @@
 					"proto": "KLANG_PURIFIED"
 				}
 			},
+			"default_form_id": 2192,
 			"pokedex_id": 600,
 			"types": [
 				"Steel"
@@ -31458,6 +31837,7 @@
 					"proto": "KLINKLANG_PURIFIED"
 				}
 			},
+			"default_form_id": 2195,
 			"pokedex_id": 601,
 			"types": [
 				"Steel"
@@ -31504,6 +31884,7 @@
 					"proto": "TYNAMO_PURIFIED"
 				}
 			},
+			"default_form_id": 2198,
 			"pokedex_id": 602,
 			"types": [
 				"Electric"
@@ -31550,6 +31931,7 @@
 					"proto": "EELEKTRIK_PURIFIED"
 				}
 			},
+			"default_form_id": 2201,
 			"pokedex_id": 603,
 			"types": [
 				"Electric"
@@ -31598,6 +31980,7 @@
 					"proto": "EELEKTROSS_PURIFIED"
 				}
 			},
+			"default_form_id": 2204,
 			"pokedex_id": 604,
 			"types": [
 				"Electric"
@@ -31644,6 +32027,7 @@
 					"proto": "ELGYEM_PURIFIED"
 				}
 			},
+			"default_form_id": 2207,
 			"pokedex_id": 605,
 			"types": [
 				"Psychic"
@@ -31692,6 +32076,7 @@
 					"proto": "BEHEEYEM_PURIFIED"
 				}
 			},
+			"default_form_id": 2210,
 			"pokedex_id": 606,
 			"types": [
 				"Psychic"
@@ -31737,6 +32122,7 @@
 					"proto": "LITWICK_PURIFIED"
 				}
 			},
+			"default_form_id": 2213,
 			"pokedex_id": 607,
 			"types": [
 				"Ghost",
@@ -31786,6 +32172,7 @@
 					"proto": "LAMPENT_PURIFIED"
 				}
 			},
+			"default_form_id": 2216,
 			"pokedex_id": 608,
 			"types": [
 				"Ghost",
@@ -31835,6 +32222,7 @@
 					"proto": "CHANDELURE_PURIFIED"
 				}
 			},
+			"default_form_id": 2219,
 			"pokedex_id": 609,
 			"types": [
 				"Ghost",
@@ -31881,6 +32269,7 @@
 					"proto": "AXEW_PURIFIED"
 				}
 			},
+			"default_form_id": 2222,
 			"pokedex_id": 610,
 			"types": [
 				"Dragon"
@@ -31929,6 +32318,7 @@
 					"proto": "FRAXURE_PURIFIED"
 				}
 			},
+			"default_form_id": 2225,
 			"pokedex_id": 611,
 			"types": [
 				"Dragon"
@@ -31977,6 +32367,7 @@
 					"proto": "HAXORUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2228,
 			"pokedex_id": 612,
 			"types": [
 				"Dragon"
@@ -32023,6 +32414,7 @@
 					"proto": "CUBCHOO_PURIFIED"
 				}
 			},
+			"default_form_id": 2231,
 			"pokedex_id": 613,
 			"types": [
 				"Ice"
@@ -32071,6 +32463,7 @@
 					"proto": "BEARTIC_PURIFIED"
 				}
 			},
+			"default_form_id": 2234,
 			"pokedex_id": 614,
 			"types": [
 				"Ice"
@@ -32116,6 +32509,7 @@
 					"proto": "CRYOGONAL_PURIFIED"
 				}
 			},
+			"default_form_id": 2237,
 			"pokedex_id": 615,
 			"types": [
 				"Ice"
@@ -32162,6 +32556,7 @@
 					"proto": "SHELMET_PURIFIED"
 				}
 			},
+			"default_form_id": 2240,
 			"pokedex_id": 616,
 			"types": [
 				"Bug"
@@ -32210,6 +32605,7 @@
 					"proto": "ACCELGOR_PURIFIED"
 				}
 			},
+			"default_form_id": 2243,
 			"pokedex_id": 617,
 			"types": [
 				"Bug"
@@ -32323,6 +32719,7 @@
 					"proto": "MIENFOO_PURIFIED"
 				}
 			},
+			"default_form_id": 2249,
 			"pokedex_id": 619,
 			"types": [
 				"Fighting"
@@ -32371,6 +32768,7 @@
 					"proto": "MIENSHAO_PURIFIED"
 				}
 			},
+			"default_form_id": 2252,
 			"pokedex_id": 620,
 			"types": [
 				"Fighting"
@@ -32416,6 +32814,7 @@
 					"proto": "DRUDDIGON_PURIFIED"
 				}
 			},
+			"default_form_id": 2255,
 			"pokedex_id": 621,
 			"types": [
 				"Dragon"
@@ -32461,6 +32860,7 @@
 					"proto": "GOLETT_PURIFIED"
 				}
 			},
+			"default_form_id": 2258,
 			"pokedex_id": 622,
 			"types": [
 				"Ground",
@@ -32510,6 +32910,7 @@
 					"proto": "GOLURK_PURIFIED"
 				}
 			},
+			"default_form_id": 2261,
 			"pokedex_id": 623,
 			"types": [
 				"Ground",
@@ -32556,6 +32957,7 @@
 					"proto": "PAWNIARD_PURIFIED"
 				}
 			},
+			"default_form_id": 2264,
 			"pokedex_id": 624,
 			"types": [
 				"Dark",
@@ -32605,6 +33007,7 @@
 					"proto": "BISHARP_PURIFIED"
 				}
 			},
+			"default_form_id": 2267,
 			"pokedex_id": 625,
 			"types": [
 				"Dark",
@@ -32652,6 +33055,7 @@
 					"proto": "BOUFFALANT_PURIFIED"
 				}
 			},
+			"default_form_id": 2270,
 			"pokedex_id": 626,
 			"types": [
 				"Normal"
@@ -32698,6 +33102,7 @@
 					"proto": "RUFFLET_PURIFIED"
 				}
 			},
+			"default_form_id": 2273,
 			"pokedex_id": 627,
 			"types": [
 				"Normal",
@@ -32747,6 +33152,7 @@
 					"proto": "BRAVIARY_PURIFIED"
 				}
 			},
+			"default_form_id": 2276,
 			"pokedex_id": 628,
 			"types": [
 				"Normal",
@@ -32794,6 +33200,7 @@
 					"proto": "VULLABY_PURIFIED"
 				}
 			},
+			"default_form_id": 2279,
 			"pokedex_id": 629,
 			"types": [
 				"Dark",
@@ -32843,6 +33250,7 @@
 					"proto": "MANDIBUZZ_PURIFIED"
 				}
 			},
+			"default_form_id": 2282,
 			"pokedex_id": 630,
 			"types": [
 				"Dark",
@@ -32890,6 +33298,7 @@
 					"proto": "HEATMOR_PURIFIED"
 				}
 			},
+			"default_form_id": 2285,
 			"pokedex_id": 631,
 			"types": [
 				"Fire"
@@ -32935,6 +33344,7 @@
 					"proto": "DURANT_PURIFIED"
 				}
 			},
+			"default_form_id": 2288,
 			"pokedex_id": 632,
 			"types": [
 				"Bug",
@@ -32981,6 +33391,7 @@
 					"proto": "DEINO_PURIFIED"
 				}
 			},
+			"default_form_id": 2291,
 			"pokedex_id": 633,
 			"types": [
 				"Dark",
@@ -33030,6 +33441,7 @@
 					"proto": "ZWEILOUS_PURIFIED"
 				}
 			},
+			"default_form_id": 2294,
 			"pokedex_id": 634,
 			"types": [
 				"Dark",
@@ -33079,6 +33491,7 @@
 					"proto": "HYDREIGON_PURIFIED"
 				}
 			},
+			"default_form_id": 2297,
 			"pokedex_id": 635,
 			"types": [
 				"Dark",
@@ -33125,6 +33538,7 @@
 					"proto": "LARVESTA_PURIFIED"
 				}
 			},
+			"default_form_id": 2300,
 			"pokedex_id": 636,
 			"types": [
 				"Bug",
@@ -33174,6 +33588,7 @@
 					"proto": "VOLCARONA_PURIFIED"
 				}
 			},
+			"default_form_id": 2303,
 			"pokedex_id": 637,
 			"types": [
 				"Bug",
@@ -33221,6 +33636,7 @@
 					"proto": "COBALION_PURIFIED"
 				}
 			},
+			"default_form_id": 2306,
 			"pokedex_id": 638,
 			"types": [
 				"Steel",
@@ -33266,6 +33682,7 @@
 					"proto": "TERRAKION_PURIFIED"
 				}
 			},
+			"default_form_id": 2309,
 			"pokedex_id": 639,
 			"types": [
 				"Rock",
@@ -33311,6 +33728,7 @@
 					"proto": "VIRIZION_PURIFIED"
 				}
 			},
+			"default_form_id": 2312,
 			"pokedex_id": 640,
 			"types": [
 				"Grass",
@@ -33447,6 +33865,7 @@
 					"proto": "RESHIRAM_PURIFIED"
 				}
 			},
+			"default_form_id": 2315,
 			"pokedex_id": 643,
 			"types": [
 				"Dragon",
@@ -33493,6 +33912,7 @@
 					"proto": "ZEKROM_PURIFIED"
 				}
 			},
+			"default_form_id": 2318,
 			"pokedex_id": 644,
 			"types": [
 				"Dragon",
