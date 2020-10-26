@@ -27,7 +27,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         if (split.length === 2) {
             const pokemonId = parseInt(split[0]);
             const formId = parseInt(split[1]);
-            if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+            if ((masterfile.pokemon[pokemonId] || {}).default_form_id === formId) {
                 pokemonLookup[pokemonId] = false;
             }
             formLookup[formId] = false;
@@ -56,7 +56,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             if (split.length === 2) {
                 const pokemonId = parseInt(split[0]);
                 const formId = parseInt(split[1]);
-                if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                if ((masterfile.pokemon[pokemonId] || {}).default_form_id === formId) {
                     pokemonLookup[pokemonId] = jsFilter;
                 }
                 formLookup[formId] = jsFilter;
@@ -179,7 +179,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                         excludePokemonIds.push(pokemonId);
                     } else {
                         excludeFormIds.push(formId);
-                        if ((masterfile.pokemon[pokemonId] || {}).default_form_id === split[1]) {
+                        if ((masterfile.pokemon[pokemonId] || {}).default_form_id === formId) {
                             excludePokemonIds.push(pokemonId);
                         }
                     }

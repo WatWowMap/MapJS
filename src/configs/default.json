@@ -28,8 +28,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
-        "maxPokemonId": 649,
-        "minPvpCp": { 
+        "minPvpCp": {
             "great": 1400,
             "ultra": 2400
         },

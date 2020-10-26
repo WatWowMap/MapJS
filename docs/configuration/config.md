@@ -55,8 +55,6 @@ Anything you do not include will use the `default.json` as a fallback. When view
 ```js
     // Map settings
     "map": {
-        // Maximum available Pokemon
-        "maxPokemonId": 649,
         // Map start location latitude
         "startLat": 0,
         // Map start location longitude
