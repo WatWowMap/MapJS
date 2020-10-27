@@ -10,6 +10,8 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - Discord authentication or no authentication
 - Pokemon form filtering
 - Raid Pokemon form filtering  
+- Quest Pokemon form filtering
+- Mega energy quest filtering
 - Nests and nest filtering  
 - Pokemon glow based on minimum IV  
 - Refactored Global IV/Pokemon/Pokestop/Raid filtering  
