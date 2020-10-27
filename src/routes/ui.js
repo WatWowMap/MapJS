@@ -19,7 +19,7 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        clearOtherSessions(req.session.user_id, req.sessionID)
+        clearOtherSessions(req.session.user_id, req.sessionID);
         res.redirect('/login');
     });
 }
