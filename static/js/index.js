@@ -3069,7 +3069,7 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     if (pokestop.quest_type !== null) {
-        content += `<a title="Filter Quest" href="#" onclick="addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;"><div class="exclude">[Exclude]</div></a>`;
+        content += `<a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><div class="exclude">[Exclude]</div></a>`;
     }
     content += getNavigation(pokestop);
     return content;
