@@ -3829,12 +3829,7 @@ function getNestMarker (nest, geojson, ts) {
 
 function getWeatherStyle (weather, ts) {
     const ago = ts - weather.updated;
-    let value;
-    if (ago <= 150) {
-        value = 0;
-    } else {
-        value = Math.min((ago - 150) / 1800, 1);
-    }
+    let value = Math.min(Math.max((ago - 3750) / 1800, 0), 1);
     const hue = ((1 - value) * 120).toString(10);
     return { fillColor: ['hsl(', hue, ',100%,50%)'].join(''), color: 'black', opacity: 0.75, fillOpacity: 0.5, weight: 1.0 };
 }
