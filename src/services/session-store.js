@@ -52,20 +52,8 @@ const clearOtherSessions = async (userId, currentSessionId) => {
     console.log('[Session] Clear Result:', results);
 };
 
-const clearAllSessions = async (userId, currentSessionId) => {
-    let sql = `
-    DELETE FROM sessions
-    WHERE
-        json_extract(data, '$.user_id') = ?
-    `;
-    let args = [userId, currentSessionId];
-    let results = await db.query(sql, args);
-    console.log('[Session] Clear Result:', results);
-};
-
 module.exports = {
     sessionStore,
     isValidSession,
-    clearOtherSessions,
-    clearAllSessions
+    clearOtherSessions
 };
