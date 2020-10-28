@@ -20,6 +20,7 @@ if (config.discord.enabled) {
 
     router.get('/logout', (req, res) => {
         clearAllSessions(req.session.user_id, req.sessionId);
+        req.session = null;
         res.redirect('/login');
     });
 }
