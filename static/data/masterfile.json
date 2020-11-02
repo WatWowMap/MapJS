@@ -8543,7 +8543,7 @@
 				"Blizzard",
 				"Ancient Power"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8589,7 +8589,7 @@
 				"Ancient Power",
 				"Drill Peck"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8635,7 +8635,7 @@
 				"Overheat",
 				"Ancient Power"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8882,7 +8882,7 @@
 				"Focus Blast",
 				"Flamethrower"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -8960,7 +8960,7 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"buddy_group_number": 4,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -13656,7 +13656,7 @@
 				"Wild Charge",
 				"Shadow Ball"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13701,7 +13701,7 @@
 				"Overheat",
 				"Iron Head"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13747,7 +13747,7 @@
 				"Water Pulse",
 				"Ice Beam"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13972,7 +13972,7 @@
 				"Hydro Pump",
 				"Futuresight"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -14018,7 +14018,7 @@
 				"Fire Blast",
 				"Solar Beam"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -14064,7 +14064,7 @@
 				"Seed Bomb"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -20484,7 +20484,7 @@
 				"Zap Cannon",
 				"Focus Blast"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20529,7 +20529,7 @@
 				"Earthquake",
 				"Focus Blast"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20574,7 +20574,7 @@
 				"Hyper Beam",
 				"Focus Blast"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20620,7 +20620,7 @@
 				"Outrage",
 				"Thunder"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -20665,7 +20665,7 @@
 				"Dragon Claw",
 				"Solar Beam"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -20709,7 +20709,7 @@
 				"Thunder",
 				"Surf"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20753,7 +20753,7 @@
 				"Fire Blast",
 				"Solar Beam"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20798,7 +20798,7 @@
 				"Aerial Ace",
 				"Ancient Power"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -20843,7 +20843,7 @@
 				"Doom Desire"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -20928,7 +20928,7 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -25785,7 +25785,7 @@
 				"Swift",
 				"Thunder"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
@@ -25829,7 +25829,7 @@
 				"Swift",
 				"Blizzard"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
@@ -25873,7 +25873,7 @@
 				"Swift",
 				"Fire Blast"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
@@ -25919,7 +25919,7 @@
 				"Iron Head",
 				"Thunder"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -25966,7 +25966,7 @@
 				"Hydro Pump",
 				"Aqua Tail"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -26013,7 +26013,7 @@
 				"Stone Edge",
 				"Flamethrower"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -26058,7 +26058,7 @@
 				"Focus Blast",
 				"Thunder"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -26126,7 +26126,7 @@
 				"Ancient Power",
 				"Shadow Sneak"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -26171,7 +26171,7 @@
 				"Moonblast",
 				"Futuresight"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
@@ -26216,7 +26216,7 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -26260,7 +26260,7 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -26304,7 +26304,7 @@
 				"Dark Pulse"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -26365,7 +26365,7 @@
 				"Solar Beam"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -26520,7 +26520,7 @@
 				"Outrage"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -26566,7 +26566,7 @@
 				"V Create"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -33658,7 +33658,7 @@
 				"Iron Head",
 				"Stone Edge"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -33704,7 +33704,7 @@
 				"Earthquake",
 				"Rock Slide"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -33750,7 +33750,7 @@
 				"Leaf Blade",
 				"Stone Edge"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -33795,7 +33795,7 @@
 				"Hyper Beam",
 				"Hurricane"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
@@ -33841,7 +33841,7 @@
 				"Brick Break",
 				"Thunder Punch"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
@@ -33888,7 +33888,7 @@
 				"Draco Meteor",
 				"Stone Edge"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
@@ -33935,7 +33935,7 @@
 				"Flash Cannon",
 				"Crunch"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
@@ -33981,7 +33981,7 @@
 				"Rock Slide",
 				"Focus Blast"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
@@ -34049,7 +34049,7 @@
 				"Blizzard",
 				"Draco Meteor"
 			],
-			"legendary": false,
+			"legendary": true,
 			"mythic": false,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
@@ -34093,7 +34093,7 @@
 				"X Scissor"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -34153,7 +34153,7 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -34227,7 +34227,7 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -34271,7 +34271,7 @@
 				"809": {}
 			},
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
@@ -34316,7 +34316,7 @@
 				"Super Power"
 			],
 			"legendary": false,
-			"mythic": false,
+			"mythic": true,
 			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -36338,7 +36338,10 @@
 			"power": 110
 		},
 		"335": {
-			"name": "Aeroblast"
+			"name": "Aeroblast",
+			"proto": "V0335_MOVE_AEROBLAST",
+			"type": "Flying",
+			"power": 180
 		},
 		"336": {
 			"name": "Techno Blast Normal"
