@@ -123,6 +123,15 @@ let cpMultipliers = {};
 
 let skipForms = ['Shadow', 'Purified'];
 
+const kanto = [1, 151];
+const johto = [152, 251];
+const hoenn = [252, 386];
+const sinnoh = [387, 494];
+const unova = [495, 649];
+const kalos = [650, 721];
+const alola = [722, 802];
+const galar = [803, 893];
+
 $(function () {
     L.Marker.addInitHook(function () {
         if (this.options.virtual) {
@@ -7087,27 +7096,35 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#reset-kanto-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [1, 151]);
+        setPokemonFilters('generation', true, kanto);
     });
 
     $('#reset-johto-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [152, 251]);
+        setPokemonFilters('generation', true, johto);
     });
 
     $('#reset-hoenn-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [252, 386]);
+        setPokemonFilters('generation', true, hoenn);
     });
 
     $('#reset-sinnoh-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [387, 494]);
+        setPokemonFilters('generation', true, sinnoh);
     });
 
     $('#reset-unova-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [495, 649]);
+        setPokemonFilters('generation', true, unova);
     });
 
     $('#reset-kalos-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', true, [650, 721]);
+        setPokemonFilters('generation', true, kalos);
+    });
+
+    $('#reset-alola-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('generation', true, alola);
+    });
+    
+    $('#reset-galar-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('generation', true, galar);
     });
 
     $('#reset-alolan-pokemon-filter').on('click', function(event) {
@@ -7169,27 +7186,35 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#disable-kanto-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [1, 151]);
+        setPokemonFilters('generation', false, kanto);
     });
 
     $('#disable-johto-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [152, 251]);
+        setPokemonFilters('generation', false, johto);
     });
 
     $('#disable-hoenn-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [252, 386]);
+        setPokemonFilters('generation', false, hoenn);
     });
 
     $('#disable-sinnoh-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [387, 494]);
+        setPokemonFilters('generation', false, sinnoh);
     });
 
     $('#disable-unova-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [495, 649]);
+        setPokemonFilters('generation', false, unova);
     });
 
     $('#disable-kalos-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('generation', false, [650, 721]);
+        setPokemonFilters('generation', false, kalos);
+    });
+
+    $('#disable-alola-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('generation', false, alola);
+    });
+    
+    $('#disble-galar-pokemon-filter').on('click', function(event) {
+        setPokemonFilters('generation', false, galar);
     });
 
     $('#disable-alolan-pokemon-filter').on('click', function(event) {
