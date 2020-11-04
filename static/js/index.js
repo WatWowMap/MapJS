@@ -129,8 +129,8 @@ const hoenn = [252, 386];
 const sinnoh = [387, 494];
 const unova = [495, 649];
 const kalos = [650, 721];
-const alola = [722, 802];
-const galar = [803, 893];
+const alola = [722, 809];
+const galar = [810, 893];
 
 $(function () {
     L.Marker.addInitHook(function () {
@@ -5596,10 +5596,13 @@ let genFilter = (pokemonId, gen) => {
 }
 
 let masterfileFilter = (pokemonId, filter) => {
-    let matches = false;
     const pkmn = masterfile.pokemon[pokemonId];
+    let matches = false;
+    if (typeof pkmn.forms[filter[2]].proto === 'undefined') {
+        return false; //if no proto is present
+    }
     switch(filter[0]) {
-        case 'regionalForm': matches = pkmn.forms[filter[2]].name.includes(filter[1]); break;
+        case 'regionalForm': matches = pkmn.forms[filter[2]].proto.includes(filter[1]); break;
         case 'legendary':    matches = pkmn.legendary; break;
         case 'mythical':     matches = pkmn.mythic; break;
     }
@@ -5724,8 +5727,8 @@ function getCpAtLevel(id, form, level, isMax) {
     }
     let pkmn = [];
     if (cpMultipliers[level]) {
-        form === 0 || Object.keys(masterfile.pokemon[id].forms[form].attack).length === 0 ?
-            pkmn = masterfile.pokemon[id] : pkmn = masterfile.pokemon[id].forms[form];
+        pkmn = form === 0 || Object.keys(masterfile.pokemon[id].forms[form].attack).length === 0 
+        ? masterfile.pokemon[id] : masterfile.pokemon[id].forms[form];
         let multiplier = cpMultipliers[level];
         let increment = isMax ? 15 : 10;
         let minAtk = ((pkmn.attack + increment) * multiplier) || 0;
@@ -7128,11 +7131,11 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#reset-alolan-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('masterfile', true, ['regionalForm', 'Alola']);
+        setPokemonFilters('masterfile', true, ['regionalForm', 'ALOLA']);
     });
 
     $('#reset-galarian-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('masterfile', true, ['regionalForm', 'Galarian']);
+        setPokemonFilters('masterfile', true, ['regionalForm', 'GALARIAN']);
     });
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
@@ -7218,11 +7221,11 @@ function registerFilterButtonCallbacks() {
     });
 
     $('#disable-alolan-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('masterfile', false, ['regionalForm', 'Alola']);
+        setPokemonFilters('masterfile', false, ['regionalForm', 'ALOLA']);
     });
 
     $('#disable-galarian-pokemon-filter').on('click', function(event) {
-        setPokemonFilters('masterfile', false, ['regionalForm', 'Galarian']);
+        setPokemonFilters('masterfile', false, ['regionalForm', 'GALARIAN']);
     });
     
     
