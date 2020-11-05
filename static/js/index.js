@@ -5728,7 +5728,7 @@ function getCpAtLevel(id, form, level, isMax) {
     let pkmn = [];
     if (cpMultipliers[level]) {
         pkmn = form === 0 || Object.keys(masterfile.pokemon[id].forms[form].attack).length === 0 
-        ? masterfile.pokemon[id] : masterfile.pokemon[id].forms[form];
+            ? masterfile.pokemon[id] : masterfile.pokemon[id].forms[form];
         let multiplier = cpMultipliers[level];
         let increment = isMax ? 15 : 10;
         let minAtk = ((pkmn.attack + increment) * multiplier) || 0;
