@@ -8,7 +8,6 @@ const router = express.Router();
 
 const config = require('../services/config.js');
 const defaultData = require('../data/default.js');
-const { clearOtherSessions } = require('../services/session-store.js');
 //const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');
 
