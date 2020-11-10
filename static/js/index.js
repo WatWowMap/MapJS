@@ -3240,7 +3240,7 @@ function getGymPopupContent (gym) {
                 content += '<b>Gym last seen in battle!</b><br>';
             }
             if (gym.raid_pokemon_form !== null && gym.raid_pokemon_form > 0) {
-                content += '<b>Form:</b> ' + getFormName(gym.raid_pokemon_form) + '<br>';
+                content += '<b>Form:</b> ' + getFormName(gym.raid_pokemon_form, true) + '<br>';
             }
         }
         if (gym.ex_raid_eligible) {
