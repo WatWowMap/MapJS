@@ -2425,16 +2425,9 @@ function loadScanAreaPolygons () {
 // MARK: - Filters
 
 function getPokemonSize (pokemonId, pokemonForm) {
-    const id = pokemonForm === 0 ? pokemonId : `${pokemonId}-${pokemonForm}`;
-    if (pokemonFilter[id] === undefined) {
-        // TODO: console.log('Pokemon size undefined:', id, 'form:', pokemonForm);
-        return 40;
-    }
+    const id = pokemonForm === 0 ? `${pokemonId}-${masterfile.pokemon[pokemonId].default_form_id}` : `${pokemonId}-${pokemonForm}`;
     const size = pokemonFilter[id].size;
-    if (size === 'huge') {
-        return 75;
-    }
-    return 40;
+    return (size === 'small' ? 20 : size === 'large' ? 60 : size === 'huge' ? 80 : 40);
 }
 
 function getPokemonIndex (pokemon) {
@@ -2491,10 +2484,7 @@ function hasRelevantLeagueStats (leagueStats, greatLeague) {
 
 function getQuestSize (questId) {
     const size = questFilter[questId].size;
-    if (size === 'huge') {
-        return 65;
-    }
-    return 30;
+    return (size === 'small' ? 10 : size === 'large' ? 50 : size === 'huge' ? 70 : 30)
 }
 
 function getQuestIndex (questId) {
@@ -2510,10 +2500,7 @@ function getQuestIndex (questId) {
 
 function getGymSize (teamId) {
     const size = gymFilter['t' + teamId].size;
-    if (size === 'huge') {
-        return 75;
-    }
-    return 40;
+    return (size === 'small' ? 10 : size === 'large' ? 50 : size === 'huge' ? 70 : 30)
 }
 
 function getRaidSize (id) {
@@ -2521,20 +2508,14 @@ function getRaidSize (id) {
         return 30;
     }
     const size = raidFilter[id].size;
-    if (size === 'huge') {
-        return 65;
-    }
-    return 30;
+    return (size === 'small' ? 10 : size === 'large' ? 50 : size === 'huge' ? 70 : 30)
 }
 
 function getPokestopSize (id) {
     const size = id.includes('i')
         ? invasionFilter[id].size
         : pokestopFilter[id].size;
-    if (size === 'huge') {
-        return 65;
-    }
-    return 30;
+    return (size === 'small' ? 10 : size === 'large' ? 50 : size === 'huge' ? 70 : 30)
 }
 
 function getPortalSize (portal, ts) {
@@ -2545,7 +2526,7 @@ function getPortalSize (portal, ts) {
             return 50;
         }
     }
-    return 25;
+    return (size === 'small' ? 10 : size === 'large' ? 50 : size === 'huge' ? 70 : 30)
 }
 
 
@@ -5646,6 +5627,31 @@ let setPokemonFilters = (type, show, filterInfo) => {
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
 }
 
+let setPokemonSize = (size) => {
+    const defaultPokemonFilter = {};
+    defaultPokemonFilter['timers-verified'] = { show: false, size: size };
+    for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
+        const forms = Object.keys(pkmn.forms);
+        for (let j = 0; j < forms.length; j++) {
+            const formId = forms[j];
+            if (skipForms.includes(pkmn.forms[formId].name)) {
+                // Skip Shadow and Purified forms
+                continue;
+            }
+            const id = formId === '0' ? i : i + '-' + formId;
+            defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: size };
+        }
+    }
+    defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
+    defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
+    defaultPokemonFilter.big_karp = { show: false, size: size };
+    defaultPokemonFilter.tiny_rat = { show: false, size: size };
+
+    pokemonFilterNew = defaultPokemonFilter;
+
+    $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
+}
+
 function sendWebhook(encounterId) {
     // Limit scouts per user
     let scoutCount = 0;
@@ -7228,7 +7234,22 @@ function registerFilterButtonCallbacks() {
         setPokemonFilters('masterfile', false, ['regionalForm', 'GALARIAN']);
     });
     
-    
+    $('#set-pokemon-size-small').on('click', function(event) {
+        setPokemonSize('small');
+    });
+
+    $('#set-pokemon-size-normal').on('click', function(event) {
+        setPokemonSize('normal');
+    });
+
+    $('#set-pokemon-size-large').on('click', function(event) {
+        setPokemonSize('large');
+    });
+
+    $('#set-pokemon-size-huge').on('click', function(event) {
+        setPokemonSize('huge');
+    });
+
     $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
         // TODO: Default value
@@ -7475,6 +7496,33 @@ function registerFilterButtonCallbacks() {
 
         $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
     });
+
+    $('#set-invasion-size-small').on('click', function(event) {
+        setInvasionSize('small');
+    });
+
+    $('#set-invasion-size-normal').on('click', function(event) {
+        setInvasionSize('normal');
+    });
+
+    $('#set-invasion-size-large').on('click', function(event) {
+        setInvasionSize('large');
+    });
+
+    $('#set-invasion-size-huge').on('click', function(event) {
+        setInvasionSize('huge');
+    });
+
+    function setInvasionSize(size) {
+        const defaultInvasionFilter = {};
+        for (let i = 1; i <= 50; i++) {
+            defaultInvasionFilter['i' + i] = { show: invasionFilterNew['i' + i].show, size: size };
+        }
+        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
+        invasionFilterNew = defaultInvasionFilter;
+
+        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
+    }
 
     // Spawnpoint filter buttons
     $('#reset-spawnpoint-filter').on('click', function (event) {
