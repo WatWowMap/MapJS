@@ -5592,7 +5592,7 @@ let masterfileFilter = (pokemonId, filter) => {
 
 let setPokemonFilters = (type, show, filterInfo) => {
     const defaultPokemonFilter = {};
-    defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
+    defaultPokemonFilter['timers-verified'] = { show: pokemonFilterNew.timers-verified.show, size: pokemonFilterNew.timers-verified.size };
     for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
         const forms = Object.keys(pkmn.forms);
         for (let j = 0; j < forms.length; j++) {
@@ -5616,10 +5616,10 @@ let setPokemonFilters = (type, show, filterInfo) => {
             }
         }
     }
-    defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-    defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-    defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-    defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+    defaultPokemonFilter.iv_and = { on: pokemonFilterNew.iv_and.on, filter: pokemonFilterNew.iv_and.filter };
+    defaultPokemonFilter.iv_or = { on: pokemonFilterNew.iv_or.on, filter: pokemonFilterNew.iv_or.filter };
+    defaultPokemonFilter.big_karp = { show: pokemonFilterNew.big_karp.show, size: pokemonFilterNew.big_karp.size };
+    defaultPokemonFilter.tiny_rat = { show: pokemonFilterNew.tiny_rat.show, size: pokemonFilterNew.tiny_rat.size };
 
     //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
     pokemonFilterNew = defaultPokemonFilter;
@@ -5642,10 +5642,10 @@ let setPokemonSize = (size) => {
             defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: size };
         }
     }
-    defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
-    defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-    defaultPokemonFilter.big_karp = { show: false, size: size };
-    defaultPokemonFilter.tiny_rat = { show: false, size: size };
+    defaultPokemonFilter.iv_and = { on: pokemonFilterNew.iv_and.on, filter: pokemonFilterNew.iv_and.filter };
+    defaultPokemonFilter.iv_or = { on: pokemonFilterNew.iv_or.on, filter: pokemonFilterNew.iv_or.filter };
+    defaultPokemonFilter.big_karp = { show: pokemonFilterNew.big_karp.show, size: size };
+    defaultPokemonFilter.tiny_rat = { show: pokemonFilterNew.tiny_rat.show, size: size };
 
     pokemonFilterNew = defaultPokemonFilter;
 
@@ -7146,7 +7146,7 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
-        defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
+        defaultPokemonFilter['timers-verified'] = { show: false, size: pokemonFilterNew.timers-verified.size };
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
@@ -7161,8 +7161,8 @@ function registerFilterButtonCallbacks() {
         }
         defaultPokemonFilter.iv_and = { on: false, filter: pokemonFilterNew.iv_and.filter };
         defaultPokemonFilter.iv_or = { on: false, filter: pokemonFilterNew.iv_or.filter };
-        defaultPokemonFilter.big_karp = { show: false, size: 'normal' };
-        defaultPokemonFilter.tiny_rat = { show: false, size: 'normal' };
+        defaultPokemonFilter.big_karp = { show: false, size: pokemonFilterNew.big_karp.size };
+        defaultPokemonFilter.tiny_rat = { show: false, size: pokemonFilterNew.tiny_rat.size };
 
         //store('pokemon_filter', JSON.stringify(defaultPokemonFilter));
         pokemonFilterNew = defaultPokemonFilter;
