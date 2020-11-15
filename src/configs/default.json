@@ -65,8 +65,8 @@
             "both": { "color": "purple" }
         },
         "iconSizes": {
-            "gym": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
-            "raid": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "gym": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "raid": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
             "pokestop": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
             "quest": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
             "invasion": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
