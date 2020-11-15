@@ -2487,7 +2487,7 @@ function getQuestIndex (questId) {
     return 2;
 }
 
-const getIconSize = (type, id, form) => {
+const getIconSize = (type, id, form, weight) => {
     let filterId
     let filterType = eval(`${type}Filter`)
     switch (type) {
@@ -2500,6 +2500,11 @@ const getIconSize = (type, id, form) => {
         case 'pokemon':     filterId = form === 0 ? `${id}-${masterfile.pokemon[id].default_form_id}` : `${id}-${form}`; break;
         case 'nest':        filterId = `p${id}`; break;
         case 'device':      filterId = id; break;
+    }
+    if (weight !== undefined && weight !== null) {
+        filterId = id === 19 && pokemonFilter["tiny_rat"].show && weight <= 2.40625 ? "tiny_rat"
+            : id === 129 && pokemonFilter["big_karp"].show && weight >= 13.125 ? "big_karp"
+                : filterId
     }
     return iconSizes[type][filterType[filterId].size]
 }
@@ -3800,7 +3805,7 @@ function calcIV(atk, def, sta) {
 }
 
 function getPokemonMarkerIcon (pokemon, ts) {
-    const size = getIconSize('pokemon', pokemon.pokemon_id, pokemon.form);
+    const size = getIconSize('pokemon', pokemon.pokemon_id, pokemon.form, pokemon.weight);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
     const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
