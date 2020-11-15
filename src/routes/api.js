@@ -337,7 +337,7 @@ const getData = async (perms, filter) => {
                 path: '/misc/verified.png'
             },
             'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
-            'size': generateSizeButtons('timers-verified', 'pokemon-timers-verified'),
+            'size': null,
             'type': globalFiltersString,
             'types': null
         });
@@ -947,16 +947,22 @@ const generateShowHideButtons = (id, type, ivLabel = '') => {
 };
 
 const generateSizeButtons = (id, type) => {
-    //const smallString = i18n.__('filter_small');
+    const smallString = i18n.__('filter_small');
     const normalString = i18n.__('filter_normal');
-    //const largeString = i18n.__('filter_large');
+    const largeString = i18n.__('filter_large');
     const hugeString = i18n.__('filter_huge');
     const size = `
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="normal">
+    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="small">
+            <input type="radio" name="options" id="show" autocomplete="off">${smallString}
+        </label>    
+    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="normal">
             <input type="radio" name="options" id="show" autocomplete="off">${normalString}
         </label>
-        <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="huge">
+    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="large">
+            <input type="radio" name="options" id="show" autocomplete="off">${largeString}
+        </label>
+    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="${type}" data-info="huge">
             <input type="radio" name="options" id="show" autocomplete="off">${hugeString}
         </label>
     </div>
