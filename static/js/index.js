@@ -2499,10 +2499,9 @@ const getIconSize = (type, id, form) => {
         case 'spawnpoint':  filterId = id; break;
         case 'pokemon':     filterId = form === 0 ? `${id}-${masterfile.pokemon[id].default_form_id}` : `${id}-${form}`; break;
         case 'nest':        filterId = `p${id}`; break;
-        case 'portal':      filterId = id; break;
         case 'device':      filterId = id; break;
     }
-    return iconSizes[type][filterType[filterId].size] + (id === 'new' ? portalMods.newSizeIncrease : 0)
+    return iconSizes[type][filterType[filterId].size]
 }
 // MARK: - Local Storage
 
@@ -3687,9 +3686,8 @@ function getSubmissionTypeCellStyle (cell, ts) {
 }
 
 function getPortalMarker (portal, ts) {
-    const yesterday = ts - (60 * 60 * 24);
     const circle = L.circle([portal.lat, portal.lon], {
-        radius: getIconSize('portal', (portal.imported > yesterday ? 'new' : 'old')),
+        radius: 20,
         forceZIndex: 1,
     });
     circle.setStyle(getPortalStyle(portal, ts));
@@ -5604,31 +5602,6 @@ let setPokemonFilters = (type, show, filterInfo) => {
     $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
 }
 
-let setPokemonSize = (size) => {
-    const defaultPokemonFilter = {};
-    defaultPokemonFilter['timers-verified'] = { show: false, size: size };
-    for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
-        const forms = Object.keys(pkmn.forms);
-        for (let j = 0; j < forms.length; j++) {
-            const formId = forms[j];
-            if (skipForms.includes(pkmn.forms[formId].name)) {
-                // Skip Shadow and Purified forms
-                continue;
-            }
-            const id = formId === '0' ? i : i + '-' + formId;
-            defaultPokemonFilter[id] = { show: pokemonFilterNew[id].show, size: size };
-        }
-    }
-    defaultPokemonFilter.iv_and = { on: pokemonFilterNew.iv_and.on, filter: pokemonFilterNew.iv_and.filter };
-    defaultPokemonFilter.iv_or = { on: pokemonFilterNew.iv_or.on, filter: pokemonFilterNew.iv_or.filter };
-    defaultPokemonFilter.big_karp = { show: pokemonFilterNew.big_karp.show, size: size };
-    defaultPokemonFilter.tiny_rat = { show: pokemonFilterNew.tiny_rat.show, size: size };
-
-    pokemonFilterNew = defaultPokemonFilter;
-
-    $('#table-filter-pokemon').DataTable().rows().invalidate('data').draw(false);
-}
-
 function sendWebhook(encounterId) {
     // Limit scouts per user
     let scoutCount = 0;
@@ -6479,7 +6452,8 @@ function loadPortalFilter () {
                 width: '5%'
             },
             { data: 'filter' },
-            { data: 'size' }
+            { data: 'size',
+                visible: false }
         ],
         ajax: {
             url: '/api/get_data?show_portal_filter=true',
@@ -7210,22 +7184,6 @@ function registerFilterButtonCallbacks() {
     $('#disable-galarian-pokemon-filter').on('click', function(event) {
         setPokemonFilters('masterfile', false, ['regionalForm', 'GALARIAN']);
     });
-    
-    $('#set-pokemon-size-small').on('click', function(event) {
-        setPokemonSize('small');
-    });
-
-    $('#set-pokemon-size-normal').on('click', function(event) {
-        setPokemonSize('normal');
-    });
-
-    $('#set-pokemon-size-large').on('click', function(event) {
-        setPokemonSize('large');
-    });
-
-    $('#set-pokemon-size-huge').on('click', function(event) {
-        setPokemonSize('huge');
-    });
 
     $('#quick-start-pokemon-filter').on('click', function(event) {
         const defaultPokemonFilter = {};
@@ -7473,33 +7431,6 @@ function registerFilterButtonCallbacks() {
 
         $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
     });
-
-    $('#set-invasion-size-small').on('click', function(event) {
-        setInvasionSize('small');
-    });
-
-    $('#set-invasion-size-normal').on('click', function(event) {
-        setInvasionSize('normal');
-    });
-
-    $('#set-invasion-size-large').on('click', function(event) {
-        setInvasionSize('large');
-    });
-
-    $('#set-invasion-size-huge').on('click', function(event) {
-        setInvasionSize('huge');
-    });
-
-    function setInvasionSize(size) {
-        const defaultInvasionFilter = {};
-        for (let i = 1; i <= 50; i++) {
-            defaultInvasionFilter['i' + i] = { show: invasionFilterNew['i' + i].show, size: size };
-        }
-        store('invasion_filter', JSON.stringify(defaultInvasionFilter));
-        invasionFilterNew = defaultInvasionFilter;
-
-        $('#table-filter-invasion').DataTable().rows().invalidate('data').draw(false);
-    }
 
     // Spawnpoint filter buttons
     $('#reset-spawnpoint-filter').on('click', function (event) {
