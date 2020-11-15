@@ -5559,9 +5559,6 @@ let genFilter = (pokemonId, gen) => {
 let masterfileFilter = (pokemonId, filter) => {
     const pkmn = masterfile.pokemon[pokemonId];
     let matches = false;
-    if (typeof pkmn.forms[filter[2]].proto === 'undefined') {
-        return false; //if no proto is present
-    }
     switch(filter[0]) {
         case 'regionalForm': matches = pkmn.forms[filter[2]].proto.includes(filter[1]); break;
         case 'legendary':    matches = pkmn.legendary; break;
@@ -5572,7 +5569,7 @@ let masterfileFilter = (pokemonId, filter) => {
 
 let setPokemonFilters = (type, show, filterInfo) => {
     const defaultPokemonFilter = {};
-    defaultPokemonFilter['timers-verified'] = { show: pokemonFilterNew.timers-verified.show, size: pokemonFilterNew.timers-verified.size };
+    defaultPokemonFilter['timers-verified'] = { show: pokemonFilterNew['timers-verified'].show, size: pokemonFilterNew['timers-verified'].size };
     for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
         const forms = Object.keys(pkmn.forms);
         for (let j = 0; j < forms.length; j++) {
@@ -7321,7 +7318,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: masterfileFilter(poke.id, 'legendary') || masterfileFilter(poke.id, 'mythical'), size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: masterfileFilter(poke.id, ['legendary']) || masterfileFilter(poke.id, ['mythical']), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
@@ -7339,7 +7336,7 @@ function registerFilterButtonCallbacks() {
         for (i = 0; i < availableRaidBosses.length; i++) {
             let poke = availableRaidBosses[i];
             let id = poke.form_id === 0 ? poke.id : poke.id + '-' + poke.form_id;
-            defaultRaidFilter['p' + id] = { show: !masterfileFilter(poke.id, 'legendary') && !masterfileFilter(poke.id, 'mythical'), size: 'normal' };
+            defaultRaidFilter['p' + id] = { show: !masterfileFilter(poke.id, ['legendary']) && !masterfileFilter(poke.id, ['mythical']), size: 'normal' };
         }
 
         store('raid_filter', JSON.stringify(defaultRaidFilter));
