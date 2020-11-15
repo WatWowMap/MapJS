@@ -63,7 +63,20 @@
             "iv": { "value": 100, "color": "red" },
             "pvp": { "value": 1, "color": "blue" },
             "both": { "color": "purple" }
-        }
+        },
+        "iconSizes": {
+            "gym": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "raid": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "pokestop": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "quest": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "invasion": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "spawnpoint": { "small": 0.5, "normal": 1, "large": 2, "huge": 3 },
+            "pokemon": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "nest": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "portal": { "small": 10, "normal": 30, "large": 50, "huge": 70 },
+            "device": { "small": 10, "normal": 30, "large": 50, "huge": 70 }
+        },
+        "portalMods": { "oldColor": "blue", "newColor": "green", "newSizeIncrease": 10 }
     },
     "header": {
         "left": [],

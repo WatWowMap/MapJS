@@ -19,6 +19,8 @@ data.favicon = config.favicon;
 data.device_path_color = config.map.devicePathColor;
 data.nest_polygons = config.map.nestPolygons;
 data.min_pvp_cp = JSON.stringify(config.map.minPvpCp);
+data.icon_sizes_json = JSON.stringify(config.map.iconSizes);
+data.portal_mods_json = JSON.stringify(config.map.portalMods);
 
 // Default filter options for new users/cache clears
 data.default_show_pokemon = config.map.filters.pokemon;
