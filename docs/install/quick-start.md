@@ -16,6 +16,10 @@
     ```sh
     npm run update
     ```
+1. Create Locales
+    ```sh
+    npm run create-locales
+    ```
 
 1. Create your project config
 
