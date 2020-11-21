@@ -585,7 +585,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
-            incident_expire_timestamp, grunt_type, sponsor_id
+            incident_expire_timestamp, grunt_type, sponsor_id, ar_scan_eligible
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
@@ -663,7 +663,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 pokestop_display: pokestopDisplay,
                 incident_expire_timestamp: incidentExpireTimestamp,
                 grunt_type: gruntType,
-                sponsor_id: result.sponsor_id
+                sponsor_id: result.sponsor_id,
+                ar_scan_eligible: result.ar_scan_eligible,
             });
         }
     }
