@@ -28,9 +28,10 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
-        "minPvpCp": {
-            "great": 1400,
-            "ultra": 2400
+        "pvp": {
+            "maxRank": 100,
+            "minCpGreat": 1400,
+            "minCpUltra": 2400
         },
         "devicePathColor": "red",
         "nestPolygons": true,

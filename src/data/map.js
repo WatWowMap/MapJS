@@ -97,11 +97,12 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 }
             }
             if (showPVP) {
+                let { maxRank, minCpGreat, minCpUltra } = config.map.pvp;
                 if ((filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league))) {
-                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.great && x.cp <= 1500).map(x => x.rank));
+                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpGreat && x.cp <= 1500).map(x => x.rank));
                 }
                 if ((filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league))) {
-                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.cp >= config.map.minPvpCp.ultra && x.cp <= 2500).map(x => x.rank));
+                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpUltra && x.cp <= 2500).map(x => x.rank));
                 }
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
