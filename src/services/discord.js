@@ -61,11 +61,11 @@ class DiscordClient {
         client.config = this.config;
         try {
             fs.readdir(`${__dirname}/events/`, (err, files) => {
-                if (err) return this.log.error(err)
+                if (err) return this.log.error(err);
                 files.forEach((file) => {
-                    const event = require(`${__dirname}/events/${file}`) // eslint-disable-line global-require
-                    const eventName = file.split('.')[0]
-                    client.on(eventName, event.bind(null, client))
+                    const event = require(`${__dirname}/events/${file}`); // eslint-disable-line global-require
+                    const eventName = file.split('.')[0];
+                    client.on(eventName, event.bind(null, client));
                 });
             });
         } catch (err) {
