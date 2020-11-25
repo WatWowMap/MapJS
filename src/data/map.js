@@ -22,6 +22,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let includeBigKarp = false;
     let includeTinyRat = false;
     let onlyVerifiedTimersSQL = '';
+    let pvpStats = [];
     for (const key of pokemonFilterExclude || []) {
         const split = key.split('-', 2);
         if (split.length === 2) {
@@ -37,6 +38,14 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             includeTinyRat = true;
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
+        } else if (key === 'level40_stats') {
+            pvpStats.push(40);
+        } else if (key === 'level41_stats') {
+            pvpStats.push(41);
+        } else if (key === 'level50_stats') {
+            pvpStats.push(50);
+        } else if (key === 'level51_stats') {
+            pvpStats.push(51);
         } else {
             console.warn('Unrecognized key', key);
         }
@@ -99,10 +108,10 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             if (showPVP) {
                 let { maxRank, minCpGreat, minCpUltra } = config.map.pvp;
                 if ((filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league))) {
-                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpGreat && x.cp <= 1500).map(x => x.rank));
+                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpGreat && x.cp <= 1500 && pvpStats.includes(x.cap)).map(x => x.rank));
                 }
                 if ((filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league))) {
-                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpUltra && x.cp <= 2500).map(x => x.rank));
+                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpUltra && x.cp <= 2500 && pvpStats.includes(x.cap)).map(x => x.rank));
                 }
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
