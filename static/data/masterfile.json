@@ -130,6 +130,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -329,6 +330,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -539,6 +541,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -649,6 +652,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 12,
 			"buddy_group_number": 1,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -695,6 +699,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -805,6 +810,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 12,
 			"buddy_group_number": 1,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -869,6 +875,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -980,6 +987,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 12,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -1029,6 +1037,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 5,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -1169,6 +1178,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -1209,7 +1219,7 @@
 					"proto": "RATICATE_PURIFIED"
 				},
 				"2329": {
-					"name": "Spring 2020",
+					"name": "Spring",
 					"proto": "RATICATE_SPRING_2020"
 				}
 			},
@@ -1285,6 +1295,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -1396,6 +1407,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -1465,16 +1477,7 @@
 				},
 				"901": {
 					"name": "Vs 2019",
-					"proto": "PIKACHU_VS_2019",
-					"quick_moves": [
-						"Thunder Shock",
-						"Charm"
-					],
-					"charged_moves": [
-						"Flying Press",
-						"Thunder Punch",
-						"Play Rough"
-					]
+					"proto": "PIKACHU_VS_2019"
 				},
 				"949": {
 					"name": "Copy 2019",
@@ -1490,13 +1493,7 @@
 				},
 				"2332": {
 					"name": "Costume 2020",
-					"proto": "PIKACHU_COSTUME_2020",
-					"charged_moves": [
-						"Discharge",
-						"Thunderbolt",
-						"Wild Charge",
-						"Fly"
-					]
+					"proto": "PIKACHU_COSTUME_2020"
 				}
 			},
 			"default_form_id": 598,
@@ -1513,12 +1510,12 @@
 			"capture_rate": 0.2,
 			"quick_moves": [
 				"Thunder Shock",
-				"Quick Attack"
+				"Charm"
 			],
 			"charged_moves": [
-				"Discharge",
-				"Thunderbolt",
-				"Wild Charge"
+				"Flying Press",
+				"Thunder Punch",
+				"Play Rough"
 			],
 			"evolutions": {
 				"26": {}
@@ -1689,6 +1686,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -1768,7 +1766,6 @@
 			"forms": {
 				"776": {
 					"name": "Normal",
-					"proto": "NIDORAN_NORMAL",
 					"evolutions": {
 						"30": {
 							"form": 779
@@ -1777,7 +1774,6 @@
 				},
 				"777": {
 					"name": "Shadow",
-					"proto": "NIDORAN_SHADOW",
 					"evolutions": {
 						"30": {
 							"form": 780
@@ -1786,7 +1782,6 @@
 				},
 				"778": {
 					"name": "Purified",
-					"proto": "NIDORAN_PURIFIED",
 					"evolutions": {
 						"30": {
 							"form": 781
@@ -1822,6 +1817,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -1887,6 +1883,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -1999,6 +1996,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2064,6 +2062,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2159,6 +2158,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -2292,6 +2292,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2409,6 +2410,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -2523,6 +2525,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -2655,6 +2658,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2733,6 +2737,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2829,6 +2834,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -2941,6 +2947,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3075,6 +3082,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3251,6 +3259,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3378,6 +3387,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3474,6 +3484,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3584,6 +3595,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3696,6 +3708,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3773,6 +3786,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3886,6 +3900,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3951,6 +3966,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -3962,10 +3978,7 @@
 			"forms": {
 				"310": {
 					"name": "Normal",
-					"proto": "ALAKAZAM_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALAKAZAM_NORMAL"
 				},
 				"311": {
 					"name": "Shadow",
@@ -3973,10 +3986,7 @@
 				},
 				"312": {
 					"name": "Purified",
-					"proto": "ALAKAZAM_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALAKAZAM_PURIFIED"
 				}
 			},
 			"default_form_id": 310,
@@ -4007,15 +4017,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 367,
-					"defense": 207,
-					"stamina": 146,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"66": {
 			"name": "Machop",
@@ -4076,6 +4078,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4141,6 +4144,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4254,6 +4258,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4320,6 +4325,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4417,6 +4423,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4554,6 +4561,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -4644,6 +4652,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -4798,6 +4807,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4854,14 +4864,12 @@
 			"capture_rate": 0.15,
 			"quick_moves": [
 				"Low Kick",
-				"Fire Spin",
-				"Incinerate"
+				"Fire Spin"
 			],
 			"charged_moves": [
 				"Fire Blast",
 				"Drill Run",
-				"Heat Wave",
-				"Flame Charge"
+				"Heat Wave"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -4947,6 +4955,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -4958,10 +4967,7 @@
 			"forms": {
 				"1020": {
 					"name": "Normal",
-					"proto": "SLOWBRO_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SLOWBRO_NORMAL"
 				},
 				"1021": {
 					"name": "Shadow",
@@ -4969,10 +4975,7 @@
 				},
 				"1022": {
 					"name": "Purified",
-					"proto": "SLOWBRO_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SLOWBRO_PURIFIED"
 				},
 				"2583": {
 					"name": "Galarian",
@@ -5007,15 +5010,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 224,
-					"defense": 259,
-					"stamina": 216,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"81": {
 			"name": "Magnemite",
@@ -5077,6 +5072,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 5,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5264,6 +5260,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5358,6 +5355,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5493,6 +5491,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5626,6 +5625,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5722,6 +5722,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5772,6 +5773,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 5,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -5798,10 +5800,7 @@
 				},
 				"2586": {
 					"name": "Costume 2020",
-					"proto": "GENGAR_COSTUME_2020",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GENGAR_COSTUME_2020"
 				}
 			},
 			"default_form_id": 1044,
@@ -5874,7 +5873,7 @@
 					}
 				},
 				"2334": {
-					"name": "Costume 2020",
+					"name": "Costume",
 					"proto": "ONIX_COSTUME_2020"
 				}
 			},
@@ -5972,6 +5971,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6086,6 +6086,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6180,6 +6181,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6292,6 +6294,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6426,6 +6429,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6697,6 +6701,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -6829,6 +6834,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -7002,10 +7008,7 @@
 			"forms": {
 				"839": {
 					"name": "Normal",
-					"proto": "KANGASKHAN_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "KANGASKHAN_NORMAL"
 				},
 				"840": {
 					"name": "Shadow",
@@ -7013,10 +7016,7 @@
 				},
 				"841": {
 					"name": "Purified",
-					"proto": "KANGASKHAN_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "KANGASKHAN_PURIFIED"
 				}
 			},
 			"default_form_id": 839,
@@ -7047,15 +7047,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 246,
-					"defense": 210,
-					"stamina": 233,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"116": {
 			"name": "Horsea",
@@ -7099,6 +7091,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -7195,6 +7188,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -7288,6 +7282,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -7346,19 +7341,19 @@
 			"name": "Mr Mime",
 			"forms": {
 				"1080": {
-					"name": "Normal",
+					"name": "Mime",
 					"proto": "MR_MIME_NORMAL"
 				},
 				"1081": {
-					"name": "Shadow",
+					"name": "Mime",
 					"proto": "MR_MIME_SHADOW"
 				},
 				"1082": {
-					"name": "Purified",
+					"name": "Mime",
 					"proto": "MR_MIME_PURIFIED"
 				},
 				"2339": {
-					"name": "Galarian",
+					"name": "Mime",
 					"proto": "MR_MIME_GALARIAN"
 				}
 			},
@@ -7640,10 +7635,7 @@
 			"forms": {
 				"898": {
 					"name": "Normal",
-					"proto": "PINSIR_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "PINSIR_NORMAL"
 				},
 				"899": {
 					"name": "Shadow",
@@ -7651,10 +7643,7 @@
 				},
 				"900": {
 					"name": "Purified",
-					"proto": "PINSIR_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "PINSIR_PURIFIED"
 				}
 			},
 			"default_form_id": 898,
@@ -7686,19 +7675,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 305,
-					"defense": 231,
-					"stamina": 163,
-					"unreleased": true,
-					"types": [
-						"Bug",
-						"Flying"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"128": {
 			"name": "Tauros",
@@ -7801,6 +7778,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 400,
 			"buddy_group_number": 3,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -7812,10 +7790,7 @@
 			"forms": {
 				"256": {
 					"name": "Normal",
-					"proto": "GYARADOS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GYARADOS_NORMAL"
 				},
 				"257": {
 					"name": "Shadow",
@@ -7823,10 +7798,7 @@
 				},
 				"258": {
 					"name": "Purified",
-					"proto": "GYARADOS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GYARADOS_PURIFIED"
 				}
 			},
 			"default_form_id": 256,
@@ -7859,19 +7831,7 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 292,
-					"defense": 247,
-					"stamina": 216,
-					"unreleased": true,
-					"types": [
-						"Water",
-						"Dark"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"131": {
 			"name": "Lapras",
@@ -7889,7 +7849,7 @@
 					"proto": "LAPRAS_PURIFIED"
 				},
 				"2585": {
-					"name": "Costume 2020",
+					"name": "Costume",
 					"proto": "LAPRAS_COSTUME_2020"
 				}
 			},
@@ -8013,6 +7973,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -8278,6 +8239,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -8390,6 +8352,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -8448,10 +8411,7 @@
 			"forms": {
 				"1110": {
 					"name": "Normal",
-					"proto": "AERODACTYL_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AERODACTYL_NORMAL"
 				},
 				"1111": {
 					"name": "Shadow",
@@ -8459,10 +8419,7 @@
 				},
 				"1112": {
 					"name": "Purified",
-					"proto": "AERODACTYL_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AERODACTYL_PURIFIED"
 				}
 			},
 			"default_form_id": 1110,
@@ -8496,15 +8453,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 292,
-					"defense": 210,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"143": {
 			"name": "Snorlax",
@@ -8594,7 +8543,7 @@
 				"Blizzard",
 				"Ancient Power"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8640,7 +8589,7 @@
 				"Ancient Power",
 				"Drill Peck"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8686,7 +8635,7 @@
 				"Overheat",
 				"Ancient Power"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -8752,6 +8701,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -8817,6 +8767,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -8839,7 +8790,7 @@
 					"proto": "DRAGONITE_PURIFIED"
 				},
 				"2333": {
-					"name": "Costume 2020",
+					"name": "Costume",
 					"proto": "DRAGONITE_COSTUME_2020"
 				}
 			},
@@ -8897,11 +8848,7 @@
 				},
 				"135": {
 					"name": "Normal",
-					"proto": "MEWTWO_NORMAL",
-					"temp_evolutions": {
-						"2": {},
-						"3": {}
-					}
+					"proto": "MEWTWO_NORMAL"
 				},
 				"1113": {
 					"name": "Shadow",
@@ -8909,11 +8856,7 @@
 				},
 				"1114": {
 					"name": "Purified",
-					"proto": "MEWTWO_PURIFIED",
-					"temp_evolutions": {
-						"2": {},
-						"3": {}
-					}
+					"proto": "MEWTWO_PURIFIED"
 				}
 			},
 			"default_form_id": 135,
@@ -8939,30 +8882,12 @@
 				"Focus Blast",
 				"Flamethrower"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
-			"third_move_candy": 100,
-			"temp_evolutions": {
-				"2": {
-					"attack": 412,
-					"defense": 222,
-					"stamina": 235,
-					"unreleased": true,
-					"types": [
-						"Psychic",
-						"Fighting"
-					]
-				},
-				"3": {
-					"attack": 426,
-					"defense": 229,
-					"stamina": 235,
-					"unreleased": true
-				}
-			}
+			"third_move_candy": 100
 		},
 		"151": {
 			"name": "Mew",
@@ -9035,7 +8960,7 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
 			"buddy_group_number": 4,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -9083,6 +9008,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9131,6 +9057,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9224,6 +9151,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9272,6 +9200,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9308,8 +9237,7 @@
 			"capture_rate": 0.05,
 			"quick_moves": [
 				"Ember",
-				"Shadow Claw",
-				"Incinerate"
+				"Shadow Claw"
 			],
 			"charged_moves": [
 				"Fire Blast",
@@ -9366,6 +9294,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9414,6 +9343,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -9508,6 +9438,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -9602,6 +9533,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 5,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -9697,6 +9629,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -9792,6 +9725,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -9933,6 +9867,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -10026,6 +9961,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 1,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -10073,6 +10009,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 1,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -10121,6 +10058,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -10168,6 +10106,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 1,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -10266,6 +10205,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 4,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -10377,6 +10317,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -10442,6 +10383,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -10453,10 +10395,7 @@
 			"forms": {
 				"652": {
 					"name": "Normal",
-					"proto": "AMPHAROS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AMPHAROS_NORMAL"
 				},
 				"653": {
 					"name": "Shadow",
@@ -10464,10 +10403,7 @@
 				},
 				"654": {
 					"name": "Purified",
-					"proto": "AMPHAROS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AMPHAROS_PURIFIED"
 				}
 			},
 			"default_form_id": 652,
@@ -10499,19 +10435,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 294,
-					"defense": 203,
-					"stamina": 207,
-					"unreleased": true,
-					"types": [
-						"Electric",
-						"Dragon"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"182": {
 			"name": "Bellossom",
@@ -10602,6 +10526,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -10804,6 +10729,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -10870,6 +10796,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 4,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -11030,6 +10957,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 1,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -11173,6 +11101,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -11598,11 +11527,11 @@
 					"proto": "UNOWN_Z"
 				},
 				"27": {
-					"name": "Exclamation Point",
+					"name": "Exclamation point",
 					"proto": "UNOWN_EXCLAMATION_POINT"
 				},
 				"28": {
-					"name": "Question Mark",
+					"name": "Question mark",
 					"proto": "UNOWN_QUESTION_MARK"
 				}
 			},
@@ -11648,7 +11577,7 @@
 					"proto": "WOBBUFFET_PURIFIED"
 				},
 				"2328": {
-					"name": "Spring 2020",
+					"name": "Spring",
 					"proto": "WOBBUFFET_SPRING_2020"
 				}
 			},
@@ -11785,6 +11714,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -11955,10 +11885,7 @@
 			"forms": {
 				"905": {
 					"name": "Normal",
-					"proto": "STEELIX_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "STEELIX_NORMAL"
 				},
 				"906": {
 					"name": "Shadow",
@@ -11966,10 +11893,7 @@
 				},
 				"907": {
 					"name": "Purified",
-					"proto": "STEELIX_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "STEELIX_PURIFIED"
 				}
 			},
 			"default_form_id": 905,
@@ -12001,15 +11925,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 212,
-					"defense": 327,
-					"stamina": 181,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"209": {
 			"name": "Snubbull",
@@ -12053,6 +11969,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -12158,10 +12075,7 @@
 			"forms": {
 				"250": {
 					"name": "Normal",
-					"proto": "SCIZOR_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SCIZOR_NORMAL"
 				},
 				"251": {
 					"name": "Shadow",
@@ -12169,10 +12083,7 @@
 				},
 				"252": {
 					"name": "Purified",
-					"proto": "SCIZOR_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SCIZOR_PURIFIED"
 				}
 			},
 			"default_form_id": 250,
@@ -12203,15 +12114,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 279,
-					"defense": 250,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"213": {
 			"name": "Shuckle",
@@ -12264,10 +12167,7 @@
 			"forms": {
 				"1262": {
 					"name": "Normal",
-					"proto": "HERACROSS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "HERACROSS_NORMAL"
 				},
 				"1263": {
 					"name": "Shadow",
@@ -12275,10 +12175,7 @@
 				},
 				"1264": {
 					"name": "Purified",
-					"proto": "HERACROSS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "HERACROSS_PURIFIED"
 				}
 			},
 			"default_form_id": 1262,
@@ -12309,15 +12206,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 334,
-					"defense": 223,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"215": {
 			"name": "Sneasel",
@@ -12444,6 +12333,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -12538,6 +12428,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -12633,6 +12524,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -12780,6 +12672,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -13032,6 +12925,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -13189,6 +13083,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 50,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -13433,6 +13328,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -13527,6 +13423,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 1,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -13574,6 +13471,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 1,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -13621,6 +13519,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 1,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -13757,7 +13656,7 @@
 				"Wild Charge",
 				"Shadow Ball"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13800,10 +13699,9 @@
 				"Flamethrower",
 				"Fire Blast",
 				"Overheat",
-				"Iron Head",
-				"Flame Charge"
+				"Iron Head"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13849,7 +13747,7 @@
 				"Water Pulse",
 				"Ice Beam"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -13916,6 +13814,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -13982,6 +13881,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 100,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -13993,10 +13893,7 @@
 			"forms": {
 				"319": {
 					"name": "Normal",
-					"proto": "TYRANITAR_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "TYRANITAR_NORMAL"
 				},
 				"320": {
 					"name": "Shadow",
@@ -14004,10 +13901,7 @@
 				},
 				"321": {
 					"name": "Purified",
-					"proto": "TYRANITAR_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "TYRANITAR_PURIFIED"
 				}
 			},
 			"default_form_id": 319,
@@ -14038,15 +13932,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 309,
-					"defense": 276,
-					"stamina": 225,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"249": {
 			"name": "Lugia",
@@ -14086,7 +13972,7 @@
 				"Hydro Pump",
 				"Futuresight"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -14097,15 +13983,15 @@
 			"name": "Ho Oh",
 			"forms": {
 				"1343": {
-					"name": "Normal",
+					"name": "Oh",
 					"proto": "HO_OH_NORMAL"
 				},
 				"1344": {
-					"name": "Shadow",
+					"name": "Oh",
 					"proto": "HO_OH_SHADOW"
 				},
 				"1345": {
-					"name": "Purified",
+					"name": "Oh",
 					"proto": "HO_OH_PURIFIED"
 				}
 			},
@@ -14125,15 +14011,14 @@
 			"quick_moves": [
 				"Extrasensory",
 				"Steel Wing",
-				"Hidden Power",
-				"Incinerate"
+				"Hidden Power"
 			],
 			"charged_moves": [
 				"Brave Bird",
 				"Fire Blast",
 				"Solar Beam"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
@@ -14179,7 +14064,7 @@
 				"Seed Bomb"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -14286,10 +14171,7 @@
 			"forms": {
 				"1355": {
 					"name": "Normal",
-					"proto": "SCEPTILE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SCEPTILE_NORMAL"
 				},
 				"1356": {
 					"name": "Shadow",
@@ -14297,10 +14179,7 @@
 				},
 				"1357": {
 					"name": "Purified",
-					"proto": "SCEPTILE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SCEPTILE_PURIFIED"
 				}
 			},
 			"default_form_id": 1355,
@@ -14331,19 +14210,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 320,
-					"defense": 186,
-					"stamina": 172,
-					"unreleased": true,
-					"types": [
-						"Grass",
-						"Dragon"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"255": {
 			"name": "Torchic",
@@ -14447,10 +14314,7 @@
 			"forms": {
 				"1364": {
 					"name": "Normal",
-					"proto": "BLAZIKEN_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "BLAZIKEN_NORMAL"
 				},
 				"1365": {
 					"name": "Shadow",
@@ -14458,10 +14322,7 @@
 				},
 				"1366": {
 					"name": "Purified",
-					"proto": "BLAZIKEN_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "BLAZIKEN_PURIFIED"
 				}
 			},
 			"default_form_id": 1364,
@@ -14493,15 +14354,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 329,
-					"defense": 168,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"258": {
 			"name": "Mudkip",
@@ -14639,10 +14492,7 @@
 			"forms": {
 				"211": {
 					"name": "Normal",
-					"proto": "SWAMPERT_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SWAMPERT_NORMAL"
 				},
 				"212": {
 					"name": "Shadow",
@@ -14650,10 +14500,7 @@
 				},
 				"213": {
 					"name": "Purified",
-					"proto": "SWAMPERT_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SWAMPERT_PURIFIED"
 				}
 			},
 			"default_form_id": 211,
@@ -14685,15 +14532,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 283,
-					"defense": 218,
-					"stamina": 225,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"261": {
 			"name": "Poochyena",
@@ -14960,7 +14799,7 @@
 					"proto": "WURMPLE_PURIFIED"
 				},
 				"2327": {
-					"name": "Spring 2020",
+					"name": "Spring",
 					"proto": "WURMPLE_SPRING_2020"
 				}
 			},
@@ -15845,10 +15684,7 @@
 			"forms": {
 				"298": {
 					"name": "Normal",
-					"proto": "GARDEVOIR_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GARDEVOIR_NORMAL"
 				},
 				"299": {
 					"name": "Shadow",
@@ -15856,10 +15692,7 @@
 				},
 				"300": {
 					"name": "Purified",
-					"proto": "GARDEVOIR_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GARDEVOIR_PURIFIED"
 				}
 			},
 			"default_form_id": 298,
@@ -15891,15 +15724,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 326,
-					"defense": 229,
-					"stamina": 169,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"283": {
 			"name": "Surskit",
@@ -16803,10 +16628,7 @@
 			"forms": {
 				"923": {
 					"name": "Normal",
-					"proto": "SABLEYE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SABLEYE_NORMAL"
 				},
 				"924": {
 					"name": "Shadow",
@@ -16814,14 +16636,7 @@
 				},
 				"925": {
 					"name": "Purified",
-					"proto": "SABLEYE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
-				},
-				"2666": {
-					"name": "Costume 2020 Deprecated",
-					"proto": "SABLEYE_COSTUME_2020_DEPRECATED"
+					"proto": "SABLEYE_PURIFIED"
 				},
 				"2668": {
 					"name": "Costume 2020",
@@ -16856,25 +16671,14 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 151,
-					"defense": 216,
-					"stamina": 137,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"303": {
 			"name": "Mawile",
 			"forms": {
 				"833": {
 					"name": "Normal",
-					"proto": "MAWILE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MAWILE_NORMAL"
 				},
 				"834": {
 					"name": "Shadow",
@@ -16882,10 +16686,7 @@
 				},
 				"835": {
 					"name": "Purified",
-					"proto": "MAWILE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MAWILE_PURIFIED"
 				}
 			},
 			"default_form_id": 833,
@@ -16919,15 +16720,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 188,
-					"defense": 217,
-					"stamina": 137,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"304": {
 			"name": "Aron",
@@ -17032,10 +16825,7 @@
 			"forms": {
 				"1475": {
 					"name": "Normal",
-					"proto": "AGGRON_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AGGRON_NORMAL"
 				},
 				"1476": {
 					"name": "Shadow",
@@ -17043,10 +16833,7 @@
 				},
 				"1477": {
 					"name": "Purified",
-					"proto": "AGGRON_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AGGRON_PURIFIED"
 				}
 			},
 			"default_form_id": 1475,
@@ -17078,18 +16865,7 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 247,
-					"defense": 331,
-					"stamina": 172,
-					"unreleased": true,
-					"types": [
-						"Steel"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"307": {
 			"name": "Meditite",
@@ -17145,10 +16921,7 @@
 			"forms": {
 				"1481": {
 					"name": "Normal",
-					"proto": "MEDICHAM_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MEDICHAM_NORMAL"
 				},
 				"1482": {
 					"name": "Shadow",
@@ -17156,10 +16929,7 @@
 				},
 				"1483": {
 					"name": "Purified",
-					"proto": "MEDICHAM_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MEDICHAM_PURIFIED"
 				}
 			},
 			"default_form_id": 1481,
@@ -17191,15 +16961,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 205,
-					"defense": 179,
-					"stamina": 155,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"309": {
 			"name": "Electrike",
@@ -17254,10 +17016,7 @@
 			"forms": {
 				"1487": {
 					"name": "Normal",
-					"proto": "MANECTRIC_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MANECTRIC_NORMAL"
 				},
 				"1488": {
 					"name": "Shadow",
@@ -17265,10 +17024,7 @@
 				},
 				"1489": {
 					"name": "Purified",
-					"proto": "MANECTRIC_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MANECTRIC_PURIFIED"
 				}
 			},
 			"default_form_id": 1487,
@@ -17298,15 +17054,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 286,
-					"defense": 179,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"311": {
 			"name": "Plusle",
@@ -17704,10 +17452,7 @@
 			"forms": {
 				"737": {
 					"name": "Normal",
-					"proto": "SHARPEDO_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SHARPEDO_NORMAL"
 				},
 				"738": {
 					"name": "Shadow",
@@ -17715,10 +17460,7 @@
 				},
 				"739": {
 					"name": "Purified",
-					"proto": "SHARPEDO_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SHARPEDO_PURIFIED"
 				}
 			},
 			"default_form_id": 737,
@@ -17749,15 +17491,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 289,
-					"defense": 144,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"320": {
 			"name": "Wailmer",
@@ -17906,10 +17640,7 @@
 			"forms": {
 				"1520": {
 					"name": "Normal",
-					"proto": "CAMERUPT_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "CAMERUPT_NORMAL"
 				},
 				"1521": {
 					"name": "Shadow",
@@ -17917,10 +17648,7 @@
 				},
 				"1522": {
 					"name": "Purified",
-					"proto": "CAMERUPT_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "CAMERUPT_PURIFIED"
 				}
 			},
 			"default_form_id": 1520,
@@ -17952,15 +17680,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 253,
-					"defense": 183,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"324": {
 			"name": "Torkoal",
@@ -18555,10 +18275,7 @@
 			"forms": {
 				"1535": {
 					"name": "Normal",
-					"proto": "ALTARIA_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALTARIA_NORMAL"
 				},
 				"1536": {
 					"name": "Shadow",
@@ -18566,10 +18283,7 @@
 				},
 				"1537": {
 					"name": "Purified",
-					"proto": "ALTARIA_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALTARIA_PURIFIED"
 				}
 			},
 			"default_form_id": 1535,
@@ -18600,19 +18314,7 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 222,
-					"defense": 218,
-					"stamina": 181,
-					"unreleased": true,
-					"types": [
-						"Dragon",
-						"Fairy"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"335": {
 			"name": "Zangoose",
@@ -19572,10 +19274,7 @@
 			"forms": {
 				"911": {
 					"name": "Normal",
-					"proto": "BANETTE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "BANETTE_NORMAL"
 				},
 				"912": {
 					"name": "Shadow",
@@ -19583,10 +19282,7 @@
 				},
 				"913": {
 					"name": "Purified",
-					"proto": "BANETTE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "BANETTE_PURIFIED"
 				}
 			},
 			"default_form_id": 911,
@@ -19616,15 +19312,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 312,
-					"defense": 160,
-					"stamina": 162,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"355": {
 			"name": "Duskull",
@@ -19853,10 +19541,7 @@
 			"forms": {
 				"830": {
 					"name": "Normal",
-					"proto": "ABSOL_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ABSOL_NORMAL"
 				},
 				"831": {
 					"name": "Shadow",
@@ -19864,10 +19549,7 @@
 				},
 				"832": {
 					"name": "Purified",
-					"proto": "ABSOL_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ABSOL_PURIFIED"
 				}
 			},
 			"default_form_id": 830,
@@ -19897,15 +19579,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 314,
-					"defense": 130,
-					"stamina": 163,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"360": {
 			"name": "Wynaut",
@@ -20009,10 +19683,7 @@
 			"forms": {
 				"929": {
 					"name": "Normal",
-					"proto": "GLALIE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GLALIE_NORMAL"
 				},
 				"930": {
 					"name": "Shadow",
@@ -20020,10 +19691,7 @@
 				},
 				"931": {
 					"name": "Purified",
-					"proto": "GLALIE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GLALIE_PURIFIED"
 				}
 			},
 			"default_form_id": 929,
@@ -20053,15 +19721,7 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 252,
-					"defense": 168,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"363": {
 			"name": "Spheal",
@@ -20571,10 +20231,7 @@
 			"forms": {
 				"761": {
 					"name": "Normal",
-					"proto": "SALAMENCE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SALAMENCE_NORMAL"
 				},
 				"762": {
 					"name": "Shadow",
@@ -20582,10 +20239,7 @@
 				},
 				"763": {
 					"name": "Purified",
-					"proto": "SALAMENCE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "SALAMENCE_PURIFIED"
 				}
 			},
 			"default_form_id": 761,
@@ -20617,15 +20271,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 310,
-					"defense": 251,
-					"stamina": 216,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"374": {
 			"name": "Beldum",
@@ -20759,10 +20405,7 @@
 			"forms": {
 				"770": {
 					"name": "Normal",
-					"proto": "METAGROSS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "METAGROSS_NORMAL"
 				},
 				"771": {
 					"name": "Shadow",
@@ -20770,10 +20413,7 @@
 				},
 				"772": {
 					"name": "Purified",
-					"proto": "METAGROSS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "METAGROSS_PURIFIED"
 				}
 			},
 			"default_form_id": 770,
@@ -20804,15 +20444,7 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 300,
-					"defense": 289,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"377": {
 			"name": "Regirock",
@@ -20852,7 +20484,7 @@
 				"Zap Cannon",
 				"Focus Blast"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20897,7 +20529,7 @@
 				"Earthquake",
 				"Focus Blast"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20942,7 +20574,7 @@
 				"Hyper Beam",
 				"Focus Blast"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -20954,10 +20586,7 @@
 			"forms": {
 				"1631": {
 					"name": "Normal",
-					"proto": "LATIAS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LATIAS_NORMAL"
 				},
 				"1632": {
 					"name": "Shadow",
@@ -20965,10 +20594,7 @@
 				},
 				"1633": {
 					"name": "Purified",
-					"proto": "LATIAS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LATIAS_PURIFIED"
 				}
 			},
 			"default_form_id": 1631,
@@ -20994,30 +20620,19 @@
 				"Outrage",
 				"Thunder"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
-			"third_move_candy": 100,
-			"temp_evolutions": {
-				"1": {
-					"attack": 289,
-					"defense": 297,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"third_move_candy": 100
 		},
 		"381": {
 			"name": "Latios",
 			"forms": {
 				"1634": {
 					"name": "Normal",
-					"proto": "LATIOS_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LATIOS_NORMAL"
 				},
 				"1635": {
 					"name": "Shadow",
@@ -21025,10 +20640,7 @@
 				},
 				"1636": {
 					"name": "Purified",
-					"proto": "LATIOS_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LATIOS_PURIFIED"
 				}
 			},
 			"default_form_id": 1634,
@@ -21053,20 +20665,12 @@
 				"Dragon Claw",
 				"Solar Beam"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
-			"third_move_candy": 100,
-			"temp_evolutions": {
-				"1": {
-					"attack": 335,
-					"defense": 241,
-					"stamina": 190,
-					"unreleased": true
-				}
-			}
+			"third_move_candy": 100
 		},
 		"382": {
 			"name": "Kyogre",
@@ -21105,7 +20709,7 @@
 				"Thunder",
 				"Surf"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -21149,7 +20753,7 @@
 				"Fire Blast",
 				"Solar Beam"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
@@ -21161,10 +20765,7 @@
 			"forms": {
 				"1643": {
 					"name": "Normal",
-					"proto": "RAYQUAZA_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "RAYQUAZA_NORMAL"
 				},
 				"1644": {
 					"name": "Shadow",
@@ -21172,10 +20773,7 @@
 				},
 				"1645": {
 					"name": "Purified",
-					"proto": "RAYQUAZA_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "RAYQUAZA_PURIFIED"
 				}
 			},
 			"default_form_id": 1643,
@@ -21200,20 +20798,12 @@
 				"Aerial Ace",
 				"Ancient Power"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
-			"third_move_candy": 100,
-			"temp_evolutions": {
-				"1": {
-					"attack": 389,
-					"defense": 216,
-					"stamina": 233,
-					"unreleased": true
-				}
-			}
+			"third_move_candy": 100
 		},
 		"385": {
 			"name": "Jirachi",
@@ -21253,7 +20843,7 @@
 				"Doom Desire"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -21338,7 +20928,7 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -21403,6 +20993,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21468,6 +21059,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21515,6 +21107,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21580,6 +21173,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21646,6 +21240,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21692,6 +21287,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21740,6 +21336,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21788,6 +21385,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21835,6 +21433,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -21883,6 +21482,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -21932,6 +21532,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -21978,6 +21579,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22026,6 +21628,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22072,6 +21675,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22118,6 +21722,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22163,6 +21768,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22211,6 +21817,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22259,6 +21866,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22305,6 +21913,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22353,6 +21962,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -22400,6 +22010,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -22448,6 +22059,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22493,6 +22105,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22542,6 +22155,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22588,6 +22202,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -22679,6 +22294,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22773,6 +22389,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22819,6 +22436,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -22867,6 +22485,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -22917,6 +22536,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -22962,6 +22582,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -23010,6 +22631,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23055,6 +22677,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23105,6 +22728,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -23164,6 +22788,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -23174,22 +22799,12 @@
 			"name": "Shellos",
 			"forms": {
 				"96": {
-					"name": "West Sea",
-					"proto": "SHELLOS_WEST_SEA",
-					"evolutions": {
-						"423": {
-							"form": 98
-						}
-					}
+					"name": "West sea",
+					"proto": "SHELLOS_WEST_SEA"
 				},
 				"97": {
-					"name": "East Sea",
-					"proto": "SHELLOS_EAST_SEA",
-					"evolutions": {
-						"423": {
-							"form": 99
-						}
-					}
+					"name": "East sea",
+					"proto": "SHELLOS_EAST_SEA"
 				},
 				"1736": {
 					"name": "Normal",
@@ -23227,11 +22842,12 @@
 			],
 			"evolutions": {
 				"423": {
-					"form": 99
+					"form": 98
 				}
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23242,11 +22858,11 @@
 			"name": "Gastrodon",
 			"forms": {
 				"98": {
-					"name": "West Sea",
+					"name": "West sea",
 					"proto": "GASTRODON_WEST_SEA"
 				},
 				"99": {
-					"name": "East Sea",
+					"name": "East sea",
 					"proto": "GASTRODON_EAST_SEA"
 				},
 				"1739": {
@@ -23286,6 +22902,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23331,6 +22948,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23380,6 +22998,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -23426,6 +23045,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -23473,6 +23093,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23484,10 +23105,7 @@
 			"forms": {
 				"1754": {
 					"name": "Normal",
-					"proto": "LOPUNNY_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LOPUNNY_NORMAL"
 				},
 				"1755": {
 					"name": "Shadow",
@@ -23495,10 +23113,7 @@
 				},
 				"1756": {
 					"name": "Purified",
-					"proto": "LOPUNNY_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LOPUNNY_PURIFIED"
 				}
 			},
 			"default_form_id": 1754,
@@ -23524,23 +23139,12 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 282,
-					"defense": 214,
-					"stamina": 163,
-					"unreleased": true,
-					"types": [
-						"Normal",
-						"Fighting"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"429": {
 			"name": "Mismagius",
@@ -23581,6 +23185,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23628,6 +23233,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23676,6 +23282,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23721,6 +23328,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23769,6 +23377,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -23835,6 +23444,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23881,6 +23491,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23930,6 +23541,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -23978,6 +23590,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -24026,6 +23639,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -24036,15 +23650,15 @@
 			"name": "Mime Jr",
 			"forms": {
 				"1775": {
-					"name": "Normal",
+					"name": "Jr",
 					"proto": "MIME_JR_NORMAL"
 				},
 				"1776": {
-					"name": "Shadow",
+					"name": "Jr",
 					"proto": "MIME_JR_SHADOW"
 				},
 				"1777": {
-					"name": "Purified",
+					"name": "Jr",
 					"proto": "MIME_JR_PURIFIED"
 				}
 			},
@@ -24075,6 +23689,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -24121,6 +23736,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -24167,6 +23783,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24213,6 +23830,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24279,6 +23897,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24345,6 +23964,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24356,10 +23976,7 @@
 			"forms": {
 				"867": {
 					"name": "Normal",
-					"proto": "GARCHOMP_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GARCHOMP_NORMAL"
 				},
 				"868": {
 					"name": "Shadow",
@@ -24367,10 +23984,7 @@
 				},
 				"869": {
 					"name": "Purified",
-					"proto": "GARCHOMP_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GARCHOMP_PURIFIED"
 				}
 			},
 			"default_form_id": 867,
@@ -24398,19 +24012,12 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 339,
-					"defense": 222,
-					"stamina": 239,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"446": {
 			"name": "Munchlax",
@@ -24454,6 +24061,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -24501,6 +24109,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -24512,10 +24121,7 @@
 			"forms": {
 				"1793": {
 					"name": "Normal",
-					"proto": "LUCARIO_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LUCARIO_NORMAL"
 				},
 				"1794": {
 					"name": "Shadow",
@@ -24523,10 +24129,7 @@
 				},
 				"1795": {
 					"name": "Purified",
-					"proto": "LUCARIO_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LUCARIO_PURIFIED"
 				}
 			},
 			"default_form_id": 1793,
@@ -24555,19 +24158,12 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 310,
-					"defense": 175,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"449": {
 			"name": "Hippopotas",
@@ -24628,6 +24224,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -24676,6 +24273,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -24725,6 +24323,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24774,6 +24373,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24823,6 +24423,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -24869,6 +24470,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -24914,6 +24516,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -24962,6 +24565,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25007,6 +24611,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25056,6 +24661,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
@@ -25122,6 +24728,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25133,10 +24740,7 @@
 			"forms": {
 				"935": {
 					"name": "Normal",
-					"proto": "ABOMASNOW_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ABOMASNOW_NORMAL"
 				},
 				"936": {
 					"name": "Shadow",
@@ -25144,10 +24748,7 @@
 				},
 				"937": {
 					"name": "Purified",
-					"proto": "ABOMASNOW_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ABOMASNOW_PURIFIED"
 				}
 			},
 			"default_form_id": 935,
@@ -25173,17 +24774,9 @@
 				"Outrage",
 				"Weather Ball"
 			],
-			"temp_evolutions": {
-				"1": {
-					"attack": 240,
-					"defense": 191,
-					"stamina": 207,
-					"height": 2.7,
-					"weight": 185
-				}
-			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25231,6 +24824,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25278,6 +24872,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25324,6 +24919,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25372,6 +24968,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25419,6 +25016,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25465,6 +25063,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -25511,6 +25110,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -25559,6 +25159,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25605,6 +25206,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25650,6 +25252,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -25695,6 +25298,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -25742,6 +25346,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -25788,6 +25393,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25798,15 +25404,15 @@
 			"name": "Porygon Z",
 			"forms": {
 				"683": {
-					"name": "Normal",
+					"name": "Z normal",
 					"proto": "PORYGON_Z_NORMAL"
 				},
 				"684": {
-					"name": "Shadow",
+					"name": "Z shadow",
 					"proto": "PORYGON_Z_SHADOW"
 				},
 				"685": {
-					"name": "Purified",
+					"name": "Z purified",
 					"proto": "PORYGON_Z_PURIFIED"
 				}
 			},
@@ -25835,10 +25441,11 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
+			"third_move_stardust": 60000,
+			"third_move_candy": 60,
 			"gym_defender_eligible": true
 		},
 		"475": {
@@ -25846,10 +25453,7 @@
 			"forms": {
 				"301": {
 					"name": "Normal",
-					"proto": "GALLADE_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GALLADE_NORMAL"
 				},
 				"302": {
 					"name": "Shadow",
@@ -25857,10 +25461,7 @@
 				},
 				"303": {
 					"name": "Purified",
-					"proto": "GALLADE_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "GALLADE_PURIFIED"
 				}
 			},
 			"default_form_id": 301,
@@ -25888,19 +25489,12 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 326,
-					"defense": 230,
-					"stamina": 169,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"476": {
 			"name": "Probopass",
@@ -25942,6 +25536,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -25987,6 +25582,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -26033,6 +25629,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -26145,6 +25742,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -26187,8 +25785,9 @@
 				"Swift",
 				"Thunder"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26230,8 +25829,9 @@
 				"Swift",
 				"Blizzard"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26273,8 +25873,9 @@
 				"Swift",
 				"Fire Blast"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26318,8 +25919,9 @@
 				"Iron Head",
 				"Thunder"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26364,8 +25966,9 @@
 				"Hydro Pump",
 				"Aqua Tail"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26410,8 +26013,9 @@
 				"Stone Edge",
 				"Flamethrower"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26454,8 +26058,9 @@
 				"Focus Blast",
 				"Thunder"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26521,8 +26126,9 @@
 				"Ancient Power",
 				"Shadow Sneak"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26565,8 +26171,9 @@
 				"Moonblast",
 				"Futuresight"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26609,7 +26216,8 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26652,7 +26260,8 @@
 				"Surf"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26695,7 +26304,8 @@
 				"Dark Pulse"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26755,7 +26365,8 @@
 				"Solar Beam"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26909,7 +26520,8 @@
 				"Outrage"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -26954,7 +26566,7 @@
 				"V Create"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -27002,6 +26614,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27050,6 +26663,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27095,6 +26709,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27143,6 +26758,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27192,6 +26808,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27234,11 +26851,11 @@
 			"charged_moves": [
 				"Heat Wave",
 				"Rock Slide",
-				"Focus Blast",
-				"Flame Charge"
+				"Focus Blast"
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27287,6 +26904,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27335,6 +26953,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27380,6 +26999,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
@@ -27428,6 +27048,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27473,6 +27094,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27521,6 +27143,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27569,6 +27192,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27615,6 +27239,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27663,6 +27288,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27708,6 +27334,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -27756,6 +27383,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -27801,6 +27429,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -27849,6 +27478,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -27894,6 +27524,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -27942,6 +27573,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -27987,6 +27619,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28035,6 +27668,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28080,6 +27714,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28129,6 +27764,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -28178,6 +27814,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -28224,6 +27861,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -28272,6 +27910,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28317,6 +27956,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28365,6 +28005,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28413,6 +28054,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28459,6 +28101,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28508,6 +28151,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -28554,6 +28198,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -28602,6 +28247,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28649,6 +28295,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28660,10 +28307,7 @@
 			"forms": {
 				"1997": {
 					"name": "Normal",
-					"proto": "AUDINO_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AUDINO_NORMAL"
 				},
 				"1998": {
 					"name": "Shadow",
@@ -28671,10 +28315,7 @@
 				},
 				"1999": {
 					"name": "Purified",
-					"proto": "AUDINO_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "AUDINO_PURIFIED"
 				}
 			},
 			"default_form_id": 1997,
@@ -28700,23 +28341,12 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 147,
-					"defense": 239,
-					"stamina": 230,
-					"unreleased": true,
-					"types": [
-						"Normal",
-						"Fairy"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"532": {
 			"name": "Timburr",
@@ -28760,6 +28390,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -28808,6 +28439,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -28853,6 +28485,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -28901,6 +28534,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28950,6 +28584,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -28996,6 +28631,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -29041,6 +28677,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -29086,6 +28723,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -29135,6 +28773,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29184,6 +28823,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29230,6 +28870,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29279,6 +28920,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29328,6 +28970,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29375,6 +29018,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29424,6 +29068,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29470,6 +29115,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29517,6 +29163,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29562,6 +29209,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29572,11 +29220,11 @@
 			"name": "Basculin",
 			"forms": {
 				"136": {
-					"name": "Red Striped",
+					"name": "Red striped",
 					"proto": "BASCULIN_RED_STRIPED"
 				},
 				"137": {
-					"name": "Blue Striped",
+					"name": "Blue striped",
 					"proto": "BASCULIN_BLUE_STRIPED"
 				}
 			},
@@ -29603,6 +29251,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -29652,6 +29301,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -29701,6 +29351,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -29747,6 +29398,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -29823,6 +29475,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -29834,7 +29487,25 @@
 			"forms": {
 				"138": {
 					"name": "Standard",
-					"proto": "DARMANITAN_STANDARD"
+					"proto": "DARMANITAN_STANDARD",
+					"attack": 263,
+					"defense": 114,
+					"stamina": 233,
+					"height": 1.3,
+					"weight": 92.9,
+					"quick_moves": [
+						"Tackle",
+						"Fire Fang"
+					],
+					"charged_moves": [
+						"Overheat",
+						"Focus Blast",
+						"Psychic",
+						"Rock Slide"
+					],
+					"types": [
+						"Fire"
+					]
 				},
 				"139": {
 					"name": "Zen",
@@ -29842,76 +29513,54 @@
 					"attack": 243,
 					"defense": 202,
 					"stamina": 233,
+					"height": 1.3,
+					"weight": 92.9,
+					"quick_moves": [
+						"Tackle",
+						"Fire Fang"
+					],
+					"charged_moves": [
+						"Overheat",
+						"Focus Blast",
+						"Psychic",
+						"Rock Slide"
+					],
 					"types": [
 						"Fire",
 						"Psychic"
 					]
 				},
 				"2342": {
-					"name": "Galarian Standard",
-					"proto": "DARMANITAN_GALARIAN_STANDARD",
-					"height": 1.7,
-					"weight": 120,
-					"quick_moves": [
-						"Tackle",
-						"Ice Fang"
-					],
-					"charged_moves": [
-						"Overheat",
-						"Avalanche",
-						"Super Power",
-						"Ice Punch"
-					],
-					"types": [
-						"Ice"
-					]
+					"name": "Galarian standard",
+					"proto": "DARMANITAN_GALARIAN_STANDARD"
 				},
 				"2343": {
-					"name": "Galarian Zen",
-					"proto": "DARMANITAN_GALARIAN_ZEN",
-					"attack": 323,
-					"defense": 123,
-					"stamina": 233,
-					"height": 1.7,
-					"weight": 120,
-					"quick_moves": [
-						"Tackle",
-						"Ice Fang"
-					],
-					"charged_moves": [
-						"Overheat",
-						"Avalanche",
-						"Super Power",
-						"Ice Punch"
-					],
-					"types": [
-						"Ice",
-						"Fire"
-					]
+					"name": "Galarian zen",
+					"proto": "DARMANITAN_GALARIAN_ZEN"
 				}
 			},
 			"default_form_id": 138,
 			"pokedex_id": 555,
 			"types": [
+				"Ice",
 				"Fire"
 			],
-			"attack": 263,
-			"defense": 114,
+			"attack": 323,
+			"defense": 123,
 			"stamina": 233,
-			"height": 1.3,
-			"weight": 92.9,
+			"height": 1.7,
+			"weight": 120,
 			"flee_rate": 0.07,
 			"capture_rate": 0.1,
 			"quick_moves": [
 				"Tackle",
-				"Fire Fang",
-				"Incinerate"
+				"Ice Fang"
 			],
 			"charged_moves": [
 				"Overheat",
-				"Focus Blast",
-				"Psychic",
-				"Rock Slide"
+				"Avalanche",
+				"Super Power",
+				"Ice Punch"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -29960,6 +29609,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -30009,6 +29659,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -30055,6 +29706,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -30104,6 +29756,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30150,6 +29803,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30197,6 +29851,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30282,6 +29937,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30327,6 +29983,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30376,6 +30033,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30422,6 +30080,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30471,6 +30130,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30517,6 +30177,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 5,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30565,6 +30226,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30611,6 +30273,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30659,6 +30322,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30704,6 +30368,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -30752,6 +30417,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30797,6 +30463,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30845,6 +30512,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30893,6 +30561,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30938,6 +30607,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -30986,6 +30656,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31034,6 +30705,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31079,6 +30751,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31128,6 +30801,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31174,6 +30848,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31222,6 +30897,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31270,6 +30946,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31315,6 +30992,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31385,6 +31063,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31436,6 +31115,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31482,6 +31162,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -31531,6 +31212,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31578,6 +31260,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31627,6 +31310,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31673,6 +31357,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31736,6 +31421,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31786,6 +31472,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31831,6 +31518,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -31880,6 +31568,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31928,6 +31617,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -31977,6 +31667,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 75000,
@@ -32025,6 +31716,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 75000,
@@ -32073,6 +31765,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32121,6 +31814,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32167,6 +31861,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32213,6 +31908,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -32261,6 +31957,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -32307,6 +32004,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
@@ -32355,6 +32053,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32400,6 +32099,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32449,6 +32149,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32498,6 +32199,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32535,17 +32237,16 @@
 			"capture_rate": 0.05,
 			"quick_moves": [
 				"Hex",
-				"Fire Spin",
-				"Incinerate"
+				"Fire Spin"
 			],
 			"charged_moves": [
 				"Energy Ball",
 				"Shadow Ball",
-				"Overheat",
-				"Flame Charge"
+				"Overheat"
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 4,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32594,6 +32295,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32642,6 +32344,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32688,6 +32391,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32736,6 +32440,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32781,6 +32486,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32827,6 +32533,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -32875,6 +32582,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32921,6 +32629,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -32987,6 +32696,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33035,6 +32745,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -33080,6 +32791,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -33125,6 +32837,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33174,6 +32887,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33220,6 +32934,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33269,6 +32984,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33316,6 +33032,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33362,6 +33079,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -33411,6 +33129,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33458,6 +33177,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33507,6 +33227,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33554,6 +33275,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33599,6 +33321,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -33645,6 +33368,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
@@ -33694,6 +33418,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33743,6 +33468,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33789,6 +33515,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 6,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33838,6 +33565,7 @@
 			},
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33885,6 +33613,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
@@ -33929,8 +33658,9 @@
 				"Iron Head",
 				"Stone Edge"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -33974,8 +33704,9 @@
 				"Earthquake",
 				"Rock Slide"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34019,8 +33750,9 @@
 				"Leaf Blade",
 				"Stone Edge"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34063,8 +33795,9 @@
 				"Hyper Beam",
 				"Hurricane"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34108,8 +33841,9 @@
 				"Brick Break",
 				"Thunder Punch"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34154,8 +33888,9 @@
 				"Draco Meteor",
 				"Stone Edge"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34200,8 +33935,9 @@
 				"Flash Cannon",
 				"Crunch"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34245,8 +33981,9 @@
 				"Rock Slide",
 				"Focus Blast"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34312,8 +34049,9 @@
 				"Blizzard",
 				"Draco Meteor"
 			],
-			"legendary": true,
+			"legendary": false,
 			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34355,7 +34093,8 @@
 				"X Scissor"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34414,7 +34153,8 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -34487,2591 +34227,15 @@
 				"Hyper Beam"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
 			"third_move_candy": 100
-		},
-		"650": {
-			"name": "Chespin",
-			"forms": {},
-			"pokedex_id": 650,
-			"types": [
-				"Grass"
-			],
-			"attack": 110,
-			"defense": 106,
-			"stamina": 148,
-			"height": 0.4,
-			"weight": 9,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Take Down",
-				"Vine Whip"
-			],
-			"charged_moves": [
-				"Gyro Ball",
-				"Seed Bomb",
-				"Body Slam"
-			],
-			"evolutions": {
-				"651": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 1,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"651": {
-			"name": "Quilladin",
-			"forms": {},
-			"pokedex_id": 651,
-			"types": [
-				"Grass"
-			],
-			"attack": 146,
-			"defense": 156,
-			"stamina": 156,
-			"height": 0.7,
-			"weight": 29,
-			"flee_rate": 0.1,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Low Kick",
-				"Razor Leaf"
-			],
-			"charged_moves": [
-				"Gyro Ball",
-				"Energy Ball",
-				"Body Slam"
-			],
-			"evolutions": {
-				"652": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 2,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"652": {
-			"name": "Chesnaught",
-			"forms": {},
-			"pokedex_id": 652,
-			"types": [
-				"Grass",
-				"Fighting"
-			],
-			"attack": 201,
-			"defense": 204,
-			"stamina": 204,
-			"height": 1.6,
-			"weight": 90,
-			"flee_rate": 0.1,
-			"capture_rate": 0.05,
-			"quick_moves": [
-				"Low Kick",
-				"Razor Leaf",
-				"Vine Whip"
-			],
-			"charged_moves": [
-				"Gyro Ball",
-				"Energy Ball",
-				"Super Power",
-				"Solar Beam"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 3,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"653": {
-			"name": "Fennekin",
-			"forms": {},
-			"pokedex_id": 653,
-			"types": [
-				"Fire"
-			],
-			"attack": 116,
-			"defense": 102,
-			"stamina": 120,
-			"height": 0.4,
-			"weight": 9.4,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Scratch",
-				"Ember"
-			],
-			"charged_moves": [
-				"Psyshock",
-				"Flamethrower",
-				"Flame Charge"
-			],
-			"evolutions": {
-				"654": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 1,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"654": {
-			"name": "Braixen",
-			"forms": {},
-			"pokedex_id": 654,
-			"types": [
-				"Fire"
-			],
-			"attack": 171,
-			"defense": 130,
-			"stamina": 153,
-			"height": 1,
-			"weight": 14.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Scratch",
-				"Ember"
-			],
-			"charged_moves": [
-				"Psyshock",
-				"Flamethrower",
-				"Flame Charge"
-			],
-			"evolutions": {
-				"655": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 2,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"655": {
-			"name": "Delphox",
-			"forms": {},
-			"pokedex_id": 655,
-			"types": [
-				"Fire",
-				"Psychic"
-			],
-			"attack": 230,
-			"defense": 189,
-			"stamina": 181,
-			"height": 1.5,
-			"weight": 39,
-			"flee_rate": 0.1,
-			"capture_rate": 0.05,
-			"quick_moves": [
-				"Scratch",
-				"Fire Spin",
-				"Zen Headbutt"
-			],
-			"charged_moves": [
-				"Psychic",
-				"Flamethrower",
-				"Flame Charge",
-				"Fire Blast"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 3,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"656": {
-			"name": "Froakie",
-			"forms": {},
-			"pokedex_id": 656,
-			"types": [
-				"Water"
-			],
-			"attack": 122,
-			"defense": 84,
-			"stamina": 121,
-			"height": 0.3,
-			"weight": 7,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Pound",
-				"Bubble"
-			],
-			"charged_moves": [
-				"Water Pulse",
-				"Aerial Ace",
-				"Surf"
-			],
-			"evolutions": {
-				"657": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 1,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"657": {
-			"name": "Frogadier",
-			"forms": {},
-			"pokedex_id": 657,
-			"types": [
-				"Water"
-			],
-			"attack": 168,
-			"defense": 114,
-			"stamina": 144,
-			"height": 0.6,
-			"weight": 10.9,
-			"flee_rate": 0.1,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Pound",
-				"Bubble"
-			],
-			"charged_moves": [
-				"Night Slash",
-				"Aerial Ace",
-				"Surf"
-			],
-			"evolutions": {
-				"658": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 2,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"658": {
-			"name": "Greninja",
-			"forms": {},
-			"pokedex_id": 658,
-			"types": [
-				"Water",
-				"Dark"
-			],
-			"attack": 223,
-			"defense": 152,
-			"stamina": 176,
-			"height": 1.5,
-			"weight": 40,
-			"flee_rate": 0.1,
-			"capture_rate": 0.05,
-			"quick_moves": [
-				"Feint Attack",
-				"Bubble"
-			],
-			"charged_moves": [
-				"Night Slash",
-				"Aerial Ace",
-				"Surf",
-				"Hydro Pump"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 3,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"659": {
-			"name": "Bunnelby",
-			"forms": {},
-			"pokedex_id": 659,
-			"types": [
-				"Normal"
-			],
-			"attack": 68,
-			"defense": 72,
-			"stamina": 116,
-			"height": 0.4,
-			"weight": 5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Mud Slap",
-				"Quick Attack"
-			],
-			"charged_moves": [
-				"Dig",
-				"Bulldoze",
-				"Earthquake"
-			],
-			"evolutions": {
-				"660": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 2,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"660": {
-			"name": "Diggersby",
-			"forms": {},
-			"pokedex_id": 660,
-			"types": [
-				"Normal",
-				"Ground"
-			],
-			"attack": 112,
-			"defense": 155,
-			"stamina": 198,
-			"height": 1,
-			"weight": 42.4,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Mud Shot",
-				"Quick Attack"
-			],
-			"charged_moves": [
-				"Dig",
-				"Hyper Beam",
-				"Earthquake",
-				"Fire Punch"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 3,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"661": {
-			"name": "Fletchling",
-			"forms": {},
-			"pokedex_id": 661,
-			"types": [
-				"Normal",
-				"Flying"
-			],
-			"attack": 95,
-			"defense": 80,
-			"stamina": 128,
-			"height": 0.3,
-			"weight": 1.7,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Peck",
-				"Quick Attack"
-			],
-			"charged_moves": [
-				"Aerial Ace",
-				"Heat Wave",
-				"Swift"
-			],
-			"evolutions": {
-				"662": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 4,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"662": {
-			"name": "Fletchinder",
-			"forms": {},
-			"pokedex_id": 662,
-			"types": [
-				"Fire",
-				"Flying"
-			],
-			"attack": 145,
-			"defense": 110,
-			"stamina": 158,
-			"height": 0.7,
-			"weight": 16,
-			"flee_rate": 0.1,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Peck",
-				"Ember",
-				"Steel Wing"
-			],
-			"charged_moves": [
-				"Aerial Ace",
-				"Heat Wave",
-				"Flame Charge"
-			],
-			"evolutions": {
-				"663": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 4,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"663": {
-			"name": "Talonflame",
-			"forms": {},
-			"pokedex_id": 663,
-			"types": [
-				"Fire",
-				"Flying"
-			],
-			"attack": 176,
-			"defense": 155,
-			"stamina": 186,
-			"height": 1.2,
-			"weight": 24.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.05,
-			"quick_moves": [
-				"Peck",
-				"Fire Spin",
-				"Steel Wing"
-			],
-			"charged_moves": [
-				"Brave Bird",
-				"Fire Blast",
-				"Flame Charge",
-				"Hurricane"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 5,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"664": {
-			"name": "Scatterbug",
-			"forms": {},
-			"pokedex_id": 664,
-			"types": [
-				"Bug"
-			],
-			"attack": 63,
-			"defense": 63,
-			"stamina": 116,
-			"height": 0.3,
-			"weight": 2.5,
-			"flee_rate": 0.2,
-			"capture_rate": 0.5,
-			"quick_moves": [
-				"Bug Bite",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Struggle"
-			],
-			"evolutions": {
-				"665": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"665": {
-			"name": "Spewpa",
-			"forms": {},
-			"pokedex_id": 665,
-			"types": [
-				"Bug"
-			],
-			"attack": 48,
-			"defense": 89,
-			"stamina": 128,
-			"height": 0.3,
-			"weight": 8.4,
-			"flee_rate": 0.09,
-			"capture_rate": 0.25,
-			"quick_moves": [
-				"Bug Bite",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Struggle"
-			],
-			"evolutions": {
-				"666": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"666": {
-			"name": "Vivillon",
-			"forms": {
-				"2594": {
-					"name": "Archipelago",
-					"proto": "VIVILLON_ARCHIPELAGO"
-				},
-				"2595": {
-					"name": "Continental",
-					"proto": "VIVILLON_CONTINENTAL"
-				},
-				"2596": {
-					"name": "Elegant",
-					"proto": "VIVILLON_ELEGANT"
-				},
-				"2597": {
-					"name": "Fancy",
-					"proto": "VIVILLON_FANCY"
-				},
-				"2598": {
-					"name": "Garden",
-					"proto": "VIVILLON_GARDEN"
-				},
-				"2599": {
-					"name": "High Plains",
-					"proto": "VIVILLON_HIGH_PLAINS"
-				},
-				"2600": {
-					"name": "Icy Snow",
-					"proto": "VIVILLON_ICY_SNOW"
-				},
-				"2601": {
-					"name": "Jungle",
-					"proto": "VIVILLON_JUNGLE"
-				},
-				"2602": {
-					"name": "Marine",
-					"proto": "VIVILLON_MARINE"
-				},
-				"2603": {
-					"name": "Meadow",
-					"proto": "VIVILLON_MEADOW"
-				},
-				"2604": {
-					"name": "Modern",
-					"proto": "VIVILLON_MODERN"
-				},
-				"2605": {
-					"name": "Monsoon",
-					"proto": "VIVILLON_MONSOON"
-				},
-				"2606": {
-					"name": "Ocean",
-					"proto": "VIVILLON_OCEAN"
-				},
-				"2607": {
-					"name": "Pokeball",
-					"proto": "VIVILLON_POKEBALL"
-				},
-				"2608": {
-					"name": "Polar",
-					"proto": "VIVILLON_POLAR"
-				},
-				"2609": {
-					"name": "River",
-					"proto": "VIVILLON_RIVER"
-				},
-				"2610": {
-					"name": "Sandstorm",
-					"proto": "VIVILLON_SANDSTORM"
-				},
-				"2611": {
-					"name": "Savanna",
-					"proto": "VIVILLON_SAVANNA"
-				},
-				"2612": {
-					"name": "Sun",
-					"proto": "VIVILLON_SUN"
-				},
-				"2613": {
-					"name": "Tundra",
-					"proto": "VIVILLON_TUNDRA"
-				}
-			},
-			"pokedex_id": 666,
-			"types": [
-				"Bug",
-				"Flying"
-			],
-			"attack": 176,
-			"defense": 103,
-			"stamina": 190,
-			"height": 1.2,
-			"weight": 17,
-			"flee_rate": 0.06,
-			"capture_rate": 0.125,
-			"quick_moves": [
-				"Bug Bite",
-				"Gust",
-				"Struggle Bug"
-			],
-			"charged_moves": [
-				"Bug Buzz",
-				"Aerial Ace",
-				"Energy Ball",
-				"Hurricane"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 1,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"667": {
-			"name": "Litleo",
-			"forms": {},
-			"pokedex_id": 667,
-			"types": [
-				"Fire",
-				"Normal"
-			],
-			"attack": 139,
-			"defense": 112,
-			"stamina": 158,
-			"height": 0.6,
-			"weight": 13.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.3,
-			"quick_moves": [
-				"Fire Fang",
-				"Tackle",
-				"Ember"
-			],
-			"charged_moves": [
-				"Flame Charge",
-				"Flamethrower",
-				"Crunch"
-			],
-			"evolutions": {
-				"668": {
-					"form": 2588,
-					"gender_requirement": 2
-				}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 1,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"668": {
-			"name": "Pyroar",
-			"forms": {
-				"2587": {
-					"name": "Normal",
-					"proto": "PYROAR_NORMAL",
-					"quick_moves": [
-						"Fire Fang",
-						"Take Down"
-					]
-				},
-				"2588": {
-					"name": "Female",
-					"proto": "PYROAR_FEMALE",
-					"quick_moves": [
-						"Fire Fang",
-						"Take Down"
-					]
-				}
-			},
-			"default_form_id": 2587,
-			"pokedex_id": 668,
-			"types": [
-				"Fire",
-				"Normal"
-			],
-			"attack": 221,
-			"defense": 149,
-			"stamina": 200,
-			"height": 1.5,
-			"weight": 81.5,
-			"flee_rate": 0.07,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Fire Fang",
-				"Take Down",
-				"Ember"
-			],
-			"charged_moves": [
-				"Flame Charge",
-				"Solar Beam",
-				"Dark Pulse",
-				"Overheat"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 10000,
-			"third_move_candy": 25,
-			"gym_defender_eligible": true
-		},
-		"669": {
-			"name": "Flabebe",
-			"forms": {
-				"2614": {
-					"name": "Red",
-					"proto": "FLABEBE_RED"
-				},
-				"2615": {
-					"name": "Yellow",
-					"proto": "FLABEBE_YELLOW"
-				},
-				"2616": {
-					"name": "Orange",
-					"proto": "FLABEBE_ORANGE"
-				},
-				"2617": {
-					"name": "Blue",
-					"proto": "FLABEBE_BLUE"
-				},
-				"2618": {
-					"name": "White",
-					"proto": "FLABEBE_WHITE"
-				}
-			},
-			"pokedex_id": 669,
-			"types": [
-				"Fairy"
-			],
-			"attack": 108,
-			"defense": 120,
-			"stamina": 127,
-			"height": 0.1,
-			"weight": 0.1,
-			"flee_rate": 0.15,
-			"capture_rate": 0.5,
-			"quick_moves": [
-				"Vine Whip",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Dazzling Gleam",
-				"Petal Blizzard",
-				"Psychic"
-			],
-			"evolutions": {
-				"670": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"670": {
-			"name": "Floette",
-			"forms": {
-				"2619": {
-					"name": "Red",
-					"proto": "FLOETTE_RED"
-				},
-				"2620": {
-					"name": "Yellow",
-					"proto": "FLOETTE_YELLOW"
-				},
-				"2621": {
-					"name": "Orange",
-					"proto": "FLOETTE_ORANGE"
-				},
-				"2622": {
-					"name": "Blue",
-					"proto": "FLOETTE_BLUE"
-				},
-				"2623": {
-					"name": "White",
-					"proto": "FLOETTE_WHITE"
-				}
-			},
-			"pokedex_id": 670,
-			"types": [
-				"Fairy"
-			],
-			"attack": 136,
-			"defense": 151,
-			"stamina": 144,
-			"height": 0.2,
-			"weight": 0.9,
-			"flee_rate": 0.07,
-			"capture_rate": 0.25,
-			"quick_moves": [
-				"Vine Whip",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Dazzling Gleam",
-				"Petal Blizzard",
-				"Psychic"
-			],
-			"evolutions": {
-				"671": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"671": {
-			"name": "Florges",
-			"forms": {
-				"2624": {
-					"name": "Red",
-					"proto": "FLORGES_RED"
-				},
-				"2625": {
-					"name": "Yellow",
-					"proto": "FLORGES_YELLOW"
-				},
-				"2626": {
-					"name": "Orange",
-					"proto": "FLORGES_ORANGE"
-				},
-				"2627": {
-					"name": "Blue",
-					"proto": "FLORGES_BLUE"
-				},
-				"2628": {
-					"name": "White",
-					"proto": "FLORGES_WHITE"
-				}
-			},
-			"pokedex_id": 671,
-			"types": [
-				"Fairy"
-			],
-			"attack": 212,
-			"defense": 244,
-			"stamina": 186,
-			"height": 1.1,
-			"weight": 10,
-			"flee_rate": 0.05,
-			"capture_rate": 0.125,
-			"quick_moves": [
-				"Vine Whip",
-				"Tackle",
-				"Razor Leaf"
-			],
-			"charged_moves": [
-				"Moonblast",
-				"Petal Blizzard",
-				"Psychic",
-				"Disarming Voice"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"672": {
-			"name": "Skiddo",
-			"forms": {},
-			"pokedex_id": 672,
-			"types": [
-				"Grass"
-			],
-			"attack": 123,
-			"defense": 102,
-			"stamina": 165,
-			"height": 0.9,
-			"weight": 31,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Zen Headbutt",
-				"Rock Smash"
-			],
-			"charged_moves": [
-				"Brick Break",
-				"Rock Slide",
-				"Seed Bomb"
-			],
-			"evolutions": {
-				"673": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"673": {
-			"name": "Gogoat",
-			"forms": {},
-			"pokedex_id": 673,
-			"types": [
-				"Grass"
-			],
-			"attack": 196,
-			"defense": 146,
-			"stamina": 265,
-			"height": 1.7,
-			"weight": 91,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Zen Headbutt",
-				"Rock Smash",
-				"Vine Whip"
-			],
-			"charged_moves": [
-				"Brick Break",
-				"Rock Slide",
-				"Leaf Blade",
-				"Seed Bomb"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"674": {
-			"name": "Pancham",
-			"forms": {},
-			"pokedex_id": 674,
-			"types": [
-				"Fighting"
-			],
-			"attack": 145,
-			"defense": 107,
-			"stamina": 167,
-			"height": 0.6,
-			"weight": 8,
-			"flee_rate": 0.09,
-			"capture_rate": 0.3,
-			"quick_moves": [
-				"Low Kick",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Low Sweep",
-				"Crunch",
-				"Body Slam"
-			],
-			"evolutions": {
-				"675": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"675": {
-			"name": "Pangoro",
-			"forms": {},
-			"pokedex_id": 675,
-			"types": [
-				"Fighting",
-				"Dark"
-			],
-			"attack": 226,
-			"defense": 146,
-			"stamina": 216,
-			"height": 2.1,
-			"weight": 136,
-			"flee_rate": 0.07,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Low Kick",
-				"Snarl",
-				"Bullet Punch"
-			],
-			"charged_moves": [
-				"Close Combat",
-				"Night Slash",
-				"Iron Head",
-				"Rock Slide"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"676": {
-			"name": "Furfrou",
-			"forms": {
-				"2629": {
-					"name": "Natural",
-					"proto": "FURFROU_NATURAL"
-				},
-				"2630": {
-					"name": "Heart",
-					"proto": "FURFROU_HEART"
-				},
-				"2631": {
-					"name": "Star",
-					"proto": "FURFROU_STAR"
-				},
-				"2632": {
-					"name": "Diamond",
-					"proto": "FURFROU_DIAMOND"
-				},
-				"2633": {
-					"name": "Debutante",
-					"proto": "FURFROU_DEBUTANTE"
-				},
-				"2634": {
-					"name": "Matron",
-					"proto": "FURFROU_MATRON"
-				},
-				"2635": {
-					"name": "Dandy",
-					"proto": "FURFROU_DANDY"
-				},
-				"2636": {
-					"name": "La Reine",
-					"proto": "FURFROU_LA_REINE"
-				},
-				"2637": {
-					"name": "Kabuki",
-					"proto": "FURFROU_KABUKI"
-				},
-				"2638": {
-					"name": "Pharaoh",
-					"proto": "FURFROU_PHARAOH"
-				}
-			},
-			"pokedex_id": 676,
-			"types": [
-				"Normal"
-			],
-			"attack": 164,
-			"defense": 167,
-			"stamina": 181,
-			"height": 1.2,
-			"weight": 28,
-			"flee_rate": 0.07,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Take Down",
-				"Bite",
-				"Sucker Punch"
-			],
-			"charged_moves": [
-				"Surf",
-				"Dark Pulse",
-				"Grass Knot"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"677": {
-			"name": "Espurr",
-			"forms": {},
-			"pokedex_id": 677,
-			"types": [
-				"Psychic"
-			],
-			"attack": 120,
-			"defense": 114,
-			"stamina": 158,
-			"height": 0.3,
-			"weight": 3.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.4,
-			"quick_moves": [
-				"Confusion",
-				"Scratch"
-			],
-			"charged_moves": [
-				"Psyshock",
-				"Energy Ball",
-				"Psychic"
-			],
-			"evolutions": {
-				"678": {
-					"form": 2590,
-					"gender_requirement": 2
-				}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 1,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"678": {
-			"name": "Meowstic",
-			"forms": {
-				"2589": {
-					"name": "Normal",
-					"proto": "MEOWSTIC_NORMAL"
-				},
-				"2590": {
-					"name": "Female",
-					"proto": "MEOWSTIC_FEMALE",
-					"quick_moves": [
-						"Confusion",
-						"Charm"
-					],
-					"charged_moves": [
-						"Psychic",
-						"Energy Ball",
-						"Shadow Ball"
-					]
-				}
-			},
-			"default_form_id": 2589,
-			"pokedex_id": 678,
-			"types": [
-				"Psychic"
-			],
-			"attack": 166,
-			"defense": 167,
-			"stamina": 179,
-			"height": 0.6,
-			"weight": 8.5,
-			"flee_rate": 0.07,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Confusion",
-				"Sucker Punch"
-			],
-			"charged_moves": [
-				"Psychic",
-				"Energy Ball",
-				"Thunderbolt"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 2,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"679": {
-			"name": "Honedge",
-			"forms": {},
-			"pokedex_id": 679,
-			"types": [
-				"Steel",
-				"Ghost"
-			],
-			"height": 0.8,
-			"weight": 2,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle",
-				"Fury Cutter"
-			],
-			"charged_moves": [
-				"Night Slash",
-				"Iron Head",
-				"Gyro Ball"
-			],
-			"evolutions": {
-				"680": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"680": {
-			"name": "Doublade",
-			"forms": {},
-			"pokedex_id": 680,
-			"types": [
-				"Steel",
-				"Ghost"
-			],
-			"height": 0.8,
-			"weight": 4.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Psycho Cut",
-				"Fury Cutter"
-			],
-			"charged_moves": [
-				"Night Slash",
-				"Iron Head",
-				"Gyro Ball"
-			],
-			"evolutions": {
-				"681": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"681": {
-			"name": "Aegislash",
-			"forms": {
-				"2639": {
-					"name": "Shield",
-					"proto": "AEGISLASH_SHIELD"
-				},
-				"2640": {
-					"name": "Blade",
-					"proto": "AEGISLASH_BLADE"
-				}
-			},
-			"pokedex_id": 681,
-			"types": [
-				"Steel",
-				"Ghost"
-			],
-			"height": 1.7,
-			"weight": 53,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Psycho Cut",
-				"Fury Cutter"
-			],
-			"charged_moves": [
-				"Night Slash",
-				"Flash Cannon",
-				"Gyro Ball",
-				"Shadow Ball"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"682": {
-			"name": "Spritzee",
-			"forms": {},
-			"pokedex_id": 682,
-			"types": [
-				"Fairy"
-			],
-			"attack": 110,
-			"defense": 113,
-			"stamina": 186,
-			"height": 0.2,
-			"weight": 0.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Charm",
-				"Charge Beam"
-			],
-			"charged_moves": [
-				"Draining Kiss",
-				"Thunderbolt"
-			],
-			"evolutions": {
-				"683": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"683": {
-			"name": "Aromatisse",
-			"forms": {},
-			"pokedex_id": 683,
-			"types": [
-				"Fairy"
-			],
-			"attack": 173,
-			"defense": 150,
-			"stamina": 226,
-			"height": 0.8,
-			"weight": 15.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Charm",
-				"Charge Beam"
-			],
-			"charged_moves": [
-				"Moonblast",
-				"Thunderbolt",
-				"Psychic",
-				"Draining Kiss"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"684": {
-			"name": "Swirlix",
-			"forms": {},
-			"pokedex_id": 684,
-			"types": [
-				"Fairy"
-			],
-			"attack": 109,
-			"defense": 119,
-			"stamina": 158,
-			"height": 0.4,
-			"weight": 2.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle"
-			],
-			"charged_moves": [
-				"Draining Kiss",
-				"Energy Ball"
-			],
-			"evolutions": {
-				"685": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"685": {
-			"name": "Slurpuff",
-			"forms": {},
-			"pokedex_id": 685,
-			"types": [
-				"Fairy"
-			],
-			"attack": 168,
-			"defense": 163,
-			"stamina": 193,
-			"height": 0.8,
-			"weight": 5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle",
-				"Charm"
-			],
-			"charged_moves": [
-				"Play Rough",
-				"Energy Ball",
-				"Flamethrower",
-				"Draining Kiss"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"686": {
-			"name": "Inkay",
-			"forms": {},
-			"pokedex_id": 686,
-			"types": [
-				"Dark",
-				"Psychic"
-			],
-			"attack": 98,
-			"defense": 95,
-			"stamina": 142,
-			"height": 0.4,
-			"weight": 3.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Peck",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Psybeam",
-				"Night Slash"
-			],
-			"evolutions": {
-				"687": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"687": {
-			"name": "Malamar",
-			"forms": {},
-			"pokedex_id": 687,
-			"types": [
-				"Dark",
-				"Psychic"
-			],
-			"attack": 177,
-			"defense": 165,
-			"stamina": 200,
-			"height": 1.5,
-			"weight": 47,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Peck",
-				"Psycho Cut"
-			],
-			"charged_moves": [
-				"Psybeam",
-				"Foul Play",
-				"Super Power",
-				"Hyper Beam"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"688": {
-			"name": "Binacle",
-			"forms": {},
-			"pokedex_id": 688,
-			"types": [
-				"Rock",
-				"Water"
-			],
-			"attack": 96,
-			"defense": 120,
-			"stamina": 123,
-			"height": 0.5,
-			"weight": 31,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Scratch",
-				"Mud Slap"
-			],
-			"charged_moves": [
-				"Ancient Power",
-				"Cross Chop",
-				"Dig"
-			],
-			"evolutions": {
-				"689": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"689": {
-			"name": "Barbaracle",
-			"forms": {},
-			"pokedex_id": 689,
-			"types": [
-				"Rock",
-				"Water"
-			],
-			"attack": 194,
-			"defense": 205,
-			"stamina": 176,
-			"height": 1.3,
-			"weight": 96,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Water Gun",
-				"Mud Slap",
-				"Fury Cutter"
-			],
-			"charged_moves": [
-				"Skull Bash",
-				"Cross Chop",
-				"Stone Edge",
-				"Grass Knot"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"690": {
-			"name": "Skrelp",
-			"forms": {},
-			"pokedex_id": 690,
-			"types": [
-				"Poison",
-				"Water"
-			],
-			"attack": 109,
-			"defense": 109,
-			"stamina": 137,
-			"height": 0.5,
-			"weight": 7.3,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Water Gun",
-				"Acid"
-			],
-			"charged_moves": [
-				"Aqua Tail",
-				"Water Pulse",
-				"Twister",
-				"Sludge Bomb"
-			],
-			"evolutions": {
-				"691": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"691": {
-			"name": "Dragalge",
-			"forms": {},
-			"pokedex_id": 691,
-			"types": [
-				"Poison",
-				"Dragon"
-			],
-			"attack": 177,
-			"defense": 207,
-			"stamina": 163,
-			"height": 1.8,
-			"weight": 81.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Water Gun",
-				"Acid",
-				"Dragon Tail"
-			],
-			"charged_moves": [
-				"Hydro Pump",
-				"Aqua Tail",
-				"Outrage",
-				"Gunk Shot"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"692": {
-			"name": "Clauncher",
-			"forms": {},
-			"pokedex_id": 692,
-			"types": [
-				"Water"
-			],
-			"attack": 108,
-			"defense": 117,
-			"stamina": 137,
-			"height": 0.5,
-			"weight": 8.3,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Water Gun",
-				"Smack Down"
-			],
-			"charged_moves": [
-				"Water Pulse",
-				"Crabhammer",
-				"Aqua Jet"
-			],
-			"evolutions": {
-				"693": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"693": {
-			"name": "Clawitzer",
-			"forms": {},
-			"pokedex_id": 693,
-			"types": [
-				"Water"
-			],
-			"attack": 221,
-			"defense": 171,
-			"stamina": 174,
-			"height": 1.3,
-			"weight": 35.3,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Water Gun",
-				"Smack Down"
-			],
-			"charged_moves": [
-				"Water Pulse",
-				"Dark Pulse",
-				"Ice Beam",
-				"Crabhammer"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"694": {
-			"name": "Helioptile",
-			"forms": {},
-			"pokedex_id": 694,
-			"types": [
-				"Electric",
-				"Normal"
-			],
-			"attack": 115,
-			"defense": 78,
-			"stamina": 127,
-			"height": 0.5,
-			"weight": 6,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Quick Attack",
-				"Thunder Shock"
-			],
-			"charged_moves": [
-				"Parabolic Charge",
-				"Bulldoze",
-				"Discharge"
-			],
-			"evolutions": {
-				"695": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"695": {
-			"name": "Heliolisk",
-			"forms": {},
-			"pokedex_id": 695,
-			"types": [
-				"Electric",
-				"Normal"
-			],
-			"attack": 219,
-			"defense": 168,
-			"stamina": 158,
-			"height": 1,
-			"weight": 21,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Quick Attack",
-				"Volt Switch",
-				"Mud Slap"
-			],
-			"charged_moves": [
-				"Parabolic Charge",
-				"Bulldoze",
-				"Thunderbolt",
-				"Grass Knot"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"696": {
-			"name": "Tyrunt",
-			"forms": {},
-			"pokedex_id": 696,
-			"types": [
-				"Rock",
-				"Dragon"
-			],
-			"attack": 158,
-			"defense": 123,
-			"stamina": 151,
-			"height": 0.8,
-			"weight": 26,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Dragon Tail",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Stomp",
-				"Ancient Power",
-				"Dragon Claw"
-			],
-			"evolutions": {
-				"697": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"697": {
-			"name": "Tyrantrum",
-			"forms": {},
-			"pokedex_id": 697,
-			"types": [
-				"Rock",
-				"Dragon"
-			],
-			"attack": 227,
-			"defense": 191,
-			"stamina": 193,
-			"height": 2.5,
-			"weight": 270,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Dragon Tail",
-				"Charm",
-				"Rock Throw"
-			],
-			"charged_moves": [
-				"Crunch",
-				"Stone Edge",
-				"Outrage",
-				"Earthquake"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"698": {
-			"name": "Amaura",
-			"forms": {},
-			"pokedex_id": 698,
-			"types": [
-				"Rock",
-				"Ice"
-			],
-			"attack": 124,
-			"defense": 109,
-			"stamina": 184,
-			"height": 1.3,
-			"weight": 25.2,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Powder Snow",
-				"Frost Breath",
-				"Mirror Coat"
-			],
-			"charged_moves": [
-				"Weather Ball",
-				"Ancient Power",
-				"Aurora Beam",
-				"Thunderbolt"
-			],
-			"evolutions": {
-				"699": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"699": {
-			"name": "Aurorus",
-			"forms": {},
-			"pokedex_id": 699,
-			"types": [
-				"Rock",
-				"Ice"
-			],
-			"attack": 186,
-			"defense": 163,
-			"stamina": 265,
-			"height": 2.7,
-			"weight": 225,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Powder Snow",
-				"Frost Breath",
-				"Mirror Coat",
-				"Rock Throw"
-			],
-			"charged_moves": [
-				"Weather Ball",
-				"Ancient Power",
-				"Blizzard",
-				"Thunderbolt",
-				"Hyper Beam"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"700": {
-			"name": "Sylveon",
-			"forms": {},
-			"pokedex_id": 700,
-			"types": [
-				"Fairy"
-			],
-			"attack": 203,
-			"defense": 205,
-			"stamina": 216,
-			"height": 1,
-			"weight": 23.5,
-			"flee_rate": 0.06,
-			"capture_rate": 0.125,
-			"quick_moves": [
-				"Charm",
-				"Quick Attack"
-			],
-			"charged_moves": [
-				"Moonblast",
-				"Dazzling Gleam",
-				"Draining Kiss"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"701": {
-			"name": "Hawlucha",
-			"forms": {},
-			"pokedex_id": 701,
-			"types": [
-				"Fighting",
-				"Flying"
-			],
-			"attack": 195,
-			"defense": 153,
-			"stamina": 186,
-			"height": 0.8,
-			"weight": 21.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Wing Attack",
-				"Low Kick",
-				"Poison Jab"
-			],
-			"charged_moves": [
-				"Flying Press",
-				"Sky Attack",
-				"X Scissor",
-				"Power Up"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"702": {
-			"name": "Dedenne",
-			"forms": {},
-			"pokedex_id": 702,
-			"types": [
-				"Electric",
-				"Fairy"
-			],
-			"attack": 164,
-			"defense": 134,
-			"stamina": 167,
-			"height": 0.2,
-			"weight": 2.2,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle",
-				"Thunder Shock"
-			],
-			"charged_moves": [
-				"Parabolic Charge",
-				"Discharge",
-				"Play Rough"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"703": {
-			"name": "Carbink",
-			"forms": {},
-			"pokedex_id": 703,
-			"types": [
-				"Rock",
-				"Fairy"
-			],
-			"attack": 95,
-			"defense": 285,
-			"stamina": 137,
-			"height": 0.3,
-			"weight": 5.7,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle",
-				"Rock Throw"
-			],
-			"charged_moves": [
-				"Rock Slide",
-				"Moonblast",
-				"Power Gem"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"704": {
-			"name": "Goomy",
-			"forms": {},
-			"pokedex_id": 704,
-			"types": [
-				"Dragon"
-			],
-			"attack": 101,
-			"defense": 112,
-			"stamina": 128,
-			"height": 0.3,
-			"weight": 2.8,
-			"flee_rate": 0.09,
-			"capture_rate": 0.4,
-			"quick_moves": [
-				"Water Gun",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Dragon Pulse",
-				"Sludge Wave",
-				"Muddy Water"
-			],
-			"evolutions": {
-				"705": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"705": {
-			"name": "Sliggoo",
-			"forms": {},
-			"pokedex_id": 705,
-			"types": [
-				"Dragon"
-			],
-			"attack": 159,
-			"defense": 176,
-			"stamina": 169,
-			"height": 0.8,
-			"weight": 17.5,
-			"flee_rate": 0.07,
-			"capture_rate": 0.1,
-			"quick_moves": [
-				"Water Gun",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Dragon Pulse",
-				"Sludge Wave",
-				"Muddy Water",
-				"Water Pulse"
-			],
-			"evolutions": {
-				"706": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"706": {
-			"name": "Goodra",
-			"forms": {},
-			"pokedex_id": 706,
-			"types": [
-				"Dragon"
-			],
-			"attack": 220,
-			"defense": 242,
-			"stamina": 207,
-			"height": 2,
-			"weight": 150.5,
-			"flee_rate": 0.05,
-			"capture_rate": 0.05,
-			"quick_moves": [
-				"Water Gun",
-				"Dragon Breath"
-			],
-			"charged_moves": [
-				"Draco Meteor",
-				"Sludge Wave",
-				"Muddy Water",
-				"Power Whip"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"707": {
-			"name": "Klefki",
-			"forms": {},
-			"pokedex_id": 707,
-			"types": [
-				"Steel",
-				"Fairy"
-			],
-			"attack": 160,
-			"defense": 179,
-			"stamina": 149,
-			"height": 0.2,
-			"weight": 3,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Astonish",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Flash Cannon",
-				"Play Rough",
-				"Draining Kiss",
-				"Foul Play"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 4,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"708": {
-			"name": "Phantump",
-			"forms": {},
-			"pokedex_id": 708,
-			"types": [
-				"Ghost",
-				"Grass"
-			],
-			"attack": 125,
-			"defense": 103,
-			"stamina": 125,
-			"height": 0.4,
-			"weight": 7,
-			"flee_rate": 0.1,
-			"capture_rate": 0.3,
-			"quick_moves": [
-				"Astonish",
-				"Tackle"
-			],
-			"charged_moves": [
-				"Seed Bomb",
-				"Shadow Ball",
-				"Foul Play"
-			],
-			"evolutions": {
-				"709": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"709": {
-			"name": "Trevenant",
-			"forms": {},
-			"pokedex_id": 709,
-			"types": [
-				"Ghost",
-				"Grass"
-			],
-			"attack": 201,
-			"defense": 154,
-			"stamina": 198,
-			"height": 1.5,
-			"weight": 71,
-			"flee_rate": 0.05,
-			"capture_rate": 0.15,
-			"quick_moves": [
-				"Shadow Claw",
-				"Sucker Punch"
-			],
-			"charged_moves": [
-				"Seed Bomb",
-				"Shadow Ball",
-				"Foul Play"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"710": {
-			"name": "Pumpkaboo",
-			"forms": {
-				"2641": {
-					"name": "Small",
-					"proto": "PUMPKABOO_SMALL"
-				},
-				"2642": {
-					"name": "Average",
-					"proto": "PUMPKABOO_AVERAGE"
-				},
-				"2643": {
-					"name": "Large",
-					"proto": "PUMPKABOO_LARGE"
-				},
-				"2644": {
-					"name": "Super",
-					"proto": "PUMPKABOO_SUPER"
-				}
-			},
-			"pokedex_id": 710,
-			"types": [
-				"Ghost",
-				"Grass"
-			],
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Astonish",
-				"Razor Leaf"
-			],
-			"charged_moves": [
-				"Grass Knot",
-				"Shadow Sneak",
-				"Foul Play",
-				"Earthquake"
-			],
-			"evolutions": {
-				"711": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75
-		},
-		"711": {
-			"name": "Gourgeist",
-			"forms": {
-				"2645": {
-					"name": "Small",
-					"proto": "GOURGEIST_SMALL"
-				},
-				"2646": {
-					"name": "Average",
-					"proto": "GOURGEIST_AVERAGE"
-				},
-				"2647": {
-					"name": "Large",
-					"proto": "GOURGEIST_LARGE"
-				},
-				"2648": {
-					"name": "Super",
-					"proto": "GOURGEIST_SUPER"
-				}
-			},
-			"pokedex_id": 711,
-			"types": [
-				"Ghost",
-				"Grass"
-			],
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Hex",
-				"Razor Leaf"
-			],
-			"charged_moves": [
-				"Seed Bomb",
-				"Shadow Ball",
-				"Foul Play",
-				"Fire Blast"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75
-		},
-		"712": {
-			"name": "Bergmite",
-			"forms": {},
-			"pokedex_id": 712,
-			"types": [
-				"Ice"
-			],
-			"attack": 117,
-			"defense": 120,
-			"stamina": 146,
-			"height": 1,
-			"weight": 99.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Bite",
-				"Mirror Coat"
-			],
-			"charged_moves": [
-				"Crunch",
-				"Icy Wind"
-			],
-			"evolutions": {
-				"713": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"713": {
-			"name": "Avalugg",
-			"forms": {},
-			"pokedex_id": 713,
-			"types": [
-				"Ice"
-			],
-			"attack": 196,
-			"defense": 240,
-			"stamina": 216,
-			"height": 2,
-			"weight": 505,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Bite",
-				"Ice Fang",
-				"Mirror Coat"
-			],
-			"charged_moves": [
-				"Crunch",
-				"Avalanche",
-				"Earthquake",
-				"Body Slam"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_distance": 3,
-			"third_move_stardust": 50000,
-			"third_move_candy": 50,
-			"gym_defender_eligible": true
-		},
-		"714": {
-			"name": "Noibat",
-			"forms": {},
-			"pokedex_id": 714,
-			"types": [
-				"Flying",
-				"Dragon"
-			],
-			"attack": 83,
-			"defense": 73,
-			"stamina": 120,
-			"height": 0.5,
-			"weight": 8,
-			"flee_rate": 0.1,
-			"capture_rate": 0.3,
-			"quick_moves": [
-				"Wing Attack",
-				"Bite"
-			],
-			"charged_moves": [
-				"Dragon Pulse",
-				"Air Cutter",
-				"Heat Wave"
-			],
-			"evolutions": {
-				"715": {}
-			},
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 4,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"715": {
-			"name": "Noivern",
-			"forms": {},
-			"pokedex_id": 715,
-			"types": [
-				"Flying",
-				"Dragon"
-			],
-			"attack": 205,
-			"defense": 175,
-			"stamina": 198,
-			"height": 1.5,
-			"weight": 85,
-			"flee_rate": 0.05,
-			"capture_rate": 0.15,
-			"quick_moves": [
-				"Air Slash",
-				"Bite"
-			],
-			"charged_moves": [
-				"Draco Meteor",
-				"Hurricane",
-				"Heat Wave",
-				"Psychic"
-			],
-			"legendary": false,
-			"mythic": false,
-			"buddy_group_number": 6,
-			"buddy_distance": 5,
-			"third_move_stardust": 75000,
-			"third_move_candy": 75,
-			"gym_defender_eligible": true
-		},
-		"716": {
-			"name": "Xerneas",
-			"forms": {
-				"2649": {
-					"name": "Neutral",
-					"proto": "XERNEAS_NEUTRAL"
-				},
-				"2650": {
-					"name": "Active",
-					"proto": "XERNEAS_ACTIVE"
-				}
-			},
-			"pokedex_id": 716,
-			"types": [
-				"Fairy"
-			],
-			"attack": 275,
-			"defense": 203,
-			"stamina": 270,
-			"height": 3,
-			"weight": 215,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Tackle",
-				"Zen Headbutt"
-			],
-			"charged_moves": [
-				"Moonblast",
-				"Megahorn",
-				"Close Combat",
-				"Giga Impact",
-				"Thunder"
-			],
-			"legendary": true,
-			"mythic": false,
-			"buddy_distance": 20,
-			"third_move_stardust": 100000,
-			"third_move_candy": 100
-		},
-		"717": {
-			"name": "Yveltal",
-			"forms": {},
-			"pokedex_id": 717,
-			"types": [
-				"Dark",
-				"Flying"
-			],
-			"attack": 275,
-			"defense": 203,
-			"stamina": 270,
-			"height": 5.8,
-			"weight": 203,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Sucker Punch",
-				"Snarl",
-				"Gust"
-			],
-			"charged_moves": [
-				"Dark Pulse",
-				"Hurricane",
-				"Focus Blast",
-				"Hyper Beam",
-				"Psychic"
-			],
-			"legendary": true,
-			"mythic": false,
-			"buddy_distance": 20,
-			"third_move_stardust": 100000,
-			"third_move_candy": 100
-		},
-		"718": {
-			"name": "Zygarde",
-			"forms": {
-				"2591": {
-					"name": "Ten Percent",
-					"proto": "ZYGARDE_TEN_PERCENT"
-				},
-				"2592": {
-					"name": "Fifty Percent",
-					"proto": "ZYGARDE_FIFTY_PERCENT"
-				},
-				"2593": {
-					"name": "Complete",
-					"proto": "ZYGARDE_COMPLETE"
-				}
-			},
-			"pokedex_id": 718,
-			"types": [
-				"Dragon",
-				"Ground"
-			],
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
-			"quick_moves": [
-				"Dragon Tail",
-				"Bite",
-				"Zen Headbutt"
-			],
-			"charged_moves": [
-				"Outrage",
-				"Earthquake",
-				"Crunch",
-				"Hyper Beam",
-				"Bulldoze"
-			],
-			"legendary": true,
-			"mythic": false,
-			"buddy_distance": 20,
-			"third_move_stardust": 100000,
-			"third_move_candy": 100
-		},
-		"719": {
-			"name": "Diancie",
-			"forms": {},
-			"temp_evolutions": {
-				"1": {
-					"attack": 342,
-					"defense": 235,
-					"stamina": 137,
-					"unreleased": true,
-					"types": [
-						"Fairy",
-						"Rock"
-					]
-				}
-			}
-		},
-		"720": {
-			"name": "Hoopa",
-			"forms": {
-				"2651": {
-					"name": "Confined",
-					"proto": "HOOPA_CONFINED"
-				},
-				"2652": {
-					"name": "Unbound",
-					"proto": "HOOPA_UNBOUND"
-				}
-			}
-		},
-		"721": {
-			"name": "Volcanion",
-			"forms": {}
 		},
 		"808": {
-			"name": "Meltan",
+			"name": "",
 			"forms": {
 				"2321": {
 					"name": "Normal",
@@ -37086,7 +34250,6 @@
 					"proto": "MELTAN_PURIFIED"
 				}
 			},
-			"default_form_id": 2321,
 			"pokedex_id": 808,
 			"types": [
 				"Steel"
@@ -37108,7 +34271,8 @@
 				"809": {}
 			},
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 2,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -37116,7 +34280,7 @@
 			"gym_defender_eligible": true
 		},
 		"809": {
-			"name": "Melmetal",
+			"name": "",
 			"forms": {
 				"2324": {
 					"name": "Normal",
@@ -37131,7 +34295,6 @@
 					"proto": "MELMETAL_PURIFIED"
 				}
 			},
-			"default_form_id": 2324,
 			"pokedex_id": 809,
 			"types": [
 				"Steel"
@@ -37153,7 +34316,8 @@
 				"Super Power"
 			],
 			"legendary": false,
-			"mythic": true,
+			"mythic": false,
+			"candy_to_evolve": 25,
 			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
@@ -37161,7 +34325,7 @@
 			"gym_defender_eligible": true
 		},
 		"862": {
-			"name": "Obstagoon",
+			"name": "",
 			"forms": {
 				"2501": {
 					"name": "Normal",
@@ -37208,7 +34372,7 @@
 			"gym_defender_eligible": true
 		},
 		"863": {
-			"name": "Perrserker",
+			"name": "",
 			"forms": {
 				"2504": {
 					"name": "Normal",
@@ -37254,7 +34418,7 @@
 			"gym_defender_eligible": true
 		},
 		"865": {
-			"name": "Sirfetchd",
+			"name": "",
 			"forms": {
 				"2510": {
 					"name": "Normal",
@@ -37300,7 +34464,7 @@
 			"gym_defender_eligible": true
 		},
 		"867": {
-			"name": "Runerigus",
+			"name": "",
 			"forms": {
 				"2516": {
 					"name": "Normal",
@@ -39174,10 +36338,7 @@
 			"power": 110
 		},
 		"335": {
-			"name": "Aeroblast",
-			"proto": "V0335_MOVE_AEROBLAST",
-			"type": "Flying",
-			"power": 170
+			"name": "Aeroblast"
 		},
 		"336": {
 			"name": "Techno Blast Normal"
@@ -39222,10 +36383,7 @@
 			"power": 16
 		},
 		"346": {
-			"name": "Incinerate",
-			"proto": "V0346_MOVE_INCINERATE_FAST",
-			"type": "Fire",
-			"power": 15
+			"name": "Incinerate"
 		},
 		"347": {
 			"name": "Dark Void"

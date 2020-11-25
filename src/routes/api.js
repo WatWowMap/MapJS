@@ -401,9 +401,9 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                let types = pkmn.types === undefined ? 'Normal' : JSON.stringify(pkmn.types);
+                const form = pkmn.forms[formId];
                 // Grab form from masterfile for consistent language
-                let formName = pkmn.forms[formId].name;
+                let formName = form.name || '';
                 if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
                     continue;
@@ -417,8 +417,6 @@ const getData = async (perms, filter) => {
                         <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
                     </label>
                     `;
-                } else {
-                    ivLabel = '';
                 }
                 const filter = generateShowHideButtons(id, 'pokemon', ivLabel);
                 const size = generateSizeButtons(id, 'pokemon');
@@ -436,7 +434,7 @@ const getData = async (perms, filter) => {
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString,
-                    'types': types
+                    'types': (form.types || pkmn.types || []).join()
                 });
             }
         }
