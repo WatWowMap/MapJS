@@ -561,6 +561,38 @@ function loadStorage () {
         showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
+    const showLevel40Value = retrieve('level40_stats');
+    if (showLevel40Value === null) {
+        store('level40_stats', configPvp.l40stats);
+        showLevel40Stats = configPvp.l40stats;
+    } else {
+        showLevel40Stats = (showLevel40Value === 'true');
+    }
+
+    const showLevel41Value = retrieve('level41_stats');
+    if (showLevel41Value === null) {
+        store('level41_stats', configPvp.l41stats);
+        showLevel41Stats = configPvp.l41stats;
+    } else {
+        showLevel41Stats = (showLevel41Value === 'true');
+    }
+
+    const showLevel50Value = retrieve('level50_stats');
+    if (showLevel50Value === null) {
+        store('level50_stats', configPvp.l50stats);
+        showLevel50Stats = configPvp.l50stats;
+    } else {
+        showLevel50Stats = (showLevel50Value === 'true');
+    }
+
+    const showLevel51Value = retrieve('level51_stats');
+    if (showLevel51Value === null) {
+        store('level51_stats', configPvp.l51stats);
+        showLevel51Stats = configPvp.l51stats;
+    } else {
+        showLevel51Stats = (showLevel51Value === 'true');
+    }
+
     const showSpawnpointsValue = retrieve('show_spawnpoints');
     if (showSpawnpointsValue === null) {
         store('show_spawnpoints', defaultShowSpawnpoints);
@@ -1446,7 +1478,11 @@ function initMap () {
         const newShowLevel51Stats = settingsNew['level51-stats'].show;
         if (clusterPokemon !== newClusterPokemon ||
             showPokemonGlow !== newShowPokemonGlow ||
-            showPokemonTimers !== newShowPokemonTimers) {
+            showPokemonTimers !== newShowPokemonTimers ||
+            showLevel40Stats !== newShowLevel40Stats ||
+            showLevel41Stats !== newShowLevel41Stats ||
+            showLevel50Stats !== newShowLevel50Stats ||
+            showLevel51Stats !== newShowLevel51Stats) {
             $.each(pokemonMarkers, function (index, pokemon) {
                 if (clusterPokemon) {
                     clusters.removeLayer(pokemon.marker);
@@ -1504,6 +1540,10 @@ function initMap () {
         store('show_pokemon_timers', newShowPokemonTimers);
         store('show_raid_timers', newShowRaidTimers);
         store('show_invasion_timers', newShowInvasionTimers);
+        store('level40_stats', newShowLevel40Stats);
+        store('level41_stats', newShowLevel41Stats);
+        store('level50_stats', newShowLevel50Stats);
+        store('level51_stats', newShowLevel51Stats);
 
         if (pokemonMarkers.length === 0 ||
             gymMarkers.length === 0 ||
@@ -1842,19 +1882,16 @@ function loadData () {
             pokemonFilterExclude.push("timers_verified");
         }
 
-        if (pokemonFilter['level40-stats'].show !== false) {
+        if (showLevel40Stats !== false) {
             pokemonFilterExclude.push("level40_stats");
         }
-
-        if (pokemonFilter['level41-stats'].show !== false) {
+        if (showLevel41Stats !== false) {
             pokemonFilterExclude.push("level41_stats");
         }
-
-        if (pokemonFilter['level50-stats'].show !== false) {
+        if (showLevel50Stats !== false) {
             pokemonFilterExclude.push("level50_stats");
         }
-
-        if (pokemonFilter['level51-stats'].show !== false) {
+        if (showLevel51Stats !== false) {
             pokemonFilterExclude.push("level51_stats");
         }
     }
@@ -4395,30 +4432,6 @@ function manageSelectButton(e, isNew) {
                 shouldShow = settingsNew[id].show === true;
                 break;
         }
-    } else if (type === 'pvp-level40-stats' ||
-        type === 'pvp-level41-stats' ||
-        type === 'pvp-level50-stats' ||
-        type === 'pvp-level51-stats') {
-        switch (info) {
-            case 'hide':
-                shouldShow = pokemonFilterNew[id]['show'] === false;
-                break;
-            case 'show':
-                shouldShow = pokemonFilterNew[id]['show'] === true;
-                break;
-            case 'small':
-                shouldShow = pokemonFilterNew[id]['size'] === "small";
-                break;
-            case 'normal':
-                shouldShow = pokemonFilterNew[id]['size'] === "normal";
-                break;
-            case 'large':
-                shouldShow = pokemonFilterNew[id]['size'] === "large";
-                break;
-            case 'huge':
-                shouldShow = pokemonFilterNew[id]['size'] === "huge";
-                break;
-        }
     } else if (type === 'pokemon-cluster' ||
         type === 'gym-cluster' ||
         type === 'pokestop-cluster' ||
@@ -4427,7 +4440,11 @@ function manageSelectButton(e, isNew) {
         type === 'raid-timers' ||
         type === 'invasion-timers' ||
         type === 'mega-stats' ||
-        type === 'experimental-stats') {
+        type === 'experimental-stats' ||
+        type === 'pvp-level40-stats' ||
+        type === 'pvp-level41-stats' ||
+        type === 'pvp-level50-stats' ||
+        type === 'pvp-level51-stats') {
         switch (info) {
             case 'hide':
                 shouldShow = settingsNew[id].show === false;
@@ -4930,30 +4947,6 @@ function manageSelectButton(e, isNew) {
                         pokemonFilterNew[id]['size'] = 'huge';
                         break;
                 }
-            } else if (type === 'pvp-level40-stats' ||
-                type === 'pvp-level41-stats' ||
-                type === 'pvp-level50-stats' ||
-                type === 'pvp-level51-stats') {
-                switch (info) {
-                    case 'hide':
-                        pokemonFilterNew[id].show = false;
-                        break;
-                    case 'show':
-                        pokemonFilterNew[id].show = true;
-                        break;
-                    case 'small':
-                        pokemonFilterNew[id].size = 'small';
-                        break;
-                    case 'normal':
-                        pokemonFilterNew[id].size = 'normal';
-                        break;
-                    case 'large':
-                        pokemonFilterNew[id].size = 'large';
-                        break;
-                    case 'huge':
-                        pokemonFilterNew[id].size = 'huge';
-                        break;
-                }
             } else if (type === 'pokemon-glow') {
                 switch (info) {
                     case 'hide':
@@ -4973,7 +4966,11 @@ function manageSelectButton(e, isNew) {
                 type === 'raid-timers' ||
                 type === 'invasion-timers' ||
                 type === 'mega-stats' ||
-                type === 'experimental-stats') {
+                type === 'experimental-stats' ||
+                type === 'pvp-level40-stats' ||
+                type === 'pvp-level41-stats' ||
+                type === 'pvp-level50-stats' ||
+                type === 'pvp-level51-stats') {
                 switch (info) {
                     case 'hide':
                         settingsNew[id].show = false;
@@ -7002,6 +6999,18 @@ function loadFilterSettings (e) {
 
         showInvasionTimers = obj.show_invasion_timers;
         store('show_invasion_timers', showInvasionTimers);
+
+        showLevel40Stats = obj.level40_stats;
+        store('level40_stats', showLevel40Stats);
+        
+        showLevel41Stats = obj.level41_stats;
+        store('level41_stats', showLevel41Stats);
+
+        showLevel50Stats = obj.level50_stats;
+        store('level50_stats', showLevel50Stats);
+
+        showLevel51Stats = obj.level51_stats;
+        store('level51_stats', showLevel51Stats);
 
         if (showGyms) {
             $('#show-gyms').addClass('active');

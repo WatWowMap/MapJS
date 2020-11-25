@@ -140,38 +140,38 @@ const getSettings = () => {
         'filter': generateShowHideButtons('experimental-stats', 'experimental-stats'),
         'type': pvpStatsString
     });
-    // settingsData.push({
-    //     'id': {
-    //         'sort': utils.zeroPad(30, 3)
-    //     },
-    //     'name': level40String,
-    //     'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
-    //     'type': pvpStatsString
-    // });
-    // settingsData.push({
-    //     'id': {
-    //         'sort': utils.zeroPad(30, 3)
-    //     },
-    //     'name': level41String,
-    //     'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
-    //     'type': pvpStatsString
-    // });
-    // settingsData.push({
-    //     'id': {
-    //         'sort': utils.zeroPad(30, 3)
-    //     },
-    //     'name': level50String,
-    //     'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
-    //     'type': pvpStatsString
-    // });
-    // settingsData.push({
-    //     'id': {
-    //         'sort': utils.zeroPad(30, 3)
-    //     },
-    //     'name': level51String,
-    //     'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
-    //     'type': pvpStatsString
-    // });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level40String,
+        'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level41String,
+        'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level50String,
+        'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level51String,
+        'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
+        'type': pvpStatsString
+    });
     /*
     settingsData.push({
         'id': {
@@ -392,74 +392,6 @@ const getData = async (perms, filter) => {
                 path: '/misc/verified.png'
             },
             'filter': generateShowHideButtons('timers-verified', 'pokemon-timers-verified'),
-            'size': null,
-            'type': globalFiltersString,
-            'types': null
-        });
-
-        const level40Stats = i18n.__('filter_level40_stats');
-        pokemonData.push({
-            'id': {
-                'formatted': utils.zeroPad(2, 3),
-                'sort': 2 + 5
-            },
-            'name': level40Stats,
-            'image': {
-                type: 'img',
-                path: '/misc/verified.png'
-            },
-            'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
-            'size': null,
-            'type': globalFiltersString,
-            'types': null
-        });
-
-        const level41Stats = i18n.__('filter_level41_stats');
-        pokemonData.push({
-            'id': {
-                'formatted': utils.zeroPad(2, 3),
-                'sort': 2 + 5
-            },
-            'name': level41Stats,
-            'image': {
-                type: 'img',
-                path: '/misc/verified.png'
-            },
-            'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
-            'size': null,
-            'type': globalFiltersString,
-            'types': null
-        });
-
-        const level50Stats = i18n.__('filter_level50_stats');
-        pokemonData.push({
-            'id': {
-                'formatted': utils.zeroPad(2, 3),
-                'sort': 2 + 5
-            },
-            'name': level50Stats,
-            'image': {
-                type: 'img',
-                path: '/misc/verified.png'
-            },
-            'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
-            'size': null,
-            'type': globalFiltersString,
-            'types': null
-        });
-
-        const level51Stats = i18n.__('filter_level51_stats');
-        pokemonData.push({
-            'id': {
-                'formatted': utils.zeroPad(2, 3),
-                'sort': 2 + 5
-            },
-            'name': level51Stats,
-            'image': {
-                type: 'img',
-                path: '/misc/verified.png'
-            },
-            'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
             'size': null,
             'type': globalFiltersString,
             'types': null
