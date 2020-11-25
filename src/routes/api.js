@@ -342,14 +342,6 @@ const getData = async (perms, filter) => {
             'types': null
         });
 
-        let ivLabel = '';
-        if (permShowIV) {
-            ivLabel = `
-                    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="pokemon" data-info="iv">
-                        <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
-                    </label>
-                    `;
-        }
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
@@ -363,6 +355,14 @@ const getData = async (perms, filter) => {
                 }
                 formName = formName === 'Normal' ? '' : formName;
                 const id = formId === '0' ? i : i + '-' + formId;
+                let ivLabel = '';
+                if (permShowIV) {
+                    ivLabel = `
+                    <label class="btn btn-sm btn-size select-button-new" data-id="${id}" data-type="pokemon" data-info="iv">
+                        <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
+                    </label>
+                    `;
+                }
                 const filter = generateShowHideButtons(id, 'pokemon', ivLabel);
                 const size = generateSizeButtons(id, 'pokemon');
                 pokemonData.push({
