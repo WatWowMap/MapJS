@@ -2775,32 +2775,21 @@ function updateMapTimers () {
     });
 }
 
-let hasRelevantLeagueStats = (leagueStats, greatLeague) => {
-    let found = false;
-    let minCP = greatLeague !== false ? configPvp.minCpGreat : configPvp.minCpUltra;
-    let maxCP = greatLeague !== false ? 1500 : 2500;
-    let maxRank = configPvp.maxRank;
-    if (leagueStats) {
-        for (let i = 0; i < leagueStats.length; i++) {
-            if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
-                found = true;
-                break;
-            }
-        }
-    }
-    return found;
+const hasRelevantLeagueStats = (leagueStats) => {
+    const maxRank = configPvp.maxRank;
+    return leagueStats && leagueStats.some(entry => entry.rank <= maxRank);
 }
 
 function getPokemonBestRank(greatLeague, ultraLeague) {
-    if ((greatLeague !== null ) || (ultraLeague !== null )) {
+    if ((greatLeague !== null) || (ultraLeague !== null)) {
         let bestRank = 4;
         $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= configPvp.minCpGreat && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank) {
                 bestRank = ranking.rank;
             }
         });
         $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= configPvp.minCpUltra && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank) {
                 bestRank = ranking.rank;
             }
         });
@@ -2811,16 +2800,12 @@ function getPokemonBestRank(greatLeague, ultraLeague) {
     return 4096;
 }
 
-let getPVPRanks = (league, data) => {
-    let minCp = league === 'Great' ? configPvp.minCpGreat : configPvp.minCpUltra;
-    let maxCp = league === 'Great' ? 1500 : 2500;
+const getPVPRanks = (league, data) => {
     let content =
         `<br>` +
         `<b>${league} League:</b><br>`;
     for (const [i, ranking] of Object.entries(data)) {
-        ranking.cap = ranking.cap === undefined ? pvpCapAssigner(ranking.level) : ranking.cap;
-        let inclLevelCap = eval(`pokemonFilter['level${ranking.cap}-stats'].show`)
-        if (ranking.cp !== null && ranking.cp >= minCp && ranking.cp <= maxCp && ranking.rank <= configPvp.maxRank && inclLevelCap) {
+        if (ranking.cp !== null && ranking.rank <= configPvp.maxRank) {
             let pokemonName = ``;
             if (ranking.evolution) {
                 if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
@@ -2843,21 +2828,15 @@ let getPVPRanks = (league, data) => {
                 infoString = `#${ranking.rank} (${Math.round(ranking.percentage * 1000) / 10}%) `;
             }
             if (ranking.cp !== null) {
-                infoString += `@${ranking.cp}CP | L${ranking.level} (L${ranking.cap} Cap)`;
+                infoString += `@${ranking.cp}CP | L${ranking.level}`;
+                if (ranking.cap !== undefined && ranking.capped !== true) {
+                    infoString += `/${ranking.cap}`;
+                }
             }
             content += `<small><b>${pokemonName}:</b> ${infoString}</small><br>`;
         }
     };
     return content.includes('CP') ? content : '';
-}
-
-let pvpCapAssigner = (level) => {
-    let cap;
-    cap = level <= 40 ? 40
-        : level === 41 ? 41
-            : level > 41 && level <=50 ? 50
-                : 51;
-    return cap;
 }
 
 function getPokemonPopupContent (pokemon) {
