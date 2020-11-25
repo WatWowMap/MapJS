@@ -22,7 +22,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let includeBigKarp = false;
     let includeTinyRat = false;
     let onlyVerifiedTimersSQL = '';
-    let pvpStats = [];
+    let interestedLevelCaps = [];
     for (const key of pokemonFilterExclude || []) {
         const split = key.split('-', 2);
         if (split.length === 2) {
@@ -39,13 +39,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else if (key === 'level40_stats') {
-            pvpStats.push(40);
+            interestedLevelCaps.push(40);
         } else if (key === 'level41_stats') {
-            pvpStats.push(41);
+            interestedLevelCaps.push(41);
         } else if (key === 'level50_stats') {
-            pvpStats.push(50);
+            interestedLevelCaps.push(50);
         } else if (key === 'level51_stats') {
-            pvpStats.push(51);
+            interestedLevelCaps.push(51);
         } else {
             console.warn('Unrecognized key', key);
         }
@@ -105,13 +105,23 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                     filtered.iv = (result.atk_iv + result.def_iv + result.sta_iv) / .45;
                 }
             }
-            if (showPVP) {
-                let { maxRank, minCpGreat, minCpUltra } = config.map.pvp;
-                if ((filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league))) {
-                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpGreat && x.cp <= 1500 && pvpStats.includes(x.cap)).map(x => x.rank));
+            if (showPVP && interestedLevelCaps.length > 0) {
+                const { minCpGreat, minCpUltra } = config.map.pvp;
+                if (result.pvp_rankings_great_league) {
+                    filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league).filter(entry => {
+                        return entry.cp >= minCpGreat && (entry.capped
+                            ? interestedLevelCaps[interestedLevelCaps.length - 1] >= entry.cap
+                            : interestedLevelCaps.includes(entry.cap));
+                    });
+                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.map(x => x.rank));
                 }
-                if ((filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league))) {
-                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.filter(x => x.rank > 0 && x.rank <= maxRank && x.cp >= minCpUltra && x.cp <= 2500 && pvpStats.includes(x.cap)).map(x => x.rank));
+                if (result.pvp_rankings_ultra_league) {
+                    filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league).filter(entry => {
+                        return entry.cp >= minCpUltra && (entry.capped
+                            ? interestedLevelCaps[interestedLevelCaps.length - 1] >= entry.cap
+                            : interestedLevelCaps.includes(entry.cap));
+                    });
+                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.map(x => x.rank));
                 }
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
