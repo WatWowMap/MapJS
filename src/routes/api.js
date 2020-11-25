@@ -348,7 +348,7 @@ const getData = async (perms, filter) => {
                 const formId = forms[j];
                 const form = pkmn.forms[formId];
                 // Grab form from masterfile for consistent language
-                let formName = form.name;
+                let formName = form.name || '';
                 if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
                     continue;
