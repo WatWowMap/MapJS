@@ -38,7 +38,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else {
-            console.warn('Unrecognized key', key);
+            const pokemonId = parseInt(key);
+            if (isNaN(pokemonId)) {
+                console.warn('Unrecognized key', key);
+            } else {
+                pokemonLookup[pokemonId] = false;
+                const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+                if (defaultForm) {
+                    formLookup[defaultForm] = false;
+                }
+            }
         }
     }
 
@@ -65,7 +74,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             } else if (key === 'or') {
                 orIv = jsFilter;
             } else {
-                console.warn('Unrecognized key', key);
+                const pokemonId = parseInt(key);
+                if (isNaN(pokemonId)) {
+                    console.warn('Unrecognized key', key);
+                } else {
+                    pokemonLookup[pokemonId] = jsFilter;
+                    const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+                    if (defaultForm) {
+                        formLookup[defaultForm] = jsFilter;
+                    }
+                }
             }
         }
     }
@@ -185,9 +203,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                     }
                 } else {
                     const id = parseInt(key);
-                    if (id) {
+                    if (!isNaN(id)) {
                         if (!excludePokemonIds.includes(id)) {
                             excludePokemonIds.push(id);
+                        }
+                        const defaultForm = (masterfile.pokemon[id] || {}).default_form_id;
+                        if (defaultForm && !excludeFormIds.includes(defaultForm)) {
+                            excludeFormIds.push(defaultForm);
                         }
                     }
                 }
