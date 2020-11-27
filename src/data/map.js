@@ -1320,7 +1320,7 @@ const jsifyIvFilter = (filter) => {
                     upper = parseFloat(match[4]);
                 }
                 if (column.endsWith('_league')) {
-                    result += `((pokemon['${column}] || []).some(x => x.rank >= ${lower} && x.rank <= ${upper}))`;
+                    result += `((pokemon['${column}'] || []).some(x => x.rank >= ${lower} && x.rank <= ${upper}))`;
                 } else {
                     result += `(pokemon['${column}'] !== null && pokemon['${column}'] >= ${lower} && pokemon['${column}'] <= ${upper})`;
                 }
