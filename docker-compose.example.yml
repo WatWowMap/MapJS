@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   mapjs:
-    build: node:12
+    image: node:12
     restart: unless-stopped
     working_dir: /app
     environment:
