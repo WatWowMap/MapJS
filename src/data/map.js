@@ -23,6 +23,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let includeTinyRat = false;
     let onlyVerifiedTimersSQL = '';
     let interestedLevelCaps = [];
+    let interestedMegas = [];
     for (const key of pokemonFilterExclude || []) {
         const split = key.split('-', 2);
         if (split.length === 2) {
@@ -39,11 +40,11 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else if (key === 'mega_stats') {
-            interestedLevelCaps.push(1);
-            interestedLevelCaps.push(2);
-            interestedLevelCaps.push(3);
+            interestedMegas.push(1);
+            interestedMegas.push(2);
+            interestedMegas.push(3);
         } else if (key === 'experimental_stats') {
-            interestedLevelCaps.push('experimental');
+            interestedMegas.push('experimental');
         } else if (key === 'level40_stats') {
             interestedLevelCaps.push(40);
         } else if (key === 'level41_stats') {
@@ -141,8 +142,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                         }
                         if (entry.evolution) {
                             if (masterfile.pokemon[entry.pokemon].temp_evolutions[entry.evolution].unreleased
-                                ? !interestedLevelCaps.includes('experimental')
-                                : !interestedLevelCaps.includes(entry.evolution)) {
+                                ? !interestedMegas.includes('experimental')
+                                : !interestedMegas.includes(entry.evolution)) {
                                 continue;
                             }
                         }
