@@ -41,6 +41,9 @@ const rateLimitOptions = {
 };
 const requestRateLimiter = rateLimit(rateLimitOptions);
 
+// Healthcheck secret to allow Docker container to bypass Discord redirect
+const HealthcheckSecret = process.env['HEALTHCHECK_SECRET'];
+
 // Basic security protection middleware
 app.use(helmet());
 
@@ -127,10 +130,12 @@ app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }
-    if (!config.discord.enabled || req.session.logged_in) {
+    const healthcheckHeader = req.get('Healthcheck-Secret');
+    const healthcheckValid = healthcheckHeader && healthcheckHeader.length > 0 && healthcheckHeader === HealthcheckSecret;
+    if (!config.discord.enabled || healthcheckValid || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        if (!config.discord.enabled) {
+        if (!config.discord.enabled || healthcheckValid) {
             return next();
         }
         if (!(await isValidSession(req.session.user_id))) {
