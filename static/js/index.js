@@ -561,6 +561,22 @@ function loadStorage () {
         showInvasionTimers = (showInvasionTimersValue === 'true');
     }
 
+    const showMegaStatsValue = retrieve('mega_stats');
+    if (showMegaStatsValue === null) {
+        store('megastats', configPvp.megaStats);
+        showMegaStats = configPvp.megaStats;
+    } else {
+        showMegaStats = (showMegaStatsValue === 'true');
+    }
+
+    const showExperimentalStatsValue = retrieve('experimental_stats');
+    if (showExperimentalStatsValue === null) {
+        store('experimental_stats', configPvp.experimentalStats);
+        showExperimentalStats = configPvp.experimentalStats;
+    } else {
+        showExperimentalStats = (showExperimentalStatsValue === 'true');
+    }
+
     const showLevel40Value = retrieve('level40_stats');
     if (showLevel40Value === null) {
         store('level40_stats', configPvp.l40stats);
@@ -672,18 +688,6 @@ function loadStorage () {
             // TODO: Default value
             defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
         }
-        if (defaultPokemonFilter['level40-stats'] === undefined) {
-            defaultPokemonFilter['level40-stats'] = { show: configPvp.l40stats, size: 'normal' };
-        }
-        if (defaultPokemonFilter['level41-stats'] === undefined) {
-            defaultPokemonFilter['level41-stats'] = { show: configPvp.l41stats, size: 'normal' };
-        }
-        if (defaultPokemonFilter['level50-stats'] === undefined) {
-            defaultPokemonFilter['level50-stats'] = { show: configPvp.l50stats, size: 'normal' };
-        }
-        if (defaultPokemonFilter['level51-stats'] === undefined) {
-            defaultPokemonFilter['level51-stats'] = { show: configPvp.l51stats, size: 'normal' };
-        }
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
@@ -707,18 +711,6 @@ function loadStorage () {
         pokemonFilter = JSON.parse(pokemonFilterValue);
         if (pokemonFilter['timers-verified'] === undefined) {
             pokemonFilter['timers-verified'] = { show: false, size: 'normal' };
-        }
-        if (pokemonFilter['level40-stats'] === undefined) {
-            pokemonFilter['level40-stats'] = { show: configPvp.l40stats, size: 'normal' };
-        }
-        if (pokemonFilter['level41-stats'] === undefined) {
-            pokemonFilter['level41-stats'] = { show: configPvp.l41stats, size: 'normal' };
-        }
-        if (pokemonFilter['level50-stats'] === undefined) {
-            pokemonFilter['level50-stats'] = { show: configPvp.l50stats, size: 'normal' };
-        }
-        if (pokemonFilter['level51-stats'] === undefined) {
-            pokemonFilter['level51-stats'] = { show: configPvp.l51stats, size: 'normal' };
         }
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
@@ -1479,6 +1471,8 @@ function initMap () {
         if (clusterPokemon !== newClusterPokemon ||
             showPokemonGlow !== newShowPokemonGlow ||
             showPokemonTimers !== newShowPokemonTimers ||
+            showMegaStats !== newShowMegaStats ||
+            showExperimentalStats !== newShowExperimentalStats ||
             showLevel40Stats !== newShowLevel40Stats ||
             showLevel41Stats !== newShowLevel41Stats ||
             showLevel50Stats !== newShowLevel50Stats ||
@@ -1540,6 +1534,8 @@ function initMap () {
         store('show_pokemon_timers', newShowPokemonTimers);
         store('show_raid_timers', newShowRaidTimers);
         store('show_invasion_timers', newShowInvasionTimers);
+        store('mega_stats', newShowMegaStats);
+        store('experimental_stats', newShowExperimentalStats);
         store('level40_stats', newShowLevel40Stats);
         store('level41_stats', newShowLevel41Stats);
         store('level50_stats', newShowLevel50Stats);
@@ -1881,7 +1877,12 @@ function loadData () {
         if (pokemonFilter['timers-verified'].show !== false) {
             pokemonFilterExclude.push("timers_verified");
         }
-
+        if (showMegaStats !== false) {
+            pokemonFilterExclude.push("mega_stats");
+        }
+        if (showExperimentalStats !== false) {
+            pokemonFilterExclude.push("experimental_stats");
+        }
         if (showLevel40Stats !== false) {
             pokemonFilterExclude.push("level40_stats");
         }
@@ -5703,10 +5704,6 @@ let masterfileFilter = (pokemonId, filter) => {
 let setPokemonFilters = (type, show, filterInfo) => {
     const defaultPokemonFilter = {};
     defaultPokemonFilter['timers-verified'] = { show: pokemonFilterNew['timers-verified'].show, size: pokemonFilterNew['timers-verified'].size };
-    defaultPokemonFilter['level40-stats'] = { show: showLevel40Stats, size: pokemonFilterNew['level40-stats'].size };
-    defaultPokemonFilter['level41-stats'] = { show: showLevel41Stats, size: pokemonFilterNew['level41-stats'].size };
-    defaultPokemonFilter['level50-stats'] = { show: showLevel50Stats, size: pokemonFilterNew['level50-stats'].size };
-    defaultPokemonFilter['level51-stats'] = { show: showLevel51Stats, size: pokemonFilterNew['level51-stats'].size };
     for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
         const forms = Object.keys(pkmn.forms);
         for (let j = 0; j < forms.length; j++) {
@@ -7004,6 +7001,12 @@ function loadFilterSettings (e) {
         showInvasionTimers = obj.show_invasion_timers;
         store('show_invasion_timers', showInvasionTimers);
 
+        showMegaStats = obj.mega_stats;
+        store('mega_stats', showMegaStats);
+
+        showExperimentalStats = obj.experimental_stats;
+        store('experimental_stats', showExperimentalStats);
+
         showLevel40Stats = obj.level40_stats;
         store('level40_stats', showLevel40Stats);
         
@@ -7159,10 +7162,6 @@ function registerFilterButtonCallbacks() {
         const defaultPokemonFilter = {};
         // TODO: Default value
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
-        defaultPokemonFilter['level40-stats'] = { show: configPvp.l40stats, size: 'normal' };
-        defaultPokemonFilter['level41-stats'] = { show: configPvp.l41stats, size: 'normal' };
-        defaultPokemonFilter['level50-stats'] = { show: configPvp.l50stats, size: 'normal' };
-        defaultPokemonFilter['level51-stats'] = { show: configPvp.l51stats, size: 'normal' };
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
@@ -7253,10 +7252,6 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-pokemon-filter').on('click', function (event) {
         const defaultPokemonFilter = {};
         defaultPokemonFilter['timers-verified'] = { show: false, size: pokemonFilterNew['timers-verified'].size };
-        defaultPokemonFilter['level40-stats'] = { show: false, size: pokemonFilterNew['level40-stats'].size };
-        defaultPokemonFilter['level41-stats'] = { show: false, size: pokemonFilterNew['level41-stats'].size };
-        defaultPokemonFilter['level50-stats'] = { show: false, size: pokemonFilterNew['level50-stats'].size };
-        defaultPokemonFilter['level51-stats'] = { show: false, size: pokemonFilterNew['level51-stats'].size };
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
@@ -7348,10 +7343,6 @@ function registerFilterButtonCallbacks() {
         const defaultPokemonFilter = {};
         // TODO: Default value
         defaultPokemonFilter['timers-verified'] = { show: false, size: 'normal' };
-        defaultPokemonFilter['level40-stats'] = { show: pokemonFilterNew['level40-stats'].show, size: pokemonFilterNew['level40-stats'].size };
-        defaultPokemonFilter['level41-stats'] = { show: pokemonFilterNew['level41-stats'].show, size: pokemonFilterNew['level41-stats'].size };
-        defaultPokemonFilter['level50-stats'] = { show: pokemonFilterNew['level50-stats'].show, size: pokemonFilterNew['level50-stats'].size };
-        defaultPokemonFilter['level51-stats'] = { show: pokemonFilterNew['level51-stats'].show, size: pokemonFilterNew['level51-stats'].size };
         for (const [i, pkmn] of Object.entries(masterfile.pokemon)) {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {

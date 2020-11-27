@@ -38,6 +38,12 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             includeTinyRat = true;
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
+        } else if (key === 'mega_stats') {
+            interestedLevelCaps.push(1);
+            interestedLevelCaps.push(2);
+            interestedLevelCaps.push(3);
+        } else if (key === 'experimental_stats') {
+            interestedLevelCaps.push('experimental');
         } else if (key === 'level40_stats') {
             interestedLevelCaps.push(40);
         } else if (key === 'level41_stats') {
@@ -132,6 +138,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                             ? interestedLevelCaps[interestedLevelCaps.length - 1] < entry.cap
                             : !interestedLevelCaps.includes(entry.cap))) {
                             continue;
+                        }
+                        if (entry.evolution) {
+                            if (masterfile.pokemon[entry.pokemon].temp_evolutions[entry.evolution].unreleased
+                                ? !interestedLevelCaps.includes('experimental')
+                                : !interestedLevelCaps.includes(entry.evolution)) {
+                                continue;
+                            }
                         }
                         if (last !== undefined && last.pokemon === entry.pokemon &&
                             last.form === entry.form && last.evolution === entry.evolution &&
