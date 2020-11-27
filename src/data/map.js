@@ -125,21 +125,37 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             }
             if (showPVP && interestedLevelCaps.length > 0) {
                 const { minCpGreat, minCpUltra } = config.map.pvp;
+                const filterLeagueStats = (result, target, minCp) => {
+                    let last;
+                    for (const entry of JSON.parse(result)) {
+                        if (minCp && entry.cp < minCp || entry.cap !== undefined && (entry.capped
+                            ? interestedLevelCaps[interestedLevelCaps.length - 1] < entry.cap
+                            : !interestedLevelCaps.includes(entry.cap))) {
+                            continue;
+                        }
+                        if (last !== undefined && last.pokemon === entry.pokemon &&
+                            last.form === entry.form && last.evolution === entry.evolution &&
+                            // if raising the level cap does not increase its level,
+                            // this IV has hit the max level in the league;
+                            // at this point, its rank can only go down (only unmaxed combinations can still go up);
+                            // if the rank stays the same, all higher ranks are also unchanged
+                            last.level === entry.level && last.rank === entry.rank) {
+                            // merge two entries
+                            last.cap = entry.cap;
+                            if (entry.capped) {
+                                last.capped = true;
+                            }
+                        } else {
+                            target.push(entry);
+                            last = entry;
+                        }
+                    }
+                };
                 if (result.pvp_rankings_great_league) {
-                    filtered.pvp_rankings_great_league = JSON.parse(result.pvp_rankings_great_league).filter(entry => {
-                        return entry.cp >= minCpGreat && (entry.capped
-                            ? interestedLevelCaps[interestedLevelCaps.length - 1] >= entry.cap
-                            : interestedLevelCaps.includes(entry.cap));
-                    });
-                    filtered.great_rank = Math.min.apply(null, filtered.pvp_rankings_great_league.map(x => x.rank));
+                    filterLeagueStats(result.pvp_rankings_great_league, filtered.pvp_rankings_great_league = [], minCpGreat);
                 }
                 if (result.pvp_rankings_ultra_league) {
-                    filtered.pvp_rankings_ultra_league = JSON.parse(result.pvp_rankings_ultra_league).filter(entry => {
-                        return entry.cp >= minCpUltra && (entry.capped
-                            ? interestedLevelCaps[interestedLevelCaps.length - 1] >= entry.cap
-                            : interestedLevelCaps.includes(entry.cap));
-                    });
-                    filtered.ultra_rank = Math.min.apply(null, filtered.pvp_rankings_ultra_league.map(x => x.rank));
+                    filterLeagueStats(result.pvp_rankings_ultra_league, filtered.pvp_rankings_ultra_league = [], minCpUltra);
                 }
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
@@ -156,8 +172,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 continue;
             }
             delete filtered.iv;
-            delete filtered.great_rank;
-            delete filtered.ultra_rank;
             filtered.id = result.id;
             filtered.pokemon_id = result.pokemon_id;
             filtered.lat = result.lat;
@@ -1320,14 +1334,18 @@ const jsifyIvFilter = (filter) => {
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                     case 'CP': column = 'cp';    break;
-                    case 'GL': column = 'great_rank'; break;
-                    case 'UL': column = 'ultra_rank'; break;
+                    case 'GL': column = 'pvp_rankings_great_league'; break;
+                    case 'UL': column = 'pvp_rankings_ultra_league'; break;
                 }
                 let upper = lower;
                 if (match[4] !== undefined) {
                     upper = parseFloat(match[4]);
                 }
-                result += `(pokemon['${column}'] !== null && pokemon['${column}'] >= ${lower} && pokemon['${column}'] <= ${upper})`;
+                if (column.endsWith('_league')) {
+                    result += `((pokemon['${column}'] || []).some(x => x.rank >= ${lower} && x.rank <= ${upper}))`;
+                } else {
+                    result += `(pokemon['${column}'] !== null && pokemon['${column}'] >= ${lower} && pokemon['${column}'] <= ${upper})`;
+                }
                 expectClause = false;
             } else switch (match[1]) {
                 case '(':
