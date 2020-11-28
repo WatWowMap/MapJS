@@ -28,8 +28,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
-        "maxPokemonId": 649,
-        "minPvpCp": { 
+        "minPvpCp": {
             "great": 1400,
             "ultra": 2400
         },
@@ -51,7 +50,9 @@
             "invasionTimers": false,
             "spawnpoints": false,
             "pokemon": false,
+            "pokemonTimers": false,
             "nests": false,
+            "portals": false,
             "scanCells": false,
             "submissionCells": false,
             "weather": false,
@@ -62,7 +63,19 @@
             "iv": { "value": 100, "color": "red" },
             "pvp": { "value": 1, "color": "blue" },
             "both": { "color": "purple" }
-        }
+        },
+        "iconSizes": {
+            "gym": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "raid": { "small": 15, "normal": 30, "large": 50, "huge": 70 },
+            "pokestop": { "small": 15, "normal": 30, "large": 50, "huge": 70 },
+            "quest": { "small": 15, "normal": 30, "large": 50, "huge": 70 },
+            "invasion": { "small": 15, "normal": 30, "large": 50, "huge": 70 },
+            "spawnpoint": { "small": 0.5, "normal": 1, "large": 2, "huge": 3 },
+            "pokemon": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "nest": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
+            "device": { "small": 15, "normal": 30, "large": 50, "huge": 70 }
+        },
+        "portalMods": { "oldColor": "blue", "newColor": "green" }
     },
     "header": {
         "left": [],
@@ -75,7 +88,8 @@
             "username": "user",
             "password": "pass123!",
             "database": "rdmdb",
-            "charset": "utf8mb4"
+            "charset": "utf8mb4",
+            "sessionTable": "sessions"
         },
         "manualdb": {
             "host": "127.0.0.1",
@@ -151,6 +165,10 @@
                 "roles": []
             },
             "nests": {
+                "enabled": true,
+                "roles": []
+            },
+            "portals": {
                 "enabled": true,
                 "roles": []
             },

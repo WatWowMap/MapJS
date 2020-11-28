@@ -2,14 +2,18 @@ version: '3.2'
 
 services:
   mapjs:
-    build: .
+    image: node:12
     restart: unless-stopped
     working_dir: /app
+    environment:
+      HEALTHCHECK_SECRET: "some_super_secret_value"
+    healthcheck:
+      test: "curl -fH \"Healthcheck-Secret: $HEALTHCHECK_SECRET\" http://localhost:8080 || exit 1"
     command:
       - sh
       - -c
       - |
-        npm install
+        npm run update
         npm start
     volumes:
       - .:/app

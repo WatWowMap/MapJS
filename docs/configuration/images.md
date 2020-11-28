@@ -28,11 +28,11 @@ In the following templates, all IDs are references to the [proto ID](https://git
 .
 ├── gym
 ├── invasion
-├── misc
 ├── pokemon
 ├── raid
 ├── reward
 ├── team
+├── type
 └── weather
 ```
 

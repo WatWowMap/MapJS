@@ -17,7 +17,7 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        req.session = null;
+        req.session.destroy();
         res.redirect('/login');
     });
 }
@@ -72,8 +72,6 @@ const handlePage = async (req, res) => {
     const data = defaultData;
     data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
     data.tableClass = config.style === 'dark' ? 'table-dark' : '';
-
-    data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
@@ -146,7 +144,7 @@ const handlePage = async (req, res) => {
 
     data.page_is_home = true;
     data.page_is_areas = true;
-    data.show_areas = true;
+    data.show_areas = areas.length > 0;
     data.timestamp = Date.now();
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);

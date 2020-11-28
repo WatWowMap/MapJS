@@ -24,13 +24,17 @@ const sessionStore = new MySQLStore({
     // How frequently expired sessions will be cleared; milliseconds:
     checkExpirationInterval: 900000,
     // Whether or not to create the sessions database table, if one does not already exist
-    createDatabaseTable: true
+    createDatabaseTable: true,
+    // Set Sessions table name
+    schema: {
+        tableName: config.db.scanner.sessionTable
+    }
 });
 
 const isValidSession = async (userId) => {
     let sql = `
     SELECT session_id
-    FROM sessions
+    FROM ${config.db.scanner.sessionTable}
     WHERE
         json_extract(data, '$.user_id') = ?
         AND expires >= UNIX_TIMESTAMP()
@@ -42,7 +46,7 @@ const isValidSession = async (userId) => {
 
 const clearOtherSessions = async (userId, currentSessionId) => {
     let sql = `
-    DELETE FROM sessions
+    DELETE FROM ${config.db.scanner.sessionTable}
     WHERE
         json_extract(data, '$.user_id') = ?
         AND session_id != ?

@@ -3,7 +3,6 @@
 const path = require('path');
 const compression = require('compression');
 const express = require('express');
-//const cookieSession = require('cookie-session');
 const session = require('express-session');
 const app = express();
 const mustacheExpress = require('mustache-express');
@@ -17,8 +16,6 @@ const apiRoutes = require('./routes/api.js');
 const discordRoutes = require('./routes/discord.js');
 const uiRoutes = require('./routes/ui.js');
 const { sessionStore, isValidSession, clearOtherSessions } = require('./services/session-store.js');
-
-// TODO: Check sessions table and parse json
 
 const RateLimitTime = config.ratelimit.time * 60 * 1000;
 const MaxRequestsPerHour = config.ratelimit.requests * (RateLimitTime / 1000);
@@ -43,6 +40,9 @@ const rateLimitOptions = {
     }
 };
 const requestRateLimiter = rateLimit(rateLimitOptions);
+
+// Healthcheck secret to allow Docker container to bypass Discord redirect
+const HealthcheckSecret = process.env['HEALTHCHECK_SECRET'];
 
 // Basic security protection middleware
 app.use(helmet());
@@ -130,10 +130,12 @@ app.use(async (req, res, next) => {
     if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
         return next();
     }
-    if (!config.discord.enabled || req.session.logged_in) {
+    const healthcheckHeader = req.get('Healthcheck-Secret');
+    const healthcheckValid = healthcheckHeader && healthcheckHeader.length > 0 && healthcheckHeader === HealthcheckSecret;
+    if (!config.discord.enabled || healthcheckValid || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        if (!config.discord.enabled) {
+        if (!config.discord.enabled || healthcheckValid) {
             return next();
         }
         if (!(await isValidSession(req.session.user_id))) {
@@ -165,6 +167,7 @@ app.use(async (req, res, next) => {
         defaultData.hide_cells = !perms.s2cells;
         defaultData.hide_submission_cells = !perms.submissionCells;
         defaultData.hide_nests = !perms.nests;
+        defaultData.hide_portals = !perms.portals;
         defaultData.hide_scan_areas = !perms.scanAreas;
         defaultData.hide_weather = !perms.weather;
         defaultData.hide_devices = !perms.devices;

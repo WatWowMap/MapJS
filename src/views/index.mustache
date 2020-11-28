@@ -16,9 +16,8 @@
         const scoutingUrl = '{{{scouting_url}}}';
         const scoutMaxCount = parseInt('{{scouting_count}}' || 15);
 
-        const maxPokemonId = '{{pokemon_count}}'; // Bandaid
-
         const defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
+        const defaultShowPokemonTimers = '{{default_show_pokemon_timers}}' === 'true';
         const defaultShowRaids = '{{default_show_raids}}' === 'true';
         const defaultShowRaidTimers = '{{default_show_raid_timers}}' === 'true';
         const defaultShowGyms = '{{default_show_gyms}}' === 'true';
@@ -31,26 +30,29 @@
         const defaultShowScanCells = '{{default_show_scan_cells}}' === 'true';
         const defaultShowSubmissionCells = '{{default_show_submission_cells}}' === 'true';
         const defaultShowNests = '{{default_show_nests}}' === 'true';
+        const defaultShowPortals = '{{default_show_portals}}' === 'true';
         const defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
         const defaultShowDevices = '{{default_show_devices}}' === 'true';
 
-        const pokemonRarity = JSON.parse('{{{pokemon_rarity_json}}}');
-        const glow = JSON.parse('{{{glow_json}}}');
+        const pokemonRarity = {{{pokemon_rarity_json}}};
+        const iconSizes = {{{icon_sizes_json}}};
+        const portalMods = {{{portal_mods_json}}};
+        const glow = {{{glow_json}}};
 
         const locale = '{{{locale}}}';
         const localeLastModified = '{{{locale_last_modified}}}';
 
-        const availableItems = JSON.parse('{{{available_items_json}}}');
-        const availableTileservers = JSON.parse(`{{{available_tileservers_json}}}`);
-        const availableIconStyles = JSON.parse('{{{available_icon_styles_json}}}');
-        const availableRaidBosses = JSON.parse('{{{available_raid_bosses_json}}}');
-        const availableQuestRewards = JSON.parse('{{{available_quest_rewards_json}}}');
-        const availableNestPokemon = JSON.parse('{{{available_nest_pokemon_json}}}');
+        const availableItems = {{{available_items_json}}};
+        const availableTileservers = {{{available_tileservers_json}}};
+        const availableIconStyles = {{{available_icon_styles_json}}};
+        const availableRaidBosses = {{{available_raid_bosses_json}}};
+        const availableQuestRewards = {{{available_quest_rewards_json}}};
+        const availableNestPokemon = {{{available_nest_pokemon_json}}};
 
         const minZoom = '{{min_zoom}}';
         const maxZoom = '{{max_zoom}}';
         const devicePathColor = '{{device_path_color}}';
-        const minPvpCp = JSON.parse('{{{min_pvp_cp}}}');
+        const minPvpCp = {{{min_pvp_cp}}};
 
         const googleAnalyticsId = '{{google_analytics_id}}';
         const googleAdsenseId = '{{google_adsense_id}}';
@@ -165,6 +167,18 @@
                         </div>
                         {{filter_nests}}
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterNestModal">{{filter_filter}}</button>
+                    </div>
+                    <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_portals}}class="d-none"{{/hide_portals}}>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label id="hide-portals" class="btn btn-sm btn-off">
+                                <input type="radio" name="options" id="hide" autocomplete="off" checked>{{filter_hide}}
+                            </label>
+                            <label id="show-portals" class="btn btn-sm btn-on">
+                                <input type="radio" name="options" id="show" autocomplete="off">{{filter_show}}
+                            </label>
+                        </div>
+                        {{filter_portals}}
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#filterPortalModal">{{filter_filter}}</button>
                     </div>
                     <div style="height:31px; margin-top: 10px; margin-bottom: 10px" {{#hide_cells}}class="d-none"{{/hide_cells}}>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -288,6 +302,8 @@
                                     <a id="disable-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
                                     <a id="disable-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
                                     <a id="disable-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="disable-kalos-pokemon-filter" class="dropdown-item" href="#">Kalos</a>
+                                    <div class="dropdown-header">By Form</div>
                                     <a id="disable-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="disable-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
@@ -312,6 +328,8 @@
                                     <a id="reset-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
                                     <a id="reset-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
                                     <a id="reset-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="reset-kalos-pokemon-filter" class="dropdown-item" href="#">Kalos</a>
+                                    <div class="dropdown-header">By Form</div>
                                     <a id="reset-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="reset-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
@@ -345,14 +363,15 @@
                             Level Range: <kbd>L30-35</kbd> - Level 30 to 35 Pokemon<br>
                             Stats: <kbd>A0-1 & D14 & S15</kbd> - Pokemon with 0-1 Attack, 14 Defense & 15 Stamina<br>
                             CP: <kbd>CP2000-3000</kbd> - All Pokemon with CP of 2000-3000<br>
-                            NOT: <kbd>!0-100</kbd> - All Pokemon that do not have their IVs scanned<br><br>
+                            NOT: <kbd>!0-100</kbd> - All Pokemon that do not have their IVs scanned<br>
+                            PVP: <kbd>GL1-3 | UL1-3</kbd> - Pokemon that are rank 1-3 for either Great League or Ultra League<br><br>
                         </p>
                     </div>
 
                     <div class="help-title"><b>Stringing Conditions Together</b></div>
                     <div class="help-description">
                         <p>
-                            <b><kbd>|</kbd></b> - OR operator, for setting separate conditions<br>
+                            <b><kbd>|</kbd> or <kbd>,</kbd></b> - OR operator, for setting separate conditions<br>
                             Example: <kbd>95-100 | L35 | CP2500-4000</kbd><br>
                             Returns all Pokemon that are either 95-100% IV, L35, or have a CP of 2500-4000<br><br>
 
@@ -365,8 +384,8 @@
                     <div class="help-title"><b>Advanced</b></div>
                     <div class="help-description">
                         <p>
-                            Example: <kbd>(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35 | 90-100</kbd><br>
-                            Returns all Pokemon that have either CP1400-1500 OR CP2400-2500 AND have 0-1 Attack, 15 Defense, 15 Stamina, OR level 34-35 OR 90-100% IVs.
+                            Example: <kbd>(A0-1 & D15 & S15 & (CP1400-1500 | CP2400-2500)) | L34-35,90-100 | GL1-3,UL1-3</kbd><br>
+                            Returns all Pokemon that have either CP1400-1500 OR CP2400-2500 AND have 0-1 Attack, 15 Defense, 15 Stamina, OR level 34-35 OR 90-100% IVs OR PVP Great or Ultra league rank betwen 1-3.
                         </p>
                     </div>
                 </div>
@@ -624,6 +643,41 @@
         </div>
     </div>
 
+    <div class="modal fade" id="filterPortalModal" tabindex="-1" role="dialog" aria-labelledby="filterPortalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterPortalModalLabel">{{filter_portal_filter}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-filter-portal" class="table {{tableClass}} table-striped table-bordered dt-responsive display nowrap" style="position: center; width:100%">
+                        <thead>
+                            <tr>
+                                <th class="all">{{filter_image}}</th>
+                                <th class="all">{{filter_name}}</th>
+                                <th class="min-desktop">#</th>
+                                <th class="all">{{filter_filter}}</th>
+                                <th class="min-desktop">{{filter_size_properties}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="reset-portal-filter" type="button" class="btn btn-sm btn-danger">{{filter_reset}}</button>
+                        <button id="disable-all-portal-filter" type="button" class="btn btn-sm btn-danger">{{filter_disable_all}}</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">{{filter_close}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="filterWeatherModal" tabindex="-1" role="dialog" aria-labelledby="filterWeatherModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -807,6 +861,11 @@
                                 <img src="/img/misc/nest.png" width="32" height="auto"/>
                             </a>
                         </li>
+                        <li class="nav-item {{#hide_portals}}d-none{{/hide_portals}}">
+                            <a class="nav-link" id="pills-nest-tab" data-toggle="pill" href="#pills-portal" role="tab" aria-controls="pills-portal" aria-selected="false">
+                                <img src="/img/misc/portal.png" width="32" height="auto"/>
+                            </a>
+                        </li>
                         <li class="nav-item {{#hide_gyms}}d-none{{/hide_gyms}}">
                             <a class="nav-link" id="pills-gym-tab" data-toggle="pill" href="#pills-gym" role="tab" aria-controls="pills-gym" aria-selected="false">
                                 <img src="/img/misc/gym.png" width="32" height="auto"/>
@@ -826,6 +885,10 @@
                         <div class="tab-pane fade" id="pills-nest" role="tabpanel" aria-labelledby="pills-nest-tab">
                             <input id="search-nest" type="text" class="form-control" placeholder="Enter nest Pokemon or Type..." autocomplete="off" />
                             <div id="search-nest-list" class="search-list"></div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-portal" role="tabpanel" aria-labelledby="pills-portal-tab">
+                            <input id="search-portal" type="text" class="form-control" placeholder="Enter Portal Name..." autocomplete="off" />
+                            <div id="search-portal-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-gym" role="tabpanel" aria-labelledby="pills-gym-tab">
                             <input id="search-gym" type="text" class="form-control" placeholder="Enter Gym Name..." autocomplete="off" />

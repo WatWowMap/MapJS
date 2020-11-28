@@ -72,6 +72,7 @@ class DiscordClient {
             s2cells: false,
             submissionCells: false,
             nests: false,
+            portals: false,
             scanAreas: false,
             weather: false,
             devices: false
