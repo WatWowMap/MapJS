@@ -34,7 +34,7 @@ const sessionStore = new MySQLStore({
 const isValidSession = async (userId) => {
     let sql = `
     SELECT session_id
-    FROM '${config.db.scanner.sessionTable}'
+    FROM ${config.db.scanner.sessionTable}
     WHERE
         json_extract(data, '$.user_id') = ?
         AND expires >= UNIX_TIMESTAMP()
@@ -46,7 +46,7 @@ const isValidSession = async (userId) => {
 
 const clearOtherSessions = async (userId, currentSessionId) => {
     let sql = `
-    DELETE FROM '${config.db.scanner.sessionTable}'
+    DELETE FROM ${config.db.scanner.sessionTable}
     WHERE
         json_extract(data, '$.user_id') = ?
         AND session_id != ?

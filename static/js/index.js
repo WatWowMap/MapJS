@@ -2497,7 +2497,11 @@ const getIconSize = (type, id, form, weight) => {
         case 'quest':       filterId = id; break;
         case 'invasion':    filterId = id; break;
         case 'spawnpoint':  filterId = id; break;
-        case 'pokemon':     filterId = form === 0 ? `${id}-${masterfile.pokemon[id].default_form_id}` : `${id}-${form}`; break;
+        case 'pokemon': {
+            const realForm = form === 0 ? masterfile.pokemon[id].default_form_id || 0 : form;
+            filterId = realForm === 0 ? `${id}` : `${id}-${realForm}`;
+            break;
+        }
         case 'nest':        filterId = `p${id}`; break;
         case 'device':      filterId = id; break;
     }
@@ -2734,7 +2738,7 @@ function getPokemonPopupContent (pokemon) {
     const pkmn = masterfile.pokemon[pokemon.pokemon_id];
     if (pkmn !== undefined && pkmn !== null) {
         const types = pkmn.types;
-        if (types !== null && types.length > 0) {
+        if (types && types.length > 0) {
             content += '<div class="col">';
             if (types.length === 2) {
                 content += `<img src="/img/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
@@ -3163,7 +3167,7 @@ function getGymPopupContent (gym) {
             const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
             if (pkmn !== undefined && pkmn !== null) {
                 const types = pkmn.types;
-                if (types !== null && types.length > 0) {
+                if (types && types.length > 0) {
                     content += '<div class="col text-nowrap">';
                     if (types.length === 2) {
                         content += `<img src="/img/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
@@ -3978,6 +3982,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
         iconSize: [stopSize, stopSize],
         iconAnchor: [stopSize / 2, iconAnchorY],
         popupAnchor: [0, popupAnchorY],
+        tooltipAnchor: [0.25, stopSize - iconAnchorY-1],
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<div class="marker-image-holder"><img src="/img/invasion/${sizeId}_${pokestop.grunt_type}.png"/></div>${iconHtml}`
@@ -4093,6 +4098,7 @@ function getGymMarkerIcon (gym, ts) {
         iconSize: [gymSize, gymSize],
         iconAnchor: [gymSize / 2, iconAnchorY],
         popupAnchor: [0, popupAnchorY],
+        tooltipAnchor: [0.25, gymSize - iconAnchorY-1],
         className: 'gym-marker',
         html: iconHtml
     });
@@ -5564,7 +5570,7 @@ let masterfileFilter = (pokemonId, filter) => {
     const pkmn = masterfile.pokemon[pokemonId];
     let matches = false;
     switch(filter[0]) {
-        case 'regionalForm': matches = pkmn.forms[filter[2]].proto.includes(filter[1]); break;
+        case 'regionalForm': matches = (pkmn.forms[filter[2]] || { proto: '' }).proto.includes(filter[1]); break;
         case 'legendary':    matches = pkmn.legendary; break;
         case 'mythical':     matches = pkmn.mythic; break;
     }

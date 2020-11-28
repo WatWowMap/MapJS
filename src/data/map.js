@@ -38,7 +38,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         } else if (key === 'timers_verified') {
             onlyVerifiedTimersSQL = 'AND expire_timestamp_verified = 1';
         } else {
-            console.warn('Unrecognized key', key);
+            const pokemonId = parseInt(key);
+            if (isNaN(pokemonId)) {
+                console.warn('Unrecognized key', key);
+            } else {
+                pokemonLookup[pokemonId] = false;
+                const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+                if (defaultForm) {
+                    formLookup[defaultForm] = false;
+                }
+            }
         }
     }
 
@@ -65,7 +74,16 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             } else if (key === 'or') {
                 orIv = jsFilter;
             } else {
-                console.warn('Unrecognized key', key);
+                const pokemonId = parseInt(key);
+                if (isNaN(pokemonId)) {
+                    console.warn('Unrecognized key', key);
+                } else {
+                    pokemonLookup[pokemonId] = jsFilter;
+                    const defaultForm = (masterfile.pokemon[pokemonId] || {}).default_form_id;
+                    if (defaultForm) {
+                        formLookup[defaultForm] = jsFilter;
+                    }
+                }
             }
         }
     }
@@ -185,9 +203,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                     }
                 } else {
                     const id = parseInt(key);
-                    if (id) {
+                    if (!isNaN(id)) {
                         if (!excludePokemonIds.includes(id)) {
                             excludePokemonIds.push(id);
+                        }
+                        const defaultForm = (masterfile.pokemon[id] || {}).default_form_id;
+                        if (defaultForm && !excludeFormIds.includes(defaultForm)) {
+                            excludeFormIds.push(defaultForm);
                         }
                     }
                 }
@@ -225,7 +247,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
         if (excludedLevels.length === 0) {
             excludeLevelSQL = '';
         } else {
-            let sqlExcludeCreate = 'AND (raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id > 0 OR raid_level NOT IN (';
+            let sqlExcludeCreate = 'AND (raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id IS NOT NULL AND raid_pokemon_id > 0 OR raid_level NOT IN (';
             for (let i = 0; i < excludedLevels.length; i++) {
                 if (i === excludedLevels.length - 1) {
                     sqlExcludeCreate += '?))';
@@ -306,7 +328,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} AND (
-            raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR 
+            raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id IS NULL OR
             (raid_pokemon_form = 0 ${sqlExcludePokemon}) OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
         ) ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
         ${excludeAllButExSQL} ${excludeAllButBattlesSQL}
