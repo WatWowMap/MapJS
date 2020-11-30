@@ -309,7 +309,7 @@ fieldset[disabled] .btn-size.active {
     padding: 5px;
 }
 
-.grunt-encounter-wrapper {
+.grunt-encounter-wrapper-dark {
     background-color: #1c1c1c;
     border-radius: 10px;
     border: 1px solid black;
