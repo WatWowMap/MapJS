@@ -302,6 +302,14 @@ fieldset[disabled] .btn-size.active {
     content: "×";
 }
 
+.grunt-encounter-wrapper-light {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    border: 1px solid #bdbdbd;
+    text-align: center;
+    padding: 5px;
+}
+
 .grunt-encounter-wrapper {
     background-color: #1c1c1c;
     border-radius: 10px;
