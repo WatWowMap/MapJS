@@ -3194,9 +3194,8 @@ function getPossibleInvasionRewards (pokestop) {
         </div>`;
     }
     let item = gruntTypes[pokestop.grunt_type];
-    let content = '';
-    content +=
-    `<div class="grunt-encounter-wrapper">
+    let content = `<div class="grunt-encounter-wrapper">`;
+    content += `
         <table class="table-invasion">`;
     if (item['type'] === "Giovanni") {
         content += `<tr><td>#1</td><td>`;
