@@ -4120,7 +4120,6 @@ function getPokestopMarkerIcon (pokestop, ts) {
         iconSize: [stopSize, stopSize],
         iconAnchor: [stopSize / 2, iconAnchorY],
         popupAnchor: [0, popupAnchorY],
-        tooltipAnchor: [0.25, stopSize - iconAnchorY-1],
         className: 'pokestop-marker',
         html: activeInvasion
             ? `<div class="marker-image-holder"><img src="/img/invasion/${sizeId}_${pokestop.grunt_type}.png"/></div>${iconHtml}`
@@ -4236,7 +4235,6 @@ function getGymMarkerIcon (gym, ts) {
         iconSize: [gymSize, gymSize],
         iconAnchor: [gymSize / 2, iconAnchorY],
         popupAnchor: [0, popupAnchorY],
-        tooltipAnchor: [0.25, gymSize - iconAnchorY-1],
         className: 'gym-marker',
         html: iconHtml
     });
