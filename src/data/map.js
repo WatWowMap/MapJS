@@ -1416,7 +1416,7 @@ const getAvailableRaidBosses = async () => {
         AND raid_pokemon_id > 0
     GROUP BY raid_pokemon_id, raid_pokemon_form
     `;
-    let result = await db.query(sql);
+    let result = await (dbOptions.includes('gym') ? db : dbManual).query(sql);
     if (result) {
         return result.map(x => {
             return { id: x.raid_pokemon_id, form_id: x.raid_pokemon_form };
@@ -1427,19 +1427,19 @@ const getAvailableRaidBosses = async () => {
 
 const getAvailableQuests = async () => {
     let sql = 'SELECT quest_item_id AS id FROM pokestop WHERE quest_reward_type=2 GROUP BY quest_item_id';
-    const itemResults = await db.query(sql);
+    const itemResults = await (dbOptions.includes('pokestop') ? db : dbManual).query(sql);
     sql = `SELECT DISTINCT
             quest_pokemon_id AS id,
             json_extract(json_extract(quest_rewards, '$[*].info.form_id'), '$[0]') AS form
         FROM pokestop WHERE quest_reward_type=7`;
-    const pokemonResults = await db.query(sql);
+    const pokemonResults = await (dbOptions.includes('pokestop') ? db : dbManual).query(sql);
     sql = `
     SELECT
         DISTINCT json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") AS id
     FROM pokestop
     WHERE quest_reward_type = 12
     `;
-    const evoResults = await db.query(sql);
+    const evoResults = await (dbOptions.includes('pokestop') ? db : dbManual).query(sql);
     return {
         pokemon: pokemonResults,
         items: itemResults.map(x => x.id),
@@ -1453,7 +1453,7 @@ const getAvailableNestPokemon = async () => {
     FROM nests
     GROUP BY pokemon_id
     `;
-    let result = await dbManual.query(sql);
+    let result = await (dbOptions.includes('nest') ? db : dbManual).query(sql);
     if (result) {
         return result.map(x => x.pokemon_id);
     }
