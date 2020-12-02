@@ -1152,7 +1152,7 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
 const getSearchData = async (lat, lon, id, value, iconStyle) => {
     let sql = '';
     let args = [lat, lon, lat];
-    let useManualDb = false;
+    let useDb = true;
     let conditions = [];
     let sanitizedValue = sanitizer.sanitize(value);
     sanitizedValue = sanitizedValue.toLowerCase();
@@ -1226,6 +1226,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
             `;
+            useDb = dbOptions.includes('pokestop');
             break;
         case 'search-nest':
             let ids = getPokemonIdsByName(sanitizedValue);
@@ -1248,7 +1249,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM nests
             WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
             `;
-            useManualDb = dbOptions.includes('nest') ? false : true;
+            useDb = dbOptions.includes('nest');
             break;
         case 'search-portal':
             sql = `
@@ -1257,7 +1258,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM ingress_portals
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useManualDb = dbOptions.includes('portal') ? false : true;
+            useDb = dbOptions.includes('portal');
             break;
         case 'search-gym':
             sql = `
@@ -1266,7 +1267,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM gym
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useManualDb = dbOptions.includes('gym') ? false : true;
+            useDb = dbOptions.includes('gym');
             break;
         case 'search-pokestop':
             sql = `
@@ -1275,13 +1276,13 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM pokestop
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useManualDb = dbOptions.includes('pokestop') ? false : true;
+            useDb = dbOptions.includes('pokestop');
             break;
     }
     sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
-    let results = useManualDb
-        ? await dbManual.query(sql, args)
-        : await db.query(sql, args);
+    let results = useDb
+        ? await db.query(sql, args)
+        : await dbManual.query(sql, args);
     if (results && results.length > 0) {
         switch (id) {
             case 'search-reward':
