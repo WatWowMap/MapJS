@@ -52,7 +52,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 - [versx](https://github.com/versx)
 - [Mygod](https://github.com/Mygod)
-- [TurtleSocks](https://github.com/sketchysocks)
+- [TurtIeSocks](https://github.com/TurtIeSocks)
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)
