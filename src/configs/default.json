@@ -96,7 +96,8 @@
             "password": "pass123!",
             "database": "rdmdb",
             "charset": "utf8mb4",
-            "sessionTable": "sessions"
+            "sessionTable": "sessions",
+            "useFor": ["pokemon", "pokestop", "gym", "spawnpoint", "device", "weather", "s2cell"]
         },
         "manualdb": {
             "host": "127.0.0.1",
@@ -104,7 +105,8 @@
             "username": "user",
             "password": "pass123!",
             "database": "manualdb",
-            "charset": "utf8mb4"
+            "charset": "utf8mb4",
+            "useFor": ["portal", "nest"]
         }
     },
     "discord": {

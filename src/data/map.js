@@ -11,6 +11,7 @@ const MySQLConnector = require('../services/mysql.js');
 
 const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
+const dbOptions = config.db.scanner.useFor;
 
 const masterfile = require('../../static/data/masterfile.json');
 
@@ -112,7 +113,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${onlyVerifiedTimersSQL}`;
     const args = [minLat, maxLat, minLon, maxLon, updated];
-    const results = await db.query(sql, args).catch(err => {
+    const results = await (dbOptions.includes('pokemon') ? db : dbManual).query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\nError:', err);
     });
     let pokemon = [];
@@ -385,7 +386,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
         sql += ' AND raid_end_timestamp IS NOT NULL AND raid_end_timestamp >= UNIX_TIMESTAMP()';
     }
 
-    const results = await db.query(sql, args)
+    const results = await (dbOptions.includes('gym') ? db : dbManual).query(sql, args)
         .catch(err => {
             if (err) {
                 console.error('Failed to get gyms:', err);
@@ -660,7 +661,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
     `;
-    const results = await db.query(sql, args);
+    const results = await (dbOptions.includes('pokestop') ? db : dbManual).query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -773,7 +774,7 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     `;
 
     let args = [minLat, maxLat, minLon, maxLon, updated];
-    const results = await db.query(sql, args);
+    const results = await (dbOptions.includes('spawnpoint') ? db : dbManual).query(sql, args);
     let spawnpoints = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -823,7 +824,7 @@ const getDevices = async (deviceFilterExclude = null) => {
     INNER JOIN instance
     ON device.instance_name = instance.name ${excludeDeviceSQL}
     `;
-    const results = await db.query(sql);
+    const results = await (dbOptions.includes('device') ? db : dbManual).query(sql);
     let devices = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -855,7 +856,7 @@ const getS2Cells = async (minLat, maxLat, minLon, maxLon, updated) => {
     WHERE center_lat >= ? AND center_lat <= ? AND center_lon >= ? AND center_lon <= ? AND updated > ?
     `;
     let args = [minLatReal, maxLatReal, minLonReal, maxLonReal, updated];
-    const results = await db.query(sql, args);
+    const results = await (dbOptions.includes('s2cell') ? db : dbManual).query(sql, args);
     let cells = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -1023,7 +1024,7 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated, weatherFilter
         args.push(id);
     }
 
-    const results = await db.query(sql, args);
+    const results = await (dbOptions.includes('weather') ? db : dbManual).query(sql, args);
     let weather = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
@@ -1105,7 +1106,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
         args.push(excludedPokemon[i]);
     }
 
-    const results = await dbManual.query(sql, args);
+    const results = await (dbOptions.includes('nest') ? db : dbManual).query(sql, args);
     if (results && results.length > 0) {
         return results;
     }
@@ -1140,7 +1141,7 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${sqlExcludeCreate}
     `;
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
-    const results = await dbManual.query(sql, args);
+    const results = await (dbOptions.includes('portal') ? db : dbManual).query(sql, args);
     if (results && results.length > 0) {
         return results;
     }
@@ -1247,7 +1248,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM nests
             WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
             `;
-            useManualDb = true;
+            useManualDb = dbOptions.includes('nest') ? false : true;
             break;
         case 'search-portal':
             sql = `
@@ -1256,7 +1257,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM ingress_portals
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useManualDb = true;
+            useManualDb = dbOptions.includes('portal') ? false : true;
             break;
         case 'search-gym':
             sql = `
@@ -1265,6 +1266,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM gym
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
+            useManualDb = dbOptions.includes('gym') ? false : true;
             break;
         case 'search-pokestop':
             sql = `
@@ -1273,6 +1275,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM pokestop
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
+            useManualDb = dbOptions.includes('pokestop') ? false : true;
             break;
     }
     sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
