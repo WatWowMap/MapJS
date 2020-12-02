@@ -28,9 +28,16 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
-        "minPvpCp": {
-            "great": 1400,
-            "ultra": 2400
+        "pvp": {
+            "maxRank": 100,
+            "minCpGreat": 1400,
+            "minCpUltra": 2400,
+            "megaStats": true,
+            "experimentalStats": false,
+            "l40stats": true,
+            "l41stats": false,
+            "l50stats": false,
+            "l51stats": false
         },
         "devicePathColor": "red",
         "nestPolygons": true,
@@ -89,7 +96,8 @@
             "password": "pass123!",
             "database": "rdmdb",
             "charset": "utf8mb4",
-            "sessionTable": "sessions"
+            "sessionTable": "sessions",
+            "useFor": ["pokemon", "pokestop", "gym", "spawnpoint", "device", "weather", "s2cell"]
         },
         "manualdb": {
             "host": "127.0.0.1",
@@ -97,7 +105,8 @@
             "username": "user",
             "password": "pass123!",
             "database": "manualdb",
-            "charset": "utf8mb4"
+            "charset": "utf8mb4",
+            "useFor": ["portal", "nest"]
         }
     },
     "discord": {

@@ -45,6 +45,13 @@ const getSettings = () => {
     const nestPolygonsString = i18n.__('settings_nest_polygons');
     const raidTimersString = i18n.__('filter_raid_timers');
     const invasionTimersString = i18n.__('filter_invasion_timers');
+    const pvpStatsString = i18n.__('filter_pvp_stats');
+    const megaStatsString = i18n.__('filter_mega_stats');
+    const experimentalStatsString = i18n.__('filter_experimental_stats');
+    const level40String = i18n.__('filter_level40_stats');
+    const level41String = i18n.__('filter_level41_stats');
+    const level50String = i18n.__('filter_level50_stats');
+    const level51String = i18n.__('filter_level51_stats');
 
     /*
     const glowColorLabel = `
@@ -116,6 +123,54 @@ const getSettings = () => {
         'name': nestPolygonsString,
         'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
         'type': nestSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': megaStatsString,
+        'filter': generateShowHideButtons('mega-stats', 'mega-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': experimentalStatsString,
+        'filter': generateShowHideButtons('experimental-stats', 'experimental-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level40String,
+        'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level41String,
+        'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level50String,
+        'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': level51String,
+        'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
+        'type': pvpStatsString
     });
     /*
     settingsData.push({
@@ -346,9 +401,9 @@ const getData = async (perms, filter) => {
             const forms = Object.keys(pkmn.forms);
             for (let j = 0; j < forms.length; j++) {
                 const formId = forms[j];
-                const types = JSON.stringify(pkmn.types);
+                const form = pkmn.forms[formId];
                 // Grab form from masterfile for consistent language
-                let formName = pkmn.forms[formId].name;
+                let formName = form.name || '';
                 if (skipForms.includes(formName.toLowerCase())) {
                     // Skip Shadow and Purified forms
                     continue;
@@ -362,8 +417,6 @@ const getData = async (perms, filter) => {
                         <input type="radio" name="options" id="iv" autocomplete="off">${ivString}
                     </label>
                     `;
-                } else {
-                    ivLabel = '';
                 }
                 const filter = generateShowHideButtons(id, 'pokemon', ivLabel);
                 const size = generateSizeButtons(id, 'pokemon');
@@ -381,7 +434,7 @@ const getData = async (perms, filter) => {
                     'filter': filter,
                     'size': size,
                     'type': pokemonTypeString,
-                    'types': types
+                    'types': (form.types || pkmn.types || []).join()
                 });
             }
         }

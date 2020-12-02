@@ -52,12 +52,14 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 - [versx](https://github.com/versx)
 - [Mygod](https://github.com/Mygod)
-- [sketchysocks](https://github.com/sketchysocks)
+- [TurtleSocks](https://github.com/sketchysocks)
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)
 - [sabregreen](https://github.com/sabregreen)
-- [darthbutcher](https://github.com/darthbutcher)
+- [ArcanoxDragon](https://github.com/ArcanoxDragon)
+- [DarthButcher](https://github.com/darthbutcher)
+- [Andrew Cameron](https://github.com/amcameron)
 - [LordJavi](https://github.com/LordJavi)
 
 ## Credits

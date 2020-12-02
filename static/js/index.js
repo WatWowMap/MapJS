@@ -109,6 +109,12 @@ let deviceOnlineIcon;
 let deviceOfflineIcon;
 
 let showPokemonGlow = true;
+let showMegaStats;
+let showExperimentalStats;
+let showLevel40Stats;
+let showLevel41Stats;
+let showLevel50Stats;
+let showLevel51Stats;
 
 let tileLayer;
 let nestLayer = new L.LayerGroup();
@@ -553,6 +559,54 @@ function loadStorage () {
         showInvasionTimers = defaultShowInvasionTimers;
     } else {
         showInvasionTimers = (showInvasionTimersValue === 'true');
+    }
+
+    const showMegaStatsValue = retrieve('mega_stats');
+    if (showMegaStatsValue === null) {
+        store('megastats', configPvp.megaStats);
+        showMegaStats = configPvp.megaStats;
+    } else {
+        showMegaStats = (showMegaStatsValue === 'true');
+    }
+
+    const showExperimentalStatsValue = retrieve('experimental_stats');
+    if (showExperimentalStatsValue === null) {
+        store('experimental_stats', configPvp.experimentalStats);
+        showExperimentalStats = configPvp.experimentalStats;
+    } else {
+        showExperimentalStats = (showExperimentalStatsValue === 'true');
+    }
+
+    const showLevel40Value = retrieve('level40_stats');
+    if (showLevel40Value === null) {
+        store('level40_stats', configPvp.l40stats);
+        showLevel40Stats = configPvp.l40stats;
+    } else {
+        showLevel40Stats = (showLevel40Value === 'true');
+    }
+
+    const showLevel41Value = retrieve('level41_stats');
+    if (showLevel41Value === null) {
+        store('level41_stats', configPvp.l41stats);
+        showLevel41Stats = configPvp.l41stats;
+    } else {
+        showLevel41Stats = (showLevel41Value === 'true');
+    }
+
+    const showLevel50Value = retrieve('level50_stats');
+    if (showLevel50Value === null) {
+        store('level50_stats', configPvp.l50stats);
+        showLevel50Stats = configPvp.l50stats;
+    } else {
+        showLevel50Stats = (showLevel50Value === 'true');
+    }
+
+    const showLevel51Value = retrieve('level51_stats');
+    if (showLevel51Value === null) {
+        store('level51_stats', configPvp.l51stats);
+        showLevel51Stats = configPvp.l51stats;
+    } else {
+        showLevel51Stats = (showLevel51Value === 'true');
     }
 
     const showSpawnpointsValue = retrieve('show_spawnpoints');
@@ -1019,6 +1073,24 @@ function loadStorage () {
         if (defaultSettings['invasion-timers'] === undefined) {
             defaultSettings['invasion-timers'] = { show: defaultShowInvasionTimers };
         }
+        if (defaultSettings['mega-stats'] === undefined) {
+            defaultSettings['mega-stats'] = { show: configPvp.megaStats };
+        }
+        if (defaultSettings['experimental-stats'] === undefined) {
+            defaultSettings['experimental-stats'] = { show: configPvp.experimentalStats };
+        }
+        if (defaultSettings['level40-stats'] === undefined) {
+            defaultSettings['level40-stats'] = { show: configPvp.l40stats };
+        }
+        if (defaultSettings['level41-stats'] === undefined) {
+            defaultSettings['level41-stats'] = { show: configPvp.l41stats };
+        }
+        if (defaultSettings['level50-stats'] === undefined) {
+            defaultSettings['level50-stats'] = { show: configPvp.l50stats };
+        }
+        if (defaultSettings['level51-stats'] === undefined) {
+            defaultSettings['level51-stats'] = { show: configPvp.l51stats };
+        }
         store('settings', JSON.stringify(defaultSettings));
         settings = defaultSettings;
     } else {
@@ -1046,7 +1118,25 @@ function loadStorage () {
         }
         if (settings['invasion-timers'] === undefined) {
             settings['invasion-timers'] = { show: defaultShowInvasionTimers };
-        }        
+        }
+        if (settings['mega-stats'] === undefined) {
+            settings['mega-stats'] = { show: configPvp.megaStats };
+        }
+        if (settings['experimental-stats'] === undefined) {
+            settings['experimental-stats'] = { show: configPvp.experimentalStats };
+        }
+        if (settings['level40-stats'] === undefined) {
+            settings['level40-stats'] = { show: configPvp.l40stats };
+        }
+        if (settings['level41-stats'] === undefined) {
+            settings['level41-stats'] = { show: configPvp.l41stats };
+        }
+        if (settings['level50-stats'] === undefined) {
+            settings['level50-stats'] = { show: configPvp.l50stats };
+        }
+        if (settings['level51-stats'] === undefined) {
+            settings['level51-stats'] = { show: configPvp.l51stats };
+        }
     }
     clusterPokemon = settings['pokemon-cluster'].show;
     clusterGyms = settings['gym-cluster'].show;
@@ -1056,6 +1146,12 @@ function loadStorage () {
     showNestPolygons = settings['nest-polygon'].show;
     showRaidTimers = settings['raid-timers'].show;
     showInvasionTimers = settings['invasion-timers'].show;
+    showMegaStats = settings['mega-stats'].show;
+    showExperimentalStats = settings['experimental-stats'].show;
+    showLevel40Stats = settings['level40-stats'].show
+    showLevel41Stats = settings['level41-stats'].show
+    showLevel50Stats = settings['level50-stats'].show
+    showLevel51Stats = settings['level51-stats'].show
 }
 
 function initMap () {
@@ -1366,9 +1462,21 @@ function initMap () {
         const newClusterPokemon = settingsNew['pokemon-cluster'].show;
         const newShowPokemonGlow = settingsNew['pokemon-glow'].show;
         const newShowPokemonTimers = settingsNew['pokemon-timers'].show;
+        const newShowMegaStats = settingsNew['mega-stats'].show;
+        const newShowExperimentalStats = settingsNew['experimental-stats'].show;
+        const newShowLevel40Stats = settingsNew['level40-stats'].show;
+        const newShowLevel41Stats = settingsNew['level41-stats'].show;
+        const newShowLevel50Stats = settingsNew['level50-stats'].show;
+        const newShowLevel51Stats = settingsNew['level51-stats'].show;
         if (clusterPokemon !== newClusterPokemon ||
             showPokemonGlow !== newShowPokemonGlow ||
-            showPokemonTimers !== newShowPokemonTimers) {
+            showPokemonTimers !== newShowPokemonTimers ||
+            showMegaStats !== newShowMegaStats ||
+            showExperimentalStats !== newShowExperimentalStats ||
+            showLevel40Stats !== newShowLevel40Stats ||
+            showLevel41Stats !== newShowLevel41Stats ||
+            showLevel50Stats !== newShowLevel50Stats ||
+            showLevel51Stats !== newShowLevel51Stats) {
             $.each(pokemonMarkers, function (index, pokemon) {
                 if (clusterPokemon) {
                     clusters.removeLayer(pokemon.marker);
@@ -1417,10 +1525,21 @@ function initMap () {
         showNestPolygons = newShowNestPolygons;
         showRaidTimers = newShowRaidTimers;
         showInvasionTimers = newShowInvasionTimers;
-
+        showMegaStats = newShowMegaStats;
+        showExperimentalStats = newShowExperimentalStats;
+        showLevel40Stats = newShowLevel40Stats;
+        showLevel41Stats = newShowLevel41Stats;
+        showLevel50Stats = newShowLevel50Stats;
+        showLevel51Stats = newShowLevel51Stats;
         store('show_pokemon_timers', newShowPokemonTimers);
         store('show_raid_timers', newShowRaidTimers);
         store('show_invasion_timers', newShowInvasionTimers);
+        store('mega_stats', newShowMegaStats);
+        store('experimental_stats', newShowExperimentalStats);
+        store('level40_stats', newShowLevel40Stats);
+        store('level41_stats', newShowLevel41Stats);
+        store('level50_stats', newShowLevel50Stats);
+        store('level51_stats', newShowLevel51Stats);
 
         if (pokemonMarkers.length === 0 ||
             gymMarkers.length === 0 ||
@@ -1757,6 +1876,24 @@ function loadData () {
 
         if (pokemonFilter['timers-verified'].show !== false) {
             pokemonFilterExclude.push("timers_verified");
+        }
+        if (showMegaStats !== false) {
+            pokemonFilterExclude.push("mega_stats");
+        }
+        if (showExperimentalStats !== false) {
+            pokemonFilterExclude.push("experimental_stats");
+        }
+        if (showLevel40Stats !== false) {
+            pokemonFilterExclude.push("level40_stats");
+        }
+        if (showLevel41Stats !== false) {
+            pokemonFilterExclude.push("level41_stats");
+        }
+        if (showLevel50Stats !== false) {
+            pokemonFilterExclude.push("level50_stats");
+        }
+        if (showLevel51Stats !== false) {
+            pokemonFilterExclude.push("level51_stats");
         }
     }
 
@@ -2437,12 +2574,12 @@ function getPokemonIndex (pokemon) {
     if (pokemon.pvp_rankings_great_league !== null && pokemon.pvp_rankings_ultra_league !== null) {
         let bestRank = 4;
         $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= configPvp.maxRank && ranking.cp >= configPvp.minCpGreat && ranking.cp <= 1500) {
                 bestRank = ranking.rank;
             }
         });
         $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= 100 && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
+            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= configPvp.maxRank && ranking.cp >= configPvp.minCpUltra && ranking.cp <= 2500) {
                 bestRank = ranking.rank;
             }
         });
@@ -2458,22 +2595,6 @@ function getPokemonIndex (pokemon) {
         return 4;
     }
     return 2;
-}
-
-function hasRelevantLeagueStats (leagueStats, greatLeague) {
-    let found = false;
-    let minCP = greatLeague !== false ? minPvpCp.great : minPvpCp.ultra;
-    let maxCP = greatLeague !== false ? 1500 : 2500;
-    let maxRank = 100;
-    if (leagueStats) {
-        for (let i = 0; i < leagueStats.length; i++) {
-            if (leagueStats[i].rank <= maxRank && leagueStats[i].cp >= minCP && leagueStats[i].cp <= maxCP) {
-                found = true;
-                break;
-            }
-        }
-    }
-    return found;
 }
 
 function getQuestIndex (questId) {
@@ -2497,7 +2618,11 @@ const getIconSize = (type, id, form, weight) => {
         case 'quest':       filterId = id; break;
         case 'invasion':    filterId = id; break;
         case 'spawnpoint':  filterId = id; break;
-        case 'pokemon':     filterId = form === 0 ? `${id}-${masterfile.pokemon[id].default_form_id}` : `${id}-${form}`; break;
+        case 'pokemon': {
+            const realForm = form === 0 ? masterfile.pokemon[id].default_form_id || 0 : form;
+            filterId = realForm === 0 ? `${id}` : `${id}-${realForm}`;
+            break;
+        }
         case 'nest':        filterId = `p${id}`; break;
         case 'device':      filterId = id; break;
     }
@@ -2692,6 +2817,70 @@ function updateMapTimers () {
     });
 }
 
+const hasRelevantLeagueStats = (leagueStats) => {
+    const maxRank = configPvp.maxRank;
+    return leagueStats && leagueStats.some(entry => entry.rank <= maxRank);
+}
+
+function getPokemonBestRank(greatLeague, ultraLeague) {
+    if ((greatLeague !== null) || (ultraLeague !== null)) {
+        let bestRank = 4;
+        $.each(greatLeague, function (index, ranking) {
+            if (ranking.rank !== null && ranking.rank < bestRank) {
+                bestRank = ranking.rank;
+            }
+        });
+        $.each(ultraLeague, function (index, ranking) {
+            if (ranking.rank !== null && ranking.rank < bestRank) {
+                bestRank = ranking.rank;
+            }
+        });
+        if (bestRank <= 3) {
+            return bestRank;
+        }
+    }
+    return 4096;
+}
+
+const getPVPRanks = (league, data) => {
+    let content =
+        `<br>` +
+        `<b>${league} League:</b><br>`;
+    for (const [i, ranking] of Object.entries(data)) {
+        if (ranking.cp !== null && ranking.rank <= configPvp.maxRank) {
+            let pokemonName = ``;
+            if (ranking.evolution) {
+                if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+                    pokemonName += `${getEvolutionName(ranking.evolution)} `;
+                } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+                    pokemonName += `*${getEvolutionName(ranking.evolution)} `;
+                } else {
+                    continue;
+                }
+            }
+            if (ranking.form !== 0 && ranking.form !== undefined) {
+                pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)} `;
+            } else {
+                pokemonName += `${getPokemonNameNoId(ranking.pokemon)} `;
+            }
+            let infoString;
+            if (ranking.rank === null) {
+                infoString = `CP too high `;
+            } else {
+                infoString = `#${ranking.rank} (${Math.round(ranking.percentage * 1000) / 10}%) `;
+            }
+            if (ranking.cp !== null) {
+                infoString += `@${ranking.cp}CP | L${ranking.level}`;
+                if (ranking.cap !== undefined && ranking.capped !== true) {
+                    infoString += `/${ranking.cap}`;
+                }
+            }
+            content += `<small><b>${pokemonName}:</b> ${infoString}</small><br>`;
+        }
+    };
+    return content.includes('CP') ? content : '';
+}
+
 function getPokemonPopupContent (pokemon) {
     const despawnDate = new Date(pokemon.expire_timestamp * 1000);
     const hasIV = pokemon.atk_iv !== null;
@@ -2734,7 +2923,7 @@ function getPokemonPopupContent (pokemon) {
     const pkmn = masterfile.pokemon[pokemon.pokemon_id];
     if (pkmn !== undefined && pkmn !== null) {
         const types = pkmn.types;
-        if (types !== null && types.length > 0) {
+        if (types && types.length > 0) {
             content += '<div class="col">';
             if (types.length === 2) {
                 content += `<img src="/img/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
@@ -2802,56 +2991,13 @@ function getPokemonPopupContent (pokemon) {
         content += '<small><b>Latest Seen:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')</small><br>';
     }
     if (pokemon.pvp_rankings_great_league !== undefined && pokemon.pvp_rankings_great_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_great_league, true)) {
-        content +=
-            '<br>' +
-            '<b>Great League:</b><br>';
-        $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
-          // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= minPvpCp.great && ranking.cp <= 1500 && ranking.rank <= 100) {
-                let pokemonName;
-                if (ranking.form !== 0) {
-                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
-                } else {
-                    pokemonName = getPokemonName(ranking.pokemon);
-                }
-                let infoString;
-                if (ranking.rank === null) {
-                    infoString = 'CP too high';
-                } else {
-                    infoString = '#' + ranking.rank + ' (' + Math.round(ranking.percentage * 1000) / 10 + '%)';
-                }
-                if (ranking.cp !== null) {
-                    infoString += ' @' + ranking.cp + 'CP (Lvl. ' + (ranking.level) + ')';
-                }
-                content += '<small><b>' + pokemonName + ':</b> ' + infoString + '</small><br>';
-            }
-        });
+        content += getPVPRanks('Great', pokemon.pvp_rankings_great_league);
     }
     if (pokemon.pvp_rankings_ultra_league !== undefined && pokemon.pvp_rankings_ultra_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
-        content +=
-            '<br>' +
-            '<b>Ultra League:</b><br>';
-        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            // TODO: Make constants/configurable
-            if (ranking.cp !== null && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500 && ranking.rank <= 100) {
-                let pokemonName;
-                if (ranking.form !== 0) {
-                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
-                } else {
-                    pokemonName = getPokemonName(ranking.pokemon);
-                }
-                let infoString;
-                if (ranking.rank === null) {
-                    infoString = 'CP too high';
-                } else {
-                    infoString = '#' + ranking.rank + ' (' + Math.round(ranking.percentage * 1000) / 10 + '%)';
-                }
-                if (ranking.cp !== null) {
-                    infoString += ' @' + ranking.cp + 'CP (Lvl. ' + (ranking.level) + ')';
-                }
-                content += '<small><b>' + pokemonName + ':</b> ' + infoString + '</small><br>';
-            }
-        });
+        content += getPVPRanks('Ultra', pokemon.pvp_rankings_ultra_league);
+    }
+    if (content.includes('*')) {
+        content += `<br><small> * Theoretical stat, subject to change</small>`
     }
     content +=
         '</div>' +
@@ -3048,9 +3194,8 @@ function getPossibleInvasionRewards (pokestop) {
         </div>`;
     }
     let item = gruntTypes[pokestop.grunt_type];
-    let content = '';
-    content +=
-    `<div class="grunt-encounter-wrapper">
+    let content = `<div class="grunt-encounter-wrapper">`;
+    content += `
         <table class="table-invasion">`;
     if (item['type'] === "Giovanni") {
         content += `<tr><td>#1</td><td>`;
@@ -3159,7 +3304,7 @@ function getGymPopupContent (gym) {
             const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
             if (pkmn !== undefined && pkmn !== null) {
                 const types = pkmn.types;
-                if (types !== null && types.length > 0) {
+                if (types && types.length > 0) {
                     content += '<div class="col text-nowrap">';
                     if (types.length === 2) {
                         content += `<img src="/img/type/${types[0].toLowerCase()}.png" height="16" width="16">&nbsp;`;
@@ -4226,518 +4371,520 @@ function setDespawnTimer (marker) {
 
 // MARK: - Misc
 
-function manageSelectButton (e, isNew) {
+function manageSelectButton(e, isNew) {
     const id = e.attr('data-id');
     const type = e.attr('data-type');
     const info = e.attr('data-info');
     let shouldShow = false;
     if (type === 'pokemon' || type === 'pokemon-iv') {
         switch (info) {
-        case 'hide':
-            shouldShow = pokemonFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = pokemonFilterNew[id].show === true;
-            break;
-        case 'iv':
-            shouldShow = pokemonFilterNew[id].show === 'filter';
-            break;
-        case 'small':
-            shouldShow = pokemonFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = pokemonFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = pokemonFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = pokemonFilterNew[id].size === 'huge';
-            break;
-        case 'off':
-            shouldShow = !pokemonFilterNew['iv_' + id].on;
-            break;
-        case 'on':
-            shouldShow = pokemonFilterNew['iv_' + id].on;
-            break;
+            case 'hide':
+                shouldShow = pokemonFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = pokemonFilterNew[id].show === true;
+                break;
+            case 'iv':
+                shouldShow = pokemonFilterNew[id].show === 'filter';
+                break;
+            case 'small':
+                shouldShow = pokemonFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = pokemonFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = pokemonFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = pokemonFilterNew[id].size === 'huge';
+                break;
+            case 'off':
+                shouldShow = !pokemonFilterNew['iv_' + id].on;
+                break;
+            case 'on':
+                shouldShow = pokemonFilterNew['iv_' + id].on;
+                break;
         }
     } else if (type === 'pokemon-size') {
         switch (info) {
-        case 'hide':
-            shouldShow = pokemonFilterNew[id]['show'] === false;
-            break;
-        case 'show':
-            shouldShow = pokemonFilterNew[id]['show'] === true;
-            break;
-        case 'small':
-            shouldShow = pokemonFilterNew[id]['size'] === "small";
-            break;
-        case 'normal':
-            shouldShow = pokemonFilterNew[id]['size'] === "normal";
-            break;
-        case 'large':
-            shouldShow = pokemonFilterNew[id]['size'] === "large";
-            break;
-        case 'huge':
-            shouldShow = pokemonFilterNew[id]['size'] === "huge";
-            break;
+            case 'hide':
+                shouldShow = pokemonFilterNew[id]['show'] === false;
+                break;
+            case 'show':
+                shouldShow = pokemonFilterNew[id]['show'] === true;
+                break;
+            case 'small':
+                shouldShow = pokemonFilterNew[id]['size'] === "small";
+                break;
+            case 'normal':
+                shouldShow = pokemonFilterNew[id]['size'] === "normal";
+                break;
+            case 'large':
+                shouldShow = pokemonFilterNew[id]['size'] === "large";
+                break;
+            case 'huge':
+                shouldShow = pokemonFilterNew[id]['size'] === "huge";
+                break;
         }
     } else if (type === 'pokemon-glow') {
         switch (info) {
-        case 'hide':
-            shouldShow = settingsNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = settingsNew[id].show === true;
-            break;
-        case 'color':
-            //shouldShow = settings[id].show === 'color';
-            shouldShow = settingsNew[id].show === 'filter';
-            break;
+            case 'hide':
+                shouldShow = settingsNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = settingsNew[id].show === true;
+                break;
         }
-    } else if (type === 'pokemon-cluster' || 
-                type === 'gym-cluster' || 
-                type === 'pokestop-cluster' || 
-                type === 'nest-polygon' ||
-                type === 'pokemon-timers' ||
-                type === 'raid-timers' ||
-                type === 'invasion-timers') {
+    } else if (type === 'pokemon-cluster' ||
+        type === 'gym-cluster' ||
+        type === 'pokestop-cluster' ||
+        type === 'nest-polygon' ||
+        type === 'pokemon-timers' ||
+        type === 'raid-timers' ||
+        type === 'invasion-timers' ||
+        type === 'mega-stats' ||
+        type === 'experimental-stats' ||
+        type === 'pvp-level40-stats' ||
+        type === 'pvp-level41-stats' ||
+        type === 'pvp-level50-stats' ||
+        type === 'pvp-level51-stats') {
         switch (info) {
-        case 'hide':
-            shouldShow = settingsNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = settingsNew[id].show === true;
-            break;
+            case 'hide':
+                shouldShow = settingsNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = settingsNew[id].show === true;
+                break;
         }
     } else if (type === 'pokemon-timers-verified') {
         switch (info) {
-        case 'hide':
-            shouldShow = pokemonFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = pokemonFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = pokemonFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = pokemonFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = pokemonFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = pokemonFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = pokemonFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = pokemonFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = pokemonFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = pokemonFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = pokemonFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = pokemonFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'quest-misc') {
         switch (info) {
-        case 'hide':
-            shouldShow = questFilterNew['i' + -id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew['i' + -id].show === true;
-            break;
-        case 'small':
-            shouldShow = questFilterNew['i' + -id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = questFilterNew['i' + -id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = questFilterNew['i' + -id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = questFilterNew['i' + -id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = questFilterNew['i' + -id].show === false;
+                break;
+            case 'show':
+                shouldShow = questFilterNew['i' + -id].show === true;
+                break;
+            case 'small':
+                shouldShow = questFilterNew['i' + -id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = questFilterNew['i' + -id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = questFilterNew['i' + -id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = questFilterNew['i' + -id].size === 'huge';
+                break;
         }
     } else if (type === 'quest-item') {
         switch (info) {
-        case 'hide':
-            shouldShow = questFilterNew['i' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew['i' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = questFilterNew['i' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = questFilterNew['i' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = questFilterNew['i' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = questFilterNew['i' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = questFilterNew['i' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = questFilterNew['i' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = questFilterNew['i' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = questFilterNew['i' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = questFilterNew['i' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = questFilterNew['i' + id].size === 'huge';
+                break;
         }
     } else if (type === 'quest-evolution') {
         switch (info) {
-        case 'hide':
-            shouldShow = questFilterNew['e' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew['e' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = questFilterNew['e' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = questFilterNew['e' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = questFilterNew['e' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = questFilterNew['e' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = questFilterNew['e' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = questFilterNew['e' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = questFilterNew['e' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = questFilterNew['e' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = questFilterNew['e' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = questFilterNew['e' + id].size === 'huge';
+                break;
         }
     } else if (type === 'quest-pokemon') {
         switch (info) {
-        case 'hide':
-            shouldShow = questFilterNew['p' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew['p' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = questFilterNew['p' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = questFilterNew['p' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = questFilterNew['p' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = questFilterNew['p' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = questFilterNew['p' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = questFilterNew['p' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = questFilterNew['p' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = questFilterNew['p' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = questFilterNew['p' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = questFilterNew['p' + id].size === 'huge';
+                break;
         }
     } else if (type === 'quest-candy-count' || type === 'quest-stardust-count') {
         switch (info) {
-        case 'off':
-            shouldShow = !questFilterNew[id].on;
-            break;
-        case 'on':
-            shouldShow = questFilterNew[id].on === true;
-            break;
-        case 'hide':
-            shouldShow = questFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = questFilterNew[id].show === true;
-            break;
+            case 'off':
+                shouldShow = !questFilterNew[id].on;
+                break;
+            case 'on':
+                shouldShow = questFilterNew[id].on === true;
+                break;
+            case 'hide':
+                shouldShow = questFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = questFilterNew[id].show === true;
+                break;
         }
     } else if (type === 'raid-level') {
         switch (info) {
-        case 'hide':
-            shouldShow = raidFilterNew['l' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = raidFilterNew['l' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = raidFilterNew['l' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = raidFilterNew['l' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = raidFilterNew['l' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = raidFilterNew['l' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = raidFilterNew['l' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = raidFilterNew['l' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = raidFilterNew['l' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = raidFilterNew['l' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = raidFilterNew['l' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = raidFilterNew['l' + id].size === 'huge';
+                break;
         }
     } else if (type === 'raid-pokemon') {
         switch (info) {
-        case 'hide':
-            shouldShow = raidFilterNew['p' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = raidFilterNew['p' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = raidFilterNew['p' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = raidFilterNew['p' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = raidFilterNew['p' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = raidFilterNew['p' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = raidFilterNew['p' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = raidFilterNew['p' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = raidFilterNew['p' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = raidFilterNew['p' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = raidFilterNew['p' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = raidFilterNew['p' + id].size === 'huge';
+                break;
         }
     } else if (type === 'gym-team') {
         switch (info) {
-        case 'hide':
-            shouldShow = gymFilterNew['t' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = gymFilterNew['t' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = gymFilterNew['t' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = gymFilterNew['t' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = gymFilterNew['t' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = gymFilterNew['t' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = gymFilterNew['t' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = gymFilterNew['t' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = gymFilterNew['t' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = gymFilterNew['t' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = gymFilterNew['t' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = gymFilterNew['t' + id].size === 'huge';
+                break;
         }
     } else if (type === 'gym-ex') {
         switch (info) {
-        case 'hide':
-            shouldShow = gymFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = gymFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = gymFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = gymFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = gymFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = gymFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = gymFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = gymFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = gymFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = gymFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = gymFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = gymFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'gym-battle') {
         switch (info) {
-        case 'hide':
-            shouldShow = gymFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = gymFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = gymFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = gymFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = gymFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = gymFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = gymFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = gymFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = gymFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = gymFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = gymFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = gymFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'gym-slots') {
         switch (info) {
-        case 'hide':
-            shouldShow = gymFilterNew['s' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = gymFilterNew['s' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = gymFilterNew['s' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = gymFilterNew['s' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = gymFilterNew['s' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = gymFilterNew['s' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = gymFilterNew['s' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = gymFilterNew['s' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = gymFilterNew['s' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = gymFilterNew['s' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = gymFilterNew['s' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = gymFilterNew['s' + id].size === 'huge';
+                break;
         }
     } else if (type === 'pokestop-normal') {
         switch (info) {
-        case 'hide':
-            shouldShow = pokestopFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = pokestopFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = pokestopFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = pokestopFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = pokestopFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = pokestopFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = pokestopFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = pokestopFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = pokestopFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = pokestopFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = pokestopFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = pokestopFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'pokestop-lure') {
         switch (info) {
-        case 'hide':
-            shouldShow = pokestopFilterNew['l' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = pokestopFilterNew['l' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = pokestopFilterNew['l' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = pokestopFilterNew['l' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = pokestopFilterNew['l' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = pokestopFilterNew['l' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = pokestopFilterNew['l' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = pokestopFilterNew['l' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = pokestopFilterNew['l' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = pokestopFilterNew['l' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = pokestopFilterNew['l' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = pokestopFilterNew['l' + id].size === 'huge';
+                break;
         }
     } else if (type === 'invasion-grunt') {
         switch (info) {
-        case 'hide':
-            shouldShow = invasionFilterNew['i' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = invasionFilterNew['i' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = invasionFilterNew['i' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = invasionFilterNew['i' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = invasionFilterNew['i' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = invasionFilterNew['i' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = invasionFilterNew['i' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = invasionFilterNew['i' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = invasionFilterNew['i' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = invasionFilterNew['i' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = invasionFilterNew['i' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = invasionFilterNew['i' + id].size === 'huge';
+                break;
         }
     } else if (type === 'spawnpoint-timer') {
         switch (info) {
-        case 'hide':
-            shouldShow = spawnpointFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = spawnpointFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = spawnpointFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = spawnpointFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = spawnpointFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = spawnpointFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = spawnpointFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = spawnpointFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = spawnpointFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = spawnpointFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = spawnpointFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = spawnpointFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'nest-pokemon') {
         switch (info) {
-        case 'hide':
-            shouldShow = nestFilterNew['p' + id].show === false;
-            break;
-        case 'show':
-            shouldShow = nestFilterNew['p' + id].show === true;
-            break;
-        case 'small':
-            shouldShow = nestFilterNew['p' + id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = nestFilterNew['p' + id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = nestFilterNew['p' + id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = nestFilterNew['p' + id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = nestFilterNew['p' + id].show === false;
+                break;
+            case 'show':
+                shouldShow = nestFilterNew['p' + id].show === true;
+                break;
+            case 'small':
+                shouldShow = nestFilterNew['p' + id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = nestFilterNew['p' + id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = nestFilterNew['p' + id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = nestFilterNew['p' + id].size === 'huge';
+                break;
         }
     } else if (type === 'nest-avg') {
         switch (info) {
-        case 'off':
-            shouldShow = !nestFilterNew[id].on;
-            break;
-        case 'on':
-            shouldShow = nestFilterNew[id].on;
-            break;
-        case 'hide':
-            shouldShow = nestFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = nestFilterNew[id].show === true;
-            break;
+            case 'off':
+                shouldShow = !nestFilterNew[id].on;
+                break;
+            case 'on':
+                shouldShow = nestFilterNew[id].on;
+                break;
+            case 'hide':
+                shouldShow = nestFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = nestFilterNew[id].show === true;
+                break;
         }
     } else if (type === 'portal') {
         switch (info) {
-        case 'hide':
-            shouldShow = portalFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = portalFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = portalFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = portalFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = portalFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = portalFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = portalFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = portalFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = portalFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = portalFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = portalFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = portalFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'weather-type') {
         switch (info) {
-        case 'hide':
-            shouldShow = weatherFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = weatherFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = weatherFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = weatherFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = weatherFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = weatherFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = weatherFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = weatherFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = weatherFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = weatherFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = weatherFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = weatherFilterNew[id].size === 'huge';
+                break;
         }
     } else if (type === 'device-status') {
         switch (info) {
-        case 'hide':
-            shouldShow = deviceFilterNew[id].show === false;
-            break;
-        case 'show':
-            shouldShow = deviceFilterNew[id].show === true;
-            break;
-        case 'small':
-            shouldShow = deviceFilterNew[id].size === 'small';
-            break;
-        case 'normal':
-            shouldShow = deviceFilterNew[id].size === 'normal';
-            break;
-        case 'large':
-            shouldShow = deviceFilterNew[id].size === 'large';
-            break;
-        case 'huge':
-            shouldShow = deviceFilterNew[id].size === 'huge';
-            break;
+            case 'hide':
+                shouldShow = deviceFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = deviceFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = deviceFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = deviceFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = deviceFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = deviceFilterNew[id].size === 'huge';
+                break;
         }
     } else {
         shouldShow = false;
@@ -4756,508 +4903,514 @@ function manageSelectButton (e, isNew) {
             e.preventDefault();
             if (type === 'pokemon' || type === 'pokemon-iv') {
                 switch (info) {
-                case 'hide':
-                    pokemonFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    pokemonFilterNew[id].show = true;
-                    break;
-                case 'iv':
-                    return manageIVPopup(id, pokemonFilterNew);
-                case 'small':
-                    pokemonFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    pokemonFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    pokemonFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    pokemonFilterNew[id].size = 'huge';
-                    break;
-                case 'off':
-                    pokemonFilterNew['iv_' + id].on = false;
-                    break;
-                case 'on':
-                    pokemonFilterNew['iv_' + id].on = true;
-                    break;
+                    case 'hide':
+                        pokemonFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        pokemonFilterNew[id].show = true;
+                        break;
+                    case 'iv':
+                        return manageIVPopup(id, pokemonFilterNew);
+                    case 'small':
+                        pokemonFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        pokemonFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        pokemonFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        pokemonFilterNew[id].size = 'huge';
+                        break;
+                    case 'off':
+                        pokemonFilterNew['iv_' + id].on = false;
+                        break;
+                    case 'on':
+                        pokemonFilterNew['iv_' + id].on = true;
+                        break;
                 }
             } else if (type === 'pokemon-size') {
                 switch (info) {
-                case 'hide':
-                    pokemonFilterNew[id]['show'] = false;
-                    break;
-                case 'show':
-                    pokemonFilterNew[id]['show'] = true;
-                    break;
-                case 'small':
-                    pokemonFilterNew[id]['size'] = 'small';
-                    break;
-                case 'normal':
-                    pokemonFilterNew[id]['size'] = 'normal';
-                    break;
-                case 'large':
-                    pokemonFilterNew[id]['size'] = 'large';
-                    break;
-                case 'huge':
-                    pokemonFilterNew[id]['size'] = 'huge';
-                    break;
+                    case 'hide':
+                        pokemonFilterNew[id]['show'] = false;
+                        break;
+                    case 'show':
+                        pokemonFilterNew[id]['show'] = true;
+                        break;
+                    case 'small':
+                        pokemonFilterNew[id]['size'] = 'small';
+                        break;
+                    case 'normal':
+                        pokemonFilterNew[id]['size'] = 'normal';
+                        break;
+                    case 'large':
+                        pokemonFilterNew[id]['size'] = 'large';
+                        break;
+                    case 'huge':
+                        pokemonFilterNew[id]['size'] = 'huge';
+                        break;
                 }
             } else if (type === 'pokemon-glow') {
                 switch (info) {
-                case 'hide':
-                    settingsNew[id].show = false;
-                    break;
-                case 'show':
-                    settingsNew[id].show = true;
-                    break;
-                case 'color':
-                    return manageColorPopup(id, settings);
+                    case 'hide':
+                        settingsNew[id].show = false;
+                        break;
+                    case 'show':
+                        settingsNew[id].show = true;
+                        break;
+                    case 'color':
+                        return manageColorPopup(id, settings);
                 }
             } else if (type === 'pokemon-cluster' ||
-                    type === 'gym-cluster' ||
-                    type === 'pokestop-cluster' ||
-                    type === 'nest-polygon' ||
-                    type === 'pokemon-timers' ||
-                    type === 'raid-timers' ||
-                    type === 'invasion-timers') {
+                type === 'gym-cluster' ||
+                type === 'pokestop-cluster' ||
+                type === 'nest-polygon' ||
+                type === 'pokemon-timers' ||
+                type === 'raid-timers' ||
+                type === 'invasion-timers' ||
+                type === 'mega-stats' ||
+                type === 'experimental-stats' ||
+                type === 'pvp-level40-stats' ||
+                type === 'pvp-level41-stats' ||
+                type === 'pvp-level50-stats' ||
+                type === 'pvp-level51-stats') {
                 switch (info) {
-                case 'hide':
-                    settingsNew[id].show = false;
-                    break;
-                case 'show':
-                    settingsNew[id].show = true;
-                    break;
+                    case 'hide':
+                        settingsNew[id].show = false;
+                        break;
+                    case 'show':
+                        settingsNew[id].show = true;
+                        break;
                 }
             } else if (type === 'pokemon-timers-verified') {
                 switch (info) {
-                case 'hide':
-                    pokemonFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    pokemonFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    pokemonFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    pokemonFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    pokemonFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    pokemonFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        pokemonFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        pokemonFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        pokemonFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        pokemonFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        pokemonFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        pokemonFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'quest-misc') {
                 switch (info) {
-                case 'hide':
-                    questFilterNew['i' + -id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew['i' + -id].show = true;
-                    break;
-                case 'small':
-                    questFilterNew['i' + -id].size = 'small';
-                    break;
-                case 'normal':
-                    questFilterNew['i' + -id].size = 'normal';
-                    break;
-                case 'large':
-                    questFilterNew['i' + -id].size = 'large';
-                    break;
-                case 'huge':
-                    questFilterNew['i' + -id].size = 'huge';
-                    break;
+                    case 'hide':
+                        questFilterNew['i' + -id].show = false;
+                        break;
+                    case 'show':
+                        questFilterNew['i' + -id].show = true;
+                        break;
+                    case 'small':
+                        questFilterNew['i' + -id].size = 'small';
+                        break;
+                    case 'normal':
+                        questFilterNew['i' + -id].size = 'normal';
+                        break;
+                    case 'large':
+                        questFilterNew['i' + -id].size = 'large';
+                        break;
+                    case 'huge':
+                        questFilterNew['i' + -id].size = 'huge';
+                        break;
                 }
             } else if (type === 'quest-item') {
                 switch (info) {
-                case 'hide':
-                    questFilterNew['i' + id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew['i' + id].show = true;
-                    break;
-                case 'small':
-                    questFilterNew['i' + id].size = 'small';
-                    break;
-                case 'normal':
-                    questFilterNew['i' + id].size = 'normal';
-                    break;
-                case 'large':
-                    questFilterNew['i' + id].size = 'large';
-                    break;
-                case 'huge':
-                    questFilterNew['i' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        questFilterNew['i' + id].show = false;
+                        break;
+                    case 'show':
+                        questFilterNew['i' + id].show = true;
+                        break;
+                    case 'small':
+                        questFilterNew['i' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        questFilterNew['i' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        questFilterNew['i' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        questFilterNew['i' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'quest-evolution') {
                 switch (info) {
-                case 'hide':
-                    questFilterNew['e' + id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew['e' + id].show = true;
-                    break;
-                case 'small':
-                    questFilterNew['e' + id].size = 'small';
-                    break;
-                case 'normal':
-                    questFilterNew['e' + id].size = 'normal';
-                    break;
-                case 'large':
-                    questFilterNew['e' + id].size = 'large';
-                    break;
-                case 'huge':
-                    questFilterNew['e' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        questFilterNew['e' + id].show = false;
+                        break;
+                    case 'show':
+                        questFilterNew['e' + id].show = true;
+                        break;
+                    case 'small':
+                        questFilterNew['e' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        questFilterNew['e' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        questFilterNew['e' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        questFilterNew['e' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'quest-pokemon') {
                 switch (info) {
-                case 'hide':
-                    questFilterNew['p' + id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew['p' + id].show = true;
-                    break;
-                case 'small':
-                    questFilterNew['p' + id].size = 'small';
-                    break;
-                case 'normal':
-                    questFilterNew['p' + id].size = 'normal';
-                    break;
-                case 'large':
-                    questFilterNew['p' + id].size = 'large';
-                    break;
-                case 'huge':
-                    questFilterNew['p' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        questFilterNew['p' + id].show = false;
+                        break;
+                    case 'show':
+                        questFilterNew['p' + id].show = true;
+                        break;
+                    case 'small':
+                        questFilterNew['p' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        questFilterNew['p' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        questFilterNew['p' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        questFilterNew['p' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'quest-candy-count' || type === 'quest-stardust-count') {
                 switch (info) {
-                case 'off':
-                    questFilterNew[id].on = false;
-                    break;
-                case 'on':
-                    questFilterNew[id].on = true;
-                    break;
-                case 'hide':
-                    questFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    questFilterNew[id].show = true;
-                    break;
+                    case 'off':
+                        questFilterNew[id].on = false;
+                        break;
+                    case 'on':
+                        questFilterNew[id].on = true;
+                        break;
+                    case 'hide':
+                        questFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        questFilterNew[id].show = true;
+                        break;
                 }
             } else if (type === 'raid-level') {
                 switch (info) {
-                case 'hide':
-                    raidFilterNew['l' + id].show = false;
-                    break;
-                case 'show':
-                    raidFilterNew['l' + id].show = true;
-                    break;
-                case 'small':
-                    raidFilterNew['l' + id].size = 'small';
-                    break;
-                case 'normal':
-                    raidFilterNew['l' + id].size = 'normal';
-                    break;
-                case 'large':
-                    raidFilterNew['l' + id].size = 'large';
-                    break;
-                case 'huge':
-                    raidFilterNew['l' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        raidFilterNew['l' + id].show = false;
+                        break;
+                    case 'show':
+                        raidFilterNew['l' + id].show = true;
+                        break;
+                    case 'small':
+                        raidFilterNew['l' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        raidFilterNew['l' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        raidFilterNew['l' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        raidFilterNew['l' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'raid-pokemon') {
                 switch (info) {
-                case 'hide':
-                    raidFilterNew['p' + id].show = false;
-                    break;
-                case 'show':
-                    raidFilterNew['p' + id].show = true;
-                    break;
-                case 'small':
-                    raidFilterNew['p' + id].size = 'small';
-                    break;
-                case 'normal':
-                    raidFilterNew['p' + id].size = 'normal';
-                    break;
-                case 'large':
-                    raidFilterNew['p' + id].size = 'large';
-                    break;
-                case 'huge':
-                    raidFilterNew['p' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        raidFilterNew['p' + id].show = false;
+                        break;
+                    case 'show':
+                        raidFilterNew['p' + id].show = true;
+                        break;
+                    case 'small':
+                        raidFilterNew['p' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        raidFilterNew['p' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        raidFilterNew['p' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        raidFilterNew['p' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'gym-team') {
                 switch (info) {
-                case 'hide':
-                    gymFilterNew['t' + id].show = false;
-                    break;
-                case 'show':
-                    gymFilterNew['t' + id].show = true;
-                    break;
-                case 'small':
-                    gymFilterNew['t' + id].size = 'small';
-                    break;
-                case 'normal':
-                    gymFilterNew['t' + id].size = 'normal';
-                    break;
-                case 'large':
-                    gymFilterNew['t' + id].size = 'large';
-                    break;
-                case 'huge':
-                    gymFilterNew['t' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        gymFilterNew['t' + id].show = false;
+                        break;
+                    case 'show':
+                        gymFilterNew['t' + id].show = true;
+                        break;
+                    case 'small':
+                        gymFilterNew['t' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        gymFilterNew['t' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        gymFilterNew['t' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        gymFilterNew['t' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'gym-ex') {
                 switch (info) {
-                case 'hide':
-                    gymFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    gymFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    gymFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    gymFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    gymFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    gymFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        gymFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        gymFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        gymFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        gymFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        gymFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        gymFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'gym-battle') {
                 switch (info) {
-                case 'hide':
-                    gymFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    gymFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    gymFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    gymFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    gymFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    gymFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        gymFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        gymFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        gymFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        gymFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        gymFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        gymFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'gym-slots') {
                 switch (info) {
-                case 'hide':
-                    gymFilterNew['s' + id].show = false;
-                    break;
-                case 'show':
-                    gymFilterNew['s' + id].show = true;
-                    break;
-                case 'small':
-                    gymFilterNew['s' + id].size = 'small';
-                    break;
-                case 'normal':
-                    gymFilterNew['s' + id].size = 'normal';
-                    break;
-                case 'large':
-                    gymFilterNew['s' + id].size = 'large';
-                    break;
-                case 'huge':
-                    gymFilterNew['s' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        gymFilterNew['s' + id].show = false;
+                        break;
+                    case 'show':
+                        gymFilterNew['s' + id].show = true;
+                        break;
+                    case 'small':
+                        gymFilterNew['s' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        gymFilterNew['s' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        gymFilterNew['s' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        gymFilterNew['s' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'pokestop-normal') {
                 switch (info) {
-                case 'hide':
-                    pokestopFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    pokestopFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    pokestopFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    pokestopFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    pokestopFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    pokestopFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        pokestopFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        pokestopFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        pokestopFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        pokestopFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        pokestopFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        pokestopFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'pokestop-lure') {
                 switch (info) {
-                case 'hide':
-                    pokestopFilterNew['l' + id].show = false;
-                    break;
-                case 'show':
-                    pokestopFilterNew['l' + id].show = true;
-                    break;
-                case 'small':
-                    pokestopFilterNew['l' + id].size = 'small';
-                    break;
-                case 'normal':
-                    pokestopFilterNew['l' + id].size = 'normal';
-                    break;
-                case 'large':
-                    pokestopFilterNew['l' + id].size = 'large';
-                    break;
-                case 'huge':
-                    pokestopFilterNew['l' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        pokestopFilterNew['l' + id].show = false;
+                        break;
+                    case 'show':
+                        pokestopFilterNew['l' + id].show = true;
+                        break;
+                    case 'small':
+                        pokestopFilterNew['l' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        pokestopFilterNew['l' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        pokestopFilterNew['l' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        pokestopFilterNew['l' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'invasion-grunt') {
                 switch (info) {
-                case 'hide':
-                    invasionFilterNew['i' + id].show = false;
-                    break;
-                case 'show':
-                    invasionFilterNew['i' + id].show = true;
-                    break;
-                case 'small':
-                    invasionFilterNew['i' + id].size = 'small';
-                    break;
-                case 'normal':
-                    invasionFilterNew['i' + id].size = 'normal';
-                    break;
-                case 'large':
-                    invasionFilterNew['i' + id].size = 'large';
-                    break;
-                case 'huge':
-                    invasionFilterNew['i' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        invasionFilterNew['i' + id].show = false;
+                        break;
+                    case 'show':
+                        invasionFilterNew['i' + id].show = true;
+                        break;
+                    case 'small':
+                        invasionFilterNew['i' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        invasionFilterNew['i' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        invasionFilterNew['i' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        invasionFilterNew['i' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'spawnpoint-timer') {
                 switch (info) {
-                case 'hide':
-                    spawnpointFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    spawnpointFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    spawnpointFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    spawnpointFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    spawnpointFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    spawnpointFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        spawnpointFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        spawnpointFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        spawnpointFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        spawnpointFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        spawnpointFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        spawnpointFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'nest-pokemon') {
                 switch (info) {
-                case 'hide':
-                    nestFilterNew['p' + id].show = false;
-                    break;
-                case 'show':
-                    nestFilterNew['p' + id].show = true;
-                    break;
-                case 'small':
-                    nestFilterNew['p' + id].size = 'small';
-                    break;
-                case 'normal':
-                    nestFilterNew['p' + id].size = 'normal';
-                    break;
-                case 'large':
-                    nestFilterNew['p' + id].size = 'large';
-                    break;
-                case 'huge':
-                    nestFilterNew['p' + id].size = 'huge';
-                    break;
+                    case 'hide':
+                        nestFilterNew['p' + id].show = false;
+                        break;
+                    case 'show':
+                        nestFilterNew['p' + id].show = true;
+                        break;
+                    case 'small':
+                        nestFilterNew['p' + id].size = 'small';
+                        break;
+                    case 'normal':
+                        nestFilterNew['p' + id].size = 'normal';
+                        break;
+                    case 'large':
+                        nestFilterNew['p' + id].size = 'large';
+                        break;
+                    case 'huge':
+                        nestFilterNew['p' + id].size = 'huge';
+                        break;
                 }
             } else if (type === 'nest-avg') {
                 switch (info) {
-                case 'off':
-                    nestFilterNew[id].on = false;
-                    break;
-                case 'on':
-                    nestFilterNew[id].on = true;
-                    break;
-                case 'hide':
-                    nestFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    nestFilterNew[id].show = true;
-                    break;
+                    case 'off':
+                        nestFilterNew[id].on = false;
+                        break;
+                    case 'on':
+                        nestFilterNew[id].on = true;
+                        break;
+                    case 'hide':
+                        nestFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        nestFilterNew[id].show = true;
+                        break;
                 }
             } else if (type === 'portal') {
                 switch (info) {
-                case 'hide':
-                    portalFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    portalFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    portalFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    portalFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    portalFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    portalFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        portalFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        portalFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        portalFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        portalFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        portalFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        portalFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'weather-type') {
                 switch (info) {
-                case 'hide':
-                    weatherFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    weatherFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    weatherFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    weatherFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    weatherFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    weatherFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        weatherFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        weatherFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        weatherFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        weatherFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        weatherFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        weatherFilterNew[id].size = 'huge';
+                        break;
                 }
             } else if (type === 'device-status') {
                 switch (info) {
-                case 'hide':
-                    deviceFilterNew[id].show = false;
-                    break;
-                case 'show':
-                    deviceFilterNew[id].show = true;
-                    break;
-                case 'small':
-                    deviceFilterNew[id].size = 'small';
-                    break;
-                case 'normal':
-                    deviceFilterNew[id].size = 'normal';
-                    break;
-                case 'large':
-                    deviceFilterNew[id].size = 'large';
-                    break;
-                case 'huge':
-                    deviceFilterNew[id].size = 'huge';
-                    break;
+                    case 'hide':
+                        deviceFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        deviceFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        deviceFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        deviceFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        deviceFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        deviceFilterNew[id].size = 'huge';
+                        break;
                 }
             }
         });
@@ -5526,26 +5679,6 @@ function getPokemonIcon(pokemonId, form = 0, evolution = 0, gender = 0, costume 
     return '0'; // substitute
 }
 
-function getPokemonBestRank(greatLeague, ultraLeague) {
-    if ((greatLeague !== null ) || (ultraLeague !== null )) {
-        let bestRank = 4;
-        $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.great && ranking.cp <= 1500) {
-                bestRank = ranking.rank;
-            }
-        });
-        $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.cp >= minPvpCp.ultra && ranking.cp <= 2500) {
-                bestRank = ranking.rank;
-            }
-        });
-        if (bestRank <= 3) {
-            return bestRank;
-        }
-    }
-    return 4096;
-}
-
 let quickStartFilter = (pokemonId) => pokemonRarity.quickStart.pokemon.includes(parseInt(pokemonId));
 
 let rarityFilter = (pokemonId, rarityTier) => pokemonRarity[rarityTier].includes(parseInt(pokemonId));
@@ -5560,7 +5693,7 @@ let masterfileFilter = (pokemonId, filter) => {
     const pkmn = masterfile.pokemon[pokemonId];
     let matches = false;
     switch(filter[0]) {
-        case 'regionalForm': matches = pkmn.forms[filter[2]].proto.includes(filter[1]); break;
+        case 'regionalForm': matches = (pkmn.forms[filter[2]] || { proto: '' }).proto.includes(filter[1]); break;
         case 'legendary':    matches = pkmn.legendary; break;
         case 'mythical':     matches = pkmn.mythic; break;
     }
@@ -6867,6 +7000,24 @@ function loadFilterSettings (e) {
         showInvasionTimers = obj.show_invasion_timers;
         store('show_invasion_timers', showInvasionTimers);
 
+        showMegaStats = obj.mega_stats;
+        store('mega_stats', showMegaStats);
+
+        showExperimentalStats = obj.experimental_stats;
+        store('experimental_stats', showExperimentalStats);
+
+        showLevel40Stats = obj.level40_stats;
+        store('level40_stats', showLevel40Stats);
+        
+        showLevel41Stats = obj.level41_stats;
+        store('level41_stats', showLevel41Stats);
+
+        showLevel50Stats = obj.level50_stats;
+        store('level50_stats', showLevel50Stats);
+
+        showLevel51Stats = obj.level51_stats;
+        store('level51_stats', showLevel51Stats);
+
         if (showGyms) {
             $('#show-gyms').addClass('active');
             $('#hide-gyms').removeClass('active');
@@ -7557,4 +7708,3 @@ function registerFilterButtonCallbacks() {
         $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
     });
 }
-
