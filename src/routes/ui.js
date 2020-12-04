@@ -135,6 +135,7 @@ const handlePage = async (req, res) => {
                 data.hide_nests = !perms.nests;
                 data.hide_weather = !perms.weather;
                 data.hide_devices = !perms.devices;
+                data.hide_portals = !perms.portals;
             } else {
                 console.log(req.session.username, 'Not authorized to access map');
                 res.redirect('/login');
