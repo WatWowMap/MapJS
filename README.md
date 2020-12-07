@@ -10,6 +10,10 @@
 
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)
 
+## Requirements & Prerequisites
+- [NodeJS v12](https://nodejs.org/en/download/)
+- [Chuck](https://github.com/WatWowMap/Chuck) or [RealDeviceMap](https://github.com/realdevicemap/realdevicemap) existing database
+
 ## Features
 
 - Everything from RealDeviceMap UI Map
