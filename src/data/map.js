@@ -1236,7 +1236,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM pokestop
             WHERE ${conditions.join(' OR ') || 'FALSE'}
             `;
-            useDb = dbSelection('pokestop');
+            useDb = 'pokestop';
             break;
         case 'search-nest':
             let ids = getPokemonIdsByName(sanitizedValue);
@@ -1259,7 +1259,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM nests
             WHERE LOWER(name) LIKE '%${sanitizedValue}%' ${pokemonSQL}
             `;
-            useDb = dbSelection('nest');
+            useDb = 'nest';
             break;
         case 'search-portal':
             sql = `
@@ -1268,7 +1268,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM ingress_portals
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useDb = dbSelection('portal');
+            useDb = 'portal';
             break;
         case 'search-gym':
             sql = `
@@ -1277,7 +1277,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM gym
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useDb = dbSelection('gym');
+            useDb = 'gym';
             break;
         case 'search-pokestop':
             sql = `
@@ -1286,11 +1286,11 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             FROM pokestop
             WHERE LOWER(name) LIKE '%${sanitizedValue}%'
             `;
-            useDb = dbSelection('pokestop');
+            useDb = 'pokestop';
             break;
     }
     sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
-    let results = useDb.query(sql, args);
+    let results = await dbSelection(useDb).query(sql, args);
     if (results && results.length > 0) {
         switch (id) {
             case 'search-reward':

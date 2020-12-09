@@ -106,6 +106,7 @@
             "password": "pass123!",
             "database": "manualdb",
             "charset": "utf8mb4",
+            "sessionTable": "sessions",
             "useFor": []
         }
     },
