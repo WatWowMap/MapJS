@@ -7,7 +7,7 @@ const config = require('../services/config.js');
 const MySQLConnector = require('../services/mysql.js');
 
 const { scanner, manualdb } = config.db;
-const dbSelection = scanner.useFor.includes('session') ? scanner : manualdb;
+const dbSelection = manualdb.useFor.includes('session') ? manualdb : scanner;
 const db = new MySQLConnector(dbSelection);
 
 // MySQL session store
