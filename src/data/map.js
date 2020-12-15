@@ -220,7 +220,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     return pokemon;
 };
 
-const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, raidFilterExclude = null, gymFilterExclude = null) => {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, permGymDetails = true, raidFilterExclude = null, gymFilterExclude = null) => {
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
@@ -419,7 +419,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 lon: result.lon,
                 name: result.name,
                 url: result.url,
-                guarding_pokemon_id: result.guarding_pokemon_id,
+                guarding_pokemon_id: permGymDetails ? result.guarding_pokemon_id : null,
                 enabled: result.enabled,
                 last_modified_timestamp: result.last_modified_timestamp,
                 team_id: result.team_id,
@@ -431,7 +431,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 availble_slots: result.availble_slots,
                 updated: result.updated,
                 ex_raid_eligible: result.ex_raid_eligible,
-                in_battle: result.in_battle,
+                in_battle: permGymDetails ? result.in_battle : false,
                 raid_pokemon_move_1: result.raid_pokemon_move_1,
                 raid_pokemon_move_2: result.raid_pokemon_move_2,
                 raid_pokemon_form: result.raid_pokemon_form,
@@ -439,7 +439,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 raid_pokemon_gender: result.raid_pokemon_gender,
                 raid_is_exclusive: result.raid_is_exclusive,
                 cell_id: result.cell_id,
-                total_cp: result.total_cp,
+                total_cp: permGymDetails ? result.total_cp : null,
                 sponsor_id: result.sponsor_id,
                 raid_pokemon_evolution: result.raid_pokemon_evolution,
                 raid_pokemon_costume: result.raid_pokemon_costume,
