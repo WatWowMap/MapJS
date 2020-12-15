@@ -3275,8 +3275,13 @@ function getGymPopupContent (gym) {
     if (isRaid) {
         let hasRaidBoss = gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null;
         let pokemonName;
-        if (hasRaidBoss && isRaidBattle) {
-            pokemonName = getPokemonName(gym.raid_pokemon_id) + ' ' + getGenderIcon(gym.raid_pokemon_gender);
+        if (hasRaidBoss) {
+            if (gym.raid_pokemon_form !== 0 && gym.raid_pokemon_form !== null) {
+                pokemonName = getFormName(gym.raid_pokemon_form) + ' ' + getPokemonName(gym.raid_pokemon_id);
+            } else {
+                pokemonName = getPokemonName(gym.raid_pokemon_id);
+            }
+            pokemonName += ' ' + getGenderIcon(gym.raid_pokemon_gender);
         } else if (isRaidBattle) {
             pokemonName = 'Unknown Raid Boss';
         } else {
@@ -3287,7 +3292,7 @@ function getGymPopupContent (gym) {
         '<div class="row" style="margin:auto;">' + // START 1ST ROW
             '<div class="col-4">' + // START 1ST COL
                 '<div class="row pokemon-popup-image-holder">';
-        if (hasRaidBoss && isRaidBattle) {
+        if (hasRaidBoss) {
             content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">`;
         } else {
             content += `<img src="/img/egg/${gym.raid_level}.png">`;
@@ -3295,7 +3300,7 @@ function getGymPopupContent (gym) {
         content +=
                 '</div>' + // END POKEMON ROW
                 '<div class="row" style="margin:auto;">';
-        if (hasRaidBoss && isRaidBattle) {
+        if (hasRaidBoss) {
             const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
             if (pkmn !== undefined && pkmn !== null) {
                 const types = pkmn.types;
@@ -3316,7 +3321,7 @@ function getGymPopupContent (gym) {
             '</div>' + // END 1ST COLUMN
             '<div class="col-8 text-nowrap">' + // START 2ND COL
                 '<h7><b>' + pokemonName + '</b></h7><br>';
-        if (hasRaidBoss && isRaidBattle) {
+        if (hasRaidBoss) {
             if (gym.raid_pokemon_evolution) {
                 content += '<b>Evolution:</b> ' + getEvolutionName(gym.raid_pokemon_evolution) + '<br>';
             }
