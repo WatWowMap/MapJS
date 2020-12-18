@@ -131,7 +131,9 @@ class DiscordClient {
                     perms[key] = true;
                     continue;
                 }
-                
+                if (!configItem.enabled) {
+                    continue;
+                }
                 // If set, grab user roles for guild
                 const userRoles = await this.getUserRoles(guildId, user.id);
                 // Check if user has config role assigned
