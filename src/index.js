@@ -135,9 +135,6 @@ app.use(async (req, res, next) => {
     if (!config.discord.enabled || healthcheckValid || req.session.logged_in) {
         defaultData.logged_in = true;
         defaultData.username = req.session.username;
-        if (!config.discord.enabled || healthcheckValid) {
-            return next();
-        }
         if (!(await isValidSession(req.session.user_id))) {
             console.debug('[Session] Detected multiple sessions, clearing old ones...');
             await clearOtherSessions(req.session.user_id, req.sessionID);
