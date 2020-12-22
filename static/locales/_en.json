@@ -173,5 +173,10 @@
 	"settings_cluster_gyms": "Cluster Gyms",
 	"settings_pokestop": "Pokestop Settings",
 	"settings_cluster_pokestops": "Cluster Pokestops",
-	"settings_nest_polygons": "Nest Polygons"
+	"settings_nest_polygons": "Nest Polygons",
+	"enter_reward_name": "Enter Reward Name...",
+	"enter_nest_name": "Enter nest Pokemon or Type...",
+	"enter_portal_name":"Enter Portal Name...",
+	"enter_gym_name": "Enter Gym Name...",
+	"enter_pokestop_name": "Enter Pokestop Name..."
 }
