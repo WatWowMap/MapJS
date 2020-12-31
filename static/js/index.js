@@ -5836,6 +5836,16 @@ function getCpAtLevel(id, form, level, isMax) {
     return 0;
 }
 
+function setColumnVisible(table, toggle = true, visible = false) {
+    const column = table.column($(this).attr('data-column'));
+    let value = visible;
+    if (toggle) {
+        value = !column.visible();
+    }
+    column.visible(value);
+    store('show_pokemon_filter_icons', value);
+}
+
 
 // MARK: - Init Filter
 
@@ -5881,7 +5891,7 @@ function loadPokemonFilter () {
             { data: 'filter' },
             { data: 'size' },
             { data: 'types',
-                visible: false}
+                visible: false }
         ],
         ajax: {
             url: '/api/get_data?show_pokemon_filter=true',
@@ -5946,6 +5956,14 @@ function loadPokemonFilter () {
         dataTable.responsive.recalc();
         dataTable.columns.adjust();
     });
+
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+        setColumnVisible(table);
+    });
+
+    const val = retrieve('show_pokemon_filter_icons');
+    setColumnVisible(table, false, val && val !== 'false');
 }
 
 function loadQuestFilter () {
