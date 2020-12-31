@@ -17,13 +17,21 @@
     font: bold 18px 'Lucida Console', Monaco, monospace;
     text-indent: 1px;
 }
+.leaflet-control-attribution.leaflet-control {
+    max-height: 15px;
+}
 .leaflet-tooltip {
     font: bold 12px, Monaco, monospace;
+    font-weight: bold;
     border: none;
     border-color: none;
     box-shadow: none;
     background: none;
     max-height: 20px;
+    padding: 0px 4px 0px 4px !important;
+    background-color: gray;
+    border-radius: .25rem !important;
+    color: white;
 }
 .leaflet-container a.leaflet-popup-close-button {
   width: 28px;
@@ -195,24 +203,6 @@ fieldset[disabled] .btn-size.active {
     background-color: #FFFFFF;
 }
 
-.raid-timer {
-    background-color: gray;
-    color: white;
-    font-weight: bold;
-}
-
-.invasion-timer {
-    background-color: gray;
-    border-radius: .25rem !important;
-    color: white;
-    font-weight: bold;
-    font: bold 12px, Monaco, monospace;
-    border: none;
-    border-color: none;
-    box-shadow: none;
-    max-height: 20px;
-}
-
 .center-vertical {
     margin-top: auto;
     margin-bottom: auto;
@@ -230,16 +220,16 @@ fieldset[disabled] .btn-size.active {
     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 .lure-normal {
-    border: 4px solid rgb(255, 0, 255);
+    border: 4px solid rgb(204, 50, 165);
 }
 .lure-glacial {
-    border: 4px solid rgb(68, 165, 255);
+    border: 4px solid rgb(74, 164, 255);
 }
 .lure-mossy {
-    border: 4px solid rgb(44, 90, 49);
+    border: 4px solid lawngreen;
 }
 .lure-magnetic {
-    border: 4px solid rgb(77, 84, 98);
+    border: 4px solid yellow;
 }
 
 .team-mystic {
@@ -272,9 +262,14 @@ fieldset[disabled] .btn-size.active {
     width: 100%;
     height: 100%;
 }
+.portal-image-holder {
+    width: 175px;
+    height: auto;
+}
 .pokemon-popup-image-holder > img,
 .filter-image-holder > img,
 .marker-image-holder > img,
+.invasion-reward > img,
 .leaflet-container .leaflet-marker-pane .marker-image-holder > img {
     position: absolute;
     max-width: 100% !important;
@@ -290,12 +285,116 @@ fieldset[disabled] .btn-size.active {
     top: auto;
 }
 
+.amount-holder {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    min-width: 100%;
+    color: white;
+    text-shadow: #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px, #000 0 0 1px;
+    font-weight: 700;
+}
+.amount-holder > div {
+    text-align: right;
+}
+.amount-holder > div:before {
+    content: "×";
+}
+
+.grunt-encounter-wrapper {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    border: 1px solid #bdbdbd;
+    padding: 5px;
+}
+
+.last-updated {
+    text-align: center;
+    font-size: x-small;
+    padding: 5px;
+}
+
+.exclude {
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    padding: 5px;
+}
+.table-invasion {
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    text-align: center;
+}
+.table-invasion td:first-child {
+    padding-right: 15px;
+}
+.table-invasion td:nth-child(2) {
+    width: 100px
+}
+.table-invasion td:last-child {
+    padding-left: 12px;
+}
+
+.invasion-reward {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+.invasion-reward > img.invasion-reward-shadow {
+    width: 15px;
+    height: 15px;
+    right: auto;
+    top: auto;
+    filter: drop-shadow(0 0 2px #000);
+}
+
 img {
     image-rendering: crisp-edges;
     image-rendering: -webkit-optimize-contrast;
 }
 
-@media (max-height: 600px) {
+.type-img-single {
+    width: 100%;
+    height: 56px;
+    object-fit: contain;
+    object-position: 50% 50%;
+}
+
+.type-img-1,
+.type-img-2 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 56px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.type-img-1 {
+    left: 0;
+    background: top left no-repeat;
+    -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.type-img-2 {
+    right: 0;
+    background: top right no-repeat;
+    -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.help-title {
+    color: white;
+    font-style: bold;
+}
+
+.help-description {
+    color: gray;
+}
+
+@media (max-height: 480px) {
     .fill {
         top: 0;
     }
@@ -596,6 +695,7 @@ img {
 .theme-dark #filtersModal,
 .theme-dark #searchModal,
 .theme-dark #mapstyleModal,
+.theme-dark #iconstyleModal,
 .theme-dark .close {
     color: white;
 }
@@ -606,6 +706,10 @@ img {
     color: white;
 }
 
+.theme-dark .grunt-encounter-wrapper {
+    background-color: #1c1c1c;
+    border: 1px solid black;
+}
 .theme-dark table.dataTable tr.dtrg-group td,
 .theme-dark div.DTS div.dataTables_scrollBody table,
 .theme-dark .modal-body,

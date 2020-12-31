@@ -1,19 +1,17 @@
 /* global BigInt */
 'use strict';
 
-const config = require('../config.json');
-
+const config = require('../services/config.js');
 const DiscordOauth2 = require('discord-oauth2');
-const oauth = new DiscordOauth2();
-
 const Discord = require('discord.js');
+const fs = require('fs');
+const oauth = new DiscordOauth2();
 const client = new Discord.Client();
 
 if (config.discord.enabled) {
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}!`);
-            client.user.setPresence({ activity: { name: config.discord.status, type: 3 }
-        });
+        client.user.setPresence({ activity: { name: config.discord.status, type: 3 } });
     });
   
     client.login(config.discord.botToken);
@@ -24,6 +22,8 @@ class DiscordClient {
 
     constructor(accessToken) {
         this.accessToken = accessToken;
+        this.config = config;
+        this.discordEvents();
     }
 
     setAccessToken(token) {
@@ -57,7 +57,23 @@ class DiscordClient {
         return [];
     }
 
-    async getPerms() {
+    async discordEvents() {
+        client.config = this.config;
+        try {
+            fs.readdir(`${__dirname}/events/`, (err, files) => {
+                if (err) return this.log.error(err);
+                files.forEach((file) => {
+                    const event = require(`${__dirname}/events/${file}`); // eslint-disable-line global-require
+                    const eventName = file.split('.')[0];
+                    client.on(eventName, event.bind(null, client));
+                });
+            });
+        } catch (err) {
+            console.error('Failed to activate an event');
+        }
+    }
+
+    async getPerms(user) {
         const perms = {
             map: false,
             pokemon: false,
@@ -73,11 +89,11 @@ class DiscordClient {
             s2cells: false,
             submissionCells: false,
             nests: false,
+            portals: false,
             scanAreas: false,
             weather: false,
             devices: false
         };
-        const user = await this.getUser();
         const guilds = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
             Object.keys(perms).forEach((key) => perms[key] = true);
@@ -115,7 +131,9 @@ class DiscordClient {
                     perms[key] = true;
                     continue;
                 }
-                
+                if (!configItem.enabled) {
+                    continue;
+                }
                 // If set, grab user roles for guild
                 const userRoles = await this.getUserRoles(guildId, user.id);
                 // Check if user has config role assigned

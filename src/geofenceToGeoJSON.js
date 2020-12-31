@@ -34,7 +34,7 @@ fs.readdir(geofencesFolder, (err, files) => {
                 return;
             }
             console.log('Converting ini geofence file to geoJSON format', file);
-            const fences = data.match(/\[([^\]]+)\]([^\[]*)/g);
+            const fences = data.match(/\[([^\]]+)\]([^[]*)/g);
             fences.forEach(fence => {
                 const geofence = {
                     type: 'Feature',
@@ -47,7 +47,7 @@ fs.readdir(geofencesFolder, (err, files) => {
                     }
                 };
                 geofence.properties.name = fence.match(/\[([^\]]+)\]/)[1];
-                geofence.geometry.coordinates[0] = fence.match(/[0-9\-\.]+,\s*[0-9\-\.]+/g).map(point => [parseFloat(point.split(',')[1]), parseFloat(point.split(',')[0])]);
+                geofence.geometry.coordinates[0] = fence.match(/[0-9\-.]+,\s*[0-9\-.]+/g).map(point => [parseFloat(point.split(',')[1]), parseFloat(point.split(',')[0])]);
                 geofence.geometry.coordinates[0].push(geofence.geometry.coordinates[0][0]);
 
                 geoJSON.features.push(geofence);

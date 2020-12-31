@@ -6,7 +6,7 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const config = require('../config.json');
+const config = require('../services/config.js');
 const defaultData = require('../data/default.js');
 //const InventoryItemId = require('../data/item.js');
 const map = require('../data/map.js');
@@ -17,7 +17,7 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        req.session = null;
+        req.session.destroy();
         res.redirect('/login');
     });
 }
@@ -81,8 +81,6 @@ const handlePage = async (req, res) => {
     data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
     data.tableClass = config.style === 'dark' ? 'table-dark' : '';
 
-    data.max_pokemon_id = config.map.maxPokemonId;
-
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
     data.available_tileservers_json = JSON.stringify(tileservers);
@@ -145,6 +143,7 @@ const handlePage = async (req, res) => {
                 data.hide_nests = !perms.nests;
                 data.hide_weather = !perms.weather;
                 data.hide_devices = !perms.devices;
+                data.hide_portals = !perms.portals;
             } else {
                 console.log(req.session.username, 'Not authorized to access map');
                 res.redirect('/login');
@@ -154,7 +153,7 @@ const handlePage = async (req, res) => {
 
     data.page_is_home = true;
     data.page_is_areas = true;
-    data.show_areas = true;
+    data.show_areas = areas.length > 0;
     data.timestamp = Date.now();
     let lat = parseFloat(req.params.lat || config.map.startLat);
     let lon = parseFloat(req.params.lon || config.map.startLon);
@@ -172,7 +171,7 @@ const handlePage = async (req, res) => {
     }
 
     if (city) {
-        for (var i = 0; i < areaKeys.length; i++) {
+        for (let i = 0; i < areaKeys.length; i++) {
             const key = areaKeys[i];
             if (city.toLowerCase() === key.toLowerCase()) {
                 const area = config.areas[key];
@@ -239,14 +238,13 @@ const updateAvailableForms = async (icons) => {
                 icon.pokemonList = availableForms;
             }
         } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
-            axios({
+            const response = await axios({
                 method: 'GET',
                 url: icon.path + '/index.json',
                 responseType: 'json'
-            }).then((response) => {
-                icon.pokemonList = response ? response.data : [];
-                icon.lastRetrieved = Date.now();
             });
+            icon.pokemonList = response ? response.data : [];
+            icon.lastRetrieved = Date.now();
         }
     }
 };
