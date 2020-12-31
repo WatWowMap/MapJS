@@ -17,8 +17,11 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        req.session.destroy();
-        res.redirect('/login');
+        if (config.homePage) {
+            res.redirect('/home');
+        } else {
+            res.redirect('/login');
+        }
     });
 }
 
