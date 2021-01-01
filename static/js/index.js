@@ -2634,7 +2634,11 @@ const getIconSize = (type, id, form, weight) => {
             : id === 129 && pokemonFilter["big_karp"].show && weight >= 13.125 ? "big_karp"
                 : filterId
     }
-    return iconSizes[type][filterType[filterId].size]
+    if (iconSizes[type][filterType[filterId]]) {
+        return iconSizes[type][filterType[filterId].size]
+    } else {
+        return iconSizes[type].normal
+    }
 }
 // MARK: - Local Storage
 
