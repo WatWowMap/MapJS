@@ -5109,12 +5109,13 @@
 						}
 					]
 				},
-				"2673": {
+				"2582": {
 					"name": "Galarian",
 					"proto": "SLOWPOKE_GALARIAN"
 				},
-				"undefined": {
-					"name": "2020"
+				"2673": {
+					"name": "2020",
+					"proto": "SLOWPOKE_2020"
 				}
 			},
 			"default_form_id": 1017,
@@ -5185,8 +5186,9 @@
 					"name": "Galarian",
 					"proto": "SLOWBRO_GALARIAN"
 				},
-				"undefined": {
-					"name": "2021"
+				"2674": {
+					"name": "2021",
+					"proto": "SLOWBRO_2021"
 				}
 			},
 			"default_form_id": 1020,
