@@ -40,6 +40,16 @@ if (config.homePage) {
     });
 }
 
+router.get('/blocked', (req, res) => {
+    const data = {};
+    data.discord_invite = config.discord.invite;
+    if (req.session.username) {
+        data.guild_name = req.session.perms.blocked;
+        data.username = req.session.username;
+    }
+    res.render('blocked', data);
+});
+
 // Location endpoints
 router.get('/@/:lat/:lon', async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
