@@ -133,6 +133,7 @@ app.use(async (req, res, next) => {
         (
             req.path === '/api/discord/login' ||
             req.path === '/login' ||
+            req.path === '/blocked' ||
             (config.homePage && req.path === '/home')
         )
     ) {
