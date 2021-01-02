@@ -108,7 +108,7 @@ class DiscordClient {
             if (guilds.includes(guildId)) {
                 // If so, user is not granted access
                 blocked = true;
-                perms["blocked"] = guildsFull.find(x => x.id === guildId).name;
+                perms['blocked'] = guildsFull.find(x => x.id === guildId).name;
                 break;
             }
         }
