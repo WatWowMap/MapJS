@@ -27,18 +27,22 @@
             #transbox {
                 background-color:rgba(255,255,255,0.8);
                 padding:20px;
+                border-radius: 20px;
             }
 
             .title {
                 text-align:center;
                 font-size: 2em;
                 color: #3C5FA3;
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
 
             .container {
                 width: 90%;
                 margin: 0 auto;
                 padding: 30px;
+                border-radius: 10px;
             }
 
             .clearfix:after {
@@ -56,6 +60,8 @@
                 margin-left: 10px;
                 margin-bottom: 10px;
                 white-space: pre-wrap;
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
 
             .make-center {
@@ -66,6 +72,7 @@
             .square_btn{
                 display: inline-block;
                 padding: 7px 20px;
+                border: solid 3px black;
                 border-radius: 25px;
                 text-decoration: none;
                 color: #FFF;
@@ -78,17 +85,21 @@
                 background-image: -webkit-linear-gradient(45deg, #7289da 0%, #3659d8 100%);
                 background-image: linear-gradient(45deg, #7289da 0%, #3659d8 100%);
             }
+
+            a {
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
         </style>
     </head>
     <body>
         <div class="container clearfix background">
             <div id="transbox">
               <title>Welcome</title>
-              <div class="title">Welcome</div>
-                <div class="description">The best place to find pokemon.</div>
-                <div class="description">Please login or join discord for more info...</div>
+              <div class="title">{{map_title}}</div><br>
+                <div class="description">{{description_1}}<br><br>{{description_2}}</div>
                 <div class="make-center">
-                    <a href="/login" class="square_btn">Login</a><a href="{{discord_invite}}" class="square_btn">Join Our Discord</a>
+                    <a href="/login" class="square_btn">Login</a>&nbsp;&nbsp;<a href="{{discord_invite}}" class="square_btn">Join Our Discord</a>
                 </div>
             </div>
         </div>
