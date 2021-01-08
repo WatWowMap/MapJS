@@ -89,7 +89,8 @@
             "password": "pass123!",
             "database": "rdmdb",
             "charset": "utf8mb4",
-            "sessionTable": "sessions"
+            "sessionTable": "sessions",
+            "arScanColumn": false
         },
         "manualdb": {
             "host": "127.0.0.1",

@@ -602,12 +602,12 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             excludeInvasionSQL = sqlExcludeCreate;
         }
     }
-
+    const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
-            incident_expire_timestamp, grunt_type, sponsor_id, ar_scan_eligible
+            incident_expire_timestamp, grunt_type, sponsor_id ${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
