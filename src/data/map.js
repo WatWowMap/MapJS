@@ -364,6 +364,12 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 raidBattleTimestamp = null;
                 raidPokemonId = null;
             }
+
+            let arScanEligible = null;
+            if (config.db.scanner.arScanColumn) {
+                arScanEligible = result.ar_scan_eligible;
+            }
+            
             gyms.push({
                 id: result.id,
                 lat: result.lat,
@@ -394,6 +400,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 sponsor_id: result.sponsor_id,
                 raid_pokemon_evolution: result.raid_pokemon_evolution,
                 raid_pokemon_costume: result.raid_pokemon_costume,
+                ar_scan_eligible: arScanEligible,
             });
         }
     }
@@ -664,6 +671,11 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 gruntType = null;
             }
 
+            let arScanEligible = null;
+            if (config.db.scanner.arScanColumn) {
+                arScanEligible = result.ar_scan_eligible;
+            }
+
             pokestops.push({
                 id: result.id,
                 lat: result.lat,
@@ -686,7 +698,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 incident_expire_timestamp: incidentExpireTimestamp,
                 grunt_type: gruntType,
                 sponsor_id: result.sponsor_id,
-                ar_scan_eligible: result.ar_scan_eligible,
+                ar_scan_eligible: arScanEligible,
             });
         }
     }
