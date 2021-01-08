@@ -13,7 +13,7 @@ const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
-
+const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
 
 const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
     const pokemonLookup = {};
@@ -324,7 +324,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
-            raid_pokemon_evolution, raid_pokemon_costume
+            raid_pokemon_evolution, raid_pokemon_costume ${arScanEligible}
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} AND (
@@ -602,7 +602,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             excludeInvasionSQL = sqlExcludeCreate;
         }
     }
-    const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
+
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
