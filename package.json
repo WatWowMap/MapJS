@@ -1,6 +1,6 @@
 {
   "name": "mapjs",
-  "version": "1.0.0",
+  "version": "1.6.18.2",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/versx/MapJS#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "compression": "^1.7.4",
     "discord-oauth2": "^2.5.0",

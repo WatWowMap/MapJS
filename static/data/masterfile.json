@@ -6,29 +6,32 @@
 				"163": {
 					"name": "Normal",
 					"proto": "BULBASAUR_NORMAL",
-					"evolutions": {
-						"2": {
+					"evolutions": [
+						{
+							"pokemon": 2,
 							"form": 166
 						}
-					}
+					]
 				},
 				"164": {
 					"name": "Shadow",
 					"proto": "BULBASAUR_SHADOW",
-					"evolutions": {
-						"2": {
+					"evolutions": [
+						{
+							"pokemon": 2,
 							"form": 167
 						}
-					}
+					]
 				},
 				"165": {
 					"name": "Purified",
 					"proto": "BULBASAUR_PURIFIED",
-					"evolutions": {
-						"2": {
+					"evolutions": [
+						{
+							"pokemon": 2,
 							"form": 168
 						}
-					}
+					]
 				},
 				"897": {
 					"name": "Fall 2019",
@@ -57,11 +60,12 @@
 				"Seed Bomb",
 				"Power Whip"
 			],
-			"evolutions": {
-				"2": {
+			"evolutions": [
+				{
+					"pokemon": 2,
 					"form": 166
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -76,29 +80,32 @@
 				"166": {
 					"name": "Normal",
 					"proto": "IVYSAUR_NORMAL",
-					"evolutions": {
-						"3": {
+					"evolutions": [
+						{
+							"pokemon": 3,
 							"form": 169
 						}
-					}
+					]
 				},
 				"167": {
 					"name": "Shadow",
 					"proto": "IVYSAUR_SHADOW",
-					"evolutions": {
-						"3": {
+					"evolutions": [
+						{
+							"pokemon": 3,
 							"form": 170
 						}
-					}
+					]
 				},
 				"168": {
 					"name": "Purified",
 					"proto": "IVYSAUR_PURIFIED",
-					"evolutions": {
-						"3": {
+					"evolutions": [
+						{
+							"pokemon": 3,
 							"form": 171
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 166,
@@ -123,11 +130,12 @@
 				"Solar Beam",
 				"Power Whip"
 			],
-			"evolutions": {
-				"3": {
+			"evolutions": [
+				{
+					"pokemon": 3,
 					"form": 169
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -207,29 +215,32 @@
 				"172": {
 					"name": "Normal",
 					"proto": "CHARMANDER_NORMAL",
-					"evolutions": {
-						"5": {
+					"evolutions": [
+						{
+							"pokemon": 5,
 							"form": 175
 						}
-					}
+					]
 				},
 				"173": {
 					"name": "Shadow",
 					"proto": "CHARMANDER_SHADOW",
-					"evolutions": {
-						"5": {
+					"evolutions": [
+						{
+							"pokemon": 5,
 							"form": 176
 						}
-					}
+					]
 				},
 				"174": {
 					"name": "Purified",
 					"proto": "CHARMANDER_PURIFIED",
-					"evolutions": {
-						"5": {
+					"evolutions": [
+						{
+							"pokemon": 5,
 							"form": 177
 						}
-					}
+					]
 				},
 				"896": {
 					"name": "Fall 2019",
@@ -257,11 +268,12 @@
 				"Flame Burst",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"5": {
+			"evolutions": [
+				{
+					"pokemon": 5,
 					"form": 175
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -276,29 +288,32 @@
 				"175": {
 					"name": "Normal",
 					"proto": "CHARMELEON_NORMAL",
-					"evolutions": {
-						"6": {
+					"evolutions": [
+						{
+							"pokemon": 6,
 							"form": 178
 						}
-					}
+					]
 				},
 				"176": {
 					"name": "Shadow",
 					"proto": "CHARMELEON_SHADOW",
-					"evolutions": {
-						"6": {
+					"evolutions": [
+						{
+							"pokemon": 6,
 							"form": 179
 						}
-					}
+					]
 				},
 				"177": {
 					"name": "Purified",
 					"proto": "CHARMELEON_PURIFIED",
-					"evolutions": {
-						"6": {
+					"evolutions": [
+						{
+							"pokemon": 6,
 							"form": 180
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 175,
@@ -322,11 +337,12 @@
 				"Flame Burst",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"6": {
+			"evolutions": [
+				{
+					"pokemon": 6,
 					"form": 178
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -417,29 +433,32 @@
 				"181": {
 					"name": "Normal",
 					"proto": "SQUIRTLE_NORMAL",
-					"evolutions": {
-						"8": {
+					"evolutions": [
+						{
+							"pokemon": 8,
 							"form": 184
 						}
-					}
+					]
 				},
 				"182": {
 					"name": "Shadow",
 					"proto": "SQUIRTLE_SHADOW",
-					"evolutions": {
-						"8": {
+					"evolutions": [
+						{
+							"pokemon": 8,
 							"form": 185
 						}
-					}
+					]
 				},
 				"183": {
 					"name": "Purified",
 					"proto": "SQUIRTLE_PURIFIED",
-					"evolutions": {
-						"8": {
+					"evolutions": [
+						{
+							"pokemon": 8,
 							"form": 186
 						}
-					}
+					]
 				},
 				"895": {
 					"name": "Fall 2019",
@@ -467,11 +486,12 @@
 				"Aqua Tail",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"8": {
+			"evolutions": [
+				{
+					"pokemon": 8,
 					"form": 184
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -486,29 +506,32 @@
 				"184": {
 					"name": "Normal",
 					"proto": "WARTORTLE_NORMAL",
-					"evolutions": {
-						"9": {
+					"evolutions": [
+						{
+							"pokemon": 9,
 							"form": 187
 						}
-					}
+					]
 				},
 				"185": {
 					"name": "Shadow",
 					"proto": "WARTORTLE_SHADOW",
-					"evolutions": {
-						"9": {
+					"evolutions": [
+						{
+							"pokemon": 9,
 							"form": 188
 						}
-					}
+					]
 				},
 				"186": {
 					"name": "Purified",
 					"proto": "WARTORTLE_PURIFIED",
-					"evolutions": {
-						"9": {
+					"evolutions": [
+						{
+							"pokemon": 9,
 							"form": 189
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 184,
@@ -532,11 +555,12 @@
 				"Ice Beam",
 				"Hydro Pump"
 			],
-			"evolutions": {
-				"9": {
+			"evolutions": [
+				{
+					"pokemon": 9,
 					"form": 187
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -644,9 +668,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"11": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 11
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -690,9 +716,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"12": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 12
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -753,29 +781,32 @@
 				"616": {
 					"name": "Normal",
 					"proto": "WEEDLE_NORMAL",
-					"evolutions": {
-						"14": {
+					"evolutions": [
+						{
+							"pokemon": 14,
 							"form": 619
 						}
-					}
+					]
 				},
 				"617": {
 					"name": "Shadow",
 					"proto": "WEEDLE_SHADOW",
-					"evolutions": {
-						"14": {
+					"evolutions": [
+						{
+							"pokemon": 14,
 							"form": 620
 						}
-					}
+					]
 				},
 				"618": {
 					"name": "Purified",
 					"proto": "WEEDLE_PURIFIED",
-					"evolutions": {
-						"14": {
+					"evolutions": [
+						{
+							"pokemon": 14,
 							"form": 621
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 616,
@@ -798,11 +829,12 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"14": {
+			"evolutions": [
+				{
+					"pokemon": 14,
 					"form": 619
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -817,29 +849,32 @@
 				"619": {
 					"name": "Normal",
 					"proto": "KAKUNA_NORMAL",
-					"evolutions": {
-						"15": {
+					"evolutions": [
+						{
+							"pokemon": 15,
 							"form": 622
 						}
-					}
+					]
 				},
 				"620": {
 					"name": "Shadow",
 					"proto": "KAKUNA_SHADOW",
-					"evolutions": {
-						"15": {
+					"evolutions": [
+						{
+							"pokemon": 15,
 							"form": 623
 						}
-					}
+					]
 				},
 				"621": {
 					"name": "Purified",
 					"proto": "KAKUNA_PURIFIED",
-					"evolutions": {
-						"15": {
+					"evolutions": [
+						{
+							"pokemon": 15,
 							"form": 624
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 619,
@@ -862,11 +897,12 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"15": {
+			"evolutions": [
+				{
+					"pokemon": 15,
 					"form": 622
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -975,9 +1011,11 @@
 				"Aerial Ace",
 				"Air Cutter"
 			],
-			"evolutions": {
-				"17": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 17
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -1024,9 +1062,11 @@
 				"Aerial Ace",
 				"Air Cutter"
 			],
-			"evolutions": {
-				"18": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 18
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -1096,20 +1136,22 @@
 				"45": {
 					"name": "Normal",
 					"proto": "RATTATA_NORMAL",
-					"evolutions": {
-						"20": {
+					"evolutions": [
+						{
+							"pokemon": 20,
 							"form": 47
 						}
-					}
+					]
 				},
 				"46": {
 					"name": "Alola",
 					"proto": "RATTATA_ALOLA",
-					"evolutions": {
-						"20": {
+					"evolutions": [
+						{
+							"pokemon": 20,
 							"form": 48
 						}
-					},
+					],
 					"height": 0.3,
 					"weight": 3.8,
 					"charged_moves": [
@@ -1125,20 +1167,22 @@
 				"153": {
 					"name": "Shadow",
 					"proto": "RATTATA_SHADOW",
-					"evolutions": {
-						"20": {
+					"evolutions": [
+						{
+							"pokemon": 20,
 							"form": 155
 						}
-					}
+					]
 				},
 				"154": {
 					"name": "Purified",
 					"proto": "RATTATA_PURIFIED",
-					"evolutions": {
-						"20": {
+					"evolutions": [
+						{
+							"pokemon": 20,
 							"form": 156
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 45,
@@ -1162,11 +1206,12 @@
 				"Hyper Fang",
 				"Body Slam"
 			],
-			"evolutions": {
-				"20": {
+			"evolutions": [
+				{
+					"pokemon": 20,
 					"form": 47
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -1280,9 +1325,11 @@
 				"Drill Peck",
 				"Sky Attack"
 			],
-			"evolutions": {
-				"22": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 22
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -1343,29 +1390,32 @@
 				"697": {
 					"name": "Normal",
 					"proto": "EKANS_NORMAL",
-					"evolutions": {
-						"24": {
+					"evolutions": [
+						{
+							"pokemon": 24,
 							"form": 700
 						}
-					}
+					]
 				},
 				"698": {
 					"name": "Shadow",
 					"proto": "EKANS_SHADOW",
-					"evolutions": {
-						"24": {
+					"evolutions": [
+						{
+							"pokemon": 24,
 							"form": 701
 						}
-					}
+					]
 				},
 				"699": {
 					"name": "Purified",
 					"proto": "EKANS_PURIFIED",
-					"evolutions": {
-						"24": {
+					"evolutions": [
+						{
+							"pokemon": 24,
 							"form": 702
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 697,
@@ -1389,11 +1439,12 @@
 				"Poison Fang",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"24": {
+			"evolutions": [
+				{
+					"pokemon": 24,
 					"form": 700
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -1455,9 +1506,11 @@
 				"598": {
 					"name": "Normal",
 					"proto": "PIKACHU_NORMAL",
-					"evolutions": {
-						"26": {}
-					}
+					"evolutions": [
+						{
+							"pokemon": 26
+						}
+					]
 				},
 				"894": {
 					"name": "Fall 2019",
@@ -1528,9 +1581,11 @@
 				"Thunderbolt",
 				"Wild Charge"
 			],
-			"evolutions": {
-				"26": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 26
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -1617,20 +1672,22 @@
 				"51": {
 					"name": "Normal",
 					"proto": "SANDSHREW_NORMAL",
-					"evolutions": {
-						"28": {
+					"evolutions": [
+						{
+							"pokemon": 28,
 							"form": 53
 						}
-					}
+					]
 				},
 				"52": {
 					"name": "Alola",
 					"proto": "SANDSHREW_ALOLA",
-					"evolutions": {
-						"28": {
+					"evolutions": [
+						{
+							"pokemon": 28,
 							"form": 54
 						}
-					},
+					],
 					"attack": 125,
 					"defense": 129,
 					"stamina": 137,
@@ -1653,20 +1710,22 @@
 				"673": {
 					"name": "Shadow",
 					"proto": "SANDSHREW_SHADOW",
-					"evolutions": {
-						"28": {
+					"evolutions": [
+						{
+							"pokemon": 28,
 							"form": 675
 						}
-					}
+					]
 				},
 				"674": {
 					"name": "Purified",
 					"proto": "SANDSHREW_PURIFIED",
-					"evolutions": {
-						"28": {
+					"evolutions": [
+						{
+							"pokemon": 28,
 							"form": 676
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 51,
@@ -1690,11 +1749,12 @@
 				"Rock Slide",
 				"Sand Tomb"
 			],
-			"evolutions": {
-				"28": {
+			"evolutions": [
+				{
+					"pokemon": 28,
 					"form": 53
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -1777,29 +1837,32 @@
 				"776": {
 					"name": "Normal",
 					"proto": "NIDORAN_NORMAL",
-					"evolutions": {
-						"30": {
+					"evolutions": [
+						{
+							"pokemon": 30,
 							"form": 779
 						}
-					}
+					]
 				},
 				"777": {
 					"name": "Shadow",
 					"proto": "NIDORAN_SHADOW",
-					"evolutions": {
-						"30": {
+					"evolutions": [
+						{
+							"pokemon": 30,
 							"form": 780
 						}
-					}
+					]
 				},
 				"778": {
 					"name": "Purified",
 					"proto": "NIDORAN_PURIFIED",
-					"evolutions": {
-						"30": {
+					"evolutions": [
+						{
+							"pokemon": 30,
 							"form": 781
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 776,
@@ -1823,11 +1886,12 @@
 				"Body Slam",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"30": {
+			"evolutions": [
+				{
+					"pokemon": 30,
 					"form": 779
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -1842,29 +1906,32 @@
 				"779": {
 					"name": "Normal",
 					"proto": "NIDORINA_NORMAL",
-					"evolutions": {
-						"31": {
+					"evolutions": [
+						{
+							"pokemon": 31,
 							"form": 782
 						}
-					}
+					]
 				},
 				"780": {
 					"name": "Shadow",
 					"proto": "NIDORINA_SHADOW",
-					"evolutions": {
-						"31": {
+					"evolutions": [
+						{
+							"pokemon": 31,
 							"form": 783
 						}
-					}
+					]
 				},
 				"781": {
 					"name": "Purified",
 					"proto": "NIDORINA_PURIFIED",
-					"evolutions": {
-						"31": {
+					"evolutions": [
+						{
+							"pokemon": 31,
 							"form": 784
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 779,
@@ -1888,11 +1955,12 @@
 				"Dig",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"31": {
+			"evolutions": [
+				{
+					"pokemon": 31,
 					"form": 782
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -1954,29 +2022,32 @@
 				"776": {
 					"name": "Normal",
 					"proto": "NIDORAN_NORMAL",
-					"evolutions": {
-						"33": {
+					"evolutions": [
+						{
+							"pokemon": 33,
 							"form": 785
 						}
-					}
+					]
 				},
 				"777": {
 					"name": "Shadow",
 					"proto": "NIDORAN_SHADOW",
-					"evolutions": {
-						"33": {
+					"evolutions": [
+						{
+							"pokemon": 33,
 							"form": 786
 						}
-					}
+					]
 				},
 				"778": {
 					"name": "Purified",
 					"proto": "NIDORAN_PURIFIED",
-					"evolutions": {
-						"33": {
+					"evolutions": [
+						{
+							"pokemon": 33,
 							"form": 787
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 776,
@@ -2000,11 +2071,12 @@
 				"Body Slam",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"33": {
+			"evolutions": [
+				{
+					"pokemon": 33,
 					"form": 785
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2019,29 +2091,32 @@
 				"785": {
 					"name": "Normal",
 					"proto": "NIDORINO_NORMAL",
-					"evolutions": {
-						"34": {
+					"evolutions": [
+						{
+							"pokemon": 34,
 							"form": 788
 						}
-					}
+					]
 				},
 				"786": {
 					"name": "Shadow",
 					"proto": "NIDORINO_SHADOW",
-					"evolutions": {
-						"34": {
+					"evolutions": [
+						{
+							"pokemon": 34,
 							"form": 789
 						}
-					}
+					]
 				},
 				"787": {
 					"name": "Purified",
 					"proto": "NIDORINO_PURIFIED",
-					"evolutions": {
-						"34": {
+					"evolutions": [
+						{
+							"pokemon": 34,
 							"form": 790
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 785,
@@ -2065,11 +2140,12 @@
 				"Dig",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"34": {
+			"evolutions": [
+				{
+					"pokemon": 34,
 					"form": 788
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2162,9 +2238,11 @@
 				"Body Slam",
 				"Moonblast"
 			],
-			"evolutions": {
-				"36": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 36
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2226,20 +2304,22 @@
 				"55": {
 					"name": "Normal",
 					"proto": "VULPIX_NORMAL",
-					"evolutions": {
-						"38": {
+					"evolutions": [
+						{
+							"pokemon": 38,
 							"form": 57
 						}
-					}
+					]
 				},
 				"56": {
 					"name": "Alola",
 					"proto": "VULPIX_ALOLA",
-					"evolutions": {
-						"38": {
+					"evolutions": [
+						{
+							"pokemon": 38,
 							"form": 58
 						}
-					},
+					],
 					"quick_moves": [
 						"Zen Headbutt",
 						"Powder Snow"
@@ -2256,20 +2336,22 @@
 				"725": {
 					"name": "Shadow",
 					"proto": "VULPIX_SHADOW",
-					"evolutions": {
-						"38": {
+					"evolutions": [
+						{
+							"pokemon": 38,
 							"form": 727
 						}
-					}
+					]
 				},
 				"726": {
 					"name": "Purified",
 					"proto": "VULPIX_PURIFIED",
-					"evolutions": {
-						"38": {
+					"evolutions": [
+						{
+							"pokemon": 38,
 							"form": 728
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 55,
@@ -2293,11 +2375,12 @@
 				"Flamethrower",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"38": {
+			"evolutions": [
+				{
+					"pokemon": 38,
 					"form": 57
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2412,9 +2495,11 @@
 				"Gyro Ball",
 				"Dazzling Gleam"
 			],
-			"evolutions": {
-				"40": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 40
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2477,29 +2562,32 @@
 				"157": {
 					"name": "Normal",
 					"proto": "ZUBAT_NORMAL",
-					"evolutions": {
-						"42": {
+					"evolutions": [
+						{
+							"pokemon": 42,
 							"form": 160
 						}
-					}
+					]
 				},
 				"158": {
 					"name": "Shadow",
 					"proto": "ZUBAT_SHADOW",
-					"evolutions": {
-						"42": {
+					"evolutions": [
+						{
+							"pokemon": 42,
 							"form": 161
 						}
-					}
+					]
 				},
 				"159": {
 					"name": "Purified",
 					"proto": "ZUBAT_PURIFIED",
-					"evolutions": {
-						"42": {
+					"evolutions": [
+						{
+							"pokemon": 42,
 							"form": 162
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 157,
@@ -2524,11 +2612,12 @@
 				"Air Cutter",
 				"Swift"
 			],
-			"evolutions": {
-				"42": {
+			"evolutions": [
+				{
+					"pokemon": 42,
 					"form": 160
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -2543,29 +2632,32 @@
 				"160": {
 					"name": "Normal",
 					"proto": "GOLBAT_NORMAL",
-					"evolutions": {
-						"169": {
+					"evolutions": [
+						{
+							"pokemon": 169,
 							"form": 202
 						}
-					}
+					]
 				},
 				"161": {
 					"name": "Shadow",
 					"proto": "GOLBAT_SHADOW",
-					"evolutions": {
-						"169": {
+					"evolutions": [
+						{
+							"pokemon": 169,
 							"form": 203
 						}
-					}
+					]
 				},
 				"162": {
 					"name": "Purified",
 					"proto": "GOLBAT_PURIFIED",
-					"evolutions": {
-						"169": {
+					"evolutions": [
+						{
+							"pokemon": 169,
 							"form": 204
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 160,
@@ -2590,11 +2682,12 @@
 				"Air Cutter",
 				"Poison Fang"
 			],
-			"evolutions": {
-				"169": {
+			"evolutions": [
+				{
+					"pokemon": 169,
 					"form": 202
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -2609,29 +2702,32 @@
 				"265": {
 					"name": "Normal",
 					"proto": "ODDISH_NORMAL",
-					"evolutions": {
-						"44": {
+					"evolutions": [
+						{
+							"pokemon": 44,
 							"form": 268
 						}
-					}
+					]
 				},
 				"266": {
 					"name": "Shadow",
 					"proto": "ODDISH_SHADOW",
-					"evolutions": {
-						"44": {
+					"evolutions": [
+						{
+							"pokemon": 44,
 							"form": 269
 						}
-					}
+					]
 				},
 				"267": {
 					"name": "Purified",
 					"proto": "ODDISH_PURIFIED",
-					"evolutions": {
-						"44": {
+					"evolutions": [
+						{
+							"pokemon": 44,
 							"form": 270
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 265,
@@ -2656,11 +2752,12 @@
 				"Sludge Bomb",
 				"Moonblast"
 			],
-			"evolutions": {
-				"44": {
+			"evolutions": [
+				{
+					"pokemon": 44,
 					"form": 268
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2675,38 +2772,44 @@
 				"268": {
 					"name": "Normal",
 					"proto": "GLOOM_NORMAL",
-					"evolutions": {
-						"45": {
+					"evolutions": [
+						{
+							"pokemon": 45,
 							"form": 271
 						},
-						"182": {
+						{
+							"pokemon": 182,
 							"form": 274
 						}
-					}
+					]
 				},
 				"269": {
 					"name": "Shadow",
 					"proto": "GLOOM_SHADOW",
-					"evolutions": {
-						"45": {
+					"evolutions": [
+						{
+							"pokemon": 45,
 							"form": 272
 						},
-						"182": {
+						{
+							"pokemon": 182,
 							"form": 275
 						}
-					}
+					]
 				},
 				"270": {
 					"name": "Purified",
 					"proto": "GLOOM_PURIFIED",
-					"evolutions": {
-						"45": {
+					"evolutions": [
+						{
+							"pokemon": 45,
 							"form": 273
 						},
-						"182": {
+						{
+							"pokemon": 182,
 							"form": 276
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 268,
@@ -2731,14 +2834,16 @@
 				"Sludge Bomb",
 				"Moonblast"
 			],
-			"evolutions": {
-				"45": {
+			"evolutions": [
+				{
+					"pokemon": 45,
 					"form": 271
 				},
-				"182": {
+				{
+					"pokemon": 182,
 					"form": 274
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2832,9 +2937,11 @@
 				"X Scissor",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"47": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 47
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -2895,29 +3002,32 @@
 				"259": {
 					"name": "Normal",
 					"proto": "VENONAT_NORMAL",
-					"evolutions": {
-						"49": {
+					"evolutions": [
+						{
+							"pokemon": 49,
 							"form": 262
 						}
-					}
+					]
 				},
 				"260": {
 					"name": "Shadow",
 					"proto": "VENONAT_SHADOW",
-					"evolutions": {
-						"49": {
+					"evolutions": [
+						{
+							"pokemon": 49,
 							"form": 263
 						}
-					}
+					]
 				},
 				"261": {
 					"name": "Purified",
 					"proto": "VENONAT_PURIFIED",
-					"evolutions": {
-						"49": {
+					"evolutions": [
+						{
+							"pokemon": 49,
 							"form": 264
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 259,
@@ -2942,11 +3052,12 @@
 				"Psybeam",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"49": {
+			"evolutions": [
+				{
+					"pokemon": 49,
 					"form": 262
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3008,20 +3119,22 @@
 				"59": {
 					"name": "Normal",
 					"proto": "DIGLETT_NORMAL",
-					"evolutions": {
-						"51": {
+					"evolutions": [
+						{
+							"pokemon": 51,
 							"form": 61
 						}
-					}
+					]
 				},
 				"60": {
 					"name": "Alola",
 					"proto": "DIGLETT_ALOLA",
-					"evolutions": {
-						"51": {
+					"evolutions": [
+						{
+							"pokemon": 51,
 							"form": 62
 						}
-					},
+					],
 					"attack": 108,
 					"defense": 81,
 					"stamina": 67,
@@ -3039,20 +3152,22 @@
 				"842": {
 					"name": "Shadow",
 					"proto": "DIGLETT_SHADOW",
-					"evolutions": {
-						"51": {
+					"evolutions": [
+						{
+							"pokemon": 51,
 							"form": 844
 						}
-					}
+					]
 				},
 				"843": {
 					"name": "Purified",
 					"proto": "DIGLETT_PURIFIED",
-					"evolutions": {
-						"51": {
+					"evolutions": [
+						{
+							"pokemon": 51,
 							"form": 845
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 59,
@@ -3076,11 +3191,12 @@
 				"Mud Bomb",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"51": {
+			"evolutions": [
+				{
+					"pokemon": 51,
 					"form": 61
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3165,20 +3281,22 @@
 				"63": {
 					"name": "Normal",
 					"proto": "MEOWTH_NORMAL",
-					"evolutions": {
-						"53": {
+					"evolutions": [
+						{
+							"pokemon": 53,
 							"form": 65
 						}
-					}
+					]
 				},
 				"64": {
 					"name": "Alola",
 					"proto": "MEOWTH_ALOLA",
-					"evolutions": {
-						"53": {
+					"evolutions": [
+						{
+							"pokemon": 53,
 							"form": 66
 						}
-					},
+					],
 					"attack": 99,
 					"defense": 78,
 					"stamina": 120,
@@ -3189,29 +3307,32 @@
 				"709": {
 					"name": "Shadow",
 					"proto": "MEOWTH_SHADOW",
-					"evolutions": {
-						"53": {
+					"evolutions": [
+						{
+							"pokemon": 53,
 							"form": 711
 						}
-					}
+					]
 				},
 				"710": {
 					"name": "Purified",
 					"proto": "MEOWTH_PURIFIED",
-					"evolutions": {
-						"53": {
+					"evolutions": [
+						{
+							"pokemon": 53,
 							"form": 712
 						}
-					}
+					]
 				},
 				"2335": {
 					"name": "Galarian",
 					"proto": "MEOWTH_GALARIAN",
-					"evolutions": {
-						"863": {
+					"evolutions": [
+						{
+							"pokemon": 863,
 							"form": 2504
 						}
-					},
+					],
 					"attack": 115,
 					"defense": 92,
 					"stamina": 137,
@@ -3252,11 +3373,12 @@
 				"Dark Pulse",
 				"Foul Play"
 			],
-			"evolutions": {
-				"53": {
+			"evolutions": [
+				{
+					"pokemon": 53,
 					"form": 65
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3333,29 +3455,32 @@
 				"286": {
 					"name": "Normal",
 					"proto": "PSYDUCK_NORMAL",
-					"evolutions": {
-						"55": {
+					"evolutions": [
+						{
+							"pokemon": 55,
 							"form": 289
 						}
-					}
+					]
 				},
 				"287": {
 					"name": "Shadow",
 					"proto": "PSYDUCK_SHADOW",
-					"evolutions": {
-						"55": {
+					"evolutions": [
+						{
+							"pokemon": 55,
 							"form": 290
 						}
-					}
+					]
 				},
 				"288": {
 					"name": "Purified",
 					"proto": "PSYDUCK_PURIFIED",
-					"evolutions": {
-						"55": {
+					"evolutions": [
+						{
+							"pokemon": 55,
 							"form": 291
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 286,
@@ -3379,11 +3504,12 @@
 				"Aqua Tail",
 				"Cross Chop"
 			],
-			"evolutions": {
-				"55": {
+			"evolutions": [
+				{
+					"pokemon": 55,
 					"form": 289
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3477,9 +3603,11 @@
 				"Low Sweep",
 				"Brick Break"
 			],
-			"evolutions": {
-				"57": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 57
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3539,29 +3667,32 @@
 				"280": {
 					"name": "Normal",
 					"proto": "GROWLITHE_NORMAL",
-					"evolutions": {
-						"59": {
+					"evolutions": [
+						{
+							"pokemon": 59,
 							"form": 283
 						}
-					}
+					]
 				},
 				"281": {
 					"name": "Shadow",
 					"proto": "GROWLITHE_SHADOW",
-					"evolutions": {
-						"59": {
+					"evolutions": [
+						{
+							"pokemon": 59,
 							"form": 284
 						}
-					}
+					]
 				},
 				"282": {
 					"name": "Purified",
 					"proto": "GROWLITHE_PURIFIED",
-					"evolutions": {
-						"59": {
+					"evolutions": [
+						{
+							"pokemon": 59,
 							"form": 285
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 280,
@@ -3585,11 +3716,12 @@
 				"Body Slam",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"59": {
+			"evolutions": [
+				{
+					"pokemon": 59,
 					"form": 283
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3651,29 +3783,32 @@
 				"235": {
 					"name": "Normal",
 					"proto": "POLIWAG_NORMAL",
-					"evolutions": {
-						"61": {
+					"evolutions": [
+						{
+							"pokemon": 61,
 							"form": 238
 						}
-					}
+					]
 				},
 				"236": {
 					"name": "Shadow",
 					"proto": "POLIWAG_SHADOW",
-					"evolutions": {
-						"61": {
+					"evolutions": [
+						{
+							"pokemon": 61,
 							"form": 239
 						}
-					}
+					]
 				},
 				"237": {
 					"name": "Purified",
 					"proto": "POLIWAG_PURIFIED",
-					"evolutions": {
-						"61": {
+					"evolutions": [
+						{
+							"pokemon": 61,
 							"form": 240
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 235,
@@ -3697,11 +3832,12 @@
 				"Mud Bomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"61": {
+			"evolutions": [
+				{
+					"pokemon": 61,
 					"form": 238
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3716,38 +3852,44 @@
 				"238": {
 					"name": "Normal",
 					"proto": "POLIWHIRL_NORMAL",
-					"evolutions": {
-						"62": {
+					"evolutions": [
+						{
+							"pokemon": 62,
 							"form": 241
 						},
-						"186": {
+						{
+							"pokemon": 186,
 							"form": 244
 						}
-					}
+					]
 				},
 				"239": {
 					"name": "Shadow",
 					"proto": "POLIWHIRL_SHADOW",
-					"evolutions": {
-						"62": {
+					"evolutions": [
+						{
+							"pokemon": 62,
 							"form": 242
 						},
-						"186": {
+						{
+							"pokemon": 186,
 							"form": 245
 						}
-					}
+					]
 				},
 				"240": {
 					"name": "Purified",
 					"proto": "POLIWHIRL_PURIFIED",
-					"evolutions": {
-						"62": {
+					"evolutions": [
+						{
+							"pokemon": 62,
 							"form": 243
 						},
-						"186": {
+						{
+							"pokemon": 186,
 							"form": 246
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 238,
@@ -3771,14 +3913,16 @@
 				"Mud Bomb",
 				"Bubble Beam"
 			],
-			"evolutions": {
-				"62": {
+			"evolutions": [
+				{
+					"pokemon": 62,
 					"form": 241
 				},
-				"186": {
+				{
+					"pokemon": 186,
 					"form": 244
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -3841,29 +3985,32 @@
 				"304": {
 					"name": "Normal",
 					"proto": "ABRA_NORMAL",
-					"evolutions": {
-						"64": {
+					"evolutions": [
+						{
+							"pokemon": 64,
 							"form": 307
 						}
-					}
+					]
 				},
 				"305": {
 					"name": "Shadow",
 					"proto": "ABRA_SHADOW",
-					"evolutions": {
-						"64": {
+					"evolutions": [
+						{
+							"pokemon": 64,
 							"form": 308
 						}
-					}
+					]
 				},
 				"306": {
 					"name": "Purified",
 					"proto": "ABRA_PURIFIED",
-					"evolutions": {
-						"64": {
+					"evolutions": [
+						{
+							"pokemon": 64,
 							"form": 309
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 304,
@@ -3887,11 +4034,12 @@
 				"Signal Beam",
 				"Shadow Ball"
 			],
-			"evolutions": {
-				"64": {
+			"evolutions": [
+				{
+					"pokemon": 64,
 					"form": 307
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -3906,29 +4054,32 @@
 				"307": {
 					"name": "Normal",
 					"proto": "KADABRA_NORMAL",
-					"evolutions": {
-						"65": {
+					"evolutions": [
+						{
+							"pokemon": 65,
 							"form": 310
 						}
-					}
+					]
 				},
 				"308": {
 					"name": "Shadow",
 					"proto": "KADABRA_SHADOW",
-					"evolutions": {
-						"65": {
+					"evolutions": [
+						{
+							"pokemon": 65,
 							"form": 311
 						}
-					}
+					]
 				},
 				"309": {
 					"name": "Purified",
 					"proto": "KADABRA_PURIFIED",
-					"evolutions": {
-						"65": {
+					"evolutions": [
+						{
+							"pokemon": 65,
 							"form": 312
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 307,
@@ -3952,11 +4103,12 @@
 				"Dazzling Gleam",
 				"Shadow Ball"
 			],
-			"evolutions": {
-				"65": {
+			"evolutions": [
+				{
+					"pokemon": 65,
 					"form": 310
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -4031,29 +4183,32 @@
 				"809": {
 					"name": "Normal",
 					"proto": "MACHOP_NORMAL",
-					"evolutions": {
-						"67": {
+					"evolutions": [
+						{
+							"pokemon": 67,
 							"form": 812
 						}
-					}
+					]
 				},
 				"810": {
 					"name": "Shadow",
 					"proto": "MACHOP_SHADOW",
-					"evolutions": {
-						"67": {
+					"evolutions": [
+						{
+							"pokemon": 67,
 							"form": 813
 						}
-					}
+					]
 				},
 				"811": {
 					"name": "Purified",
 					"proto": "MACHOP_PURIFIED",
-					"evolutions": {
-						"67": {
+					"evolutions": [
+						{
+							"pokemon": 67,
 							"form": 814
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 809,
@@ -4077,11 +4232,12 @@
 				"Brick Break",
 				"Cross Chop"
 			],
-			"evolutions": {
-				"67": {
+			"evolutions": [
+				{
+					"pokemon": 67,
 					"form": 812
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4096,29 +4252,32 @@
 				"812": {
 					"name": "Normal",
 					"proto": "MACHOKE_NORMAL",
-					"evolutions": {
-						"68": {
+					"evolutions": [
+						{
+							"pokemon": 68,
 							"form": 815
 						}
-					}
+					]
 				},
 				"813": {
 					"name": "Shadow",
 					"proto": "MACHOKE_SHADOW",
-					"evolutions": {
-						"68": {
+					"evolutions": [
+						{
+							"pokemon": 68,
 							"form": 816
 						}
-					}
+					]
 				},
 				"814": {
 					"name": "Purified",
 					"proto": "MACHOKE_PURIFIED",
-					"evolutions": {
-						"68": {
+					"evolutions": [
+						{
+							"pokemon": 68,
 							"form": 817
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 812,
@@ -4142,11 +4301,12 @@
 				"Brick Break",
 				"Dynamic Punch"
 			],
-			"evolutions": {
-				"68": {
+			"evolutions": [
+				{
+					"pokemon": 68,
 					"form": 815
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -4208,29 +4368,32 @@
 				"664": {
 					"name": "Normal",
 					"proto": "BELLSPROUT_NORMAL",
-					"evolutions": {
-						"70": {
+					"evolutions": [
+						{
+							"pokemon": 70,
 							"form": 667
 						}
-					}
+					]
 				},
 				"665": {
 					"name": "Shadow",
 					"proto": "BELLSPROUT_SHADOW",
-					"evolutions": {
-						"70": {
+					"evolutions": [
+						{
+							"pokemon": 70,
 							"form": 668
 						}
-					}
+					]
 				},
 				"666": {
 					"name": "Purified",
 					"proto": "BELLSPROUT_PURIFIED",
-					"evolutions": {
-						"70": {
+					"evolutions": [
+						{
+							"pokemon": 70,
 							"form": 669
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 664,
@@ -4255,11 +4418,12 @@
 				"Sludge Bomb",
 				"Wrap"
 			],
-			"evolutions": {
-				"70": {
+			"evolutions": [
+				{
+					"pokemon": 70,
 					"form": 667
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4274,29 +4438,32 @@
 				"667": {
 					"name": "Normal",
 					"proto": "WEEPINBELL_NORMAL",
-					"evolutions": {
-						"71": {
+					"evolutions": [
+						{
+							"pokemon": 71,
 							"form": 670
 						}
-					}
+					]
 				},
 				"668": {
 					"name": "Shadow",
 					"proto": "WEEPINBELL_SHADOW",
-					"evolutions": {
-						"71": {
+					"evolutions": [
+						{
+							"pokemon": 71,
 							"form": 671
 						}
-					}
+					]
 				},
 				"669": {
 					"name": "Purified",
 					"proto": "WEEPINBELL_PURIFIED",
-					"evolutions": {
-						"71": {
+					"evolutions": [
+						{
+							"pokemon": 71,
 							"form": 672
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 667,
@@ -4321,11 +4488,12 @@
 				"Sludge Bomb",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"71": {
+			"evolutions": [
+				{
+					"pokemon": 71,
 					"form": 670
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -4420,9 +4588,11 @@
 				"Water Pulse",
 				"Wrap"
 			],
-			"evolutions": {
-				"73": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 73
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4484,20 +4654,22 @@
 				"67": {
 					"name": "Normal",
 					"proto": "GEODUDE_NORMAL",
-					"evolutions": {
-						"75": {
+					"evolutions": [
+						{
+							"pokemon": 75,
 							"form": 69
 						}
-					}
+					]
 				},
 				"68": {
 					"name": "Alola",
 					"proto": "GEODUDE_ALOLA",
-					"evolutions": {
-						"75": {
+					"evolutions": [
+						{
+							"pokemon": 75,
 							"form": 70
 						}
-					},
+					],
 					"height": 0.4,
 					"weight": 20.3,
 					"quick_moves": [
@@ -4517,20 +4689,22 @@
 				"882": {
 					"name": "Shadow",
 					"proto": "GEODUDE_SHADOW",
-					"evolutions": {
-						"75": {
+					"evolutions": [
+						{
+							"pokemon": 75,
 							"form": 884
 						}
-					}
+					]
 				},
 				"883": {
 					"name": "Purified",
 					"proto": "GEODUDE_PURIFIED",
-					"evolutions": {
-						"75": {
+					"evolutions": [
+						{
+							"pokemon": 75,
 							"form": 885
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 67,
@@ -4555,11 +4729,12 @@
 				"Rock Tomb",
 				"Dig"
 			],
-			"evolutions": {
-				"75": {
+			"evolutions": [
+				{
+					"pokemon": 75,
 					"form": 69
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4574,20 +4749,22 @@
 				"69": {
 					"name": "Normal",
 					"proto": "GRAVELER_NORMAL",
-					"evolutions": {
-						"76": {
+					"evolutions": [
+						{
+							"pokemon": 76,
 							"form": 71
 						}
-					}
+					]
 				},
 				"70": {
 					"name": "Alola",
 					"proto": "GRAVELER_ALOLA",
-					"evolutions": {
-						"76": {
+					"evolutions": [
+						{
+							"pokemon": 76,
 							"form": 72
 						}
-					},
+					],
 					"height": 1,
 					"weight": 110,
 					"quick_moves": [
@@ -4607,20 +4784,22 @@
 				"884": {
 					"name": "Shadow",
 					"proto": "GRAVELER_SHADOW",
-					"evolutions": {
-						"76": {
+					"evolutions": [
+						{
+							"pokemon": 76,
 							"form": 886
 						}
-					}
+					]
 				},
 				"885": {
 					"name": "Purified",
 					"proto": "GRAVELER_PURIFIED",
-					"evolutions": {
-						"76": {
+					"evolutions": [
+						{
+							"pokemon": 76,
 							"form": 887
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 69,
@@ -4645,11 +4824,12 @@
 				"Stone Edge",
 				"Rock Blast"
 			],
-			"evolutions": {
-				"76": {
+			"evolutions": [
+				{
+					"pokemon": 76,
 					"form": 71
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -4730,38 +4910,42 @@
 				"1011": {
 					"name": "Normal",
 					"proto": "PONYTA_NORMAL",
-					"evolutions": {
-						"78": {
+					"evolutions": [
+						{
+							"pokemon": 78,
 							"form": 1014
 						}
-					}
+					]
 				},
 				"1012": {
 					"name": "Shadow",
 					"proto": "PONYTA_SHADOW",
-					"evolutions": {
-						"78": {
+					"evolutions": [
+						{
+							"pokemon": 78,
 							"form": 1015
 						}
-					}
+					]
 				},
 				"1013": {
 					"name": "Purified",
 					"proto": "PONYTA_PURIFIED",
-					"evolutions": {
-						"78": {
+					"evolutions": [
+						{
+							"pokemon": 78,
 							"form": 1016
 						}
-					}
+					]
 				},
 				"2336": {
 					"name": "Galarian",
 					"proto": "PONYTA_GALARIAN",
-					"evolutions": {
-						"78": {
+					"evolutions": [
+						{
+							"pokemon": 78,
 							"form": 2337
 						}
-					},
+					],
 					"height": 0.8,
 					"weight": 24,
 					"quick_moves": [
@@ -4799,11 +4983,12 @@
 				"Flame Wheel",
 				"Stomp"
 			],
-			"evolutions": {
-				"78": {
+			"evolutions": [
+				{
+					"pokemon": 78,
 					"form": 1014
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4885,42 +5070,52 @@
 				"1017": {
 					"name": "Normal",
 					"proto": "SLOWPOKE_NORMAL",
-					"evolutions": {
-						"80": {
+					"evolutions": [
+						{
+							"pokemon": 80,
 							"form": 1020
 						},
-						"199": {
+						{
+							"pokemon": 199,
 							"form": 1238
 						}
-					}
+					]
 				},
 				"1018": {
 					"name": "Shadow",
 					"proto": "SLOWPOKE_SHADOW",
-					"evolutions": {
-						"80": {
+					"evolutions": [
+						{
+							"pokemon": 80,
 							"form": 1021
 						},
-						"199": {
+						{
+							"pokemon": 199,
 							"form": 1239
 						}
-					}
+					]
 				},
 				"1019": {
 					"name": "Purified",
 					"proto": "SLOWPOKE_PURIFIED",
-					"evolutions": {
-						"80": {
+					"evolutions": [
+						{
+							"pokemon": 80,
 							"form": 1022
 						},
-						"199": {
+						{
+							"pokemon": 199,
 							"form": 1240
 						}
-					}
+					]
 				},
 				"2582": {
 					"name": "Galarian",
 					"proto": "SLOWPOKE_GALARIAN"
+				},
+				"2673": {
+					"name": "2020",
+					"proto": "SLOWPOKE_2020"
 				}
 			},
 			"default_form_id": 1017,
@@ -4945,14 +5140,19 @@
 				"Psyshock",
 				"Psychic"
 			],
-			"evolutions": {
-				"80": {
+			"evolutions": [
+				{
+					"pokemon": 80,
 					"form": 1020
 				},
-				"199": {
+				{
+					"pokemon": 199,
 					"form": 1238
+				},
+				{
+					"pokemon": 80
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -4985,6 +5185,10 @@
 				"2583": {
 					"name": "Galarian",
 					"proto": "SLOWBRO_GALARIAN"
+				},
+				"2674": {
+					"name": "2021",
+					"proto": "SLOWBRO_2021"
 				}
 			},
 			"default_form_id": 1020,
@@ -5031,29 +5235,32 @@
 				"655": {
 					"name": "Normal",
 					"proto": "MAGNEMITE_NORMAL",
-					"evolutions": {
-						"82": {
+					"evolutions": [
+						{
+							"pokemon": 82,
 							"form": 658
 						}
-					}
+					]
 				},
 				"656": {
 					"name": "Shadow",
 					"proto": "MAGNEMITE_SHADOW",
-					"evolutions": {
-						"82": {
+					"evolutions": [
+						{
+							"pokemon": 82,
 							"form": 659
 						}
-					}
+					]
 				},
 				"657": {
 					"name": "Purified",
 					"proto": "MAGNEMITE_PURIFIED",
-					"evolutions": {
-						"82": {
+					"evolutions": [
+						{
+							"pokemon": 82,
 							"form": 660
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 655,
@@ -5078,11 +5285,12 @@
 				"Magnet Bomb",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"82": {
+			"evolutions": [
+				{
+					"pokemon": 82,
 					"form": 658
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -5097,29 +5305,32 @@
 				"658": {
 					"name": "Normal",
 					"proto": "MAGNETON_NORMAL",
-					"evolutions": {
-						"462": {
+					"evolutions": [
+						{
+							"pokemon": 462,
 							"form": 661
 						}
-					}
+					]
 				},
 				"659": {
 					"name": "Shadow",
 					"proto": "MAGNETON_SHADOW",
-					"evolutions": {
-						"462": {
+					"evolutions": [
+						{
+							"pokemon": 462,
 							"form": 662
 						}
-					}
+					]
 				},
 				"660": {
 					"name": "Purified",
 					"proto": "MAGNETON_PURIFIED",
-					"evolutions": {
-						"462": {
+					"evolutions": [
+						{
+							"pokemon": 462,
 							"form": 663
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 658,
@@ -5146,9 +5357,11 @@
 				"Flash Cannon",
 				"Discharge"
 			],
-			"evolutions": {
-				"462": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 462
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -5175,11 +5388,12 @@
 				"2338": {
 					"name": "Galarian",
 					"proto": "FARFETCHD_GALARIAN",
-					"evolutions": {
-						"865": {
+					"evolutions": [
+						{
+							"pokemon": 865,
 							"form": 2510
 						}
-					},
+					],
 					"attack": 174,
 					"defense": 114,
 					"stamina": 141,
@@ -5267,9 +5481,11 @@
 				"Aerial Ace",
 				"Brave Bird"
 			],
-			"evolutions": {
-				"85": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 85
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -5361,9 +5577,11 @@
 				"Icy Wind",
 				"Aqua Tail"
 			],
-			"evolutions": {
-				"87": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 87
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -5424,20 +5642,22 @@
 				"73": {
 					"name": "Normal",
 					"proto": "GRIMER_NORMAL",
-					"evolutions": {
-						"89": {
+					"evolutions": [
+						{
+							"pokemon": 89,
 							"form": 75
 						}
-					}
+					]
 				},
 				"74": {
 					"name": "Alola",
 					"proto": "GRIMER_ALOLA",
-					"evolutions": {
-						"89": {
+					"evolutions": [
+						{
+							"pokemon": 89,
 							"form": 76
 						}
-					},
+					],
 					"height": 0.7,
 					"weight": 42,
 					"quick_moves": [
@@ -5457,20 +5677,22 @@
 				"220": {
 					"name": "Shadow",
 					"proto": "GRIMER_SHADOW",
-					"evolutions": {
-						"89": {
+					"evolutions": [
+						{
+							"pokemon": 89,
 							"form": 222
 						}
-					}
+					]
 				},
 				"221": {
 					"name": "Purified",
 					"proto": "GRIMER_PURIFIED",
-					"evolutions": {
-						"89": {
+					"evolutions": [
+						{
+							"pokemon": 89,
 							"form": 223
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 73,
@@ -5494,11 +5716,12 @@
 				"Mud Bomb",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"89": {
+			"evolutions": [
+				{
+					"pokemon": 89,
 					"form": 75
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -5581,29 +5804,32 @@
 				"876": {
 					"name": "Normal",
 					"proto": "SHELLDER_NORMAL",
-					"evolutions": {
-						"91": {
+					"evolutions": [
+						{
+							"pokemon": 91,
 							"form": 879
 						}
-					}
+					]
 				},
 				"877": {
 					"name": "Shadow",
 					"proto": "SHELLDER_SHADOW",
-					"evolutions": {
-						"91": {
+					"evolutions": [
+						{
+							"pokemon": 91,
 							"form": 880
 						}
-					}
+					]
 				},
 				"878": {
 					"name": "Purified",
 					"proto": "SHELLDER_PURIFIED",
-					"evolutions": {
-						"91": {
+					"evolutions": [
+						{
+							"pokemon": 91,
 							"form": 881
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 876,
@@ -5627,11 +5853,12 @@
 				"Water Pulse",
 				"Icy Wind"
 			],
-			"evolutions": {
-				"91": {
+			"evolutions": [
+				{
+					"pokemon": 91,
 					"form": 879
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -5725,9 +5952,11 @@
 				"Dark Pulse",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"93": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 93
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -5775,9 +6004,11 @@
 				"Sludge Bomb",
 				"Shadow Ball"
 			],
-			"evolutions": {
-				"94": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 94
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -5857,29 +6088,32 @@
 				"902": {
 					"name": "Normal",
 					"proto": "ONIX_NORMAL",
-					"evolutions": {
-						"208": {
+					"evolutions": [
+						{
+							"pokemon": 208,
 							"form": 905
 						}
-					}
+					]
 				},
 				"903": {
 					"name": "Shadow",
 					"proto": "ONIX_SHADOW",
-					"evolutions": {
-						"208": {
+					"evolutions": [
+						{
+							"pokemon": 208,
 							"form": 906
 						}
-					}
+					]
 				},
 				"904": {
 					"name": "Purified",
 					"proto": "ONIX_PURIFIED",
-					"evolutions": {
-						"208": {
+					"evolutions": [
+						{
+							"pokemon": 208,
 							"form": 907
 						}
-					}
+					]
 				},
 				"2334": {
 					"name": "Costume 2020",
@@ -5908,11 +6142,12 @@
 				"Stone Edge",
 				"Heavy Slam"
 			],
-			"evolutions": {
-				"208": {
+			"evolutions": [
+				{
+					"pokemon": 208,
 					"form": 905
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -5927,29 +6162,32 @@
 				"214": {
 					"name": "Normal",
 					"proto": "DROWZEE_NORMAL",
-					"evolutions": {
-						"97": {
+					"evolutions": [
+						{
+							"pokemon": 97,
 							"form": 217
 						}
-					}
+					]
 				},
 				"215": {
 					"name": "Shadow",
 					"proto": "DROWZEE_SHADOW",
-					"evolutions": {
-						"97": {
+					"evolutions": [
+						{
+							"pokemon": 97,
 							"form": 218
 						}
-					}
+					]
 				},
 				"216": {
 					"name": "Purified",
 					"proto": "DROWZEE_PURIFIED",
-					"evolutions": {
-						"97": {
+					"evolutions": [
+						{
+							"pokemon": 97,
 							"form": 219
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 214,
@@ -5973,11 +6211,12 @@
 				"Psyshock",
 				"Psychic"
 			],
-			"evolutions": {
-				"97": {
+			"evolutions": [
+				{
+					"pokemon": 97,
 					"form": 217
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -6041,29 +6280,32 @@
 				"870": {
 					"name": "Normal",
 					"proto": "KRABBY_NORMAL",
-					"evolutions": {
-						"99": {
+					"evolutions": [
+						{
+							"pokemon": 99,
 							"form": 873
 						}
-					}
+					]
 				},
 				"871": {
 					"name": "Shadow",
 					"proto": "KRABBY_SHADOW",
-					"evolutions": {
-						"99": {
+					"evolutions": [
+						{
+							"pokemon": 99,
 							"form": 874
 						}
-					}
+					]
 				},
 				"872": {
 					"name": "Purified",
 					"proto": "KRABBY_PURIFIED",
-					"evolutions": {
-						"99": {
+					"evolutions": [
+						{
+							"pokemon": 99,
 							"form": 875
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 870,
@@ -6087,11 +6329,12 @@
 				"Bubble Beam",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"99": {
+			"evolutions": [
+				{
+					"pokemon": 99,
 					"form": 873
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -6183,9 +6426,11 @@
 				"Thunderbolt",
 				"Gyro Ball"
 			],
-			"evolutions": {
-				"101": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 101
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -6246,29 +6491,32 @@
 				"729": {
 					"name": "Normal",
 					"proto": "EXEGGCUTE_NORMAL",
-					"evolutions": {
-						"103": {
+					"evolutions": [
+						{
+							"pokemon": 103,
 							"form": 77
 						}
-					}
+					]
 				},
 				"730": {
 					"name": "Shadow",
 					"proto": "EXEGGCUTE_SHADOW",
-					"evolutions": {
-						"103": {
+					"evolutions": [
+						{
+							"pokemon": 103,
 							"form": 732
 						}
-					}
+					]
 				},
 				"731": {
 					"name": "Purified",
 					"proto": "EXEGGCUTE_PURIFIED",
-					"evolutions": {
-						"103": {
+					"evolutions": [
+						{
+							"pokemon": 103,
 							"form": 733
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 729,
@@ -6293,11 +6541,12 @@
 				"Psychic",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"103": {
+			"evolutions": [
+				{
+					"pokemon": 103,
 					"form": 77
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -6381,29 +6630,32 @@
 				"224": {
 					"name": "Normal",
 					"proto": "CUBONE_NORMAL",
-					"evolutions": {
-						"105": {
+					"evolutions": [
+						{
+							"pokemon": 105,
 							"form": 79
 						}
-					}
+					]
 				},
 				"225": {
 					"name": "Shadow",
 					"proto": "CUBONE_SHADOW",
-					"evolutions": {
-						"105": {
+					"evolutions": [
+						{
+							"pokemon": 105,
 							"form": 227
 						}
-					}
+					]
 				},
 				"226": {
 					"name": "Purified",
 					"proto": "CUBONE_PURIFIED",
-					"evolutions": {
-						"105": {
+					"evolutions": [
+						{
+							"pokemon": 105,
 							"form": 228
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 224,
@@ -6427,11 +6679,12 @@
 				"Dig",
 				"Bulldoze"
 			],
-			"evolutions": {
-				"105": {
+			"evolutions": [
+				{
+					"pokemon": 105,
 					"form": 79
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -6635,9 +6888,11 @@
 				"Stomp",
 				"Power Whip"
 			],
-			"evolutions": {
-				"463": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 463
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -6652,29 +6907,32 @@
 				"703": {
 					"name": "Normal",
 					"proto": "KOFFING_NORMAL",
-					"evolutions": {
-						"110": {
+					"evolutions": [
+						{
+							"pokemon": 110,
 							"form": 706
 						}
-					}
+					]
 				},
 				"704": {
 					"name": "Shadow",
 					"proto": "KOFFING_SHADOW",
-					"evolutions": {
-						"110": {
+					"evolutions": [
+						{
+							"pokemon": 110,
 							"form": 707
 						}
-					}
+					]
 				},
 				"705": {
 					"name": "Purified",
 					"proto": "KOFFING_PURIFIED",
-					"evolutions": {
-						"110": {
+					"evolutions": [
+						{
+							"pokemon": 110,
 							"form": 708
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 703,
@@ -6698,11 +6956,12 @@
 				"Sludge Bomb",
 				"Dark Pulse"
 			],
-			"evolutions": {
-				"110": {
+			"evolutions": [
+				{
+					"pokemon": 110,
 					"form": 706
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -6783,29 +7042,32 @@
 				"846": {
 					"name": "Normal",
 					"proto": "RHYHORN_NORMAL",
-					"evolutions": {
-						"112": {
+					"evolutions": [
+						{
+							"pokemon": 112,
 							"form": 849
 						}
-					}
+					]
 				},
 				"847": {
 					"name": "Shadow",
 					"proto": "RHYHORN_SHADOW",
-					"evolutions": {
-						"112": {
+					"evolutions": [
+						{
+							"pokemon": 112,
 							"form": 850
 						}
-					}
+					]
 				},
 				"848": {
 					"name": "Purified",
 					"proto": "RHYHORN_PURIFIED",
-					"evolutions": {
-						"112": {
+					"evolutions": [
+						{
+							"pokemon": 112,
 							"form": 851
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 846,
@@ -6830,11 +7092,12 @@
 				"Horn Attack",
 				"Stomp"
 			],
-			"evolutions": {
-				"112": {
+			"evolutions": [
+				{
+					"pokemon": 112,
 					"form": 849
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -6849,29 +7112,32 @@
 				"849": {
 					"name": "Normal",
 					"proto": "RHYDON_NORMAL",
-					"evolutions": {
-						"464": {
+					"evolutions": [
+						{
+							"pokemon": 464,
 							"form": 852
 						}
-					}
+					]
 				},
 				"850": {
 					"name": "Shadow",
 					"proto": "RHYDON_SHADOW",
-					"evolutions": {
-						"464": {
+					"evolutions": [
+						{
+							"pokemon": 464,
 							"form": 853
 						}
-					}
+					]
 				},
 				"851": {
 					"name": "Purified",
 					"proto": "RHYDON_PURIFIED",
-					"evolutions": {
-						"464": {
+					"evolutions": [
+						{
+							"pokemon": 464,
 							"form": 854
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 849,
@@ -6896,11 +7162,12 @@
 				"Earthquake",
 				"Stone Edge"
 			],
-			"evolutions": {
-				"464": {
+			"evolutions": [
+				{
+					"pokemon": 464,
 					"form": 852
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -6946,9 +7213,11 @@
 				"Hyper Beam",
 				"Dazzling Gleam"
 			],
-			"evolutions": {
-				"242": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 242
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -6994,9 +7263,11 @@
 				"Sludge Bomb",
 				"Solar Beam"
 			],
-			"evolutions": {
-				"465": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 465
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -7102,9 +7373,11 @@
 				"Dragon Pulse",
 				"Flash Cannon"
 			],
-			"evolutions": {
-				"117": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 117
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -7150,9 +7423,11 @@
 				"Dragon Pulse",
 				"Hydro Pump"
 			],
-			"evolutions": {
-				"230": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 230
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -7198,9 +7473,11 @@
 				"Horn Attack",
 				"Aqua Tail"
 			],
-			"evolutions": {
-				"119": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 119
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -7291,9 +7568,11 @@
 				"Bubble Beam",
 				"Power Gem"
 			],
-			"evolutions": {
-				"121": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 121
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -7367,7 +7646,27 @@
 				},
 				"2339": {
 					"name": "Galarian",
-					"proto": "MR_MIME_GALARIAN"
+					"proto": "MR_MIME_GALARIAN",
+					"evolutions": [
+						{
+							"pokemon": 866,
+							"form": 2513
+						}
+					],
+					"attack": 183,
+					"defense": 169,
+					"stamina": 137,
+					"height": 1.4,
+					"weight": 56.8,
+					"charged_moves": [
+						"Psybeam",
+						"Psychic",
+						"Ice Punch"
+					],
+					"types": [
+						"Ice",
+						"Psychic"
+					]
 				}
 			},
 			"default_form_id": 1080,
@@ -7406,29 +7705,32 @@
 				"247": {
 					"name": "Normal",
 					"proto": "SCYTHER_NORMAL",
-					"evolutions": {
-						"212": {
+					"evolutions": [
+						{
+							"pokemon": 212,
 							"form": 250
 						}
-					}
+					]
 				},
 				"248": {
 					"name": "Shadow",
 					"proto": "SCYTHER_SHADOW",
-					"evolutions": {
-						"212": {
+					"evolutions": [
+						{
+							"pokemon": 212,
 							"form": 251
 						}
-					}
+					]
 				},
 				"249": {
 					"name": "Purified",
 					"proto": "SCYTHER_PURIFIED",
-					"evolutions": {
-						"212": {
+					"evolutions": [
+						{
+							"pokemon": 212,
 							"form": 252
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 247,
@@ -7453,11 +7755,12 @@
 				"X Scissor",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"212": {
+			"evolutions": [
+				{
+					"pokemon": 212,
 					"form": 250
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -7519,29 +7822,32 @@
 				"640": {
 					"name": "Normal",
 					"proto": "ELECTABUZZ_NORMAL",
-					"evolutions": {
-						"466": {
+					"evolutions": [
+						{
+							"pokemon": 466,
 							"form": 643
 						}
-					}
+					]
 				},
 				"641": {
 					"name": "Shadow",
 					"proto": "ELECTABUZZ_SHADOW",
-					"evolutions": {
-						"466": {
+					"evolutions": [
+						{
+							"pokemon": 466,
 							"form": 644
 						}
-					}
+					]
 				},
 				"642": {
 					"name": "Purified",
 					"proto": "ELECTABUZZ_PURIFIED",
-					"evolutions": {
-						"466": {
+					"evolutions": [
+						{
+							"pokemon": 466,
 							"form": 645
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 640,
@@ -7565,11 +7871,12 @@
 				"Thunderbolt",
 				"Thunder"
 			],
-			"evolutions": {
-				"466": {
+			"evolutions": [
+				{
+					"pokemon": 466,
 					"form": 643
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -7584,29 +7891,32 @@
 				"634": {
 					"name": "Normal",
 					"proto": "MAGMAR_NORMAL",
-					"evolutions": {
-						"467": {
+					"evolutions": [
+						{
+							"pokemon": 467,
 							"form": 637
 						}
-					}
+					]
 				},
 				"635": {
 					"name": "Shadow",
 					"proto": "MAGMAR_SHADOW",
-					"evolutions": {
-						"467": {
+					"evolutions": [
+						{
+							"pokemon": 467,
 							"form": 638
 						}
-					}
+					]
 				},
 				"636": {
 					"name": "Purified",
 					"proto": "MAGMAR_PURIFIED",
-					"evolutions": {
-						"467": {
+					"evolutions": [
+						{
+							"pokemon": 467,
 							"form": 639
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 634,
@@ -7630,11 +7940,12 @@
 				"Fire Punch",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"467": {
+			"evolutions": [
+				{
+					"pokemon": 467,
 					"form": 637
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -7759,29 +8070,32 @@
 				"253": {
 					"name": "Normal",
 					"proto": "MAGIKARP_NORMAL",
-					"evolutions": {
-						"130": {
+					"evolutions": [
+						{
+							"pokemon": 130,
 							"form": 256
 						}
-					}
+					]
 				},
 				"254": {
 					"name": "Shadow",
 					"proto": "MAGIKARP_SHADOW",
-					"evolutions": {
-						"130": {
+					"evolutions": [
+						{
+							"pokemon": 130,
 							"form": 257
 						}
-					}
+					]
 				},
 				"255": {
 					"name": "Purified",
 					"proto": "MAGIKARP_PURIFIED",
-					"evolutions": {
-						"130": {
+					"evolutions": [
+						{
+							"pokemon": 130,
 							"form": 258
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 253,
@@ -7802,11 +8116,12 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"130": {
+			"evolutions": [
+				{
+					"pokemon": 130,
 					"form": 256
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -8010,15 +8325,29 @@
 				"Dig",
 				"Swift"
 			],
-			"evolutions": {
-				"134": {},
-				"135": {},
-				"136": {},
-				"196": {},
-				"197": {},
-				"470": {},
-				"471": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 134
+				},
+				{
+					"pokemon": 135
+				},
+				{
+					"pokemon": 136
+				},
+				{
+					"pokemon": 196
+				},
+				{
+					"pokemon": 197
+				},
+				{
+					"pokemon": 470
+				},
+				{
+					"pokemon": 471
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -8167,29 +8496,32 @@
 				"677": {
 					"name": "Normal",
 					"proto": "PORYGON_NORMAL",
-					"evolutions": {
-						"233": {
+					"evolutions": [
+						{
+							"pokemon": 233,
 							"form": 680
 						}
-					}
+					]
 				},
 				"678": {
 					"name": "Shadow",
 					"proto": "PORYGON_SHADOW",
-					"evolutions": {
-						"233": {
+					"evolutions": [
+						{
+							"pokemon": 233,
 							"form": 681
 						}
-					}
+					]
 				},
 				"679": {
 					"name": "Purified",
 					"proto": "PORYGON_PURIFIED",
-					"evolutions": {
-						"233": {
+					"evolutions": [
+						{
+							"pokemon": 233,
 							"form": 682
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 677,
@@ -8213,11 +8545,12 @@
 				"Hyper Beam",
 				"Zap Cannon"
 			],
-			"evolutions": {
-				"233": {
+			"evolutions": [
+				{
+					"pokemon": 233,
 					"form": 680
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -8232,29 +8565,32 @@
 				"740": {
 					"name": "Normal",
 					"proto": "OMANYTE_NORMAL",
-					"evolutions": {
-						"139": {
+					"evolutions": [
+						{
+							"pokemon": 139,
 							"form": 743
 						}
-					}
+					]
 				},
 				"741": {
 					"name": "Shadow",
 					"proto": "OMANYTE_SHADOW",
-					"evolutions": {
-						"139": {
+					"evolutions": [
+						{
+							"pokemon": 139,
 							"form": 744
 						}
-					}
+					]
 				},
 				"742": {
 					"name": "Purified",
 					"proto": "OMANYTE_PURIFIED",
-					"evolutions": {
-						"139": {
+					"evolutions": [
+						{
+							"pokemon": 139,
 							"form": 745
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 740,
@@ -8279,11 +8615,12 @@
 				"Bubble Beam",
 				"Rock Blast"
 			],
-			"evolutions": {
-				"139": {
+			"evolutions": [
+				{
+					"pokemon": 139,
 					"form": 743
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -8344,29 +8681,32 @@
 				"1104": {
 					"name": "Normal",
 					"proto": "KABUTO_NORMAL",
-					"evolutions": {
-						"141": {
+					"evolutions": [
+						{
+							"pokemon": 141,
 							"form": 1107
 						}
-					}
+					]
 				},
 				"1105": {
 					"name": "Shadow",
 					"proto": "KABUTO_SHADOW",
-					"evolutions": {
-						"141": {
+					"evolutions": [
+						{
+							"pokemon": 141,
 							"form": 1108
 						}
-					}
+					]
 				},
 				"1106": {
 					"name": "Purified",
 					"proto": "KABUTO_PURIFIED",
-					"evolutions": {
-						"141": {
+					"evolutions": [
+						{
+							"pokemon": 141,
 							"form": 1109
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1104,
@@ -8391,11 +8731,12 @@
 				"Aqua Jet",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"141": {
+			"evolutions": [
+				{
+					"pokemon": 141,
 					"form": 1107
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -8707,29 +9048,32 @@
 				"190": {
 					"name": "Normal",
 					"proto": "DRATINI_NORMAL",
-					"evolutions": {
-						"148": {
+					"evolutions": [
+						{
+							"pokemon": 148,
 							"form": 193
 						}
-					}
+					]
 				},
 				"191": {
 					"name": "Shadow",
 					"proto": "DRATINI_SHADOW",
-					"evolutions": {
-						"148": {
+					"evolutions": [
+						{
+							"pokemon": 148,
 							"form": 194
 						}
-					}
+					]
 				},
 				"192": {
 					"name": "Purified",
 					"proto": "DRATINI_PURIFIED",
-					"evolutions": {
-						"148": {
+					"evolutions": [
+						{
+							"pokemon": 148,
 							"form": 195
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 190,
@@ -8753,11 +9097,12 @@
 				"Twister",
 				"Aqua Tail"
 			],
-			"evolutions": {
-				"148": {
+			"evolutions": [
+				{
+					"pokemon": 148,
 					"form": 193
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -8772,29 +9117,32 @@
 				"193": {
 					"name": "Normal",
 					"proto": "DRAGONAIR_NORMAL",
-					"evolutions": {
-						"149": {
+					"evolutions": [
+						{
+							"pokemon": 149,
 							"form": 196
 						}
-					}
+					]
 				},
 				"194": {
 					"name": "Shadow",
 					"proto": "DRAGONAIR_SHADOW",
-					"evolutions": {
-						"149": {
+					"evolutions": [
+						{
+							"pokemon": 149,
 							"form": 197
 						}
-					}
+					]
 				},
 				"195": {
 					"name": "Purified",
 					"proto": "DRAGONAIR_PURIFIED",
-					"evolutions": {
-						"149": {
+					"evolutions": [
+						{
+							"pokemon": 149,
 							"form": 198
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 193,
@@ -8818,11 +9166,12 @@
 				"Aqua Tail",
 				"Dragon Pulse"
 			],
-			"evolutions": {
-				"149": {
+			"evolutions": [
+				{
+					"pokemon": 149,
 					"form": 196
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -9086,9 +9435,11 @@
 				"Grass Knot",
 				"Body Slam"
 			],
-			"evolutions": {
-				"153": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 153
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9134,9 +9485,11 @@
 				"Grass Knot",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"154": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 154
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9227,9 +9580,11 @@
 				"Swift",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"156": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 156
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9275,9 +9630,11 @@
 				"Dig",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"157": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 157
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9369,9 +9726,11 @@
 				"Aqua Jet",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"159": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 159
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9417,9 +9776,11 @@
 				"Ice Punch",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"160": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 160
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9511,9 +9872,11 @@
 				"Brick Break",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"162": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 162
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9605,9 +9968,11 @@
 				"Sky Attack",
 				"Night Shade"
 			],
-			"evolutions": {
-				"164": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 164
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -9700,9 +10065,11 @@
 				"Swift",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"166": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 166
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 5,
@@ -9795,9 +10162,11 @@
 				"Signal Beam",
 				"Cross Poison"
 			],
-			"evolutions": {
-				"168": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 168
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -9936,9 +10305,11 @@
 				"Thunderbolt",
 				"Bubble Beam"
 			],
-			"evolutions": {
-				"171": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 171
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10029,9 +10400,11 @@
 				"Disarming Voice",
 				"Thunder Punch"
 			],
-			"evolutions": {
-				"25": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 25
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -10076,9 +10449,11 @@
 				"Psyshock",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"35": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 35
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -10124,9 +10499,11 @@
 				"Shadow Ball",
 				"Psychic"
 			],
-			"evolutions": {
-				"39": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 39
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10171,9 +10548,11 @@
 				"Psyshock",
 				"Dazzling Gleam"
 			],
-			"evolutions": {
-				"176": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 176
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -10220,9 +10599,11 @@
 				"Dazzling Gleam",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"468": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 468
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10269,9 +10650,11 @@
 				"Psyshock",
 				"Drill Peck"
 			],
-			"evolutions": {
-				"178": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 178
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -10332,29 +10715,32 @@
 				"646": {
 					"name": "Normal",
 					"proto": "MAREEP_NORMAL",
-					"evolutions": {
-						"180": {
+					"evolutions": [
+						{
+							"pokemon": 180,
 							"form": 649
 						}
-					}
+					]
 				},
 				"647": {
 					"name": "Shadow",
 					"proto": "MAREEP_SHADOW",
-					"evolutions": {
-						"180": {
+					"evolutions": [
+						{
+							"pokemon": 180,
 							"form": 650
 						}
-					}
+					]
 				},
 				"648": {
 					"name": "Purified",
 					"proto": "MAREEP_PURIFIED",
-					"evolutions": {
-						"180": {
+					"evolutions": [
+						{
+							"pokemon": 180,
 							"form": 651
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 646,
@@ -10378,11 +10764,12 @@
 				"Thunderbolt",
 				"Discharge"
 			],
-			"evolutions": {
-				"180": {
+			"evolutions": [
+				{
+					"pokemon": 180,
 					"form": 649
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10397,29 +10784,32 @@
 				"649": {
 					"name": "Normal",
 					"proto": "FLAAFFY_NORMAL",
-					"evolutions": {
-						"181": {
+					"evolutions": [
+						{
+							"pokemon": 181,
 							"form": 652
 						}
-					}
+					]
 				},
 				"650": {
 					"name": "Shadow",
 					"proto": "FLAAFFY_SHADOW",
-					"evolutions": {
-						"181": {
+					"evolutions": [
+						{
+							"pokemon": 181,
 							"form": 653
 						}
-					}
+					]
 				},
 				"651": {
 					"name": "Purified",
 					"proto": "FLAAFFY_PURIFIED",
-					"evolutions": {
-						"181": {
+					"evolutions": [
+						{
+							"pokemon": 181,
 							"form": 654
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 649,
@@ -10443,11 +10833,12 @@
 				"Thunderbolt",
 				"Discharge"
 			],
-			"evolutions": {
-				"181": {
+			"evolutions": [
+				{
+					"pokemon": 181,
 					"form": 652
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10605,9 +10996,11 @@
 				"Aqua Tail",
 				"Body Slam"
 			],
-			"evolutions": {
-				"184": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 184
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -10758,29 +11151,32 @@
 				"1205": {
 					"name": "Normal",
 					"proto": "HOPPIP_NORMAL",
-					"evolutions": {
-						"188": {
+					"evolutions": [
+						{
+							"pokemon": 188,
 							"form": 1208
 						}
-					}
+					]
 				},
 				"1206": {
 					"name": "Shadow",
 					"proto": "HOPPIP_SHADOW",
-					"evolutions": {
-						"188": {
+					"evolutions": [
+						{
+							"pokemon": 188,
 							"form": 1209
 						}
-					}
+					]
 				},
 				"1207": {
 					"name": "Purified",
 					"proto": "HOPPIP_PURIFIED",
-					"evolutions": {
-						"188": {
+					"evolutions": [
+						{
+							"pokemon": 188,
 							"form": 1210
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1205,
@@ -10805,11 +11201,12 @@
 				"Dazzling Gleam",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"188": {
+			"evolutions": [
+				{
+					"pokemon": 188,
 					"form": 1208
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -10824,29 +11221,32 @@
 				"1208": {
 					"name": "Normal",
 					"proto": "SKIPLOOM_NORMAL",
-					"evolutions": {
-						"189": {
+					"evolutions": [
+						{
+							"pokemon": 189,
 							"form": 1211
 						}
-					}
+					]
 				},
 				"1209": {
 					"name": "Shadow",
 					"proto": "SKIPLOOM_SHADOW",
-					"evolutions": {
-						"189": {
+					"evolutions": [
+						{
+							"pokemon": 189,
 							"form": 1212
 						}
-					}
+					]
 				},
 				"1210": {
 					"name": "Purified",
 					"proto": "SKIPLOOM_PURIFIED",
-					"evolutions": {
-						"189": {
+					"evolutions": [
+						{
+							"pokemon": 189,
 							"form": 1213
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1208,
@@ -10871,11 +11271,12 @@
 				"Dazzling Gleam",
 				"Energy Ball"
 			],
-			"evolutions": {
-				"189": {
+			"evolutions": [
+				{
+					"pokemon": 189,
 					"form": 1211
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -10937,29 +11338,32 @@
 				"1214": {
 					"name": "Normal",
 					"proto": "AIPOM_NORMAL",
-					"evolutions": {
-						"424": {
+					"evolutions": [
+						{
+							"pokemon": 424,
 							"form": 1742
 						}
-					}
+					]
 				},
 				"1215": {
 					"name": "Shadow",
 					"proto": "AIPOM_SHADOW",
-					"evolutions": {
-						"424": {
+					"evolutions": [
+						{
+							"pokemon": 424,
 							"form": 1743
 						}
-					}
+					]
 				},
 				"1216": {
 					"name": "Purified",
 					"proto": "AIPOM_PURIFIED",
-					"evolutions": {
-						"424": {
+					"evolutions": [
+						{
+							"pokemon": 424,
 							"form": 1744
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1214,
@@ -10983,11 +11387,12 @@
 				"Swift",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"424": {
+			"evolutions": [
+				{
+					"pokemon": 424,
 					"form": 1742
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -11033,9 +11438,11 @@
 				"Grass Knot",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"192": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 192
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -11127,9 +11534,11 @@
 				"Aerial Ace",
 				"Silver Wind"
 			],
-			"evolutions": {
-				"469": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 469
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -11143,15 +11552,33 @@
 			"forms": {
 				"1226": {
 					"name": "Normal",
-					"proto": "WOOPER_NORMAL"
+					"proto": "WOOPER_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 195,
+							"form": 1229
+						}
+					]
 				},
 				"1227": {
 					"name": "Shadow",
-					"proto": "WOOPER_SHADOW"
+					"proto": "WOOPER_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 195,
+							"form": 1230
+						}
+					]
 				},
 				"1228": {
 					"name": "Purified",
-					"proto": "WOOPER_PURIFIED"
+					"proto": "WOOPER_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 195,
+							"form": 1231
+						}
+					]
 				}
 			},
 			"default_form_id": 1226,
@@ -11176,9 +11603,12 @@
 				"Dig",
 				"Body Slam"
 			],
-			"evolutions": {
-				"195": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 195,
+					"form": 1229
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -11329,29 +11759,32 @@
 				"855": {
 					"name": "Normal",
 					"proto": "MURKROW_NORMAL",
-					"evolutions": {
-						"430": {
+					"evolutions": [
+						{
+							"pokemon": 430,
 							"form": 858
 						}
-					}
+					]
 				},
 				"856": {
 					"name": "Shadow",
 					"proto": "MURKROW_SHADOW",
-					"evolutions": {
-						"430": {
+					"evolutions": [
+						{
+							"pokemon": 430,
 							"form": 859
 						}
-					}
+					]
 				},
 				"857": {
 					"name": "Purified",
 					"proto": "MURKROW_PURIFIED",
-					"evolutions": {
-						"430": {
+					"evolutions": [
+						{
+							"pokemon": 430,
 							"form": 860
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 855,
@@ -11376,11 +11809,12 @@
 				"Foul Play",
 				"Dark Pulse"
 			],
-			"evolutions": {
-				"430": {
+			"evolutions": [
+				{
+					"pokemon": 430,
 					"form": 858
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -11441,29 +11875,32 @@
 				"719": {
 					"name": "Normal",
 					"proto": "MISDREAVUS_NORMAL",
-					"evolutions": {
-						"429": {
+					"evolutions": [
+						{
+							"pokemon": 429,
 							"form": 722
 						}
-					}
+					]
 				},
 				"720": {
 					"name": "Shadow",
 					"proto": "MISDREAVUS_SHADOW",
-					"evolutions": {
-						"429": {
+					"evolutions": [
+						{
+							"pokemon": 429,
 							"form": 723
 						}
-					}
+					]
 				},
 				"721": {
 					"name": "Purified",
 					"proto": "MISDREAVUS_PURIFIED",
-					"evolutions": {
-						"429": {
+					"evolutions": [
+						{
+							"pokemon": 429,
 							"form": 724
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 719,
@@ -11487,9 +11924,11 @@
 				"Dark Pulse",
 				"Ominous Wind"
 			],
-			"evolutions": {
-				"429": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 429
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -11740,29 +12179,32 @@
 				"1244": {
 					"name": "Normal",
 					"proto": "PINECO_NORMAL",
-					"evolutions": {
-						"205": {
+					"evolutions": [
+						{
+							"pokemon": 205,
 							"form": 1247
 						}
-					}
+					]
 				},
 				"1245": {
 					"name": "Shadow",
 					"proto": "PINECO_SHADOW",
-					"evolutions": {
-						"205": {
+					"evolutions": [
+						{
+							"pokemon": 205,
 							"form": 1248
 						}
-					}
+					]
 				},
 				"1246": {
 					"name": "Purified",
 					"proto": "PINECO_PURIFIED",
-					"evolutions": {
-						"205": {
+					"evolutions": [
+						{
+							"pokemon": 205,
 							"form": 1249
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1244,
@@ -11786,11 +12228,12 @@
 				"Rock Tomb",
 				"Sand Tomb"
 			],
-			"evolutions": {
-				"205": {
+			"evolutions": [
+				{
+					"pokemon": 205,
 					"form": 1247
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -11898,29 +12341,32 @@
 				"803": {
 					"name": "Normal",
 					"proto": "GLIGAR_NORMAL",
-					"evolutions": {
-						"472": {
+					"evolutions": [
+						{
+							"pokemon": 472,
 							"form": 806
 						}
-					}
+					]
 				},
 				"804": {
 					"name": "Shadow",
 					"proto": "GLIGAR_SHADOW",
-					"evolutions": {
-						"472": {
+					"evolutions": [
+						{
+							"pokemon": 472,
 							"form": 807
 						}
-					}
+					]
 				},
 				"805": {
 					"name": "Purified",
 					"proto": "GLIGAR_PURIFIED",
-					"evolutions": {
-						"472": {
+					"evolutions": [
+						{
+							"pokemon": 472,
 							"form": 808
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 803,
@@ -11945,11 +12391,12 @@
 				"Aerial Ace",
 				"Night Slash"
 			],
-			"evolutions": {
-				"472": {
+			"evolutions": [
+				{
+					"pokemon": 472,
 					"form": 806
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12056,9 +12503,11 @@
 				"Dazzling Gleam",
 				"Brick Break"
 			],
-			"evolutions": {
-				"210": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 210
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12333,29 +12782,32 @@
 				"797": {
 					"name": "Normal",
 					"proto": "SNEASEL_NORMAL",
-					"evolutions": {
-						"461": {
+					"evolutions": [
+						{
+							"pokemon": 461,
 							"form": 800
 						}
-					}
+					]
 				},
 				"798": {
 					"name": "Shadow",
 					"proto": "SNEASEL_SHADOW",
-					"evolutions": {
-						"461": {
+					"evolutions": [
+						{
+							"pokemon": 461,
 							"form": 801
 						}
-					}
+					]
 				},
 				"799": {
 					"name": "Purified",
 					"proto": "SNEASEL_PURIFIED",
-					"evolutions": {
-						"461": {
+					"evolutions": [
+						{
+							"pokemon": 461,
 							"form": 802
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 797,
@@ -12380,11 +12832,12 @@
 				"Ice Punch",
 				"Foul Play"
 			],
-			"evolutions": {
-				"461": {
+			"evolutions": [
+				{
+					"pokemon": 461,
 					"form": 800
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12399,29 +12852,32 @@
 				"1265": {
 					"name": "Normal",
 					"proto": "TEDDIURSA_NORMAL",
-					"evolutions": {
-						"217": {
+					"evolutions": [
+						{
+							"pokemon": 217,
 							"form": 1268
 						}
-					}
+					]
 				},
 				"1266": {
 					"name": "Shadow",
 					"proto": "TEDDIURSA_SHADOW",
-					"evolutions": {
-						"217": {
+					"evolutions": [
+						{
+							"pokemon": 217,
 							"form": 1269
 						}
-					}
+					]
 				},
 				"1267": {
 					"name": "Purified",
 					"proto": "TEDDIURSA_PURIFIED",
-					"evolutions": {
-						"217": {
+					"evolutions": [
+						{
+							"pokemon": 217,
 							"form": 1270
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 1265,
@@ -12445,11 +12901,12 @@
 				"Crunch",
 				"Play Rough"
 			],
-			"evolutions": {
-				"217": {
+			"evolutions": [
+				{
+					"pokemon": 217,
 					"form": 1268
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12541,9 +12998,11 @@
 				"Flame Charge",
 				"Rock Slide"
 			],
-			"evolutions": {
-				"219": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 219
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12636,9 +13095,11 @@
 				"Body Slam",
 				"Rock Slide"
 			],
-			"evolutions": {
-				"221": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 221
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12685,9 +13146,11 @@
 				"Bulldoze",
 				"Stone Edge"
 			],
-			"evolutions": {
-				"473": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 473
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -12783,9 +13246,11 @@
 				"Water Pulse",
 				"Rock Blast"
 			],
-			"evolutions": {
-				"224": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 224
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -12990,29 +13455,32 @@
 				"229": {
 					"name": "Normal",
 					"proto": "HOUNDOUR_NORMAL",
-					"evolutions": {
-						"229": {
+					"evolutions": [
+						{
+							"pokemon": 229,
 							"form": 232
 						}
-					}
+					]
 				},
 				"230": {
 					"name": "Shadow",
 					"proto": "HOUNDOUR_SHADOW",
-					"evolutions": {
-						"229": {
+					"evolutions": [
+						{
+							"pokemon": 229,
 							"form": 233
 						}
-					}
+					]
 				},
 				"231": {
 					"name": "Purified",
 					"proto": "HOUNDOUR_PURIFIED",
-					"evolutions": {
-						"229": {
+					"evolutions": [
+						{
+							"pokemon": 229,
 							"form": 234
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 229,
@@ -13037,11 +13505,12 @@
 				"Flamethrower",
 				"Dark Pulse"
 			],
-			"evolutions": {
-				"229": {
+			"evolutions": [
+				{
+					"pokemon": 229,
 					"form": 232
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -13196,9 +13665,11 @@
 				"Rock Slide",
 				"Body Slam"
 			],
-			"evolutions": {
-				"232": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 232
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -13260,29 +13731,32 @@
 				"680": {
 					"name": "Normal",
 					"proto": "PORYGON2_NORMAL",
-					"evolutions": {
-						"474": {
+					"evolutions": [
+						{
+							"pokemon": 474,
 							"form": 683
 						}
-					}
+					]
 				},
 				"681": {
 					"name": "Shadow",
 					"proto": "PORYGON2_SHADOW",
-					"evolutions": {
-						"474": {
+					"evolutions": [
+						{
+							"pokemon": 474,
 							"form": 684
 						}
-					}
+					]
 				},
 				"682": {
 					"name": "Purified",
 					"proto": "PORYGON2_PURIFIED",
-					"evolutions": {
-						"474": {
+					"evolutions": [
+						{
+							"pokemon": 474,
 							"form": 685
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 680,
@@ -13307,11 +13781,12 @@
 				"Hyper Beam",
 				"Zap Cannon"
 			],
-			"evolutions": {
-				"474": {
+			"evolutions": [
+				{
+					"pokemon": 474,
 					"form": 683
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -13438,11 +13913,17 @@
 				"Rock Slide",
 				"Low Sweep"
 			],
-			"evolutions": {
-				"106": {},
-				"107": {},
-				"237": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 106
+				},
+				{
+					"pokemon": 107
+				},
+				{
+					"pokemon": 237
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -13534,9 +14015,11 @@
 				"Ice Punch",
 				"Psyshock"
 			],
-			"evolutions": {
-				"124": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 124
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -13581,9 +14064,11 @@
 				"Brick Break",
 				"Discharge"
 			],
-			"evolutions": {
-				"125": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 125
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -13628,9 +14113,11 @@
 				"Fire Punch",
 				"Flame Burst"
 			],
-			"evolutions": {
-				"126": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 126
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -13874,29 +14361,32 @@
 				"313": {
 					"name": "Normal",
 					"proto": "LARVITAR_NORMAL",
-					"evolutions": {
-						"247": {
+					"evolutions": [
+						{
+							"pokemon": 247,
 							"form": 316
 						}
-					}
+					]
 				},
 				"314": {
 					"name": "Shadow",
 					"proto": "LARVITAR_SHADOW",
-					"evolutions": {
-						"247": {
+					"evolutions": [
+						{
+							"pokemon": 247,
 							"form": 317
 						}
-					}
+					]
 				},
 				"315": {
 					"name": "Purified",
 					"proto": "LARVITAR_PURIFIED",
-					"evolutions": {
-						"247": {
+					"evolutions": [
+						{
+							"pokemon": 247,
 							"form": 318
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 313,
@@ -13921,11 +14411,12 @@
 				"Crunch",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"247": {
+			"evolutions": [
+				{
+					"pokemon": 247,
 					"form": 316
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -13940,29 +14431,32 @@
 				"316": {
 					"name": "Normal",
 					"proto": "PUPITAR_NORMAL",
-					"evolutions": {
-						"248": {
+					"evolutions": [
+						{
+							"pokemon": 248,
 							"form": 319
 						}
-					}
+					]
 				},
 				"317": {
 					"name": "Shadow",
 					"proto": "PUPITAR_SHADOW",
-					"evolutions": {
-						"248": {
+					"evolutions": [
+						{
+							"pokemon": 248,
 							"form": 320
 						}
-					}
+					]
 				},
 				"318": {
 					"name": "Purified",
 					"proto": "PUPITAR_PURIFIED",
-					"evolutions": {
-						"248": {
+					"evolutions": [
+						{
+							"pokemon": 248,
 							"form": 321
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 316,
@@ -13987,11 +14481,12 @@
 				"Crunch",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"248": {
+			"evolutions": [
+				{
+					"pokemon": 248,
 					"form": 319
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14234,9 +14729,11 @@
 				"Aerial Ace",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"253": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 253
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14282,9 +14779,11 @@
 				"Aerial Ace",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"254": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 254
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14394,9 +14893,11 @@
 				"Flamethrower",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"256": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 256
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14443,9 +14944,11 @@
 				"Flamethrower",
 				"Rock Slide"
 			],
-			"evolutions": {
-				"257": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 257
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -14521,29 +15024,32 @@
 				"205": {
 					"name": "Normal",
 					"proto": "MUDKIP_NORMAL",
-					"evolutions": {
-						"259": {
+					"evolutions": [
+						{
+							"pokemon": 259,
 							"form": 208
 						}
-					}
+					]
 				},
 				"206": {
 					"name": "Shadow",
 					"proto": "MUDKIP_SHADOW",
-					"evolutions": {
-						"259": {
+					"evolutions": [
+						{
+							"pokemon": 259,
 							"form": 209
 						}
-					}
+					]
 				},
 				"207": {
 					"name": "Purified",
 					"proto": "MUDKIP_PURIFIED",
-					"evolutions": {
-						"259": {
+					"evolutions": [
+						{
+							"pokemon": 259,
 							"form": 210
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 205,
@@ -14567,11 +15073,12 @@
 				"Sludge",
 				"Stomp"
 			],
-			"evolutions": {
-				"259": {
+			"evolutions": [
+				{
+					"pokemon": 259,
 					"form": 208
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14586,29 +15093,32 @@
 				"208": {
 					"name": "Normal",
 					"proto": "MARSHTOMP_NORMAL",
-					"evolutions": {
-						"260": {
+					"evolutions": [
+						{
+							"pokemon": 260,
 							"form": 211
 						}
-					}
+					]
 				},
 				"209": {
 					"name": "Shadow",
 					"proto": "MARSHTOMP_SHADOW",
-					"evolutions": {
-						"260": {
+					"evolutions": [
+						{
+							"pokemon": 260,
 							"form": 212
 						}
-					}
+					]
 				},
 				"210": {
 					"name": "Purified",
 					"proto": "MARSHTOMP_PURIFIED",
-					"evolutions": {
-						"260": {
+					"evolutions": [
+						{
+							"pokemon": 260,
 							"form": 213
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 208,
@@ -14633,11 +15143,12 @@
 				"Sludge",
 				"Surf"
 			],
-			"evolutions": {
-				"260": {
+			"evolutions": [
+				{
+					"pokemon": 260,
 					"form": 211
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14744,9 +15255,11 @@
 				"Dig",
 				"Poison Fang"
 			],
-			"evolutions": {
-				"262": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 262
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14808,20 +15321,22 @@
 				"945": {
 					"name": "Normal",
 					"proto": "ZIGZAGOON_NORMAL",
-					"evolutions": {
-						"264": {
+					"evolutions": [
+						{
+							"pokemon": 264,
 							"form": 947
 						}
-					}
+					]
 				},
 				"946": {
 					"name": "Galarian",
 					"proto": "ZIGZAGOON_GALARIAN",
-					"evolutions": {
-						"264": {
+					"evolutions": [
+						{
+							"pokemon": 264,
 							"form": 948
 						}
-					},
+					],
 					"quick_moves": [
 						"Tackle",
 						"Take Down"
@@ -14839,20 +15354,22 @@
 				"1373": {
 					"name": "Shadow",
 					"proto": "ZIGZAGOON_SHADOW",
-					"evolutions": {
-						"264": {
+					"evolutions": [
+						{
+							"pokemon": 264,
 							"form": 1375
 						}
-					}
+					]
 				},
 				"1374": {
 					"name": "Purified",
 					"proto": "ZIGZAGOON_PURIFIED",
-					"evolutions": {
-						"264": {
+					"evolutions": [
+						{
+							"pokemon": 264,
 							"form": 1376
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 945,
@@ -14876,11 +15393,12 @@
 				"Grass Knot",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"264": {
+			"evolutions": [
+				{
+					"pokemon": 264,
 					"form": 947
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -14899,11 +15417,12 @@
 				"948": {
 					"name": "Galarian",
 					"proto": "LINOONE_GALARIAN",
-					"evolutions": {
-						"862": {
+					"evolutions": [
+						{
+							"pokemon": 862,
 							"form": 2501
 						}
-					},
+					],
 					"quick_moves": [
 						"Snarl",
 						"Lick"
@@ -14995,10 +15514,14 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"266": {},
-				"268": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 266
+				},
+				{
+					"pokemon": 268
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -15042,9 +15565,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"267": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 267
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15134,9 +15659,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"269": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 269
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15228,9 +15755,11 @@
 				"Bubble Beam",
 				"Energy Ball"
 			],
-			"evolutions": {
-				"271": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 271
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -15277,9 +15806,11 @@
 				"Ice Beam",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"272": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 272
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -15342,29 +15873,32 @@
 				"625": {
 					"name": "Normal",
 					"proto": "SEEDOT_NORMAL",
-					"evolutions": {
-						"274": {
+					"evolutions": [
+						{
+							"pokemon": 274,
 							"form": 628
 						}
-					}
+					]
 				},
 				"626": {
 					"name": "Shadow",
 					"proto": "SEEDOT_SHADOW",
-					"evolutions": {
-						"274": {
+					"evolutions": [
+						{
+							"pokemon": 274,
 							"form": 629
 						}
-					}
+					]
 				},
 				"627": {
 					"name": "Purified",
 					"proto": "SEEDOT_PURIFIED",
-					"evolutions": {
-						"274": {
+					"evolutions": [
+						{
+							"pokemon": 274,
 							"form": 630
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 625,
@@ -15388,11 +15922,12 @@
 				"Grass Knot",
 				"Foul Play"
 			],
-			"evolutions": {
-				"274": {
+			"evolutions": [
+				{
+					"pokemon": 274,
 					"form": 628
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15407,29 +15942,32 @@
 				"628": {
 					"name": "Normal",
 					"proto": "NUZLEAF_NORMAL",
-					"evolutions": {
-						"275": {
+					"evolutions": [
+						{
+							"pokemon": 275,
 							"form": 631
 						}
-					}
+					]
 				},
 				"629": {
 					"name": "Shadow",
 					"proto": "NUZLEAF_SHADOW",
-					"evolutions": {
-						"275": {
+					"evolutions": [
+						{
+							"pokemon": 275,
 							"form": 632
 						}
-					}
+					]
 				},
 				"630": {
 					"name": "Purified",
 					"proto": "NUZLEAF_PURIFIED",
-					"evolutions": {
-						"275": {
+					"evolutions": [
+						{
+							"pokemon": 275,
 							"form": 633
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 628,
@@ -15454,11 +15992,12 @@
 				"Grass Knot",
 				"Foul Play"
 			],
-			"evolutions": {
-				"275": {
+			"evolutions": [
+				{
+					"pokemon": 275,
 					"form": 631
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -15551,9 +16090,11 @@
 			"charged_moves": [
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"277": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 277
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15646,9 +16187,11 @@
 				"Air Cutter",
 				"Ice Beam"
 			],
-			"evolutions": {
-				"279": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 279
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -15710,29 +16253,32 @@
 				"292": {
 					"name": "Normal",
 					"proto": "RALTS_NORMAL",
-					"evolutions": {
-						"281": {
+					"evolutions": [
+						{
+							"pokemon": 281,
 							"form": 295
 						}
-					}
+					]
 				},
 				"293": {
 					"name": "Shadow",
 					"proto": "RALTS_SHADOW",
-					"evolutions": {
-						"281": {
+					"evolutions": [
+						{
+							"pokemon": 281,
 							"form": 296
 						}
-					}
+					]
 				},
 				"294": {
 					"name": "Purified",
 					"proto": "RALTS_PURIFIED",
-					"evolutions": {
-						"281": {
+					"evolutions": [
+						{
+							"pokemon": 281,
 							"form": 297
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 292,
@@ -15757,11 +16303,12 @@
 				"Disarming Voice",
 				"Shadow Sneak"
 			],
-			"evolutions": {
-				"281": {
+			"evolutions": [
+				{
+					"pokemon": 281,
 					"form": 295
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15776,41 +16323,47 @@
 				"295": {
 					"name": "Normal",
 					"proto": "KIRLIA_NORMAL",
-					"evolutions": {
-						"282": {
-							"form": 298
-						},
-						"475": {
+					"evolutions": [
+						{
+							"pokemon": 475,
 							"form": 301,
 							"gender_requirement": 1
+						},
+						{
+							"pokemon": 282,
+							"form": 298
 						}
-					}
+					]
 				},
 				"296": {
 					"name": "Shadow",
 					"proto": "KIRLIA_SHADOW",
-					"evolutions": {
-						"282": {
-							"form": 299
-						},
-						"475": {
+					"evolutions": [
+						{
+							"pokemon": 475,
 							"form": 302,
 							"gender_requirement": 1
+						},
+						{
+							"pokemon": 282,
+							"form": 299
 						}
-					}
+					]
 				},
 				"297": {
 					"name": "Purified",
 					"proto": "KIRLIA_PURIFIED",
-					"evolutions": {
-						"282": {
-							"form": 300
-						},
-						"475": {
+					"evolutions": [
+						{
+							"pokemon": 475,
 							"form": 303,
 							"gender_requirement": 1
+						},
+						{
+							"pokemon": 282,
+							"form": 300
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 295,
@@ -15835,15 +16388,17 @@
 				"Disarming Voice",
 				"Shadow Sneak"
 			],
-			"evolutions": {
-				"282": {
-					"form": 298
-				},
-				"475": {
+			"evolutions": [
+				{
+					"pokemon": 475,
 					"form": 301,
 					"gender_requirement": 1
+				},
+				{
+					"pokemon": 282,
+					"form": 298
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -15951,9 +16506,11 @@
 				"Bubble Beam",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"284": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 284
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16047,9 +16604,11 @@
 				"Grass Knot",
 				"Energy Ball"
 			],
-			"evolutions": {
-				"286": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 286
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16140,9 +16699,11 @@
 				"Night Slash",
 				"Brick Break"
 			],
-			"evolutions": {
-				"288": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 288
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -16188,9 +16749,11 @@
 				"Bulldoze",
 				"Brick Break"
 			],
-			"evolutions": {
-				"289": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 289
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -16281,9 +16844,11 @@
 				"Bug Buzz",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"291": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 291
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16421,9 +16986,11 @@
 				"Disarming Voice",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"294": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 294
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16469,9 +17036,11 @@
 				"Disarming Voice",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"295": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 295
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -16562,9 +17131,11 @@
 				"Low Sweep",
 				"Cross Chop"
 			],
-			"evolutions": {
-				"297": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 297
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -16657,9 +17228,11 @@
 				"Ice Beam",
 				"Body Slam"
 			],
-			"evolutions": {
-				"183": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 183
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16705,9 +17278,11 @@
 				"Rock Slide",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"476": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 476
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -16753,9 +17328,11 @@
 				"Disarming Voice",
 				"Wild Charge"
 			],
-			"evolutions": {
-				"301": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 301
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -16979,9 +17556,11 @@
 				"Rock Tomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"305": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 305
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -17028,9 +17607,11 @@
 				"Rock Slide",
 				"Heavy Slam"
 			],
-			"evolutions": {
-				"306": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 306
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -17141,9 +17722,11 @@
 				"Psyshock",
 				"Low Sweep"
 			],
-			"evolutions": {
-				"308": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 308
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -17250,9 +17833,11 @@
 				"Discharge",
 				"Swift"
 			],
-			"evolutions": {
-				"310": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 310
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -17540,9 +18125,11 @@
 				"Sludge Bomb",
 				"Dazzling Gleam"
 			],
-			"evolutions": {
-				"407": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 407
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -17588,9 +18175,11 @@
 				"Gunk Shot",
 				"Ice Beam"
 			],
-			"evolutions": {
-				"317": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 317
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -17651,29 +18240,32 @@
 				"734": {
 					"name": "Normal",
 					"proto": "CARVANHA_NORMAL",
-					"evolutions": {
-						"319": {
+					"evolutions": [
+						{
+							"pokemon": 319,
 							"form": 737
 						}
-					}
+					]
 				},
 				"735": {
 					"name": "Shadow",
 					"proto": "CARVANHA_SHADOW",
-					"evolutions": {
-						"319": {
+					"evolutions": [
+						{
+							"pokemon": 319,
 							"form": 738
 						}
-					}
+					]
 				},
 				"736": {
 					"name": "Purified",
 					"proto": "CARVANHA_PURIFIED",
-					"evolutions": {
-						"319": {
+					"evolutions": [
+						{
+							"pokemon": 319,
 							"form": 739
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 734,
@@ -17698,11 +18290,12 @@
 				"Crunch",
 				"Poison Fang"
 			],
-			"evolutions": {
-				"319": {
+			"evolutions": [
+				{
+					"pokemon": 319,
 					"form": 737
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -17808,9 +18401,11 @@
 				"Water Pulse",
 				"Body Slam"
 			],
-			"evolutions": {
-				"321": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 321
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -17902,9 +18497,11 @@
 				"Heat Wave",
 				"Stomp"
 			],
-			"evolutions": {
-				"323": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 323
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -18056,9 +18653,11 @@
 				"Shadow Ball",
 				"Mirror Coat"
 			],
-			"evolutions": {
-				"326": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 326
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -18231,29 +18830,32 @@
 				"746": {
 					"name": "Normal",
 					"proto": "TRAPINCH_NORMAL",
-					"evolutions": {
-						"329": {
+					"evolutions": [
+						{
+							"pokemon": 329,
 							"form": 749
 						}
-					}
+					]
 				},
 				"747": {
 					"name": "Shadow",
 					"proto": "TRAPINCH_SHADOW",
-					"evolutions": {
-						"329": {
+					"evolutions": [
+						{
+							"pokemon": 329,
 							"form": 750
 						}
-					}
+					]
 				},
 				"748": {
 					"name": "Purified",
 					"proto": "TRAPINCH_PURIFIED",
-					"evolutions": {
-						"329": {
+					"evolutions": [
+						{
+							"pokemon": 329,
 							"form": 751
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 746,
@@ -18277,11 +18879,12 @@
 				"Dig",
 				"Crunch"
 			],
-			"evolutions": {
-				"329": {
+			"evolutions": [
+				{
+					"pokemon": 329,
 					"form": 749
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -18296,29 +18899,32 @@
 				"749": {
 					"name": "Normal",
 					"proto": "VIBRAVA_NORMAL",
-					"evolutions": {
-						"330": {
+					"evolutions": [
+						{
+							"pokemon": 330,
 							"form": 752
 						}
-					}
+					]
 				},
 				"750": {
 					"name": "Shadow",
 					"proto": "VIBRAVA_SHADOW",
-					"evolutions": {
-						"330": {
+					"evolutions": [
+						{
+							"pokemon": 330,
 							"form": 753
 						}
-					}
+					]
 				},
 				"751": {
 					"name": "Purified",
 					"proto": "VIBRAVA_PURIFIED",
-					"evolutions": {
-						"330": {
+					"evolutions": [
+						{
+							"pokemon": 330,
 							"form": 754
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 749,
@@ -18343,11 +18949,12 @@
 				"Bulldoze",
 				"Bug Buzz"
 			],
-			"evolutions": {
-				"330": {
+			"evolutions": [
+				{
+					"pokemon": 330,
 					"form": 752
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -18408,29 +19015,32 @@
 				"610": {
 					"name": "Normal",
 					"proto": "CACNEA_NORMAL",
-					"evolutions": {
-						"332": {
+					"evolutions": [
+						{
+							"pokemon": 332,
 							"form": 613
 						}
-					}
+					]
 				},
 				"611": {
 					"name": "Shadow",
 					"proto": "CACNEA_SHADOW",
-					"evolutions": {
-						"332": {
+					"evolutions": [
+						{
+							"pokemon": 332,
 							"form": 614
 						}
-					}
+					]
 				},
 				"612": {
 					"name": "Purified",
 					"proto": "CACNEA_PURIFIED",
-					"evolutions": {
-						"332": {
+					"evolutions": [
+						{
+							"pokemon": 332,
 							"form": 615
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 610,
@@ -18454,11 +19064,12 @@
 				"Brick Break",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"332": {
+			"evolutions": [
+				{
+					"pokemon": 332,
 					"form": 613
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -18551,9 +19162,11 @@
 				"Aerial Ace",
 				"Ice Beam"
 			],
-			"evolutions": {
-				"334": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 334
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -18846,9 +19459,11 @@
 				"Ice Beam",
 				"Mud Bomb"
 			],
-			"evolutions": {
-				"340": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 340
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -18940,9 +19555,11 @@
 				"Bubble Beam",
 				"Aqua Jet"
 			],
-			"evolutions": {
-				"342": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 342
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -19036,9 +19653,11 @@
 				"Psybeam",
 				"Dig"
 			],
-			"evolutions": {
-				"344": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 344
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -19133,9 +19752,11 @@
 				"Mirror Coat",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"346": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 346
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -19229,9 +19850,11 @@
 				"Aqua Jet",
 				"Ancient Power"
 			],
-			"evolutions": {
-				"348": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 348
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -19321,9 +19944,11 @@
 			"charged_moves": [
 				"Mirror Coat"
 			],
-			"evolutions": {
-				"350": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 350
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -19520,29 +20145,32 @@
 				"908": {
 					"name": "Normal",
 					"proto": "SHUPPET_NORMAL",
-					"evolutions": {
-						"354": {
+					"evolutions": [
+						{
+							"pokemon": 354,
 							"form": 911
 						}
-					}
+					]
 				},
 				"909": {
 					"name": "Shadow",
 					"proto": "SHUPPET_SHADOW",
-					"evolutions": {
-						"354": {
+					"evolutions": [
+						{
+							"pokemon": 354,
 							"form": 912
 						}
-					}
+					]
 				},
 				"910": {
 					"name": "Purified",
 					"proto": "SHUPPET_PURIFIED",
-					"evolutions": {
-						"354": {
+					"evolutions": [
+						{
+							"pokemon": 354,
 							"form": 913
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 908,
@@ -19566,11 +20194,12 @@
 				"Night Shade",
 				"Shadow Sneak"
 			],
-			"evolutions": {
-				"354": {
+			"evolutions": [
+				{
+					"pokemon": 354,
 					"form": 911
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -19644,29 +20273,32 @@
 				"914": {
 					"name": "Normal",
 					"proto": "DUSKULL_NORMAL",
-					"evolutions": {
-						"356": {
+					"evolutions": [
+						{
+							"pokemon": 356,
 							"form": 917
 						}
-					}
+					]
 				},
 				"915": {
 					"name": "Shadow",
 					"proto": "DUSKULL_SHADOW",
-					"evolutions": {
-						"356": {
+					"evolutions": [
+						{
+							"pokemon": 356,
 							"form": 918
 						}
-					}
+					]
 				},
 				"916": {
 					"name": "Purified",
 					"proto": "DUSKULL_PURIFIED",
-					"evolutions": {
-						"356": {
+					"evolutions": [
+						{
+							"pokemon": 356,
 							"form": 919
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 914,
@@ -19690,11 +20322,12 @@
 				"Night Shade",
 				"Shadow Sneak"
 			],
-			"evolutions": {
-				"356": {
+			"evolutions": [
+				{
+					"pokemon": 356,
 					"form": 917
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -19709,29 +20342,32 @@
 				"917": {
 					"name": "Normal",
 					"proto": "DUSCLOPS_NORMAL",
-					"evolutions": {
-						"477": {
+					"evolutions": [
+						{
+							"pokemon": 477,
 							"form": 920
 						}
-					}
+					]
 				},
 				"918": {
 					"name": "Shadow",
 					"proto": "DUSCLOPS_SHADOW",
-					"evolutions": {
-						"477": {
+					"evolutions": [
+						{
+							"pokemon": 477,
 							"form": 921
 						}
-					}
+					]
 				},
 				"919": {
 					"name": "Purified",
 					"proto": "DUSCLOPS_PURIFIED",
-					"evolutions": {
-						"477": {
+					"evolutions": [
+						{
+							"pokemon": 477,
 							"form": 922
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 917,
@@ -19755,11 +20391,12 @@
 				"Ice Punch",
 				"Fire Punch"
 			],
-			"evolutions": {
-				"477": {
+			"evolutions": [
+				{
+					"pokemon": 477,
 					"form": 920
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -19954,9 +20591,11 @@
 			"charged_moves": [
 				"Mirror Coat"
 			],
-			"evolutions": {
-				"202": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 202
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -20002,12 +20641,15 @@
 				"Icy Wind",
 				"Shadow Ball"
 			],
-			"evolutions": {
-				"362": {},
-				"478": {
+			"evolutions": [
+				{
+					"pokemon": 478,
 					"gender_requirement": 2
+				},
+				{
+					"pokemon": 362
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -20113,9 +20755,11 @@
 				"Body Slam",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"364": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 364
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -20162,9 +20806,11 @@
 				"Body Slam",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"365": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 365
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -20255,10 +20901,14 @@
 				"Ice Beam",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"367": {},
-				"368": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 367
+				},
+				{
+					"pokemon": 368
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -20454,29 +21104,32 @@
 				"755": {
 					"name": "Normal",
 					"proto": "BAGON_NORMAL",
-					"evolutions": {
-						"372": {
+					"evolutions": [
+						{
+							"pokemon": 372,
 							"form": 758
 						}
-					}
+					]
 				},
 				"756": {
 					"name": "Shadow",
 					"proto": "BAGON_SHADOW",
-					"evolutions": {
-						"372": {
+					"evolutions": [
+						{
+							"pokemon": 372,
 							"form": 759
 						}
-					}
+					]
 				},
 				"757": {
 					"name": "Purified",
 					"proto": "BAGON_PURIFIED",
-					"evolutions": {
-						"372": {
+					"evolutions": [
+						{
+							"pokemon": 372,
 							"form": 760
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 755,
@@ -20500,11 +21153,12 @@
 				"Twister",
 				"Crunch"
 			],
-			"evolutions": {
-				"372": {
+			"evolutions": [
+				{
+					"pokemon": 372,
 					"form": 758
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -20519,29 +21173,32 @@
 				"758": {
 					"name": "Normal",
 					"proto": "SHELGON_NORMAL",
-					"evolutions": {
-						"373": {
+					"evolutions": [
+						{
+							"pokemon": 373,
 							"form": 761
 						}
-					}
+					]
 				},
 				"759": {
 					"name": "Shadow",
 					"proto": "SHELGON_SHADOW",
-					"evolutions": {
-						"373": {
+					"evolutions": [
+						{
+							"pokemon": 373,
 							"form": 762
 						}
-					}
+					]
 				},
 				"760": {
 					"name": "Purified",
 					"proto": "SHELGON_PURIFIED",
-					"evolutions": {
-						"373": {
+					"evolutions": [
+						{
+							"pokemon": 373,
 							"form": 763
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 758,
@@ -20565,11 +21222,12 @@
 				"Dragon Pulse",
 				"Twister"
 			],
-			"evolutions": {
-				"373": {
+			"evolutions": [
+				{
+					"pokemon": 373,
 					"form": 761
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -20645,29 +21303,32 @@
 				"764": {
 					"name": "Normal",
 					"proto": "BELDUM_NORMAL",
-					"evolutions": {
-						"375": {
+					"evolutions": [
+						{
+							"pokemon": 375,
 							"form": 767
 						}
-					}
+					]
 				},
 				"765": {
 					"name": "Shadow",
 					"proto": "BELDUM_SHADOW",
-					"evolutions": {
-						"375": {
+					"evolutions": [
+						{
+							"pokemon": 375,
 							"form": 768
 						}
-					}
+					]
 				},
 				"766": {
 					"name": "Purified",
 					"proto": "BELDUM_PURIFIED",
-					"evolutions": {
-						"375": {
+					"evolutions": [
+						{
+							"pokemon": 375,
 							"form": 769
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 764,
@@ -20689,9 +21350,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"375": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 375
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -20706,29 +21369,32 @@
 				"767": {
 					"name": "Normal",
 					"proto": "METANG_NORMAL",
-					"evolutions": {
-						"376": {
+					"evolutions": [
+						{
+							"pokemon": 376,
 							"form": 770
 						}
-					}
+					]
 				},
 				"768": {
 					"name": "Shadow",
 					"proto": "METANG_SHADOW",
-					"evolutions": {
-						"376": {
+					"evolutions": [
+						{
+							"pokemon": 376,
 							"form": 771
 						}
-					}
+					]
 				},
 				"769": {
 					"name": "Purified",
 					"proto": "METANG_PURIFIED",
-					"evolutions": {
-						"376": {
+					"evolutions": [
+						{
+							"pokemon": 376,
 							"form": 772
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 767,
@@ -20753,11 +21419,12 @@
 				"Gyro Ball",
 				"Psyshock"
 			],
-			"evolutions": {
-				"376": {
+			"evolutions": [
+				{
+					"pokemon": 376,
 					"form": 770
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -21362,29 +22029,32 @@
 				"688": {
 					"name": "Normal",
 					"proto": "TURTWIG_NORMAL",
-					"evolutions": {
-						"388": {
+					"evolutions": [
+						{
+							"pokemon": 388,
 							"form": 691
 						}
-					}
+					]
 				},
 				"689": {
 					"name": "Shadow",
 					"proto": "TURTWIG_SHADOW",
-					"evolutions": {
-						"388": {
+					"evolutions": [
+						{
+							"pokemon": 388,
 							"form": 692
 						}
-					}
+					]
 				},
 				"690": {
 					"name": "Purified",
 					"proto": "TURTWIG_PURIFIED",
-					"evolutions": {
-						"388": {
+					"evolutions": [
+						{
+							"pokemon": 388,
 							"form": 693
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 688,
@@ -21408,11 +22078,12 @@
 				"Seed Bomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"388": {
+			"evolutions": [
+				{
+					"pokemon": 388,
 					"form": 691
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -21427,29 +22098,32 @@
 				"691": {
 					"name": "Normal",
 					"proto": "GROTLE_NORMAL",
-					"evolutions": {
-						"389": {
+					"evolutions": [
+						{
+							"pokemon": 389,
 							"form": 694
 						}
-					}
+					]
 				},
 				"692": {
 					"name": "Shadow",
 					"proto": "GROTLE_SHADOW",
-					"evolutions": {
-						"389": {
+					"evolutions": [
+						{
+							"pokemon": 389,
 							"form": 695
 						}
-					}
+					]
 				},
 				"693": {
 					"name": "Purified",
 					"proto": "GROTLE_PURIFIED",
-					"evolutions": {
-						"389": {
+					"evolutions": [
+						{
+							"pokemon": 389,
 							"form": 696
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 691,
@@ -21473,11 +22147,12 @@
 				"Solar Beam",
 				"Body Slam"
 			],
-			"evolutions": {
-				"389": {
+			"evolutions": [
+				{
+					"pokemon": 389,
 					"form": 694
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -21539,29 +22214,32 @@
 				"818": {
 					"name": "Normal",
 					"proto": "CHIMCHAR_NORMAL",
-					"evolutions": {
-						"391": {
+					"evolutions": [
+						{
+							"pokemon": 391,
 							"form": 821
 						}
-					}
+					]
 				},
 				"819": {
 					"name": "Shadow",
 					"proto": "CHIMCHAR_SHADOW",
-					"evolutions": {
-						"391": {
+					"evolutions": [
+						{
+							"pokemon": 391,
 							"form": 822
 						}
-					}
+					]
 				},
 				"820": {
 					"name": "Purified",
 					"proto": "CHIMCHAR_PURIFIED",
-					"evolutions": {
-						"391": {
+					"evolutions": [
+						{
+							"pokemon": 391,
 							"form": 823
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 818,
@@ -21585,11 +22263,12 @@
 				"Flamethrower",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"391": {
+			"evolutions": [
+				{
+					"pokemon": 391,
 					"form": 821
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -21604,29 +22283,32 @@
 				"821": {
 					"name": "Normal",
 					"proto": "MONFERNO_NORMAL",
-					"evolutions": {
-						"392": {
+					"evolutions": [
+						{
+							"pokemon": 392,
 							"form": 824
 						}
-					}
+					]
 				},
 				"822": {
 					"name": "Shadow",
 					"proto": "MONFERNO_SHADOW",
-					"evolutions": {
-						"392": {
+					"evolutions": [
+						{
+							"pokemon": 392,
 							"form": 825
 						}
-					}
+					]
 				},
 				"823": {
 					"name": "Purified",
 					"proto": "MONFERNO_PURIFIED",
-					"evolutions": {
-						"392": {
+					"evolutions": [
+						{
+							"pokemon": 392,
 							"form": 826
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 821,
@@ -21651,11 +22333,12 @@
 				"Flamethrower",
 				"Low Sweep"
 			],
-			"evolutions": {
-				"392": {
+			"evolutions": [
+				{
+					"pokemon": 392,
 					"form": 824
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -21747,9 +22430,11 @@
 				"Drill Peck",
 				"Icy Wind"
 			],
-			"evolutions": {
-				"394": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 394
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -21795,9 +22480,11 @@
 				"Hydro Pump",
 				"Icy Wind"
 			],
-			"evolutions": {
-				"395": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 395
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -21890,9 +22577,11 @@
 				"Aerial Ace",
 				"Brave Bird"
 			],
-			"evolutions": {
-				"397": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 397
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -21939,9 +22628,11 @@
 				"Brave Bird",
 				"Heat Wave"
 			],
-			"evolutions": {
-				"398": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 398
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -22033,9 +22724,11 @@
 				"Crunch",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"400": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 400
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22125,9 +22818,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"402": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 402
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22218,9 +22913,11 @@
 				"Thunderbolt",
 				"Swift"
 			],
-			"evolutions": {
-				"404": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 404
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22266,9 +22963,11 @@
 				"Wild Charge",
 				"Crunch"
 			],
-			"evolutions": {
-				"405": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 405
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22360,9 +23059,11 @@
 				"Energy Ball",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"315": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 315
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22455,9 +23156,11 @@
 				"Ancient Power",
 				"Bulldoze"
 			],
-			"evolutions": {
-				"409": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 409
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22549,9 +23252,11 @@
 				"Ancient Power",
 				"Heavy Slam"
 			],
-			"evolutions": {
-				"411": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 411
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22612,41 +23317,47 @@
 				"118": {
 					"name": "Plant",
 					"proto": "BURMY_PLANT",
-					"evolutions": {
-						"413": {
+					"evolutions": [
+						{
+							"pokemon": 413,
 							"form": 87,
 							"gender_requirement": 2
 						},
-						"414": {
+						{
+							"pokemon": 414,
 							"gender_requirement": 1
 						}
-					}
+					]
 				},
 				"119": {
 					"name": "Sandy",
 					"proto": "BURMY_SANDY",
-					"evolutions": {
-						"413": {
+					"evolutions": [
+						{
+							"pokemon": 413,
 							"form": 88,
 							"gender_requirement": 2
 						},
-						"414": {
+						{
+							"pokemon": 414,
 							"gender_requirement": 1
 						}
-					}
+					]
 				},
 				"120": {
 					"name": "Trash",
 					"proto": "BURMY_TRASH",
-					"evolutions": {
-						"413": {
+					"evolutions": [
+						{
+							"pokemon": 413,
 							"form": 89,
 							"gender_requirement": 2
 						},
-						"414": {
+						{
+							"pokemon": 414,
 							"gender_requirement": 1
 						}
-					}
+					]
 				},
 				"1706": {
 					"name": "Normal",
@@ -22680,15 +23391,17 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"413": {
+			"evolutions": [
+				{
+					"pokemon": 413,
 					"form": 87,
 					"gender_requirement": 2
 				},
-				"414": {
+				{
+					"pokemon": 414,
 					"gender_requirement": 1
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -22872,11 +23585,12 @@
 			"charged_moves": [
 				"Bug Buzz"
 			],
-			"evolutions": {
-				"416": {
+			"evolutions": [
+				{
+					"pokemon": 416,
 					"gender_requirement": 2
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23017,9 +23731,11 @@
 				"Water Pulse",
 				"Swift"
 			],
-			"evolutions": {
-				"419": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 419
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23110,11 +23826,16 @@
 				"Petal Blizzard",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"421": {
+			"evolutions": [
+				{
+					"pokemon": 421,
+					"form": 94
+				},
+				{
+					"pokemon": 421,
 					"form": 95
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23188,20 +23909,22 @@
 				"96": {
 					"name": "West Sea",
 					"proto": "SHELLOS_WEST_SEA",
-					"evolutions": {
-						"423": {
+					"evolutions": [
+						{
+							"pokemon": 423,
 							"form": 98
 						}
-					}
+					]
 				},
 				"97": {
 					"name": "East Sea",
 					"proto": "SHELLOS_EAST_SEA",
-					"evolutions": {
-						"423": {
+					"evolutions": [
+						{
+							"pokemon": 423,
 							"form": 99
 						}
-					}
+					]
 				},
 				"1736": {
 					"name": "Normal",
@@ -23237,11 +23960,12 @@
 				"Mud Bomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"423": {
+			"evolutions": [
+				{
+					"pokemon": 423,
 					"form": 99
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23387,9 +24111,11 @@
 				"Icy Wind",
 				"Shadow Ball"
 			],
-			"evolutions": {
-				"426": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 426
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23480,9 +24206,11 @@
 				"Fire Punch",
 				"Swift"
 			],
-			"evolutions": {
-				"428": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 428
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23683,9 +24411,11 @@
 				"Thunderbolt",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"432": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 432
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23776,9 +24506,11 @@
 				"Shadow Ball",
 				"Psyshock"
 			],
-			"evolutions": {
-				"358": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 358
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23793,29 +24525,32 @@
 				"791": {
 					"name": "Normal",
 					"proto": "STUNKY_NORMAL",
-					"evolutions": {
-						"435": {
+					"evolutions": [
+						{
+							"pokemon": 435,
 							"form": 794
 						}
-					}
+					]
 				},
 				"792": {
 					"name": "Shadow",
 					"proto": "STUNKY_SHADOW",
-					"evolutions": {
-						"435": {
+					"evolutions": [
+						{
+							"pokemon": 435,
 							"form": 795
 						}
-					}
+					]
 				},
 				"793": {
 					"name": "Purified",
 					"proto": "STUNKY_PURIFIED",
-					"evolutions": {
-						"435": {
+					"evolutions": [
+						{
+							"pokemon": 435,
 							"form": 796
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 791,
@@ -23840,11 +24575,12 @@
 				"Flamethrower",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"435": {
+			"evolutions": [
+				{
+					"pokemon": 435,
 					"form": 794
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -23937,9 +24673,11 @@
 				"Psyshock",
 				"Heavy Slam"
 			],
-			"evolutions": {
-				"437": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 437
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24033,9 +24771,11 @@
 				"Earthquake",
 				"Rock Slide"
 			],
-			"evolutions": {
-				"185": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 185
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24082,9 +24822,11 @@
 				"Psychic",
 				"Psyshock"
 			],
-			"evolutions": {
-				"122": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 122
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24128,9 +24870,11 @@
 			"charged_moves": [
 				"Psychic"
 			],
-			"evolutions": {
-				"113": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 113
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24237,29 +24981,32 @@
 				"861": {
 					"name": "Normal",
 					"proto": "GIBLE_NORMAL",
-					"evolutions": {
-						"444": {
+					"evolutions": [
+						{
+							"pokemon": 444,
 							"form": 864
 						}
-					}
+					]
 				},
 				"862": {
 					"name": "Shadow",
 					"proto": "GIBLE_SHADOW",
-					"evolutions": {
-						"444": {
+					"evolutions": [
+						{
+							"pokemon": 444,
 							"form": 865
 						}
-					}
+					]
 				},
 				"863": {
 					"name": "Purified",
 					"proto": "GIBLE_PURIFIED",
-					"evolutions": {
-						"444": {
+					"evolutions": [
+						{
+							"pokemon": 444,
 							"form": 866
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 861,
@@ -24284,11 +25031,12 @@
 				"Twister",
 				"Body Slam"
 			],
-			"evolutions": {
-				"444": {
+			"evolutions": [
+				{
+					"pokemon": 444,
 					"form": 864
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24303,29 +25051,32 @@
 				"864": {
 					"name": "Normal",
 					"proto": "GABITE_NORMAL",
-					"evolutions": {
-						"445": {
+					"evolutions": [
+						{
+							"pokemon": 445,
 							"form": 867
 						}
-					}
+					]
 				},
 				"865": {
 					"name": "Shadow",
 					"proto": "GABITE_SHADOW",
-					"evolutions": {
-						"445": {
+					"evolutions": [
+						{
+							"pokemon": 445,
 							"form": 868
 						}
-					}
+					]
 				},
 				"866": {
 					"name": "Purified",
 					"proto": "GABITE_PURIFIED",
-					"evolutions": {
-						"445": {
+					"evolutions": [
+						{
+							"pokemon": 445,
 							"form": 869
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 864,
@@ -24350,11 +25101,12 @@
 				"Twister",
 				"Flamethrower"
 			],
-			"evolutions": {
-				"445": {
+			"evolutions": [
+				{
+					"pokemon": 445,
 					"form": 867
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24461,9 +25213,11 @@
 				"Body Slam",
 				"Bulldoze"
 			],
-			"evolutions": {
-				"143": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 143
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24508,9 +25262,11 @@
 				"Low Sweep",
 				"Cross Chop"
 			],
-			"evolutions": {
-				"448": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 448
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24587,29 +25343,32 @@
 				"888": {
 					"name": "Normal",
 					"proto": "HIPPOPOTAS_NORMAL",
-					"evolutions": {
-						"450": {
+					"evolutions": [
+						{
+							"pokemon": 450,
 							"form": 891
 						}
-					}
+					]
 				},
 				"889": {
 					"name": "Shadow",
 					"proto": "HIPPOPOTAS_SHADOW",
-					"evolutions": {
-						"450": {
+					"evolutions": [
+						{
+							"pokemon": 450,
 							"form": 892
 						}
-					}
+					]
 				},
 				"890": {
 					"name": "Purified",
 					"proto": "HIPPOPOTAS_PURIFIED",
-					"evolutions": {
-						"450": {
+					"evolutions": [
+						{
+							"pokemon": 450,
 							"form": 893
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 888,
@@ -24633,11 +25392,12 @@
 				"Rock Tomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"450": {
+			"evolutions": [
+				{
+					"pokemon": 450,
 					"form": 891
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24732,9 +25492,11 @@
 				"Aqua Tail",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"452": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 452
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24830,9 +25592,11 @@
 				"Low Sweep",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"454": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 454
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -24969,9 +25733,11 @@
 				"Ice Beam",
 				"Silver Wind"
 			],
-			"evolutions": {
-				"457": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 457
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -25063,9 +25829,11 @@
 				"Ice Beam",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"226": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 226
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -25080,29 +25848,32 @@
 				"932": {
 					"name": "Normal",
 					"proto": "SNOVER_NORMAL",
-					"evolutions": {
-						"460": {
+					"evolutions": [
+						{
+							"pokemon": 460,
 							"form": 935
 						}
-					}
+					]
 				},
 				"933": {
 					"name": "Shadow",
 					"proto": "SNOVER_SHADOW",
-					"evolutions": {
-						"460": {
+					"evolutions": [
+						{
+							"pokemon": 460,
 							"form": 936
 						}
-					}
+					]
 				},
 				"934": {
 					"name": "Purified",
 					"proto": "SNOVER_PURIFIED",
-					"evolutions": {
-						"460": {
+					"evolutions": [
+						{
+							"pokemon": 460,
 							"form": 937
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 932,
@@ -25127,11 +25898,12 @@
 				"Energy Ball",
 				"Stomp"
 			],
-			"evolutions": {
-				"460": {
+			"evolutions": [
+				{
+					"pokemon": 460,
 					"form": 935
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27009,9 +27781,11 @@
 				"Seed Bomb",
 				"Wrap"
 			],
-			"evolutions": {
-				"496": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 496
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27057,9 +27831,11 @@
 				"Leaf Tornado",
 				"Wrap"
 			],
-			"evolutions": {
-				"497": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 497
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27150,9 +27926,11 @@
 				"Flamethrower",
 				"Body Slam"
 			],
-			"evolutions": {
-				"499": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 499
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27199,9 +27977,11 @@
 				"Flamethrower",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"500": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 500
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27294,9 +28074,11 @@
 				"Water Pulse",
 				"Night Slash"
 			],
-			"evolutions": {
-				"502": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 502
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27342,9 +28124,11 @@
 				"Water Pulse",
 				"X Scissor"
 			],
-			"evolutions": {
-				"503": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 503
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27435,9 +28219,11 @@
 				"Hyper Fang",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"505": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 505
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27528,9 +28314,11 @@
 				"Rock Tomb",
 				"Dig"
 			],
-			"evolutions": {
-				"507": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 507
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27576,9 +28364,11 @@
 				"Play Rough",
 				"Dig"
 			],
-			"evolutions": {
-				"508": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 508
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27670,9 +28460,11 @@
 				"Play Rough",
 				"Dark Pulse"
 			],
-			"evolutions": {
-				"510": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 510
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27763,9 +28555,11 @@
 				"Seed Bomb",
 				"Crunch"
 			],
-			"evolutions": {
-				"512": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 512
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27856,9 +28650,11 @@
 				"Flame Charge",
 				"Crunch"
 			],
-			"evolutions": {
-				"514": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 514
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -27949,9 +28745,11 @@
 				"Water Pulse",
 				"Crunch"
 			],
-			"evolutions": {
-				"516": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 516
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28042,9 +28840,11 @@
 				"Dazzling Gleam",
 				"Psyshock"
 			],
-			"evolutions": {
-				"518": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 518
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -28136,9 +28936,11 @@
 				"Aerial Ace",
 				"Air Cutter"
 			],
-			"evolutions": {
-				"520": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 520
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28185,9 +28987,11 @@
 				"Aerial Ace",
 				"Sky Attack"
 			],
-			"evolutions": {
-				"521": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 521
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -28279,9 +29083,11 @@
 				"Discharge",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"523": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 523
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28372,9 +29178,11 @@
 				"Rock Blast",
 				"Stone Edge"
 			],
-			"evolutions": {
-				"525": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 525
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28420,9 +29228,11 @@
 				"Bulldoze",
 				"Stone Edge"
 			],
-			"evolutions": {
-				"526": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 526
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28515,9 +29325,11 @@
 				"Aerial Ace",
 				"Psyshock"
 			],
-			"evolutions": {
-				"528": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 528
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28609,9 +29421,11 @@
 				"Dig",
 				"Drill Run"
 			],
-			"evolutions": {
-				"530": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 530
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28767,9 +29581,11 @@
 				"Brick Break",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"533": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 533
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28815,9 +29631,11 @@
 				"Brick Break",
 				"Stone Edge"
 			],
-			"evolutions": {
-				"534": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 534
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28908,9 +29726,11 @@
 				"Mud Bomb",
 				"Sludge Wave"
 			],
-			"evolutions": {
-				"536": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 536
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -28957,9 +29777,11 @@
 				"Earth Power",
 				"Sludge Wave"
 			],
-			"evolutions": {
-				"537": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 537
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29142,9 +29964,11 @@
 				"Seed Bomb",
 				"Silver Wind"
 			],
-			"evolutions": {
-				"541": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 541
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29191,9 +30015,11 @@
 				"Bug Buzz",
 				"Silver Wind"
 			],
-			"evolutions": {
-				"542": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 542
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29286,9 +30112,11 @@
 				"Sludge Bomb",
 				"Gyro Ball"
 			],
-			"evolutions": {
-				"544": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 544
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29335,9 +30163,11 @@
 				"Sludge Bomb",
 				"Gyro Ball"
 			],
-			"evolutions": {
-				"545": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 545
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29431,9 +30261,11 @@
 				"Seed Bomb",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"547": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 547
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29524,9 +30356,11 @@
 				"Energy Ball",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"549": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 549
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29659,9 +30493,11 @@
 				"Crunch",
 				"Bulldoze"
 			],
-			"evolutions": {
-				"552": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 552
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29708,9 +30544,11 @@
 				"Crunch",
 				"Bulldoze"
 			],
-			"evolutions": {
-				"553": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 553
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -29771,11 +30609,12 @@
 				"2063": {
 					"name": "Normal",
 					"proto": "DARUMAKA_NORMAL",
-					"evolutions": {
-						"555": {
+					"evolutions": [
+						{
+							"pokemon": 555,
 							"form": 138
 						}
-					}
+					]
 				},
 				"2064": {
 					"name": "Shadow",
@@ -29788,11 +30627,12 @@
 				"2341": {
 					"name": "Galarian",
 					"proto": "DARUMAKA_GALARIAN",
-					"evolutions": {
-						"555": {
+					"evolutions": [
+						{
+							"pokemon": 555,
 							"form": 2342
 						}
-					},
+					],
 					"height": 0.7,
 					"weight": 40,
 					"quick_moves": [
@@ -29828,11 +30668,12 @@
 				"Fire Punch",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"555": {
+			"evolutions": [
+				{
+					"pokemon": 555,
 					"form": 138
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30016,9 +30857,11 @@
 				"X Scissor",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"558": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 558
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30111,9 +30954,11 @@
 				"Brick Break",
 				"Foul Play"
 			],
-			"evolutions": {
-				"560": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 560
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30221,38 +31066,42 @@
 				"2084": {
 					"name": "Normal",
 					"proto": "YAMASK_NORMAL",
-					"evolutions": {
-						"563": {
+					"evolutions": [
+						{
+							"pokemon": 563,
 							"form": 2087
 						}
-					}
+					]
 				},
 				"2085": {
 					"name": "Shadow",
 					"proto": "YAMASK_SHADOW",
-					"evolutions": {
-						"563": {
+					"evolutions": [
+						{
+							"pokemon": 563,
 							"form": 2088
 						}
-					}
+					]
 				},
 				"2086": {
 					"name": "Purified",
 					"proto": "YAMASK_PURIFIED",
-					"evolutions": {
-						"563": {
+					"evolutions": [
+						{
+							"pokemon": 563,
 							"form": 2089
 						}
-					}
+					]
 				},
 				"2344": {
 					"name": "Galarian",
 					"proto": "YAMASK_GALARIAN",
-					"evolutions": {
-						"867": {
+					"evolutions": [
+						{
+							"pokemon": 867,
 							"form": 2516
 						}
-					},
+					],
 					"quick_moves": [
 						"Astonish"
 					],
@@ -30287,11 +31136,12 @@
 				"Dark Pulse",
 				"Ominous Wind"
 			],
-			"evolutions": {
-				"563": {
+			"evolutions": [
+				{
+					"pokemon": 563,
 					"form": 2087
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30383,9 +31233,11 @@
 				"Ancient Power",
 				"Body Slam"
 			],
-			"evolutions": {
-				"565": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 565
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30478,9 +31330,11 @@
 				"Ancient Power",
 				"Crunch"
 			],
-			"evolutions": {
-				"567": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 567
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30572,9 +31426,11 @@
 				"Seed Bomb",
 				"Gunk Shot"
 			],
-			"evolutions": {
-				"569": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 569
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30666,9 +31522,11 @@
 				"Aerial Ace",
 				"Dark Pulse"
 			],
-			"evolutions": {
-				"571": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 571
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30759,9 +31617,11 @@
 				"Thunderbolt",
 				"Aqua Tail"
 			],
-			"evolutions": {
-				"573": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 573
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30852,9 +31712,11 @@
 				"Psyshock",
 				"Psychic"
 			],
-			"evolutions": {
-				"575": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 575
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30900,9 +31762,11 @@
 				"Futuresight",
 				"Psychic"
 			],
-			"evolutions": {
-				"576": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 576
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -30993,9 +31857,11 @@
 				"Night Shade",
 				"Thunder"
 			],
-			"evolutions": {
-				"578": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 578
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31041,9 +31907,11 @@
 				"Night Shade",
 				"Thunder"
 			],
-			"evolutions": {
-				"579": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 579
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31135,9 +32003,11 @@
 				"Bubble Beam",
 				"Brave Bird"
 			],
-			"evolutions": {
-				"581": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 581
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31229,9 +32099,11 @@
 				"Ice Beam",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"583": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 583
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31277,9 +32149,11 @@
 				"Ice Beam",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"584": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 584
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31339,38 +32213,42 @@
 				"585": {
 					"name": "Spring",
 					"proto": "DEERLING_SPRING",
-					"evolutions": {
-						"586": {
+					"evolutions": [
+						{
+							"pokemon": 586,
 							"form": 589
 						}
-					}
+					]
 				},
 				"586": {
 					"name": "Summer",
 					"proto": "DEERLING_SUMMER",
-					"evolutions": {
-						"586": {
+					"evolutions": [
+						{
+							"pokemon": 586,
 							"form": 590
 						}
-					}
+					]
 				},
 				"587": {
 					"name": "Autumn",
 					"proto": "DEERLING_AUTUMN",
-					"evolutions": {
-						"586": {
+					"evolutions": [
+						{
+							"pokemon": 586,
 							"form": 591
 						}
-					}
+					]
 				},
 				"588": {
 					"name": "Winter",
 					"proto": "DEERLING_WINTER",
-					"evolutions": {
-						"586": {
+					"evolutions": [
+						{
+							"pokemon": 586,
 							"form": 592
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 585,
@@ -31538,9 +32416,11 @@
 				"Drill Run",
 				"Aerial Ace"
 			],
-			"evolutions": {
-				"589": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 589
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31634,9 +32514,11 @@
 				"Body Slam",
 				"Grass Knot"
 			],
-			"evolutions": {
-				"591": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 591
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31697,11 +32579,12 @@
 				"2168": {
 					"name": "Normal",
 					"proto": "FRILLISH_NORMAL",
-					"evolutions": {
-						"593": {
+					"evolutions": [
+						{
+							"pokemon": 593,
 							"form": 2171
 						}
-					}
+					]
 				},
 				"2169": {
 					"name": "Shadow",
@@ -31714,11 +32597,12 @@
 				"2330": {
 					"name": "Female",
 					"proto": "FRILLISH_FEMALE",
-					"evolutions": {
-						"593": {
+					"evolutions": [
+						{
+							"pokemon": 593,
 							"form": 2331
 						}
-					}
+					]
 				}
 			},
 			"default_form_id": 2168,
@@ -31743,9 +32627,11 @@
 				"Ice Beam",
 				"Ominous Wind"
 			],
-			"evolutions": {
-				"593": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 593
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31887,9 +32773,11 @@
 				"Bug Buzz",
 				"Discharge"
 			],
-			"evolutions": {
-				"596": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 596
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -31984,9 +32872,11 @@
 				"Flash Cannon",
 				"Iron Head"
 			],
-			"evolutions": {
-				"598": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 598
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32080,9 +32970,11 @@
 				"Discharge",
 				"Zap Cannon"
 			],
-			"evolutions": {
-				"600": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 600
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32128,9 +33020,11 @@
 				"Thunderbolt",
 				"Zap Cannon"
 			],
-			"evolutions": {
-				"601": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 601
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32220,9 +33114,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"603": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 603
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32268,9 +33164,11 @@
 				"Thunderbolt",
 				"Discharge"
 			],
-			"evolutions": {
-				"604": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 604
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32362,9 +33260,11 @@
 				"Dark Pulse",
 				"Psychic"
 			],
-			"evolutions": {
-				"606": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 606
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32456,9 +33356,11 @@
 				"Flame Burst",
 				"Heat Wave"
 			],
-			"evolutions": {
-				"608": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 608
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32505,9 +33407,11 @@
 				"Flame Burst",
 				"Heat Wave"
 			],
-			"evolutions": {
-				"609": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 609
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32601,9 +33505,11 @@
 				"Aqua Tail",
 				"Dragon Pulse"
 			],
-			"evolutions": {
-				"611": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 611
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32649,9 +33555,11 @@
 				"Aqua Tail",
 				"Night Slash"
 			],
-			"evolutions": {
-				"612": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 612
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32711,7 +33619,12 @@
 			"forms": {
 				"2231": {
 					"name": "Normal",
-					"proto": "CUBCHOO_NORMAL"
+					"proto": "CUBCHOO_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 614
+						}
+					]
 				},
 				"2232": {
 					"name": "Shadow",
@@ -32747,9 +33660,11 @@
 				"Icy Wind",
 				"Play Rough"
 			],
-			"evolutions": {
-				"614": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 614
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -32886,9 +33801,11 @@
 				"Body Slam",
 				"Signal Beam"
 			],
-			"evolutions": {
-				"617": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 617
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33046,9 +33963,11 @@
 				"Low Sweep",
 				"Focus Blast"
 			],
-			"evolutions": {
-				"620": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 620
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33185,9 +34104,11 @@
 				"Brick Break",
 				"Night Shade"
 			],
-			"evolutions": {
-				"623": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 623
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33280,9 +34201,11 @@
 				"Iron Head",
 				"X Scissor"
 			],
-			"evolutions": {
-				"625": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 625
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33422,9 +34345,11 @@
 				"Brave Bird",
 				"Rock Tomb"
 			],
-			"evolutions": {
-				"628": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 628
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33518,9 +34443,11 @@
 				"Brave Bird",
 				"Foul Play"
 			],
-			"evolutions": {
-				"630": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 630
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33705,9 +34632,11 @@
 				"Crunch",
 				"Body Slam"
 			],
-			"evolutions": {
-				"634": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 634
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -33754,9 +34683,11 @@
 				"Dark Pulse",
 				"Body Slam"
 			],
-			"evolutions": {
-				"635": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 635
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
@@ -33849,9 +34780,11 @@
 				"Bug Buzz",
 				"Flame Wheel"
 			],
-			"evolutions": {
-				"637": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 637
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -34534,9 +35467,11 @@
 				"Seed Bomb",
 				"Body Slam"
 			],
-			"evolutions": {
-				"651": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 651
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -34563,16 +35498,18 @@
 			"capture_rate": 0.1,
 			"quick_moves": [
 				"Low Kick",
-				"Razor Leaf"
+				"Vine Whip"
 			],
 			"charged_moves": [
 				"Gyro Ball",
 				"Energy Ball",
 				"Body Slam"
 			],
-			"evolutions": {
-				"652": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 652
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -34600,8 +35537,8 @@
 			"capture_rate": 0.05,
 			"quick_moves": [
 				"Low Kick",
-				"Razor Leaf",
-				"Vine Whip"
+				"Vine Whip",
+				"Smack Down"
 			],
 			"charged_moves": [
 				"Gyro Ball",
@@ -34642,9 +35579,11 @@
 				"Flamethrower",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"654": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 654
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -34678,9 +35617,11 @@
 				"Flamethrower",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"655": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 655
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -34750,9 +35691,11 @@
 				"Aerial Ace",
 				"Surf"
 			],
-			"evolutions": {
-				"657": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 657
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -34782,13 +35725,15 @@
 				"Bubble"
 			],
 			"charged_moves": [
-				"Night Slash",
+				"Water Pulse",
 				"Aerial Ace",
 				"Surf"
 			],
-			"evolutions": {
-				"658": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 658
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -34857,9 +35802,11 @@
 				"Bulldoze",
 				"Earthquake"
 			],
-			"evolutions": {
-				"660": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 660
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 2,
@@ -34929,9 +35876,11 @@
 				"Heat Wave",
 				"Swift"
 			],
-			"evolutions": {
-				"662": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 662
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -34967,9 +35916,11 @@
 				"Heat Wave",
 				"Flame Charge"
 			],
-			"evolutions": {
-				"663": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 663
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -35037,9 +35988,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"665": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 665
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 1,
@@ -35070,9 +36023,11 @@
 			"charged_moves": [
 				"Struggle"
 			],
-			"evolutions": {
-				"666": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 666
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 1,
@@ -35221,12 +36176,18 @@
 				"Flamethrower",
 				"Crunch"
 			],
-			"evolutions": {
-				"668": {
+			"evolutions": [
+				{
+					"pokemon": 668,
+					"form": 2587,
+					"gender_requirement": 1
+				},
+				{
+					"pokemon": 668,
 					"form": 2588,
 					"gender_requirement": 2
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -35330,9 +36291,11 @@
 				"Petal Blizzard",
 				"Psychic"
 			],
-			"evolutions": {
-				"670": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 670
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -35384,9 +36347,11 @@
 				"Petal Blizzard",
 				"Psychic"
 			],
-			"evolutions": {
-				"671": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 671
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -35472,9 +36437,11 @@
 				"Rock Slide",
 				"Seed Bomb"
 			],
-			"evolutions": {
-				"673": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 673
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -35541,9 +36508,11 @@
 				"Crunch",
 				"Body Slam"
 			],
-			"evolutions": {
-				"675": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 675
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -35683,12 +36652,18 @@
 				"Energy Ball",
 				"Psychic"
 			],
-			"evolutions": {
-				"678": {
+			"evolutions": [
+				{
+					"pokemon": 678,
+					"form": 2589,
+					"gender_requirement": 1
+				},
+				{
+					"pokemon": 678,
 					"form": 2590,
 					"gender_requirement": 2
 				}
-			},
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 1,
@@ -35766,13 +36741,14 @@
 				"Fury Cutter"
 			],
 			"charged_moves": [
-				"Night Slash",
 				"Iron Head",
 				"Gyro Ball"
 			],
-			"evolutions": {
-				"680": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 680
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -35799,13 +36775,14 @@
 				"Fury Cutter"
 			],
 			"charged_moves": [
-				"Night Slash",
 				"Iron Head",
 				"Gyro Ball"
 			],
-			"evolutions": {
-				"681": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 681
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -35839,7 +36816,6 @@
 				"Fury Cutter"
 			],
 			"charged_moves": [
-				"Night Slash",
 				"Flash Cannon",
 				"Gyro Ball",
 				"Shadow Ball"
@@ -35875,9 +36851,11 @@
 				"Draining Kiss",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"683": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 683
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -35941,9 +36919,11 @@
 				"Draining Kiss",
 				"Energy Ball"
 			],
-			"evolutions": {
-				"685": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 685
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36009,9 +36989,11 @@
 				"Psybeam",
 				"Night Slash"
 			],
-			"evolutions": {
-				"687": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 687
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36079,9 +37061,11 @@
 				"Cross Chop",
 				"Dig"
 			],
-			"evolutions": {
-				"689": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 689
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36151,9 +37135,11 @@
 				"Twister",
 				"Sludge Bomb"
 			],
-			"evolutions": {
-				"691": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 691
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36221,9 +37207,11 @@
 				"Crabhammer",
 				"Aqua Jet"
 			],
-			"evolutions": {
-				"693": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 693
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36290,9 +37278,11 @@
 				"Bulldoze",
 				"Discharge"
 			],
-			"evolutions": {
-				"695": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 695
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36361,9 +37351,11 @@
 				"Ancient Power",
 				"Dragon Claw"
 			],
-			"evolutions": {
-				"697": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 697
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36425,8 +37417,7 @@
 			"capture_rate": 0.2,
 			"quick_moves": [
 				"Powder Snow",
-				"Frost Breath",
-				"Mirror Coat"
+				"Frost Breath"
 			],
 			"charged_moves": [
 				"Weather Ball",
@@ -36434,9 +37425,11 @@
 				"Aurora Beam",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"699": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 699
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36464,7 +37457,6 @@
 			"quick_moves": [
 				"Powder Snow",
 				"Frost Breath",
-				"Mirror Coat",
 				"Rock Throw"
 			],
 			"charged_moves": [
@@ -36639,9 +37631,11 @@
 				"Sludge Wave",
 				"Muddy Water"
 			],
-			"evolutions": {
-				"705": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 705
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36675,9 +37669,11 @@
 				"Muddy Water",
 				"Water Pulse"
 			],
-			"evolutions": {
-				"706": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 706
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36779,9 +37775,11 @@
 				"Shadow Ball",
 				"Foul Play"
 			],
-			"evolutions": {
-				"709": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 709
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36859,9 +37857,11 @@
 				"Foul Play",
 				"Earthquake"
 			],
-			"evolutions": {
-				"711": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 711
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 5,
@@ -36929,15 +37929,18 @@
 			"capture_rate": 0.2,
 			"quick_moves": [
 				"Bite",
-				"Mirror Coat"
+				"Tackle"
 			],
 			"charged_moves": [
 				"Crunch",
-				"Icy Wind"
+				"Icy Wind",
+				"Mirror Coat"
 			],
-			"evolutions": {
-				"713": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 713
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_distance": 3,
@@ -36963,14 +37966,14 @@
 			"capture_rate": 0.2,
 			"quick_moves": [
 				"Bite",
-				"Ice Fang",
-				"Mirror Coat"
+				"Ice Fang"
 			],
 			"charged_moves": [
 				"Crunch",
 				"Avalanche",
 				"Earthquake",
-				"Body Slam"
+				"Body Slam",
+				"Mirror Coat"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -37005,9 +38008,11 @@
 				"Air Cutter",
 				"Heat Wave"
 			],
-			"evolutions": {
-				"715": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 715
+				}
+			],
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 4,
@@ -37238,9 +38243,11 @@
 				"Flash Cannon",
 				"Thunderbolt"
 			],
-			"evolutions": {
-				"809": {}
-			},
+			"evolutions": [
+				{
+					"pokemon": 809
+				}
+			],
 			"legendary": false,
 			"mythic": true,
 			"buddy_group_number": 2,
@@ -37448,7 +38455,38 @@
 					"name": "Purified",
 					"proto": "MR_RIME_PURIFIED"
 				}
-			}
+			},
+			"default_form_id": 2513,
+			"pokedex_id": 866,
+			"types": [
+				"Ice",
+				"Psychic"
+			],
+			"attack": 212,
+			"defense": 179,
+			"stamina": 190,
+			"height": 1.5,
+			"weight": 58.2,
+			"flee_rate": 0.09,
+			"capture_rate": 0.3,
+			"quick_moves": [
+				"Confusion",
+				"Zen Headbutt",
+				"Ice Shard"
+			],
+			"charged_moves": [
+				"Psybeam",
+				"Psychic",
+				"Ice Punch",
+				"Icy Wind"
+			],
+			"legendary": false,
+			"mythic": false,
+			"buddy_group_number": 3,
+			"buddy_distance": 5,
+			"third_move_stardust": 75000,
+			"third_move_candy": 75,
+			"gym_defender_eligible": true
 		},
 		"867": {
 			"name": "Runerigus",
@@ -39331,19 +40369,34 @@
 			"power": 170
 		},
 		"336": {
-			"name": "Techno Blast Normal"
+			"name": "Techno Blast Normal",
+			"proto": "V0336_MOVE_TECHNO_BLAST_NORMAL",
+			"type": "Normal",
+			"power": 120
 		},
 		"337": {
-			"name": "Techno Blast Burn"
+			"name": "Techno Blast Burn",
+			"proto": "V0337_MOVE_TECHNO_BLAST_BURN",
+			"type": "Fire",
+			"power": 120
 		},
 		"338": {
-			"name": "Techno Blast Chill"
+			"name": "Techno Blast Chill",
+			"proto": "V0338_MOVE_TECHNO_BLAST_CHILL",
+			"type": "Ice",
+			"power": 120
 		},
 		"339": {
-			"name": "Techno Blast Water"
+			"name": "Techno Blast Water",
+			"proto": "V0339_MOVE_TECHNO_BLAST_WATER",
+			"type": "Water",
+			"power": 120
 		},
 		"340": {
-			"name": "Techno Blast Shock"
+			"name": "Techno Blast Shock",
+			"proto": "V0340_MOVE_TECHNO_BLAST_SHOCK",
+			"type": "Electric",
+			"power": 120
 		},
 		"341": {
 			"name": "Fly",
@@ -39530,15 +40583,27 @@
 		},
 		"36": {
 			"prototext": "QUEST_BUDDY_LEVEL",
-			"text": ""
+			"text": "Increase your Buddy Level {0} times"
 		},
 		"37": {
 			"prototext": "QUEST_BUDDY_WALK",
-			"text": ""
+			"text": "Earn {0} Friendship points by Walking with your Buddy"
 		},
 		"38": {
 			"prototext": "QUEST_BUDDY_YATTA",
-			"text": ""
+			"text": "Earn {0} Souvenirs from your Buddy"
+		},
+		"39": {
+			"prototext": "",
+			"text": "Use Incense {0} times"
+		},
+		"43": {
+			"prototext": "",
+			"text": "Mega-Evolve {0} Pokemon"
+		},
+		"46": {
+			"prototext": "",
+			"text": "AR-Scan {0} pokéstop(s)"
 		}
 	},
 	"quest_conditions": {
@@ -39724,16 +40789,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"143_00"
+					"142_00"
 				],
 				"second": [
-					"062_00",
 					"143_00",
+					"062_00",
 					"282_00"
 				],
 				"third": [
-					"130_00",
 					"143_00",
+					"130_00",
 					"149_00"
 				]
 			}
@@ -39753,14 +40818,14 @@
 					"213_00"
 				],
 				"second": [
-					"014_00",
 					"049_00",
-					"212_00"
+					"212_00",
+					"014_00"
 				],
 				"third": [
-					"015_00",
 					"123_00",
-					"212_00"
+					"212_00",
+					"015_00"
 				]
 			}
 		},
@@ -39774,17 +40839,19 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"200_00"
+					"353_00",
+					"302_00",
+					"355_00"
 				],
 				"second": [
 					"302_00",
-					"354_00",
-					"356_00"
+					"356_00",
+					"354_00"
 				],
 				"third": [
 					"302_00",
-					"354_00",
-					"477_00"
+					"477_00",
+					"354_00"
 				]
 			}
 		},
@@ -39797,12 +40864,12 @@
 					"434_00"
 				],
 				"second": [
-					"302_00",
-					"434_00",
-					"435_00"
+					"435_00",
+					"302_00"
 				],
 				"third": [
-					"435_00"
+					"435_00",
+					"275_00"
 				]
 			}
 		},
@@ -39819,13 +40886,13 @@
 					"147_00"
 				],
 				"second": [
-					"148_00",
-					"330_00"
+					"330_00",
+					"148_00"
 				],
 				"third": [
-					"148_00",
+					"130_00",
 					"149_00",
-					"371_00"
+					"148_00"
 				]
 			}
 		},
@@ -39848,11 +40915,9 @@
 			"encounters": {
 				"first": [
 					"066_00",
-					"106_00",
-					"107_00"
+					"106_00"
 				],
 				"second": [
-					"066_00",
 					"106_00"
 				],
 				"third": [
@@ -39871,7 +40936,6 @@
 			"encounters": {
 				"first": [
 					"037_00",
-					"058_00",
 					"228_00"
 				],
 				"second": [
@@ -39879,8 +40943,9 @@
 					"229_00"
 				],
 				"third": [
-					"059_00",
-					"229_00"
+					"229_00",
+					"005_00",
+					"059_00"
 				]
 			}
 		},
@@ -39895,11 +40960,12 @@
 			"encounters": {
 				"first": [
 					"041_00",
+					"227_00",
 					"042_00"
 				],
 				"second": [
-					"042_00",
 					"123_00",
+					"042_00",
 					"169_00"
 				],
 				"third": [
@@ -39923,13 +40989,13 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"102_00",
-					"387_00"
+					"187_00",
+					"001_00"
 				],
 				"second": [
+					"070_00",
 					"002_00",
-					"044_00",
-					"070_00"
+					"044_00"
 				],
 				"third": [
 					"045_00",
@@ -39948,16 +41014,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"207_00"
+					"207_00",
+					"050_00"
 				],
 				"second": [
-					"105_00",
+					"329_00",
 					"247_00",
-					"329_00"
+					"105_00"
 				],
 				"third": [
-					"330_00",
-					"472_00"
+					"472_00",
+					"330_00"
 				]
 			}
 		},
@@ -39967,7 +41034,8 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"459_00"
+					"459_00",
+					"091_00"
 				],
 				"second": [
 					"459_00",
@@ -40001,9 +41069,7 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"019_00",
-					"041_00",
-					"137_00"
+					"216_00"
 				],
 				"second": [
 					"020_00",
@@ -40021,17 +41087,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"029_00",
-					"032_00"
+					"032_00",
+					"029_00"
 				],
 				"second": [
-					"042_00",
+					"089_00",
 					"088_00",
-					"089_00"
+					"042_00"
 				],
 				"third": [
-					"030_00",
-					"033_00"
+					"033_00",
+					"030_00"
 				]
 			}
 		},
@@ -40046,21 +41112,22 @@
 		"35": {
 			"type": "Psychic",
 			"grunt": "Male",
-			"second_reward": "true",
+			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"096_00",
-					"202_00"
+					"202_00",
+					"079_00",
+					"063_00"
 				],
 				"second": [
-					"096_00",
+					"280_00",
 					"097_00",
-					"280_00"
+					"096_00"
 				],
 				"third": [
+					"281_00",
 					"064_00",
-					"097_00",
-					"281_00"
+					"097_00"
 				]
 			}
 		},
@@ -40074,16 +41141,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"138_00",
-					"213_00"
+					"246_00",
+					"142_00"
 				],
 				"second": [
-					"246_00",
-					"247_00"
+					"247_00",
+					"246_00"
 				],
 				"third": [
-					"247_00",
-					"248_00"
+					"248_00",
+					"247_00"
 				]
 			}
 		},
@@ -40093,12 +41160,12 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"054_00",
-					"258_00"
+					"090_00",
+					"054_00"
 				],
 				"second": [
-					"055_00",
-					"061_00"
+					"061_00",
+					"055_00"
 				],
 				"third": [
 					"062_00",
@@ -40118,7 +41185,8 @@
 					"129_00"
 				],
 				"third": [
-					"129_00"
+					"129_00",
+					"130_00"
 				]
 			}
 		},
@@ -40132,17 +41200,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"088_00"
+					"138_00"
 				],
 				"second": [
+					"095_00",
 					"068_00",
-					"139_00",
 					"466_00"
 				],
 				"third": [
 					"248_00",
-					"260_00",
-					"389_00"
+					"389_00",
+					"260_00"
 				]
 			}
 		},
@@ -40152,17 +41220,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"204_00"
+					"058_00"
 				],
 				"second": [
+					"208_00",
 					"006_00",
-					"009_00",
-					"208_00"
+					"009_00"
 				],
 				"third": [
-					"149_00",
 					"212_00",
-					"373_00"
+					"373_00",
+					"149_00"
 				]
 			}
 		},
@@ -40172,17 +41240,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"131_00"
+					"096_00"
 				],
 				"second": [
-					"103_00",
+					"319_00",
 					"131_00",
-					"319_00"
+					"103_00"
 				],
 				"third": [
-					"065_00",
+					"275_00",
 					"229_00",
-					"275_00"
+					"065_00"
 				]
 			}
 		},
@@ -40192,7 +41260,7 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"245_00"
+					"150_00"
 				]
 			}
 		},
@@ -40202,22 +41270,7 @@
 		},
 		"46": {
 			"type": "Decoy",
-			"grunt": "Female",
-			"second_reward": "false",
-			"encounters": {
-				"first": [
-					"069_00"
-				],
-				"second": [
-					"020_00",
-					"070_00",
-					"445_00"
-				],
-				"third": [
-					"020_00",
-					"143_00"
-				]
-			}
+			"grunt": "Female"
 		},
 		"47": {
 			"type": "Ghost",
@@ -40229,17 +41282,19 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"200_00"
+					"353_00",
+					"302_00",
+					"355_00"
 				],
 				"second": [
 					"302_00",
-					"354_00",
-					"356_00"
+					"356_00",
+					"354_00"
 				],
 				"third": [
 					"302_00",
-					"354_00",
-					"477_00"
+					"477_00",
+					"354_00"
 				]
 			}
 		},
@@ -40249,14 +41304,14 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
+					"179_00",
 					"081_00",
-					"125_00",
-					"179_00"
+					"125_00"
 				],
 				"second": [
 					"082_00",
-					"125_00",
-					"180_00"
+					"180_00",
+					"125_00"
 				],
 				"third": [
 					"125_00",
@@ -40592,6 +41647,13 @@
 			"type": "Candy",
 			"category": "Candy",
 			"min_trainer_level": 5
+		},
+		"1302": {
+			"name": "Xl Rare Candy",
+			"proto": "ITEM_XL_RARE_CANDY",
+			"type": "Candy",
+			"category": "Candy",
+			"min_trainer_level": 40
 		},
 		"1401": {
 			"name": "Free Raid Ticket",

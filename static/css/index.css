@@ -303,10 +303,9 @@ fieldset[disabled] .btn-size.active {
 }
 
 .grunt-encounter-wrapper {
-    background-color: #1c1c1c;
+    background-color: #f3f3f3;
     border-radius: 10px;
-    border: 1px solid black;
-    text-align: center;
+    border: 1px solid #bdbdbd;
     padding: 5px;
 }
 
@@ -326,6 +325,7 @@ fieldset[disabled] .btn-size.active {
     margin-left: auto;
     margin-right: auto;
     font-weight: bold;
+    text-align: center;
 }
 .table-invasion td:first-child {
     padding-right: 15px;
@@ -706,6 +706,10 @@ img {
     color: white;
 }
 
+.theme-dark .grunt-encounter-wrapper {
+    background-color: #1c1c1c;
+    border: 1px solid black;
+}
 .theme-dark table.dataTable tr.dtrg-group td,
 .theme-dark div.DTS div.dataTables_scrollBody table,
 .theme-dark .modal-body,
