@@ -3,7 +3,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const geoip = require('geoip-lite');
+//const geoip = require('geoip-lite');
 const fetch = require('node-fetch');
 
 const DiscordClient = require('../services/discord.js');
@@ -50,13 +50,10 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.save();
 
         //const geo = geoip.lookup(req.headers['cf-connecting-ip']);
-        const geo = fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`).then(function(response) {
-            return response.json();
-        }).then(function(data){
-            return data
-        }).catch(function(err){
-            console.warn('something went wrong', err);
-        });
+        fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`)
+            .then(res => res.json())
+            .then(data => geo = data)
+            .then(() -> console.log(geo))
         
 
         if (valid) {
