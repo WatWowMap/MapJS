@@ -4,7 +4,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 const fetch = require('node-fetch');
-
+const geoip = require('geoip-lite');
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
 
@@ -48,6 +48,19 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         const valid = perms.map !== false;
         req.session.valid = valid;
         req.session.save();
+
+        const ip = req.headers['cf-connecting-ip'];
+
+
+        var ipv4 = '^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$'
+        var ipv6 = '^((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*::((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*|((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4})){7}$'
+        if(ipv4.test(ip)){
+            console.log("IPv4");
+        } else if(ipv6.test(ip)){
+            console.log("IPv6");
+        } else{
+            console.log("Invalid IP Address");
+        }
 
         const url = `http://ip-api.com/json/${req.headers['cf-connecting-ip']}`        
         const geo_response = await fetch(url);
