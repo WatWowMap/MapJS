@@ -61,6 +61,10 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     url:  `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
                 },
                 fields: [
+                    {
+                        name: 'Discord Info',
+                        value: `<@{user.id}>`,
+                    },
                     { 
                         name: 'Client Info',  
                         value: req.headers['user-agent'] 
