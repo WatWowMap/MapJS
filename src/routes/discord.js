@@ -4,6 +4,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 const geoip = require('geoip-lite');
+const fetch = require('node-fetch');
 
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
