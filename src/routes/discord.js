@@ -49,7 +49,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         var str = '';
         for(var key in req.headers){
-            str += key + ": " + req.headers[key]
+            str += key + ": " + req.headers[key] + "\n"
         }
         await DiscordClient.sendMessage(config.discord.logChannelId, `${str}`)
 
