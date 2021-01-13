@@ -48,7 +48,15 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
-        const geo = geoip.lookup(req.headers['cf-connecting-ip']);
+        //const geo = geoip.lookup(req.headers['cf-connecting-ip']);
+        const geo = fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`).then(function(response) {
+            return response.json();
+        }).then(function(data){
+            return data
+        }).catch(function(err){
+            console.warn('something went wrong', err);
+        });
+        
 
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
@@ -78,12 +86,17 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     },
                     {
                         name: 'Geo Lookup',
-                        value: `${geo["city"]}, ${geo["region"]}, ${geo["country"]}` 
+                        value: `${geo["city"]}, ${geo["regionName"]}, ${geo["zip"]}` 
                     },
                     {
                         name: 'Google Map',
-                        value: `https://www.google.com/maps?q=${geo['ll'][0]},${geo['ll'][1]}` 
+                        value: `https://www.google.com/maps?q=${geo['lat']},${geo['lon']}` 
                     },
+                    {
+                        name: 'Network Provider',
+                        value: `${geo['isp']}, ${geo['as']}`
+                    },
+
                 ],
                 timestamp: new Date(),
             }
