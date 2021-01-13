@@ -117,7 +117,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             console.warn(user.id, 'Not authorized to access map');
         }
 
-        await DiscordClient.sendMessage(config.discord.logChannelId, {embed: failEmbed});
+        await DiscordClient.sendMessage(config.discord.logChannelId, {embed: embed});
         res.redirect(redirect);
     }).catch(error => {
         console.error(error);
