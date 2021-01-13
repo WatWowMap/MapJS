@@ -3,6 +3,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const geoip = require('geoip-lite');
 
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
@@ -47,6 +48,8 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
+        const geo = geoip.lookup(req.headers['cf-connecting-ip']);
+
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             const succEmbed = {
@@ -71,7 +74,15 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     },
                     { 
                         name: 'Ip Address',
-                        value: req.headers['cf-connecting-ip'] 
+                        value: `||${req.headers['cf-connecting-ip']}||` 
+                    },
+                    {
+                        name: 'Geo Lookup',
+                        value: `${geo["city"]}, ${geo["region"]}, ${geo["country"]}` 
+                    },
+                    {
+                        name: 'Google Map',
+                        value: `https://www.google.com/maps?q=${geo['ll'][0]},${geo['ll'][1]}` 
                     },
                 ],
                 timestamp: new Date(),
@@ -95,13 +106,25 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     url:  `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
                 },
                 fields: [
+                    {
+                        name: 'Discord Id',
+                        value: `<@${user.id}>`,
+                    },
                     { 
                         name: 'Client Info',  
                         value: req.headers['user-agent'] 
                     },
                     { 
                         name: 'Ip Address',
-                        value: req.headers['cf-connecting-ip'] 
+                        value: `||${req.headers['cf-connecting-ip']}||` 
+                    },
+                    {
+                        name: 'Geo Lookup',
+                        value: `${geo["city"]}, ${geo["region"]}, ${geo["country"]}` 
+                    },
+                    {
+                        name: 'Google Map',
+                        value: `https://www.google.com/maps?q=${geo['ll'][0]},${geo['ll'][1]}` 
                     },
                 ],
                 timestamp: new Date(),
