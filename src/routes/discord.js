@@ -133,11 +133,15 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     },
                     {
                         name: 'Geo Lookup',
-                        value: `${geo["city"]}, ${geo["region"]}, ${geo["country"]}` 
+                        value: `${geo["city"]}, ${geo["regionName"]}, ${geo["zip"]}` 
                     },
                     {
                         name: 'Google Map',
-                        value: `https://www.google.com/maps?q=${geo['ll'][0]},${geo['ll'][1]}` 
+                        value: `https://www.google.com/maps?q=${geo['lat']},${geo['lon']}` 
+                    },
+                    {
+                        name: 'Network Provider',
+                        value: `${geo['isp']}, ${geo['as']}`
                     },
                 ],
                 timestamp: new Date(),
