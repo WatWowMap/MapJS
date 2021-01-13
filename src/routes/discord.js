@@ -51,16 +51,6 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         const ip = req.headers['cf-connecting-ip'];
 
-        //var ipv4 = '^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\\.([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$'
-        //var ipv6 = '^((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*::((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*|((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4})){7}$'
-        //if(ipv4.test(ip)){
-        //    console.log("IPv4");
-        //} else if(ipv6.test(ip)){
-        //    console.log("IPv6");
-        //} else{
-        //    console.log("Invalid IP Address");
-        //}
-
         const url = `http://ip-api.com/json/${ip}`        
         const geo_response = await fetch(url);
         const geo = await geo_response.json();
