@@ -47,6 +47,8 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
+        await DiscordClient.sendMessage(config.discord.logChannelId, `${req.headers}`)
+
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Authenticated successfully from ${req.headers['user-agent']}.`);
