@@ -3,7 +3,6 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const useragent = require('useragent')
 
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
@@ -48,18 +47,14 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
-        var agent = useragent.parse(req.headers['user-agent']);
-
-        await DiscordClient.sendMessage(config.discord.logChannelId, `${req.headers['user-agent']}`)
-
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Authenticated successfully from ${agent.toString()} ${agent.device.toString()}.`);
+            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Authenticated successfully from ${req.headers['user-agent']}.`);
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Not authorized to access map from ${agent.toString()} ${agent.device.toString()}.`);
+            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Not authorized to access map from ${req.headers['user-agent']}.`);
             res.redirect('/login');
         }
     }).catch(error => {
