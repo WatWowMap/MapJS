@@ -52,8 +52,8 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         const url = `http://ip-api.com/json/${req.headers['cf-connecting-ip']}`
         console.log(`fetching ${url}`)
         
-        const response = await fetch(url);
-        const geo = await response.json();
+        const geo_response = await fetch(url);
+        const geo = await geo_response.json();
         
 
         console.log(`object: ${geo}`)
