@@ -51,9 +51,8 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`)
             .then(res => res.json())
             .then(data => geo = data)
-            .then(() -> console.log(geo))
+            .then(() => console.log(geo))
         
-
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             const succEmbed = {
