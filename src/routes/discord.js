@@ -49,7 +49,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            var embed = new DiscordClient.MessageEmbed()
+            const embed = new DiscordClient.MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle('Success')
                 .setAuthor(`<@${user.id}>`)
@@ -58,7 +58,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     { name: 'Client Info',  value: req.headers['user-agent'] },
                     { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
                 )
-                .setTimestamp()
+                .setTimestamp();
 
             await DiscordClient.sendMessage(config.discord.logChannelId, embed);
             res.redirect(`/?token=${response.data.access_token}`);
@@ -66,7 +66,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
 
-            var embed = new DiscordClient.MessageEmbed()
+            const embed = new DiscordClient.MessageEmbed()
                 .setColor('#FF0000')
                 .setTitle('Failure')
                 .setAuthor(`<@${user.id}>`)
@@ -75,7 +75,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     { name: 'Client Info',  value: req.headers['user-agent'] },
                     { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
                 )
-                .setTimestamp()
+                .setTimestamp();
 
             await DiscordClient.sendMessage(config.discord.logChannelId, embed);
             res.redirect('/login');
