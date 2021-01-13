@@ -47,7 +47,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
-        const ip = req.headers['cf-connecting-ip'];
+        const ip = req.headers['cf-connecting-ip'] || ((req.headers['x-forwarded-for'] || '').split(', ')[0]) || (req.connection.remoteAddress || req.connection.localAddress).match('[0-9]+.[0-9].+[0-9]+.[0-9]+$')[0];
         const url = `http://ip-api.com/json/${ip}?fields=66846719&lang=en`;
         const geoResponse = await axios.get(url);
         const geo = await geoResponse.data;
