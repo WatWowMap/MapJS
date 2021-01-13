@@ -62,8 +62,8 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                 },
                 fields: [
                     {
-                        name: 'Discord Info',
-                        value: `<@{user.id}>`,
+                        name: 'Discord Id',
+                        value: `<@${user.id}>`,
                     },
                     { 
                         name: 'Client Info',  
