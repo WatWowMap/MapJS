@@ -18,15 +18,6 @@ const catchAsyncErrors = fn => ((req, res, next) => {
     }
 });
 
-async fetchJson(url){
-    try{
-        const response = await fetch(url);
-        const json = await response.json();
-        return json;
-    } catch(error){
-        console.error(error)
-    }
-}
 
 router.get('/login', (req, res) => {
     const scope = 'guilds%20identify%20email';
@@ -60,8 +51,10 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         const url = `http://ip-api.com/json/${req.headers['cf-connecting-ip']}`
         console.log(`fetching ${url}`)
-
-        var geo = await fetchJson(url);
+        
+        const response = await fetch(url);
+        const geo = await response.json();
+        
 
         console.log(`object: ${geo}`)
         
