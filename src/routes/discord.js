@@ -48,6 +48,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
+        var geo;
         fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`)
             .then(res => res.json())
             .then(data => geo = data)
