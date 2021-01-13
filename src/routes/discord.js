@@ -114,7 +114,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                         inline: true
                     },
                     {
-                        name: 'Hostinh',
+                        name: 'Hosting',
                         value: `${geo['hosting']}`,
                         inline: true
                     },
@@ -163,6 +163,21 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     {
                         name: 'Network Provider',
                         value: `${geo['isp']}, ${geo['as']}`
+                    },
+                    {
+                        name: 'Mobile',
+                        value: `${geo['mobile']}`,
+                        inline: true
+                    },
+                    {
+                        name: 'Proxy',
+                        value: `${geo['proxy']}`,
+                        inline: true
+                    },
+                    {
+                        name: 'Hosting',
+                        value: `${geo['hosting']}`,
+                        inline: true
                     },
                 ],
                 timestamp: new Date(),
