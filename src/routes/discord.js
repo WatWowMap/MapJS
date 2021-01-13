@@ -49,35 +49,61 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            const embed = new DiscordClient.MessageEmbed()
-                .setColor('#00FF00')
-                .setTitle('Success')
-                .setAuthor(`<@${user.id}>`)
-                .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
-                .addFields(
-                    { name: 'Client Info',  value: req.headers['user-agent'] },
-                    { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
-                )
-                .setTimestamp();
+            const succEmbed = {
+                color: 0x00FF00,
+                title: "Success",
+                author: {
+                    name: `${user.username}#${user.discriminator}`,
+                    icon_url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+                },
+                description: 'User Successfully Authenticated',
+                thumbnail: {
+                    url:  `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+                },
+                fields: [
+                    { 
+                        name: 'Client Info',  
+                        value: req.headers['user-agent'] 
+                    },
+                    { 
+                        name: 'Ip Address',
+                        value: req.headers['cf-connecting-ip'] 
+                    },
+                ]
+                timestamp: new Date(),
+            }
 
-            await DiscordClient.sendMessage(config.discord.logChannelId, embed);
+            await DiscordClient.sendMessage(config.discord.logChannelId, {embed: succEmbed});
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
 
-            const embed = new DiscordClient.MessageEmbed()
-                .setColor('#FF0000')
-                .setTitle('Failure')
-                .setAuthor(`<@${user.id}>`)
-                .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
-                .addFields(
-                    { name: 'Client Info',  value: req.headers['user-agent'] },
-                    { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
-                )
-                .setTimestamp();
+           const failEmbed = {
+                color: 0xFF0000,
+                title: "Failure",
+                author: {
+                    name: `${user.username}#${user.discriminator}`,
+                    icon_url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+                },
+                description: 'User Failed Authentication',
+                thumbnail: {
+                    url:  `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+                },
+                fields: [
+                    { 
+                        name: 'Client Info',  
+                        value: req.headers['user-agent'] 
+                    },
+                    { 
+                        name: 'Ip Address',
+                        value: req.headers['cf-connecting-ip'] 
+                    },
+                ]
+                timestamp: new Date(),
+            }
 
-            await DiscordClient.sendMessage(config.discord.logChannelId, embed);
+            await DiscordClient.sendMessage(config.discord.logChannelId, {embed: failEmbed});
             res.redirect('/login');
         }
     }).catch(error => {
