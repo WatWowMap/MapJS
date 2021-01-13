@@ -48,11 +48,15 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
-        var geo;
-        fetch(`http://ip-api.com/json/${req.headers['cf-connecting-ip']}`)
+        const url = `http://ip-api.com/json/${req.headers['cf-connecting-ip']}`
+        console.log(`fetching ${url}`)
+
+        var global.geo;
+        fetch(url)
             .then(res => res.json())
-            .then(data => geo = data)
-            .then(() => console.log(geo))
+            .then(data => global.geo = data)
+
+        console.log(`object: ${geo}`)
         
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
