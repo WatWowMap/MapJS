@@ -55,12 +55,12 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `<@${user.id}> (${user.id}) Authenticated successfully from ${req.headers['user-agent']}.`);
+            await DiscordClient.sendMessage(config.discord.logChannelId, `<@${user.id}> (${user.id}) Authenticated successfully from ${req.headers["cf-connecting-ip"]} ${req.headers['user-agent']}.`);
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `@${user.id}> (${user.id}) Not authorized to access map from ${req.headers['user-agent']}.`);
+            await DiscordClient.sendMessage(config.discord.logChannelId, `@${user.id}> (${user.id}) Not authorized to access map from ${req.headers["cf-connecting-ip"]}  ${req.headers['user-agent']}.`);
             res.redirect('/login');
         }
     }).catch(error => {
