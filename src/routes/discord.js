@@ -49,7 +49,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
 
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            var embed = new Discord.MessageEmbed()
+            var embed = new DiscordClient.MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle('Success')
                 .setAuthor(`<@${user.id}>`)
@@ -66,7 +66,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
 
-            var embed = new Discord.MessageEmbed()
+            var embed = new DiscordClient.MessageEmbed()
                 .setColor('#FF0000')
                 .setTitle('Failure')
                 .setAuthor(`<@${user.id}>`)
