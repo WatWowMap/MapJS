@@ -105,7 +105,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             ],
             timestamp: new Date(),
         };
-        const redirect = '/login';
+        let redirect = '/login';
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             embed.title = 'Success';
