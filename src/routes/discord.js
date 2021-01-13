@@ -47,20 +47,37 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.valid = valid;
         req.session.save();
 
-        var str = '';
-        for(var key in req.headers){
-            str += key + ": " + req.headers[key] + "\n"
-        }
-        await DiscordClient.sendMessage(config.discord.logChannelId, `${str}`)
-
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `<@${user.id}> (${user.id}) Authenticated successfully from ${req.headers["cf-connecting-ip"]} ${req.headers['user-agent']}.`);
+            var embed = new Discord.MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle('Success')
+                .setAuthor(`<@${user.id}>`)
+                .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
+                .addFields(
+                    { name: 'Client Info',  value: req.headers['user-agent'] },
+                    { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
+                )
+                .setTimestamp()
+
+            await DiscordClient.sendMessage(config.discord.logChannelId, embed);
             res.redirect(`/?token=${response.data.access_token}`);
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `@${user.id}> (${user.id}) Not authorized to access map from ${req.headers["cf-connecting-ip"]}  ${req.headers['user-agent']}.`);
+
+            var embed = new Discord.MessageEmbed()
+                .setColor('#FF0000')
+                .setTitle('Failure')
+                .setAuthor(`<@${user.id}>`)
+                .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`)
+                .addFields(
+                    { name: 'Client Info',  value: req.headers['user-agent'] },
+                    { name: 'Ip Address',   value: req.headers['cf-connecting-ip'] },
+                )
+                .setTimestamp()
+
+            await DiscordClient.sendMessage(config.discord.logChannelId, embed);
             res.redirect('/login');
         }
     }).catch(error => {
