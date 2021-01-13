@@ -51,10 +51,10 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         const url = `http://ip-api.com/json/${req.headers['cf-connecting-ip']}`
         console.log(`fetching ${url}`)
 
-        var global.geo;
+        var geo;
         fetch(url)
             .then(res => res.json())
-            .then(data => global.geo = data)
+            .then(data => geo = data)
 
         console.log(`object: ${geo}`)
         
@@ -86,7 +86,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                     },
                     {
                         name: 'Geo Lookup',
-                        value: `${geo["city"]}, ${geo["regionName"]}, ${geo["zip"]}` 
+                        value: `${geo['city']}, ${geo['regionName']}, ${geo['zip']}` 
                     },
                     {
                         name: 'Google Map',
