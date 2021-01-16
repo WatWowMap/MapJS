@@ -5,6 +5,7 @@ const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
 data.header_title = config.headerTitle;
 data.locale = config.locale;
+data.db_type = config.dbType;
 data.google_analytics_id = config.google.analytics;
 data.google_adsense_id = config.google.adsense;
 data.cluster_pokemon = config.map.clusters.pokemon;
@@ -41,5 +42,6 @@ data.default_show_portals = config.map.filters.portals;
 data.default_show_scan_areas = config.map.filters.scanAreas;
 data.default_show_devices = config.map.filters.devices;
 data.pokemon_rarity_json = JSON.stringify(config.rarity);
+data.popup_details = JSON.stringify(config.popupDetails);
 
 module.exports = data;

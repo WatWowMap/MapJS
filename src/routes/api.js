@@ -40,6 +40,7 @@ const getSettings = () => {
     const gymSettingsString = i18n.__('filter_gyms');
     const clusterGymsString = i18n.__('settings_cluster_gyms');
     const pokestopSettingsString = i18n.__('filter_pokestops');
+    const weatherSettingsString = i18n.__('settings_weather');
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
     const nestSettingsString = i18n.__('filter_nests');
     const nestPolygonsString = i18n.__('settings_nest_polygons');
@@ -48,10 +49,13 @@ const getSettings = () => {
     const pvpStatsString = i18n.__('filter_pvp_stats');
     const megaStatsString = i18n.__('filter_mega_stats');
     const experimentalStatsString = i18n.__('filter_experimental_stats');
+    const pokemonNameString = i18n.__('settings_show_pokemon_name');
+    const pvpPercentString = i18n.__('settings_show_pvp_percent');
     const level40String = i18n.__('filter_level40_stats');
     const level41String = i18n.__('filter_level41_stats');
     const level50String = i18n.__('filter_level50_stats');
     const level51String = i18n.__('filter_level51_stats');
+    const weatherDetailsString = i18n.__('settings_weather_details');
 
     /*
     const glowColorLabel = `
@@ -120,9 +124,33 @@ const getSettings = () => {
         'id': {
             'sort': utils.zeroPad(30, 3)
         },
+        'name': weatherDetailsString,
+        'filter': generateShowHideButtons('weather-details', 'weather-details'),
+        'type': weatherSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
         'name': nestPolygonsString,
         'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
         'type': nestSettingsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': pokemonNameString,
+        'filter': generateShowHideButtons('show-pokemon-name', 'show-pokemon-name'),
+        'type': pvpStatsString
+    });
+    settingsData.push({
+        'id': {
+            'sort': utils.zeroPad(30, 3)
+        },
+        'name': pvpPercentString,
+        'filter': generateShowHideButtons('show-pvp-percent', 'show-pvp-percent'),
+        'type': pvpStatsString
     });
     settingsData.push({
         'id': {
