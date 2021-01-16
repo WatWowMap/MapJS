@@ -99,6 +99,7 @@
           "database": "rdmdb",
           "charset": "utf8mb4",
           "sessionTable": "sessions",
+          "arScanColumn": false,
           "useFor": []
       },
       "manualdb": {

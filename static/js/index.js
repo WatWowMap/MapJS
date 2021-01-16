@@ -3397,6 +3397,10 @@ function getPokestopPopupContent (pokestop) {
         });
     }
 
+    if (pokestop.ar_scan_eligible) {
+        content += '<img src="/img/misc/ar.png" height="26" width="26"><br><br>'
+    }
+
     const updatedDate = new Date(pokestop.updated * 1000);
     if (updatedDate) {
         content += '<div class="last-updated"><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')</div>';
@@ -3619,6 +3623,11 @@ function getGymPopupContent (gym) {
             content += `<b>Worst CP:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / Weather: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
     }
+    
+    if (gym.ar_scan_eligible) {
+        content += '<img src="/img/misc/ar.png" height="26" width="26"><br><br>';
+    }
+
     content += '</div>';
 
     const updatedDate = new Date(gym.updated * 1000);
