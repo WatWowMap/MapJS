@@ -73,7 +73,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
                 },
                 { 
                     name: 'Ip Address',
-                    value: `||${req.headers['cf-connecting-ip']}||` 
+                    value: `||${ip}||` 
                 },
                 {
                     name: 'Geo Lookup',
