@@ -3163,7 +3163,7 @@ const getPokemonPopupContent = (pokemon) => {
             <td>${despawnDate.toLocaleTimeString()}</td>
           </tr>
           <tr>
-            <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
+            <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fas fa-question" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
           </tr>
         </table>`;
     } else {
@@ -3177,7 +3177,7 @@ const getPokemonPopupContent = (pokemon) => {
               <td>${despawnDate.toLocaleTimeString()}</td>
             </tr>
             <tr>
-              <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
+              <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fas fa-question" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
             </tr>
           </table>`;
       }
