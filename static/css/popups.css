@@ -93,6 +93,22 @@
   padding: 5px;
 }
 
+.pokemon-despawn-min {
+  grid-column: 1;
+  grid-row: 5;
+  margin: auto;
+  font-size: 16px;
+  padding: 25px 0 25px 0;
+}
+
+.pokemon-despawn-timers-min {
+  grid-column: 2;
+  grid-row: 5;
+  margin: auto;
+  font-size: 16px;
+  padding: 25px 0 25px 0;
+}
+
 .pokemon-other-timers {
   grid-column: 2;
   grid-row: 5;

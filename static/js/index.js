@@ -117,6 +117,8 @@ let showLevel50Stats;
 let showLevel51Stats;
 let showPokemonName;
 let showPvpPercent;
+let showPopupPvp;
+let showMinPokePopup;
 let showWeatherDetails;
 
 let tileLayer;
@@ -596,18 +598,34 @@ function loadStorage () {
 
     const showPokemonNameValue = retrieve('show_pokemon_name');
     if (showPokemonNameValue === null) {
-        store('show_pokemon_name', popupDetails.pokemon.pvpPercent);
-        showPokemonName = popupDetails.pokemon.pvpPercent;
+        store('show_pokemon_name', popupDetails.pokemon.useName);
+        showPokemonName = popupDetails.pokemon.useName;
     } else {
         showPokemonName = (showPokemonNameValue === 'true');
     }
 
     const showPvpPercentValue = retrieve('show_pvp_percent');
     if (showPvpPercentValue === null) {
-        store('show_pvp_percent', configPvp.useName);
-        showPvpPercent = configPvp.useName;
+        store('show_pvp_percent', configPvp.pvpPercent);
+        showPvpPercent = configPvp.pvpPercent;
     } else {
         showPvpPercent = (showPvpPercentValue === 'true');
+    }
+
+    const showPopupPvpValue = retrieve('show_popup_pvp');
+    if (showPopupPvpValue === null) {
+        store('show_popup_pvp', popupDetails.pokemon.pvp);
+        showPopupPvp = popupDetails.pokemon.pvp;
+    } else {
+        showPopupPvp = (showPopupPvpValue === 'true');
+    }
+
+    const showMinPokePopupValue = retrieve('show_min_poke_popup');
+    if (showMinPokePopupValue === null) {
+        store('show_min_poke_popup', popupDetails.pokemon.minimal);
+        showMinPokePopup = popupDetails.pokemon.minimal;
+    } else {
+        showMinPokePopup = (showMinPokePopupValue === 'true');
     }
 
     const showLevel40Value = retrieve('level40_stats');
@@ -1118,8 +1136,14 @@ function loadStorage () {
         if (defaultSettings['show-pokemon-name'] === undefined) {
             defaultSettings['show-pokemon-name'] = { show: configPvp.useName };
         }
-        if (defaultSettings['show-pvp-stats'] === undefined) {
-            defaultSettings['show-pvp-stats'] = { show: popupDetails.pokemon.pvpPercent };
+        if (defaultSettings['show-pvp-percent'] === undefined) {
+            defaultSettings['show-pvp-percent'] = { show: popupDetails.pokemon.pvpPercent };
+        }
+        if (defaultSettings['show-popup-pvp'] === undefined) {
+            defaultSettings['show-popup-pvp'] = { show: popupDetails.pokemon.pvp };
+        }
+        if (defaultSettings['show-min-poke-popup'] === undefined) {
+            defaultSettings['show-min-poke-popup'] = { show: popupDetails.pokemon.minimal };
         }
         if (defaultSettings['level40-stats'] === undefined) {
             defaultSettings['level40-stats'] = { show: configPvp.l40stats };
@@ -1176,6 +1200,12 @@ function loadStorage () {
         if (settings['show-pvp-percent'] === undefined) {
             settings['show-pvp-percent'] = { show: popupDetails.pokemon.pvpPercent };
         }
+        if (settings['show-popup-pvp'] === undefined) {
+            settings['show-popup-pvp'] = { show: popupDetails.pokemon.pvp };
+        }
+        if (settings['show-min-poke-popup'] === undefined) {
+            settings['show-min-poke-popup'] = { show: popupDetails.pokemon.minimal };
+        }
         if (settings['level40-stats'] === undefined) {
             settings['level40-stats'] = { show: configPvp.l40stats };
         }
@@ -1202,6 +1232,8 @@ function loadStorage () {
     showExperimentalStats = settings['experimental-stats'].show;
     showPokemonName = settings['show-pokemon-name'].show;
     showPvpPercent = settings['show-pvp-percent'].show;
+    showPopupPvp = settings['show-popup-pvp'].show;
+    showMinPokePopup = settings['show-min-poke-popup'].show;
     showLevel40Stats = settings['level40-stats'].show;
     showLevel41Stats = settings['level41-stats'].show;
     showLevel50Stats = settings['level50-stats'].show;
@@ -1521,6 +1553,8 @@ function initMap () {
         const newShowExperimentalStats = settingsNew['experimental-stats'].show;
         const newShowPokemonName = settingsNew['show-pokemon-name'].show
         const newShowPvpPercent = settingsNew['show-pvp-percent'].show
+        const newShowPopupPvp = settingsNew['show-popup-pvp'].show
+        const newShowMinPokePopup = settingsNew['show-min-poke-popup'].show
         const newShowLevel40Stats = settingsNew['level40-stats'].show;
         const newShowLevel41Stats = settingsNew['level41-stats'].show;
         const newShowLevel50Stats = settingsNew['level50-stats'].show;
@@ -1530,8 +1564,6 @@ function initMap () {
             showPokemonTimers !== newShowPokemonTimers ||
             showMegaStats !== newShowMegaStats ||
             showExperimentalStats !== newShowExperimentalStats ||
-            showPokemonName !== newShowPokemonName ||
-            showPvpPercent !== newShowPvpPercent ||
             showLevel40Stats !== newShowLevel40Stats ||
             showLevel41Stats !== newShowLevel41Stats ||
             showLevel50Stats !== newShowLevel50Stats ||
@@ -1589,6 +1621,8 @@ function initMap () {
         showExperimentalStats = newShowExperimentalStats;
         showPokemonName = newShowPokemonName;
         showPvpPercent = newShowPvpPercent;
+        showPopupPvp = newShowPopupPvp;
+        showMinPokePopup = newShowMinPokePopup;
         showLevel40Stats = newShowLevel40Stats;
         showLevel41Stats = newShowLevel41Stats;
         showLevel50Stats = newShowLevel50Stats;
@@ -1601,6 +1635,8 @@ function initMap () {
         store('experimental_stats', newShowExperimentalStats);
         store('show_pokemon_name', newShowPokemonName);
         store('show_pvp_percent', newShowPvpPercent);
+        store('show_popup_pvp', newShowPopupPvp);
+        store('show_min_poke_popup', newShowMinPokePopup);
         store('level40_stats', newShowLevel40Stats);
         store('level41_stats', newShowLevel41Stats);
         store('level50_stats', newShowLevel50Stats);
@@ -3048,7 +3084,7 @@ const getPokemonPopupContent = (pokemon) => {
   }
    
   const getHeightWeight = (pokemon) => {
-    if (pokemon.size > 0 && pokemon.weight > 0 && popupDetails.pokemon.weight) {
+    if (pokemon.size > 0 && pokemon.weight > 0 && popupDetails.pokemon.weight && !showMinPokePopup) {
       const baseHeight = pokemon.pokemon_id === 19 ? 0.300000011920929 : 0.89999998;
       const baseWeight = pokemon.pokemon_id === 19 ? 3.5 : 10;
       const size = (pokemon.size / baseHeight) + (pokemon.weight / baseWeight);
@@ -3059,31 +3095,35 @@ const getPokemonPopupContent = (pokemon) => {
   }
 
   const getMoves = (pokemon) => {
-    const moves = ['move_1','move_2'];
-    let structure = 'pokemon-moves';
-    if (dbType === 'chuck' || !popupDetails.pokemon.captureRates) {
-      structure += '-columns'
+    if (showMinPokePopup) {
+      return ``;
     } else {
-      structure += '-rows'
-    }
-    let content = `<div class="${structure}"><table>`;
-    if (pokemon.move_1 && pokemon.move_2) {
-      if (structure === 'pokemon-moves-columns') {
-        content += `<tr>`
-        moves.forEach(move => content += `<td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td>`)
-        content += `</tr>`
+      const moves = ['move_1','move_2'];
+      let structure = 'pokemon-moves';
+      if (dbType === 'chuck' || !popupDetails.pokemon.captureRates) {
+        structure += '-columns'
       } else {
-        moves.forEach(move => content += `<tr><td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td></tr>`)
-      }  
+        structure += '-rows'
+      }
+      let content = `<div class="${structure}"><table>`;
+      if (pokemon.move_1 && pokemon.move_2) {
+        if (structure === 'pokemon-moves-columns') {
+          content += `<tr>`
+          moves.forEach(move => content += `<td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td>`)
+          content += `</tr>`
+        } else {
+          moves.forEach(move => content += `<tr><td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td></tr>`)
+        }  
+      }
+      return content += `</table></div>`;
     }
-    return content += `</table></div>`;
   }
 
   const getCaptureRates = (pokemon) => {
     let structure = 'pokemon-capture-rates';
     structure += popupDetails.pokemon.moves ? '-columns' : '-rows'
     let content = `<div class="${structure}"><table>`;
-    if (pokemon.capture_1 !== null && pokemon.capture_2 !== null && pokemon.capture_3 !== null && dbType !== 'chuck') {
+    if (pokemon.capture_1 !== null && pokemon.capture_2 !== null && pokemon.capture_3 !== null && dbType !== 'chuck' && !showMinPokePopup) {
       if (structure === 'pokemon-capture-rates-columns') {
         content += `
           <tr>
@@ -3111,71 +3151,65 @@ const getPokemonPopupContent = (pokemon) => {
   }
 
   const getDespawnTimers = (pokemon) => {
-    let content = `<table class="pokemon-despawn-timers">`;
-    if (pokemon.expire_timestamp) {
-      const despawnDate = new Date(pokemon.expire_timestamp * 1000);
+    const despawnDate = new Date(pokemon.expire_timestamp * 1000);
+    let content = ``;
+    if (showMinPokePopup && pokemon.expire_timestamp) {
       content += `
-        <tr>
-          <td><b>Despawn:</b></td>
-        <tr>
-          <td>${despawnDate.toLocaleTimeString()}</td>
-        </tr>
-        <tr>
-          <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
-        </tr>`;
+        <div class="pokemon-despawn-min">
+          <b>Despawn:</b>
+        </div>
+        <table class="pokemon-despawn-timers-min">
+          <tr>
+            <td>${despawnDate.toLocaleTimeString()}</td>
+          </tr>
+          <tr>
+            <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
+          </tr>
+        </table>`;
+    } else {
+      content += ``;
+      if (pokemon.expire_timestamp) {
+        content += `
+          <table class="pokemon-despawn-timers">
+            <tr>
+              <td><b>Despawn:</b></td>
+            <tr>
+              <td>${despawnDate.toLocaleTimeString()}</td>
+            </tr>
+            <tr>
+              <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
+            </tr>
+          </table>`;
+      }
     }
-    return content += `</table>`;
+    return content;
   }
-
-  // const getDespawnTimers = (pokemon) => {
-  //   let content = `
-  //     <div class="pokemon-despawn-timers">
-  //       <table>`;
-  //   if (pokemon.expire_timestamp) {
-  //     const despawnDate = new Date(pokemon.expire_timestamp * 1000);
-  //     content += `
-  //       <tr><td><b>Despawn:</b></td></tr>
-  //       <tr><td>${despawnDate.toLocaleTimeString()} ${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>`;
-  //   }
-  //   return content += `</tr></table></div>`;
-  // }
 
   const getOtherTimers = (pokemon) => {
-    let content = `
-    <div class="pokemon-other-timers">
-      <table>
-        <tr>
-          <td><b>First/Last Seen:</b></td>
-        </tr>`;
-    if (pokemon.first_seen_timestamp) {
-      const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
-      content += `<tr><td>${firstSeenDate.toLocaleTimeString()}</td></tr>`;
+    if (showMinPokePopup) {
+      return ``;
+    } else {
+      let content = `
+      <div class="pokemon-other-timers">
+        <table>
+          <tr>
+            <td><b>First/Last Seen:</b></td>
+          </tr>`;
+      if (pokemon.first_seen_timestamp) {
+        const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
+        content += `<tr><td>${firstSeenDate.toLocaleTimeString()}</td></tr>`;
+      }
+      if (pokemon.updated !== 0 && pokemon.updated !== null) {
+        const updatedDate = new Date(pokemon.updated * 1000);
+        content += `<tr><td>${updatedDate.toLocaleTimeString()}</td></tr>`;
+      }
+      return content += `</table></div>`;
     }
-    if (pokemon.updated !== 0 && pokemon.updated !== null) {
-      const updatedDate = new Date(pokemon.updated * 1000);
-      content += `<tr><td>${updatedDate.toLocaleTimeString()}</td></tr>`;
-    }
-    return content += `</table></div>`;
   }
 
-  // const getOtherTimers = (pokemon) => {
-  //   let content = `
-  //   <div class="pokemon-other-timers">
-  //     <table>
-  //       <tr><td><b>First Seen:</b></td><td><b>Last Seen:</td></tr><tr>`;
-  //   if (pokemon.first_seen_timestamp) {
-  //     const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
-  //     content += `<td>${firstSeenDate.toLocaleTimeString()}</td>`;
-  //   }
-  //   if (pokemon.updated !== 0 && pokemon.updated !== null) {
-  //     const updatedDate = new Date(pokemon.updated * 1000);
-  //     content += `<td>${updatedDate.toLocaleTimeString()}</td>`;
-  //   }
-  //   return content += `</tr></table></div>`;
-  // }
-
   const getPvp = (pokemon) => {
-    let content = `
+    if (showPopupPvp) {
+      let content = `
       <div class="pokemon-pvp-stats">
         <table class="table-pvp">`;
     if (pokemon.pvp_rankings_great_league !== undefined && pokemon.pvp_rankings_great_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_great_league, true)) {
@@ -3189,19 +3223,26 @@ const getPokemonPopupContent = (pokemon) => {
       content += `<small>* Theoretical Mega Stat</small>`;
     }
     return content += `</div>`;
+    } else {
+      return ``;
+    }
   }
 
   const getFourthRow = (pokemon) => {
-    return `
-    <div class="pokemon-timer-hide-exclude">
-      <table class="table-fourth-row">
-        <tr>
-          <td><a id="h${pokemon.id}" title="Show Despawn Timer" href="#" onclick="addPokemonTimer('${pokemon.id}');return false;"><b>[Timer]</b></a></td>
-          <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
-          <td><a title="Filter Pokemon" href="#" onclick="addPokemonFilter(${pokemon.pokemon_id}, ${pokemon.form}, false);return false;"><b>[Exclude]</b></a></td>
-        </tr>
-      </table>
-    </div>`;
+    if (showMinPokePopup) {
+      return ``;
+    } else {
+      return `
+      <div class="pokemon-timer-hide-exclude">
+        <table class="table-fourth-row">
+          <tr>
+            <td><a id="h${pokemon.id}" title="Show Despawn Timer" href="#" onclick="addPokemonTimer('${pokemon.id}');return false;"><b>[Timer]</b></a></td>
+            <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
+            <td><a title="Filter Pokemon" href="#" onclick="addPokemonFilter(${pokemon.pokemon_id}, ${pokemon.form}, false);return false;"><b>[Exclude]</b></a></td>
+          </tr>
+        </table>
+      </div>`;
+    }
   }
 
   const getScouting = (pokemon) => {
@@ -3229,12 +3270,12 @@ const getPokemonPopupContent = (pokemon) => {
         ${popupDetails.pokemon.cp ? getCP(pokemon) : ''}
         ${popupDetails.pokemon.weight ? getHeightWeight(pokemon) : ''}
       </table>
-        ${popupDetails.pokemon.captureRates ? getCaptureRates(pokemon) : ''}
-        ${popupDetails.pokemon.moves ? getMoves(pokemon) : ''}
-        ${popupDetails.pokemon.despawnTimer ? getDespawnTimers(pokemon) : ''}
-        ${popupDetails.pokemon.otherTimers ? getOtherTimers(pokemon) : ''}
-        ${popupDetails.pokemon.pvp ? getPvp(pokemon) : ''}
-        ${popupDetails.pokemon.hideExcludeTimer ? getFourthRow(pokemon) : ''}
+      ${popupDetails.pokemon.captureRates ? getCaptureRates(pokemon) : ''}
+      ${popupDetails.pokemon.moves ? getMoves(pokemon) : ''}
+      ${popupDetails.pokemon.despawnTimer ? getDespawnTimers(pokemon) : ''}
+      ${popupDetails.pokemon.otherTimers ? getOtherTimers(pokemon) : ''}
+      ${popupDetails.pokemon.pvp ? getPvp(pokemon) : ''}
+      ${popupDetails.pokemon.hideExcludeTimer ? getFourthRow(pokemon) : ''}
       <div class="pokemon-nav">
         ${popupDetails.pokemon.navigation ? getNavigation(pokemon) : ''}
         ${enableScouting ? getScouting(pokemon) : ''}
@@ -4677,6 +4718,8 @@ function manageSelectButton(e, isNew) {
         type === 'experimental-stats' ||
         type === 'show-pokemon-name' ||
         type === 'show-pvp-percent' ||
+        type === 'show-popup-pvp' ||
+        type === 'show-min-poke-popup' ||
         type === 'pvp-level40-stats' ||
         type === 'pvp-level41-stats' ||
         type === 'pvp-level50-stats' ||
@@ -5206,6 +5249,8 @@ function manageSelectButton(e, isNew) {
                 type === 'experimental-stats' ||
                 type === 'show-pokemon-name' ||
                 type === 'show-pvp-percent' ||
+                type === 'show-popup-pvp' ||
+                type === 'show-min-poke-popup' ||
                 type === 'pvp-level40-stats' ||
                 type === 'pvp-level41-stats' ||
                 type === 'pvp-level50-stats' ||
@@ -7265,6 +7310,12 @@ function loadFilterSettings (e) {
 
         showPvpPercent = obj.show_pvp_percent;
         store('show_pvp_percent', showPvpPercent);
+
+        showPopupPvp = obj.show_popup_pvp;
+        store('show_popup_pvp', showPopupPvp);
+
+        showMinPokePopup = obj.show_min_poke_popup;
+        store('show_min_poke_popup', showMinPokePopup);
 
         showLevel40Stats = obj.level40_stats;
         store('level40_stats', showLevel40Stats);

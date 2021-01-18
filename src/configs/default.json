@@ -212,6 +212,7 @@
   },
   "popupDetails": {
     "pokemon": {
+      "minimal": false,
       "name": true,
       "gender": true,
       "weather": true,
