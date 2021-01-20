@@ -13,6 +13,7 @@ const db = new MySQLConnector(config.db.scanner);
 const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
+const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
 
 const dbSelection = (category) => {
     let dbSelection;
@@ -383,7 +384,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
-            raid_pokemon_evolution, raid_pokemon_costume
+            raid_pokemon_evolution, raid_pokemon_costume${arScanEligible}
     FROM gym
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false
         ${excludeLevelSQL} AND (
@@ -423,6 +424,12 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 raidBattleTimestamp = null;
                 raidPokemonId = null;
             }
+
+            let arScanEligible = null;
+            if (config.db.scanner.arScanColumn) {
+                arScanEligible = result.ar_scan_eligible;
+            }
+            
             gyms.push({
                 id: result.id,
                 lat: result.lat,
@@ -453,6 +460,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 sponsor_id: result.sponsor_id,
                 raid_pokemon_evolution: result.raid_pokemon_evolution,
                 raid_pokemon_costume: result.raid_pokemon_costume,
+                ar_scan_eligible: arScanEligible,
             });
         }
     }
@@ -666,7 +674,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
             CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
-            incident_expire_timestamp, grunt_type, sponsor_id
+            incident_expire_timestamp, grunt_type, sponsor_id${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
@@ -723,6 +731,11 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 gruntType = null;
             }
 
+            let arScanEligible = null;
+            if (config.db.scanner.arScanColumn) {
+                arScanEligible = result.ar_scan_eligible;
+            }
+
             pokestops.push({
                 id: result.id,
                 lat: result.lat,
@@ -744,7 +757,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 pokestop_display: pokestopDisplay,
                 incident_expire_timestamp: incidentExpireTimestamp,
                 grunt_type: gruntType,
-                sponsor_id: result.sponsor_id
+                sponsor_id: result.sponsor_id,
+                ar_scan_eligible: arScanEligible,
             });
         }
     }
