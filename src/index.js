@@ -134,7 +134,7 @@ app.use(async (req, res, next) => {
             req.path === '/api/discord/login' ||
             req.path === '/login' ||
             req.path === '/blocked' ||
-            (config.homePage && req.path === '/home')
+            (config.homepage && req.path === '/home')
         )
     ) {
         return next();
@@ -150,7 +150,7 @@ app.use(async (req, res, next) => {
         }
         if (!req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);
-            if (config.homePage) {
+            if (config.homepage) {
                 res.redirect('/home');
             } else {
                 res.redirect('/login');
@@ -162,7 +162,7 @@ app.use(async (req, res, next) => {
         if (defaultData.hide_map) {
             // No view map permissions, go to login screen
             console.error('Invalid view map permissions for user', req.session.user_id);
-            if (config.homePage) {
+            if (config.homepage) {
                 res.redirect('/home');
             } else {
                 res.redirect('/login');
@@ -187,7 +187,7 @@ app.use(async (req, res, next) => {
         defaultData.hide_devices = !perms.devices;
         return next();
     }
-    if (config.homePage) {
+    if (config.homepage) {
         res.redirect('/home');
     } else {
         res.redirect('/login');

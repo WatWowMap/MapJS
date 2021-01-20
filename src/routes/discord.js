@@ -116,14 +116,14 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         } else if (blocked) {
             // User is in blocked Discord server(s)
             console.warn(user.id, 'Blocked due to', blocked);
-            embed.title 'Blocked';
+            embed.title = 'Blocked';
             embed.description = 'User Blocked Due to ' + blocked;
             embed.color = 0xFF0000;
             redirect = '/blocked';
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            redirect = config.homePage ? '/home' : '/login';
+            redirect = config.homepage ? '/home' : '/login';
         }
         await DiscordClient.sendMessage(config.discord.logChannelId, {embed: embed});
         res.redirect(redirect);
