@@ -2947,7 +2947,8 @@ const getPokemonBestRank = (greatLeague, ultraLeague) => {
     return 4096;
 }
 
-const getPvpRanks = (league, data) => {
+const getPvpRanks = (league, pokemon) => {
+  const getLeague = `pvp_rankings_${league}_league`
   let content = `
         <tr>
           <td><img src="/img/misc/${league}.png" height="20"></td>
@@ -2957,7 +2958,7 @@ const getPvpRanks = (league, data) => {
           ${dbType === 'chuck' ? `<td><b>Cap</b></td>` : ``}
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
-  for (const [i, ranking] of Object.entries(data)) {
+  for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
     if (ranking.rank <= configPvp.maxRank) {
       content += `<tr>`
       if (showPokemonName) {
@@ -2976,7 +2977,7 @@ const getPvpRanks = (league, data) => {
         }
         content += `<td>${pokemonName}</td>`
       } else {
-        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution)}.png" alt="${getPokemonNameNoId(ranking.pokemon)}" height="20">`
+        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${getPokemonNameNoId(ranking.pokemon)}" height="20">`
         if (ranking.evolution) {
           if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
             content += `<td>*${img}</td>`
@@ -3213,10 +3214,10 @@ const getPokemonPopupContent = (pokemon) => {
       <div class="pokemon-pvp-stats">
         <table class="table-pvp">`;
     if (pokemon.pvp_rankings_great_league !== undefined && pokemon.pvp_rankings_great_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_great_league, true)) {
-      content += getPvpRanks('great', pokemon.pvp_rankings_great_league);
+      content += getPvpRanks('great', pokemon);
     }
     if (pokemon.pvp_rankings_ultra_league !== undefined && pokemon.pvp_rankings_ultra_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
-      content += getPvpRanks('ultra', pokemon.pvp_rankings_ultra_league);
+      content += getPvpRanks('ultra', pokemon);
     }
     content += `</table>`
     if (content.includes('*')) {
