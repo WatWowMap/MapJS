@@ -43,6 +43,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.username = `${user.username}#${user.discriminator}`;
         const perms = await DiscordClient.getPerms(user);
         req.session.perms = perms;
+        const blocked = perms.blocked;
         const valid = perms.map !== false;
         req.session.valid = valid;
         req.session.save();
@@ -105,18 +106,25 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
             ],
             timestamp: new Date(),
         };
-        let redirect = '/login';
+        let redirect;
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
             embed.title = 'Success';
             embed.description = 'User Successfully Authenticated';
             embed.color = 0x00FF00;
             redirect = `/?token=${response.data.access_token}`;
+        } else if (blocked) {
+            // User is in blocked Discord server(s)
+            console.warn(user.id, 'Blocked due to', blocked);
+            embed.title = 'Blocked';
+            embed.description = 'User Blocked Due to ' + blocked;
+            embed.color = 0xFF0000;
+            redirect = '/blocked';
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
+            redirect = config.homepage ? '/home' : '/login';
         }
-
         await DiscordClient.sendMessage(config.discord.logChannelId, {embed: embed});
         res.redirect(redirect);
     }).catch(error => {
