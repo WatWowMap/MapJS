@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-8 center-vertical">
+        <span class="text-nowrap" style="font-size:<%= title_size %>px;"><b><%= gym_name %></b></span>
+    </div>
+    <div class="col-4 center-vertical">
+        <div style="float:right; margin: auto;">
+            <img src="<%= icon_path %>/team/<%= team_id %>.png" height="32" width="32">
+        </div>
+    </div>
+</div>
+
+<% if (is_raid) { %>
+    <div class="row">
+        <div class="col-4">
+            <div class="row" style="margin:auto;">
+            <% if (has_raid_boss && is_raid_battle) { %>
+                <img src="<%= pokemon_icon %>" height="64" width="64">
+            <% } else { %>
+                <img src="<%= icon_path %>/egg/<%= raid_level %>.png" height="64" width="64">
+            <% } %>
+            </div>
+            <div class="row" style="margin:auto;">
+            <% if (has_raid_boss && is_raid_battle) { %>
+                <% if (pokemon_types && pokemon_types.length > 0) { %>
+                    <div class="col text-nowrap"></div>
+                    <% pokemon_types.forEach(function(type) { %>
+                        <img src="<%= icon_path %>/type/<%= type %>.png" height="16" width="16">&nbsp;
+                    <% }); %>
+                    </div>
+                <% } %>
+            <% } %>
+            </div>
+        </div>
+        <div class="col-8 text-nowrap">
+            <h7><b><%= pokemon_name %></b></h7><br>
+            <% if (has_raid_boss && is_raid_battle) { %>
+                <% if (raid_pokemon_cp) { %>
+                    <% if (raid_is_exclusive) { %>
+                        <b>Level:</b> EX<br>
+                    <% } else { %>
+                        <b>Level:</b> <%= raid_level %><br>
+                    <% } %>
+                <% } %>
+                <% if (raid_pokemon_move_1) { %>
+                    <b>Fast:</b> <%= move_1_name %><br>
+                <% } %>
+                <% if (raid_pokemon_move_2) { %>
+                    <b>Charge:</b> <%= move_2_name %><br>
+                <% } %>
+                <% if (in_battle) { %>
+                    <b>Gym last seen in battle!</b><br>
+                <% } %>
+                <% if (raid_pokemon_form > 0) { %>
+                    <b>Form:</b> <%= form_name %><br>
+                <% } %>
+            <% } %>
+            <% if (ex_raid_eligible) { %>
+                <img src="<%= icon_path %>/misc/ex.png" height="24" width="32">
+            <% } %>
+        </div>
+    </div>
+    <br>
+<% } else { %>
+    <div class="row">
+    <% if (url) {
+        let teamClass = team_id === 0
+            ? 'team-neutral'
+            : team_id === 1
+                ? 'team-mystic'
+                : team_id === 2
+                    ? 'team-valor'
+                    : team_id === 3
+                        ? 'team-instinct'
+                        : '';
+        url.replace('http://', 'https://');
+        %> 
+        <div class="col-4">
+            <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="circle-image <%= teamClass %>" style="height:72px; width:72px;"></a>
+        </div>
+    <% } %>
+        <div class="col-8 center-vertical p-4">
+            <b>Team:</b> <%= team_name %><br>
+            <b>Slots Available:</b> <%= available_slots %><br>
+        <% if (guarding_pokemon_id > 0) { %>
+            <b>Guard:</b> <%= guarding_pokemon_name %><br>
+        <% } %>
+        <% if (total_cp > 0) { %>
+            <b>Total CP:</b> <%= total_cp.toLocaleString() %><br>
+        <% } %>
+        <% if (in_battle > 0) { %>
+            <b>Gym is under attack!</b><br>
+        <% } %>
+        <% if (ex_raid_eligible > 0) { %>
+            <img src="<%= icon_path %>/misc/ex.png" height="24" width="32">
+        <% } %>
+        </div>
+    </div>
+    <br>
+<% } %>
+
+<div class="text-center">
+    <% if (is_raid && !is_raid_battle) { %>
+        <b>Raid Start:</b> <%= new Date(raid_battle_timestamp * 1000).toLocaleString() %> (<%= time_until_battle %>)<br>
+    <% } %>
+    <% if (is_raid) { %>
+        <b>Raid End:</b> <%= new Date(raid_end_timestamp * 1000).toLocaleString() %> (<%= time_until_end %>)<br><br>
+    <% } %>
+    </div>
+    <% if (updated) { %> %>
+        <small><b>Last Updated:</b> <%= new Date(updated * 1000).toLocaleString() %> (<%= time_since_updated %>)<br></small>
+    <% } %>
+    <% if (last_modified_timestamp) { %>
+        <small><b>Last Modified:</b> <%= new Date(last_modified_timestamp * 1000).toLocaleString() %> (<%= time_since_modified %>)<br></small>
+    <% } %>
+
+<br>
+<div class="row text-center text-nowrap">
+    <div class="col">
+        <a href="https://www.google.com/maps/place/<%= lat %>,<%= lon %>" title="Open in Google Maps">
+            <img src="<%= icon_path %>/navigation/gmaps.png" height="32" width="32">
+        </a>
+    </div>
+    <div class="col">
+        <a href="https://maps.apple.com/maps?daddr=<%= lat %>,<%= lon %>" title="Open in Apple Maps">
+            <img src="<%= icon_path %>/navigation/applemaps.png" height="32" width="32">
+        </a>
+    </div>
+    <div class="col">
+        <a href="https://www.waze.com/ul?ll=<%= lat %>,<%= lon %>&navigate=yes" title="Open in Waze">
+            <img src="<%= icon_path %>/navigation/othermaps.png" height="32" width="32">
+        </a>
+    </div>
+</div>

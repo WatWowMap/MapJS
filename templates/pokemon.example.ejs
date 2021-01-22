@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-12 col-md-8 center-vertical text-nowrap">
+        <h6><b><%= pokemon_name %> <%= gender_icon %> </b></h6>
+    </div>
+    <div class="col-6 col-md-4 center-vertical">
+        <div style="float:right; margin-right:5px;">
+        <% if (!(display_pokemon_id > 0) && weather > 0) { %>
+            <img src="<%= icon_path %>/weather/<%= weather %>.png" height="32" width="32">
+        <% } %>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="<%= has_iv ? 'col-4' : 'col text-center' %>">
+        <div class="row <%= has_iv ? '' : 'text-center' %>" style="margin: auto;">
+            <img src="<%= pokemon_icon %>" height="64" width="64">
+        </div>
+        <div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">
+            <% if (pokemon_types && pokemon_types.length > 0) { %>
+                <% pokemon_types.forEach(function(type) { %>
+                    <img src="<%= icon_path %>/type/<%= type %>.png" height="16" width="16">&nbsp;
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+    <div class="col-8 text-nowrap">
+    <% if (has_iv) { %>
+        <% const ivPercent = Math.round((atk_iv + def_iv + sta_iv) / 45 * 1000) / 10; %>
+        <b>IV:</b> <%= ivPercent %>% (A<%= atk_iv %>|D<%= def_iv %>|S<%= sta_iv%>)<br>
+    <% } %>
+    <% if (cp) { %>
+        <b>CP:</b> <%= cp %> (Lvl. <%= level %>)<br>
+    <% } %>
+    <% if (move_1) { %>
+        <b>Fast:</b> <%= move_1_name %><br>
+    <% } %>
+    <% if (move_2) { %>
+        <b>Charge:</b> <%= move_2_name %><br>
+    <% } %>
+    <% if (size > 0 && weight > 0 && (pokemon_id === 19 || pokemon_id === 129)) { %>
+        <b>Size:</b> <%= size %> | <b>Weight:</b> <%= Math.round(weight) %>kg<br>
+    <% } else if (weight > 0) { %>
+        <b>Weight:</b> <%= Math.round(weight) %>kg<br>
+    <% } %>
+    <% if (capture_1 && capture_2 && capture_3) { %>
+        <b>Catch Chances:</b><br>
+        <img src="<%= icon_path %>/item/1.png" height="14" width="14"> <%= (capture_1 * 100).toFixed(1) %>% 
+        <img src="<%= icon_path %>/item/2.png" height="14" width="14"> <%= (capture_2 * 100).toFixed(1) %>%<br>
+        <img src="<%= icon_path %>/item/3.png" height="14" width="14"> <%= (capture_3 * 100).toFixed(1) %>%<br>
+    <% } %>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col text-nowrap">
+    <% if (expire_timestamp_verified) { %>
+        <b>Despawn Time:</b> 
+    <% } else { %>
+        <b>Despawn Time:</b> ~
+    <% } %>
+    <%= new Date(expire_timestamp * 1000).toLocaleString() %> (<%= time_utill_despawn %>)<br>
+    </div>
+    <div class="col-sm text-nowrap">
+    <% if (first_seen_timestamp > 0) { %>
+        <% const firstSeenDate = new Date(first_seen_timestamp * 1000); %>
+        <small><b>First Seen:</b> <%= firstSeenDate.toLocaleString() %> (<%= time_since_first_seen %>)</small><br>
+    <% } %>
+    </div>
+    <div class="col-sm text-nowrap">
+    <% if (updated > 0) { %>
+        <% const updatedDate = new Date(updated * 1000); %>
+        <small><b>Latest Seen:</b> <%= updatedDate.toLocaleString() %> (<%= time_since_updated %>)</small><br>
+    <% } %>
+
+    <% if (great_league_rankings && great_league_rankings.length > 0) { %>
+        <br>
+        <b>Great League:</b><br>
+        <% for (let i = 0; i < great_league_rankings.length; i++) { %>
+            <% let ranking = great_league_rankings[i]; %>
+            <small><b><%= ranking.pokemon_name %>:</b> #<%= ranking.rank %> (<%= ranking.percent %>%) @ <%= ranking.cp %> CP (Lvl. <%= ranking.level %>)</small><br>
+        <% } %>
+    <% } %>
+    <% if (ultra_league_rankings && ultra_league_rankings.length > 0) { %>
+        <br>
+        <b>Ultra League:</b><br>
+        <% for (let i = 0; i < ultra_league_rankings.length; i++) { %>
+            <% let ranking = ultra_league_rankings[i]; %>
+            <small><b><%= ranking.pokemon_name %>:</b> #<%= ranking.rank %> (<%= ranking.percent %>%) @ <%= ranking.cp %> CP (Lvl. <%= ranking.level %>)</small><br>
+        <% } %>
+    <% } %>
+
+    </div>
+</div>
+<br>
+<div class="text-center">
+    <a id="h<%= id %>" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden('<%= id %>');return false;"><b>[Hide]</b></a>&nbsp;
+    <a title="Filter Pokemon" href="#" onclick="addPokemonFilter('<%= pokemon_id %>', '<%= form %>', false);return false;"><b>[Exclude]</b></a>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <a href="https://www.google.com/maps/place/<%= lat %>,<%= lon %>" title="Open in Google Maps">
+                <img src="<%= icon_path %>/navigation/gmaps.png" height="32" width="32">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://maps.apple.com/maps?daddr=<%= lat %>,<%= lon %>" title="Open in Apple Maps">
+                <img src="<%= icon_path %>/navigation/applemaps.png" height="32" width="32">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://www.waze.com/ul?ll=<%= lat %>,<%= lon %>&navigate=yes" title="Open in Waze">
+                <img src="<%= icon_path %>/navigation/othermaps.png" height="32" width="32">
+            </a>
+        </div>
+    </div>
+    <% if (enable_scouting) { %>
+        <br>
+        <div class="row justify-content-center">
+            <a href="javascript:void(0);" onclick="sendWebhook('<%= id %>');" title="Scan with event account">
+                <b>Scan with event account</b>
+            </a>
+        </div>
+    <% } %>
+</div>

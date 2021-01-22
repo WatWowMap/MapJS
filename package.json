@@ -28,6 +28,7 @@
     "compression": "^1.7.4",
     "discord-oauth2": "^2.5.0",
     "discord.js": "^12.3.1",
+    "ejs": "^3.1.5",
     "eslint": "^7.9.0",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.4",

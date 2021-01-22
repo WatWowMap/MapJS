@@ -1,0 +1,19 @@
+<center>
+<h6><b><%= weather_name %></b><br></h6>
+<b>Boosted Types:</b><br><%= weather_type %><br>
+<b>Cell ID:</b> <%= id %><br>
+<b>Cell Level:</b> <%= level %><br>
+<b>Lat:</b> <%= latitude.toFixed(5) %><br>
+<b>Lon:</b> <%= longitude.toFixed(5) %><br>
+<b>Gameplay Condition:</b> <%= gameplay_condition %><br>
+<b>Wind Direction:</b> <%= wind_direction %>° (<%= cardinal %>)<br>
+<b>Cloud Level:</b> <%= cloud_level %><br>
+<b>Rain Level:</b> <%= rain_level %><br>
+<b>Wind Level:</b> <%= wind_level %><br>
+<b>Snow Level:</b> <%= snow_level %><br>
+<b>Fog Level:</b> <%= fog_level %><br>
+<b>Special Effects Level:</b> <%= special_effect_level %><br>
+<b>Severity:</b> <%= severity %><br>
+<b>Weather Warning:</b> <%= warn_weather %><br><br>
+<b>Last Updated:</b> <%= new Date(updated * 1000).toLocaleTimeString() %> (<%= time_since %>)
+</center>

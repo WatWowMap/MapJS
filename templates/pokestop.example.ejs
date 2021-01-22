@@ -1,0 +1,75 @@
+<div class="text-center">
+    <% if (name) { %>
+        <h6><b><%= name %></b></h6>
+    <% } else { %>
+        <h6><b>Unknown Pokestop Name</b></h6>
+    <% } %>
+
+    <% if (url) {
+        let lureClass = is_lure_active && lure_id !== 0
+            ? (lure_id === 501
+                ? 'lure-normal'
+                : lure_id === 502
+                    ? 'lure-glacial'
+                    : lure_id === 503
+                        ? 'lure-mossy'
+                        : lure_id === 504
+                            ? 'lure-magnetic'
+                            : 'lure-normal')
+            : '';
+    %>
+        <img src="<%= url.replace('http://', 'https://') %>" class="circle-image <%= lureClass %>"/><br><br>
+    <% } %>
+
+    </div>
+    <div class="container">
+
+    <% if (is_lure_active) { %>
+        <b>Lure Type:</b> <%= lure_name %><br>
+        <b>Lure End Time:</b> <%= lure_expire_time %> (<%= lure_time_since %>)<br><br>
+    <% } %>
+
+    <% if (is_invasion_active) { %>
+        <b>Team Rocket Invasion</b><br>
+        <b>Grunt Type:</b> <%= grunt_name %><br>
+        <b>End Time:</b> <%= invasion_expire_time %> (<%= invasion_time_since %>)<br><br>
+    <% } %>
+
+    <% if (quest_type) { %>
+        <b>Quest Condition:</b> <%= quest_name %> <% if (quest_conditions_formatted) { %><%= quest_conditions_formatted %><% } %><br>
+        <% quest_rewards_formatted.forEach(function(reward) { %>
+            <b>Quest Reward:</b> <%= reward %><br>
+        <% }); %>
+        <br>
+    <% } %>
+
+    <% if (updated) { %>
+        <small><b>Last Updated:</b> <%= new Date(updated * 1000).toLocaleString() %> (<%= time_since %>)<br></small>
+    <% } %>
+
+    <br>
+    <% if (quest_type) { %>
+        <% let questReward = quest_rewards ? quest_rewards[0] : {} %>
+        <center><a title="Filter Quest" href="#" onclick="addQuestFilter('<%= ((questReward.info || {}).pokemon_id || 0) %>', '<%= ((questReward.info || {}).item_id || 0) %>', false);return false;"><b>[Exclude]</b></a></center>
+    <% } %>
+
+    <br>
+    <div class="row text-center">
+        <br>
+        <div class="col">
+            <a href="https://www.google.com/maps/place/<%= lat %>,<%= lon %>" title="Open in Google Maps">
+                <img src="<%= icon_path %>/navigation/gmaps.png" height="32" width="32">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://maps.apple.com/maps?daddr=<%= lat %>,<%= lon %>" title="Open in Apple Maps">
+                <img src="<%= icon_path %>/navigation/applemaps.png" height="32" width="32">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://www.waze.com/ul?ll=<%= lat %>,<%= lon %>&navigate=yes" title="Open in Waze">
+                <img src="<%= icon_path %>/navigation/othermaps.png" height="32" width="32">
+            </a>
+        </div>
+    </div>
+</div>

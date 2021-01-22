@@ -1,0 +1,17 @@
+<center>
+<h6><b>Level <%= level %> S2 Cell</b></h6>
+<b>Id:</b> <%= id %><br>
+<b>Total Count:</b> <%= count %><br>
+<b>Pokestop Count:</b> <%= count_pokestops %><br>
+<b>Gym Count:</b> <%= count_gyms %><br>
+
+<% const gymThreshold = [2, 6, 20]; %>
+<% if (count_gyms < 3) { %>
+    <b>Submissions untill Gym:</b> <%= gymThreshold[count_gyms] - count %>
+<% } else { %>
+    <b>Submissions untill Gym:</b> Never
+<% } %>
+<% if ((count === 1 && count_gyms < 1) || (count === 5 && count_gyms < 2) || (count === 19 && count_gyms < 3)) { %>
+    <br><b>Next submission will cause a Gym!
+<% } %>
+</center>

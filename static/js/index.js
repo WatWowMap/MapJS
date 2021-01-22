@@ -2890,11 +2890,13 @@ const getPVPRanks = (league, data) => {
 
 function getPokemonPopupContent (pokemon) {
     const despawnDate = new Date(pokemon.expire_timestamp * 1000);
+    const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
+    const lastUpdatedDate = new Date(pokemon.updated * 1000);
     const hasIV = pokemon.atk_iv !== null;
-    let content = '';
+    //let content = '';
 
     let pokemonName;
-    if (pokemon.form !== 0 && pokemon.form !== null) {
+    if (pokemon.form > 0) {
         pokemonName = getFormName(pokemon.form) + ' ' + getPokemonName(pokemon.pokemon_id);
     } else {
         pokemonName = getPokemonName(pokemon.pokemon_id);
@@ -2902,10 +2904,90 @@ function getPokemonPopupContent (pokemon) {
     if (pokemon.display_pokemon_id > 0) {
         pokemonName += ' (' + getPokemonNameNoId(pokemon.display_pokemon_id) + ')';
     }
-
+    pokemon.pokemon_name = pokemonName;
     // TODO: add evolution https://github.com/versx/DataParser/issues/9
     const pokemonIcon = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
+    pokemon.pokemon_icon = `${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png`;
+    pokemon.icon_path = '/img';
+    const pkmn = masterfile.pokemon[pokemon.pokemon_id];
+    let pokemonTypes = [];
+    if (pkmn && pkmn.types && pkmn.types.length > 0) {
+        const types = pkmn.types;
+        if (types && types.length > 0) {
+            if (types.length === 2) {
+                pokemonTypes.push(types[0].toLowerCase());
+                pokemonTypes.push(types[1].toLowerCase());
+            } else {
+                pokemonTypes.push(types[0].toLowerCase());
+            }
+        }
+    }
+    pokemon.pokemon_types = pokemonTypes;
+    pokemon.gender_icon = getGenderIcon(pokemon.gender);
+    pokemon.has_iv = hasIV;
+    if (pokemon.size > 0 && pokemon.weight > 0 && (pokemon.pokemon_id === 19 || pokemon.pokemon_id === 129)) {
+        const baseHeight = pokemon_id === 19 ? 0.300000011920929 : 0.89999998;
+        const baseWeight = pokemon_id === 19 ? 3.5 : 10;
+        const size = (size / baseHeight) + (pokemon.weight / baseWeight);
+        pokemon.size = getSize(size);
+    }
+    if (pokemon.move_1 > 0) {
+        pokemon.move_1_name = getMoveName(pokemon.move_1);
+    }
+    if (pokemon.move_2 > 0) {
+        pokemon.move_2_name = getMoveName(pokemon.move_2);
+    }
+    pokemon.enable_scouting = enableScouting;
+    pokemon.time_utill_despawn = getTimeUntill(despawnDate);
+    pokemon.time_since_first_seen = getTimeSince(firstSeenDate);
+    pokemon.time_since_updated = getTimeSince(lastUpdatedDate);
 
+    let greatLeagueRankings = [];
+    if (pokemon.pvp_rankings_ultra_league && pokemon.pvp_rankings_ultra_league.length > 0 && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
+        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
+            if (ranking.cp > 0 && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+                let pokemonName;
+                if (ranking.form !== 0) {
+                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
+                } else {
+                    pokemonName = getPokemonName(ranking.pokemon);
+                }
+                greatLeagueRankings.push({
+                    pokemon_name: pokemonName,
+                    rank: ranking.rank,
+                    percent: Math.round(ranking.percentage * 1000) / 10,
+                    cp: ranking.cp,
+                    level: ranking.level
+                });
+            }
+        });
+    }
+    pokemon.great_league_rankings = greatLeagueRankings;
+    let ultraLeagueRankings = [];
+    if (pokemon.pvp_rankings_ultra_league && pokemon.pvp_rankings_ultra_league.length > 0 && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
+        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
+            if (ranking.cp > 0 && ranking.cp >= 2400 && ranking.cp <= 2500 && ranking.rank <= 100) {
+                let pokemonName;
+                if (ranking.form !== 0) {
+                    pokemonName = getFormName(ranking.form) + ' ' + getPokemonName(ranking.pokemon);
+                } else {
+                    pokemonName = getPokemonName(ranking.pokemon);
+                }
+                ultraLeagueRankings.push({
+                    pokemon_name: pokemonName,
+                    rank: ranking.rank,
+                    percent: Math.round(ranking.percentage * 1000) / 10,
+                    cp: ranking.cp,
+                    level: ranking.level
+                });
+            }
+        });
+    }
+    pokemon.ultra_league_rankings = ultraLeagueRankings;
+
+    const templateData = getTemplateData('pokemon', pokemon);
+    return templateData;
+    /*
     content +=
     '<div class="row">' + // START 1ST ROW
         '<div class="col-8 center-vertical text-nowrap">' +
@@ -3028,6 +3110,7 @@ function getPokemonPopupContent (pokemon) {
         ) +
     '</div>';
     return content;
+    */
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -3116,7 +3199,52 @@ function getPokestopPopupContent (pokestop) {
     const lureExpireDate = new Date(pokestop.lure_expire_timestamp * 1000);
     const invasionExpireDate = new Date(pokestop.incident_expire_timestamp * 1000);
     const isActiveLure = lureExpireDate >= now;
+    const isActiveInvasion = invasionExpireDate >= now;
+    const lastUpdatedDate = new Date(pokestop.updated * 1000);
 
+    pokestop.is_lure_active = isActiveLure;
+    pokestop.is_invasion_active = isActiveInvasion;
+    pokestop.lure_time_since = getTimeUntill(lureExpireDate);
+    pokestop.invasion_time_since = getTimeUntill(invasionExpireDate);
+    pokestop.lure_expire_time = lureExpireDate.toLocaleTimeString();
+    pokestop.invasion_expire_time = invasionExpireDate.toLocaleTimeString();
+    pokestop.icon_path = '/img';
+    if (isActiveInvasion) {
+        pokestop.grunt_name = getGruntName(pokestop.grunt_type);
+    }
+    if (pokestop.quest_type !== null) {
+        let questRewards = [];
+        const conditions = pokestop.quest_conditions;
+        let conditionsString = '';
+        if (conditions !== undefined && conditions.length > 0) {
+            conditionsString += ' (';
+            $.each(conditions, function (index, condition) {
+                let formatting;
+                if (index === 0) {
+                    formatting = '';
+                } else {
+                    formatting = ', ';
+                }
+
+                conditionsString += formatting + getQuestCondition(condition);
+            });
+            conditionsString += ')';
+        }
+
+        //content += '<b>Quest Condition:</b> ' + getQuestName(pokestop.quest_type, pokestop.quest_target) + conditionsString + '<br>';
+        pokestop.quest_name = getQuestName(pokestop.quest_type, pokestop.quest_target);
+        pokestop.quest_conditions_formatted = conditionsString;
+        $.each(pokestop.quest_rewards, function (index, reward) {
+            //content += '<b>Quest Reward:</b> ' + getQuestReward(reward) + '<br>';
+            questRewards.push(getQuestReward(reward));
+        });
+        pokestop.quest_rewards_formatted = questRewards;
+    }
+    pokestop.last_updated = lastUpdatedDate;
+    pokestop.time_since = getTimeSince(lastUpdatedDate);
+    const templateData = getTemplateData('pokestop', pokestop);
+    return templateData;
+    /*
     let content = '<div class="text-center">';
     if (pokestop.name === null || pokestop.name === '') {
         content += '<h6><b>Unknown Pokestop Name</b></h6>';
@@ -3195,6 +3323,7 @@ function getPokestopPopupContent (pokestop) {
     }
     content += getNavigation(pokestop);
     return content;
+    */
 }
 
 function getPossibleInvasionRewards (pokestop) {
@@ -3248,17 +3377,14 @@ function getGymPopupContent (gym) {
     const now = new Date();
     const raidBattleDate = new Date(gym.raid_battle_timestamp * 1000);
     const raidEndDate = new Date(gym.raid_end_timestamp * 1000);
+    const updatedDate = new Date(gym.updated * 1000);
+    const modifiedDate = new Date(gym.last_modified_timestamp * 1000);
 
     const isRaid = raidEndDate >= now && parseInt(gym.raid_level) > 0;
     const isRaidBattle = raidBattleDate <= now && isRaid;
+    const hasRaidBoss = gym.raid_pokemon_id > 0;
 
-    let gymName = '';
-    if (gym.name === null || gym.name === '') {
-        gymName = 'Unknown Gym Name';
-    } else {
-        gymName = gym.name;
-    }
-
+    let gymName = gym.name ? gym.name : 'Unknown Gym Name';
     let titleSize = 16;//'medium';
     if (gymName.length > 40) {
         //titleSize = 'xx-small';
@@ -3271,6 +3397,58 @@ function getGymPopupContent (gym) {
         titleSize = 14;
     }
 
+    gym.gym_name = gymName;
+    gym.title_size = titleSize;
+    gym.is_raid = isRaid;
+    gym.is_raid_battle = isRaidBattle;
+    gym.available_slots = gym.availble_slots === 0 ? 'Full' : gym.availble_slots === 6 ? 'Empty' : gym.availble_slots;
+    gym.has_raid_boss = hasRaidBoss;
+    let pokemonName = '';
+    if (hasRaidBoss && isRaidBattle) {
+        pokemonName = getPokemonName(gym.raid_pokemon_id);
+        if (gym.raid_pokemon_form > 0) {
+            const formName = getFormName(gym.raid_pokemon_form);
+            pokemonName = formName + ' ' + pokemonName;
+            gym.form_name = formName;
+        }
+        pokemonName += ' ' + getGenderIcon(gym.raid_pokemon_gender);
+    } else if (isRaidBattle) {
+        pokemonName = 'Unknown Raid Boss';
+    } else {
+        pokemonName = 'Level ' + gym.raid_level + ' Egg';
+    }
+    let pokemonTypes = [];
+    if (hasRaidBoss && isRaidBattle) {
+        const pkmn = masterfile.pokemon[gym.raid_pokemon_id];
+        if (pkmn) {
+            const types = pkmn.types;
+            if (types && types.length > 0) {
+                if (types.length === 2) {
+                    pokemonTypes.push(types[0].toLowerCase());
+                    pokemonTypes.push(types[1].toLowerCase());
+                } else {
+                    pokemonTypes.push(types[0].toLowerCase());
+                }
+            }
+        }
+    }
+    gym.pokemon_types = pokemonTypes;
+    if (hasRaidBoss) {
+        gym.pokemon_icon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}.png`;
+    }
+    gym.pokemon_name = pokemonName;
+    gym.move_1_name = getMoveName(gym.raid_pokemon_move_1);
+    gym.move_2_name = getMoveName(gym.raid_pokemon_move_2);
+    gym.guarding_pokemon_name = getPokemonName(gym.guarding_pokemon_id);
+    gym.team_name = getTeamName(gym.team_id);
+    gym.icon_path = '/img';
+    gym.time_until_battle = getTimeUntill(raidBattleDate);
+    gym.time_until_end = getTimeUntill(raidEndDate);
+    gym.time_since_updated = getTimeSince(updatedDate);
+    gym.time_since_modified = getTimeSince(modifiedDate);
+    const templateData = getTemplateData('gym', gym);
+    return templateData;
+    /*
     let content =
     '<div class="row">' + // START 1ST ROW
         '<div class="col-8 center-vertical">' +
@@ -3438,21 +3616,27 @@ function getGymPopupContent (gym) {
     }
     content += getNavigation(gym);
     return content;
+    */
 }
 
 function getCellPopupContent (cell) {
-    let content = '<center>';
-    content += '<h6><b>Level ' + cell.level + ' S2 Cell</b></h6>';
-    content += '<b>Id:</b> ' + cell.id + '<br>';
-
-    const updatedDate = new Date(cell.updated * 1000);
-
-    content += '<b>Last Updated:</b> ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')';
-    content += '</center>';
+    //cell.time_since = getTimeSince(new Date(cell.updated * 1000));
+    //const templateData = getTemplateData('cell', cell);
+    //return templateData;
+    const content = `
+    <center>
+        <h6><b>Level ${cell.level} S2 Cell</b></h6>
+        <b>Id:</b> ${cell.id}<br>
+        <b>Last Updated:</b> ${new Date(cell.updated * 1000).toLocaleTimeString()} (${getTimeSince(new Date(cell.updated * 1000))})
+    </center>
+    `;
     return content;
 }
 
 function getSubmissionTypeCellPopupContent (cell) {
+    //const templateData = getTemplateData('submission_cell', cell);
+    //return templateData;
+    const gymThreshold = [2, 6, 20];
     let content = `
     <center>
         <h6><b>Level ${cell.level} S2 Cell</b></h6>
@@ -3461,19 +3645,19 @@ function getSubmissionTypeCellPopupContent (cell) {
         <b>Pokestop Count:</b> ${cell.count_pokestops}<br>
         <b>Gym Count:</b> ${cell.count_gyms}<br>
     `;
-
-    const gymThreshold = [2, 6, 20];
     if (cell.count_gyms < 3) {
-        content += '<b>Submissions until Gym:</b> ' + (gymThreshold[cell.count_gyms] - cell.count);
+        content += `<b>Submissions untill Gym:</b> ${gymThreshold[cell.count_gyms] - cell.count}`;
     } else {
         content += '<b>Submissions until Gym:</b> Never';
     }
-
-    if ((cell.count === 1 && cell.count_gyms < 1) || (cell.count === 5 && cell.count_gyms < 2) || (cell.count === 19 && cell.count_gyms < 3)) {
+    if ((cell.count === 1 && cell.count_gyms < 1) ||
+        (cell.count === 5 && cell.count_gyms < 2) ||
+        (cell.count === 19 && cell.count_gyms < 3)) {
         content += '<br><b>Next submission will cause a Gym!';
     }
-
-    content += '</center>';
+    content += `
+    </center>
+    `;
     return content;
 }
 
@@ -3485,47 +3669,19 @@ function degreesToCardinal (d) {
 }
 
 function getWeatherPopupContent (weather) {
-    const weatherName = weatherTypes[weather.gameplay_condition].name;
-    const weatherType = weatherTypes[weather.gameplay_condition].types;
-    const updatedDate = new Date(weather.updated * 1000);
-    const content = `
-    <center>
-        <h6><b>${weatherName}</b><br></h6>
-        <b>Boosted Types:</b><br>${weatherType}<br>
-        <b>Cell ID:</b> ${weather.id}<br>
-        <b>Cell Level:</b> ${weather.level}<br>
-        <b>Lat:</b> ${weather.latitude.toFixed(5)}<br>
-        <b>Lon:</b> ${weather.longitude.toFixed(5)}<br>
-        <b>Gameplay Condition:</b> ${getWeatherName(weather.gameplay_condition)}<br>
-        <b>Wind Direction:</b> ${weather.wind_direction}° (${degreesToCardinal(weather.wind_direction)})<br>
-        <b>Cloud Level:</b> ${weather.cloud_level}<br>
-        <b>Rain Level:</b> ${weather.rain_level}<br>
-        <b>Wind Level:</b> ${weather.wind_level}<br>
-        <b>Snow Level:</b> ${weather.snow_level}<br>
-        <b>Fog Level:</b> ${weather.fog_level}<br>
-        <b>Special Effects Level:</b> ${weather.special_effect_level}<br>
-        <b>Severity:</b> ${weather.severity}<br>
-        <b>Weather Warning:</b> ${weather.warn_weather}<br><br>
-        <b>Last Updated:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
-    </center>
-    `;
-    return content;
+    weather.weather_name = weatherTypes[weather.gameplay_condition].name;
+    weather.weather_type = weatherTypes[weather.gameplay_condition].types;
+    weather.cardinal = degreesToCardinal(weather.wind_direction);
+    weather.time_since = getTimeSince(new Date(weather.updated * 1000));
+    const templateData = getTemplateData('weather', weather);
+    return templateData;
 }
 
 function getNestPopupContent(nest) {
-    const lastUpdated = new Date(nest.updated * 1000);
-    const pokemonName = getPokemonName(nest.pokemon_id);
-    const content = `
-    <center>
-        <h6>Park: <b>${nest.name}</b></h6>
-        Pokemon: <b>${pokemonName}</b><br>
-        Average: <b>${nest.pokemon_avg.toLocaleString()}</b><br>
-        Count: <b>${nest.pokemon_count.toLocaleString()}</b><br>
-        <br>
-        <div class="last-updated"><b>Last Updated: </b>${lastUpdated.toLocaleString()}</div><br>
-    </center>
-    `;
-    return content;
+    nest.pokemon_name = getPokemonName(nest.pokemon_id);
+    nest.last_updated = new Date(nest.updated * 1000);
+    const templateData = getTemplateData('nest', nest);
+    return templateData;
 }
 
 function getPortalPopupContent(portal) {
@@ -3546,13 +3702,8 @@ function getPortalPopupContent(portal) {
 }
 
 function getScanAreaPopupContent(name, size) {
-    let content = `
-    <center>
-        <h6>Area: <b>${name}</b></h6>
-        Size: ${size} km<sup>2</sup>
-    </center>
-    `;
-    return content;
+    const templateData = getTemplateData('scanarea', { name, size });
+    return templateData;
 }
 
 function getNavigation(data) {
@@ -4191,6 +4342,10 @@ function getSpawnpointMarker (spawnpoint, ts) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += '<br><b>Despawn Timer:</b> ' + timer + ' minutes';
     }
+    /*
+    const hasTimer = spawnpoint.despawn_second !== null;
+    const templateData = getTemplateData('spawnpoint', spawnpoint);
+    */
     const circle = L.circle([spawnpoint.lat, spawnpoint.lon], {
         color: hasTimer ? 'green' : 'red',
         fillColor: hasTimer ? 'green' : 'red',
@@ -4314,15 +4469,8 @@ function getDeviceMarker (device, ts) {
 }
 
 function getDevicePopupContent (device) {
-    const lastSeenDate = new Date(device.last_seen * 1000);
-    const lastSeen = lastSeenDate.toLocaleTimeString() + ' (' + getTimeSince(lastSeenDate) + ')';
-    const ts = Math.round((new Date()).getTime() / 1000);
-    const isOffline = isDeviceOffline(device, ts);
-    const content = '<center><h6><b>' + device.uuid + '</b></h6></center><br>' +
-        '<b>Instance:</b> ' + device.instance_name + '<br>' +
-        '<b>Last Seen:</b> ' + lastSeen + '<br>' +
-        '<b>Status:</b> ' + (isOffline ? 'Offline' : 'Online');
-    return content;
+    const data = getTemplateData('device', device);
+    return data;
 }
 
 function isDeviceOffline (device, ts) {
@@ -4385,6 +4533,32 @@ function setDespawnTimer (marker) {
             marker.marker.timerSet = true;
         }
     }
+}
+
+function getTemplateData(template, data) {
+    const { marker, ...dataWithoutMarker } = data;
+    let results = null;
+    $.ajax({
+        url: '/api/get_template/' + template,
+        type: 'POST',
+        data: JSON.stringify({
+            data: dataWithoutMarker,
+            _csrf: '{{csrf}}'
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        async: false,
+        success: function (result) {
+            //console.log('result:', result);
+            results = result;
+        },
+        failure: function (err) {
+            console.error('Error:', err);
+        }
+    });
+    return results;
 }
 
 
