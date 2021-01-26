@@ -39,7 +39,7 @@
       "pvp": {
           "useName": true,
           "maxRank": 100,
-          "onlyShopTop10": false,
+          "onlyShopTop5": false,
           "minCpGreat": 1400,
           "minCpUltra": 2400,
           "megaStats": true,

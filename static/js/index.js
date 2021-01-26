@@ -111,7 +111,7 @@ let deviceOfflineIcon;
 let showPokemonGlow = true;
 let showMegaStats;
 let showExperimentalStats;
-let showOnlyRank10Pvp;
+let showOnlyRank5Pvp;
 let showLevel40Stats;
 let showLevel41Stats;
 let showLevel50Stats;
@@ -629,12 +629,12 @@ function loadStorage () {
         showMinPokePopup = (showMinPokePopupValue === 'true');
     }
 
-    const showOnlyRank10PvpValue = retrieve('show_top10_pvp');
-    if (showOnlyRank10PvpValue === null) {
-        store('show_top10_pvp', configPvp.onlyShopTop10);
-        showOnlyRank10Pvp = configPvp.onlyShopTop10;
+    const showOnlyRank5PvpValue = retrieve('show_top5_pvp');
+    if (showOnlyRank5PvpValue === null) {
+        store('show_top5_pvp', configPvp.onlyShopTop5);
+        showOnlyRank5Pvp = configPvp.onlyShopTop5;
     } else {
-        showOnlyRank10Pvp = (showOnlyRank10PvpValue === 'true');
+        showOnlyRank5Pvp = (showOnlyRank5PvpValue === 'true');
     }
 
     const showLevel40Value = retrieve('level40_stats');
@@ -1154,8 +1154,8 @@ function loadStorage () {
         if (defaultSettings['show-min-poke-popup'] === undefined) {
             defaultSettings['show-min-poke-popup'] = { show: popupDetails.pokemon.minimal };
         }
-        if (defaultSettings['show-top10-pvp'] === undefined) {
-            defaultSettings['show-top10-pvp'] = { show: configPvp.onlyShopTop10 };
+        if (defaultSettings['show-top5-pvp'] === undefined) {
+            defaultSettings['show-top5-pvp'] = { show: configPvp.onlyShopTop5 };
         }
         if (defaultSettings['level40-stats'] === undefined) {
             defaultSettings['level40-stats'] = { show: configPvp.l40stats };
@@ -1218,8 +1218,8 @@ function loadStorage () {
         if (settings['show-min-poke-popup'] === undefined) {
             settings['show-min-poke-popup'] = { show: popupDetails.pokemon.minimal };
         }
-        if (settings['show-top10-pvp'] === undefined) {
-            settings['show-top10-pvp'] = { show: configPvp.onlyShopTop10 };
+        if (settings['show-top5-pvp'] === undefined) {
+            settings['show-top5-pvp'] = { show: configPvp.onlyShopTop5 };
         }
         if (settings['level40-stats'] === undefined) {
             settings['level40-stats'] = { show: configPvp.l40stats };
@@ -1249,7 +1249,7 @@ function loadStorage () {
     showPvpPercent = settings['show-pvp-percent'].show;
     showPopupPvp = settings['show-popup-pvp'].show;
     showMinPokePopup = settings['show-min-poke-popup'].show;
-    showOnlyRank10Pvp = settings['show-top10-pvp'].show;
+    showOnlyRank5Pvp = settings['show-top5-pvp'].show;
     showLevel40Stats = settings['level40-stats'].show;
     showLevel41Stats = settings['level41-stats'].show;
     showLevel50Stats = settings['level50-stats'].show;
@@ -1571,7 +1571,7 @@ function initMap () {
         const newShowPvpPercent = settingsNew['show-pvp-percent'].show
         const newShowPopupPvp = settingsNew['show-popup-pvp'].show
         const newShowMinPokePopup = settingsNew['show-min-poke-popup'].show
-        const newShowOnlyRank10Pvp = settingsNew['show-top10-pvp'].show;
+        const newShowOnlyRank5Pvp = settingsNew['show-top5-pvp'].show;
         const newShowLevel40Stats = settingsNew['level40-stats'].show;
         const newShowLevel41Stats = settingsNew['level41-stats'].show;
         const newShowLevel50Stats = settingsNew['level50-stats'].show;
@@ -1581,7 +1581,7 @@ function initMap () {
             showPokemonTimers !== newShowPokemonTimers ||
             showMegaStats !== newShowMegaStats ||
             showExperimentalStats !== newShowExperimentalStats ||
-            showOnlyRank10Pvp !== newShowOnlyRank10Pvp ||
+            showOnlyRank5Pvp !== newShowOnlyRank5Pvp ||
             showLevel40Stats !== newShowLevel40Stats ||
             showLevel41Stats !== newShowLevel41Stats ||
             showLevel50Stats !== newShowLevel50Stats ||
@@ -1641,7 +1641,7 @@ function initMap () {
         showPvpPercent = newShowPvpPercent;
         showPopupPvp = newShowPopupPvp;
         showMinPokePopup = newShowMinPokePopup;
-        showOnlyRank10Pvp = newShowOnlyRank10Pvp;
+        showOnlyRank5Pvp = newShowOnlyRank5Pvp;
         showLevel40Stats = newShowLevel40Stats;
         showLevel41Stats = newShowLevel41Stats;
         showLevel50Stats = newShowLevel50Stats;
@@ -1656,7 +1656,7 @@ function initMap () {
         store('show_pvp_percent', newShowPvpPercent);
         store('show_popup_pvp', newShowPopupPvp);
         store('show_min_poke_popup', newShowMinPokePopup);
-        store('show_top10_pvp', newShowOnlyRank10Pvp);
+        store('show_top5_pvp', newShowOnlyRank5Pvp);
         store('level40_stats', newShowLevel40Stats);
         store('level41_stats', newShowLevel41Stats);
         store('level50_stats', newShowLevel50Stats);
@@ -2978,7 +2978,7 @@ const getPvpRanks = (league, pokemon) => {
           ${dbType === 'chuck' ? `<td><b>Cap</b></td>` : ``}
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
-  let maxRankingToUse = showOnlyRank10Pvp ? 5 : configPvp.maxRank;
+  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
   for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
     if (ranking.rank <= maxRankingToUse) {
       content += `<tr>`
@@ -4742,7 +4742,7 @@ function manageSelectButton(e, isNew) {
         type === 'show-pvp-percent' ||
         type === 'show-popup-pvp' ||
         type === 'show-min-poke-popup' ||
-        type === 'show-top10-pvp' ||
+        type === 'show-top5-pvp' ||
         type === 'pvp-level40-stats' ||
         type === 'pvp-level41-stats' ||
         type === 'pvp-level50-stats' ||
@@ -5274,7 +5274,7 @@ function manageSelectButton(e, isNew) {
                 type === 'show-pvp-percent' ||
                 type === 'show-popup-pvp' ||
                 type === 'show-min-poke-popup' ||
-                type === 'show-top10-pvp' ||
+                type === 'show-top5-pvp' ||
                 type === 'pvp-level40-stats' ||
                 type === 'pvp-level41-stats' ||
                 type === 'pvp-level50-stats' ||
@@ -7341,8 +7341,8 @@ function loadFilterSettings (e) {
         showMinPokePopup = obj.show_min_poke_popup;
         store('show_min_poke_popup', showMinPokePopup);
 
-        showOnlyRank10Pvp = obj.show_top10_pvp;
-        store('show_top10_pvp', showOnlyRank10Pvp);
+        showOnlyRank5Pvp = obj.show_top5_pvp;
+        store('show_top5_pvp', showOnlyRank5Pvp);
 
         showLevel40Stats = obj.level40_stats;
         store('level40_stats', showLevel40Stats);
