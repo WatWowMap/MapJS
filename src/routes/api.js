@@ -51,6 +51,7 @@ const getSettings = (perms) => {
     const pvpPercentString = i18n.__('settings_show_pvp_percent');
     const popupPvpString = i18n.__('settings_show_popup_pvp');
     const minPokePopupString = i18n.__('settings_show_min_poke_popup');
+    const showTop10PvpString = i18n.__('filter_top10_pvp');
     const level40String = i18n.__('filter_level40_stats');
     const level41String = i18n.__('filter_level41_stats');
     const level50String = i18n.__('filter_level50_stats');
@@ -163,6 +164,14 @@ const getSettings = (perms) => {
             },
             'name': popupPvpString,
             'filter': generateShowHideButtons('show-popup-pvp', 'show-popup-pvp'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': showTop10PvpString,
+            'filter': generateShowHideButtons('show-top10-pvp', 'show-top10-pvp'),
             'type': pvpStatsString
         });
         settingsData.push({
