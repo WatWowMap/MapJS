@@ -3466,7 +3466,7 @@ function getPokestopPopupContent (pokestop) {
 
     const updatedDate = new Date(pokestop.updated * 1000);
     if (updatedDate) {
-        content += '<div class="last-updated"><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + ' (' + getTimeSince(updatedDate) + ')</div>';
+        content += '<div class="last-updated"><b>Last Updated:</b> ' + updatedDate.toLocaleDateString() + ' ' + updatedDate.toLocaleTimeString() + '</div>';
     }
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
