@@ -123,7 +123,7 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            redirect = config.homepage ? '/home' : '/login';
+            redirect = config.homepage.enabled ? '/home' : '/login';
         }
         await DiscordClient.sendMessage(config.discord.logChannelId, {embed: embed});
         res.redirect(redirect);

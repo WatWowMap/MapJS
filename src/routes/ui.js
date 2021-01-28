@@ -17,6 +17,7 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
+        req.session.destroy();
         if (config.homepage.enabled) {
             res.redirect('/home');
         } else {
