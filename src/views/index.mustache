@@ -2,6 +2,7 @@
 {{> navbar}}
 
     <script type="text/javascript">
+        const dbType = '{{{db_type}}}';
         const defaultStartLocation = ['{{lat}}', '{{lon}}'];
         const defaultStartZoom = '{{zoom}}';
         let clusterPokemon = '{{cluster_pokemon}}' === 'true';
@@ -33,11 +34,14 @@
         const defaultShowPortals = '{{default_show_portals}}' === 'true';
         const defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
         const defaultShowDevices = '{{default_show_devices}}' === 'true';
-
+        const minZoom = '{{min_zoom}}';
+        const maxZoom = '{{max_zoom}}';
+        const devicePathColor = '{{device_path_color}}';
         const pokemonRarity = {{{pokemon_rarity_json}}};
         const iconSizes = {{{icon_sizes_json}}};
         const portalMods = {{{portal_mods_json}}};
         const glow = {{{glow_json}}};
+        const configPvp = {{{config_pvp_json}}};
 
         const locale = '{{{locale}}}';
         const localeLastModified = '{{{locale_last_modified}}}';
@@ -49,13 +53,11 @@
         const availableQuestRewards = {{{available_quest_rewards_json}}};
         const availableNestPokemon = {{{available_nest_pokemon_json}}};
 
-        const minZoom = '{{min_zoom}}';
-        const maxZoom = '{{max_zoom}}';
-        const devicePathColor = '{{device_path_color}}';
-        const configPvp = {{{config_pvp_json}}};
-
         const googleAnalyticsId = '{{google_analytics_id}}';
         const googleAdsenseId = '{{google_adsense_id}}';
+
+        const popupDetails = {{{popup_details}}};
+
     </script>
     <link href="/css/index.css?_={{css_last_modified}}" rel="stylesheet">
     <script src="/js/index.js?_={{js_last_modified}}" type="text/javascript"></script>
