@@ -2,6 +2,7 @@
 {{> navbar}}
 
     <script type="text/javascript">
+        const dbType = '{{{db_type}}}';
         const defaultStartLocation = ['{{lat}}', '{{lon}}'];
         const defaultStartZoom = '{{zoom}}';
         let clusterPokemon = '{{cluster_pokemon}}' === 'true';
@@ -15,8 +16,6 @@
         const enableScouting = '{{scouting}}' === 'true';
         const scoutingUrl = '{{{scouting_url}}}';
         const scoutMaxCount = parseInt('{{scouting_count}}' || 15);
-
-        const maxPokemonId = '{{pokemon_count}}'; // Bandaid
 
         const defaultShowPokemon = '{{default_show_pokemon}}' === 'true';
         const defaultShowPokemonTimers = '{{default_show_pokemon_timers}}' === 'true';
@@ -35,9 +34,14 @@
         const defaultShowPortals = '{{default_show_portals}}' === 'true';
         const defaultShowScanAreas = '{{default_show_scan_areas}}' === 'true';
         const defaultShowDevices = '{{default_show_devices}}' === 'true';
-
+        const minZoom = '{{min_zoom}}';
+        const maxZoom = '{{max_zoom}}';
+        const devicePathColor = '{{device_path_color}}';
         const pokemonRarity = {{{pokemon_rarity_json}}};
+        const iconSizes = {{{icon_sizes_json}}};
+        const portalMods = {{{portal_mods_json}}};
         const glow = {{{glow_json}}};
+        const configPvp = {{{config_pvp_json}}};
 
         const locale = '{{{locale}}}';
         const localeLastModified = '{{{locale_last_modified}}}';
@@ -50,13 +54,11 @@
         const availableQuestRewards = {{{available_quest_rewards_json}}};
         const availableNestPokemon = {{{available_nest_pokemon_json}}};
 
-        const minZoom = '{{min_zoom}}';
-        const maxZoom = '{{max_zoom}}';
-        const devicePathColor = '{{device_path_color}}';
-        const minPvpCp = {{{min_pvp_cp}}};
-
         const googleAnalyticsId = '{{google_analytics_id}}';
         const googleAdsenseId = '{{google_adsense_id}}';
+
+        const popupDetails = {{{popup_details}}};
+
     </script>
     <link href="/css/index.css?_={{css_last_modified}}" rel="stylesheet">
     <script src="/js/index.js?_={{js_last_modified}}" type="text/javascript"></script>
@@ -303,6 +305,8 @@
                                     <a id="disable-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
                                     <a id="disable-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
                                     <a id="disable-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="disable-kalos-pokemon-filter" class="dropdown-item" href="#">Kalos</a>
+                                    <div class="dropdown-header">By Form</div>
                                     <a id="disable-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="disable-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
@@ -327,6 +331,8 @@
                                     <a id="reset-hoenn-pokemon-filter" class="dropdown-item" href="#">Hoenn</a>
                                     <a id="reset-sinnoh-pokemon-filter" class="dropdown-item" href="#">Sinnoh</a>
                                     <a id="reset-unova-pokemon-filter" class="dropdown-item" href="#">Unova</a>
+                                    <a id="reset-kalos-pokemon-filter" class="dropdown-item" href="#">Kalos</a>
+                                    <div class="dropdown-header">By Form</div>
                                     <a id="reset-alolan-pokemon-filter" class="dropdown-item" href="#">Alolan</a>
                                     <a id="reset-galarian-pokemon-filter" class="dropdown-item" href="#">Galarian</a>
                                 </div>
@@ -880,23 +886,23 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-reward" role="tabpanel" aria-labelledby="pills-reward-tab">
-                            <input id="search-reward" type="text" class="form-control" placeholder="Enter Reward Name..." autocomplete="off" />
+                            <input id="search-reward" type="text" class="form-control" placeholder="{{enter_reward_name}}" autocomplete="off" />
                             <div id="search-reward-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-nest" role="tabpanel" aria-labelledby="pills-nest-tab">
-                            <input id="search-nest" type="text" class="form-control" placeholder="Enter nest Pokemon or Type..." autocomplete="off" />
+                            <input id="search-nest" type="text" class="form-control" placeholder="{{enter_nest_name}}" autocomplete="off" />
                             <div id="search-nest-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-portal" role="tabpanel" aria-labelledby="pills-portal-tab">
-                            <input id="search-portal" type="text" class="form-control" placeholder="Enter Portal Name..." autocomplete="off" />
+                            <input id="search-portal" type="text" class="form-control" placeholder="{{enter_nest_name}}" autocomplete="off" />
                             <div id="search-portal-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-gym" role="tabpanel" aria-labelledby="pills-gym-tab">
-                            <input id="search-gym" type="text" class="form-control" placeholder="Enter Gym Name..." autocomplete="off" />
+                            <input id="search-gym" type="text" class="form-control" placeholder="{{enter_gym_name}}" autocomplete="off" />
                             <div id="search-gym-list" class="search-list"></div>
                         </div>
                         <div class="tab-pane fade" id="pills-pokestop" role="tabpanel" aria-labelledby="pills-pokestop-tab">
-                            <input id="search-pokestop" type="text" class="form-control" placeholder="Enter Pokestop Name..." autocomplete="off" />
+                            <input id="search-pokestop" type="text" class="form-control" placeholder="{{enter_pokestop_name}}" autocomplete="off" />
                             <div id="search-pokestop-list" class="search-list"></div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
     cp docker-compose.example.yml docker-compose.yml
     ```
 
-1. Fill out your docker-compose.yml file
+1. Fill out your docker-compose.yml file. Change your `HEALTHCHECK_SECRET` variable.
 
     ```sh
     vi docker-compose.yml

@@ -17,8 +17,12 @@ if (config.discord.enabled) {
     });
 
     router.get('/logout', (req, res) => {
-        req.session = null;
-        res.redirect('/login');
+        req.session.destroy();
+        if (config.homepage.enabled) {
+            res.redirect('/home');
+        } else {
+            res.redirect('/login');
+        }
     });
 }
 
@@ -27,6 +31,27 @@ router.get(['/', '/index'], async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     const data = await handlePage(req, res);
     res.render('index', data);
+});
+
+if (config.homepage.enabled) {
+    router.get('/home', (req, res) => {
+        const data = {};
+        data.discord_invite = config.homepage.discordInvite;
+        data.map_title = config.homepage.title;
+        data.description_1 = config.homepage.descriptionLine1;
+        data.description_2 = config.homepage.descriptionLine2;
+        res.render('home', data);
+    });
+}
+
+router.get('/blocked', (req, res) => {
+    const data = {};
+    data.discord_invite = config.discord.invite;
+    if (req.session.username) {
+        data.guild_name = req.session.perms.blocked;
+        data.username = req.session.username;
+    }
+    res.render('blocked', data);
 });
 
 // Location endpoints
@@ -72,8 +97,6 @@ const handlePage = async (req, res) => {
     const data = defaultData;
     data.bodyClass = config.style === 'dark' ? 'theme-dark' : '';
     data.tableClass = config.style === 'dark' ? 'table-dark' : '';
-
-    data.max_pokemon_id = config.map.maxPokemonId;
 
     // Build available tile servers list
     const tileservers = getAvailableTileservers();
@@ -136,6 +159,7 @@ const handlePage = async (req, res) => {
                 data.hide_nests = !perms.nests;
                 data.hide_weather = !perms.weather;
                 data.hide_devices = !perms.devices;
+                data.hide_portals = !perms.portals;
             } else {
                 console.log(req.session.username, 'Not authorized to access map');
                 res.redirect('/login');

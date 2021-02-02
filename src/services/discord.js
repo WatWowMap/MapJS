@@ -2,11 +2,10 @@
 'use strict';
 
 const config = require('../services/config.js');
-
 const DiscordOauth2 = require('discord-oauth2');
-const oauth = new DiscordOauth2();
-
 const Discord = require('discord.js');
+const fs = require('fs');
+const oauth = new DiscordOauth2();
 const client = new Discord.Client();
 
 if (config.discord.enabled) {
@@ -23,6 +22,8 @@ class DiscordClient {
 
     constructor(accessToken) {
         this.accessToken = accessToken;
+        this.config = config;
+        this.discordEvents();
     }
 
     setAccessToken(token) {
@@ -36,7 +37,7 @@ class DiscordClient {
     async getGuilds() {
         const guilds = await oauth.getUserGuilds(this.accessToken);
         const guildIds = Array.from(guilds, x => BigInt(x.id).toString());
-        return guildIds;
+        return [guildIds, guilds];
     }
 
     async getUserRoles(guildId, userId) {
@@ -56,8 +57,24 @@ class DiscordClient {
         return [];
     }
 
+    async discordEvents() {
+        client.config = this.config;
+        try {
+            fs.readdir(`${__dirname}/events/`, (err, files) => {
+                if (err) return this.log.error(err);
+                files.forEach((file) => {
+                    const event = require(`${__dirname}/events/${file}`); // eslint-disable-line global-require
+                    const eventName = file.split('.')[0];
+                    client.on(eventName, event.bind(null, client));
+                });
+            });
+        } catch (err) {
+            console.error('Failed to activate an event');
+        }
+    }
+
     async getPerms(user) {
-        const perms = {
+        var perms = {
             map: false,
             pokemon: false,
             raids: false,
@@ -77,7 +94,7 @@ class DiscordClient {
             weather: false,
             devices: false
         };
-        const guilds = await this.getGuilds();
+        const [guilds, guildsFull] = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
             Object.keys(perms).forEach((key) => perms[key] = true);
             console.log(`User ${user.username}#${user.discriminator} (${user.id}) in allowed users list, skipping guild and role check.`);
@@ -91,6 +108,7 @@ class DiscordClient {
             if (guilds.includes(guildId)) {
                 // If so, user is not granted access
                 blocked = true;
+                perms['blocked'] = guildsFull.find(x => x.id === guildId).name;
                 break;
             }
         }
@@ -114,7 +132,9 @@ class DiscordClient {
                     perms[key] = true;
                     continue;
                 }
-                
+                if (!configItem.enabled) {
+                    continue;
+                }
                 // If set, grab user roles for guild
                 const userRoles = await this.getUserRoles(guildId, user.id);
                 // Check if user has config role assigned

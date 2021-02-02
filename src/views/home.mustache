@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html,
+            body {
+                height: 85%;
+                width: 100%;
+                margin: 0px;
+                background-color: #2c2f33;
+                background-image: url('/img/discord.png');
+            }
+
+            .background {
+                background-image:url("/img/landing.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 95%;
+                border: 2px solid #7289da;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #transbox {
+                background-color:rgba(255,255,255,0.8);
+                padding:20px;
+                border-radius: 20px;
+            }
+
+            .title {
+                text-align:center;
+                font-size: 2em;
+                color: #3C5FA3;
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .container {
+                width: 90%;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 10px;
+            }
+
+            .clearfix:after {
+                visibility:hidden;
+                display:block;
+                content:"";
+                clear:both;
+                height:0;
+            }
+
+            .description {
+                text-align:center;
+                opacity: 0.5;
+                color: #000000;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                white-space: pre-wrap;
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .make-center {
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .square_btn{
+                display: inline-block;
+                padding: 7px 20px;
+                border: solid 3px black;
+                border-radius: 25px;
+                text-decoration: none;
+                color: #FFF;
+                background-image: -webkit-linear-gradient(45deg, #7289da 0%, #4d6cdb 100%);
+                background-image: linear-gradient(45deg, #7289da 0%, #4d6cdb 100%);
+                transition: .4s;
+            }
+
+            .square_btn:hover {
+                background-image: -webkit-linear-gradient(45deg, #7289da 0%, #3659d8 100%);
+                background-image: linear-gradient(45deg, #7289da 0%, #3659d8 100%);
+            }
+
+            a {
+                font-weight: bold;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container clearfix background">
+            <div id="transbox">
+              <title>Welcome</title>
+              <div class="title">{{map_title}}</div><br>
+                <div class="description">{{description_1}}<br><br>{{description_2}}</div>
+                <div class="make-center">
+                    <a href="/login" class="square_btn">Login</a>&nbsp;&nbsp;<a href="{{discord_invite}}" class="square_btn">Join Our Discord</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
+
+<!--created by anonymous All images are copyright and belong to their respective owners, 
+this document is for educational purpose-->
