@@ -844,11 +844,12 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showInvasionFilter) {
         const gruntTypeString = i18n.__('filter_grunt_type');
+        const invasionLeaderData = [];
         const invasionData = [];
 
         // Grunt Type
         for (let i = 1; i <= 50; i++) {
-            invasionData.push({
+            (i >= 41 && i <= 44 ? invasionLeaderData : invasionData).push({
                 'id': {
                     'formatted': utils.zeroPad(i, 3),
                     'sort': i
@@ -863,7 +864,7 @@ const getData = async (perms, filter) => {
                 'type': gruntTypeString
             });
         }
-        data['invasion_filters'] = invasionData;
+        data['invasion_filters'] = invasionLeaderData.concat(invasionData);
     }
 
     if (permViewMap && showSpawnpointFilter) {
