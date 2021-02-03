@@ -6648,7 +6648,7 @@ function loadInvasionFilter () {
             async: true
         },
         info: false,
-        order: [[2, 'asc']],
+        order: [],
         'search.caseInsensitive': true,
         columnDefs: [{
             targets: [0, 3, 4],
