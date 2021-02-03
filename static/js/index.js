@@ -7477,6 +7477,7 @@ function loadFilterSettings (e) {
         $('#table-filter-nest').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-portal').DataTable().rows().invalidate('data').draw(false);
         $('#table-filter-device').DataTable().rows().invalidate('data').draw(false);
+        $('#table-filter-weather').DataTable().rows().invalidate('data').draw(false);
     };
     reader.readAsText(file);
 }
