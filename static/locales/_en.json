@@ -187,7 +187,7 @@
 	"enter_portal_name":"Enter Portal Name...",
 	"enter_gym_name": "Enter Gym Name...",
 	"enter_pokestop_name": "Enter Pokestop Name...",
-               "filter_option_rarity": "By Rarity",
-               "filter_option_generation": "By Generation",
-               "filter_option_form": "By Form"
+    "filter_option_rarity": "By Rarity",
+    "filter_option_generation": "By Generation",
+    "filter_option_form": "By Form"
 }
