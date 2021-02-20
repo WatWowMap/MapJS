@@ -3479,6 +3479,7 @@ function getPokestopPopupContent (pokestop) {
 
 const getPossibleInvasionRewards = pokestop => {
   const item = gruntTypes[pokestop.grunt_type];
+  if (!item) return '';
   const encounterNum = { first: '#1', second: '#2', third: '#3' };
   const rewardPercent = item.type === 'Giovanni' ? { third: '100%' }
     : item.second_reward ? { first: '85%', second: '15%' }
