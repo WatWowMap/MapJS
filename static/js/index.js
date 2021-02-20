@@ -4333,6 +4333,9 @@ function getPokestopMarkerIcon (pokestop, ts) {
             // XP
             rewardString = 'i-2';
             iconUrl = `/img/item/-2.png`;
+            if (info && info.amount > 1) {
+                iconHtml = `<div class="amount-holder"><div>${info.amount}</div></div>`;
+            }
         } else if (id === 2) {
             // Item
             const item = info && info.item_id;
