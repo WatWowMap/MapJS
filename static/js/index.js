@@ -1807,6 +1807,22 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlFilters());
+	
+    const CustomControlSettings = L.Control.extend({
+        options: {
+            position: 'topleft'
+        },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block"></i></a>';
+            container.onclick = function () {
+                $('#settingsModal').modal('show');
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new CustomControlSettings());
 
     const CustomControlSearch = L.Control.extend({
         options: {
@@ -1823,22 +1839,6 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlSearch());
-
-    const CustomControlSettings = L.Control.extend({
-        options: {
-            position: 'topleft'
-        },
-        onAdd: function (map) {
-            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.innerHTML = '<a href="#"><i class="fas fa-cog" style="width: 21px; height: 21px;" class="center-block"></i></a>';
-            container.onclick = function () {
-                $('#settingsModal').modal('show');
-            };
-
-            return container;
-        }
-    });
-    map.addControl(new CustomControlSettings());
 
     map.on('zoomend', function () {
         if (showCells && map.getZoom() < 13) {
