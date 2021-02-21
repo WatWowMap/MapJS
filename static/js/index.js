@@ -1807,10 +1807,10 @@ function initMap () {
         }
     });
     map.addControl(new CustomControlFilters());
-
+	
     const CustomControlSettings = L.Control.extend({
         options: {
-            position: 'bottomleft'
+            position: 'topleft'
         },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
