@@ -59,6 +59,7 @@ let settingsNew = {};
 
 const hiddenPokemonIds = [];
 const pokemonWithTimers = [];
+const hiddenQuestIds = [];
 
 let openedPokemon;
 let openedPokestop;
@@ -2286,7 +2287,7 @@ function loadData () {
             ts = Math.round((new Date()).getTime() / 1000);
             $.each(pokestops, function (index, pokestop) {
                 if (showPokestops ||
-                    (showQuests && pokestop.quest_type !== null) ||
+                    (showQuests && pokestop.quest_type !== null && !hiddenQuestIds.includes(pokestop.id)) ||
                     (showInvasions && pokestop.incident_expire_timestamp > ts)
                     ) {
                     if (pokestop.updated > lastUpdateServer) {
@@ -2365,6 +2366,9 @@ function loadData () {
                             if (showInvasionTimers) {
                                 setDespawnTimer(oldPokestop);
                             }
+                        }
+                        if (hiddenQuestIds.includes(oldPokestop.id)) {
+                            map.removeLayer(oldPokestop.marker);
                         }
                     }
                 }
@@ -3259,7 +3263,7 @@ const getPokemonPopupContent = (pokemon) => {
         <table class="table-fourth-row">
           <tr>
             <td><a id="h${pokemon.id}" title="Show Despawn Timer" href="#" onclick="addPokemonTimer('${pokemon.id}');return false;"><b>[Timer]</b></a></td>
-            <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
+            <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setPokemonMarkerHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
             <td><a title="Filter Pokemon" href="#" onclick="addPokemonFilter(${pokemon.pokemon_id}, ${pokemon.form}, false);return false;"><b>[Exclude]</b></a></td>
           </tr>
         </table>
@@ -3307,7 +3311,7 @@ const getPokemonPopupContent = (pokemon) => {
 }
 
 // eslint-disable-next-line no-unused-vars
-function setIndividualPokemonHidden (id) {
+function setPokemonMarkerHidden (id) {
     if (id > 0 && !hiddenPokemonIds.includes(id)) {
         hiddenPokemonIds.push(id);
         const pokemonMarker = pokemonMarkers.find(function (value) {
@@ -3315,10 +3319,22 @@ function setIndividualPokemonHidden (id) {
         });
 
         if (pokemonMarker === null) {
-            console.log('Failed to find pokemon marker', id);
+            console.error('Failed to find pokemon marker', id);
         } else {
             map.removeLayer(pokemonMarker.marker);
         }
+    }
+}
+
+function setQuestPokestopMarkerHidden (id) {
+    hiddenQuestIds.push(id);
+    const pokestopMarker = pokestopMarkers.find(function (value) {
+        return id === value.id;
+    });
+    if (pokestopMarker === null) {
+        console.error('Failed to find pokestop marker', id);
+    } else {
+        map.removeLayer(pokestopMarker.marker);
     }
 }
 
@@ -3471,7 +3487,16 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     if (pokestop.quest_type !== null) {
-        content += `<a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><div class="exclude">[Exclude]</div></a>`;
+        content += `
+        <div class="pokemon-timer-hide-exclude">
+        <table class="table-fourth-row">
+          <tr>
+            <td><a title="Filter Quest" href="#" onclick="addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;"><b>[Exclude]</b></a></td>
+            <td><a title="Hide Quest" href="#" onclick="setQuestPokestopMarkerHidden('${pokestop.id}');return false;"><b>[Hide]</b></a></td>
+          </tr>
+        </table>
+      </div>
+        `;
     }
     content += getNavigation(pokestop);
     return content;
