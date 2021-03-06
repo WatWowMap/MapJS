@@ -1,0 +1,307 @@
+/* General  */
+.last-updated {
+  text-align: center;
+  font-size: x-small;
+  padding: 5px;
+}
+
+.exclude {
+  text-align: center;
+  font-size: small;
+  font-weight: bold;
+  padding: 5px;
+}
+
+/* Pokemon */
+.pokemon-popup-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 25px auto auto auto auto auto auto auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.pokemon-header-grid {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.pokemon-thumbnail-grid {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  padding-top: 10px;  
+}
+.pokemon-thumbnail-grid-iv {
+  grid-column: 1;
+  grid-row: 2;
+  padding-top: 10px;  
+}
+
+.pokemon-thumbnail {
+  max-width: 64px;
+  max-height: 64px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.pokemon-types {
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+}
+
+.pokemon-base-stats {
+  grid-column: 2;
+  grid-row: 2;
+  margin: auto;
+}
+
+.pokemon-moves-rows {
+  grid-column: 2;
+  grid-row: 3;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-moves-columns {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-capture-rates-rows {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-capture-rates-columns {
+  grid-column: 1;
+  grid-row: 3;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-despawn-timers {
+  grid-column: 1;
+  grid-row: 5;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-despawn-min {
+  grid-column: 1;
+  grid-row: 5;
+  margin: auto;
+  font-size: 16px;
+  padding: 25px 0 25px 0;
+}
+
+.pokemon-despawn-timers-min {
+  grid-column: 2;
+  grid-row: 5;
+  margin: auto;
+  font-size: 16px;
+  padding: 25px 0 25px 0;
+}
+
+.pokemon-other-timers {
+  grid-column: 2;
+  grid-row: 5;
+  margin: auto;
+  padding: 5px;
+}
+
+.pokemon-pvp-stats {
+  grid-column: 1 / span 2;
+  grid-row: 6;
+  margin: auto;
+}
+
+.pokemon-timer-hide-exclude {
+  grid-column: 1 / span 2;
+  grid-row: 7;
+  padding: 1px;
+  margin: auto;
+}
+
+.pokemon-nav {
+  grid-column: 1 / span 2;
+  grid-row: 8;
+  margin: auto;
+}
+
+.pokemon-navigation {
+  grid-column: 1 / span 2;
+  grid-row: 9;
+}
+
+.pvp-wrapper {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  border: 1px solid #bdbdbd;
+  padding: 5px;
+  display: block;
+  position: relative;
+}
+
+.theme-dark .pvp-wrapper {
+  background-color: #1c1c1c;
+  border: 1px solid black;
+}
+  
+.table-pvp {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 7px 1x;
+  padding-top: 5px;
+}
+
+.table-fourth-row {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 7px 0;
+}
+
+.table-navigation {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-collapse: separate;
+  margin-top: 5px;
+  border-spacing: 10px 0;
+}
+
+.table-timers {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+.pvp-icon {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  position: relative;
+}
+
+.iv-green {
+  color: rgb(88, 197, 88);
+  text-align: center;
+  font-size: 22px;
+}
+
+.iv-yellow {
+  color: rgb(241, 249, 129);
+  text-align: center;
+  font-size: 22px;
+}
+
+.iv-orange {
+  color: rgb(244, 147, 36);
+  text-align: center;
+  font-size: 22px;
+}
+
+.iv-red {
+  color: rgb(251, 77, 54);
+  text-align: center;
+  font-size: 22px;
+}
+
+.iv-stats {
+  text-align: center;
+  font-size: small;
+}
+
+/* Pokestops */
+
+
+/* Quests  */
+
+
+/* Invasions  */
+.grunt-encounter-wrapper {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  border: 1px solid #bdbdbd;
+  width: 200px;
+  padding: 10px 0;
+  margin: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.theme-dark .grunt-encounter-wrapper {
+  background-color: #1c1c1c;
+  border: 1px solid black;
+}
+
+.table-invasion {
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  text-align: center;
+}
+.table-invasion td:first-child {
+  padding-right: 10px;
+}
+.table-invasion td:nth-child(2) {
+  width: 100px
+}
+.table-invasion td:last-child {
+  padding-left: 7px;
+}
+
+.invasion-reward {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+.invasion-reward > img.invasion-reward-shadow {
+  width: 15px;
+  height: 15px;
+  right: auto;
+  top: auto;
+  filter: drop-shadow(0 0 2px #000);
+}
+
+/* Spawnpoints */
+
+
+/* Gyms */
+
+
+/* Raids  */
+
+
+/* Portals */
+
+
+/* Scan-Cells */
+
+
+/* S2-Cells */
+
+
+/* Weather  */
+.weatherTypeIcons {
+  text-align: center;
+  width: 30px;
+}
+
+
+/* Scan Areas  */
+
+
+/* Devices  */

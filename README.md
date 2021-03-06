@@ -12,7 +12,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 
 ## Requirements & Prerequisites
 - [NodeJS v12](https://nodejs.org/en/download/)
-- [Chuck](https://github.com/WatWowMap/Chuck) or [RealDeviceMap](https://github.com/realdevicemap/realdevicemap) existing database
+- [ChuckDeviceController](https://github.com/versx/ChuckDeviceController), [Chuck](https://github.com/WatWowMap/Chuck), or [RealDeviceMap](https://github.com/realdevicemap/realdevicemap) existing database
 
 ## Features
 
@@ -57,14 +57,16 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - [versx](https://github.com/versx)
 - [Mygod](https://github.com/Mygod)
 - [TurtIeSocks](https://github.com/TurtIeSocks)
+- [Bukowskaii](https://github.com/Bukowskaii)
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)
 - [sabregreen](https://github.com/sabregreen)
 - [ArcanoxDragon](https://github.com/ArcanoxDragon)
 - [DarthButcher](https://github.com/darthbutcher)
-- [Andrew Cameron](https://github.com/amcameron)
 - [LordJavi](https://github.com/LordJavi)
+- [ZombieCorn80](https://github.com/ZombieCorn80)
+- [Andrew Cameron](https://github.com/amcameron)
 
 ## Credits
 

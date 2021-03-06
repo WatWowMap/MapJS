@@ -37,7 +37,7 @@ class DiscordClient {
     async getGuilds() {
         const guilds = await oauth.getUserGuilds(this.accessToken);
         const guildIds = Array.from(guilds, x => BigInt(x.id).toString());
-        return guildIds;
+        return [guildIds, guilds];
     }
 
     async getUserRoles(guildId, userId) {
@@ -74,7 +74,7 @@ class DiscordClient {
     }
 
     async getPerms(user) {
-        const perms = {
+        var perms = {
             map: false,
             pokemon: false,
             raids: false,
@@ -94,7 +94,7 @@ class DiscordClient {
             weather: false,
             devices: false
         };
-        const guilds = await this.getGuilds();
+        const [guilds, guildsFull] = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
             Object.keys(perms).forEach((key) => perms[key] = true);
             console.log(`User ${user.username}#${user.discriminator} (${user.id}) in allowed users list, skipping guild and role check.`);
@@ -108,6 +108,7 @@ class DiscordClient {
             if (guilds.includes(guildId)) {
                 // If so, user is not granted access
                 blocked = true;
+                perms['blocked'] = guildsFull.find(x => x.id === guildId).name;
                 break;
             }
         }

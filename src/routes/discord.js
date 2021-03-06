@@ -3,7 +3,6 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-
 const DiscordClient = require('../services/discord.js');
 //const utils = require('../services/utils.js');
 
@@ -16,6 +15,7 @@ const catchAsyncErrors = fn => ((req, res, next) => {
         routePromise.catch(err => next(err));
     }
 });
+
 
 router.get('/login', (req, res) => {
     const scope = 'guilds%20identify%20email';
@@ -43,19 +43,90 @@ router.get('/callback', catchAsyncErrors(async (req, res) => {
         req.session.username = `${user.username}#${user.discriminator}`;
         const perms = await DiscordClient.getPerms(user);
         req.session.perms = perms;
+        const blocked = perms.blocked;
         const valid = perms.map !== false;
         req.session.valid = valid;
         req.session.save();
+
+        const ip = req.headers['cf-connecting-ip'] || ((req.headers['x-forwarded-for'] || '').split(', ')[0]) || (req.connection.remoteAddress || req.connection.localAddress).match('[0-9]+.[0-9].+[0-9]+.[0-9]+$')[0];
+        const url = `http://ip-api.com/json/${ip}?fields=66846719&lang=${config.locale || 'en'}`;
+        const geoResponse = await axios.get(url);
+        const geo = geoResponse.data;
+        const embed = {
+            color: 0xFF0000,
+            title: 'Failure',
+            author: {
+                name: `${user.username}#${user.discriminator}`,
+                icon_url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+            },
+            description: 'User Failed Authentication',
+            thumbnail: {
+                url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+            },
+            fields: [
+                {
+                    name: 'Discord Id',
+                    value: `<@${user.id}>`,
+                },
+                { 
+                    name: 'Client Info',  
+                    value: req.headers['user-agent'] 
+                },
+                { 
+                    name: 'Ip Address',
+                    value: `||${ip}||` 
+                },
+                {
+                    name: 'Geo Lookup',
+                    value: `${geo['city']}, ${geo['regionName']}, ${geo['zip']}` 
+                },
+                {
+                    name: 'Google Map',
+                    value: `https://www.google.com/maps?q=${geo['lat']},${geo['lon']}` 
+                },
+                {
+                    name: 'Network Provider',
+                    value: `${geo['isp']}, ${geo['as']}`
+                },
+                {
+                    name: 'Mobile',
+                    value: `${geo['mobile']}`,
+                    inline: true
+                },
+                {
+                    name: 'Proxy',
+                    value: `${geo['proxy']}`,
+                    inline: true
+                },
+                {
+                    name: 'Hosting',
+                    value: `${geo['hosting']}`,
+                    inline: true
+                },
+            ],
+            timestamp: new Date(),
+        };
+        let redirect;
         if (valid) {
             console.log(user.id, 'Authenticated successfully.');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Authenticated successfully.`);
-            res.redirect(`/?token=${response.data.access_token}`);
+            embed.title = 'Success';
+            embed.description = 'User Successfully Authenticated';
+            embed.color = 0x00FF00;
+            redirect = `/?token=${response.data.access_token}`;
+        } else if (blocked) {
+            // User is in blocked Discord server(s)
+            console.warn(user.id, 'Blocked due to', blocked);
+            embed.title = 'Blocked';
+            embed.description = 'User Blocked Due to ' + blocked;
+            embed.color = 0xFF0000;
+            redirect = '/blocked';
         } else {
             // Not in Discord server(s) and/or have required roles to view map
             console.warn(user.id, 'Not authorized to access map');
-            await DiscordClient.sendMessage(config.discord.logChannelId, `${user.username}#${user.discriminator} (${user.id}) Not authorized to access map.`);
-            res.redirect('/login');
+            redirect = config.homepage.enabled ? '/home' : '/login';
         }
+        await DiscordClient.sendMessage(config.discord.logChannelId, {embed: embed});
+        res.redirect(redirect);
     }).catch(error => {
         console.error(error);
         //throw new Error('UnableToFetchToken');

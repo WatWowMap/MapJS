@@ -18,7 +18,11 @@ if (config.discord.enabled) {
 
     router.get('/logout', (req, res) => {
         req.session.destroy();
-        res.redirect('/login');
+        if (config.homepage.enabled) {
+            res.redirect('/home');
+        } else {
+            res.redirect('/login');
+        }
     });
 }
 
@@ -27,6 +31,27 @@ router.get(['/', '/index'], async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     const data = await handlePage(req, res);
     res.render('index', data);
+});
+
+if (config.homepage.enabled) {
+    router.get('/home', (req, res) => {
+        const data = {};
+        data.discord_invite = config.homepage.discordInvite;
+        data.map_title = config.homepage.title;
+        data.description_1 = config.homepage.descriptionLine1;
+        data.description_2 = config.homepage.descriptionLine2;
+        res.render('home', data);
+    });
+}
+
+router.get('/blocked', (req, res) => {
+    const data = {};
+    data.discord_invite = config.discord.invite;
+    if (req.session.username) {
+        data.guild_name = req.session.perms.blocked;
+        data.username = req.session.username;
+    }
+    res.render('blocked', data);
 });
 
 // Location endpoints

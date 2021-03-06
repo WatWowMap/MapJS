@@ -127,7 +127,16 @@ if (config.discord.enabled) {
 
 // Login middleware
 app.use(async (req, res, next) => {
-    if (config.discord.enabled && (req.path === '/api/discord/login' || req.path === '/login')) {
+    // If Discord auth enabled and visiting any of the following
+    // endpoint paths, allow viewing the endpoint
+    if (config.discord.enabled &&
+        (
+            req.path === '/api/discord/login' ||
+            req.path === '/login' ||
+            req.path === '/blocked' ||
+            (config.homepage.enabled && req.path === '/home')
+        )
+    ) {
         return next();
     }
     const healthcheckHeader = req.get('Healthcheck-Secret');
@@ -139,38 +148,50 @@ app.use(async (req, res, next) => {
             console.debug('[Session] Detected multiple sessions, clearing old ones...');
             await clearOtherSessions(req.session.user_id, req.sessionID);
         }
-        if (!req.session.valid) {
+        if (config.discord.enabled && !req.session.valid) {
             console.error('Invalid user authenticated', req.session.user_id);
-            res.redirect('/login');
+            if (config.homepage.enabled) {
+                res.redirect('/home');
+            } else {
+                res.redirect('/login');
+            }
             return;
         }
         const perms = req.session.perms;
-        defaultData.hide_map = !perms.map;
+        defaultData.hide_map = perms && !perms.map;
         if (defaultData.hide_map) {
             // No view map permissions, go to login screen
             console.error('Invalid view map permissions for user', req.session.user_id);
-            res.redirect('/login');
+            if (config.homepage.enabled) {
+                res.redirect('/home');
+            } else {
+                res.redirect('/login');
+            }
             return;
         }
-        defaultData.hide_pokemon = !perms.pokemon;
-        defaultData.hide_raids = !perms.raids;
-        defaultData.hide_gyms = !perms.gyms;
-        defaultData.hide_pokestops = !perms.pokestops;
-        defaultData.hide_quests = !perms.quests;
-        defaultData.hide_lures = !perms.lures;
-        defaultData.hide_invasions = !perms.invasions;
-        defaultData.hide_spawnpoints = !perms.spawnpoints;
-        defaultData.hide_iv = !perms.iv;
-        defaultData.hide_cells = !perms.s2cells;
-        defaultData.hide_submission_cells = !perms.submissionCells;
-        defaultData.hide_nests = !perms.nests;
-        defaultData.hide_portals = !perms.portals;
-        defaultData.hide_scan_areas = !perms.scanAreas;
-        defaultData.hide_weather = !perms.weather;
-        defaultData.hide_devices = !perms.devices;
+        defaultData.hide_pokemon = perms && !perms.pokemon;
+        defaultData.hide_raids = perms && !perms.raids;
+        defaultData.hide_gyms = perms && !perms.gyms;
+        defaultData.hide_pokestops = perms && !perms.pokestops;
+        defaultData.hide_quests = perms && !perms.quests;
+        defaultData.hide_lures = perms && !perms.lures;
+        defaultData.hide_invasions = perms && !perms.invasions;
+        defaultData.hide_spawnpoints = perms && !perms.spawnpoints;
+        defaultData.hide_iv = perms && !perms.iv;
+        defaultData.hide_cells = perms && !perms.s2cells;
+        defaultData.hide_submission_cells = perms && !perms.submissionCells;
+        defaultData.hide_nests = perms && !perms.nests;
+        defaultData.hide_portals = perms && !perms.portals;
+        defaultData.hide_scan_areas = perms && !perms.scanAreas;
+        defaultData.hide_weather = perms && !perms.weather;
+        defaultData.hide_devices = perms && !perms.devices;
         return next();
     }
-    res.redirect('/login');
+    if (config.homepage.enabled) {
+        res.redirect('/home');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 // UI routes

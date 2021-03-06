@@ -3,10 +3,8 @@
 const i18n = require('i18n');
 const express = require('express');
 const router = express.Router();
-
 const map = require('../data/map.js');
 const utils = require('../services/utils.js');
-
 const masterfile = require('../../static/data/masterfile.json');
 const skipForms = ['shadow', 'purified'];
 
@@ -26,11 +24,11 @@ router.post('/search', async (req, res) => {
 });
 
 router.get('/get_settings', async (req, res) => {
-    const data = getSettings();
+    const data = getSettings(req.session.perms);
     res.json({ data: data });
 });
 
-const getSettings = () => {
+const getSettings = (perms) => {
     const settingsData = [];
     //const settingColorString = i18n.__('settings_color');
     const pokemonSettingsString = i18n.__('filter_pokemon');
@@ -40,6 +38,7 @@ const getSettings = () => {
     const gymSettingsString = i18n.__('filter_gyms');
     const clusterGymsString = i18n.__('settings_cluster_gyms');
     const pokestopSettingsString = i18n.__('filter_pokestops');
+    const weatherSettingsString = i18n.__('settings_weather');
     const clusterPokestopsString = i18n.__('settings_cluster_pokestops');
     const nestSettingsString = i18n.__('filter_nests');
     const nestPolygonsString = i18n.__('settings_nest_polygons');
@@ -48,130 +47,198 @@ const getSettings = () => {
     const pvpStatsString = i18n.__('filter_pvp_stats');
     const megaStatsString = i18n.__('filter_mega_stats');
     const experimentalStatsString = i18n.__('filter_experimental_stats');
+    const pokemonNameString = i18n.__('settings_show_pokemon_name');
+    const pvpPercentString = i18n.__('settings_show_pvp_percent');
+    const popupPvpString = i18n.__('settings_show_popup_pvp');
+    const minPokePopupString = i18n.__('settings_show_min_poke_popup');
+    const showTop5PvpString = i18n.__('filter_top5_pvp');
     const level40String = i18n.__('filter_level40_stats');
     const level41String = i18n.__('filter_level41_stats');
     const level50String = i18n.__('filter_level50_stats');
     const level51String = i18n.__('filter_level51_stats');
+    const weatherDetailsString = i18n.__('settings_weather_details');
 
-    /*
+    if (perms.pokemon) {
+        /*
     const glowColorLabel = `
     <label class="btn btn-sm btn-size select-button-new" data-id="pokemon-glow" data-type="pokemon-glow" data-info="color">
         <input type="radio" name="options" id="color" autocomplete="off">${settingColorString}
     </label>
     `;
     */
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(0, 3)
-        },
-        'name': pokemonGlowString,
-        'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
-        'type': pokemonSettingsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(1, 3)
-        },
-        'name': clusterPokemonString,
-        'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
-        'type': pokemonSettingsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(2, 3)
-        },
-        'name': pokemonTimers,
-        'filter': generateShowHideButtons('pokemon-timers', 'pokemon-timers'),
-        'type': pokemonSettingsString,
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(10, 3)
-        },
-        'name': clusterGymsString,
-        'filter': generateShowHideButtons('gym-cluster', 'gym-cluster'),
-        'type': gymSettingsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(11, 3)
-        },
-        'name': raidTimersString,
-        'filter': generateShowHideButtons('raid-timers', 'raid-timers'),
-        'type': gymSettingsString // TODO: Change to Raid Settings
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(20, 3)
-        },
-        'name': clusterPokestopsString,
-        'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
-        'type': pokestopSettingsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(21, 3)
-        },
-        'name': invasionTimersString,
-        'filter': generateShowHideButtons('invasion-timers', 'invasion-timers'),
-        'type': pokestopSettingsString // TODO: Change to Invasion Settings
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': nestPolygonsString,
-        'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
-        'type': nestSettingsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': megaStatsString,
-        'filter': generateShowHideButtons('mega-stats', 'mega-stats'),
-        'type': pvpStatsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': experimentalStatsString,
-        'filter': generateShowHideButtons('experimental-stats', 'experimental-stats'),
-        'type': pvpStatsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': level40String,
-        'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
-        'type': pvpStatsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': level41String,
-        'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
-        'type': pvpStatsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': level50String,
-        'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
-        'type': pvpStatsString
-    });
-    settingsData.push({
-        'id': {
-            'sort': utils.zeroPad(30, 3)
-        },
-        'name': level51String,
-        'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
-        'type': pvpStatsString
-    });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(0, 3)
+            },
+            'name': minPokePopupString,
+            'filter': generateShowHideButtons('show-min-poke-popup', 'show-min-poke-popup'),//, glowColorLabel),
+            'type': pokemonSettingsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(0, 3)
+            },
+            'name': pokemonGlowString,
+            'filter': generateShowHideButtons('pokemon-glow', 'pokemon-glow'),//, glowColorLabel),
+            'type': pokemonSettingsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(1, 3)
+            },
+            'name': clusterPokemonString,
+            'filter': generateShowHideButtons('pokemon-cluster', 'pokemon-cluster'),
+            'type': pokemonSettingsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(2, 3)
+            },
+            'name': pokemonTimers,
+            'filter': generateShowHideButtons('pokemon-timers', 'pokemon-timers'),
+            'type': pokemonSettingsString,
+        });
+    }
+    if (perms.gyms || perms.raids) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(10, 3)
+            },
+            'name': clusterGymsString,
+            'filter': generateShowHideButtons('gym-cluster', 'gym-cluster'),
+            'type': gymSettingsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(11, 3)
+            },
+            'name': raidTimersString,
+            'filter': generateShowHideButtons('raid-timers', 'raid-timers'),
+            'type': gymSettingsString // TODO: Change to Raid Settings
+        });
+    }
+    if (perms.pokestops || perms.quests) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(20, 3)
+            },
+            'name': clusterPokestopsString,
+            'filter': generateShowHideButtons('pokestop-cluster', 'pokestop-cluster'),
+            'type': pokestopSettingsString
+        });
+    }
+    if (perms.invasions) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(21, 3)
+            },
+            'name': invasionTimersString,
+            'filter': generateShowHideButtons('invasion-timers', 'invasion-timers'),
+            'type': pokestopSettingsString // TODO: Change to Invasion Settings
+        });
+    }
+    if (perms.weather) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': weatherDetailsString,
+            'filter': generateShowHideButtons('weather-details', 'weather-details'),
+            'type': weatherSettingsString
+        });
+    }
+    if (perms.nests) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': nestPolygonsString,
+            'filter': generateShowHideButtons('nest-polygon', 'nest-polygon'),
+            'type': nestSettingsString
+        });
+    }
+    if (perms.pvp) {
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': popupPvpString,
+            'filter': generateShowHideButtons('show-popup-pvp', 'show-popup-pvp'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': showTop5PvpString,
+            'filter': generateShowHideButtons('show-top5-pvp', 'show-top5-pvp'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': pokemonNameString,
+            'filter': generateShowHideButtons('show-pokemon-name', 'show-pokemon-name'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': pvpPercentString,
+            'filter': generateShowHideButtons('show-pvp-percent', 'show-pvp-percent'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': megaStatsString,
+            'filter': generateShowHideButtons('mega-stats', 'mega-stats'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': experimentalStatsString,
+            'filter': generateShowHideButtons('experimental-stats', 'experimental-stats'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': level40String,
+            'filter': generateShowHideButtons('level40-stats', 'pvp-level40-stats'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': level41String,
+            'filter': generateShowHideButtons('level41-stats', 'pvp-level41-stats'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': level50String,
+            'filter': generateShowHideButtons('level50-stats', 'pvp-level50-stats'),
+            'type': pvpStatsString
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(30, 3)
+            },
+            'name': level51String,
+            'filter': generateShowHideButtons('level51-stats', 'pvp-level51-stats'),
+            'type': pvpStatsString
+        });
+    }
     /*
     settingsData.push({
         'id': {
@@ -777,11 +844,12 @@ const getData = async (perms, filter) => {
 
     if (permViewMap && showInvasionFilter) {
         const gruntTypeString = i18n.__('filter_grunt_type');
+        const invasionLeaderData = [];
         const invasionData = [];
 
         // Grunt Type
         for (let i = 1; i <= 50; i++) {
-            invasionData.push({
+            (i >= 41 && i <= 44 ? invasionLeaderData : invasionData).push({
                 'id': {
                     'formatted': utils.zeroPad(i, 3),
                     'sort': i
@@ -796,7 +864,7 @@ const getData = async (perms, filter) => {
                 'type': gruntTypeString
             });
         }
-        data['invasion_filters'] = invasionData;
+        data['invasion_filters'] = invasionLeaderData.concat(invasionData);
     }
 
     if (permViewMap && showSpawnpointFilter) {
