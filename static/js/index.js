@@ -3491,7 +3491,7 @@ function getPokestopPopupContent (pokestop) {
         <div class="pokemon-timer-hide-exclude">
         <table class="table-fourth-row">
           <tr>
-            <td><a title="Filter Quest" href="#" onclick="addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;"><b>[Exclude]</b></a></td>
+            <td><a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><b>[Exclude]</b></a></td>
             <td><a title="Hide Quest" href="#" onclick="setQuestPokestopMarkerHidden('${pokestop.id}');return false;"><b>[Hide]</b></a></td>
           </tr>
         </table>
