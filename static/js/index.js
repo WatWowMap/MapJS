@@ -3023,7 +3023,7 @@ const getPvpRanks = (league, pokemon) => {
         if (ranking.cap !== undefined && ranking.capped !== true) {
           content += `<td>${ranking.cap}</td>`;
         } else {
-          content += `<td>All</td>`
+          content += `<td></td>`
         }
       }
       if (showPvpPercent && ranking.percentage !== null) {
