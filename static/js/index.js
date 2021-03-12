@@ -2998,7 +2998,7 @@ const getPvpRanks = (league, pokemon) => {
         }
         content += `<td>${pokemonName}</td>`
       } else {
-        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${getPokemonNameNoId(ranking.pokemon)}" height="20">`
+        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${pokemonName}" title="${pokemonName}" height="20">`
         if (ranking.evolution) {
           if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
             content += `<td>*${img}</td>`
