@@ -2981,20 +2981,20 @@ const getPvpRanks = (league, pokemon) => {
   for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
     if (ranking.rank <= maxRankingToUse) {
       content += `<tr>`
+      let pokemonName = ``;
+      if (ranking.evolution) {
+        if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `${getEvolutionName(ranking.evolution)} `;
+        } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `*${getEvolutionName(ranking.evolution)} `;
+        }
+      }
+      if (ranking.form !== 0 && ranking.form !== undefined) {
+        pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
+      } else {
+        pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
+      }
       if (showPokemonName) {
-        let pokemonName = ``;
-        if (ranking.evolution) {
-          if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `${getEvolutionName(ranking.evolution)} `;
-          } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `*${getEvolutionName(ranking.evolution)} `;
-          }
-        }
-        if (ranking.form !== 0 && ranking.form !== undefined) {
-          pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
-        } else {
-          pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
-        }
         content += `<td>${pokemonName}</td>`
       } else {
         const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${pokemonName}" title="${pokemonName}" height="20">`
