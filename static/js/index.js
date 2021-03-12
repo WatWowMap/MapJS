@@ -2975,7 +2975,6 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>Rank</b></td>
           <td><b>CP</b></td>
           <td><b>Lvl</b></td>
-          ${dbType === 'chuck' ? `<td><b>Cap</b></td>` : ``}
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
   let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
@@ -3017,14 +3016,11 @@ const getPvpRanks = (league, pokemon) => {
       if (ranking.cp !== null) {
         content += `
             <td>${ranking.cp}</td> 
-            <td>${ranking.level}</td>`;
-      }
-      if (dbType === 'chuck') {
-        if (ranking.cap !== undefined && ranking.capped !== true) {
-          content += `<td>${ranking.cap}</td>`;
-        } else {
-          content += `<td></td>`
-        }
+            <td>${ranking.level}`;
+          if (dbType === 'chuck' && ranking.cap !== undefined && ranking.capped !== true) {
+              content += `/${ranking.cap}`;
+          }
+          content += '</td>';
       }
       if (showPvpPercent && ranking.percentage !== null) {
         content += `<td>${Math.floor(ranking.percentage*100)}</td>`;
