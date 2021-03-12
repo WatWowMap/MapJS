@@ -254,7 +254,7 @@ const updateAvailableForms = async (icons) => {
                 });
                 icon.pokemonList = availableForms;
             }
-        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) {
+        } else if (!Array.isArray(icon.pokemonList) || Date.now() - icon.lastRetrieved > 60 * 60 * 1000) try {
             const response = await axios({
                 method: 'GET',
                 url: icon.path + '/index.json',
@@ -262,6 +262,8 @@ const updateAvailableForms = async (icons) => {
             });
             icon.pokemonList = response ? response.data : [];
             icon.lastRetrieved = Date.now();
+        } catch (e) {
+            console.warn(e);
         }
     }
 };
