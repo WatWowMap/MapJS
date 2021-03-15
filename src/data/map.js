@@ -7,6 +7,7 @@ const sanitizer = require('sanitizer');
 const requireFromString = require('require-from-string');
 
 const config = require('../services/config.js');
+const areas = require('../services/areas.js');
 const MySQLConnector = require('../services/mysql.js');
 
 const db = new MySQLConnector(config.db.scanner);
@@ -1544,7 +1545,7 @@ const getAreaRestrictionSql = (areaRestrictions) => {
     if (areaRestrictions.length !== 0) {
         areaRestrictionsSQL = 'AND (';
         for (let i = 0; i < areaRestrictions.length; i++) {
-            const polygon = config.map.areaPolygons[areaRestrictions[i]].join();
+            const polygon = areas.polygons[areaRestrictions[i]].join();
             areaRestrictionsSQL += `ST_CONTAINS(ST_GEOMFROMTEXT("POLYGON((${polygon}))"), POINT(lon, lat))`;
             if (areaRestrictions.length - i > 1) areaRestrictionsSQL += ' OR ';
         }

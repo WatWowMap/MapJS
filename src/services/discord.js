@@ -2,6 +2,7 @@
 'use strict';
 
 const config = require('../services/config.js');
+const areas = require('../services/areas.js');
 const DiscordOauth2 = require('discord-oauth2');
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -152,7 +153,7 @@ class DiscordClient {
                         if (config.discord.areaRestrictions[userRoles[k]].length === 0) overwriteAreaRestrictions = true;
                         else if (!overwriteAreaRestrictions) {
                             for (const areaName of config.discord.areaRestrictions[userRoles[k]]) {
-                                if (areaName in config.map.areaPolygons) {
+                                if (areaName in areas.names) {
                                     perms.areaRestrictions.push(areaName);
                                 }
                             }
