@@ -25,7 +25,7 @@ const parseAreas = async (areasObj) => {
         // TODO: MultiPolygon support?
         if (feature.geometry.type == "Polygon" && feature.properties.name) {
             polygons[feature.properties.name] = [];
-            for (const polygon_coordinates of feature.geometry.coordinates) polygons[feature.properties.name].push(...polygon_coordinates);
+            for (const polygonCoordinates of feature.geometry.coordinates) polygons[feature.properties.name].push(...polygonCoordinates);
         }
     };
     return { Object.keys(polygons), polygons };
