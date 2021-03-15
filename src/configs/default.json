@@ -93,7 +93,7 @@
           "device": { "small": 15, "normal": 30, "large": 50, "huge": 70 }
       },
       "portalMods": { "oldColor": "blue", "newColor": "green" },
-      "area_polygons": {}
+      "areaPolygons": {}
   },
   "header": {
       "left": [],
@@ -133,7 +133,7 @@
       "allowedGuilds": [],
       "blockedGuilds": [],
       "allowedUsers": [],
-      "area_restrictions": {},
+      "areaRestrictions": {},
       "perms": {
           "map": {
               "enabled": true,

@@ -1544,7 +1544,7 @@ const getAreaRestrictionSql = (areaRestrictions) => {
     if (areaRestrictions.length !== 0) {
         areaRestrictionsSQL = 'AND (';
         for (let i = 0; i < areaRestrictions.length; i++) {
-            const polygon = config.map.area_polygons[areaRestrictions[i]].join();
+            const polygon = config.map.areaPolygons[areaRestrictions[i]].join();
             areaRestrictionsSQL += `ST_CONTAINS(ST_GEOMFROMTEXT("POLYGON((${polygon}))"), POINT(lon, lat))`;
             if (areaRestrictions.length - i > 1) areaRestrictionsSQL += ' OR ';
         }

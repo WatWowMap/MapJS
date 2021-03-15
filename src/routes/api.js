@@ -335,7 +335,7 @@ const getData = async (perms, filter) => {
     const permShowWeather = perms ? perms.weather !== false : true;
     const permShowNests = perms ? perms.nests !== false : true;
     const permShowPortals = perms ? perms.portals !== false : true;
-    const permAreaRestrictions = perms ? perms.area_restrictions : [];
+    const permAreaRestrictions = perms ? perms.areaRestrictions : [];
 
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {

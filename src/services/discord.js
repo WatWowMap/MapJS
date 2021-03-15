@@ -93,7 +93,7 @@ class DiscordClient {
             scanAreas: false,
             weather: false,
             devices: false,
-            area_restrictions: []
+            areaRestrictions: []
         };
         const [guilds, guildsFull] = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
@@ -146,14 +146,14 @@ class DiscordClient {
                     if (configItem.roles.includes(userRoles[k])) {
                         perms[key] = true;
                     }
-                    // Check if user role is defined inside area_restrictions
-                    if (userRoles[k] in config.discord.area_restrictions) {
+                    // Check if user role is defined inside areaRestrictions
+                    if (userRoles[k] in config.discord.areaRestrictions) {
                         // Check if there's empty list for any of user roles, if so we disable restrictions
-                        if (config.discord.area_restrictions[userRoles[k]].length === 0) overwriteAreaRestrictions = true;
+                        if (config.discord.areaRestrictions[userRoles[k]].length === 0) overwriteAreaRestrictions = true;
                         else if (!overwriteAreaRestrictions) {
-                            for (const area_name of config.discord.area_restrictions[userRoles[k]]) {
-                                if (area_name in config.map.area_polygons) {
-                                    perms.area_restrictions.push(area_name);
+                            for (const areaName of config.discord.areaRestrictions[userRoles[k]]) {
+                                if (areaName in config.map.areaPolygons) {
+                                    perms.areaRestrictions.push(areaName);
                                 }
                             }
                         }
@@ -163,7 +163,7 @@ class DiscordClient {
         }
 
         // If any of user roles have no restrictions we are allowing all
-        if (overwriteAreaRestrictions && perms.area_restrictions) perms.area_restrictions = [];
+        if (overwriteAreaRestrictions && perms.areaRestrictions) perms.areaRestrictions = [];
 
         return perms;
     }

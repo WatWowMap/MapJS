@@ -19,7 +19,7 @@
         "startZoom": 12,
         "minZoom": 10,
         "maxZoom": 18,
-        "area_polygons": {
+        "areaPolygons": {
             "area1": ["latitude longitude", "..."]
         }
     },
@@ -64,7 +64,7 @@
         "allowedGuilds": [],
         "blockedGuilds": [],
         "allowedUsers": [],
-        "area_restrictions": {
+        "areaRestrictions": {
             "fullRoleId": [],
             "restrictedRoleId": ["area1"]
         },
