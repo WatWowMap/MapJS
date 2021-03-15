@@ -27,13 +27,14 @@ const dbSelection = (category) => {
     return dbSelection;
 };
 
-const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null) => {
+const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updated, pokemonFilterExclude = null, pokemonFilterIV = null, areaRestrictions = []) => {
     const pokemonLookup = {};
     const formLookup = {};
 
     let includeBigKarp = false;
     let includeTinyRat = false;
     let onlyVerifiedTimersSQL = '';
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
     let interestedLevelCaps = [];
     let interestedMegas = [];
     for (const key of pokemonFilterExclude || []) {
@@ -122,7 +123,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
             capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
-    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${onlyVerifiedTimersSQL}`;
+    WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?
+    ${onlyVerifiedTimersSQL} ${areaRestrictionsSQL}`;
     const args = [minLat, maxLat, minLon, maxLon, updated];
     const results = await dbSelection('pokemon').query(sql, args).catch(err => {
         console.error('Failed to execute query:', sql, 'with arguments:', args, '\r\nError:', err);
@@ -231,7 +233,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     return pokemon;
 };
 
-const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, permGymDetails = true, raidFilterExclude = null, gymFilterExclude = null) => {
+const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = false, showGyms = true, permGymDetails = true, raidFilterExclude = null, gymFilterExclude = null, areaRestrictions = []) => {
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
@@ -301,6 +303,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     let excludeAllButBattlesSQL = '';
     let excludeTeamSQL = '';
     let excludeAvailableSlotsSQL = '';
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
     let args = [minLat, maxLat, minLon, maxLon, updated];
 
     if (showRaids) {
@@ -391,7 +394,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
             raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id IS NULL OR
             (raid_pokemon_form = 0 ${sqlExcludePokemon}) OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
         ) ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL} ${excludeAllButBattlesSQL}
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} ${areaRestrictionsSQL}
     `;
     if (!showGyms) {
         sql += ' AND raid_end_timestamp IS NOT NULL AND raid_end_timestamp >= UNIX_TIMESTAMP()';
@@ -467,7 +470,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null, areaRestrictions = []) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     const excludedForms = [];
@@ -536,6 +539,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let excludeItemSQL = '';
     let excludeInvasionSQL = '';
     let excludePokestopSQL = '';
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     if (showQuests) {
         if (excludedTypes.length === 0) {
@@ -677,7 +681,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             incident_expire_timestamp, grunt_type, sponsor_id${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
-        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL})
+        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${areaRestrictionsSQL}
     `;
     const results = await dbSelection('pokestop').query(sql, args);
     let pokestops = [];
@@ -766,7 +770,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     return pokestops;
 };
 
-const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null) => {
+const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpointFilterExclude = null, areaRestrictions = []) => {
     let excludeWithoutTimer = false;
     let excludeWithTimer = false;
     if (spawnpointFilterExclude) {
@@ -790,11 +794,12 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     } else {
         excludeTimerSQL = 'AND (despawn_sec IS NULL AND despawn_sec IS NOT NULL)';
     }
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     const sql = `
     SELECT id, lat, lon, updated, despawn_sec
     FROM spawnpoint
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${excludeTimerSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${excludeTimerSQL} ${areaRestrictionsSQL}
     `;
 
     let args = [minLat, maxLat, minLon, maxLon, updated];
@@ -1077,7 +1082,7 @@ const getWeather = async (minLat, maxLat, minLon, maxLon, updated, weatherFilter
     return weather;
 };
 
-const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null) => {
+const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null, areaRestrictions = []) => {
     const minLatReal = minLat - 0.01;
     const maxLatReal = maxLat + 0.01;
     const minLonReal = minLon - 0.01;
@@ -1120,11 +1125,12 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
         excludeAverageSQL = ' AND pokemon_avg >= ?';
         args.push(averageCountFilter);
     }
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     const sql = `
     SELECT nest_id, lat, lon, name, pokemon_id, pokemon_count, pokemon_avg, updated
     FROM nests
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludeAverageSQL} ${excludePokemonSQL}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${excludeAverageSQL} ${excludePokemonSQL} ${areaRestrictionsSQL}
     `;
     for (let i = 0; i < excludedPokemon.length; i++) {
         args.push(excludedPokemon[i]);
@@ -1137,7 +1143,7 @@ const getNests = async (minLat, maxLat, minLon, maxLon, nestFilterExclude = null
     return null;
 };
 
-const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = null) => {
+const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = null, areaRestrictions = []) => {
     const minLatReal = minLat - 0.01;
     const maxLatReal = maxLat + 0.01;
     const minLonReal = minLon - 0.01;
@@ -1158,11 +1164,12 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
     } else if (!showNewPortals && !showOldPortals) {
         sqlExcludeCreate = 'AND FALSE';
     }
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     const sql = `
     SELECT id, external_id, lat, lon, name, url, updated, imported, checked
     FROM ingress_portals
-    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${sqlExcludeCreate}
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? ${sqlExcludeCreate} ${areaRestrictionsSQL}
     `;
     const args = [minLatReal, maxLatReal, minLonReal, maxLonReal];
     const results = await dbSelection('portal').query(sql, args);
@@ -1531,6 +1538,20 @@ const getQuestRewardTypesByName = (search) => {
     });
     return filtered;
 };
+
+const getAreaRestrictionSql = (areaRestrictions) => {
+    let areaRestrictionsSQL = '';
+    if (areaRestrictions.length !== 0) {
+        areaRestrictionsSQL = 'AND ('
+        for (let i = 0; i < areaRestrictions.length; i++) {
+            const polygon = config.map.area_polygons[areaRestrictions[i]].join();
+            areaRestrictionsSQL += `ST_CONTAINS(ST_GEOMFROMTEXT("POLYGON((${polygon}))"), POINT(lon, lat))`
+            if (areaRestrictions.length - i > 1) areaRestrictionsSQL += ' OR ';
+        }
+        areaRestrictionsSQL += ')';
+    }
+    return areaRestrictionsSQL;
+}
 
 class Ring {
     constructor(lat, lon, radius) {

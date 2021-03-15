@@ -92,7 +92,8 @@
           "nest": { "small": 20, "normal": 40, "large": 60, "huge": 80 },
           "device": { "small": 15, "normal": 30, "large": 50, "huge": 70 }
       },
-      "portalMods": { "oldColor": "blue", "newColor": "green" }
+      "portalMods": { "oldColor": "blue", "newColor": "green" },
+      "area_polygons": {}
   },
   "header": {
       "left": [],
@@ -132,6 +133,7 @@
       "allowedGuilds": [],
       "blockedGuilds": [],
       "allowedUsers": [],
+      "area_restrictions": {},
       "perms": {
           "map": {
               "enabled": true,

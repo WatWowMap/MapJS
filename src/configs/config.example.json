@@ -18,7 +18,10 @@
         "startLon": 0,
         "startZoom": 12,
         "minZoom": 10,
-        "maxZoom": 18
+        "maxZoom": 18,
+        "area_polygons": {
+            "area1": ["latitude longitude", "..."]
+        }
     },
     "areas": {
         "test": { "lat": 4.01, "lon": 117.01, "zoom": 15 }
@@ -61,6 +64,10 @@
         "allowedGuilds": [],
         "blockedGuilds": [],
         "allowedUsers": [],
+        "area_restrictions": {
+            "fullRoleId": [],
+            "restrictedRoleId": ["area1"]
+        },
         "perms": {
             "map": {
                 "enabled": true,
