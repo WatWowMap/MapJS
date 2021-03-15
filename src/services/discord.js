@@ -149,9 +149,7 @@ class DiscordClient {
                     // Check if user role is defined inside area_restrictions
                     if (userRoles[k] in config.discord.area_restrictions) {
                         // Check if there's empty list for any of user roles, if so we disable restrictions
-                        if (config.discord.area_restrictions[userRoles[k]].length === 0) {
-                            overwriteAreaRestrictions = true;
-                        }
+                        if (config.discord.area_restrictions[userRoles[k]].length === 0) overwriteAreaRestrictions = true;
                         else if (!overwriteAreaRestrictions) {
                             for (const area_name of config.discord.area_restrictions[userRoles[k]]) {
                                 if (area_name in config.map.area_polygons) {
@@ -165,9 +163,7 @@ class DiscordClient {
         }
 
         // If any of user roles have no restrictions we are allowing all
-        if (overwriteAreaRestrictions && perms.area_restrictions) {
-            perms.area_restrictions = [];
-        }
+        if (overwriteAreaRestrictions && perms.area_restrictions) perms.area_restrictions = [];
 
         return perms;
     }

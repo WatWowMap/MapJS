@@ -1542,10 +1542,10 @@ const getQuestRewardTypesByName = (search) => {
 const getAreaRestrictionSql = (areaRestrictions) => {
     let areaRestrictionsSQL = '';
     if (areaRestrictions.length !== 0) {
-        areaRestrictionsSQL = 'AND ('
+        areaRestrictionsSQL = 'AND (';
         for (let i = 0; i < areaRestrictions.length; i++) {
             const polygon = config.map.area_polygons[areaRestrictions[i]].join();
-            areaRestrictionsSQL += `ST_CONTAINS(ST_GEOMFROMTEXT("POLYGON((${polygon}))"), POINT(lon, lat))`
+            areaRestrictionsSQL += `ST_CONTAINS(ST_GEOMFROMTEXT("POLYGON((${polygon}))"), POINT(lon, lat))`;
             if (areaRestrictions.length - i > 1) areaRestrictionsSQL += ' OR ';
         }
         areaRestrictionsSQL += ')';
