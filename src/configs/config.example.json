@@ -61,10 +61,7 @@
         "allowedGuilds": [],
         "blockedGuilds": [],
         "allowedUsers": [],
-        "areaRestrictions": {
-            "fullRoleId": [],
-            "restrictedRoleId": ["area1"]
-        },
+        "areaRestrictions": {},
         "perms": {
             "map": {
                 "enabled": true,
