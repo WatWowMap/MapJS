@@ -2975,30 +2975,29 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>Rank</b></td>
           <td><b>CP</b></td>
           <td><b>Lvl</b></td>
-          ${dbType === 'chuck' ? `<td><b>Cap</b></td>` : ``}
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
   let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
   for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
     if (ranking.rank <= maxRankingToUse) {
       content += `<tr>`
+      let pokemonName = ``;
+      if (ranking.evolution) {
+        if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `${getEvolutionName(ranking.evolution)} `;
+        } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `*${getEvolutionName(ranking.evolution)} `;
+        }
+      }
+      if (ranking.form !== 0 && ranking.form !== undefined) {
+        pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
+      } else {
+        pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
+      }
       if (showPokemonName) {
-        let pokemonName = ``;
-        if (ranking.evolution) {
-          if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `${getEvolutionName(ranking.evolution)} `;
-          } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `*${getEvolutionName(ranking.evolution)} `;
-          }
-        }
-        if (ranking.form !== 0 && ranking.form !== undefined) {
-          pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
-        } else {
-          pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
-        }
         content += `<td>${pokemonName}</td>`
       } else {
-        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${getPokemonNameNoId(ranking.pokemon)}" height="20">`
+        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${pokemonName}" title="${pokemonName}" height="20">`
         if (ranking.evolution) {
           if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
             content += `<td>*${img}</td>`
@@ -3017,14 +3016,11 @@ const getPvpRanks = (league, pokemon) => {
       if (ranking.cp !== null) {
         content += `
             <td>${ranking.cp}</td> 
-            <td>${ranking.level}</td>`;
-      }
-      if (dbType === 'chuck') {
-        if (ranking.cap !== undefined && ranking.capped !== true) {
-          content += `<td>${ranking.cap}</td>`;
-        } else {
-          content += `<td>All</td>`
-        }
+            <td>${ranking.level}`;
+          if (dbType === 'chuck' && ranking.cap !== undefined && ranking.capped !== true) {
+              content += `/${ranking.cap}`;
+          }
+          content += '</td>';
       }
       if (showPvpPercent && ranking.percentage !== null) {
         content += `<td>${Math.floor(ranking.percentage*100)}</td>`;
