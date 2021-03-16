@@ -189,5 +189,6 @@
 	"enter_pokestop_name": "Enter Pokestop Name...",
 	"filter_option_rarity": "By Rarity",
 	"filter_option_generation": "By Generation",
-	"filter_option_form": "By Form"
+	"filter_option_form": "By Form",
+	"settings_pokemon_notifications": "Pokemon Notifications"
 }
