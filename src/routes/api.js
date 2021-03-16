@@ -6,6 +6,7 @@ const router = express.Router();
 const map = require('../data/map.js');
 const utils = require('../services/utils.js');
 const masterfile = require('../../static/data/masterfile.json');
+const { config } = require('../services/discord.js');
 const skipForms = ['shadow', 'purified'];
 
 router.get('/get_data', async (req, res) => {
@@ -57,6 +58,31 @@ const getSettings = (perms) => {
     const level50String = i18n.__('filter_level50_stats');
     const level51String = i18n.__('filter_level51_stats');
     const weatherDetailsString = i18n.__('settings_weather_details');
+    const pokemonNotificationsString = i18n.__('settings_pokemon_notifications');
+
+    // Check if perms is not set and discord config not set, then allow all permissions
+    if (!config.discord.enabled && !perms) {
+        perms = {
+            map: true,
+            pokemon: true,
+            raids: true,
+            gyms: true,
+            pokestops: true,
+            quests: true,
+            lures: true,
+            invasions: true,
+            spawnpoints: true,
+            iv: true,
+            pvp: true,
+            s2cells: true,
+            submissionCells: true,
+            nests: true,
+            portals: true,
+            scanAreas: true,
+            weather: true,
+            devices: true,
+        };
+    }
 
     if (perms.pokemon) {
         /*
@@ -96,6 +122,14 @@ const getSettings = (perms) => {
             },
             'name': pokemonTimers,
             'filter': generateShowHideButtons('pokemon-timers', 'pokemon-timers'),
+            'type': pokemonSettingsString,
+        });
+        settingsData.push({
+            'id': {
+                'sort': utils.zeroPad(3, 3),
+            },
+            'name': pokemonNotificationsString,
+            'filter': generateShowHideButtons('pokemon-notifications', 'pokemon-notifications'),
             'type': pokemonSettingsString,
         });
     }
