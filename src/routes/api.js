@@ -340,7 +340,7 @@ const getData = async (perms, filter) => {
     let data = {};
     if ((permShowGyms && showGyms) || (permShowRaids && showRaids)) {
         data['gyms'] = await map.getGyms(minLat, maxLat, minLon, maxLon, lastUpdate, permShowRaids && showRaids,
-         permShowGyms && showGyms, permShowGyms, raidFilterExclude, gymFilterExclude, permAreaRestrictions);
+            permShowGyms && showGyms, permShowGyms, raidFilterExclude, gymFilterExclude, permAreaRestrictions);
     }
     if (
         (permShowPokestops && showPokestops) ||
@@ -348,16 +348,16 @@ const getData = async (perms, filter) => {
         (permShowInvasions && showInvasions)
     ) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate,
-        permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions,
-        questFilterExclude, pokestopFilterExclude, invasionFilterExclude, permAreaRestrictions);
+            permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions,
+            questFilterExclude, pokestopFilterExclude, invasionFilterExclude, permAreaRestrictions);
     }
     if (permShowPokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate,
-        pokemonFilterExclude, pokemonFilterIV, permAreaRestrictions);
+            pokemonFilterExclude, pokemonFilterIV, permAreaRestrictions);
     }
     if (permShowSpawnpoints && showSpawnpoints) {
         data['spawnpoints'] = await map.getSpawnpoints(minLat, maxLat, minLon, maxLon, lastUpdate,
-        spawnpointFilterExclude, permAreaRestrictions);
+            spawnpointFilterExclude, permAreaRestrictions);
     }
     if (permShowDevices && showActiveDevices) {
         data['active_devices'] = await map.getDevices(deviceFilterExclude);

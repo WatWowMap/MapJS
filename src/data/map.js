@@ -1552,7 +1552,7 @@ const getAreaRestrictionSql = (areaRestrictions) => {
         areaRestrictionsSQL += ')';
     }
     return areaRestrictionsSQL;
-}
+};
 
 class Ring {
     constructor(lat, lon, radius) {

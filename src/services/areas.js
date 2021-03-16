@@ -9,11 +9,11 @@ const loadAreas = () => {
 
     const areasFilePath = path.resolve(__dirname, '../../static/custom/areas.json');
     try {
-        const data = fs.readFileSync(areasFilePath, 'utf8')
+        const data = fs.readFileSync(areasFilePath, 'utf8');
         areas = JSON.parse(data);
     } catch (err) {
         if (Object.keys(config.discord.areaRestrictions).length !== 0) {
-            console.warn('[Area Restrictions] Disabled - `areas.json` file is missing or broken.')
+            console.warn('[Area Restrictions] Disabled - `areas.json` file is missing or broken.');
         }
     }
     return areas;
@@ -27,11 +27,11 @@ const parseAreas = (areasObj) => {
 
     for (const feature of areasObj.features) {
         // TODO: MultiPolygon support?
-        if (feature.geometry.type == "Polygon" && feature.properties.name) {
+        if (feature.geometry.type == 'Polygon' && feature.properties.name) {
             polygons[feature.properties.name] = [];
             for (const polygonCoordinates of feature.geometry.coordinates) polygons[feature.properties.name].push(...polygonCoordinates);
         }
-    };
+    }
     names = Object.keys(polygons);
     return { names, polygons };
 };

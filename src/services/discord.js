@@ -105,7 +105,6 @@ class DiscordClient {
 
         let blocked = false;
         let overwriteAreaRestrictions = false;
-        let areasChecked = false;
 
         for (let i = 0; i < config.discord.blockedGuilds.length; i++) {
             const guildId = config.discord.blockedGuilds[i];
