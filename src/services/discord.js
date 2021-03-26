@@ -153,8 +153,9 @@ class DiscordClient {
             for (let k = 0; k < userRoles.length; k++) {
                 if (userRoles[k] in config.discord.areaRestrictions) {
                     // Check if there's empty list for any of user roles, if so we disable restrictions
-                    if (config.discord.areaRestrictions[userRoles[k]].length === 0) overwriteAreaRestrictions = true;
-                    else if (!overwriteAreaRestrictions) {
+                    if (config.discord.areaRestrictions[userRoles[k]].length === 0) {
+                        overwriteAreaRestrictions = true;
+                    } else if (!overwriteAreaRestrictions) {
                         for (const areaName of config.discord.areaRestrictions[userRoles[k]]) {
                             if (areas.names.includes(areaName)) {
                                 perms.areaRestrictions.push(areaName);
