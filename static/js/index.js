@@ -5781,12 +5781,8 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = '• Use this to enter a specific filter for this Pokemon.\n• These values override any global filters!\n• Refer to the Help button if you are unsure of how to use this. \nExamples:\n((L30-35 & 90-100) | (CP2500-4000 & A15 & D10 S10)) | GL1-10 | UL1-10';
-
-const globalFilterPrompt = `• Use AND when you want to filter the Pokemon you\'ve already selected below.\n• Use OR when you want to set a base filter for all Pokemon, regardless if you\'ve selected them below or not.\n\nIf you are unsure what to put here, click the Help button below.`
-
 function manageIVPopup (id, filter) {
-    const result = prompt(ivFilterPrompt, filter[id].filter);
+    const result = prompt(i18n('prompt_iv_filter'), filter[id].filter);
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5810,7 +5806,7 @@ function manageIVPopup (id, filter) {
 }
 
 function manageColorPopup (id, filter) {
-    const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
+    const result = (prompt(i18n('prompt_color_value'), filter[id].color) || 'red').toUpperCase();
     const prevShow = filter[id].show;
     let success;
     const validColors = ['red','green','blue','yellow','orange','purple'];
@@ -5838,7 +5834,7 @@ function manageColorPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt(globalFilterPrompt, filter['iv_' + id].filter);
+    const result = prompt(i18n('prompt_global_filter'), filter['iv_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5851,7 +5847,7 @@ function manageGlobalIVPopup (id, filter) {
 }
 
 function manageGlobalAveragePopup (id, filter) {
-    const result = prompt('Please enter a nest count average to filter. Example: 5', filter[id].filter);
+    const result = prompt(i18n('prompt_nest_avg'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5864,7 +5860,7 @@ function manageGlobalAveragePopup (id, filter) {
 }
 
 function manageGlobalCandyCountPopup (id, filter) {
-    const result = prompt('Please enter a candy amount to filter. Example: 2', filter[id].filter);
+    const result = prompt(i18n('prompt_candy_amount'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5877,7 +5873,7 @@ function manageGlobalCandyCountPopup (id, filter) {
 }
 
 function manageGlobalStardustCountPopup (id, filter) {
-    const result = prompt('Please enter a stardust amount to filter. Example: 0, 200, 500, 1000, 1500, etc', filter[id].filter);
+    const result = prompt(i18n('prompt_stardust_amount'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
