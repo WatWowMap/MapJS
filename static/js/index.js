@@ -59,6 +59,7 @@ let settingsNew = {};
 
 const hiddenPokemonIds = [];
 const pokemonWithTimers = [];
+const hiddenQuestIds = [];
 
 let openedPokemon;
 let openedPokestop;
@@ -437,7 +438,7 @@ $(function () {
         };
         let json = JSON.stringify(settings);
         let el = document.createElement('a');
-        el.setAttribute('href', 'data:text/plain;chartset=utf-8,' + encodeURIComponent(json));
+        el.setAttribute('href', 'data:application/json;chartset=utf-8,' + encodeURIComponent(json));
         el.setAttribute('download', 'settings.json');
         el.style.display = 'none';
         document.body.appendChild(el);
@@ -2302,7 +2303,7 @@ function loadData () {
             ts = Math.round((new Date()).getTime() / 1000);
             $.each(pokestops, function (index, pokestop) {
                 if (showPokestops ||
-                    (showQuests && pokestop.quest_type !== null) ||
+                    (showQuests && pokestop.quest_type !== null && !hiddenQuestIds.includes(pokestop.id)) ||
                     (showInvasions && pokestop.incident_expire_timestamp > ts)
                     ) {
                     if (pokestop.updated > lastUpdateServer) {
@@ -2381,6 +2382,9 @@ function loadData () {
                             if (showInvasionTimers) {
                                 setDespawnTimer(oldPokestop);
                             }
+                        }
+                        if (hiddenQuestIds.includes(oldPokestop.id)) {
+                            map.removeLayer(oldPokestop.marker);
                         }
                     }
                 }
@@ -2994,30 +2998,29 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>Rank</b></td>
           <td><b>CP</b></td>
           <td><b>Lvl</b></td>
-          ${dbType === 'chuck' ? `<td><b>Cap</b></td>` : ``}
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
   let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
   for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
     if (ranking.rank <= maxRankingToUse) {
       content += `<tr>`
+      let pokemonName = ``;
+      if (ranking.evolution) {
+        if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `${getEvolutionName(ranking.evolution)} `;
+        } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
+          pokemonName += `*${getEvolutionName(ranking.evolution)} `;
+        }
+      }
+      if (ranking.form !== 0 && ranking.form !== undefined) {
+        pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
+      } else {
+        pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
+      }
       if (showPokemonName) {
-        let pokemonName = ``;
-        if (ranking.evolution) {
-          if (showMegaStats && !masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `${getEvolutionName(ranking.evolution)} `;
-          } else if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
-            pokemonName += `*${getEvolutionName(ranking.evolution)} `;
-          }
-        }
-        if (ranking.form !== 0 && ranking.form !== undefined) {
-          pokemonName += `${getFormName(ranking.form)} ${getPokemonNameNoId(ranking.pokemon)}`;
-        } else {
-          pokemonName += `${getPokemonNameNoId(ranking.pokemon)}`;
-        }
         content += `<td>${pokemonName}</td>`
       } else {
-        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${getPokemonNameNoId(ranking.pokemon)}" height="20">`
+        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${pokemonName}" title="${pokemonName}" height="20">`
         if (ranking.evolution) {
           if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
             content += `<td>*${img}</td>`
@@ -3036,14 +3039,11 @@ const getPvpRanks = (league, pokemon) => {
       if (ranking.cp !== null) {
         content += `
             <td>${ranking.cp}</td> 
-            <td>${ranking.level}</td>`;
-      }
-      if (dbType === 'chuck') {
-        if (ranking.cap !== undefined && ranking.capped !== true) {
-          content += `<td>${ranking.cap}</td>`;
-        } else {
-          content += `<td>All</td>`
-        }
+            <td>${ranking.level}`;
+          if (dbType === 'chuck' && ranking.cap !== undefined && ranking.capped !== true) {
+              content += `/${ranking.cap}`;
+          }
+          content += '</td>';
       }
       if (showPvpPercent && ranking.percentage !== null) {
         content += `<td>${Math.floor(ranking.percentage*100)}</td>`;
@@ -3278,7 +3278,7 @@ const getPokemonPopupContent = (pokemon) => {
         <table class="table-fourth-row">
           <tr>
             <td><a id="h${pokemon.id}" title="Show Despawn Timer" href="#" onclick="addPokemonTimer('${pokemon.id}');return false;"><b>[Timer]</b></a></td>
-            <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setIndividualPokemonHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
+            <td><a id="h${pokemon.id}" title="Hide Pokemon" href="#" onclick="setPokemonMarkerHidden('${pokemon.id}');return false;"><b>[Hide]</b></a></td>
             <td><a title="Filter Pokemon" href="#" onclick="addPokemonFilter(${pokemon.pokemon_id}, ${pokemon.form}, false);return false;"><b>[Exclude]</b></a></td>
           </tr>
         </table>
@@ -3326,7 +3326,7 @@ const getPokemonPopupContent = (pokemon) => {
 }
 
 // eslint-disable-next-line no-unused-vars
-function setIndividualPokemonHidden (id) {
+function setPokemonMarkerHidden (id) {
     if (id > 0 && !hiddenPokemonIds.includes(id)) {
         hiddenPokemonIds.push(id);
         const pokemonMarker = pokemonMarkers.find(function (value) {
@@ -3334,10 +3334,22 @@ function setIndividualPokemonHidden (id) {
         });
 
         if (pokemonMarker === null) {
-            console.log('Failed to find pokemon marker', id);
+            console.error('Failed to find pokemon marker', id);
         } else {
             map.removeLayer(pokemonMarker.marker);
         }
+    }
+}
+
+function setQuestPokestopMarkerHidden (id) {
+    hiddenQuestIds.push(id);
+    const pokestopMarker = pokestopMarkers.find(function (value) {
+        return id === value.id;
+    });
+    if (pokestopMarker === null) {
+        console.error('Failed to find pokestop marker', id);
+    } else {
+        map.removeLayer(pokestopMarker.marker);
     }
 }
 
@@ -3490,7 +3502,16 @@ function getPokestopPopupContent (pokestop) {
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
     if (pokestop.quest_type !== null) {
-        content += `<a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><div class="exclude">[Exclude]</div></a>`;
+        content += `
+        <div class="pokemon-timer-hide-exclude">
+        <table class="table-fourth-row">
+          <tr>
+            <td><a title="Filter Quest" href="#" onclick='addQuestFilter(${JSON.stringify(questReward.info)}, false);return false;'><b>[Exclude Quest]</b></a></td>
+            <td><a title="Hide Quest" href="#" onclick="setQuestPokestopMarkerHidden('${pokestop.id}');return false;"><b>[Hide Quest]</b></a></td>
+          </tr>
+        </table>
+      </div>
+        `;
     }
     content += getNavigation(pokestop);
     return content;
@@ -5806,12 +5827,8 @@ function getTimeSince (date) {
     return str;
 }
 
-const ivFilterPrompt = '• Use this to enter a specific filter for this Pokemon.\n• These values override any global filters!\n• Refer to the Help button if you are unsure of how to use this. \nExamples:\n((L30-35 & 90-100) | (CP2500-4000 & A15 & D10 S10)) | GL1-10 | UL1-10';
-
-const globalFilterPrompt = `• Use AND when you want to filter the Pokemon you\'ve already selected below.\n• Use OR when you want to set a base filter for all Pokemon, regardless if you\'ve selected them below or not.\n\nIf you are unsure what to put here, click the Help button below.`
-
 function manageIVPopup (id, filter) {
-    const result = prompt(ivFilterPrompt, filter[id].filter);
+    const result = prompt(i18n('prompt_iv_filter'), filter[id].filter);
     const prevShow = filter[id].show;
     let success;
     if (result == null) {
@@ -5835,7 +5852,7 @@ function manageIVPopup (id, filter) {
 }
 
 function manageColorPopup (id, filter) {
-    const result = (prompt('Please enter a color value. (i.e. red, blue, green, etc)', filter[id].color) || 'red').toUpperCase();
+    const result = (prompt(i18n('prompt_color_value'), filter[id].color) || 'red').toUpperCase();
     const prevShow = filter[id].show;
     let success;
     const validColors = ['red','green','blue','yellow','orange','purple'];
@@ -5863,7 +5880,7 @@ function manageColorPopup (id, filter) {
 }
 
 function manageGlobalIVPopup (id, filter) {
-    const result = prompt(globalFilterPrompt, filter['iv_' + id].filter);
+    const result = prompt(i18n('prompt_global_filter'), filter['iv_' + id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5876,7 +5893,7 @@ function manageGlobalIVPopup (id, filter) {
 }
 
 function manageGlobalAveragePopup (id, filter) {
-    const result = prompt('Please enter a nest count average to filter. Example: 5', filter[id].filter);
+    const result = prompt(i18n('prompt_nest_avg'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5889,7 +5906,7 @@ function manageGlobalAveragePopup (id, filter) {
 }
 
 function manageGlobalCandyCountPopup (id, filter) {
-    const result = prompt('Please enter a candy amount to filter. Example: 2', filter[id].filter);
+    const result = prompt(i18n('prompt_candy_amount'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
@@ -5902,7 +5919,7 @@ function manageGlobalCandyCountPopup (id, filter) {
 }
 
 function manageGlobalStardustCountPopup (id, filter) {
-    const result = prompt('Please enter a stardust amount to filter. Example: 0, 200, 500, 1000, 1500, etc', filter[id].filter);
+    const result = prompt(i18n('prompt_stardust_amount'), filter[id].filter);
     if (result === null) {
         return false;
     } else if (checkIVFilterValid(result)) {
