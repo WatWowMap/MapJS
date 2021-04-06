@@ -62,9 +62,14 @@
         "blockedGuilds": [],
         "allowedUsers": [],
         "areaRestrictions": {
-            "unrestrictedRoleId": [],
-            "restrictedRoleId1": ["area1"],
-            "restrictedRoleId2": ["area1", "area2"]
+            "role1": {
+                "roles": [],
+                "areas": []
+            },
+            "role2": {
+                "roles": [],
+                "areas": []
+            }
         },
         "perms": {
             "map": {

@@ -6,15 +6,17 @@ const config = require('../services/config.js');
 
 const loadAreas = () => {
     let areas = {};
+    let showWarning = false;
 
     const areasFilePath = path.resolve(__dirname, '../../static/custom/areas.json');
     try {
         const data = fs.readFileSync(areasFilePath, 'utf8');
         areas = JSON.parse(data);
     } catch (err) {
-        if (Object.keys(config.discord.areaRestrictions).length !== 0) {
-            console.warn('[Area Restrictions] Disabled - `areas.json` file is missing or broken.');
+        for (const role of Object.values(config.discord.areaRestrictions)) {
+            if (role['roles'].length !== 0) showWarning = true;
         }
+        if (showWarning) console.warn('[Area Restrictions] Disabled - `areas.json` file is missing or broken.');
     }
     return areas;
 };
