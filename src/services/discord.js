@@ -149,6 +149,10 @@ class DiscordClient {
                     }
                 }
             }
+
+            // Continue if areas file is not loaded
+            if (Object.keys(areas.names).length === 0) continue;
+
             // Check once if user role is defined inside areaRestrictions
             for (let k = 0; k < userRoles.length; k++) {
                 for (const role of Object.values(config.discord.areaRestrictions)) {
