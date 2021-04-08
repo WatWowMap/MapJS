@@ -64,7 +64,7 @@ app.use(express.urlencoded({ extended: false, limit: '500mb' }));
 
 // Initialize localzation handler
 i18n.configure({
-    locales:['en', 'es', 'de'],
+    locales:['en', 'es', 'de', 'pl'],
     directory: path.resolve(__dirname, '../static/locales')
 });
 app.use(i18n.init);
