@@ -83,8 +83,8 @@
     "filter_global_avg": "Średnie obłożenie nestu",
     "filter_global_candy_count": "Limit rare candy",
     "filter_global_stardust_count": "Limit stardustu",
-    "filter_and": "Oraz",
-    "filter_or": "Albo",
+    "filter_and": "ORAZ",
+    "filter_or": "ALBO",
     "filter_on": "Włącz",
     "filter_off": "Wyłącz",
     "filter_old": "Stare",
@@ -190,5 +190,11 @@
     "filter_option_rarity": "Według rzadkośći",
     "filter_option_generation": "Według generacji",
     "filter_option_form": "Według formy",
-    "settings_pokemon_notifications": "Powiadomienia o Pokémonach"
+    "settings_pokemon_notifications": "Powiadomienia o Pokémonach",
+    "prompt_iv_filter": "• Użyj tego pola, aby wprowadzić specyficzny filtr dla tego Pokémona.\n• Te wartości zastępują wszystkie filtry globalne!\n• Sprawdź przycisk Pomoc, jeśli nie jesteś pewien jak tego użyć. \nPrzykład:\n((L30-35 & 90-100) | (CP2500-4000 & A15 & D10 S10)) | GL1-10 | UL1-10",
+    "prompt_global_filter": "• Użyj ORAZ, gdy chcesz filtrować Pokémony, które wybrałeś poniżej.\n• Użyj ALBO, gdy chcesz ustawić podstawowy filtr dla wszystkich Pokémonów niezależnie od tego czy wybrałeś je poniżej, czy nie.\n\nJeśli nie jesteś pewien co tu wpisać kliknij na przycisk Pomoc poniżej.",
+    "prompt_color_value": "Proszę wprowadzić wartość koloru. (np. red, blue, green, etc)",
+    "prompt_nest_avg": "Proszę wprowadzić Średnie obłożenie nestu, aby filtrować. Przykład: 5",
+    "prompt_candy_amount": "Proszę wpisać ilość cukierków do filtrowania. Przykład: 2",
+    "prompt_stardust_amount": "Proszę podać ilość stardustu do filtrowania. Przykład: 0, 500, 1500, itd."
 }
