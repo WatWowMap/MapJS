@@ -194,7 +194,7 @@
     "prompt_iv_filter": "• Użyj tego pola, aby wprowadzić specyficzny filtr dla tego Pokémona.\n• Te wartości zastępują wszystkie filtry globalne!\n• Sprawdź przycisk Pomoc, jeśli nie jesteś pewien jak tego użyć. \nPrzykład:\n((L30-35 & 90-100) | (CP2500-4000 & A15 & D10 S10)) | GL1-10 | UL1-10",
     "prompt_global_filter": "• Użyj ORAZ, gdy chcesz filtrować Pokémony, które wybrałeś poniżej.\n• Użyj ALBO, gdy chcesz ustawić podstawowy filtr dla wszystkich Pokémonów niezależnie od tego czy wybrałeś je poniżej, czy nie.\n\nJeśli nie jesteś pewien co tu wpisać kliknij na przycisk Pomoc poniżej.",
     "prompt_color_value": "Proszę wprowadzić wartość koloru. (np. red, blue, green, etc)",
-    "prompt_nest_avg": "Proszę wprowadzić Średnie obłożenie nestu, aby filtrować. Przykład: 5",
+    "prompt_nest_avg": "Proszę wprowadzić średnie obłożenie nestu, aby filtrować. Przykład: 5",
     "prompt_candy_amount": "Proszę wpisać ilość cukierków do filtrowania. Przykład: 2",
     "prompt_stardust_amount": "Proszę podać ilość stardustu do filtrowania. Przykład: 0, 500, 1500, itd."
 }
