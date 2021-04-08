@@ -5,6 +5,7 @@ const data = require('../../static/locales/' + config.locale + '.json');
 data.title = config.title;
 data.header_title = config.headerTitle;
 data.locale = config.locale;
+data.dateTimeLocale = config.dateTimeLocale;
 data.db_type = config.dbType;
 data.google_analytics_id = config.google.analytics;
 data.google_adsense_id = config.google.adsense;
