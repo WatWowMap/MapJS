@@ -12,4 +12,7 @@ const target = {};
 */
 extend(true, target, eConfig, uConfig);
 
+// set undefined for "auto" string of date time locale
+if (target.dateTimeLocale === 'auto') target.dateTimeLocale = undefined;
+
 module.exports = target;
