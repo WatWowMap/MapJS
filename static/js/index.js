@@ -3640,7 +3640,7 @@ function getGymPopupContent (gym) {
                 }
             }
             if (gym.in_battle) {
-                content += `<b>${i18n('gym_last_seen_in_battle')}!</b><br>`;
+                content += `<b>${i18n('popup_gym_last_seen_in_battle')}</b><br>`;
             }
             if (gym.raid_pokemon_form !== null && gym.raid_pokemon_form > 0) {
                 content += `<b>${i18n('popup_form')}:</b> ${getFormName(gym.raid_pokemon_form, true)}<br>`;
@@ -3684,7 +3684,7 @@ function getGymPopupContent (gym) {
             content += `<b>${i18n('popup_total_cp')}:</b> ${gym.total_cp.toLocaleString()}<br>`;
         }
         if (gym.in_battle) {
-            content += `<b>${i18n('popup_gym_under_attack')}!</b><br>`;
+            content += `<b>${i18n('popup_gym_under_attack')}</b><br>`;
         }
         if (gym.ex_raid_eligible) {
             // content += '<b>Gym is EX-Raid eligible</b>';
@@ -3756,7 +3756,7 @@ function getSubmissionTypeCellPopupContent (cell) {
     }
 
     if ((cell.count === 1 && cell.count_gyms < 1) || (cell.count === 5 && cell.count_gyms < 2) || (cell.count === 19 && cell.count_gyms < 3)) {
-        content += `<br><b>${i18n('popup_next_submission')}!`;
+        content += `<br><b>${i18n('popup_next_submission')}`;
     }
 
     content += '</center>';
@@ -3771,8 +3771,8 @@ function degreesToCardinal (d) {
 }
 
 function getWeatherPopupContent (weather) {
-  const weatherName = weatherTypes[weather.gameplay_condition].name;
-  const weatherType = weatherTypes[weather.gameplay_condition].types;
+  const weatherName = i18n(`weather_${weatherTypes[weather.gameplay_condition].name}`);
+  const weatherType = weatherTypes[weather.gameplay_condition].types.map(type => i18n(type));
   const weatherTypeIcons = weatherType.map(type => {
     return `<img class='weatherTypeIcons' src=/img/type/${type.toLowerCase()}.png alt=${type}/>`
   })
@@ -3794,7 +3794,7 @@ function getWeatherPopupContent (weather) {
     <b>${i18n('popup_warning')}:</b> ${weather.warn_weather}<br><br>`
   const content = `
     <center>
-      <h6><b>${weatherName}</b><br></h6>
+      <h6><b>${weatherName}</b></h6>
       <b>${i18n('popup_boosted')}:</b><br>${weatherType.join(', ')}<br>
       ${weatherTypeIcons.join(' ')}<br>
       ${extraContent}
@@ -5817,7 +5817,7 @@ function manageIVPopup (id, filter) {
         success = true;
     } else {
         success = false;
-        alert(`${i18n('popup_invalid_iv_filter')}!`);
+        alert(`${i18n('popup_invalid_iv_filter')}`);
     }
     if (!success) {
         if (prevShow === true) {
@@ -5845,7 +5845,7 @@ function manageColorPopup (id, filter) {
         success = true;
     } else {
         success = false;
-        alert(`${i18n('popup_invalid_color_value')}!`);
+        alert(`${i18n('popup_invalid_color_value')}`);
     }
     if (!success) {
         if (prevShow === true) {
@@ -5865,7 +5865,7 @@ function manageGlobalIVPopup (id, filter) {
         filter['iv_' + id].filter = result;
         return true;
     } else {
-        alert(`${i18n('popup_invalid_iv_filter')}!`);
+        alert(`${i18n('popup_invalid_iv_filter')}`);
         return false;
     }
 }
@@ -5878,7 +5878,7 @@ function manageGlobalAveragePopup (id, filter) {
         filter[id].filter = result;
         return true;
     } else {
-        alert(`${i18n('popup_invalid_nest_filter')}!`);
+        alert(`${i18n('popup_invalid_nest_filter')}`);
         return false;
     }
 }
@@ -5891,7 +5891,7 @@ function manageGlobalCandyCountPopup (id, filter) {
         filter[id].filter = result;
         return true;
     } else {
-        alert(`${i18n('popup_invalid_candy_filter')}!`);
+        alert(`${i18n('popup_invalid_candy_filter')}`);
         return false;
     }
 }
@@ -5904,7 +5904,7 @@ function manageGlobalStardustCountPopup (id, filter) {
         filter[id].filter = result;
         return true;
     } else {
-        alert(`${i18n('popup_invalid_stardust_filter')}!`);
+        alert(`${i18n('popup_invalid_stardust_filter')}`);
         return false;
     }
 }
