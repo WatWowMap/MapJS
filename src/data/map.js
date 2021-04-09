@@ -226,9 +226,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 filtered.capture_2 = result.capture_2;
                 filtered.capture_3 = result.capture_3;
             } else {
-                filtered.capture_1 = null;
-                filtered.capture_2 = null;
-                filtered.capture_3 = null;
+                filtered.capture_1 = filtered.capture_2 = filtered.capture_3 = null;
             }
             if (showIV) {
                 filtered.move_1 = result.move_1;
