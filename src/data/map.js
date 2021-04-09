@@ -36,6 +36,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     let includeTinyRat = false;
     let onlyVerifiedTimersSQL = '';
     let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
+    let captureRatesSQL = '';
     let interestedLevelCaps = [];
     let interestedMegas = [];
     for (const key of pokemonFilterExclude || []) {
@@ -118,11 +119,13 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         }
     }
 
+    if (config.db.scanner.enableCaptureRates) captureRatesSQL = 'capture_1, capture_2, capture_3, '
+
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
-            capture_1, capture_2, capture_3, pvp_rankings_great_league, pvp_rankings_ultra_league
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username, ${captureRatesSQL}
+            pvp_rankings_great_league, pvp_rankings_ultra_league
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?
     ${onlyVerifiedTimersSQL} ${areaRestrictionsSQL}`;
@@ -218,9 +221,15 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
             filtered.changed = result.changed;
             filtered.cellId = result.cell_id;
             filtered.expire_timestamp_verified = result.expire_timestamp_verified;
-            filtered.capture_1 = result.capture_1;
-            filtered.capture_2 = result.capture_2;
-            filtered.capture_3 = result.capture_3;
+            if (config.db.scanner.enableCaptureRates) {
+                filtered.capture_1 = result.capture_1;
+                filtered.capture_2 = result.capture_2;
+                filtered.capture_3 = result.capture_3;
+            } else {
+                filtered.capture_1 = null;
+                filtered.capture_2 = null;
+                filtered.capture_3 = null;
+            }
             if (showIV) {
                 filtered.move_1 = result.move_1;
                 filtered.move_2 = result.move_2;
