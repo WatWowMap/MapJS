@@ -2,6 +2,7 @@
 'use strict';
 
 const config = require('../services/config.js');
+const areas = require('../services/areas.js');
 const DiscordOauth2 = require('discord-oauth2');
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -92,7 +93,8 @@ class DiscordClient {
             portals: false,
             scanAreas: false,
             weather: false,
-            devices: false
+            devices: false,
+            areaRestrictions: []
         };
         const [guilds, guildsFull] = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
@@ -102,6 +104,8 @@ class DiscordClient {
         }
 
         let blocked = false;
+        let overwriteAreaRestrictions = false;
+
         for (let i = 0; i < config.discord.blockedGuilds.length; i++) {
             const guildId = config.discord.blockedGuilds[i];
             // Check if user's guilds contains blocked guild
@@ -123,6 +127,8 @@ class DiscordClient {
                 continue;
             }
             const keys = Object.keys(config.discord.perms);
+            // Check if assigned role to user is in config roles
+            const userRoles = await this.getUserRoles(guildId, user.id);
             // Loop through each permission section
             for (let j = 0; j < keys.length; j++) {
                 const key = keys[j];
@@ -135,8 +141,6 @@ class DiscordClient {
                 if (!configItem.enabled) {
                     continue;
                 }
-                // If set, grab user roles for guild
-                const userRoles = await this.getUserRoles(guildId, user.id);
                 // Check if user has config role assigned
                 for (let k = 0; k < userRoles.length; k++) {
                     // Check if assigned role to user is in config roles
@@ -145,7 +149,33 @@ class DiscordClient {
                     }
                 }
             }
+
+            // Continue if areas file is not loaded
+            if (Object.keys(areas.names).length === 0) continue;
+
+            // Check once if user role is defined inside areaRestrictions
+            for (let k = 0; k < userRoles.length; k++) {
+                for (const role of Object.values(config.discord.areaRestrictions)) {
+                    if (role['roles'].includes(userRoles[k])) {
+                        // Check if there's empty list for any of user roles, if so we disable restrictions
+                        if (role['areas'].length === 0) {
+                            overwriteAreaRestrictions = true;
+                        } else if (!overwriteAreaRestrictions) {
+                            for (const areaName of role['areas']) {
+                                if (areas.names.includes(areaName)) {
+                                    perms.areaRestrictions.push(areaName);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+        // If any of user roles have no restrictions we are allowing all
+        if (overwriteAreaRestrictions && perms.areaRestrictions) perms.areaRestrictions = [];
+        // Remove duplicates from perms.areaRestrictions
+        if (perms.areaRestrictions.length !== 0) perms.areaRestrictions = [...new Set(perms.areaRestrictions)];
+
         return perms;
     }
 
