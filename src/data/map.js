@@ -119,7 +119,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
         }
     }
 
-    if (config.db.scanner.enableCaptureRates) captureRatesSQL = 'capture_1, capture_2, capture_3, '
+    if (config.db.scanner.enableCaptureRates) captureRatesSQL = 'capture_1, capture_2, capture_3, ';
 
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
