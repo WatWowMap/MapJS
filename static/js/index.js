@@ -3521,8 +3521,10 @@ const getPossibleInvasionRewards = pokestop => {
   const item = gruntTypes[pokestop.grunt_type];
   if (!item) return '';
   const encounterNum = { first: '#1', second: '#2', third: '#3' };
-  const rewardPercent = item.type === 'Giovanni' ? { third: '100%' }
-    : item.second_reward ? { first: '85%', second: '15%' }
+  const rewardPercent = item.type === 'Giovanni'
+    ? { third: '100%' }
+    : item.second_reward
+      ? { first: '85%', second: '15%' }
       : { first: '100%' };
 
   const makeShadowPokemon = pokemonId => {
@@ -6194,6 +6196,10 @@ function getCpAtLevel(id, form, level, isMax) {
 }
 
 const showPokemonNotification = (pokemon) => {
+    // Check if we have at least rendered the map once before showing notifications
+    if (lastUpdate === 0)
+        return;
+
     // Check if pokemon notifications are enabled
     if (!showPokemonNotifications) {
         return;
