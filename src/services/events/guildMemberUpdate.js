@@ -10,8 +10,8 @@ module.exports = async (client, oldPresence, newPresence) => {
         .keyArray();
     const perms = [...new Set(
         Object.values(client.config.discord.perms)
-        .map(x => x.roles)
-        .flat()
+            .map(x => x.roles)
+            .flat()
     )];
     const roleDiff = rolesBefore
         .filter(x => !rolesAfter.includes(x))
