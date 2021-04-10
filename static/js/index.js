@@ -3121,54 +3121,13 @@ const getPokemonPopupContent = (pokemon) => {
       return ``;
     } else {
       const moves = ['move_1','move_2'];
-      let structure = 'pokemon-moves';
-      if (dbType === 'chuck' || !popupDetails.pokemon.captureRates) {
-        structure += '-columns'
-      } else {
-        structure += '-rows'
-      }
-      let content = `<div class="${structure}"><table>`;
+      let content = `<div class="pokemon-moves-columns"><table>`;
       if (pokemon.move_1 && pokemon.move_2) {
-        if (structure === 'pokemon-moves-columns') {
-          content += `<tr>`
-          moves.forEach(move => content += `<td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td>`)
-          content += `</tr>`
-        } else {
-          moves.forEach(move => content += `<tr><td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td></tr>`)
-        }  
+        content += `<tr>`
+        moves.forEach(move => content += `<td><b>${getMoveType(pokemon[move])} ${getMoveName(pokemon[move])}</b></td>`)
+        content += `</tr>`
       }
       return content += `</table></div>`;
-    }
-  }
-
-  const getCaptureRates = (pokemon) => {
-    let structure = 'pokemon-capture-rates';
-    structure += popupDetails.pokemon.moves ? '-columns' : '-rows'
-    let content = `<div class="${structure}"><table>`;
-    if (pokemon.capture_1 !== null && pokemon.capture_2 !== null && pokemon.capture_3 !== null && dbType !== 'chuck' && !showMinPokePopup) {
-      if (structure === 'pokemon-capture-rates-columns') {
-        content += `
-          <tr>
-            <td><img src="/img/item/1.png" height="14" width="14"></td>
-            <td><img src="/img/item/2.png" height="14" width="14"></td>
-            <td><img src="/img/item/3.png" height="14" width="14"></td>
-          </tr>
-          <tr>
-            <td>${Math.round(pokemon.capture_1 * 100)}%</td>
-            <td>${Math.round(pokemon.capture_2 * 100)}%</td>
-            <td>${Math.round(pokemon.capture_3 * 100)}%</td>
-          </tr>`
-      } else {
-        content += `
-        <tr>
-          <td><img src="/img/item/1.png" width="16"> ${Math.round(pokemon.capture_1 * 100)}%</td>
-          <td><img src="/img/item/2.png" width="16"> ${Math.round(pokemon.capture_2 * 100)}%</td>
-          <td><img src="/img/item/3.png" width="16"> ${Math.round(pokemon.capture_3 * 100)}%</td>
-        </tr>`;
-      }
-      return content += `</table></div>`
-    } else {
-      return ``;
     }
   }
 
@@ -3292,7 +3251,6 @@ const getPokemonPopupContent = (pokemon) => {
         ${popupDetails.pokemon.cp ? getCP(pokemon) : ''}
         ${popupDetails.pokemon.weight ? getHeightWeight(pokemon) : ''}
       </table>
-      ${popupDetails.pokemon.captureRates ? getCaptureRates(pokemon) : ''}
       ${popupDetails.pokemon.moves ? getMoves(pokemon) : ''}
       ${popupDetails.pokemon.despawnTimer ? getDespawnTimers(pokemon) : ''}
       ${popupDetails.pokemon.otherTimers ? getOtherTimers(pokemon) : ''}

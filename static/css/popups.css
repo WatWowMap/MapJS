@@ -58,29 +58,8 @@
   margin: auto;
 }
 
-.pokemon-moves-rows {
-  grid-column: 2;
-  grid-row: 3;
-  margin: auto;
-  padding: 5px;
-}
-
 .pokemon-moves-columns {
   grid-column: 1 / span 2;
-  grid-row: 3;
-  margin: auto;
-  padding: 5px;
-}
-
-.pokemon-capture-rates-rows {
-  grid-column: 1 / span 2;
-  grid-row: 3;
-  margin: auto;
-  padding: 5px;
-}
-
-.pokemon-capture-rates-columns {
-  grid-column: 1;
   grid-row: 3;
   margin: auto;
   padding: 5px;
