@@ -8,9 +8,11 @@ module.exports = async (client, oldPresence, newPresence) => {
     const rolesAfter = newPresence.roles.cache
         .filter(x => BigInt(x.id).toString())
         .keyArray();
-    const perms = Object.values(client.config.discord.perms)
+    const perms = [...new Set(
+        Object.values(client.config.discord.perms)
         .map(x => x.roles)
-        .reduce(x => [...x]);
+        .flat()
+    )];
     const roleDiff = rolesBefore
         .filter(x => !rolesAfter.includes(x))
         .concat(rolesAfter
