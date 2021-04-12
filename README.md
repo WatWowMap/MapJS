@@ -58,14 +58,16 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - [Mygod](https://github.com/Mygod)
 - [TurtIeSocks](https://github.com/TurtIeSocks)
 - [Bukowskaii](https://github.com/Bukowskaii)
+- [lenisko](https://github.com/lenisko)
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)
 - [sabregreen](https://github.com/sabregreen)
+- [ZombieCorn80](https://github.com/ZombieCorn80)
 - [ArcanoxDragon](https://github.com/ArcanoxDragon)
 - [DarthButcher](https://github.com/darthbutcher)
 - [LordJavi](https://github.com/LordJavi)
-- [ZombieCorn80](https://github.com/ZombieCorn80)
+- [shadowfox931](https://github.com/shadowfox931)
 - [Andrew Cameron](https://github.com/amcameron)
 
 ## Credits

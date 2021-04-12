@@ -3182,7 +3182,7 @@ const getPokemonPopupContent = (pokemon) => {
         </div>
         <table class="pokemon-despawn-timers-min">
           <tr>
-            <td>${despawnDate.toLocaleTimeString()}</td>
+            <td>${despawnDate.toLocaleTimeString(dateTimeLocale)}</td>
           </tr>
           <tr>
             <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fas fa-question" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
@@ -3196,7 +3196,7 @@ const getPokemonPopupContent = (pokemon) => {
             <tr>
               <td><b>${i18n('popup_despawn')}:</b></td>
             <tr>
-              <td>${despawnDate.toLocaleTimeString()}</td>
+              <td>${despawnDate.toLocaleTimeString(dateTimeLocale)}</td>
             </tr>
             <tr>
               <td>${pokemon.expire_timestamp_verified ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fas fa-question" aria-hidden="true"></i>'} ${getTimeUntil(despawnDate)}</td>
@@ -3219,11 +3219,11 @@ const getPokemonPopupContent = (pokemon) => {
           </tr>`;
       if (pokemon.first_seen_timestamp) {
         const firstSeenDate = new Date(pokemon.first_seen_timestamp * 1000);
-        content += `<tr><td>${firstSeenDate.toLocaleTimeString()}</td></tr>`;
+        content += `<tr><td>${firstSeenDate.toLocaleTimeString(dateTimeLocale)}</td></tr>`;
       }
       if (pokemon.updated !== 0 && pokemon.updated !== null) {
         const updatedDate = new Date(pokemon.updated * 1000);
-        content += `<tr><td>${updatedDate.toLocaleTimeString()}</td></tr>`;
+        content += `<tr><td>${updatedDate.toLocaleTimeString(dateTimeLocale)}</td></tr>`;
       }
       return content += `</table></div>`;
     }
@@ -3435,7 +3435,7 @@ function getPokestopPopupContent (pokestop) {
 
     if (isActiveLure) {
         content += `<b>${i18n('popup_lure_type')}:</b> ${getLureName(pokestop.lure_id)}<br>`;
-        content += `<b>${i18n('popup_lure_end_time')}:</b> ${lureExpireDate.toLocaleTimeString()} (${getTimeUntil(lureExpireDate)})<br><br>`;
+        content += `<b>${i18n('popup_lure_end_time')}:</b> ${lureExpireDate.toLocaleTimeString(dateTimeLocale)} (${getTimeUntil(lureExpireDate)})<br><br>`;
     }
 
     if (invasionExpireDate >= now) {
@@ -3443,7 +3443,7 @@ function getPokestopPopupContent (pokestop) {
         content += `<center>
         <b>${i18n('popup_team_rocket_invasion')}</b><br>
         ${gruntType}<br>
-        <b>${i18n('popup_end_time')}:</b> ${invasionExpireDate.toLocaleTimeString()} (${getTimeUntil(invasionExpireDate)})</center>`;
+        <b>${i18n('popup_end_time')}:</b> ${invasionExpireDate.toLocaleTimeString(dateTimeLocale)} (${getTimeUntil(invasionExpireDate)})</center>`;
         content += getPossibleInvasionRewards(pokestop);
     }
 
@@ -3478,7 +3478,7 @@ function getPokestopPopupContent (pokestop) {
 
     const updatedDate = new Date(pokestop.updated * 1000);
     if (updatedDate) {
-        content += `<div class="last-updated"><b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleDateString()} ${updatedDate.toLocaleTimeString()}</div>`;
+        content += `<div class="last-updated"><b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleDateString(dateTimeLocale)} ${updatedDate.toLocaleTimeString()}</div>`;
     }
 
     const questReward = pokestop.quest_rewards ? pokestop.quest_rewards[0] : {};
@@ -3698,10 +3698,10 @@ function getGymPopupContent (gym) {
 
     content += '<div class="text-center">';
     if (isRaid && !isRaidBattle) {
-        content += `<b>${i18n('popup_raid_start')}:</b> ` + raidBattleDate.toLocaleTimeString() + ' (' + getTimeUntil(raidBattleDate) + ')<br>';
+        content += `<b>${i18n('popup_raid_start')}:</b> ` + raidBattleDate.toLocaleTimeString(dateTimeLocale) + ' (' + getTimeUntil(raidBattleDate) + ')<br>';
     }
     if (isRaid) {
-        content += `<b>${i18n('popup_raid_end')}:</b> ${raidEndDate.toLocaleTimeString()} (${getTimeUntil(raidEndDate)})<br>`;
+        content += `<b>${i18n('popup_raid_end')}:</b> ${raidEndDate.toLocaleTimeString(dateTimeLocale)} (${getTimeUntil(raidEndDate)})<br>`;
         if (gym.raid_pokemon_id > 0) {
             content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
             content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
@@ -3717,10 +3717,10 @@ function getGymPopupContent (gym) {
     const updatedDate = new Date(gym.updated * 1000);
     const modifiedDate = new Date(gym.last_modified_timestamp * 1000);
     if (updatedDate) {
-        content += `<div class="last-updated"><b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleDateString()} ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})<br></div>`;
+        content += `<div class="last-updated"><b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleDateString(dateTimeLocale)} ${updatedDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(updatedDate)})<br></div>`;
     }
     if (modifiedDate) {
-        content += `<div class="last-updated"><b>${i18n('popup_last_modified')}:</b> ${modifiedDate.toLocaleDateString()} ${modifiedDate.toLocaleTimeString()} (${getTimeSince(modifiedDate)})<br></div>`;
+        content += `<div class="last-updated"><b>${i18n('popup_last_modified')}:</b> ${modifiedDate.toLocaleDateString(dateTimeLocale)} ${modifiedDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(modifiedDate)})<br></div>`;
     }
     content += getNavigation(gym);
     return content;
@@ -3733,7 +3733,7 @@ function getCellPopupContent (cell) {
 
     const updatedDate = new Date(cell.updated * 1000);
 
-    content += `<b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})`;
+    content += `<b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(updatedDate)})`;
     content += '</center>';
     return content;
 }
@@ -3798,7 +3798,7 @@ function getWeatherPopupContent (weather) {
       <b>${i18n('popup_boosted')}:</b><br>${weatherType.join(', ')}<br>
       ${weatherTypeIcons.join(' ')}<br>
       ${extraContent}
-      <b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleTimeString()} (${getTimeSince(updatedDate)})
+      <b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(updatedDate)})
     </center>`;
   return content;
 }
@@ -4612,7 +4612,7 @@ function getDeviceMarker (device, ts) {
 
 function getDevicePopupContent (device) {
     const lastSeenDate = new Date(device.last_seen * 1000);
-    const lastSeen = `${lastSeenDate.toLocaleTimeString()} (${getTimeSince(lastSeenDate)})`;
+    const lastSeen = `${lastSeenDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(lastSeenDate)})`;
     const ts = Math.round((new Date()).getTime() / 1000);
     const isOffline = isDeviceOffline(device, ts);
     const content = `<center><h6><b>${device.uuid}</b></h6></center><br>
