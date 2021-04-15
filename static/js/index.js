@@ -2671,12 +2671,12 @@ function loadScanAreaPolygons () {
     try {
         let areaGeoPolys = L.geoJson(scanAreasDb, {
             onEachFeature: function(features, featureLayer) {
-		if (!features.properties.hidden) {
-                    let coords = features.geometry.coordinates[0];
-                    let areaSize = geodesicArea(coords);
-                    let size = convertAreaToSqkm(areaSize).toFixed(2);
+                if (!features.properties.hidden) {
+                    const coords = features.geometry.coordinates[0];
+                    const areaSize = geodesicArea(coords);
+                    const size = convertAreaToSqkm(areaSize).toFixed(2);
                     featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
-		}
+                }
             }
         });
         scanAreaLayer.addLayer(areaGeoPolys);
