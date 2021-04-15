@@ -3077,7 +3077,7 @@ const getPokemonPopupContent = (pokemon) => {
   }
 
   const getIV = (pokemon) => {
-    if (pokemon.atk_iv !== null && popupDetails.pokemon.iv) {
+    if (pokemon.atk_iv !== null && pokemon.atk_iv !== undefined && popupDetails.pokemon.iv) {
       const ivColors = { 0: 'red', 66: 'orange', 82: 'yellow', 100: 'green' }
       const ivPercent = ((pokemon.atk_iv + pokemon.def_iv + pokemon.sta_iv) / .45).toFixed(2);
       let selectedColor
