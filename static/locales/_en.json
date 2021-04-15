@@ -221,6 +221,8 @@
     "popup_team": "Team",
     "popup_gym_last_seen_in_battle": "Gym last seen in battle!",
     "popup_ex": "EX",
+    "popup_full": "Full",
+    "popup_empty": "Empty",
     "popup_mega": "Mega",
     "popup_evolution": "Evolution",
     "popup_fast": "Fast",
