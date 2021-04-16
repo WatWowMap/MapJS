@@ -58,7 +58,7 @@ NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicema
 - [Mygod](https://github.com/Mygod)
 - [TurtIeSocks](https://github.com/TurtIeSocks)
 - [Bukowskaii](https://github.com/Bukowskaii)
-- [lenoski](https://github.com/lenisko)
+- [lenisko](https://github.com/lenisko)
 - [clburlison](https://github.com/clburlison)
 - [bschultz](https://github.com/bschultz)
 - [PartTimeJS](https://github.com/PartTimeJS)

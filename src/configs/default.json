@@ -4,6 +4,7 @@
   "title": "MapJS",
   "headerTitle": "MapJS - NodeJS Map Replacement",
   "locale": "en",
+  "dateTimeLocale": "en-US",
   "style": "dark",
   "dbType": "rdm",
   "searchMaxResults": 20,
