@@ -40,6 +40,8 @@
 			},
 			"default_form_id": 163,
 			"pokedex_id": 1,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -110,6 +112,8 @@
 			},
 			"default_form_id": 166,
 			"pokedex_id": 2,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -172,6 +176,8 @@
 			},
 			"default_form_id": 169,
 			"pokedex_id": 3,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -249,6 +255,8 @@
 			},
 			"default_form_id": 172,
 			"pokedex_id": 4,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -318,6 +326,8 @@
 			},
 			"default_form_id": 175,
 			"pokedex_id": 5,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -381,6 +391,8 @@
 			},
 			"default_form_id": 178,
 			"pokedex_id": 6,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire",
 				"Flying"
@@ -467,6 +479,8 @@
 			},
 			"default_form_id": 181,
 			"pokedex_id": 7,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -536,6 +550,8 @@
 			},
 			"default_form_id": 184,
 			"pokedex_id": 8,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -597,6 +613,8 @@
 			},
 			"default_form_id": 187,
 			"pokedex_id": 9,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -651,6 +669,8 @@
 			},
 			"default_form_id": 953,
 			"pokedex_id": 10,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug"
 			],
@@ -699,6 +719,8 @@
 			},
 			"default_form_id": 956,
 			"pokedex_id": 11,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug"
 			],
@@ -747,6 +769,8 @@
 			},
 			"default_form_id": 959,
 			"pokedex_id": 12,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Flying"
@@ -811,6 +835,8 @@
 			},
 			"default_form_id": 616,
 			"pokedex_id": 13,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -879,6 +905,8 @@
 			},
 			"default_form_id": 619,
 			"pokedex_id": 14,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -935,6 +963,8 @@
 			},
 			"default_form_id": 622,
 			"pokedex_id": 15,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -991,6 +1021,8 @@
 			},
 			"default_form_id": 962,
 			"pokedex_id": 16,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -1042,6 +1074,8 @@
 			},
 			"default_form_id": 965,
 			"pokedex_id": 17,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -1093,6 +1127,8 @@
 			},
 			"default_form_id": 968,
 			"pokedex_id": 18,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -1187,6 +1223,8 @@
 			},
 			"default_form_id": 45,
 			"pokedex_id": 19,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -1260,6 +1298,8 @@
 			},
 			"default_form_id": 47,
 			"pokedex_id": 20,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -1305,6 +1345,8 @@
 			},
 			"default_form_id": 971,
 			"pokedex_id": 21,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -1356,6 +1398,8 @@
 			},
 			"default_form_id": 974,
 			"pokedex_id": 22,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -1420,6 +1464,8 @@
 			},
 			"default_form_id": 697,
 			"pokedex_id": 23,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -1471,6 +1517,8 @@
 			},
 			"default_form_id": 700,
 			"pokedex_id": 24,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -1562,6 +1610,8 @@
 			},
 			"default_form_id": 598,
 			"pokedex_id": 25,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -1636,6 +1686,8 @@
 			},
 			"default_form_id": 49,
 			"pokedex_id": 26,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -1730,6 +1782,8 @@
 			},
 			"default_form_id": 51,
 			"pokedex_id": 27,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -1804,6 +1858,8 @@
 			},
 			"default_form_id": 53,
 			"pokedex_id": 28,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -1867,6 +1923,8 @@
 			},
 			"default_form_id": 776,
 			"pokedex_id": 29,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -1936,6 +1994,8 @@
 			},
 			"default_form_id": 779,
 			"pokedex_id": 30,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -1987,6 +2047,8 @@
 			},
 			"default_form_id": 782,
 			"pokedex_id": 31,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison",
 				"Ground"
@@ -2052,6 +2114,8 @@
 			},
 			"default_form_id": 776,
 			"pokedex_id": 32,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -2121,6 +2185,8 @@
 			},
 			"default_form_id": 785,
 			"pokedex_id": 33,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -2172,6 +2238,8 @@
 			},
 			"default_form_id": 788,
 			"pokedex_id": 34,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison",
 				"Ground"
@@ -2219,6 +2287,8 @@
 			},
 			"default_form_id": 981,
 			"pokedex_id": 35,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fairy"
 			],
@@ -2269,6 +2339,8 @@
 			},
 			"default_form_id": 984,
 			"pokedex_id": 36,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fairy"
 			],
@@ -2357,6 +2429,8 @@
 			},
 			"default_form_id": 55,
 			"pokedex_id": 37,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -2432,6 +2506,8 @@
 			},
 			"default_form_id": 57,
 			"pokedex_id": 38,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -2479,6 +2555,8 @@
 			},
 			"default_form_id": 987,
 			"pokedex_id": 39,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Fairy"
@@ -2530,6 +2608,8 @@
 			},
 			"default_form_id": 990,
 			"pokedex_id": 40,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Fairy"
@@ -2596,6 +2676,8 @@
 			},
 			"default_form_id": 157,
 			"pokedex_id": 41,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison",
 				"Flying"
@@ -2666,6 +2748,8 @@
 			},
 			"default_form_id": 160,
 			"pokedex_id": 42,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison",
 				"Flying"
@@ -2736,6 +2820,8 @@
 			},
 			"default_form_id": 265,
 			"pokedex_id": 43,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -2818,6 +2904,8 @@
 			},
 			"default_form_id": 268,
 			"pokedex_id": 44,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -2874,6 +2962,8 @@
 			},
 			"default_form_id": 271,
 			"pokedex_id": 45,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -2921,6 +3011,8 @@
 			},
 			"default_form_id": 993,
 			"pokedex_id": 46,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Grass"
@@ -2972,6 +3064,8 @@
 			},
 			"default_form_id": 996,
 			"pokedex_id": 47,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Grass"
@@ -3036,6 +3130,8 @@
 			},
 			"default_form_id": 259,
 			"pokedex_id": 48,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -3088,6 +3184,8 @@
 			},
 			"default_form_id": 262,
 			"pokedex_id": 49,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -3176,6 +3274,8 @@
 			},
 			"default_form_id": 59,
 			"pokedex_id": 50,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -3252,6 +3352,8 @@
 			},
 			"default_form_id": 61,
 			"pokedex_id": 51,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -3358,6 +3460,8 @@
 			},
 			"default_form_id": 63,
 			"pokedex_id": 52,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -3409,7 +3513,8 @@
 					"charged_moves": [
 						"Foul Play",
 						"Dark Pulse",
-						"Play Rough"
+						"Play Rough",
+						"Payback"
 					],
 					"types": [
 						"Dark"
@@ -3426,6 +3531,8 @@
 			},
 			"default_form_id": 65,
 			"pokedex_id": 53,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -3443,7 +3550,8 @@
 			"charged_moves": [
 				"Foul Play",
 				"Power Gem",
-				"Play Rough"
+				"Play Rough",
+				"Payback"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -3489,6 +3597,8 @@
 			},
 			"default_form_id": 286,
 			"pokedex_id": 54,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -3540,6 +3650,8 @@
 			},
 			"default_form_id": 289,
 			"pokedex_id": 55,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -3588,6 +3700,8 @@
 			},
 			"default_form_id": 999,
 			"pokedex_id": 56,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -3638,6 +3752,8 @@
 			},
 			"default_form_id": 1002,
 			"pokedex_id": 57,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -3702,6 +3818,8 @@
 			},
 			"default_form_id": 280,
 			"pokedex_id": 58,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -3753,6 +3871,8 @@
 			},
 			"default_form_id": 283,
 			"pokedex_id": 59,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -3818,6 +3938,8 @@
 			},
 			"default_form_id": 235,
 			"pokedex_id": 60,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -3899,6 +4021,8 @@
 			},
 			"default_form_id": 238,
 			"pokedex_id": 61,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -3954,6 +4078,8 @@
 			},
 			"default_form_id": 241,
 			"pokedex_id": 62,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Fighting"
@@ -4020,6 +4146,8 @@
 			},
 			"default_form_id": 304,
 			"pokedex_id": 63,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -4089,6 +4217,8 @@
 			},
 			"default_form_id": 307,
 			"pokedex_id": 64,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -4146,6 +4276,8 @@
 			},
 			"default_form_id": 310,
 			"pokedex_id": 65,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -4218,6 +4350,8 @@
 			},
 			"default_form_id": 809,
 			"pokedex_id": 66,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -4287,6 +4421,8 @@
 			},
 			"default_form_id": 812,
 			"pokedex_id": 67,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -4338,6 +4474,8 @@
 			},
 			"default_form_id": 815,
 			"pokedex_id": 68,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -4403,6 +4541,8 @@
 			},
 			"default_form_id": 664,
 			"pokedex_id": 69,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -4473,6 +4613,8 @@
 			},
 			"default_form_id": 667,
 			"pokedex_id": 70,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -4525,6 +4667,8 @@
 			},
 			"default_form_id": 670,
 			"pokedex_id": 71,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Poison"
@@ -4573,6 +4717,8 @@
 			},
 			"default_form_id": 1005,
 			"pokedex_id": 72,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Poison"
@@ -4624,6 +4770,8 @@
 			},
 			"default_form_id": 1008,
 			"pokedex_id": 73,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Poison"
@@ -4714,6 +4862,8 @@
 			},
 			"default_form_id": 67,
 			"pokedex_id": 74,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -4809,6 +4959,8 @@
 			},
 			"default_form_id": 69,
 			"pokedex_id": 75,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -4880,6 +5032,8 @@
 			},
 			"default_form_id": 71,
 			"pokedex_id": 76,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -4969,6 +5123,8 @@
 			},
 			"default_form_id": 1011,
 			"pokedex_id": 77,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -5040,6 +5196,8 @@
 			},
 			"default_form_id": 1014,
 			"pokedex_id": 78,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -5131,6 +5289,8 @@
 			},
 			"default_form_id": 1017,
 			"pokedex_id": 79,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Psychic"
@@ -5201,6 +5361,8 @@
 			},
 			"default_form_id": 1020,
 			"pokedex_id": 80,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Psychic"
@@ -5273,6 +5435,8 @@
 			},
 			"default_form_id": 655,
 			"pokedex_id": 81,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric",
 				"Steel"
@@ -5343,6 +5507,8 @@
 			},
 			"default_form_id": 658,
 			"pokedex_id": 82,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric",
 				"Steel"
@@ -5423,6 +5589,8 @@
 			},
 			"default_form_id": 1023,
 			"pokedex_id": 83,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -5469,6 +5637,8 @@
 			},
 			"default_form_id": 1026,
 			"pokedex_id": 84,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -5520,6 +5690,8 @@
 			},
 			"default_form_id": 1029,
 			"pokedex_id": 85,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -5566,6 +5738,8 @@
 			},
 			"default_form_id": 1032,
 			"pokedex_id": 86,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -5616,6 +5790,8 @@
 			},
 			"default_form_id": 1035,
 			"pokedex_id": 87,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Ice"
@@ -5705,6 +5881,8 @@
 			},
 			"default_form_id": 73,
 			"pokedex_id": 88,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -5777,6 +5955,8 @@
 			},
 			"default_form_id": 75,
 			"pokedex_id": 89,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -5842,6 +6022,8 @@
 			},
 			"default_form_id": 876,
 			"pokedex_id": 90,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -5893,6 +6075,8 @@
 			},
 			"default_form_id": 879,
 			"pokedex_id": 91,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Ice"
@@ -5940,6 +6124,8 @@
 			},
 			"default_form_id": 1038,
 			"pokedex_id": 92,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ghost",
 				"Poison"
@@ -5991,6 +6177,8 @@
 			},
 			"default_form_id": 1041,
 			"pokedex_id": 93,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ghost",
 				"Poison"
@@ -6053,6 +6241,8 @@
 			},
 			"default_form_id": 1044,
 			"pokedex_id": 94,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ghost",
 				"Poison"
@@ -6130,6 +6320,8 @@
 			},
 			"default_form_id": 902,
 			"pokedex_id": 95,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -6200,6 +6392,8 @@
 			},
 			"default_form_id": 214,
 			"pokedex_id": 96,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -6251,6 +6445,8 @@
 			},
 			"default_form_id": 217,
 			"pokedex_id": 97,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -6318,6 +6514,8 @@
 			},
 			"default_form_id": 870,
 			"pokedex_id": 98,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -6369,6 +6567,8 @@
 			},
 			"default_form_id": 873,
 			"pokedex_id": 99,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -6415,6 +6615,8 @@
 			},
 			"default_form_id": 1047,
 			"pokedex_id": 100,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -6465,6 +6667,8 @@
 			},
 			"default_form_id": 1050,
 			"pokedex_id": 101,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -6529,6 +6733,8 @@
 			},
 			"default_form_id": 729,
 			"pokedex_id": 102,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Psychic"
@@ -6603,6 +6809,8 @@
 			},
 			"default_form_id": 77,
 			"pokedex_id": 103,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass",
 				"Psychic"
@@ -6668,6 +6876,8 @@
 			},
 			"default_form_id": 224,
 			"pokedex_id": 104,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -6740,6 +6950,8 @@
 			},
 			"default_form_id": 79,
 			"pokedex_id": 105,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground"
 			],
@@ -6785,6 +6997,8 @@
 			},
 			"default_form_id": 713,
 			"pokedex_id": 106,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -6830,6 +7044,8 @@
 			},
 			"default_form_id": 277,
 			"pokedex_id": 107,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fighting"
 			],
@@ -6877,6 +7093,8 @@
 			},
 			"default_form_id": 1053,
 			"pokedex_id": 108,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -6945,6 +7163,8 @@
 			},
 			"default_form_id": 703,
 			"pokedex_id": 109,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -7016,6 +7236,8 @@
 			},
 			"default_form_id": 706,
 			"pokedex_id": 110,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Poison"
 			],
@@ -7080,6 +7302,8 @@
 			},
 			"default_form_id": 846,
 			"pokedex_id": 111,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground",
 				"Rock"
@@ -7150,6 +7374,8 @@
 			},
 			"default_form_id": 849,
 			"pokedex_id": 112,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ground",
 				"Rock"
@@ -7202,6 +7428,8 @@
 			},
 			"default_form_id": 1056,
 			"pokedex_id": 113,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -7252,6 +7480,8 @@
 			},
 			"default_form_id": 1059,
 			"pokedex_id": 114,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Grass"
 			],
@@ -7308,6 +7538,8 @@
 			},
 			"default_form_id": 839,
 			"pokedex_id": 115,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -7362,6 +7594,8 @@
 			},
 			"default_form_id": 1062,
 			"pokedex_id": 116,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -7412,6 +7646,8 @@
 			},
 			"default_form_id": 1065,
 			"pokedex_id": 117,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -7462,6 +7698,8 @@
 			},
 			"default_form_id": 1068,
 			"pokedex_id": 118,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -7512,6 +7750,8 @@
 			},
 			"default_form_id": 1071,
 			"pokedex_id": 119,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -7557,6 +7797,8 @@
 			},
 			"default_form_id": 1074,
 			"pokedex_id": 120,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -7607,6 +7849,8 @@
 			},
 			"default_form_id": 1077,
 			"pokedex_id": 121,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Psychic"
@@ -7679,6 +7923,8 @@
 			},
 			"default_form_id": 1080,
 			"pokedex_id": 122,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic",
 				"Fairy"
@@ -7743,6 +7989,8 @@
 			},
 			"default_form_id": 247,
 			"pokedex_id": 123,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug",
 				"Flying"
@@ -7795,6 +8043,8 @@
 			},
 			"default_form_id": 1083,
 			"pokedex_id": 124,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ice",
 				"Psychic"
@@ -7860,6 +8110,8 @@
 			},
 			"default_form_id": 640,
 			"pokedex_id": 125,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -7929,6 +8181,8 @@
 			},
 			"default_form_id": 634,
 			"pokedex_id": 126,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -7986,6 +8240,8 @@
 			},
 			"default_form_id": 898,
 			"pokedex_id": 127,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Bug"
 			],
@@ -8045,6 +8301,8 @@
 			},
 			"default_form_id": 1086,
 			"pokedex_id": 128,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -8108,6 +8366,8 @@
 			},
 			"default_form_id": 253,
 			"pokedex_id": 129,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -8162,6 +8422,8 @@
 			},
 			"default_form_id": 256,
 			"pokedex_id": 130,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Flying"
@@ -8226,6 +8488,8 @@
 			},
 			"default_form_id": 322,
 			"pokedex_id": 131,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water",
 				"Ice"
@@ -8273,6 +8537,8 @@
 			},
 			"default_form_id": 1089,
 			"pokedex_id": 132,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -8315,6 +8581,8 @@
 			},
 			"default_form_id": 1092,
 			"pokedex_id": 133,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -8382,6 +8650,8 @@
 			},
 			"default_form_id": 1095,
 			"pokedex_id": 134,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Water"
 			],
@@ -8426,6 +8696,8 @@
 			},
 			"default_form_id": 1098,
 			"pokedex_id": 135,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric"
 			],
@@ -8471,6 +8743,8 @@
 			},
 			"default_form_id": 1101,
 			"pokedex_id": 136,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire"
 			],
@@ -8534,6 +8808,8 @@
 			},
 			"default_form_id": 677,
 			"pokedex_id": 137,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -8603,6 +8879,8 @@
 			},
 			"default_form_id": 740,
 			"pokedex_id": 138,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Water"
@@ -8655,6 +8933,8 @@
 			},
 			"default_form_id": 743,
 			"pokedex_id": 139,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Water"
@@ -8719,6 +8999,8 @@
 			},
 			"default_form_id": 1104,
 			"pokedex_id": 140,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Water"
@@ -8771,6 +9053,8 @@
 			},
 			"default_form_id": 1107,
 			"pokedex_id": 141,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Water"
@@ -8824,6 +9108,8 @@
 			},
 			"default_form_id": 1110,
 			"pokedex_id": 142,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Rock",
 				"Flying"
@@ -8881,6 +9167,8 @@
 			},
 			"default_form_id": 199,
 			"pokedex_id": 143,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Normal"
 			],
@@ -8930,6 +9218,8 @@
 			},
 			"default_form_id": 716,
 			"pokedex_id": 144,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Ice",
 				"Flying"
@@ -8976,6 +9266,8 @@
 			},
 			"default_form_id": 773,
 			"pokedex_id": 145,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Electric",
 				"Flying"
@@ -9022,6 +9314,8 @@
 			},
 			"default_form_id": 836,
 			"pokedex_id": 146,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Fire",
 				"Flying"
@@ -9086,6 +9380,8 @@
 			},
 			"default_form_id": 190,
 			"pokedex_id": 147,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Dragon"
 			],
@@ -9155,6 +9451,8 @@
 			},
 			"default_form_id": 193,
 			"pokedex_id": 148,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Dragon"
 			],
@@ -9210,6 +9508,8 @@
 			},
 			"default_form_id": 196,
 			"pokedex_id": 149,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Dragon",
 				"Flying"
@@ -9283,6 +9583,8 @@
 			},
 			"default_form_id": 135,
 			"pokedex_id": 150,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -9347,6 +9649,8 @@
 			},
 			"default_form_id": 1115,
 			"pokedex_id": 151,
+			"genId": "1",
+			"generation": "Kanto",
 			"types": [
 				"Psychic"
 			],
@@ -9424,6 +9728,8 @@
 			},
 			"default_form_id": 1118,
 			"pokedex_id": 152,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -9474,6 +9780,8 @@
 			},
 			"default_form_id": 1121,
 			"pokedex_id": 153,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -9524,6 +9832,8 @@
 			},
 			"default_form_id": 1124,
 			"pokedex_id": 154,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -9569,6 +9879,8 @@
 			},
 			"default_form_id": 1127,
 			"pokedex_id": 155,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -9619,6 +9931,8 @@
 			},
 			"default_form_id": 1130,
 			"pokedex_id": 156,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -9669,6 +9983,8 @@
 			},
 			"default_form_id": 1133,
 			"pokedex_id": 157,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -9715,6 +10031,8 @@
 			},
 			"default_form_id": 1136,
 			"pokedex_id": 158,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -9765,6 +10083,8 @@
 			},
 			"default_form_id": 1139,
 			"pokedex_id": 159,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -9815,6 +10135,8 @@
 			},
 			"default_form_id": 1142,
 			"pokedex_id": 160,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -9861,6 +10183,8 @@
 			},
 			"default_form_id": 1145,
 			"pokedex_id": 161,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -9911,6 +10235,8 @@
 			},
 			"default_form_id": 1148,
 			"pokedex_id": 162,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -9956,6 +10282,8 @@
 			},
 			"default_form_id": 1151,
 			"pokedex_id": 163,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -10007,6 +10335,8 @@
 			},
 			"default_form_id": 1154,
 			"pokedex_id": 164,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal",
 				"Flying"
@@ -10053,6 +10383,8 @@
 			},
 			"default_form_id": 1157,
 			"pokedex_id": 165,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Flying"
@@ -10104,6 +10436,8 @@
 			},
 			"default_form_id": 1160,
 			"pokedex_id": 166,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Flying"
@@ -10150,6 +10484,8 @@
 			},
 			"default_form_id": 1163,
 			"pokedex_id": 167,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -10201,6 +10537,8 @@
 			},
 			"default_form_id": 1166,
 			"pokedex_id": 168,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Poison"
@@ -10247,6 +10585,8 @@
 			},
 			"default_form_id": 202,
 			"pokedex_id": 169,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Poison",
 				"Flying"
@@ -10293,6 +10633,8 @@
 			},
 			"default_form_id": 1169,
 			"pokedex_id": 170,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Electric"
@@ -10344,6 +10686,8 @@
 			},
 			"default_form_id": 1172,
 			"pokedex_id": 171,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Electric"
@@ -10391,6 +10735,8 @@
 			},
 			"default_form_id": 1175,
 			"pokedex_id": 172,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -10439,6 +10785,8 @@
 			},
 			"default_form_id": 1178,
 			"pokedex_id": 173,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fairy"
 			],
@@ -10488,6 +10836,8 @@
 			},
 			"default_form_id": 1181,
 			"pokedex_id": 174,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal",
 				"Fairy"
@@ -10538,6 +10888,8 @@
 			},
 			"default_form_id": 1184,
 			"pokedex_id": 175,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fairy"
 			],
@@ -10587,6 +10939,8 @@
 			},
 			"default_form_id": 1187,
 			"pokedex_id": 176,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fairy",
 				"Flying"
@@ -10638,6 +10992,8 @@
 			},
 			"default_form_id": 1190,
 			"pokedex_id": 177,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -10689,6 +11045,8 @@
 			},
 			"default_form_id": 1193,
 			"pokedex_id": 178,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -10753,6 +11111,8 @@
 			},
 			"default_form_id": 646,
 			"pokedex_id": 179,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -10822,6 +11182,8 @@
 			},
 			"default_form_id": 649,
 			"pokedex_id": 180,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -10879,6 +11241,8 @@
 			},
 			"default_form_id": 652,
 			"pokedex_id": 181,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -10937,6 +11301,8 @@
 			},
 			"default_form_id": 274,
 			"pokedex_id": 182,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -10983,6 +11349,8 @@
 			},
 			"default_form_id": 1196,
 			"pokedex_id": 183,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Fairy"
@@ -11034,6 +11402,8 @@
 			},
 			"default_form_id": 1199,
 			"pokedex_id": 184,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Fairy"
@@ -11080,6 +11450,8 @@
 			},
 			"default_form_id": 1202,
 			"pokedex_id": 185,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Rock"
 			],
@@ -11125,6 +11497,8 @@
 			},
 			"default_form_id": 244,
 			"pokedex_id": 186,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -11189,6 +11563,8 @@
 			},
 			"default_form_id": 1205,
 			"pokedex_id": 187,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass",
 				"Flying"
@@ -11259,6 +11635,8 @@
 			},
 			"default_form_id": 1208,
 			"pokedex_id": 188,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass",
 				"Flying"
@@ -11311,6 +11689,8 @@
 			},
 			"default_form_id": 1211,
 			"pokedex_id": 189,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass",
 				"Flying"
@@ -11376,6 +11756,8 @@
 			},
 			"default_form_id": 1214,
 			"pokedex_id": 190,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -11427,6 +11809,8 @@
 			},
 			"default_form_id": 1217,
 			"pokedex_id": 191,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -11477,6 +11861,8 @@
 			},
 			"default_form_id": 1220,
 			"pokedex_id": 192,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Grass"
 			],
@@ -11494,7 +11880,8 @@
 			"charged_moves": [
 				"Solar Beam",
 				"Petal Blizzard",
-				"Sludge Bomb"
+				"Sludge Bomb",
+				"Leaf Storm"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -11522,6 +11909,8 @@
 			},
 			"default_form_id": 1223,
 			"pokedex_id": 193,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Flying"
@@ -11591,6 +11980,8 @@
 			},
 			"default_form_id": 1226,
 			"pokedex_id": 194,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Ground"
@@ -11643,6 +12034,8 @@
 			},
 			"default_form_id": 1229,
 			"pokedex_id": 195,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Ground"
@@ -11690,6 +12083,8 @@
 			},
 			"default_form_id": 1232,
 			"pokedex_id": 196,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic"
 			],
@@ -11735,6 +12130,8 @@
 			},
 			"default_form_id": 1235,
 			"pokedex_id": 197,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Dark"
 			],
@@ -11797,6 +12194,8 @@
 			},
 			"default_form_id": 855,
 			"pokedex_id": 198,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Dark",
 				"Flying"
@@ -11853,6 +12252,8 @@
 			},
 			"default_form_id": 1238,
 			"pokedex_id": 199,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Psychic"
@@ -11917,6 +12318,8 @@
 			},
 			"default_form_id": 719,
 			"pokedex_id": 200,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ghost"
 			],
@@ -12067,6 +12470,8 @@
 			},
 			"default_form_id": 6,
 			"pokedex_id": 201,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic"
 			],
@@ -12113,6 +12518,8 @@
 			},
 			"default_form_id": 602,
 			"pokedex_id": 202,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic"
 			],
@@ -12157,6 +12564,8 @@
 			},
 			"default_form_id": 1241,
 			"pokedex_id": 203,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal",
 				"Psychic"
@@ -12221,6 +12630,8 @@
 			},
 			"default_form_id": 1244,
 			"pokedex_id": 204,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug"
 			],
@@ -12272,6 +12683,8 @@
 			},
 			"default_form_id": 1247,
 			"pokedex_id": 205,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Steel"
@@ -12320,6 +12733,8 @@
 			},
 			"default_form_id": 1250,
 			"pokedex_id": 206,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -12383,6 +12798,8 @@
 			},
 			"default_form_id": 803,
 			"pokedex_id": 207,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ground",
 				"Flying"
@@ -12441,6 +12858,8 @@
 			},
 			"default_form_id": 905,
 			"pokedex_id": 208,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Steel",
 				"Ground"
@@ -12496,6 +12915,8 @@
 			},
 			"default_form_id": 1253,
 			"pokedex_id": 209,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fairy"
 			],
@@ -12546,6 +12967,8 @@
 			},
 			"default_form_id": 1256,
 			"pokedex_id": 210,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fairy"
 			],
@@ -12592,6 +13015,8 @@
 			},
 			"default_form_id": 1259,
 			"pokedex_id": 211,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Poison"
@@ -12646,6 +13071,8 @@
 			},
 			"default_form_id": 250,
 			"pokedex_id": 212,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Steel"
@@ -12700,6 +13127,8 @@
 			},
 			"default_form_id": 827,
 			"pokedex_id": 213,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Rock"
@@ -12752,6 +13181,8 @@
 			},
 			"default_form_id": 1262,
 			"pokedex_id": 214,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Bug",
 				"Fighting"
@@ -12824,6 +13255,8 @@
 			},
 			"default_form_id": 797,
 			"pokedex_id": 215,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Dark",
 				"Ice"
@@ -12894,6 +13327,8 @@
 			},
 			"default_form_id": 1265,
 			"pokedex_id": 216,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -12945,6 +13380,8 @@
 			},
 			"default_form_id": 1268,
 			"pokedex_id": 217,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -12991,6 +13428,8 @@
 			},
 			"default_form_id": 1271,
 			"pokedex_id": 218,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -13041,6 +13480,8 @@
 			},
 			"default_form_id": 1274,
 			"pokedex_id": 219,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire",
 				"Rock"
@@ -13105,6 +13546,8 @@
 			},
 			"default_form_id": 1277,
 			"pokedex_id": 220,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ice",
 				"Ground"
@@ -13175,6 +13618,8 @@
 			},
 			"default_form_id": 1280,
 			"pokedex_id": 221,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ice",
 				"Ground"
@@ -13231,6 +13676,8 @@
 			},
 			"default_form_id": 1283,
 			"pokedex_id": 222,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Rock"
@@ -13277,6 +13724,8 @@
 			},
 			"default_form_id": 1286,
 			"pokedex_id": 223,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -13327,6 +13776,8 @@
 			},
 			"default_form_id": 1289,
 			"pokedex_id": 224,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -13378,6 +13829,8 @@
 			},
 			"default_form_id": 938,
 			"pokedex_id": 225,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ice",
 				"Flying"
@@ -13423,6 +13876,8 @@
 			},
 			"default_form_id": 1292,
 			"pokedex_id": 226,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Flying"
@@ -13471,6 +13926,8 @@
 			},
 			"default_form_id": 1295,
 			"pokedex_id": 227,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Steel",
 				"Flying"
@@ -13535,6 +13992,8 @@
 			},
 			"default_form_id": 229,
 			"pokedex_id": 228,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Dark",
 				"Fire"
@@ -13593,6 +14052,8 @@
 			},
 			"default_form_id": 232,
 			"pokedex_id": 229,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Dark",
 				"Fire"
@@ -13649,6 +14110,8 @@
 			},
 			"default_form_id": 1298,
 			"pokedex_id": 230,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water",
 				"Dragon"
@@ -13696,6 +14159,8 @@
 			},
 			"default_form_id": 1301,
 			"pokedex_id": 231,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ground"
 			],
@@ -13746,6 +14211,8 @@
 			},
 			"default_form_id": 1304,
 			"pokedex_id": 232,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ground"
 			],
@@ -13811,6 +14278,8 @@
 			},
 			"default_form_id": 680,
 			"pokedex_id": 233,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -13864,6 +14333,8 @@
 			},
 			"default_form_id": 941,
 			"pokedex_id": 234,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -13909,6 +14380,8 @@
 			},
 			"default_form_id": 1307,
 			"pokedex_id": 235,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -13946,6 +14419,8 @@
 			},
 			"default_form_id": 1310,
 			"pokedex_id": 236,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fighting"
 			],
@@ -14001,6 +14476,8 @@
 			},
 			"default_form_id": 1313,
 			"pokedex_id": 237,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fighting"
 			],
@@ -14046,6 +14523,8 @@
 			},
 			"default_form_id": 1316,
 			"pokedex_id": 238,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Ice",
 				"Psychic"
@@ -14097,6 +14576,8 @@
 			},
 			"default_form_id": 1319,
 			"pokedex_id": 239,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -14146,6 +14627,8 @@
 			},
 			"default_form_id": 1322,
 			"pokedex_id": 240,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -14195,6 +14678,8 @@
 			},
 			"default_form_id": 1325,
 			"pokedex_id": 241,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -14242,6 +14727,8 @@
 			},
 			"default_form_id": 1328,
 			"pokedex_id": 242,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Normal"
 			],
@@ -14287,6 +14774,8 @@
 			},
 			"default_form_id": 1331,
 			"pokedex_id": 243,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Electric"
 			],
@@ -14332,6 +14821,8 @@
 			},
 			"default_form_id": 1334,
 			"pokedex_id": 244,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire"
 			],
@@ -14378,6 +14869,8 @@
 			},
 			"default_form_id": 1337,
 			"pokedex_id": 245,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Water"
 			],
@@ -14442,6 +14935,8 @@
 			},
 			"default_form_id": 313,
 			"pokedex_id": 246,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -14512,6 +15007,8 @@
 			},
 			"default_form_id": 316,
 			"pokedex_id": 247,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Rock",
 				"Ground"
@@ -14570,6 +15067,8 @@
 			},
 			"default_form_id": 319,
 			"pokedex_id": 248,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Rock",
 				"Dark"
@@ -14624,6 +15123,8 @@
 			},
 			"default_form_id": 1340,
 			"pokedex_id": 249,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -14669,6 +15170,8 @@
 			},
 			"default_form_id": 1343,
 			"pokedex_id": 250,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Fire",
 				"Flying"
@@ -14716,6 +15219,8 @@
 			},
 			"default_form_id": 1346,
 			"pokedex_id": 251,
+			"genId": "2",
+			"generation": "Johto",
 			"types": [
 				"Psychic",
 				"Grass"
@@ -14734,7 +15239,8 @@
 				"Hyper Beam",
 				"Psychic",
 				"Dazzling Gleam",
-				"Seed Bomb"
+				"Seed Bomb",
+				"Leaf Storm"
 			],
 			"legendary": false,
 			"mythic": true,
@@ -14761,6 +15267,8 @@
 			},
 			"default_form_id": 1349,
 			"pokedex_id": 252,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -14811,6 +15319,8 @@
 			},
 			"default_form_id": 1352,
 			"pokedex_id": 253,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -14867,6 +15377,8 @@
 			},
 			"default_form_id": 1355,
 			"pokedex_id": 254,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -14925,6 +15437,8 @@
 			},
 			"default_form_id": 1358,
 			"pokedex_id": 255,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire"
 			],
@@ -14975,6 +15489,8 @@
 			},
 			"default_form_id": 1361,
 			"pokedex_id": 256,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -15032,6 +15548,8 @@
 			},
 			"default_form_id": 1364,
 			"pokedex_id": 257,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -15105,6 +15623,8 @@
 			},
 			"default_form_id": 205,
 			"pokedex_id": 258,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -15174,6 +15694,8 @@
 			},
 			"default_form_id": 208,
 			"pokedex_id": 259,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Ground"
@@ -15232,6 +15754,8 @@
 			},
 			"default_form_id": 211,
 			"pokedex_id": 260,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Ground"
@@ -15287,6 +15811,8 @@
 			},
 			"default_form_id": 1367,
 			"pokedex_id": 261,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dark"
 			],
@@ -15337,6 +15863,8 @@
 			},
 			"default_form_id": 1370,
 			"pokedex_id": 262,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dark"
 			],
@@ -15425,6 +15953,8 @@
 			},
 			"default_form_id": 945,
 			"pokedex_id": 263,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -15499,6 +16029,8 @@
 			},
 			"default_form_id": 947,
 			"pokedex_id": 264,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -15548,6 +16080,8 @@
 			},
 			"default_form_id": 600,
 			"pokedex_id": 265,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug"
 			],
@@ -15599,6 +16133,8 @@
 			},
 			"default_form_id": 1379,
 			"pokedex_id": 266,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug"
 			],
@@ -15647,6 +16183,8 @@
 			},
 			"default_form_id": 1382,
 			"pokedex_id": 267,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Flying"
@@ -15693,6 +16231,8 @@
 			},
 			"default_form_id": 1385,
 			"pokedex_id": 268,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug"
 			],
@@ -15741,6 +16281,8 @@
 			},
 			"default_form_id": 1388,
 			"pokedex_id": 269,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Poison"
@@ -15787,6 +16329,8 @@
 			},
 			"default_form_id": 1391,
 			"pokedex_id": 270,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Grass"
@@ -15837,6 +16381,8 @@
 			},
 			"default_form_id": 1394,
 			"pokedex_id": 271,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Grass"
@@ -15888,6 +16434,8 @@
 			},
 			"default_form_id": 1397,
 			"pokedex_id": 272,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Grass"
@@ -15908,7 +16456,8 @@
 				"Blizzard",
 				"Solar Beam",
 				"Ice Beam",
-				"Energy Ball"
+				"Energy Ball",
+				"Leaf Storm"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -15954,6 +16503,8 @@
 			},
 			"default_form_id": 625,
 			"pokedex_id": 273,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -16023,6 +16574,8 @@
 			},
 			"default_form_id": 628,
 			"pokedex_id": 274,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Dark"
@@ -16075,6 +16628,8 @@
 			},
 			"default_form_id": 631,
 			"pokedex_id": 275,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Dark"
@@ -16123,6 +16678,8 @@
 			},
 			"default_form_id": 1400,
 			"pokedex_id": 276,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal",
 				"Flying"
@@ -16172,6 +16729,8 @@
 			},
 			"default_form_id": 1403,
 			"pokedex_id": 277,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal",
 				"Flying"
@@ -16218,6 +16777,8 @@
 			},
 			"default_form_id": 1406,
 			"pokedex_id": 278,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Flying"
@@ -16269,6 +16830,8 @@
 			},
 			"default_form_id": 1409,
 			"pokedex_id": 279,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Flying"
@@ -16334,6 +16897,8 @@
 			},
 			"default_form_id": 292,
 			"pokedex_id": 280,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic",
 				"Fairy"
@@ -16419,6 +16984,8 @@
 			},
 			"default_form_id": 295,
 			"pokedex_id": 281,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic",
 				"Fairy"
@@ -16482,6 +17049,8 @@
 			},
 			"default_form_id": 298,
 			"pokedex_id": 282,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic",
 				"Fairy"
@@ -16537,6 +17106,8 @@
 			},
 			"default_form_id": 1412,
 			"pokedex_id": 283,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Water"
@@ -16588,6 +17159,8 @@
 			},
 			"default_form_id": 1415,
 			"pokedex_id": 284,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Flying"
@@ -16636,6 +17209,8 @@
 			},
 			"default_form_id": 1418,
 			"pokedex_id": 285,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -16686,6 +17261,8 @@
 			},
 			"default_form_id": 1421,
 			"pokedex_id": 286,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Fighting"
@@ -16732,6 +17309,8 @@
 			},
 			"default_form_id": 1424,
 			"pokedex_id": 287,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -16781,6 +17360,8 @@
 			},
 			"default_form_id": 1427,
 			"pokedex_id": 288,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -16831,6 +17412,8 @@
 			},
 			"default_form_id": 1430,
 			"pokedex_id": 289,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -16875,6 +17458,8 @@
 			},
 			"default_form_id": 1433,
 			"pokedex_id": 290,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Ground"
@@ -16926,6 +17511,8 @@
 			},
 			"default_form_id": 1436,
 			"pokedex_id": 291,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Flying"
@@ -16972,6 +17559,8 @@
 			},
 			"default_form_id": 1439,
 			"pokedex_id": 292,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug",
 				"Ghost"
@@ -17018,6 +17607,8 @@
 			},
 			"default_form_id": 1442,
 			"pokedex_id": 293,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -17068,6 +17659,8 @@
 			},
 			"default_form_id": 1445,
 			"pokedex_id": 294,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -17118,6 +17711,8 @@
 			},
 			"default_form_id": 1448,
 			"pokedex_id": 295,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -17163,6 +17758,8 @@
 			},
 			"default_form_id": 1451,
 			"pokedex_id": 296,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fighting"
 			],
@@ -17213,6 +17810,8 @@
 			},
 			"default_form_id": 1454,
 			"pokedex_id": 297,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fighting"
 			],
@@ -17259,6 +17858,8 @@
 			},
 			"default_form_id": 1457,
 			"pokedex_id": 298,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal",
 				"Fairy"
@@ -17328,6 +17929,8 @@
 			},
 			"default_form_id": 1460,
 			"pokedex_id": 299,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock"
 			],
@@ -17378,6 +17981,8 @@
 			},
 			"default_form_id": 1463,
 			"pokedex_id": 300,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -17428,6 +18033,8 @@
 			},
 			"default_form_id": 1466,
 			"pokedex_id": 301,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -17488,6 +18095,8 @@
 			},
 			"default_form_id": 923,
 			"pokedex_id": 302,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dark",
 				"Ghost"
@@ -17548,6 +18157,8 @@
 			},
 			"default_form_id": 833,
 			"pokedex_id": 303,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Fairy"
@@ -17623,6 +18234,8 @@
 			},
 			"default_form_id": 1469,
 			"pokedex_id": 304,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Rock"
@@ -17693,6 +18306,8 @@
 			},
 			"default_form_id": 1472,
 			"pokedex_id": 305,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Rock"
@@ -17751,6 +18366,8 @@
 			},
 			"default_form_id": 1475,
 			"pokedex_id": 306,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Rock"
@@ -17809,6 +18426,8 @@
 			},
 			"default_form_id": 1478,
 			"pokedex_id": 307,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fighting",
 				"Psychic"
@@ -17866,6 +18485,8 @@
 			},
 			"default_form_id": 1481,
 			"pokedex_id": 308,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fighting",
 				"Psychic"
@@ -17921,6 +18542,8 @@
 			},
 			"default_form_id": 1484,
 			"pokedex_id": 309,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Electric"
 			],
@@ -17958,10 +18581,7 @@
 			"forms": {
 				"1487": {
 					"name": "Normal",
-					"proto": "MANECTRIC_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MANECTRIC_NORMAL"
 				},
 				"1488": {
 					"name": "Shadow",
@@ -17969,14 +18589,13 @@
 				},
 				"1489": {
 					"name": "Purified",
-					"proto": "MANECTRIC_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "MANECTRIC_PURIFIED"
 				}
 			},
 			"default_form_id": 1487,
 			"pokedex_id": 310,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Electric"
 			],
@@ -17996,21 +18615,22 @@
 				"Wild Charge",
 				"Flame Burst"
 			],
+			"temp_evolutions": {
+				"1": {
+					"attack": 286,
+					"defense": 179,
+					"stamina": 172,
+					"height": 1.8,
+					"weight": 44
+				}
+			},
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 286,
-					"defense": 179,
-					"stamina": 172,
-					"unreleased": true
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"311": {
 			"name": "Plusle",
@@ -18030,6 +18650,8 @@
 			},
 			"default_form_id": 1490,
 			"pokedex_id": 311,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Electric"
 			],
@@ -18076,6 +18698,8 @@
 			},
 			"default_form_id": 1493,
 			"pokedex_id": 312,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Electric"
 			],
@@ -18122,6 +18746,8 @@
 			},
 			"default_form_id": 1496,
 			"pokedex_id": 313,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug"
 			],
@@ -18167,6 +18793,8 @@
 			},
 			"default_form_id": 1499,
 			"pokedex_id": 314,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Bug"
 			],
@@ -18212,6 +18840,8 @@
 			},
 			"default_form_id": 1502,
 			"pokedex_id": 315,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Poison"
@@ -18263,6 +18893,8 @@
 			},
 			"default_form_id": 1505,
 			"pokedex_id": 316,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Poison"
 			],
@@ -18313,6 +18945,8 @@
 			},
 			"default_form_id": 1508,
 			"pokedex_id": 317,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Poison"
 			],
@@ -18377,6 +19011,8 @@
 			},
 			"default_form_id": 734,
 			"pokedex_id": 318,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Dark"
@@ -18435,6 +19071,8 @@
 			},
 			"default_form_id": 737,
 			"pokedex_id": 319,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Dark"
@@ -18489,6 +19127,8 @@
 			},
 			"default_form_id": 1511,
 			"pokedex_id": 320,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -18539,6 +19179,8 @@
 			},
 			"default_form_id": 1514,
 			"pokedex_id": 321,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -18584,6 +19226,8 @@
 			},
 			"default_form_id": 1517,
 			"pokedex_id": 322,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire",
 				"Ground"
@@ -18641,6 +19285,8 @@
 			},
 			"default_form_id": 1520,
 			"pokedex_id": 323,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire",
 				"Ground"
@@ -18696,6 +19342,8 @@
 			},
 			"default_form_id": 1523,
 			"pokedex_id": 324,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Fire"
 			],
@@ -18741,6 +19389,8 @@
 			},
 			"default_form_id": 1526,
 			"pokedex_id": 325,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic"
 			],
@@ -18791,6 +19441,8 @@
 			},
 			"default_form_id": 1529,
 			"pokedex_id": 326,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic"
 			],
@@ -18904,6 +19556,8 @@
 			},
 			"default_form_id": 37,
 			"pokedex_id": 327,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -18967,6 +19621,8 @@
 			},
 			"default_form_id": 746,
 			"pokedex_id": 328,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground"
 			],
@@ -19036,6 +19692,8 @@
 			},
 			"default_form_id": 749,
 			"pokedex_id": 329,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground",
 				"Dragon"
@@ -19088,6 +19746,8 @@
 			},
 			"default_form_id": 752,
 			"pokedex_id": 330,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground",
 				"Dragon"
@@ -19152,6 +19812,8 @@
 			},
 			"default_form_id": 610,
 			"pokedex_id": 331,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass"
 			],
@@ -19169,7 +19831,8 @@
 			"charged_moves": [
 				"Grass Knot",
 				"Brick Break",
-				"Seed Bomb"
+				"Seed Bomb",
+				"Payback"
 			],
 			"evolutions": [
 				{
@@ -19203,6 +19866,8 @@
 			},
 			"default_form_id": 613,
 			"pokedex_id": 332,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Dark"
@@ -19221,7 +19886,8 @@
 			"charged_moves": [
 				"Dark Pulse",
 				"Dynamic Punch",
-				"Grass Knot"
+				"Grass Knot",
+				"Payback"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -19249,6 +19915,8 @@
 			},
 			"default_form_id": 1532,
 			"pokedex_id": 333,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal",
 				"Flying"
@@ -19306,6 +19974,8 @@
 			},
 			"default_form_id": 1535,
 			"pokedex_id": 334,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon",
 				"Flying"
@@ -19364,6 +20034,8 @@
 			},
 			"default_form_id": 1538,
 			"pokedex_id": 335,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -19409,6 +20081,8 @@
 			},
 			"default_form_id": 1541,
 			"pokedex_id": 336,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Poison"
 			],
@@ -19454,6 +20128,8 @@
 			},
 			"default_form_id": 1544,
 			"pokedex_id": 337,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Psychic"
@@ -19500,6 +20176,8 @@
 			},
 			"default_form_id": 1547,
 			"pokedex_id": 338,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Psychic"
@@ -19546,6 +20224,8 @@
 			},
 			"default_form_id": 1550,
 			"pokedex_id": 339,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Ground"
@@ -19597,6 +20277,8 @@
 			},
 			"default_form_id": 1553,
 			"pokedex_id": 340,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Ground"
@@ -19643,6 +20325,8 @@
 			},
 			"default_form_id": 1556,
 			"pokedex_id": 341,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -19693,6 +20377,8 @@
 			},
 			"default_form_id": 1559,
 			"pokedex_id": 342,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Dark"
@@ -19740,6 +20426,8 @@
 			},
 			"default_form_id": 1562,
 			"pokedex_id": 343,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground",
 				"Psychic"
@@ -19791,6 +20479,8 @@
 			},
 			"default_form_id": 1565,
 			"pokedex_id": 344,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground",
 				"Psychic"
@@ -19859,6 +20549,8 @@
 			},
 			"default_form_id": 1568,
 			"pokedex_id": 345,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Grass"
@@ -19911,6 +20603,8 @@
 			},
 			"default_form_id": 1571,
 			"pokedex_id": 346,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Grass"
@@ -19976,6 +20670,8 @@
 			},
 			"default_form_id": 1574,
 			"pokedex_id": 347,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Bug"
@@ -20028,6 +20724,8 @@
 			},
 			"default_form_id": 1577,
 			"pokedex_id": 348,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock",
 				"Bug"
@@ -20074,6 +20772,8 @@
 			},
 			"default_form_id": 1580,
 			"pokedex_id": 349,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -20122,6 +20822,8 @@
 			},
 			"default_form_id": 1583,
 			"pokedex_id": 350,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -20212,6 +20914,8 @@
 			},
 			"default_form_id": 29,
 			"pokedex_id": 351,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -20256,6 +20960,8 @@
 			},
 			"default_form_id": 1586,
 			"pokedex_id": 352,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Normal"
 			],
@@ -20322,6 +21028,8 @@
 			},
 			"default_form_id": 908,
 			"pokedex_id": 353,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ghost"
 			],
@@ -20379,6 +21087,8 @@
 			},
 			"default_form_id": 911,
 			"pokedex_id": 354,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ghost"
 			],
@@ -20450,6 +21160,8 @@
 			},
 			"default_form_id": 914,
 			"pokedex_id": 355,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ghost"
 			],
@@ -20519,6 +21231,8 @@
 			},
 			"default_form_id": 917,
 			"pokedex_id": 356,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ghost"
 			],
@@ -20570,6 +21284,8 @@
 			},
 			"default_form_id": 1589,
 			"pokedex_id": 357,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Grass",
 				"Flying"
@@ -20616,6 +21332,8 @@
 			},
 			"default_form_id": 1592,
 			"pokedex_id": 358,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic"
 			],
@@ -20668,6 +21386,8 @@
 			},
 			"default_form_id": 830,
 			"pokedex_id": 359,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dark"
 			],
@@ -20685,7 +21405,8 @@
 			"charged_moves": [
 				"Dark Pulse",
 				"Thunder",
-				"Megahorn"
+				"Megahorn",
+				"Payback"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -20721,6 +21442,8 @@
 			},
 			"default_form_id": 1595,
 			"pokedex_id": 360,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic"
 			],
@@ -20769,6 +21492,8 @@
 			},
 			"default_form_id": 926,
 			"pokedex_id": 361,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice"
 			],
@@ -20829,6 +21554,8 @@
 			},
 			"default_form_id": 929,
 			"pokedex_id": 362,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice"
 			],
@@ -20900,6 +21627,8 @@
 			},
 			"default_form_id": 1598,
 			"pokedex_id": 363,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice",
 				"Water"
@@ -20970,6 +21699,8 @@
 			},
 			"default_form_id": 1601,
 			"pokedex_id": 364,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice",
 				"Water"
@@ -21022,6 +21753,8 @@
 			},
 			"default_form_id": 1604,
 			"pokedex_id": 365,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice",
 				"Water"
@@ -21068,6 +21801,8 @@
 			},
 			"default_form_id": 1607,
 			"pokedex_id": 366,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -21120,6 +21855,8 @@
 			},
 			"default_form_id": 1610,
 			"pokedex_id": 367,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -21165,6 +21902,8 @@
 			},
 			"default_form_id": 1613,
 			"pokedex_id": 368,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -21210,6 +21949,8 @@
 			},
 			"default_form_id": 1616,
 			"pokedex_id": 369,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water",
 				"Rock"
@@ -21256,6 +21997,8 @@
 			},
 			"default_form_id": 1619,
 			"pokedex_id": 370,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -21319,6 +22062,8 @@
 			},
 			"default_form_id": 755,
 			"pokedex_id": 371,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon"
 			],
@@ -21388,6 +22133,8 @@
 			},
 			"default_form_id": 758,
 			"pokedex_id": 372,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon"
 			],
@@ -21445,6 +22192,8 @@
 			},
 			"default_form_id": 761,
 			"pokedex_id": 373,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon",
 				"Flying"
@@ -21518,6 +22267,8 @@
 			},
 			"default_form_id": 764,
 			"pokedex_id": 374,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -21585,6 +22336,8 @@
 			},
 			"default_form_id": 767,
 			"pokedex_id": 375,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -21643,6 +22396,8 @@
 			},
 			"default_form_id": 770,
 			"pokedex_id": 376,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -21697,6 +22452,8 @@
 			},
 			"default_form_id": 1622,
 			"pokedex_id": 377,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Rock"
 			],
@@ -21742,6 +22499,8 @@
 			},
 			"default_form_id": 1625,
 			"pokedex_id": 378,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ice"
 			],
@@ -21787,6 +22546,8 @@
 			},
 			"default_form_id": 1628,
 			"pokedex_id": 379,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel"
 			],
@@ -21838,6 +22599,8 @@
 			},
 			"default_form_id": 1631,
 			"pokedex_id": 380,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon",
 				"Psychic"
@@ -21898,6 +22661,8 @@
 			},
 			"default_form_id": 1634,
 			"pokedex_id": 381,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon",
 				"Psychic"
@@ -21951,6 +22716,8 @@
 			},
 			"default_form_id": 1637,
 			"pokedex_id": 382,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Water"
 			],
@@ -21995,6 +22762,8 @@
 			},
 			"default_form_id": 1640,
 			"pokedex_id": 383,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Ground"
 			],
@@ -22045,6 +22814,8 @@
 			},
 			"default_form_id": 1643,
 			"pokedex_id": 384,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Dragon",
 				"Flying"
@@ -22098,6 +22869,8 @@
 			},
 			"default_form_id": 1646,
 			"pokedex_id": 385,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -22183,6 +22956,8 @@
 			},
 			"default_form_id": 33,
 			"pokedex_id": 386,
+			"genId": "3",
+			"generation": "Hoenn",
 			"types": [
 				"Psychic"
 			],
@@ -22245,6 +23020,8 @@
 			},
 			"default_form_id": 688,
 			"pokedex_id": 387,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -22314,6 +23091,8 @@
 			},
 			"default_form_id": 691,
 			"pokedex_id": 388,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -22365,6 +23144,8 @@
 			},
 			"default_form_id": 694,
 			"pokedex_id": 389,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass",
 				"Ground"
@@ -22430,6 +23211,8 @@
 			},
 			"default_form_id": 818,
 			"pokedex_id": 390,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fire"
 			],
@@ -22499,6 +23282,8 @@
 			},
 			"default_form_id": 821,
 			"pokedex_id": 391,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -22551,6 +23336,8 @@
 			},
 			"default_form_id": 824,
 			"pokedex_id": 392,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -22597,6 +23384,8 @@
 			},
 			"default_form_id": 1649,
 			"pokedex_id": 393,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -22647,6 +23436,8 @@
 			},
 			"default_form_id": 1652,
 			"pokedex_id": 394,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -22697,6 +23488,8 @@
 			},
 			"default_form_id": 1655,
 			"pokedex_id": 395,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water",
 				"Steel"
@@ -22744,6 +23537,8 @@
 			},
 			"default_form_id": 1658,
 			"pokedex_id": 396,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal",
 				"Flying"
@@ -22794,6 +23589,8 @@
 			},
 			"default_form_id": 1661,
 			"pokedex_id": 397,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal",
 				"Flying"
@@ -22845,6 +23642,8 @@
 			},
 			"default_form_id": 1664,
 			"pokedex_id": 398,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal",
 				"Flying"
@@ -22891,6 +23690,8 @@
 			},
 			"default_form_id": 1667,
 			"pokedex_id": 399,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -22941,6 +23742,8 @@
 			},
 			"default_form_id": 1670,
 			"pokedex_id": 400,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal",
 				"Water"
@@ -22987,6 +23790,8 @@
 			},
 			"default_form_id": 1673,
 			"pokedex_id": 401,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug"
 			],
@@ -23035,6 +23840,8 @@
 			},
 			"default_form_id": 1676,
 			"pokedex_id": 402,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug"
 			],
@@ -23080,6 +23887,8 @@
 			},
 			"default_form_id": 1679,
 			"pokedex_id": 403,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric"
 			],
@@ -23130,6 +23939,8 @@
 			},
 			"default_form_id": 1682,
 			"pokedex_id": 404,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric"
 			],
@@ -23180,6 +23991,8 @@
 			},
 			"default_form_id": 1685,
 			"pokedex_id": 405,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric"
 			],
@@ -23226,6 +24039,8 @@
 			},
 			"default_form_id": 1688,
 			"pokedex_id": 406,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass",
 				"Poison"
@@ -23276,6 +24091,8 @@
 			},
 			"default_form_id": 1691,
 			"pokedex_id": 407,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass",
 				"Poison"
@@ -23295,7 +24112,8 @@
 				"Solar Beam",
 				"Sludge Bomb",
 				"Dazzling Gleam",
-				"Grass Knot"
+				"Grass Knot",
+				"Leaf Storm"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -23323,6 +24141,8 @@
 			},
 			"default_form_id": 1694,
 			"pokedex_id": 408,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock"
 			],
@@ -23373,6 +24193,8 @@
 			},
 			"default_form_id": 1697,
 			"pokedex_id": 409,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock"
 			],
@@ -23418,6 +24240,8 @@
 			},
 			"default_form_id": 1700,
 			"pokedex_id": 410,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock",
 				"Steel"
@@ -23469,6 +24293,8 @@
 			},
 			"default_form_id": 1703,
 			"pokedex_id": 411,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock",
 				"Steel"
@@ -23560,6 +24386,8 @@
 			},
 			"default_form_id": 118,
 			"pokedex_id": 412,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug"
 			],
@@ -23664,6 +24492,8 @@
 			},
 			"default_form_id": 87,
 			"pokedex_id": 413,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug",
 				"Grass"
@@ -23708,6 +24538,8 @@
 			},
 			"default_form_id": 1712,
 			"pokedex_id": 414,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug",
 				"Flying"
@@ -23754,6 +24586,8 @@
 			},
 			"default_form_id": 1715,
 			"pokedex_id": 415,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug",
 				"Flying"
@@ -23803,6 +24637,8 @@
 			},
 			"default_form_id": 1718,
 			"pokedex_id": 416,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug",
 				"Flying"
@@ -23853,6 +24689,8 @@
 			},
 			"default_form_id": 1721,
 			"pokedex_id": 417,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric"
 			],
@@ -23898,6 +24736,8 @@
 			},
 			"default_form_id": 1724,
 			"pokedex_id": 418,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -23948,6 +24788,8 @@
 			},
 			"default_form_id": 1727,
 			"pokedex_id": 419,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -23993,6 +24835,8 @@
 			},
 			"default_form_id": 1730,
 			"pokedex_id": 420,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -24062,6 +24906,8 @@
 			},
 			"default_form_id": 94,
 			"pokedex_id": 421,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -24127,6 +24973,8 @@
 			},
 			"default_form_id": 96,
 			"pokedex_id": 422,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -24186,6 +25034,8 @@
 			},
 			"default_form_id": 98,
 			"pokedex_id": 423,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water",
 				"Ground"
@@ -24232,6 +25082,8 @@
 			},
 			"default_form_id": 1742,
 			"pokedex_id": 424,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -24277,6 +25129,8 @@
 			},
 			"default_form_id": 1745,
 			"pokedex_id": 425,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost",
 				"Flying"
@@ -24328,6 +25182,8 @@
 			},
 			"default_form_id": 1748,
 			"pokedex_id": 426,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost",
 				"Flying"
@@ -24374,6 +25230,8 @@
 			},
 			"default_form_id": 1751,
 			"pokedex_id": 427,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -24410,10 +25268,7 @@
 			"forms": {
 				"1754": {
 					"name": "Normal",
-					"proto": "LOPUNNY_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LOPUNNY_NORMAL"
 				},
 				"1755": {
 					"name": "Shadow",
@@ -24421,14 +25276,13 @@
 				},
 				"1756": {
 					"name": "Purified",
-					"proto": "LOPUNNY_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "LOPUNNY_PURIFIED"
 				}
 			},
 			"default_form_id": 1754,
 			"pokedex_id": 428,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -24448,25 +25302,26 @@
 				"Hyper Beam",
 				"Focus Blast"
 			],
+			"temp_evolutions": {
+				"1": {
+					"attack": 282,
+					"defense": 214,
+					"stamina": 163,
+					"height": 1.3,
+					"weight": 28.3,
+					"types": [
+						"Normal",
+						"Fighting"
+					]
+				}
+			},
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 282,
-					"defense": 214,
-					"stamina": 163,
-					"unreleased": true,
-					"types": [
-						"Normal",
-						"Fighting"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"429": {
 			"name": "Mismagius",
@@ -24486,6 +25341,8 @@
 			},
 			"default_form_id": 722,
 			"pokedex_id": 429,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost"
 			],
@@ -24531,6 +25388,8 @@
 			},
 			"default_form_id": 858,
 			"pokedex_id": 430,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dark",
 				"Flying"
@@ -24578,6 +25437,8 @@
 			},
 			"default_form_id": 1757,
 			"pokedex_id": 431,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -24628,6 +25489,8 @@
 			},
 			"default_form_id": 1760,
 			"pokedex_id": 432,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -24673,6 +25536,8 @@
 			},
 			"default_form_id": 1763,
 			"pokedex_id": 433,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic"
 			],
@@ -24741,6 +25606,8 @@
 			},
 			"default_form_id": 791,
 			"pokedex_id": 434,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Dark"
@@ -24793,6 +25660,8 @@
 			},
 			"default_form_id": 794,
 			"pokedex_id": 435,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Dark"
@@ -24839,6 +25708,8 @@
 			},
 			"default_form_id": 1766,
 			"pokedex_id": 436,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -24857,7 +25728,8 @@
 			"charged_moves": [
 				"Gyro Ball",
 				"Psyshock",
-				"Heavy Slam"
+				"Heavy Slam",
+				"Payback"
 			],
 			"evolutions": [
 				{
@@ -24890,6 +25762,8 @@
 			},
 			"default_form_id": 1769,
 			"pokedex_id": 437,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Steel",
 				"Psychic"
@@ -24910,7 +25784,8 @@
 				"Psychic",
 				"Heavy Slam",
 				"Bulldoze",
-				"Psyshock"
+				"Psyshock",
+				"Payback"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -24938,6 +25813,8 @@
 			},
 			"default_form_id": 1772,
 			"pokedex_id": 438,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock"
 			],
@@ -24988,6 +25865,8 @@
 			},
 			"default_form_id": 1775,
 			"pokedex_id": 439,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic",
 				"Fairy"
@@ -25039,6 +25918,8 @@
 			},
 			"default_form_id": 1778,
 			"pokedex_id": 440,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -25087,6 +25968,8 @@
 			},
 			"default_form_id": 1781,
 			"pokedex_id": 441,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal",
 				"Flying"
@@ -25133,6 +26016,8 @@
 			},
 			"default_form_id": 1784,
 			"pokedex_id": 442,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost",
 				"Dark"
@@ -25197,6 +26082,8 @@
 			},
 			"default_form_id": 861,
 			"pokedex_id": 443,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dragon",
 				"Ground"
@@ -25267,6 +26154,8 @@
 			},
 			"default_form_id": 864,
 			"pokedex_id": 444,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dragon",
 				"Ground"
@@ -25325,6 +26214,8 @@
 			},
 			"default_form_id": 867,
 			"pokedex_id": 445,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dragon",
 				"Ground"
@@ -25380,6 +26271,8 @@
 			},
 			"default_form_id": 1787,
 			"pokedex_id": 446,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -25430,6 +26323,8 @@
 			},
 			"default_form_id": 1790,
 			"pokedex_id": 447,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fighting"
 			],
@@ -25485,6 +26380,8 @@
 			},
 			"default_form_id": 1793,
 			"pokedex_id": 448,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fighting",
 				"Steel"
@@ -25559,6 +26456,8 @@
 			},
 			"default_form_id": 888,
 			"pokedex_id": 449,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ground"
 			],
@@ -25610,6 +26509,8 @@
 			},
 			"default_form_id": 891,
 			"pokedex_id": 450,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ground"
 			],
@@ -25658,6 +26559,8 @@
 			},
 			"default_form_id": 1796,
 			"pokedex_id": 451,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Bug"
@@ -25709,6 +26612,8 @@
 			},
 			"default_form_id": 1799,
 			"pokedex_id": 452,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Dark"
@@ -25758,6 +26663,8 @@
 			},
 			"default_form_id": 1802,
 			"pokedex_id": 453,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Fighting"
@@ -25809,6 +26716,8 @@
 			},
 			"default_form_id": 1805,
 			"pokedex_id": 454,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Poison",
 				"Fighting"
@@ -25855,6 +26764,8 @@
 			},
 			"default_form_id": 1808,
 			"pokedex_id": 455,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -25900,6 +26811,8 @@
 			},
 			"default_form_id": 1811,
 			"pokedex_id": 456,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -25950,6 +26863,8 @@
 			},
 			"default_form_id": 1814,
 			"pokedex_id": 457,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -25995,6 +26910,8 @@
 			},
 			"default_form_id": 1817,
 			"pokedex_id": 458,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water",
 				"Flying"
@@ -26064,6 +26981,8 @@
 			},
 			"default_form_id": 932,
 			"pokedex_id": 459,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass",
 				"Ice"
@@ -26122,6 +27041,8 @@
 			},
 			"default_form_id": 935,
 			"pokedex_id": 460,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass",
 				"Ice"
@@ -26178,6 +27099,8 @@
 			},
 			"default_form_id": 800,
 			"pokedex_id": 461,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dark",
 				"Ice"
@@ -26225,6 +27148,8 @@
 			},
 			"default_form_id": 661,
 			"pokedex_id": 462,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric",
 				"Steel"
@@ -26272,6 +27197,8 @@
 			},
 			"default_form_id": 1820,
 			"pokedex_id": 463,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -26318,6 +27245,8 @@
 			},
 			"default_form_id": 852,
 			"pokedex_id": 464,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ground",
 				"Rock"
@@ -26366,6 +27295,8 @@
 			},
 			"default_form_id": 1823,
 			"pokedex_id": 465,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -26413,6 +27344,8 @@
 			},
 			"default_form_id": 643,
 			"pokedex_id": 466,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric"
 			],
@@ -26459,6 +27392,8 @@
 			},
 			"default_form_id": 637,
 			"pokedex_id": 467,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fire"
 			],
@@ -26505,6 +27440,8 @@
 			},
 			"default_form_id": 1826,
 			"pokedex_id": 468,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fairy",
 				"Flying"
@@ -26553,6 +27490,8 @@
 			},
 			"default_form_id": 1829,
 			"pokedex_id": 469,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Bug",
 				"Flying"
@@ -26599,6 +27538,8 @@
 			},
 			"default_form_id": 1832,
 			"pokedex_id": 470,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -26644,6 +27585,8 @@
 			},
 			"default_form_id": 1835,
 			"pokedex_id": 471,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ice"
 			],
@@ -26689,6 +27632,8 @@
 			},
 			"default_form_id": 806,
 			"pokedex_id": 472,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ground",
 				"Flying"
@@ -26736,6 +27681,8 @@
 			},
 			"default_form_id": 1838,
 			"pokedex_id": 473,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ice",
 				"Ground"
@@ -26782,6 +27729,8 @@
 			},
 			"default_form_id": 683,
 			"pokedex_id": 474,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -26835,6 +27784,8 @@
 			},
 			"default_form_id": 301,
 			"pokedex_id": 475,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic",
 				"Fighting"
@@ -26890,6 +27841,8 @@
 			},
 			"default_form_id": 1841,
 			"pokedex_id": 476,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Rock",
 				"Steel"
@@ -26936,6 +27889,8 @@
 			},
 			"default_form_id": 920,
 			"pokedex_id": 477,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost"
 			],
@@ -26981,6 +27936,8 @@
 			},
 			"default_form_id": 1844,
 			"pokedex_id": 478,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ice",
 				"Ghost"
@@ -27093,6 +28050,8 @@
 			},
 			"default_form_id": 81,
 			"pokedex_id": 479,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Electric",
 				"Ghost"
@@ -27139,6 +28098,8 @@
 			},
 			"default_form_id": 1847,
 			"pokedex_id": 480,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic"
 			],
@@ -27182,6 +28143,8 @@
 			},
 			"default_form_id": 1850,
 			"pokedex_id": 481,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic"
 			],
@@ -27225,6 +28188,8 @@
 			},
 			"default_form_id": 1853,
 			"pokedex_id": 482,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic"
 			],
@@ -27268,6 +28233,8 @@
 			},
 			"default_form_id": 1856,
 			"pokedex_id": 483,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Steel",
 				"Dragon"
@@ -27313,6 +28280,8 @@
 			},
 			"default_form_id": 1859,
 			"pokedex_id": 484,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water",
 				"Dragon"
@@ -27359,6 +28328,8 @@
 			},
 			"default_form_id": 1862,
 			"pokedex_id": 485,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Fire",
 				"Steel"
@@ -27405,6 +28376,8 @@
 			},
 			"default_form_id": 1865,
 			"pokedex_id": 486,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -27471,6 +28444,8 @@
 			},
 			"default_form_id": 90,
 			"pokedex_id": 487,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Ghost",
 				"Dragon"
@@ -27516,6 +28491,8 @@
 			},
 			"default_form_id": 1871,
 			"pokedex_id": 488,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic"
 			],
@@ -27560,6 +28537,8 @@
 			},
 			"default_form_id": 1874,
 			"pokedex_id": 489,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -27603,6 +28582,8 @@
 			},
 			"default_form_id": 1877,
 			"pokedex_id": 490,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Water"
 			],
@@ -27646,6 +28627,8 @@
 			},
 			"default_form_id": 1880,
 			"pokedex_id": 491,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Dark"
 			],
@@ -27706,6 +28689,8 @@
 			},
 			"default_form_id": 93,
 			"pokedex_id": 492,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Grass"
 			],
@@ -27860,6 +28845,8 @@
 			},
 			"default_form_id": 100,
 			"pokedex_id": 493,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Normal"
 			],
@@ -27903,6 +28890,8 @@
 			},
 			"default_form_id": 1886,
 			"pokedex_id": 494,
+			"genId": "4",
+			"generation": "Sinnoh",
 			"types": [
 				"Psychic",
 				"Fire"
@@ -27948,6 +28937,8 @@
 			},
 			"default_form_id": 1889,
 			"pokedex_id": 495,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -27998,6 +28989,8 @@
 			},
 			"default_form_id": 1892,
 			"pokedex_id": 496,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -28048,6 +29041,8 @@
 			},
 			"default_form_id": 1895,
 			"pokedex_id": 497,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -28093,6 +29088,8 @@
 			},
 			"default_form_id": 1898,
 			"pokedex_id": 498,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -28143,6 +29140,8 @@
 			},
 			"default_form_id": 1901,
 			"pokedex_id": 499,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -28194,6 +29193,8 @@
 			},
 			"default_form_id": 1904,
 			"pokedex_id": 500,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire",
 				"Fighting"
@@ -28241,6 +29242,8 @@
 			},
 			"default_form_id": 1907,
 			"pokedex_id": 501,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -28291,6 +29294,8 @@
 			},
 			"default_form_id": 1910,
 			"pokedex_id": 502,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -28341,6 +29346,8 @@
 			},
 			"default_form_id": 1913,
 			"pokedex_id": 503,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -28386,6 +29393,8 @@
 			},
 			"default_form_id": 1916,
 			"pokedex_id": 504,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -28436,6 +29445,8 @@
 			},
 			"default_form_id": 1919,
 			"pokedex_id": 505,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -28481,6 +29492,8 @@
 			},
 			"default_form_id": 1922,
 			"pokedex_id": 506,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -28531,6 +29544,8 @@
 			},
 			"default_form_id": 1925,
 			"pokedex_id": 507,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -28581,6 +29596,8 @@
 			},
 			"default_form_id": 1928,
 			"pokedex_id": 508,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -28627,6 +29644,8 @@
 			},
 			"default_form_id": 1931,
 			"pokedex_id": 509,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark"
 			],
@@ -28677,6 +29696,8 @@
 			},
 			"default_form_id": 1934,
 			"pokedex_id": 510,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark"
 			],
@@ -28694,7 +29715,8 @@
 			"charged_moves": [
 				"Gunk Shot",
 				"Play Rough",
-				"Dark Pulse"
+				"Dark Pulse",
+				"Payback"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -28722,6 +29744,8 @@
 			},
 			"default_form_id": 1937,
 			"pokedex_id": 511,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -28772,6 +29796,8 @@
 			},
 			"default_form_id": 1940,
 			"pokedex_id": 512,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -28780,8 +29806,8 @@
 			"stamina": 181,
 			"height": 1.1,
 			"weight": 30.5,
-			"flee_rate": 0.2,
-			"capture_rate": 0.5,
+			"flee_rate": 0.07,
+			"capture_rate": 0.2,
 			"quick_moves": [
 				"Bite",
 				"Vine Whip"
@@ -28817,6 +29843,8 @@
 			},
 			"default_form_id": 1943,
 			"pokedex_id": 513,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -28825,8 +29853,8 @@
 			"stamina": 137,
 			"height": 0.6,
 			"weight": 11,
-			"flee_rate": 0.07,
-			"capture_rate": 0.2,
+			"flee_rate": 0.2,
+			"capture_rate": 0.5,
 			"quick_moves": [
 				"Scratch",
 				"Fire Spin"
@@ -28867,6 +29895,8 @@
 			},
 			"default_form_id": 1946,
 			"pokedex_id": 514,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -28875,8 +29905,8 @@
 			"stamina": 181,
 			"height": 1,
 			"weight": 28,
-			"flee_rate": 0.2,
-			"capture_rate": 0.5,
+			"flee_rate": 0.07,
+			"capture_rate": 0.2,
 			"quick_moves": [
 				"Bite",
 				"Fire Spin"
@@ -28912,6 +29942,8 @@
 			},
 			"default_form_id": 1949,
 			"pokedex_id": 515,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -28962,6 +29994,8 @@
 			},
 			"default_form_id": 1952,
 			"pokedex_id": 516,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -29007,6 +30041,8 @@
 			},
 			"default_form_id": 1955,
 			"pokedex_id": 517,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -29057,6 +30093,8 @@
 			},
 			"default_form_id": 1958,
 			"pokedex_id": 518,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -29102,6 +30140,8 @@
 			},
 			"default_form_id": 1961,
 			"pokedex_id": 519,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Flying"
@@ -29153,6 +30193,8 @@
 			},
 			"default_form_id": 1964,
 			"pokedex_id": 520,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Flying"
@@ -29204,6 +30246,8 @@
 			},
 			"default_form_id": 1967,
 			"pokedex_id": 521,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Flying"
@@ -29250,6 +30294,8 @@
 			},
 			"default_form_id": 1970,
 			"pokedex_id": 522,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric"
 			],
@@ -29300,6 +30346,8 @@
 			},
 			"default_form_id": 1973,
 			"pokedex_id": 523,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric"
 			],
@@ -29345,6 +30393,8 @@
 			},
 			"default_form_id": 1976,
 			"pokedex_id": 524,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock"
 			],
@@ -29395,6 +30445,8 @@
 			},
 			"default_form_id": 1979,
 			"pokedex_id": 525,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock"
 			],
@@ -29445,6 +30497,8 @@
 			},
 			"default_form_id": 1982,
 			"pokedex_id": 526,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock"
 			],
@@ -29491,6 +30545,8 @@
 			},
 			"default_form_id": 1985,
 			"pokedex_id": 527,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -29542,6 +30598,8 @@
 			},
 			"default_form_id": 1988,
 			"pokedex_id": 528,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -29588,6 +30646,8 @@
 			},
 			"default_form_id": 1991,
 			"pokedex_id": 529,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground"
 			],
@@ -29638,6 +30698,8 @@
 			},
 			"default_form_id": 1994,
 			"pokedex_id": 530,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Steel"
@@ -29692,6 +30754,8 @@
 			},
 			"default_form_id": 1997,
 			"pokedex_id": 531,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -29749,6 +30813,8 @@
 			},
 			"default_form_id": 2000,
 			"pokedex_id": 532,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -29799,6 +30865,8 @@
 			},
 			"default_form_id": 2003,
 			"pokedex_id": 533,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -29849,6 +30917,8 @@
 			},
 			"default_form_id": 2006,
 			"pokedex_id": 534,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -29894,6 +30964,8 @@
 			},
 			"default_form_id": 2009,
 			"pokedex_id": 535,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -29944,6 +31016,8 @@
 			},
 			"default_form_id": 2012,
 			"pokedex_id": 536,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Ground"
@@ -29995,6 +31069,8 @@
 			},
 			"default_form_id": 2015,
 			"pokedex_id": 537,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Ground"
@@ -30041,6 +31117,8 @@
 			},
 			"default_form_id": 2018,
 			"pokedex_id": 538,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -30086,6 +31164,8 @@
 			},
 			"default_form_id": 2021,
 			"pokedex_id": 539,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -30131,6 +31211,8 @@
 			},
 			"default_form_id": 2024,
 			"pokedex_id": 540,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Grass"
@@ -30182,6 +31264,8 @@
 			},
 			"default_form_id": 2027,
 			"pokedex_id": 541,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Grass"
@@ -30233,6 +31317,8 @@
 			},
 			"default_form_id": 2030,
 			"pokedex_id": 542,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Grass"
@@ -30251,7 +31337,8 @@
 			"charged_moves": [
 				"Leaf Blade",
 				"X Scissor",
-				"Silver Wind"
+				"Silver Wind",
+				"Leaf Storm"
 			],
 			"legendary": false,
 			"mythic": false,
@@ -30279,6 +31366,8 @@
 			},
 			"default_form_id": 2033,
 			"pokedex_id": 543,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Poison"
@@ -30330,6 +31419,8 @@
 			},
 			"default_form_id": 2036,
 			"pokedex_id": 544,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Poison"
@@ -30381,6 +31472,8 @@
 			},
 			"default_form_id": 2039,
 			"pokedex_id": 545,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Poison"
@@ -30428,6 +31521,8 @@
 			},
 			"default_form_id": 2042,
 			"pokedex_id": 546,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Fairy"
@@ -30479,6 +31574,8 @@
 			},
 			"default_form_id": 2045,
 			"pokedex_id": 547,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Fairy"
@@ -30525,6 +31622,8 @@
 			},
 			"default_form_id": 2048,
 			"pokedex_id": 548,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -30574,6 +31673,8 @@
 			},
 			"default_form_id": 2051,
 			"pokedex_id": 549,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -30615,6 +31716,8 @@
 			},
 			"default_form_id": 136,
 			"pokedex_id": 550,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -30660,6 +31763,8 @@
 			},
 			"default_form_id": 2054,
 			"pokedex_id": 551,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Dark"
@@ -30711,6 +31816,8 @@
 			},
 			"default_form_id": 2057,
 			"pokedex_id": 552,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Dark"
@@ -30762,6 +31869,8 @@
 			},
 			"default_form_id": 2060,
 			"pokedex_id": 553,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Dark"
@@ -30837,6 +31946,8 @@
 			},
 			"default_form_id": 2063,
 			"pokedex_id": 554,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -30932,6 +32043,8 @@
 			},
 			"default_form_id": 138,
 			"pokedex_id": 555,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -30979,6 +32092,8 @@
 			},
 			"default_form_id": 2066,
 			"pokedex_id": 556,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass"
 			],
@@ -31024,6 +32139,8 @@
 			},
 			"default_form_id": 2069,
 			"pokedex_id": 557,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Rock"
@@ -31075,6 +32192,8 @@
 			},
 			"default_form_id": 2072,
 			"pokedex_id": 558,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Rock"
@@ -31121,6 +32240,8 @@
 			},
 			"default_form_id": 2075,
 			"pokedex_id": 559,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Fighting"
@@ -31172,6 +32293,8 @@
 			},
 			"default_form_id": 2078,
 			"pokedex_id": 560,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Fighting"
@@ -31218,6 +32341,8 @@
 			},
 			"default_form_id": 2081,
 			"pokedex_id": 561,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic",
 				"Flying"
@@ -31304,6 +32429,8 @@
 			},
 			"default_form_id": 2084,
 			"pokedex_id": 562,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ghost"
 			],
@@ -31355,6 +32482,8 @@
 			},
 			"default_form_id": 2087,
 			"pokedex_id": 563,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ghost"
 			],
@@ -31400,6 +32529,8 @@
 			},
 			"default_form_id": 2090,
 			"pokedex_id": 564,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Rock"
@@ -31451,6 +32582,8 @@
 			},
 			"default_form_id": 2093,
 			"pokedex_id": 565,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Rock"
@@ -31497,6 +32630,8 @@
 			},
 			"default_form_id": 2096,
 			"pokedex_id": 566,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock",
 				"Flying"
@@ -31548,6 +32683,8 @@
 			},
 			"default_form_id": 2099,
 			"pokedex_id": 567,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock",
 				"Flying"
@@ -31594,6 +32731,8 @@
 			},
 			"default_form_id": 2102,
 			"pokedex_id": 568,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Poison"
 			],
@@ -31644,6 +32783,8 @@
 			},
 			"default_form_id": 2105,
 			"pokedex_id": 569,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Poison"
 			],
@@ -31690,6 +32831,8 @@
 			},
 			"default_form_id": 2108,
 			"pokedex_id": 570,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark"
 			],
@@ -31740,6 +32883,8 @@
 			},
 			"default_form_id": 2111,
 			"pokedex_id": 571,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark"
 			],
@@ -31785,6 +32930,8 @@
 			},
 			"default_form_id": 2114,
 			"pokedex_id": 572,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -31835,6 +32982,8 @@
 			},
 			"default_form_id": 2117,
 			"pokedex_id": 573,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -31880,6 +33029,8 @@
 			},
 			"default_form_id": 2120,
 			"pokedex_id": 574,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -31930,6 +33081,8 @@
 			},
 			"default_form_id": 2123,
 			"pokedex_id": 575,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -31980,6 +33133,8 @@
 			},
 			"default_form_id": 2126,
 			"pokedex_id": 576,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -32025,6 +33180,8 @@
 			},
 			"default_form_id": 2129,
 			"pokedex_id": 577,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -32075,6 +33232,8 @@
 			},
 			"default_form_id": 2132,
 			"pokedex_id": 578,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -32125,6 +33284,8 @@
 			},
 			"default_form_id": 2135,
 			"pokedex_id": 579,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -32170,6 +33331,8 @@
 			},
 			"default_form_id": 2138,
 			"pokedex_id": 580,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Flying"
@@ -32221,6 +33384,8 @@
 			},
 			"default_form_id": 2141,
 			"pokedex_id": 581,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Flying"
@@ -32267,6 +33432,8 @@
 			},
 			"default_form_id": 2144,
 			"pokedex_id": 582,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -32276,7 +33443,7 @@
 			"height": 0.4,
 			"weight": 5.7,
 			"flee_rate": 0.07,
-			"capture_rate": 0.1,
+			"capture_rate": 0.4,
 			"quick_moves": [
 				"Powder Snow",
 				"Astonish"
@@ -32317,6 +33484,8 @@
 			},
 			"default_form_id": 2147,
 			"pokedex_id": 583,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -32367,6 +33536,8 @@
 			},
 			"default_form_id": 2150,
 			"pokedex_id": 584,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -32440,6 +33611,8 @@
 			},
 			"default_form_id": 585,
 			"pokedex_id": 585,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Grass"
@@ -32490,6 +33663,8 @@
 			},
 			"default_form_id": 589,
 			"pokedex_id": 586,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Grass"
@@ -32537,6 +33712,8 @@
 			},
 			"default_form_id": 2153,
 			"pokedex_id": 587,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric",
 				"Flying"
@@ -32583,6 +33760,8 @@
 			},
 			"default_form_id": 2156,
 			"pokedex_id": 588,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug"
 			],
@@ -32634,6 +33813,8 @@
 			},
 			"default_form_id": 2159,
 			"pokedex_id": 589,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Steel"
@@ -32681,6 +33862,8 @@
 			},
 			"default_form_id": 2162,
 			"pokedex_id": 590,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Poison"
@@ -32732,6 +33915,8 @@
 			},
 			"default_form_id": 2165,
 			"pokedex_id": 591,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Poison"
@@ -32794,6 +33979,8 @@
 			},
 			"default_form_id": 2168,
 			"pokedex_id": 592,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Ghost"
@@ -32849,6 +34036,8 @@
 			},
 			"default_form_id": 2171,
 			"pokedex_id": 593,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Ghost"
@@ -32895,6 +34084,8 @@
 			},
 			"default_form_id": 2174,
 			"pokedex_id": 594,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water"
 			],
@@ -32940,6 +34131,8 @@
 			},
 			"default_form_id": 2177,
 			"pokedex_id": 595,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Electric"
@@ -32991,6 +34184,8 @@
 			},
 			"default_form_id": 2180,
 			"pokedex_id": 596,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Electric"
@@ -33039,6 +34234,8 @@
 			},
 			"default_form_id": 2183,
 			"pokedex_id": 597,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Steel"
@@ -33090,6 +34287,8 @@
 			},
 			"default_form_id": 2186,
 			"pokedex_id": 598,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Steel"
@@ -33138,6 +34337,8 @@
 			},
 			"default_form_id": 2189,
 			"pokedex_id": 599,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Steel"
 			],
@@ -33188,6 +34389,8 @@
 			},
 			"default_form_id": 2192,
 			"pokedex_id": 600,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Steel"
 			],
@@ -33238,6 +34441,8 @@
 			},
 			"default_form_id": 2195,
 			"pokedex_id": 601,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Steel"
 			],
@@ -33284,6 +34489,8 @@
 			},
 			"default_form_id": 2198,
 			"pokedex_id": 602,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric"
 			],
@@ -33332,6 +34539,8 @@
 			},
 			"default_form_id": 2201,
 			"pokedex_id": 603,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric"
 			],
@@ -33382,6 +34591,8 @@
 			},
 			"default_form_id": 2204,
 			"pokedex_id": 604,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric"
 			],
@@ -33428,6 +34639,8 @@
 			},
 			"default_form_id": 2207,
 			"pokedex_id": 605,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -33478,6 +34691,8 @@
 			},
 			"default_form_id": 2210,
 			"pokedex_id": 606,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Psychic"
 			],
@@ -33523,6 +34738,8 @@
 			},
 			"default_form_id": 2213,
 			"pokedex_id": 607,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ghost",
 				"Fire"
@@ -33574,6 +34791,8 @@
 			},
 			"default_form_id": 2216,
 			"pokedex_id": 608,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ghost",
 				"Fire"
@@ -33625,6 +34844,8 @@
 			},
 			"default_form_id": 2219,
 			"pokedex_id": 609,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ghost",
 				"Fire"
@@ -33673,6 +34894,8 @@
 			},
 			"default_form_id": 2222,
 			"pokedex_id": 610,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon"
 			],
@@ -33723,6 +34946,8 @@
 			},
 			"default_form_id": 2225,
 			"pokedex_id": 611,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon"
 			],
@@ -33773,6 +34998,8 @@
 			},
 			"default_form_id": 2228,
 			"pokedex_id": 612,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon"
 			],
@@ -33828,6 +35055,8 @@
 			},
 			"default_form_id": 2231,
 			"pokedex_id": 613,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -33878,6 +35107,8 @@
 			},
 			"default_form_id": 2234,
 			"pokedex_id": 614,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -33923,6 +35154,8 @@
 			},
 			"default_form_id": 2237,
 			"pokedex_id": 615,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ice"
 			],
@@ -33969,6 +35202,8 @@
 			},
 			"default_form_id": 2240,
 			"pokedex_id": 616,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug"
 			],
@@ -34019,6 +35254,8 @@
 			},
 			"default_form_id": 2243,
 			"pokedex_id": 617,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug"
 			],
@@ -34085,6 +35322,8 @@
 			},
 			"default_form_id": 2246,
 			"pokedex_id": 618,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Electric"
@@ -34131,6 +35370,8 @@
 			},
 			"default_form_id": 2249,
 			"pokedex_id": 619,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -34181,6 +35422,8 @@
 			},
 			"default_form_id": 2252,
 			"pokedex_id": 620,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fighting"
 			],
@@ -34226,6 +35469,8 @@
 			},
 			"default_form_id": 2255,
 			"pokedex_id": 621,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon"
 			],
@@ -34271,6 +35516,8 @@
 			},
 			"default_form_id": 2258,
 			"pokedex_id": 622,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Ghost"
@@ -34322,6 +35569,8 @@
 			},
 			"default_form_id": 2261,
 			"pokedex_id": 623,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Ghost"
@@ -34368,6 +35617,8 @@
 			},
 			"default_form_id": 2264,
 			"pokedex_id": 624,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Steel"
@@ -34419,6 +35670,8 @@
 			},
 			"default_form_id": 2267,
 			"pokedex_id": 625,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Steel"
@@ -34466,6 +35719,8 @@
 			},
 			"default_form_id": 2270,
 			"pokedex_id": 626,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal"
 			],
@@ -34512,6 +35767,8 @@
 			},
 			"default_form_id": 2273,
 			"pokedex_id": 627,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Flying"
@@ -34563,6 +35820,8 @@
 			},
 			"default_form_id": 2276,
 			"pokedex_id": 628,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Flying"
@@ -34610,6 +35869,8 @@
 			},
 			"default_form_id": 2279,
 			"pokedex_id": 629,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Flying"
@@ -34661,6 +35922,8 @@
 			},
 			"default_form_id": 2282,
 			"pokedex_id": 630,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Flying"
@@ -34708,6 +35971,8 @@
 			},
 			"default_form_id": 2285,
 			"pokedex_id": 631,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Fire"
 			],
@@ -34753,6 +36018,8 @@
 			},
 			"default_form_id": 2288,
 			"pokedex_id": 632,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Steel"
@@ -34799,6 +36066,8 @@
 			},
 			"default_form_id": 2291,
 			"pokedex_id": 633,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Dragon"
@@ -34850,6 +36119,8 @@
 			},
 			"default_form_id": 2294,
 			"pokedex_id": 634,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Dragon"
@@ -34901,6 +36172,8 @@
 			},
 			"default_form_id": 2297,
 			"pokedex_id": 635,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dark",
 				"Dragon"
@@ -34947,6 +36220,8 @@
 			},
 			"default_form_id": 2300,
 			"pokedex_id": 636,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Fire"
@@ -34998,6 +36273,8 @@
 			},
 			"default_form_id": 2303,
 			"pokedex_id": 637,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Fire"
@@ -35045,6 +36322,8 @@
 			},
 			"default_form_id": 2306,
 			"pokedex_id": 638,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Steel",
 				"Fighting"
@@ -35090,6 +36369,8 @@
 			},
 			"default_form_id": 2309,
 			"pokedex_id": 639,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Rock",
 				"Fighting"
@@ -35135,6 +36416,8 @@
 			},
 			"default_form_id": 2312,
 			"pokedex_id": 640,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Grass",
 				"Fighting"
@@ -35174,11 +36457,25 @@
 					"proto": "TORNADUS_THERIAN",
 					"attack": 238,
 					"defense": 189,
-					"stamina": 188
+					"stamina": 188,
+					"height": 1.4,
+					"weight": 63,
+					"quick_moves": [
+						"Astonish",
+						"Gust"
+					],
+					"charged_moves": [
+						"Heat Wave",
+						"Psychic",
+						"Focus Blast",
+						"Hurricane"
+					]
 				}
 			},
 			"default_form_id": 140,
 			"pokedex_id": 641,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Flying"
 			],
@@ -35218,11 +36515,25 @@
 					"proto": "THUNDURUS_THERIAN",
 					"attack": 295,
 					"defense": 161,
-					"stamina": 188
+					"stamina": 188,
+					"height": 3,
+					"weight": 61,
+					"quick_moves": [
+						"Bite",
+						"Volt Switch"
+					],
+					"charged_moves": [
+						"Sludge Wave",
+						"Thunder",
+						"Focus Blast",
+						"Thunderbolt"
+					]
 				}
 			},
 			"default_form_id": 142,
 			"pokedex_id": 642,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Electric",
 				"Flying"
@@ -35269,6 +36580,8 @@
 			},
 			"default_form_id": 2315,
 			"pokedex_id": 643,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon",
 				"Fire"
@@ -35315,6 +36628,8 @@
 			},
 			"default_form_id": 2318,
 			"pokedex_id": 644,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon",
 				"Electric"
@@ -35355,11 +36670,25 @@
 					"proto": "LANDORUS_THERIAN",
 					"attack": 289,
 					"defense": 179,
-					"stamina": 205
+					"stamina": 205,
+					"height": 1.3,
+					"weight": 68,
+					"quick_moves": [
+						"Mud Shot",
+						"Extrasensory"
+					],
+					"charged_moves": [
+						"Earthquake",
+						"Bulldoze",
+						"Stone Edge",
+						"Super Power"
+					]
 				}
 			},
 			"default_form_id": 144,
 			"pokedex_id": 645,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Ground",
 				"Flying"
@@ -35428,6 +36757,8 @@
 			},
 			"default_form_id": 146,
 			"pokedex_id": 646,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Dragon",
 				"Ice"
@@ -35469,6 +36800,8 @@
 			},
 			"default_form_id": 149,
 			"pokedex_id": 647,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Water",
 				"Fighting"
@@ -35528,6 +36861,8 @@
 			},
 			"default_form_id": 151,
 			"pokedex_id": 648,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Normal",
 				"Psychic"
@@ -35602,6 +36937,8 @@
 			},
 			"default_form_id": 593,
 			"pokedex_id": 649,
+			"genId": "5",
+			"generation": "Unova",
 			"types": [
 				"Bug",
 				"Steel"
@@ -35635,6 +36972,8 @@
 				"0": {}
 			},
 			"pokedex_id": 650,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Grass"
 			],
@@ -35673,6 +37012,8 @@
 				"0": {}
 			},
 			"pokedex_id": 651,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Grass"
 			],
@@ -35711,6 +37052,8 @@
 				"0": {}
 			},
 			"pokedex_id": 652,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Grass",
 				"Fighting"
@@ -35747,6 +37090,8 @@
 				"0": {}
 			},
 			"pokedex_id": 653,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire"
 			],
@@ -35785,6 +37130,8 @@
 				"0": {}
 			},
 			"pokedex_id": 654,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire"
 			],
@@ -35823,6 +37170,8 @@
 				"0": {}
 			},
 			"pokedex_id": 655,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire",
 				"Psychic"
@@ -35859,6 +37208,8 @@
 				"0": {}
 			},
 			"pokedex_id": 656,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Water"
 			],
@@ -35897,6 +37248,8 @@
 				"0": {}
 			},
 			"pokedex_id": 657,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Water"
 			],
@@ -35935,6 +37288,8 @@
 				"0": {}
 			},
 			"pokedex_id": 658,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Water",
 				"Dark"
@@ -35970,6 +37325,8 @@
 				"0": {}
 			},
 			"pokedex_id": 659,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Normal"
 			],
@@ -35979,7 +37336,7 @@
 			"height": 0.4,
 			"weight": 5,
 			"flee_rate": 0.1,
-			"capture_rate": 0.2,
+			"capture_rate": 0.5,
 			"quick_moves": [
 				"Mud Slap",
 				"Quick Attack"
@@ -36008,6 +37365,8 @@
 				"0": {}
 			},
 			"pokedex_id": 660,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Normal",
 				"Ground"
@@ -36043,6 +37402,8 @@
 				"0": {}
 			},
 			"pokedex_id": 661,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Normal",
 				"Flying"
@@ -36052,8 +37413,8 @@
 			"stamina": 128,
 			"height": 0.3,
 			"weight": 1.7,
-			"flee_rate": 0.1,
-			"capture_rate": 0.2,
+			"flee_rate": 0.2,
+			"capture_rate": 0.5,
 			"quick_moves": [
 				"Peck",
 				"Quick Attack"
@@ -36082,6 +37443,8 @@
 				"0": {}
 			},
 			"pokedex_id": 662,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire",
 				"Flying"
@@ -36091,8 +37454,8 @@
 			"stamina": 158,
 			"height": 0.7,
 			"weight": 16,
-			"flee_rate": 0.1,
-			"capture_rate": 0.1,
+			"flee_rate": 0.09,
+			"capture_rate": 0.25,
 			"quick_moves": [
 				"Peck",
 				"Ember",
@@ -36122,6 +37485,8 @@
 				"0": {}
 			},
 			"pokedex_id": 663,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire",
 				"Flying"
@@ -36131,8 +37496,8 @@
 			"stamina": 186,
 			"height": 1.2,
 			"weight": 24.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.05,
+			"flee_rate": 0.05,
+			"capture_rate": 0.125,
 			"quick_moves": [
 				"Peck",
 				"Fire Spin",
@@ -36158,6 +37523,8 @@
 				"0": {}
 			},
 			"pokedex_id": 664,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Bug"
 			],
@@ -36193,6 +37560,8 @@
 				"0": {}
 			},
 			"pokedex_id": 665,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Bug"
 			],
@@ -36307,6 +37676,8 @@
 				}
 			},
 			"pokedex_id": 666,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Bug",
 				"Flying"
@@ -36342,6 +37713,8 @@
 				"0": {}
 			},
 			"pokedex_id": 667,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire",
 				"Normal"
@@ -36351,8 +37724,8 @@
 			"stamina": 158,
 			"height": 0.6,
 			"weight": 13.5,
-			"flee_rate": 0.1,
-			"capture_rate": 0.3,
+			"flee_rate": 0.2,
+			"capture_rate": 0.5,
 			"quick_moves": [
 				"Fire Fang",
 				"Tackle",
@@ -36405,6 +37778,8 @@
 			},
 			"default_form_id": 2587,
 			"pokedex_id": 668,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fire",
 				"Normal"
@@ -36415,7 +37790,7 @@
 			"height": 1.5,
 			"weight": 81.5,
 			"flee_rate": 0.07,
-			"capture_rate": 0.1,
+			"capture_rate": 0.2,
 			"quick_moves": [
 				"Fire Fang",
 				"Take Down",
@@ -36459,6 +37834,8 @@
 				}
 			},
 			"pokedex_id": 669,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -36515,6 +37892,8 @@
 				}
 			},
 			"pokedex_id": 670,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -36571,6 +37950,8 @@
 				}
 			},
 			"pokedex_id": 671,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -36605,6 +37986,8 @@
 				"0": {}
 			},
 			"pokedex_id": 672,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Grass"
 			],
@@ -36642,6 +38025,8 @@
 				"0": {}
 			},
 			"pokedex_id": 673,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Grass"
 			],
@@ -36676,6 +38061,8 @@
 				"0": {}
 			},
 			"pokedex_id": 674,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fighting"
 			],
@@ -36713,6 +38100,8 @@
 				"0": {}
 			},
 			"pokedex_id": 675,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fighting",
 				"Dark"
@@ -36787,6 +38176,8 @@
 				}
 			},
 			"pokedex_id": 676,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Normal"
 			],
@@ -36820,6 +38211,8 @@
 				"0": {}
 			},
 			"pokedex_id": 677,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Psychic"
 			],
@@ -36882,6 +38275,8 @@
 			},
 			"default_form_id": 2589,
 			"pokedex_id": 678,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Psychic"
 			],
@@ -36915,6 +38310,8 @@
 				"0": {}
 			},
 			"pokedex_id": 679,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Steel",
 				"Ghost"
@@ -36949,6 +38346,8 @@
 				"0": {}
 			},
 			"pokedex_id": 680,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Steel",
 				"Ghost"
@@ -36990,6 +38389,8 @@
 				}
 			},
 			"pokedex_id": 681,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Steel",
 				"Ghost"
@@ -37020,6 +38421,8 @@
 				"0": {}
 			},
 			"pokedex_id": 682,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -37056,6 +38459,8 @@
 				"0": {}
 			},
 			"pokedex_id": 683,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -37089,6 +38494,8 @@
 				"0": {}
 			},
 			"pokedex_id": 684,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -37124,6 +38531,8 @@
 				"0": {}
 			},
 			"pokedex_id": 685,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -37157,6 +38566,8 @@
 				"0": {}
 			},
 			"pokedex_id": 686,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dark",
 				"Psychic"
@@ -37194,6 +38605,8 @@
 				"0": {}
 			},
 			"pokedex_id": 687,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dark",
 				"Psychic"
@@ -37228,6 +38641,8 @@
 				"0": {}
 			},
 			"pokedex_id": 688,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Water"
@@ -37266,6 +38681,8 @@
 				"0": {}
 			},
 			"pokedex_id": 689,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Water"
@@ -37301,6 +38718,8 @@
 				"0": {}
 			},
 			"pokedex_id": 690,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Poison",
 				"Water"
@@ -37329,6 +38748,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"buddy_group_number": 2,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
@@ -37340,6 +38760,8 @@
 				"0": {}
 			},
 			"pokedex_id": 691,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Poison",
 				"Dragon"
@@ -37364,6 +38786,7 @@
 			],
 			"legendary": false,
 			"mythic": false,
+			"buddy_group_number": 3,
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
@@ -37375,6 +38798,8 @@
 				"0": {}
 			},
 			"pokedex_id": 692,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Water"
 			],
@@ -37412,6 +38837,8 @@
 				"0": {}
 			},
 			"pokedex_id": 693,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Water"
 			],
@@ -37445,6 +38872,8 @@
 				"0": {}
 			},
 			"pokedex_id": 694,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Electric",
 				"Normal"
@@ -37483,6 +38912,8 @@
 				"0": {}
 			},
 			"pokedex_id": 695,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Electric",
 				"Normal"
@@ -37518,6 +38949,8 @@
 				"0": {}
 			},
 			"pokedex_id": 696,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Dragon"
@@ -37556,6 +38989,8 @@
 				"0": {}
 			},
 			"pokedex_id": 697,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Dragon"
@@ -37591,6 +39026,8 @@
 				"0": {}
 			},
 			"pokedex_id": 698,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Ice"
@@ -37630,6 +39067,8 @@
 				"0": {}
 			},
 			"pokedex_id": 699,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Ice"
@@ -37666,6 +39105,8 @@
 				"0": {}
 			},
 			"pokedex_id": 700,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -37698,6 +39139,8 @@
 				"0": {}
 			},
 			"pokedex_id": 701,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fighting",
 				"Flying"
@@ -37733,6 +39176,8 @@
 				"0": {}
 			},
 			"pokedex_id": 702,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Electric",
 				"Fairy"
@@ -37766,6 +39211,8 @@
 				"0": {}
 			},
 			"pokedex_id": 703,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Rock",
 				"Fairy"
@@ -37799,6 +39246,8 @@
 				"0": {}
 			},
 			"pokedex_id": 704,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dragon"
 			],
@@ -37836,6 +39285,8 @@
 				"0": {}
 			},
 			"pokedex_id": 705,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dragon"
 			],
@@ -37874,6 +39325,8 @@
 				"0": {}
 			},
 			"pokedex_id": 706,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dragon"
 			],
@@ -37907,6 +39360,8 @@
 				"0": {}
 			},
 			"pokedex_id": 707,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Steel",
 				"Fairy"
@@ -37942,6 +39397,8 @@
 				"0": {}
 			},
 			"pokedex_id": 708,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ghost",
 				"Grass"
@@ -37980,6 +39437,8 @@
 				"0": {}
 			},
 			"pokedex_id": 709,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ghost",
 				"Grass"
@@ -38028,6 +39487,8 @@
 				}
 			},
 			"pokedex_id": 710,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ghost",
 				"Grass"
@@ -38076,6 +39537,8 @@
 				}
 			},
 			"pokedex_id": 711,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ghost",
 				"Grass"
@@ -38104,6 +39567,8 @@
 				"0": {}
 			},
 			"pokedex_id": 712,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ice"
 			],
@@ -38141,6 +39606,8 @@
 				"0": {}
 			},
 			"pokedex_id": 713,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Ice"
 			],
@@ -38175,6 +39642,8 @@
 				"0": {}
 			},
 			"pokedex_id": 714,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Flying",
 				"Dragon"
@@ -38184,8 +39653,8 @@
 			"stamina": 120,
 			"height": 0.5,
 			"weight": 8,
-			"flee_rate": 0.1,
-			"capture_rate": 0.3,
+			"flee_rate": 0.09,
+			"capture_rate": 0.4,
 			"quick_moves": [
 				"Wing Attack",
 				"Bite"
@@ -38214,6 +39683,8 @@
 				"0": {}
 			},
 			"pokedex_id": 715,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Flying",
 				"Dragon"
@@ -38256,6 +39727,8 @@
 				}
 			},
 			"pokedex_id": 716,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Fairy"
 			],
@@ -38289,6 +39762,8 @@
 				"0": {}
 			},
 			"pokedex_id": 717,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dark",
 				"Flying"
@@ -38335,6 +39810,8 @@
 				}
 			},
 			"pokedex_id": 718,
+			"genId": "6",
+			"generation": "Kalos",
 			"types": [
 				"Dragon",
 				"Ground"
@@ -38414,6 +39891,8 @@
 			},
 			"default_form_id": 2321,
 			"pokedex_id": 808,
+			"genId": "7",
+			"generation": "Alola",
 			"types": [
 				"Steel"
 			],
@@ -38461,6 +39940,8 @@
 			},
 			"default_form_id": 2324,
 			"pokedex_id": 809,
+			"genId": "7",
+			"generation": "Alola",
 			"types": [
 				"Steel"
 			],
@@ -38506,6 +39987,8 @@
 			},
 			"default_form_id": 2501,
 			"pokedex_id": 862,
+			"genId": "8",
+			"generation": "Galar",
 			"types": [
 				"Dark",
 				"Normal"
@@ -38553,6 +40036,8 @@
 			},
 			"default_form_id": 2504,
 			"pokedex_id": 863,
+			"genId": "8",
+			"generation": "Galar",
 			"types": [
 				"Steel"
 			],
@@ -38616,6 +40101,8 @@
 			},
 			"default_form_id": 2510,
 			"pokedex_id": 865,
+			"genId": "8",
+			"generation": "Galar",
 			"types": [
 				"Fighting"
 			],
@@ -38662,6 +40149,8 @@
 			},
 			"default_form_id": 2513,
 			"pokedex_id": 866,
+			"genId": "8",
+			"generation": "Galar",
 			"types": [
 				"Ice",
 				"Psychic"
@@ -38710,6 +40199,8 @@
 			},
 			"default_form_id": 2516,
 			"pokedex_id": 867,
+			"genId": "8",
+			"generation": "Galar",
 			"types": [
 				"Ground",
 				"Ghost"
@@ -40618,7 +42109,10 @@
 			"power": 95
 		},
 		"343": {
-			"name": "Leaf Storm"
+			"name": "Leaf Storm",
+			"proto": "V0343_MOVE_LEAF_STORM",
+			"type": "Grass",
+			"power": 130
 		},
 		"344": {
 			"name": "Tri Attack",
@@ -40804,16 +42298,56 @@
 			"text": "Earn {0} Souvenirs from your Buddy"
 		},
 		"39": {
-			"prototext": "",
+			"prototext": "QUEST_USE_INCENSE",
 			"text": "Use Incense {0} times"
 		},
+		"40": {
+			"prototext": "QUEST_BUDDY_FIND_SOUVENIR",
+			"text": "QUEST_BUDDY_FIND_SOUVENIR"
+		},
+		"41": {
+			"prototext": "QUEST_COLLECT_AS_REWARDS",
+			"text": "QUEST_COLLECT_AS_REWARDS"
+		},
+		"42": {
+			"prototext": "QUEST_WALK",
+			"text": "QUEST_WALK"
+		},
 		"43": {
-			"prototext": "",
+			"prototext": "QUEST_MEGA_EVOLVE_POKEMON",
 			"text": "Mega-Evolve {0} Pokemon"
 		},
+		"44": {
+			"prototext": "QUEST_GET_STARDUST",
+			"text": "QUEST_GET_STARDUST"
+		},
+		"45": {
+			"prototext": "QUEST_MINI_COLLECTION",
+			"text": "QUEST_MINI_COLLECTION"
+		},
 		"46": {
-			"prototext": "",
+			"prototext": "QUEST_GEOTARGETED_AR_SCAN",
 			"text": "AR-Scan {0} pokéstop(s)"
+		},
+		"50": {
+			"prototext": "QUEST_BUDDY_EVOLUTION_WALK",
+			"text": "QUEST_BUDDY_EVOLUTION_WALK"
+		},
+		"51": {
+			"prototext": "QUEST_GBL_RANK",
+			"text": "QUEST_GBL_RANK"
+		},
+		"53": {
+			"prototext": "QUEST_CHARGE_ATTACK",
+			"text": "QUEST_CHARGE_ATTACK"
+		},
+		"54": {
+			"prototext": "QUEST_CHANGE_POKEMON_FORM",
+			"text": "QUEST_CHANGE_POKEMON_FORM"
+		},
+		"55": {
+			"prototext": "QUEST_BATTLE_EVENT_NPC",
+			"text": "QUEST_BATTLE_EVENT_NPC"
 		}
 	},
 	"quest_conditions": {
@@ -41123,8 +42657,7 @@
 			"encounters": {
 				"first": [
 					"107_00",
-					"066_00",
-					"106_00"
+					"066_00"
 				],
 				"second": [
 					"067_00"
@@ -41200,19 +42733,14 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"345_00",
-					"187_00",
-					"043_00"
+					"102_00"
 				],
 				"second": [
-					"044_00",
-					"002_00",
-					"070_00"
+					"102_00",
+					"103_00"
 				],
 				"third": [
-					"275_00",
-					"071_00",
-					"045_00"
+					"103_00"
 				]
 			}
 		},
@@ -41251,8 +42779,8 @@
 				],
 				"second": [
 					"091_00",
-					"364_00",
-					"220_00"
+					"220_00",
+					"364_00"
 				],
 				"third": [
 					"091_00",
@@ -41330,19 +42858,14 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"102_00",
-					"202_00",
-					"079_00"
+					"102_00"
 				],
 				"second": [
-					"064_00",
-					"096_00",
-					"281_00"
+					"102_00",
+					"103_00"
 				],
 				"third": [
-					"103_00",
-					"281_00",
-					"097_00"
+					"103_00"
 				]
 			}
 		},
@@ -41478,7 +43001,7 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"150_00"
+					"145_00"
 				]
 			}
 		},
@@ -41539,6 +43062,42 @@
 		"50": {
 			"type": "Electric",
 			"grunt": "Male"
+		},
+		"500": {
+			"type": "LenTao9",
+			"grunt": ""
+		},
+		"501": {
+			"type": "oneslapguy",
+			"grunt": ""
+		},
+		"502": {
+			"type": "DieCurryWurst",
+			"grunt": ""
+		},
+		"503": {
+			"type": "DieCurryWurst",
+			"grunt": ""
+		},
+		"504": {
+			"type": "Juanevoli",
+			"grunt": ""
+		},
+		"506": {
+			"type": "CashmereFeline",
+			"grunt": ""
+		},
+		"507": {
+			"type": "enjoyryde",
+			"grunt": ""
+		},
+		"509": {
+			"type": "Telli997",
+			"grunt": ""
+		},
+		"510": {
+			"type": "malibuleo",
+			"grunt": ""
 		}
 	},
 	"items": {
