@@ -21,7 +21,8 @@
                 "fill-opacity": 0.5, 
                 "stroke": "#352BFF", 
                 "stroke-width": 2.0, 
-                "fill": "#0651FF"
+                "fill": "#0651FF",
+                "hidden": false
             }
         }
     ]
