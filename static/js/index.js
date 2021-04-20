@@ -3663,8 +3663,8 @@ function getGymPopupContent (gym) {
     if (isRaid) {
         content += `<b>${i18n('popup_raid_end')}:</b> ${raidEndDate.toLocaleTimeString(dateTimeLocale)} (${getTimeUntil(raidEndDate)})<br>`;
         if (gym.raid_pokemon_id > 0) {
-            content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
-            content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
+            content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
+            content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
     }
     
