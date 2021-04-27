@@ -38175,6 +38175,7 @@
 					"proto": "FURFROU_PHARAOH"
 				}
 			},
+			"default_form_id": 2629,
 			"pokedex_id": 676,
 			"genId": "6",
 			"generation": "Kalos",
@@ -38503,7 +38504,7 @@
 			"defense": 119,
 			"stamina": 158,
 			"height": 0.4,
-			"weight": 2.5,
+			"weight": 3.5,
 			"flee_rate": 0.1,
 			"capture_rate": 0.2,
 			"quick_moves": [
@@ -39732,9 +39733,9 @@
 			"types": [
 				"Fairy"
 			],
-			"attack": 275,
-			"defense": 203,
-			"stamina": 270,
+			"attack": 250,
+			"defense": 185,
+			"stamina": 246,
 			"height": 3,
 			"weight": 215,
 			"flee_rate": 0.1,
@@ -39768,9 +39769,9 @@
 				"Dark",
 				"Flying"
 			],
-			"attack": 275,
-			"defense": 203,
-			"stamina": 270,
+			"attack": 250,
+			"defense": 185,
+			"stamina": 246,
 			"height": 5.8,
 			"weight": 203,
 			"flee_rate": 0.1,
