@@ -826,7 +826,7 @@ const getData = async (perms, filter) => {
         });
 
         if (permShowLures) {
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
                 pokestopData.push({
                     'id': {
