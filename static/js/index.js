@@ -950,7 +950,7 @@ function loadStorage () {
             defaultPokestopFilter.normal = { show: true, size: 'normal' };
         }
         let i;
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 6; i++) {
             if (defaultPokestopFilter['l' + i] === undefined) {
                 defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -964,7 +964,7 @@ function loadStorage () {
             pokestopFilter.normal = { show: true, size: 'normal' };
         }
         let i;
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 6; i++) {
             if (pokestopFilter['l' + i] === undefined) {
                 pokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -2097,7 +2097,7 @@ function loadData () {
         if (pokestopFilter.normal.show === false) {
             pokestopFilterExclude.push('normal');
         }
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             if (pokestopFilter['l' + i].show === false) {
                 pokestopFilterExclude.push('l' + i);
             }
@@ -3385,7 +3385,9 @@ function getPokestopPopupContent (pokestop) {
                         ? 'lure-mossy'
                         : pokestop.lure_id === 504
                             ? 'lure-magnetic'
-                            : 'lure-normal')
+                            : pokestop.lure_id === 505
+                                ? 'lure-rainy'
+                                : 'lure-normal')
             : '';
         content += '<img src="' + pokestop.url.replace('http://', 'https://') + '" class="circle-image ' + lureClass + '"/><br><br>';
     }
@@ -5930,6 +5932,8 @@ function getLureIconId (lureId) {
         return 3;
     case 504:
         return 4;
+    case 505:
+        return 5;
     }
     return 1;
 }
@@ -7856,7 +7860,7 @@ function registerFilterButtonCallbacks() {
     $('#reset-pokestop-filter').on('click', function (event) {
         const defaultPokestopFilter = {};
         defaultPokestopFilter.normal = { show: true, size: 'normal' };
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
         }
 
@@ -7869,7 +7873,7 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-pokestop-filter').on('click', function (event) {
         const defaultPokestopFilter = {};
         defaultPokestopFilter.normal = { show: false, size: pokestopFilterNew.normal.size };
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
         }
 
