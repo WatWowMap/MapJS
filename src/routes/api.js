@@ -1051,8 +1051,8 @@ const getData = async (perms, filter) => {
     return data;
 };
 
-const getSearch = async (filter) => {
-    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style);
+const getSearch = async (perms, filter) => {
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style, perms);
     return searchData;
 };
 
