@@ -3734,7 +3734,8 @@ function degreesToCardinal (d) {
 
 function getWeatherPopupContent (weather) {
   const weatherName = i18n(`weather_${weatherTypes[weather.gameplay_condition].name}`);
-  const weatherType = weatherTypes[weather.gameplay_condition].types.map(type => i18n(type));
+  const weatherType = weatherTypes[weather.gameplay_condition].types;
+  const weatherTypeTranslated = weatherType.map(type => i18n(type));
   const weatherTypeIcons = weatherType.map(type => {
     return `<img class='weatherTypeIcons' src=/img/type/${type.toLowerCase()}.png alt=${type}/>`
   })
@@ -3757,7 +3758,7 @@ function getWeatherPopupContent (weather) {
   const content = `
     <center>
       <h6><b>${weatherName}</b></h6>
-      <b>${i18n('popup_boosted')}:</b><br>${weatherType.join(', ')}<br>
+      <b>${i18n('popup_boosted')}:</b><br>${weatherTypeTranslated.join(', ')}<br>
       ${weatherTypeIcons.join(' ')}<br>
       ${extraContent}
       <b>${i18n('popup_last_updated')}:</b> ${updatedDate.toLocaleTimeString(dateTimeLocale)} (${getTimeSince(updatedDate)})
@@ -3803,8 +3804,8 @@ function getPortalPopupContent(portal) {
 function getScanAreaPopupContent(name, size) {
     let content = `
       <center>
-        <h6>Area: <b>${name}</b></h6>
-        Size: ${size} km<sup>2</sup>
+        <h6>${i18n('popup_area')} <b>${name}</b></h6>
+        ${i18n('popup_size')} ${size} km<sup>2</sup>
       </center>`;
     return content;
 }
@@ -4578,9 +4579,9 @@ function getDevicePopupContent (device) {
     const ts = Math.round((new Date()).getTime() / 1000);
     const isOffline = isDeviceOffline(device, ts);
     const content = `<center><h6><b>${device.uuid}</b></h6></center><br>
-        <b>${i18n('popup_instance')}:</b>${device.instance_name}<br>
-        <b>${i18n('popup_last_seen')}:</b>${lastSeen}<br>
-        <b>${i18n('popup_status')}:</b>(${isOffline ? i18n('popup_offline') : i18n('popup_online')})`;
+        <b>${i18n('popup_instance')}: </b>${device.instance_name}<br>
+        <b>${i18n('popup_last_seen')}: </b>${lastSeen}<br>
+        <b>${i18n('popup_status')}: </b>(${isOffline ? i18n('popup_offline') : i18n('popup_online')})`;
     return content;
 }
 
