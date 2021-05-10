@@ -3804,8 +3804,8 @@ function getPortalPopupContent(portal) {
 function getScanAreaPopupContent(name, size) {
     let content = `
       <center>
-        <h6>${i18n('popup_area')} <b>${name}</b></h6>
-        ${i18n('popup_size')} ${size} km<sup>2</sup>
+        <h6>${i18n('popup_area')}: <b>${name}</b></h6>
+        ${i18n('popup_size')}: ${size} km<sup>2</sup>
       </center>`;
     return content;
 }

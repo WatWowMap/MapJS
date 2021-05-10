@@ -350,5 +350,7 @@
     "and_explanation": "Operator ORAZ do łączenia warunków ze sobą",
     "and_result": "Wszystkie Pokémony z: 80-100% IV ORAZ poziomem pomiędzy 25 a 30 ORAZ statystykami 15/10/10",
     "advanced": "Zaawansowane",
-    "advanced_result": "Zwraca wszystkie Pokémony które spełniają warunek: (Od 0 do 1 ataku ORAZ 15 obrony ORAZ 15 staminy ORAZ (CP pomiędzy 1400 a 1500 ALBO CP pomiędzy 2400 a 2500)) ALBO (Poziomem pomiędzy 34 a 35 ALBO 90-100% IV) ALBO (Pozycją pomiędzy 1 a 3 Great lub Ultra ligi)."
+    "advanced_result": "Zwraca wszystkie Pokémony które spełniają warunek: (Od 0 do 1 ataku ORAZ 15 obrony ORAZ 15 staminy ORAZ (CP pomiędzy 1400 a 1500 ALBO CP pomiędzy 2400 a 2500)) ALBO (Poziomem pomiędzy 34 a 35 ALBO 90-100% IV) ALBO (Pozycją pomiędzy 1 a 3 Great lub Ultra ligi).",
+    "popup_area": "Obszar",
+    "popup_size": "Powierzchnia"
 }
