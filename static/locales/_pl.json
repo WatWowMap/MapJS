@@ -346,9 +346,9 @@
     "or": "ALBO",
     "or_explanation": "Operator ALBO do ustawiania oddzielnych warunków",
     "example": "Przykład",
-    "or_result": "Zwraca wszystkie Pokémony które spełniają jeden z warunków 95-100% IV, L35 lub CP pomiędzy 2500 a 4000",
+    "or_result": "Zwraca wszystkie Pokémony które spełniają jeden z warunków: 95-100% IV ALBO Poziom 35 ALBO CP pomiędzy 2500 a 4000",
     "and_explanation": "Operator ORAZ do łączenia warunków ze sobą",
-    "and_result": "Wszystkie Pokémony z 80-100% IV, poziomem pomiędzy 25 a 30 oraz statystykami 15/10/10",
+    "and_result": "Wszystkie Pokémony z: 80-100% IV ORAZ poziomem pomiędzy 25 a 30 ORAZ statystykami 15/10/10",
     "advanced": "Zaawansowane",
-    "advanced_result": "Zwraca wszystkie Pokémony które spełniają warunek (Od 0 do 1 ataku ORAZ 15 obrony ORAZ 15 staminy ORAZ (CP pomiędzy 1400 a 1500 ALBO CP pomiędzy 2400 a 2500)) ALBO (Poziomem pomiędzy 34 a 35 ALBO IV pomiędzy 90-100%) ALBO (Pozycją pomiędzy 1 a 3 Great lub Ultra ligi)."
+    "advanced_result": "Zwraca wszystkie Pokémony które spełniają warunek: (Od 0 do 1 ataku ORAZ 15 obrony ORAZ 15 staminy ORAZ (CP pomiędzy 1400 a 1500 ALBO CP pomiędzy 2400 a 2500)) ALBO (Poziomem pomiędzy 34 a 35 ALBO 90-100% IV) ALBO (Pozycją pomiędzy 1 a 3 Great lub Ultra ligi)."
 }
