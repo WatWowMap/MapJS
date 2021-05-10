@@ -19,7 +19,7 @@ router.post('/get_data', async (req, res) => {
 });
 
 router.post('/search', async (req, res) => {
-    const data = await getSearch(req.body);
+    const data = await getSearch(req.session.perms, req.body);
     res.json({ data: data });
 });
 
@@ -1052,7 +1052,8 @@ const getData = async (perms, filter) => {
 };
 
 const getSearch = async (perms, filter) => {
-    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style, perms);
+    const permAreaRestrictions = perms ? perms.areaRestrictions : [];
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style, permAreaRestrictions);
     return searchData;
 };
 
