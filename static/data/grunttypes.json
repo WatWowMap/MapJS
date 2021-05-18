@@ -13,7 +13,13 @@
     },
     "4": {
         "type": "Mixed",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "5": {
         "type": "Mixed",
@@ -22,50 +28,68 @@
         "encounters": {
             "first": [143],
             "second": [62, 143, 282],
-            "third": [130, 143, 149]
+            "third": [130, 149]
         }
     },
     "6": {
         "type": "Bug",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "7": {
         "type": "Bug",
         "grunt": "Male",
         "second_reward": false,
         "encounters": {
-            "first": [48, 213, 347],
+            "first": [213, 347, 451],
             "second": [49, 127, 212],
             "third": [15, 123, 212]
         }
     },
     "8": {
         "type": "Ghost",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "9": {
         "type": "Ghost",
         "grunt": "Male",
         "second_reward": false,
         "encounters": {
-            "first": [302, 353, 355],
-            "second": [302, 354, 356],
-            "third": [302, 354, 477]
+            "first": [],
+            "second": [],
+            "third": []
         }
     },
     "10": {
         "type": "Dark",
         "grunt": "Female",
-        "second_reward": false,
+        "second_reward": true,
         "encounters": {
-            "first": [302, 434],
-            "second": [274, 435],
+            "first": [198, 261],
+            "second": [262, 302],
             "third": [275, 332]
         }
     },
     "11": {
         "type": "Dark",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "12": {
         "type": "Dragon",
@@ -73,81 +97,129 @@
         "second_reward": false,
         "encounters": {
             "first": [147],
-            "second": [148, 330],
-            "third": [130, 148, 149]
+            "second": [148],
+            "third": [130]
         }
     },
     "13": {
         "type": "Dragon",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "14": {
         "type": "Fairy",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [209],
+            "second": [209, 210],
+            "third": [210]
+        }
     },
     "15": {
         "type": "Fairy",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "16": {
         "type": "Fighting",
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [66, 107],
+            "first": [66, 296],
             "second": [67],
-            "third": [67, 106]
+            "third": [106, 107, 297]
         }
     },
     "17": {
         "type": "Fighting",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "18": {
         "type": "Fire",
         "grunt": "Female",
         "second_reward": true,
         "encounters": {
-            "first": [37, 228],
+            "first": [37, 126, 228],
             "second": [38, 126, 229],
             "third": [5, 38, 59]
         }
     },
     "19": {
         "type": "Fire",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "20": {
         "type": "Flying",
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [42, 207, 227],
-            "second": [42, 123, 169],
+            "first": [41, 396],
+            "second": [42, 397],
             "third": [130, 149, 169]
         }
     },
     "21": {
         "type": "Flying",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "22": {
         "type": "Grass",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "23": {
         "type": "Grass",
         "grunt": "Male",
         "second_reward": true,
         "encounters": {
-            "first": [43, 187, 345],
-            "second": [2, 44, 70],
+            "first": [43, 114, 187],
+            "second": [44, 114, 188],
             "third": [45, 71, 275]
         }
     },
     "24": {
         "type": "Ground",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "25": {
         "type": "Ground",
@@ -155,7 +227,7 @@
         "second_reward": false,
         "encounters": {
             "first": [50, 220],
-            "second": [105, 247, 329],
+            "second": [105, 329],
             "third": [330, 472]
         }
     },
@@ -166,24 +238,48 @@
         "encounters": {
             "first": [363, 459],
             "second": [91, 220, 364],
-            "third": [91, 131, 460]
+            "third": [131, 460]
         }
     },
     "27": {
         "type": "Ice",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "28": {
         "type": "Metal",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "29": {
         "type": "Metal",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "30": {
         "type": "Normal",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "31": {
         "type": "Normal",
@@ -200,32 +296,50 @@
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [29, 32, 41],
-            "second": [88, 89],
+            "first": [29, 88, 451],
+            "second": [30, 33],
             "third": [30, 89, 110]
         }
     },
     "33": {
         "type": "Poison",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "34": {
         "type": "Psychic",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "35": {
         "type": "Psychic",
         "grunt": "Male",
         "second_reward": false,
         "encounters": {
-            "first": [79, 102, 202],
+            "first": [79, 202],
             "second": [64, 96, 281],
             "third": [97, 103, 281]
         }
     },
     "36": {
         "type": "Rock",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "37": {
         "type": "Rock",
@@ -242,8 +356,8 @@
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [60, 90, 194],
-            "second": [55, 61, 259],
+            "first": [60, 116, 363],
+            "second": [195, 259],
             "third": [62, 186]
         }
     },
@@ -254,21 +368,27 @@
         "encounters": {
             "first": [129],
             "second": [129],
-            "third": [129, 130]
+            "third": [129]
         }
     },
     "40": {
         "type": "Player Team Leader",
-        "grunt": ""
+        "grunt": "",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "41": {
         "type": "Executive Cliff",
         "grunt": "",
         "second_reward": false,
         "encounters": {
-            "first": [142],
-            "second": [199, 346, 475],
-            "third": [248, 473, 477]
+            "first": [273],
+            "second": [62, 99, 297],
+            "third": [248, 389]
         }
     },
     "42": {
@@ -276,9 +396,9 @@
         "grunt": "",
         "second_reward": false,
         "encounters": {
-            "first": [374],
-            "second": [282, 306, 392],
-            "third": [212, 348, 373]
+            "first": [48],
+            "second": [169, 310],
+            "third": [45, 212, 462]
         }
     },
     "43": {
@@ -286,9 +406,9 @@
         "grunt": "",
         "second_reward": false,
         "encounters": {
-            "first": [318],
-            "second": [429, 450, 474],
-            "third": [229, 330, 365]
+            "first": [215],
+            "second": [181, 210, 472],
+            "third": [229, 230, 452]
         }
     },
     "44": {
@@ -298,12 +418,18 @@
         "encounters": {
             "first": [53],
             "second": [34, 115, 445],
-            "third": [150]
+            "third": [146]
         }
     },
     "45": {
         "type": "Decoy",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "46": {
         "type": "Decoy",
@@ -317,7 +443,13 @@
     },
     "47": {
         "type": "Ghost",
-        "grunt": "Female"
+        "grunt": "Female",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     },
     "48": {
         "type": "Ghost",
@@ -334,13 +466,19 @@
         "grunt": "Female",
         "second_reward": false,
         "encounters": {
-            "first": [81, 125, 179],
-            "second": [82, 125, 180],
+            "first": [125, 179, 309],
+            "second": [125, 180],
             "third": [125, 181]
         }
     },
     "50": {
         "type": "Electric",
-        "grunt": "Male"
+        "grunt": "Male",
+        "second_reward": false,
+        "encounters": {
+            "first": [],
+            "second": [],
+            "third": []
+        }
     }
 }
