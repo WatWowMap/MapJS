@@ -955,7 +955,7 @@ function loadStorage () {
             defaultPokestopFilter.normal = { show: true, size: 'normal' };
         }
         let i;
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 6; i++) {
             if (defaultPokestopFilter['l' + i] === undefined) {
                 defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -969,7 +969,7 @@ function loadStorage () {
             pokestopFilter.normal = { show: true, size: 'normal' };
         }
         let i;
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 6; i++) {
             if (pokestopFilter['l' + i] === undefined) {
                 pokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -2113,7 +2113,7 @@ function loadData () {
         if (pokestopFilter.normal.show === false) {
             pokestopFilterExclude.push('normal');
         }
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             if (pokestopFilter['l' + i].show === false) {
                 pokestopFilterExclude.push('l' + i);
             }
@@ -2690,10 +2690,12 @@ function loadScanAreaPolygons () {
     try {
         let areaGeoPolys = L.geoJson(scanAreasDb, {
             onEachFeature: function(features, featureLayer) {
-                let coords = features.geometry.coordinates[0];
-                let areaSize = geodesicArea(coords);
-                let size = convertAreaToSqkm(areaSize).toFixed(2);
-                featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
+                if (!features.properties.hidden) {
+                    const coords = features.geometry.coordinates[0];
+                    const areaSize = geodesicArea(coords);
+                    const size = convertAreaToSqkm(areaSize).toFixed(2);
+                    featureLayer.bindPopup(getScanAreaPopupContent(features.properties.name, size));
+                }
             }
         });
         scanAreaLayer.addLayer(areaGeoPolys);
@@ -3402,7 +3404,9 @@ function getPokestopPopupContent (pokestop) {
                         ? 'lure-mossy'
                         : pokestop.lure_id === 504
                             ? 'lure-magnetic'
-                            : 'lure-normal')
+                            : pokestop.lure_id === 505
+                                ? 'lure-rainy'
+                                : 'lure-normal')
             : '';
         content += '<img src="' + pokestop.url.replace('http://', 'https://') + '" class="circle-image ' + lureClass + '"/><br><br>';
     }
@@ -3680,8 +3684,8 @@ function getGymPopupContent (gym) {
     if (isRaid) {
         content += `<b>${i18n('popup_raid_end')}:</b> ${raidEndDate.toLocaleTimeString(dateTimeLocale)} (${getTimeUntil(raidEndDate)})<br>`;
         if (gym.raid_pokemon_id > 0) {
-            content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
-            content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filters_weather')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
+            content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
+            content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
     }
     
@@ -5949,6 +5953,8 @@ function getLureIconId (lureId) {
         return 3;
     case 504:
         return 4;
+    case 505:
+        return 5;
     }
     return 1;
 }
@@ -7930,7 +7936,7 @@ function registerFilterButtonCallbacks() {
     $('#reset-pokestop-filter').on('click', function (event) {
         const defaultPokestopFilter = {};
         defaultPokestopFilter.normal = { show: true, size: 'normal' };
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
         }
 
@@ -7943,7 +7949,7 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-pokestop-filter').on('click', function (event) {
         const defaultPokestopFilter = {};
         defaultPokestopFilter.normal = { show: false, size: pokestopFilterNew.normal.size };
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
         }
 

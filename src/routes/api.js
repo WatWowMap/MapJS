@@ -20,7 +20,7 @@ router.post('/get_data', async (req, res) => {
 });
 
 router.post('/search', async (req, res) => {
-    const data = await getSearch(req.body);
+    const data = await getSearch(req.session.perms, req.body);
     res.json({ data: data });
 });
 
@@ -860,7 +860,7 @@ const getData = async (perms, filter) => {
         });
 
         if (permShowLures) {
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const pokestopLure = i18n.__('filter_pokestop_lure_' + i);
                 pokestopData.push({
                     'id': {
@@ -1085,8 +1085,9 @@ const getData = async (perms, filter) => {
     return data;
 };
 
-const getSearch = async (filter) => {
-    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style);
+const getSearch = async (perms, filter) => {
+    const permAreaRestrictions = perms ? perms.areaRestrictions : [];
+    const searchData = await map.getSearchData(filter.lat, filter.lon, filter.id, filter.value, filter.icon_style, permAreaRestrictions);
     return searchData;
 };
 

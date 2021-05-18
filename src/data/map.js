@@ -1178,12 +1178,13 @@ const getPortals = async (minLat, maxLat, minLon, maxLon, portalFilterExclude = 
 };
 
 /* eslint-disable no-case-declarations */
-const getSearchData = async (lat, lon, id, value, iconStyle) => {
+const getSearchData = async (lat, lon, id, value, iconStyle, areaRestrictions) => {
     let sql = '';
     let args = [lat, lon, lat];
     let useDb;
     let conditions = [];
     let sanitizedValue = sanitizer.sanitize(value);
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
     sanitizedValue = sanitizedValue.toLowerCase();
     switch (id) {
         case 'search-reward':
@@ -1308,7 +1309,7 @@ const getSearchData = async (lat, lon, id, value, iconStyle) => {
             useDb = 'pokestop';
             break;
     }
-    sql += ` ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
+    sql += `${areaRestrictionsSQL} ORDER BY distance LIMIT ${config.searchMaxResults || 20}`;
     let results = await dbSelection(useDb).query(sql, args);
     if (results && results.length > 0) {
         switch (id) {
