@@ -58,6 +58,9 @@ app.use(compression());
 // Static paths
 app.use(express.static(path.resolve(__dirname, '../static')));
 
+// favicon for browsers
+app.use('/favicon.ico', express.static(path.resolve(__dirname, '../static/custom/favicon.ico')));
+
 // Body parser middlewares
 app.use(express.json({ limit: '500mb' }));
 app.use(express.urlencoded({ extended: false, limit: '500mb' }));
