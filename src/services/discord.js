@@ -99,6 +99,7 @@ class DiscordClient {
         const [guilds, guildsFull] = await this.getGuilds();
         if (config.discord.allowedUsers.includes(user.id)) {
             Object.keys(perms).forEach((key) => perms[key] = true);
+            perms.areaRestrictions = [];
             console.log(`User ${user.username}#${user.discriminator} (${user.id}) in allowed users list, skipping guild and role check.`);
             return perms;
         }
