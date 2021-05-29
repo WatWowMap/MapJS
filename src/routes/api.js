@@ -621,7 +621,7 @@ const getData = async (perms, filter) => {
             },
             'filter': generateShowHideButtons('battle', 'gym-battle'),
             'size': generateSizeButtons('battle', 'gym-battle'),
-        'type': gymOptionsString
+            'type': gymOptionsString
         });
 
         // AR-scan gyms
