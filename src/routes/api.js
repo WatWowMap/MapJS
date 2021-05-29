@@ -621,6 +621,22 @@ const getData = async (perms, filter) => {
             },
             'filter': generateShowHideButtons('battle', 'gym-battle'),
             'size': generateSizeButtons('battle', 'gym-battle'),
+        'type': gymOptionsString
+        });
+
+        // AR-scan gyms
+        gymData.push({
+            'id': {
+                'formatted': utils.zeroPad(7, 3),
+                'sort': 7
+            },
+            'name': i18n.__('filter_ar_scan') ,
+            'image': {
+                type: 'img',
+                path: '/misc/ar-gym.png'
+            },
+            'filter': generateShowHideButtons('ar', 'gym-ar'),
+            'size': generateSizeButtons('ar', 'gym-ar'),
             'type': gymOptionsString
         });
 
@@ -807,6 +823,8 @@ const getData = async (perms, filter) => {
     }
 
     if (permViewMap && showPokestopFilter) {
+        const pokestopLuresString = i18n.__('filter_pokestop_lures');
+        const pokestopPokestopsString = i18n.__('filter_pokestop_pokestops');
         const pokestopOptionsString = i18n.__('filter_pokestop_options');
         const pokestopNormal = i18n.__('filter_pokestop_normal');
         const pokestopData = [];
@@ -822,7 +840,7 @@ const getData = async (perms, filter) => {
             },
             'filter': generateShowHideButtons('normal', 'pokestop-normal'),
             'size': generateSizeButtons('normal', 'pokestop-normal'),
-            'type': pokestopOptionsString
+            'type': pokestopPokestopsString
         });
 
         if (permShowLures) {
@@ -840,10 +858,24 @@ const getData = async (perms, filter) => {
                     },
                     'filter': generateShowHideButtons(i, 'pokestop-lure'),
                     'size': generateSizeButtons(i, 'pokestop-lure'),
-                    'type': pokestopOptionsString
+                    'type': pokestopLuresString
                 });
             }
         }
+        pokestopData.push({
+            'id': {
+                'formatted': utils.zeroPad(0, 3),
+                'sort': 100
+            },
+            'name': i18n.__('filter_ar_scan') ,
+            'image': {
+                type: 'img',
+                path: '/misc/ar-pokestop.png'
+            },
+            'filter': generateShowHideButtons('ar', 'pokestop-ar'),
+            'size': generateSizeButtons('ar', 'pokestop-ar'),
+            'type': pokestopOptionsString
+        });
         data['pokestop_filters'] = pokestopData;
     }
 
