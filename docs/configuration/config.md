@@ -158,7 +158,8 @@ Anything you do not include will use the `default.json` as a fallback. When view
             "username": "user",
             "password": "pass123!",
             "database": "rdmdb",
-            "charset": "utf8mb4"
+            "charset": "utf8mb4",
+            "arScanColumn": true
         },
         // PMSF nest script database settings
         "manualdb": {
