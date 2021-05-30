@@ -74,7 +74,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"2": {
 			"name": "Ivysaur",
@@ -288,7 +289,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"5": {
 			"name": "Charmeleon",
@@ -512,7 +514,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"8": {
 			"name": "Wartortle",
@@ -699,7 +702,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"11": {
 			"name": "Metapod",
@@ -867,7 +871,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"14": {
 			"name": "Kakuna",
@@ -1054,7 +1059,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"17": {
 			"name": "Pidgeotto",
@@ -1256,7 +1262,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"20": {
 			"name": "Raticate",
@@ -1378,7 +1385,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"22": {
 			"name": "Fearow",
@@ -1497,7 +1505,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"24": {
 			"name": "Arbok",
@@ -1815,7 +1824,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"28": {
 			"name": "Sandslash",
@@ -1956,7 +1966,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"30": {
 			"name": "Nidorina",
@@ -2147,7 +2158,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"33": {
 			"name": "Nidorino",
@@ -2463,7 +2475,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"38": {
 			"name": "Ninetales",
@@ -2710,7 +2723,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"42": {
 			"name": "Golbat",
@@ -2854,7 +2868,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"44": {
 			"name": "Gloom",
@@ -3044,7 +3059,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"47": {
 			"name": "Parasect",
@@ -3164,7 +3180,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"49": {
 			"name": "Venomoth",
@@ -3307,7 +3324,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"51": {
 			"name": "Dugtrio",
@@ -3493,7 +3511,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"53": {
 			"name": "Persian",
@@ -3630,7 +3649,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"55": {
 			"name": "Golduck",
@@ -3732,7 +3752,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"57": {
 			"name": "Primeape",
@@ -3851,7 +3872,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"59": {
 			"name": "Arcanine",
@@ -3971,7 +3993,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"61": {
 			"name": "Poliwhirl",
@@ -4179,7 +4202,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"64": {
 			"name": "Kadabra",
@@ -4383,7 +4407,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"67": {
 			"name": "Machoke",
@@ -4575,7 +4600,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"70": {
 			"name": "Weepinbell",
@@ -4750,7 +4776,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"73": {
 			"name": "Tentacruel",
@@ -4896,7 +4923,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"75": {
 			"name": "Graveler",
@@ -5156,7 +5184,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"78": {
 			"name": "Rapidash",
@@ -5327,7 +5356,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"80": {
 			"name": "Slowbro",
@@ -5469,7 +5499,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"82": {
 			"name": "Magneton",
@@ -5584,7 +5615,8 @@
 					],
 					"types": [
 						"Fighting"
-					]
+					],
+					"little": true
 				}
 			},
 			"default_form_id": 1023,
@@ -5670,7 +5702,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"85": {
 			"name": "Dodrio",
@@ -5770,7 +5803,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"87": {
 			"name": "Dewgong",
@@ -5914,7 +5948,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"89": {
 			"name": "Muk",
@@ -6055,7 +6090,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"91": {
 			"name": "Cloyster",
@@ -6157,7 +6193,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"93": {
 			"name": "Haunter",
@@ -6354,7 +6391,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"96": {
 			"name": "Drowzee",
@@ -6425,7 +6463,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"97": {
 			"name": "Hypno",
@@ -6547,7 +6586,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"99": {
 			"name": "Kingler",
@@ -6647,7 +6687,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"101": {
 			"name": "Electrode",
@@ -6767,7 +6808,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"103": {
 			"name": "Exeggutor",
@@ -6909,7 +6951,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"105": {
 			"name": "Marowak",
@@ -7125,7 +7168,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"109": {
 			"name": "Koffing",
@@ -7196,7 +7240,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"110": {
 			"name": "Weezing",
@@ -7336,7 +7381,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"112": {
 			"name": "Rhydon",
@@ -7467,15 +7513,33 @@
 			"forms": {
 				"1059": {
 					"name": "Normal",
-					"proto": "TANGELA_NORMAL"
+					"proto": "TANGELA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 465,
+							"form": 1823
+						}
+					]
 				},
 				"1060": {
 					"name": "Shadow",
-					"proto": "TANGELA_SHADOW"
+					"proto": "TANGELA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 465,
+							"form": 1824
+						}
+					]
 				},
 				"1061": {
 					"name": "Purified",
-					"proto": "TANGELA_PURIFIED"
+					"proto": "TANGELA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 465,
+							"form": 1825
+						}
+					]
 				}
 			},
 			"default_form_id": 1059,
@@ -7503,7 +7567,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 465
+					"pokemon": 465,
+					"form": 1823
 				}
 			],
 			"legendary": false,
@@ -7512,7 +7577,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"115": {
 			"name": "Kangaskhan",
@@ -7581,15 +7647,33 @@
 			"forms": {
 				"1062": {
 					"name": "Normal",
-					"proto": "HORSEA_NORMAL"
+					"proto": "HORSEA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 117,
+							"form": 1065
+						}
+					]
 				},
 				"1063": {
 					"name": "Shadow",
-					"proto": "HORSEA_SHADOW"
+					"proto": "HORSEA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 117,
+							"form": 1066
+						}
+					]
 				},
 				"1064": {
 					"name": "Purified",
-					"proto": "HORSEA_PURIFIED"
+					"proto": "HORSEA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 117,
+							"form": 1067
+						}
+					]
 				}
 			},
 			"default_form_id": 1062,
@@ -7617,7 +7701,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 117
+					"pokemon": 117,
+					"form": 1065
 				}
 			],
 			"legendary": false,
@@ -7626,22 +7711,41 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"117": {
 			"name": "Seadra",
 			"forms": {
 				"1065": {
 					"name": "Normal",
-					"proto": "SEADRA_NORMAL"
+					"proto": "SEADRA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 230,
+							"form": 1298
+						}
+					]
 				},
 				"1066": {
 					"name": "Shadow",
-					"proto": "SEADRA_SHADOW"
+					"proto": "SEADRA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 230,
+							"form": 1299
+						}
+					]
 				},
 				"1067": {
 					"name": "Purified",
-					"proto": "SEADRA_PURIFIED"
+					"proto": "SEADRA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 230,
+							"form": 1300
+						}
+					]
 				}
 			},
 			"default_form_id": 1065,
@@ -7669,7 +7773,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 230
+					"pokemon": 230,
+					"form": 1298
 				}
 			],
 			"legendary": false,
@@ -7730,7 +7835,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"119": {
 			"name": "Seaking",
@@ -7829,7 +7935,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"121": {
 			"name": "Starmie",
@@ -8023,7 +8130,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"124": {
 			"name": "Jynx",
@@ -8396,7 +8504,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"130": {
 			"name": "Gyarados",
@@ -8622,6 +8731,9 @@
 				},
 				{
 					"pokemon": 471
+				},
+				{
+					"pokemon": 700
 				}
 			],
 			"legendary": false,
@@ -8630,7 +8742,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"134": {
 			"name": "Vaporeon",
@@ -8841,7 +8954,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"138": {
 			"name": "Omanyte",
@@ -8913,7 +9027,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"139": {
 			"name": "Omastar",
@@ -9033,7 +9148,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"141": {
 			"name": "Kabutops",
@@ -9413,7 +9529,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"148": {
 			"name": "Dragonair",
@@ -9760,7 +9877,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"153": {
 			"name": "Bayleef",
@@ -9911,7 +10029,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"156": {
 			"name": "Quilava",
@@ -10063,7 +10182,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"159": {
 			"name": "Croconaw",
@@ -10215,7 +10335,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"162": {
 			"name": "Furret",
@@ -10315,7 +10436,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"164": {
 			"name": "Noctowl",
@@ -10416,7 +10538,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"166": {
 			"name": "Ledian",
@@ -10517,7 +10640,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"168": {
 			"name": "Ariados",
@@ -10666,7 +10790,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"171": {
 			"name": "Lanturn",
@@ -10765,7 +10890,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"173": {
 			"name": "Cleffa",
@@ -10816,7 +10942,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"174": {
 			"name": "Igglybuff",
@@ -10868,7 +10995,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"175": {
 			"name": "Togepi",
@@ -10919,7 +11047,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"176": {
 			"name": "Togetic",
@@ -11025,7 +11154,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"178": {
 			"name": "Xatu",
@@ -11144,7 +11274,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"180": {
 			"name": "Flaaffy",
@@ -11597,7 +11728,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"188": {
 			"name": "Skiploom",
@@ -11789,7 +11921,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"191": {
 			"name": "Sunkern",
@@ -11841,7 +11974,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"192": {
 			"name": "Sunflora",
@@ -11942,7 +12076,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"194": {
 			"name": "Wooper",
@@ -12014,7 +12149,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"195": {
 			"name": "Quagsire",
@@ -12228,7 +12364,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"199": {
 			"name": "Slowking",
@@ -12350,7 +12487,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"201": {
 			"name": "Unown",
@@ -12663,7 +12801,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"205": {
 			"name": "Forretress",
@@ -12832,7 +12971,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"208": {
 			"name": "Steelix",
@@ -12902,15 +13042,33 @@
 			"forms": {
 				"1253": {
 					"name": "Normal",
-					"proto": "SNUBBULL_NORMAL"
+					"proto": "SNUBBULL_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 210,
+							"form": 1256
+						}
+					]
 				},
 				"1254": {
 					"name": "Shadow",
-					"proto": "SNUBBULL_SHADOW"
+					"proto": "SNUBBULL_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 210,
+							"form": 1257
+						}
+					]
 				},
 				"1255": {
 					"name": "Purified",
-					"proto": "SNUBBULL_PURIFIED"
+					"proto": "SNUBBULL_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 210,
+							"form": 1258
+						}
+					]
 				}
 			},
 			"default_form_id": 1253,
@@ -12938,7 +13096,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 210
+					"pokemon": 210,
+					"form": 1256
 				}
 			],
 			"legendary": false,
@@ -12947,7 +13106,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"210": {
 			"name": "Granbull",
@@ -13289,7 +13449,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"216": {
 			"name": "Teddiursa",
@@ -13360,7 +13521,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"217": {
 			"name": "Ursaring",
@@ -13460,7 +13622,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"219": {
 			"name": "Magcargo",
@@ -13580,7 +13743,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"221": {
 			"name": "Piloswine",
@@ -13756,7 +13920,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"224": {
 			"name": "Octillery",
@@ -14026,7 +14191,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"229": {
 			"name": "Houndoom",
@@ -14191,7 +14357,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"232": {
 			"name": "Donphan",
@@ -14456,7 +14623,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"237": {
 			"name": "Hitmontop",
@@ -14556,7 +14724,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"239": {
 			"name": "Elekid",
@@ -14607,7 +14776,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"240": {
 			"name": "Magby",
@@ -14658,7 +14828,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"241": {
 			"name": "Miltank",
@@ -14969,7 +15140,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"247": {
 			"name": "Pupitar",
@@ -15299,7 +15471,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"253": {
 			"name": "Grovyle",
@@ -15424,15 +15597,33 @@
 			"forms": {
 				"1358": {
 					"name": "Normal",
-					"proto": "TORCHIC_NORMAL"
+					"proto": "TORCHIC_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 256,
+							"form": 1361
+						}
+					]
 				},
 				"1359": {
 					"name": "Shadow",
-					"proto": "TORCHIC_SHADOW"
+					"proto": "TORCHIC_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 256,
+							"form": 1362
+						}
+					]
 				},
 				"1360": {
 					"name": "Purified",
-					"proto": "TORCHIC_PURIFIED"
+					"proto": "TORCHIC_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 256,
+							"form": 1363
+						}
+					]
 				}
 			},
 			"default_form_id": 1358,
@@ -15460,7 +15651,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 256
+					"pokemon": 256,
+					"form": 1361
 				}
 			],
 			"legendary": false,
@@ -15469,22 +15661,41 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"256": {
 			"name": "Combusken",
 			"forms": {
 				"1361": {
 					"name": "Normal",
-					"proto": "COMBUSKEN_NORMAL"
+					"proto": "COMBUSKEN_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 257,
+							"form": 1364
+						}
+					]
 				},
 				"1362": {
 					"name": "Shadow",
-					"proto": "COMBUSKEN_SHADOW"
+					"proto": "COMBUSKEN_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 257,
+							"form": 1365
+						}
+					]
 				},
 				"1363": {
 					"name": "Purified",
-					"proto": "COMBUSKEN_PURIFIED"
+					"proto": "COMBUSKEN_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 257,
+							"form": 1366
+						}
+					]
 				}
 			},
 			"default_form_id": 1361,
@@ -15513,7 +15724,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 257
+					"pokemon": 257,
+					"form": 1364
 				}
 			],
 			"legendary": false,
@@ -15656,7 +15868,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"259": {
 			"name": "Marshtomp",
@@ -15798,15 +16011,33 @@
 			"forms": {
 				"1367": {
 					"name": "Normal",
-					"proto": "POOCHYENA_NORMAL"
+					"proto": "POOCHYENA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 262,
+							"form": 1370
+						}
+					]
 				},
 				"1368": {
 					"name": "Shadow",
-					"proto": "POOCHYENA_SHADOW"
+					"proto": "POOCHYENA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 262,
+							"form": 1371
+						}
+					]
 				},
 				"1369": {
 					"name": "Purified",
-					"proto": "POOCHYENA_PURIFIED"
+					"proto": "POOCHYENA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 262,
+							"form": 1372
+						}
+					]
 				}
 			},
 			"default_form_id": 1367,
@@ -15834,7 +16065,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 262
+					"pokemon": 262,
+					"form": 1370
 				}
 			],
 			"legendary": false,
@@ -15843,7 +16075,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"262": {
 			"name": "Mightyena",
@@ -15986,7 +16219,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"264": {
 			"name": "Linoone",
@@ -16113,7 +16347,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"266": {
 			"name": "Silcoon",
@@ -16361,7 +16596,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"271": {
 			"name": "Lombre",
@@ -16536,7 +16772,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"274": {
 			"name": "Nuzleaf",
@@ -16709,7 +16946,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"277": {
 			"name": "Swellow",
@@ -16810,7 +17048,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"279": {
 			"name": "Pelipper",
@@ -16931,7 +17170,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"281": {
 			"name": "Kirlia",
@@ -17139,7 +17379,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"284": {
 			"name": "Masquerain",
@@ -17241,7 +17482,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"286": {
 			"name": "Breloom",
@@ -17340,7 +17582,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"288": {
 			"name": "Vigoroth",
@@ -17491,7 +17734,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"291": {
 			"name": "Ninjask",
@@ -17639,7 +17883,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"294": {
 			"name": "Loudred",
@@ -17745,15 +17990,33 @@
 			"forms": {
 				"1451": {
 					"name": "Normal",
-					"proto": "MAKUHITA_NORMAL"
+					"proto": "MAKUHITA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 297,
+							"form": 1454
+						}
+					]
 				},
 				"1452": {
 					"name": "Shadow",
-					"proto": "MAKUHITA_SHADOW"
+					"proto": "MAKUHITA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 297,
+							"form": 1455
+						}
+					]
 				},
 				"1453": {
 					"name": "Purified",
-					"proto": "MAKUHITA_PURIFIED"
+					"proto": "MAKUHITA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 297,
+							"form": 1456
+						}
+					]
 				}
 			},
 			"default_form_id": 1451,
@@ -17781,7 +18044,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 297
+					"pokemon": 297,
+					"form": 1454
 				}
 			],
 			"legendary": false,
@@ -17790,7 +18054,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"297": {
 			"name": "Hariyama",
@@ -17891,7 +18156,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"299": {
 			"name": "Nosepass",
@@ -17961,7 +18227,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"300": {
 			"name": "Skitty",
@@ -18013,7 +18280,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"301": {
 			"name": "Delcatty",
@@ -18268,7 +18536,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"305": {
 			"name": "Lairon",
@@ -18459,7 +18728,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"308": {
 			"name": "Medicham",
@@ -18529,15 +18799,33 @@
 			"forms": {
 				"1484": {
 					"name": "Normal",
-					"proto": "ELECTRIKE_NORMAL"
+					"proto": "ELECTRIKE_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 310,
+							"form": 1487
+						}
+					]
 				},
 				"1485": {
 					"name": "Shadow",
-					"proto": "ELECTRIKE_SHADOW"
+					"proto": "ELECTRIKE_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 310,
+							"form": 1488
+						}
+					]
 				},
 				"1486": {
 					"name": "Purified",
-					"proto": "ELECTRIKE_PURIFIED"
+					"proto": "ELECTRIKE_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 310,
+							"form": 1489
+						}
+					]
 				}
 			},
 			"default_form_id": 1484,
@@ -18565,7 +18853,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 310
+					"pokemon": 310,
+					"form": 1487
 				}
 			],
 			"legendary": false,
@@ -18574,14 +18863,18 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"310": {
 			"name": "Manectric",
 			"forms": {
 				"1487": {
 					"name": "Normal",
-					"proto": "MANECTRIC_NORMAL"
+					"proto": "MANECTRIC_NORMAL",
+					"temp_evolutions": {
+						"1": {}
+					}
 				},
 				"1488": {
 					"name": "Shadow",
@@ -18589,7 +18882,10 @@
 				},
 				"1489": {
 					"name": "Purified",
-					"proto": "MANECTRIC_PURIFIED"
+					"proto": "MANECTRIC_PURIFIED",
+					"temp_evolutions": {
+						"1": {}
+					}
 				}
 			},
 			"default_form_id": 1487,
@@ -18925,7 +19221,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"317": {
 			"name": "Swalot",
@@ -19045,7 +19342,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"319": {
 			"name": "Sharpedo",
@@ -19159,7 +19457,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"321": {
 			"name": "Wailord",
@@ -19259,7 +19558,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"323": {
 			"name": "Camerupt",
@@ -19421,7 +19721,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"326": {
 			"name": "Grumpig",
@@ -19654,7 +19955,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"329": {
 			"name": "Vibrava",
@@ -19846,7 +20148,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"332": {
 			"name": "Cacturne",
@@ -19948,17 +20251,15 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"334": {
 			"name": "Altaria",
 			"forms": {
 				"1535": {
 					"name": "Normal",
-					"proto": "ALTARIA_NORMAL",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALTARIA_NORMAL"
 				},
 				"1536": {
 					"name": "Shadow",
@@ -19966,10 +20267,7 @@
 				},
 				"1537": {
 					"name": "Purified",
-					"proto": "ALTARIA_PURIFIED",
-					"temp_evolutions": {
-						"1": {}
-					}
+					"proto": "ALTARIA_PURIFIED"
 				}
 			},
 			"default_form_id": 1535,
@@ -19996,25 +20294,25 @@
 				"Dazzling Gleam",
 				"Dragon Pulse"
 			],
+			"temp_evolutions": {
+				"1": {
+					"attack": 222,
+					"defense": 218,
+					"stamina": 181,
+					"height": 1.5,
+					"types": [
+						"Dragon",
+						"Fairy"
+					]
+				}
+			},
 			"legendary": false,
 			"mythic": false,
 			"buddy_group_number": 3,
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true,
-			"temp_evolutions": {
-				"1": {
-					"attack": 222,
-					"defense": 218,
-					"stamina": 181,
-					"unreleased": true,
-					"types": [
-						"Dragon",
-						"Fairy"
-					]
-				}
-			}
+			"gym_defender_eligible": true
 		},
 		"335": {
 			"name": "Zangoose",
@@ -20257,7 +20555,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"340": {
 			"name": "Whiscash",
@@ -20357,7 +20656,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"342": {
 			"name": "Crawdaunt",
@@ -20459,7 +20759,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"344": {
 			"name": "Claydol",
@@ -20583,7 +20884,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"346": {
 			"name": "Cradily",
@@ -20704,7 +21006,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"348": {
 			"name": "Armaldo",
@@ -20802,7 +21105,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"350": {
 			"name": "Milotic",
@@ -21061,7 +21365,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"354": {
 			"name": "Banette",
@@ -21193,7 +21498,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"356": {
 			"name": "Dusclops",
@@ -21472,7 +21778,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"361": {
 			"name": "Snorunt",
@@ -21528,7 +21835,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"362": {
 			"name": "Glalie",
@@ -21661,7 +21969,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"364": {
 			"name": "Sealeo",
@@ -21835,7 +22144,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"367": {
 			"name": "Huntail",
@@ -22095,7 +22405,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"372": {
 			"name": "Shelgon",
@@ -22298,7 +22609,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"375": {
 			"name": "Metang",
@@ -23053,7 +23365,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"388": {
 			"name": "Grotle",
@@ -23244,7 +23557,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"391": {
 			"name": "Monferno",
@@ -23416,7 +23730,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"394": {
 			"name": "Prinplup",
@@ -23524,15 +23839,33 @@
 			"forms": {
 				"1658": {
 					"name": "Normal",
-					"proto": "STARLY_NORMAL"
+					"proto": "STARLY_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 397,
+							"form": 1661
+						}
+					]
 				},
 				"1659": {
 					"name": "Shadow",
-					"proto": "STARLY_SHADOW"
+					"proto": "STARLY_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 397,
+							"form": 1662
+						}
+					]
 				},
 				"1660": {
 					"name": "Purified",
-					"proto": "STARLY_PURIFIED"
+					"proto": "STARLY_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 397,
+							"form": 1663
+						}
+					]
 				}
 			},
 			"default_form_id": 1658,
@@ -23560,7 +23893,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 397
+					"pokemon": 397,
+					"form": 1661
 				}
 			],
 			"legendary": false,
@@ -23569,22 +23903,41 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"397": {
 			"name": "Staravia",
 			"forms": {
 				"1661": {
 					"name": "Normal",
-					"proto": "STARAVIA_NORMAL"
+					"proto": "STARAVIA_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 398,
+							"form": 1664
+						}
+					]
 				},
 				"1662": {
 					"name": "Shadow",
-					"proto": "STARAVIA_SHADOW"
+					"proto": "STARAVIA_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 398,
+							"form": 1665
+						}
+					]
 				},
 				"1663": {
 					"name": "Purified",
-					"proto": "STARAVIA_PURIFIED"
+					"proto": "STARAVIA_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 398,
+							"form": 1666
+						}
+					]
 				}
 			},
 			"default_form_id": 1661,
@@ -23613,7 +23966,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 398
+					"pokemon": 398,
+					"form": 1664
 				}
 			],
 			"legendary": false,
@@ -23677,15 +24031,33 @@
 			"forms": {
 				"1667": {
 					"name": "Normal",
-					"proto": "BIDOOF_NORMAL"
+					"proto": "BIDOOF_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 400,
+							"form": 1670
+						}
+					]
 				},
 				"1668": {
 					"name": "Shadow",
-					"proto": "BIDOOF_SHADOW"
+					"proto": "BIDOOF_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 400,
+							"form": 1671
+						}
+					]
 				},
 				"1669": {
 					"name": "Purified",
-					"proto": "BIDOOF_PURIFIED"
+					"proto": "BIDOOF_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 400,
+							"form": 1672
+						}
+					]
 				}
 			},
 			"default_form_id": 1667,
@@ -23713,7 +24085,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 400
+					"pokemon": 400,
+					"form": 1670
 				}
 			],
 			"legendary": false,
@@ -23722,7 +24095,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"400": {
 			"name": "Bibarel",
@@ -23820,7 +24194,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"402": {
 			"name": "Kricketune",
@@ -23919,7 +24294,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"404": {
 			"name": "Luxio",
@@ -24071,7 +24447,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"407": {
 			"name": "Roserade",
@@ -24173,7 +24550,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"409": {
 			"name": "Rampardos",
@@ -24273,7 +24651,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"411": {
 			"name": "Bastiodon",
@@ -24422,7 +24801,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"413": {
 			"name": "Wormadam",
@@ -24617,7 +24997,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"416": {
 			"name": "Vespiquen",
@@ -24768,7 +25149,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"419": {
 			"name": "Floatzel",
@@ -24872,7 +25254,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"421": {
 			"name": "Cherrim",
@@ -25006,7 +25389,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"423": {
 			"name": "Gastrodon",
@@ -25162,7 +25546,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"426": {
 			"name": "Drifblim",
@@ -25261,7 +25646,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"428": {
 			"name": "Lopunny",
@@ -25469,7 +25855,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"432": {
 			"name": "Purugly",
@@ -25568,7 +25955,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"434": {
 			"name": "Stunky",
@@ -25640,7 +26028,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"435": {
 			"name": "Skuntank",
@@ -25742,7 +26131,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"437": {
 			"name": "Bronzong",
@@ -25845,7 +26235,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"439": {
 			"name": "Mime Jr",
@@ -25898,7 +26289,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"440": {
 			"name": "Happiny",
@@ -25948,7 +26340,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"441": {
 			"name": "Chatot",
@@ -26116,7 +26509,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"444": {
 			"name": "Gabite",
@@ -26303,7 +26697,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"447": {
 			"name": "Riolu",
@@ -26354,7 +26749,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"448": {
 			"name": "Lucario",
@@ -26489,7 +26885,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"450": {
 			"name": "Hippowdon",
@@ -26546,15 +26943,33 @@
 			"forms": {
 				"1796": {
 					"name": "Normal",
-					"proto": "SKORUPI_NORMAL"
+					"proto": "SKORUPI_NORMAL",
+					"evolutions": [
+						{
+							"pokemon": 452,
+							"form": 1799
+						}
+					]
 				},
 				"1797": {
 					"name": "Shadow",
-					"proto": "SKORUPI_SHADOW"
+					"proto": "SKORUPI_SHADOW",
+					"evolutions": [
+						{
+							"pokemon": 452,
+							"form": 1800
+						}
+					]
 				},
 				"1798": {
 					"name": "Purified",
-					"proto": "SKORUPI_PURIFIED"
+					"proto": "SKORUPI_PURIFIED",
+					"evolutions": [
+						{
+							"pokemon": 452,
+							"form": 1801
+						}
+					]
 				}
 			},
 			"default_form_id": 1796,
@@ -26583,7 +26998,8 @@
 			],
 			"evolutions": [
 				{
-					"pokemon": 452
+					"pokemon": 452,
+					"form": 1799
 				}
 			],
 			"legendary": false,
@@ -26592,7 +27008,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"452": {
 			"name": "Drapion",
@@ -26696,7 +27113,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"454": {
 			"name": "Toxicroak",
@@ -26843,7 +27261,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"457": {
 			"name": "Lumineon",
@@ -26943,7 +27362,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"459": {
 			"name": "Snover",
@@ -27015,7 +27435,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"460": {
 			"name": "Abomasnow",
@@ -28969,7 +29390,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"496": {
 			"name": "Servine",
@@ -29120,7 +29542,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"499": {
 			"name": "Pignite",
@@ -29274,7 +29697,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"502": {
 			"name": "Dewott",
@@ -29425,7 +29849,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"505": {
 			"name": "Watchog",
@@ -29524,7 +29949,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"507": {
 			"name": "Herdier",
@@ -29676,7 +30102,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"510": {
 			"name": "Liepard",
@@ -29776,7 +30203,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"512": {
 			"name": "Simisage",
@@ -29875,7 +30303,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"514": {
 			"name": "Simisear",
@@ -29974,7 +30403,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"516": {
 			"name": "Simipour",
@@ -30073,7 +30503,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"518": {
 			"name": "Musharna",
@@ -30173,7 +30604,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"520": {
 			"name": "Tranquill",
@@ -30326,7 +30758,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"523": {
 			"name": "Zebstrika",
@@ -30425,7 +30858,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"525": {
 			"name": "Boldore",
@@ -30578,7 +31012,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"528": {
 			"name": "Swoobat",
@@ -30678,7 +31113,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"530": {
 			"name": "Excadrill",
@@ -30845,7 +31281,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"533": {
 			"name": "Gurdurr",
@@ -30996,7 +31433,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"536": {
 			"name": "Palpitoad",
@@ -31244,7 +31682,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"541": {
 			"name": "Swadloon",
@@ -31399,7 +31838,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"544": {
 			"name": "Whirlipede",
@@ -31554,7 +31994,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"547": {
 			"name": "Whimsicott",
@@ -31653,7 +32094,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"549": {
 			"name": "Lilligant",
@@ -31796,7 +32238,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"552": {
 			"name": "Krokorok",
@@ -31978,7 +32421,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"555": {
 			"name": "Darmanitan",
@@ -32172,7 +32616,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"558": {
 			"name": "Crustle",
@@ -32273,7 +32718,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"560": {
 			"name": "Scrafty",
@@ -32462,7 +32908,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"563": {
 			"name": "Cofagrigus",
@@ -32562,7 +33009,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"565": {
 			"name": "Carracosta",
@@ -32663,7 +33111,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"567": {
 			"name": "Archeops",
@@ -32763,7 +33212,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"569": {
 			"name": "Garbodor",
@@ -32863,7 +33313,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"571": {
 			"name": "Zoroark",
@@ -32962,7 +33413,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"573": {
 			"name": "Cinccino",
@@ -33061,7 +33513,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"575": {
 			"name": "Gothorita",
@@ -33212,7 +33665,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"578": {
 			"name": "Duosion",
@@ -33364,7 +33818,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"581": {
 			"name": "Swanna",
@@ -33464,7 +33919,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"583": {
 			"name": "Vanillish",
@@ -33639,7 +34095,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"586": {
 			"name": "Sawsbuck",
@@ -33793,7 +34250,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"589": {
 			"name": "Escavalier",
@@ -33895,7 +34353,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"591": {
 			"name": "Amoonguss",
@@ -34012,7 +34471,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"593": {
 			"name": "Jellicent",
@@ -34164,7 +34624,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"596": {
 			"name": "Galvantula",
@@ -34267,7 +34728,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"598": {
 			"name": "Ferrothorn",
@@ -34369,7 +34831,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"600": {
 			"name": "Klang",
@@ -34519,7 +34982,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"603": {
 			"name": "Eelektrik",
@@ -34671,7 +35135,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"606": {
 			"name": "Beheeyem",
@@ -34771,7 +35236,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"608": {
 			"name": "Lampent",
@@ -34926,7 +35392,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"611": {
 			"name": "Fraxure",
@@ -35087,7 +35554,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"614": {
 			"name": "Beartic",
@@ -35234,7 +35702,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"617": {
 			"name": "Accelgor",
@@ -35402,7 +35871,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"620": {
 			"name": "Mienshao",
@@ -35549,7 +36019,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"623": {
 			"name": "Golurk",
@@ -35650,7 +36121,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"625": {
 			"name": "Bisharp",
@@ -35800,7 +36272,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"628": {
 			"name": "Braviary",
@@ -35902,7 +36375,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"630": {
 			"name": "Mandibuzz",
@@ -36099,7 +36573,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"634": {
 			"name": "Zweilous",
@@ -36253,7 +36728,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"637": {
 			"name": "Volcarona",
@@ -37004,7 +37480,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"651": {
 			"name": "Quilladin",
@@ -37122,7 +37599,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"654": {
 			"name": "Braixen",
@@ -37240,7 +37718,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"657": {
 			"name": "Frogadier",
@@ -37357,7 +37836,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"660": {
 			"name": "Diggersby",
@@ -37435,7 +37915,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"662": {
 			"name": "Fletchinder",
@@ -37552,7 +38033,8 @@
 			"buddy_distance": 1,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"665": {
 			"name": "Spewpa",
@@ -37754,7 +38236,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 10000,
 			"third_move_candy": 25,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"668": {
 			"name": "Pyroar",
@@ -37865,7 +38348,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"670": {
 			"name": "Floette",
@@ -38017,7 +38501,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"673": {
 			"name": "Gogoat",
@@ -38092,7 +38577,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"675": {
 			"name": "Pangoro",
@@ -38251,7 +38737,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"678": {
 			"name": "Meowstic",
@@ -38339,7 +38826,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"680": {
 			"name": "Doublade",
@@ -38452,7 +38940,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"683": {
 			"name": "Aromatisse",
@@ -38524,7 +39013,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"685": {
 			"name": "Slurpuff",
@@ -38598,7 +39088,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"687": {
 			"name": "Malamar",
@@ -38674,7 +39165,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"689": {
 			"name": "Barbaracle",
@@ -38753,7 +39245,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"691": {
 			"name": "Dragalge",
@@ -38830,7 +39323,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"693": {
 			"name": "Clawitzer",
@@ -38905,7 +39399,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"695": {
 			"name": "Heliolisk",
@@ -38982,7 +39477,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"697": {
 			"name": "Tyrantrum",
@@ -39060,7 +39556,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"699": {
 			"name": "Aurorus",
@@ -39278,7 +39775,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"705": {
 			"name": "Sliggoo",
@@ -39430,7 +39928,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"709": {
 			"name": "Trevenant",
@@ -39494,6 +39993,11 @@
 				"Ghost",
 				"Grass"
 			],
+			"attack": 121,
+			"defense": 123,
+			"stamina": 135,
+			"height": 0.4,
+			"weight": 5,
 			"flee_rate": 0.1,
 			"capture_rate": 0.2,
 			"quick_moves": [
@@ -39515,7 +40019,8 @@
 			"mythic": false,
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
-			"third_move_candy": 75
+			"third_move_candy": 75,
+			"little": true
 		},
 		"711": {
 			"name": "Gourgeist",
@@ -39544,6 +40049,11 @@
 				"Ghost",
 				"Grass"
 			],
+			"attack": 175,
+			"defense": 213,
+			"stamina": 163,
+			"height": 0.9,
+			"weight": 12.5,
 			"flee_rate": 0.1,
 			"capture_rate": 0.2,
 			"quick_moves": [
@@ -39599,7 +40109,8 @@
 			"buddy_distance": 3,
 			"third_move_stardust": 50000,
 			"third_move_candy": 50,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"713": {
 			"name": "Avalugg",
@@ -39676,7 +40187,8 @@
 			"buddy_distance": 5,
 			"third_move_stardust": 75000,
 			"third_move_candy": 75,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"715": {
 			"name": "Noivern",
@@ -39739,7 +40251,7 @@
 			"height": 3,
 			"weight": 215,
 			"flee_rate": 0.1,
-			"capture_rate": 0.2,
+			"capture_rate": 0.02,
 			"quick_moves": [
 				"Tackle",
 				"Zen Headbutt"
@@ -39753,6 +40265,7 @@
 			],
 			"legendary": true,
 			"mythic": false,
+			"buddy_group_number": 3,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
 			"third_move_candy": 100
@@ -39775,7 +40288,7 @@
 			"height": 5.8,
 			"weight": 203,
 			"flee_rate": 0.1,
-			"capture_rate": 0.2,
+			"capture_rate": 0.02,
 			"quick_moves": [
 				"Sucker Punch",
 				"Snarl",
@@ -39790,6 +40303,7 @@
 			],
 			"legendary": true,
 			"mythic": false,
+			"buddy_group_number": 7,
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
 			"third_move_candy": 100
@@ -39818,7 +40332,7 @@
 				"Ground"
 			],
 			"flee_rate": 0.1,
-			"capture_rate": 0.2,
+			"capture_rate": 0.02,
 			"quick_moves": [
 				"Dragon Tail",
 				"Bite",
@@ -39921,7 +40435,8 @@
 			"buddy_distance": 20,
 			"third_move_stardust": 100000,
 			"third_move_candy": 100,
-			"gym_defender_eligible": true
+			"gym_defender_eligible": true,
+			"little": true
 		},
 		"809": {
 			"name": "Melmetal",
@@ -42349,6 +42864,10 @@
 		"55": {
 			"prototext": "QUEST_BATTLE_EVENT_NPC",
 			"text": "QUEST_BATTLE_EVENT_NPC"
+		},
+		"57": {
+			"prototext": "QUEST_TAKE_WILD_SNAPSHOT",
+			"text": "Take {0} snapshot(s) of wild pokémon"
 		}
 	},
 	"quest_conditions": {
@@ -42537,13 +43056,12 @@
 					"143_00"
 				],
 				"second": [
-					"282_00",
 					"062_00",
-					"143_00"
+					"143_00",
+					"282_00"
 				],
 				"third": [
 					"130_00",
-					"143_00",
 					"149_00"
 				]
 			}
@@ -42558,14 +43076,14 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
+					"213_00",
 					"347_00",
-					"048_00",
-					"213_00"
+					"451_00"
 				],
 				"second": [
+					"049_00",
 					"127_00",
-					"212_00",
-					"049_00"
+					"212_00"
 				],
 				"third": [
 					"015_00",
@@ -42580,41 +43098,24 @@
 		},
 		"9": {
 			"type": "Ghost",
-			"grunt": "Male",
-			"second_reward": "false",
-			"encounters": {
-				"first": [
-					"200_00",
-					"353_00",
-					"355_00"
-				],
-				"second": [
-					"354_00",
-					"356_00"
-				],
-				"third": [
-					"477_00",
-					"354_00",
-					"302_00"
-				]
-			}
+			"grunt": "Male"
 		},
 		"10": {
 			"type": "Dark",
 			"grunt": "Female",
-			"second_reward": "false",
+			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"302_00",
-					"434_00"
+					"198_00",
+					"261_00"
 				],
 				"second": [
-					"274_00",
-					"435_00"
+					"262_00",
+					"302_00"
 				],
 				"third": [
-					"332_00",
-					"275_00"
+					"275_00",
+					"332_00"
 				]
 			}
 		},
@@ -42634,8 +43135,7 @@
 					"148_00"
 				],
 				"third": [
-					"130_00",
-					"149_00"
+					"130_00"
 				]
 			}
 		},
@@ -42645,7 +43145,20 @@
 		},
 		"14": {
 			"type": "Fairy",
-			"grunt": "Female"
+			"grunt": "Female",
+			"second_reward": "false",
+			"encounters": {
+				"first": [
+					"209_00"
+				],
+				"second": [
+					"209_00",
+					"210_00"
+				],
+				"third": [
+					"210_00"
+				]
+			}
 		},
 		"15": {
 			"type": "Fairy",
@@ -42657,15 +43170,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"107_00",
-					"066_00"
+					"066_00",
+					"296_00"
 				],
 				"second": [
 					"067_00"
 				],
 				"third": [
-					"067_00",
-					"106_00"
+					"106_00",
+					"107_00",
+					"297_00"
 				]
 			}
 		},
@@ -42679,8 +43193,9 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"228_00",
-					"037_00"
+					"037_00",
+					"126_00",
+					"228_00"
 				],
 				"second": [
 					"038_00",
@@ -42688,8 +43203,8 @@
 					"229_00"
 				],
 				"third": [
-					"038_00",
 					"005_00",
+					"038_00",
 					"059_00"
 				]
 			}
@@ -42704,19 +43219,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"042_00",
-					"227_00",
-					"207_00"
+					"041_00",
+					"396_00"
 				],
 				"second": [
 					"042_00",
-					"169_00",
-					"123_00"
+					"397_00"
 				],
 				"third": [
+					"130_00",
 					"149_00",
-					"169_00",
-					"130_00"
+					"169_00"
 				]
 			}
 		},
@@ -42734,14 +43247,19 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"102_00"
+					"043_00",
+					"114_00",
+					"187_00"
 				],
 				"second": [
-					"102_00",
-					"103_00"
+					"044_00",
+					"114_00",
+					"188_00"
 				],
 				"third": [
-					"103_00"
+					"045_00",
+					"071_00",
+					"275_00"
 				]
 			}
 		},
@@ -42755,17 +43273,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"220_00",
-					"050_00"
+					"050_00",
+					"220_00"
 				],
 				"second": [
 					"105_00",
-					"329_00",
-					"247_00"
+					"329_00"
 				],
 				"third": [
-					"472_00",
-					"330_00"
+					"330_00",
+					"472_00"
 				]
 			}
 		},
@@ -42775,8 +43292,8 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"459_00",
-					"363_00"
+					"363_00",
+					"459_00"
 				],
 				"second": [
 					"091_00",
@@ -42784,7 +43301,6 @@
 					"364_00"
 				],
 				"third": [
-					"091_00",
 					"131_00",
 					"460_00"
 				]
@@ -42831,12 +43347,12 @@
 			"encounters": {
 				"first": [
 					"029_00",
-					"041_00",
-					"032_00"
+					"088_00",
+					"451_00"
 				],
 				"second": [
-					"089_00",
-					"088_00"
+					"030_00",
+					"033_00"
 				],
 				"third": [
 					"030_00",
@@ -42859,14 +43375,18 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"102_00"
+					"079_00",
+					"202_00"
 				],
 				"second": [
-					"102_00",
-					"103_00"
+					"064_00",
+					"096_00",
+					"281_00"
 				],
 				"third": [
-					"103_00"
+					"097_00",
+					"103_00",
+					"281_00"
 				]
 			}
 		},
@@ -42880,13 +43400,13 @@
 			"second_reward": "true",
 			"encounters": {
 				"first": [
-					"304_00",
-					"299_00"
+					"299_00",
+					"304_00"
 				],
 				"second": [
 					"246_00",
-					"305_00",
-					"247_00"
+					"247_00",
+					"305_00"
 				],
 				"third": [
 					"247_00",
@@ -42900,18 +43420,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"090_00",
 					"060_00",
-					"194_00"
+					"116_00",
+					"363_00"
 				],
 				"second": [
-					"055_00",
-					"061_00",
+					"195_00",
 					"259_00"
 				],
 				"third": [
-					"186_00",
-					"062_00"
+					"062_00",
+					"186_00"
 				]
 			}
 		},
@@ -42927,8 +43446,7 @@
 					"129_00"
 				],
 				"third": [
-					"129_00",
-					"130_00"
+					"129_00"
 				]
 			}
 		},
@@ -42942,17 +43460,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"142_00"
+					"273_00"
 				],
 				"second": [
-					"475_00",
-					"346_00",
-					"199_00"
+					"062_00",
+					"099_00",
+					"297_00"
 				],
 				"third": [
 					"248_00",
-					"477_00",
-					"473_00"
+					"389_00"
 				]
 			}
 		},
@@ -42962,17 +43479,16 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"374_00"
+					"048_00"
 				],
 				"second": [
-					"282_00",
-					"392_00",
-					"306_00"
+					"169_00",
+					"310_00"
 				],
 				"third": [
-					"373_00",
+					"045_00",
 					"212_00",
-					"348_00"
+					"462_00"
 				]
 			}
 		},
@@ -42982,17 +43498,17 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"318_00"
+					"215_00"
 				],
 				"second": [
-					"450_00",
-					"474_00",
-					"429_00"
+					"181_00",
+					"210_00",
+					"472_00"
 				],
 				"third": [
-					"365_00",
 					"229_00",
-					"330_00"
+					"230_00",
+					"452_00"
 				]
 			}
 		},
@@ -43002,8 +43518,10 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"145_00"
-				]
+					"146_00"
+				],
+				"second": [],
+				"third": []
 			}
 		},
 		"45": {
@@ -43012,7 +43530,21 @@
 		},
 		"46": {
 			"type": "Decoy",
-			"grunt": "Female"
+			"grunt": "Female",
+			"second_reward": "false",
+			"encounters": {
+				"first": [
+					"069_00"
+				],
+				"second": [
+					"020_00",
+					"070_00"
+				],
+				"third": [
+					"020_00",
+					"143_00"
+				]
+			}
 		},
 		"47": {
 			"type": "Ghost",
@@ -43033,9 +43565,9 @@
 					"356_00"
 				],
 				"third": [
-					"477_00",
+					"302_00",
 					"354_00",
-					"302_00"
+					"477_00"
 				]
 			}
 		},
@@ -43045,14 +43577,13 @@
 			"second_reward": "false",
 			"encounters": {
 				"first": [
-					"081_00",
 					"125_00",
-					"179_00"
+					"179_00",
+					"309_00"
 				],
 				"second": [
-					"180_00",
 					"125_00",
-					"082_00"
+					"180_00"
 				],
 				"third": [
 					"125_00",
