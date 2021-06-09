@@ -235,6 +235,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     let excludedLevels = []; //int
     let excludeAllButEx = false;
     let excludeAllButBattles = false;
+    let excludeAllButAr = false;
     let excludedTeams = []; //int
     let excludedAvailableSlots = []; //int
 
@@ -284,6 +285,8 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 excludeAllButBattles = true;
             } else if (filter.includes('ex')) {
                 excludeAllButEx = true;
+            } else if (filter.includes('ar')) {
+                excludeAllButAr = true;
             } else if (filter.includes('t')) {
                 const id = parseInt(filter.replace('t', ''));
                 excludedTeams.push(id);
@@ -298,6 +301,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     let sqlExcludeForms = '';
     let excludeLevelSQL = '';
     let excludeAllButExSQL = '';
+    let excludeAllButArSQL = '';
     let excludeAllButBattlesSQL = '';
     let excludeTeamSQL = '';
     let excludeAvailableSlotsSQL = '';
@@ -380,6 +384,12 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
         excludeAllButBattlesSQL = '';
     }
 
+    if (excludeAllButAr) {
+        excludeAllButArSQL = 'AND (ar_scan_eligible = 1)';
+    } else {
+        excludeAllButArSQL = '';
+    }
+
     let sql = `
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
             raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
@@ -392,7 +402,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
             raid_end_timestamp IS NULL OR raid_end_timestamp < UNIX_TIMESTAMP() OR raid_pokemon_id IS NULL OR
             (raid_pokemon_form = 0 ${sqlExcludePokemon}) OR raid_pokemon_form NOT IN (0 ${sqlExcludeForms})
         ) ${excludeTeamSQL} ${excludeAvailableSlotsSQL}
-        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} ${areaRestrictionsSQL}
+        ${excludeAllButExSQL} ${excludeAllButBattlesSQL} ${excludeAllButArSQL} ${areaRestrictionsSQL}
     `;
     if (!showGyms) {
         sql += ' AND raid_end_timestamp IS NOT NULL AND raid_end_timestamp >= UNIX_TIMESTAMP()';
@@ -477,6 +487,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let excludedLures = []; //int
     let excludedInvasions = [];
     let excludeNormal = false;
+    let excludeAllButAr = false;
     let minimumCandyCount = 0;
     let minimumStardustCount = 0;
 
@@ -516,6 +527,8 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             } else if (filter.includes('l')) {
                 const id = parseInt(filter.replace('l', ''));
                 excludedLures.push(id + 500);
+            } else if (filter.includes('ar')) {
+                excludeAllButAr = true;
             }
         }
     }
@@ -537,6 +550,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let excludeItemSQL = '';
     let excludeInvasionSQL = '';
     let excludePokestopSQL = '';
+    let excludeAllButArSQL = '';
     let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     if (showQuests) {
@@ -650,6 +664,11 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             } else {
                 excludePokestopSQL = `OR (lure_expire_timestamp IS NULL OR lure_expire_timestamp < UNIX_TIMESTAMP() OR ${excludeLureSQL})`;
             }
+            if (excludeAllButAr) {
+                excludeAllButArSQL = 'AND (ar_scan_eligible = 1)';
+            } else {
+                excludeAllButArSQL = '';
+            }
         } else if (!excludeNormal) {
             excludePokestopSQL = 'OR TRUE';
         }
@@ -679,7 +698,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             incident_expire_timestamp, grunt_type, sponsor_id${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
-        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${areaRestrictionsSQL}
+        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
     `;
     const results = await dbSelection('pokestop').query(sql, args);
     let pokestops = [];

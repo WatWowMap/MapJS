@@ -911,6 +911,9 @@ function loadStorage () {
         if (defaultGymFilter.ex === undefined) {
             defaultGymFilter.ex = { show: false, size: 'normal' };
         }
+        if (defaultGymFilter.ar === undefined) {
+            defaultGymFilter.ar = { show: false, size: 'normal' };
+        }
         if (defaultGymFilter.battle === undefined) {
             defaultGymFilter.battle = { show: false, size: 'normal' };
         }
@@ -932,6 +935,9 @@ function loadStorage () {
         }
         if (gymFilter.ex === undefined) {
             gymFilter.ex = { show: false, size: 'normal' };
+        }
+        if (gymFilter.ar === undefined) {
+            gymFilter.ar = { show: false, size: 'normal' };
         }
         if (gymFilter.battle === undefined) {
             gymFilter.battle = { show: false, size: 'normal' };
@@ -955,7 +961,9 @@ function loadStorage () {
                 defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
         }
-
+        if (defaultPokestopFilter.ar === undefined) {
+            defaultPokestopFilter.ar = { show: false, size: 'normal' };
+        }
         store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
         pokestopFilter = defaultPokestopFilter;
     } else {
@@ -968,6 +976,9 @@ function loadStorage () {
             if (pokestopFilter['l' + i] === undefined) {
                 pokestopFilter['l' + i] = { show: true, size: 'normal' };
             }
+        }
+        if (pokestopFilter.ar === undefined) {
+            pokestopFilter.ar = { show: false, size: 'normal' };
         }
     }
 
@@ -2085,6 +2096,9 @@ function loadData () {
         if (gymFilter.battle.show !== false) {
             gymFilterExclude.push('battle');
         }
+        if (gymFilter.ar.show !== false) {
+            gymFilterExclude.push('ar');
+        }
         for (i = 0; i <= 6; i++) {
             if (gymFilter['s' + i].show === false) {
                 gymFilterExclude.push('s' + i);
@@ -2101,6 +2115,9 @@ function loadData () {
             if (pokestopFilter['l' + i].show === false) {
                 pokestopFilterExclude.push('l' + i);
             }
+        }
+        if (pokestopFilter.ar.show !== false) {
+            pokestopFilterExclude.push('ar');
         }
     }
 
@@ -3435,7 +3452,7 @@ function getPokestopPopupContent (pokestop) {
     }
 
     if (pokestop.ar_scan_eligible) {
-        content += '<img src="/img/misc/ar.png" height="26" width="26"><br><br>'
+        content += '<img src="/img/misc/ar.png" height="42" width="42"><br>'
     }
 
     const updatedDate = new Date(pokestop.updated * 1000);
@@ -3652,6 +3669,9 @@ function getGymPopupContent (gym) {
             // content += '<b>Gym is EX-Raid eligible</b>';
             content += `<img src="/img/misc/ex.png" height="24" width="32">`;
         }
+        if (gym.ar_scan_eligible) {
+            content += '<img src="/img/misc/ar.png" height="42" width="42"><br>';
+        }
         content +=
             '</div>' + // END 2ND COL
         '</div>' + // END 3RD ROW
@@ -3668,10 +3688,6 @@ function getGymPopupContent (gym) {
             content += `<b>${i18n('popup_perfect_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, true)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, true)}<br>`;
             content += `<b>${i18n('popup_worst_cp')}:</b> ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 20, false)} / ${i18n('filter_weathers')}: ${getCpAtLevel(gym.raid_pokemon_id, gym.raid_pokemon_form, 25, false)}<br><br>`;
         }
-    }
-    
-    if (gym.ar_scan_eligible) {
-        content += '<img src="/img/misc/ar.png" height="26" width="26"><br><br>';
     }
 
     content += '</div>';
@@ -4967,6 +4983,27 @@ function manageSelectButton(e, isNew) {
                 shouldShow = gymFilterNew[id].size === 'huge';
                 break;
         }
+    } else if (type === 'gym-ar') {
+        switch (info) {
+            case 'hide':
+                shouldShow = gymFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = gymFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = gymFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = gymFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = gymFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = gymFilterNew[id].size === 'huge';
+                break;
+        }
     } else if (type === 'gym-slots') {
         switch (info) {
             case 'hide':
@@ -5028,6 +5065,27 @@ function manageSelectButton(e, isNew) {
                 break;
             case 'huge':
                 shouldShow = pokestopFilterNew['l' + id].size === 'huge';
+                break;
+        }
+    } else if (type === 'pokestop-ar') {
+        switch (info) {
+            case 'hide':
+                shouldShow = pokestopFilterNew[id].show === false;
+                break;
+            case 'show':
+                shouldShow = pokestopFilterNew[id].show === true;
+                break;
+            case 'small':
+                shouldShow = pokestopFilterNew[id].size === 'small';
+                break;
+            case 'normal':
+                shouldShow = pokestopFilterNew[id].size === 'normal';
+                break;
+            case 'large':
+                shouldShow = pokestopFilterNew[id].size === 'large';
+                break;
+            case 'huge':
+                shouldShow = pokestopFilterNew[id].size === 'huge';
                 break;
         }
     } else if (type === 'invasion-grunt') {
@@ -5499,6 +5557,27 @@ function manageSelectButton(e, isNew) {
                         gymFilterNew[id].size = 'huge';
                         break;
                 }
+            } else if (type === 'gym-ar') {
+                switch (info) {
+                    case 'hide':
+                        gymFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        gymFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        gymFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        gymFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        gymFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        gymFilterNew[id].size = 'huge';
+                        break;
+                }
             } else if (type === 'gym-slots') {
                 switch (info) {
                     case 'hide':
@@ -5560,6 +5639,27 @@ function manageSelectButton(e, isNew) {
                         break;
                     case 'huge':
                         pokestopFilterNew['l' + id].size = 'huge';
+                        break;
+                }
+            } else if (type === 'pokestop-ar') {
+                switch (info) {
+                    case 'hide':
+                        pokestopFilterNew[id].show = false;
+                        break;
+                    case 'show':
+                        pokestopFilterNew[id].show = true;
+                        break;
+                    case 'small':
+                        pokestopFilterNew[id].size = 'small';
+                        break;
+                    case 'normal':
+                        pokestopFilterNew[id].size = 'normal';
+                        break;
+                    case 'large':
+                        pokestopFilterNew[id].size = 'large';
+                        break;
+                    case 'huge':
+                        pokestopFilterNew[id].size = 'huge';
                         break;
                 }
             } else if (type === 'invasion-grunt') {
@@ -7828,6 +7928,7 @@ function registerFilterButtonCallbacks() {
             defaultGymFilter['t' + i] = { show: true, size: 'normal' };
         }
         defaultGymFilter.ex = { show: false, size: 'normal' };
+        defaultGymFilter.ar = { show: false, size: 'normal' };
         defaultGymFilter.battle = { show: false, size: 'normal' };
         for (i = 0; i <= 6; i++) {
             defaultGymFilter['s' + i] = { show: true, size: 'normal' };
@@ -7846,6 +7947,7 @@ function registerFilterButtonCallbacks() {
             defaultGymFilter['t' + i] = { show: false, size: gymFilterNew['t' + i].size };
         }
         defaultGymFilter.ex = { show: false, size: gymFilterNew.ex.size };
+        defaultGymFilter.ar = { show: false, size: gymFilterNew.ar.size };
         defaultGymFilter.battle = { show: false, size: gymFilterNew.ex.size };
         for (i = 0; i <= 6; i++) {
             defaultGymFilter['s' + i] = { show: false, size: gymFilterNew['s' + i].size };
@@ -7864,7 +7966,7 @@ function registerFilterButtonCallbacks() {
         for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: true, size: 'normal' };
         }
-
+        defaultPokestopFilter.ar = { show: false, size: 'normal' };
         store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
         pokestopFilterNew = defaultPokestopFilter;
 
@@ -7877,7 +7979,7 @@ function registerFilterButtonCallbacks() {
         for (let i = 1; i < 6; i++) {
             defaultPokestopFilter['l' + i] = { show: false, size: pokestopFilterNew['l' + i].size };
         }
-
+        defaultPokestopFilter.ar = { show: false, size: 'normal' };
         store('pokestop_filter', JSON.stringify(defaultPokestopFilter));
         pokestopFilterNew = defaultPokestopFilter;
 
