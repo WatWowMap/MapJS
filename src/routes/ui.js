@@ -105,6 +105,9 @@ const handlePage = async (req, res) => {
     await updateAvailableForms(config.icons);
     data.available_icon_styles_json = JSON.stringify(config.icons);
 
+    const themes = await getAvailableThemes();
+    data.available_themes_json = JSON.stringify(themes);
+
     // Build available items list
     const availableItems = [-1, -2, -3, -4, -5, -6, -7, -8];
     //const keys = Object.keys(InventoryItemId);
@@ -115,11 +118,7 @@ const handlePage = async (req, res) => {
     data.available_items_json = JSON.stringify(availableItems);    
 
     // Build available areas list
-    const areas = [];
-    const areaKeys = Object.keys(config.areas).sort();
-    areaKeys.forEach(key => {
-        areas.push({ 'area': key });
-    });
+    const areas = Object.keys(config.areas).sort().map(x => { return { 'area': x }; });
     data.areas = areas;
 
     // Available raid boss filters
@@ -188,8 +187,8 @@ const handlePage = async (req, res) => {
     }
 
     if (city) {
-        for (let i = 0; i < areaKeys.length; i++) {
-            const key = areaKeys[i];
+        for (let i = 0; i < areas.length; i++) {
+            const key = areas[i];
             if (city.toLowerCase() === key.toLowerCase()) {
                 const area = config.areas[key];
                 lat = parseFloat(area.lat);
@@ -237,6 +236,24 @@ const getAvailableTileservers = () => {
         });
     }
     return tileservers;
+};
+
+const getAvailableThemes = async () => {
+    const themes = {};
+    const themesDir = path.resolve(__dirname, '../../static/css/themes');
+    const files = await fs.promises.readdir(themesDir);
+    if (files) {
+        files.forEach(file => {
+            const ext = path.extname(file);
+            if (ext !== '.css') {
+                return;
+            }
+            let name = path.basename(file, ext);
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+            themes[name] = `/css/themes/${file}`;
+        });
+    }
+    return themes;
 };
 
 const updateAvailableForms = async (icons) => {

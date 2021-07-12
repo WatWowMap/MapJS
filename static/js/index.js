@@ -92,6 +92,7 @@ let showSubmissionCells;
 let availableForms = [];
 let selectedTileserver = 'Default';
 let selectedIconStyle = 'Default';
+let selectedTheme = 'Default';
 
 let pokemonFilterLoaded = false;
 let questFilterLoaded = false;
@@ -257,6 +258,24 @@ $(function () {
             }));
         }
     }
+    
+    const availableThemeKeys = Object.keys(availableThemes);
+    availableThemeKeys.sort();
+    $('#select-theme').append($('<option>', {
+        value: '/css/themes/default.css',
+        text: 'Default',
+        selected: selectedIconStyle === 'Default'
+    }));
+    for (let i = 0; i < availableThemeKeys.length; i++) {
+        const key = availableThemeKeys[i];
+        if (key !== 'Default') {
+            $('#select-theme').append($('<option>', {
+                value: availableThemes[key],
+                text: key,
+                selected: key === selectedTheme
+            }));
+        }
+    }
 
     deviceOnlineIcon = L.icon({
         iconUrl: '/img/device/0.png',
@@ -402,6 +421,19 @@ $(function () {
         buildAvailableForms();
         // TODO: Redraw markers/update icons for markers, invalidate map
     });
+
+    $('#select-theme').on('change', function () {
+        selectedTheme = this.value;
+        $('.theme-css').attr('href', selectedTheme);
+        store('theme', selectedTheme);
+    });
+
+    const oldThemeValue = retrieve('theme');
+    if (oldThemeValue !== null) {
+        selectedTheme = oldThemeValue;
+        $('#select-theme').val(selectedTheme);
+        $('#select-theme').change();
+    }
 
     $('#exportFilters').on('click', function () {
         let settings = {

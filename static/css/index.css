@@ -130,11 +130,6 @@ fieldset[disabled] .btn-on.active {
     background-color: #C86464;
 }
 
-.btn-off:active,
-.btn-off.active,
-.open .dropdown-toggle.btn-off {
-}
-
 .btn-off.disabled,
 .btn-off[disabled],
 fieldset[disabled] .btn-off,
@@ -177,10 +172,6 @@ fieldset[disabled] .btn-off.active {
     background-color: #6464C8;
 }
 
-.btn-size:active,
-.btn-size.active,
-.open .dropdown-toggle.btn-size {
-}
 
 .btn-size.disabled,
 .btn-size[disabled],
@@ -640,6 +631,7 @@ img {
   pointer-events: none;
 }
 
+/*
 .theme-dark #settingsModal,
 .theme-dark #filtersModal,
 .theme-dark #searchModal,
@@ -667,6 +659,7 @@ img {
 .theme-dark div.DTS div.dataTables_scrollBody {
     background: repeating-linear-gradient(45deg, #33361f, #33361f 10px, #21251f 10px, #21251f 20px);
 }
+*/
 
 hr {
     border: solid rgb(31, 31, 31) 1px;
@@ -677,4 +670,3 @@ hr {
     border: solid white 1px;
     border-radius: 30px;
 }
-

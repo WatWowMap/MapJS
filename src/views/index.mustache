@@ -50,6 +50,7 @@
         const availableItems = {{{available_items_json}}};
         const availableTileservers = {{{available_tileservers_json}}};
         const availableIconStyles = {{{available_icon_styles_json}}};
+        const availableThemes = {{{available_themes_json}}};
         const availableRaidBosses = {{{available_raid_bosses_json}}};
         const availableQuestRewards = {{{available_quest_rewards_json}}};
         const availableNestPokemon = {{{available_nest_pokemon_json}}};
@@ -819,7 +820,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="mr-auto">
-                        <div class="btn-group">
+                        <div class="form-group">
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mapstyleModal">{{filter_mapstyle}}</button>
                             &nbsp;
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#iconstyleModal">{{filter_iconstyle}}</button>
@@ -833,6 +834,10 @@
                                     <a class="dropdown-item" onclick="clearSiteCache('storage');" href="#">{{clear_storage}}</a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            Theme
+                            <select class="form-control" id="select-theme" required></select>
                         </div>
                     </div>
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">{{filter_cancel}}</button>
