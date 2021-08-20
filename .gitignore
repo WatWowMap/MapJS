@@ -125,3 +125,6 @@ static/locales/*
 
 # No docker-compose.yml files
 docker-compose.yml
+
+# Ignore Masterfile
+masterfile.json

@@ -6,11 +6,12 @@
   "scripts": {
     "convert": "node src/geofenceToGeoJSON.js",
     "convert-poracle": "node src/poracleToGeoJSON.js",
-    "create-locales": "node src/createLocales.js",
+    "create-locales": "node -e 'require(\"./src/createLocales\").locales()'",
+    "generate": "node -e 'require(\"./src/generateMasterfile\").generate()'",
     "start": "node src/index.js",
     "test": "npx eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test-fix": "npx eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
-    "update": "npm install && npm update pogo-translations && npm run create-locales"
+    "update": "npm install && npm run generate && npm run create-locales"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,6 @@
     "mustache-express": "^1.3.0",
     "mysql": "^2.18.1",
     "nodes2ts": "^2.0.0",
-    "pogo-translations": "git+https://github.com/bschultz/pogo-translations.git",
     "require-from-string": "^2.0.2",
     "sanitizer": "^0.1.3"
   }
