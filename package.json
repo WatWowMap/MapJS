@@ -11,7 +11,7 @@
     "start": "node src/index.js",
     "test": "npx eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test-fix": "npx eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
-    "update": "npm install && npm update pogo-translations && npm run generate && npm run create-locales"
+    "update": "npm install && npm run generate && npm run create-locales"
   },
   "repository": {
     "type": "git",
