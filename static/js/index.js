@@ -129,7 +129,6 @@ let scanAreaLayer = new L.LayerGroup();
 
 let masterfile = {};
 let weatherTypes = {};
-let gruntTypes = {};
 let nestsDb = {};
 let scanAreasDb = {};
 let cpMultipliers = {};
@@ -204,9 +203,6 @@ $(function () {
     });
     $.getJSON('/data/weathertypes.json', function (data) {
         weatherTypes = data;
-    });
-    $.getJSON('/data/grunttypes.json', function (data) {
-        gruntTypes = data;
     });
     $.getJSON('/data/cpm.json', function (data) {
         cpMultipliers = data;
@@ -3478,7 +3474,7 @@ function getPokestopPopupContent (pokestop) {
 }
 
 const getPossibleInvasionRewards = pokestop => {
-  const item = gruntTypes[pokestop.grunt_type];
+  const item = masterfile.invasions[pokestop.grunt_type];
   if (!item) return '';
   const encounterNum = { first: '#1', second: '#2', third: '#3' };
   const rewardPercent = item.type === i18n('popup_giovanni') ? { third: '100%' }
