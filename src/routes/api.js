@@ -887,7 +887,7 @@ const getData = async (perms, filter) => {
         // Grunt Type
         for (const i of Object.entries(masterfile.invasions)) {
             // Skip unset, Jesse, James, & extra grunts
-            if (['0', '45', '46', '53', '54'].includes(i[0])) { continue };
+            if (['0', '45', '46', '53', '54'].includes(i[0])) { continue; }
             (i[0] >= 41 && i[0] <= 44 ? invasionLeaderData : invasionData).push({
                 'id': {
                     'formatted': utils.zeroPad(i[0], 3),
