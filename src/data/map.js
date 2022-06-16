@@ -121,8 +121,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
-            pvp_rankings_great_league, pvp_rankings_ultra_league
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username, pvp
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?
     ${onlyVerifiedTimersSQL} ${areaRestrictionsSQL}`;
@@ -180,12 +179,15 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                         }
                     }
                 };
+                /*
+                TODO: Filter pvp rankings
                 if (result.pvp_rankings_great_league) {
                     filterLeagueStats(result.pvp_rankings_great_league, filtered.pvp_rankings_great_league = [], minCpGreat);
                 }
                 if (result.pvp_rankings_ultra_league) {
                     filterLeagueStats(result.pvp_rankings_ultra_league, filtered.pvp_rankings_ultra_league = [], minCpUltra);
                 }
+                */
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
             if (pokemonFilter === undefined) {
@@ -676,8 +678,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
 
     if (showInvasions) {
         if (excludedInvasions.length === 0) {
-            excludeInvasionSQL = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP())';
+            //excludeInvasionSQL = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP())';
         } else {
+            /*
             let sqlExcludeCreate = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
             for (let i = 0; i < excludedInvasions.length; i++) {
                 if (i === excludedInvasions.length - 1) {
@@ -688,14 +691,15 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 args.push(excludedInvasions[i]);
             }
             excludeInvasionSQL = sqlExcludeCreate;
+            */
         }
     }
 
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
-            CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
-            incident_expire_timestamp, grunt_type, sponsor_id${arScanEligible}
+            CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id,
+            sponsor_id${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
@@ -704,6 +708,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let pokestops = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
+            // TODO: Get invasion from incident table
             const result = results[i];
             let lureExpireTimestamp;
             if (showLures) {
@@ -739,6 +744,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             } else {
                 lureId = null;
             }
+            /*
             let pokestopDisplay;
             let incidentExpireTimestamp;
             let gruntType;
@@ -751,6 +757,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 incidentExpireTimestamp = null;
                 gruntType = null;
             }
+            */
 
             let arScanEligible = null;
             if (config.db.scanner.arScanColumn) {
@@ -775,9 +782,9 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 quest_template: questTemplate,
                 cell_id: result.cell_id,
                 lure_id: lureId,
-                pokestop_display: pokestopDisplay,
-                incident_expire_timestamp: incidentExpireTimestamp,
-                grunt_type: gruntType,
+                //pokestop_display: pokestopDisplay,
+                //incident_expire_timestamp: incidentExpireTimestamp,
+                //grunt_type: gruntType,
                 sponsor_id: result.sponsor_id,
                 ar_scan_eligible: arScanEligible,
             });
