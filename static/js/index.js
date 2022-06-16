@@ -863,7 +863,7 @@ function loadStorage () {
     if (raidFilterValue === null) {
         const defaultRaidFilter = {};
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             if (defaultRaidFilter['l' + i] === undefined) {
                 defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -881,7 +881,7 @@ function loadStorage () {
     } else {
         raidFilter = JSON.parse(raidFilterValue);
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             if (raidFilter['l' + i] === undefined) {
                 raidFilter['l' + i] = { show: true, size: 'normal' };
             }
@@ -2064,7 +2064,7 @@ function loadData () {
     const raidFilterExclude = [];
     if (showRaids) {
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             if (raidFilter['l' + i].show === false) {
                 raidFilterExclude.push('l' + i);
             }
@@ -7847,7 +7847,7 @@ function registerFilterButtonCallbacks() {
     $('#reset-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             defaultRaidFilter['l' + i] = { show: true, size: 'normal' };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -7865,7 +7865,7 @@ function registerFilterButtonCallbacks() {
     $('#disable-all-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             defaultRaidFilter['l' + i] = { show: false, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -7883,7 +7883,7 @@ function registerFilterButtonCallbacks() {
     $('#legendary-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             defaultRaidFilter['l' + i] = { show: i === 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
@@ -7901,7 +7901,7 @@ function registerFilterButtonCallbacks() {
     $('#normal-raid-filter').on('click', function (event) {
         const defaultRaidFilter = {};
         let i;
-        for (i = 1; i <= 6; i++) {
+        for (i = 1; i <= 8; i++) {
             defaultRaidFilter['l' + i] = { show: i !== 5, size: raidFilterNew['l' + i].size };
         }
         for (i = 0; i < availableRaidBosses.length; i++) {
