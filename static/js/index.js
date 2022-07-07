@@ -2256,7 +2256,7 @@ function loadData () {
                         oldGym.updated = gym.updated;
                         oldGym.last_modified_timestamp = gym.last_modified_timestamp;
 
-                        if (oldGym.availble_slots !== gym.availble_slots ||
+                        if (oldGym.available_slots !== gym.available_slots ||
                             oldGym.team_id !== gym.team_id ||
                             oldGym.guarding_pokemon_id !== gym.guarding_pokemon_id ||
                             oldGym.in_battle !== gym.in_battle ||
@@ -2265,7 +2265,7 @@ function loadData () {
                             oldGym.raid_pokemon_id !== gym.raid_pokemon_id ||
                             oldGym.raid_pokemon_form !== gym.raid_pokemon_form ||
                             oldGym.raid_pokemon_evolution !== gym.raid_pokemon_evolution) {
-                            oldGym.availble_slots = gym.availble_slots;
+                            oldGym.available_slots = gym.available_slots;
                             oldGym.team_id = gym.team_id;
                             oldGym.guarding_pokemon_id = gym.guarding_pokemon_id;
                             oldGym.in_battle = gym.in_battle;
@@ -3651,7 +3651,7 @@ function getGymPopupContent (gym) {
         content +=
             // '<div class="col-12 col-md-8 ' + (hasGymUrl ? 'text-center' : '') + ' center-vertical">' + //START 2ND COL
             `<div class="col-8 center-vertical p-4">
-              <b>${i18n('popup_team')}:</b> ${getTeamName(gym.team_id)}<br><b>${i18n('popup_slots_available')}:</b> (${gym.availble_slots === 0 ? i18n('popup_full') : gym.availble_slots === 6 ? i18n('popup_empty') : gym.availble_slots})<br>`;
+              <b>${i18n('popup_team')}:</b> ${getTeamName(gym.team_id)}<br><b>${i18n('popup_slots_available')}:</b> (${gym.available_slots === 0 ? i18n('popup_full') : gym.available_slots === 6 ? i18n('popup_empty') : gym.available_slots})<br>`;
         if (gym.guarding_pokemon_id !== null) {
             content += `<b>${i18n('popup_guard')}:</b> ${getPokemonName(gym.guarding_pokemon_id)}<br>`;
         }
@@ -4475,10 +4475,10 @@ function getSpawnpointMarker (spawnpoint, ts) {
 
 function getGymMarkerIcon (gym, ts) {
     let size;
-    if (gym.availble_slots === 6 || gym.team_id === 0) {
+    if (gym.available_slots === 6 || gym.team_id === 0) {
         size = 0;
     } else {
-        size = (6 - gym.availble_slots);
+        size = (6 - gym.available_slots);
     }
 
     // Gym

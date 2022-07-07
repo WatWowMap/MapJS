@@ -362,7 +362,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     if (excludedAvailableSlots.length === 0) {
         excludeAvailableSlotsSQL = '';
     } else {
-        let sqlExcludeCreate = 'AND (availble_slots NOT IN (';
+        let sqlExcludeCreate = 'AND (available_slots NOT IN (';
         for (let i = 0; i < excludedAvailableSlots.length; i++) {
             if (i === excludedAvailableSlots.length - 1) {
                 sqlExcludeCreate += '?))';
@@ -394,7 +394,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
 
     let sql = `
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
-            raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
+            raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, available_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
             raid_pokemon_evolution, raid_pokemon_costume${arScanEligible}
@@ -458,7 +458,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 raid_battle_timestamp: raidBattleTimestamp,
                 raid_pokemon_id: raidPokemonId,
                 raid_level: result.raid_level,
-                availble_slots: result.availble_slots,
+                available_slots: result.available_slots,
                 updated: result.updated,
                 ex_raid_eligible: result.ex_raid_eligible,
                 in_battle: permGymDetails ? result.in_battle : false,
@@ -704,6 +704,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
     `;
+    //        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
     const results = await dbSelection('pokestop').query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
