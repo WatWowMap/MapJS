@@ -480,14 +480,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null, areaRestrictions = []) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, questFilterExclude = null, pokestopFilterExclude = null, areaRestrictions = []) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     const excludedForms = [];
     let excludedEvolutions = [];
     let excludedItems = []; //int
     let excludedLures = []; //int
-    let excludedInvasions = [];
     let excludeNormal = false;
     let excludeAllButAr = false;
     let minimumCandyCount = 0;
@@ -531,16 +530,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 excludedLures.push(id + 500);
             } else if (filter.includes('ar')) {
                 excludeAllButAr = true;
-            }
-        }
-    }
-
-    if (showInvasions && invasionFilterExclude) {
-        for (let i = 0; i < invasionFilterExclude.length; i++) {
-            const filter = invasionFilterExclude[i];
-            if (showInvasions && filter.includes('i')) {
-                const id = parseInt(filter.replace('i', ''));
-                excludedInvasions.push(id);
             }
         }
     }
@@ -676,25 +665,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
     }
 
-    if (showInvasions) {
-        if (excludedInvasions.length === 0) {
-            //excludeInvasionSQL = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP())';
-        } else {
-            /*
-            let sqlExcludeCreate = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
-            for (let i = 0; i < excludedInvasions.length; i++) {
-                if (i === excludedInvasions.length - 1) {
-                    sqlExcludeCreate += '?))';
-                } else {
-                    sqlExcludeCreate += '?, ';
-                }
-                args.push(excludedInvasions[i]);
-            }
-            excludeInvasionSQL = sqlExcludeCreate;
-            */
-        }
-    }
-
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
@@ -708,7 +678,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     let pokestops = [];
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
-            // TODO: Get invasion from incident table
             const result = results[i];
             let lureExpireTimestamp;
             if (showLures) {
@@ -744,20 +713,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             } else {
                 lureId = null;
             }
-            /*
-            let pokestopDisplay;
-            let incidentExpireTimestamp;
-            let gruntType;
-            if (showInvasions) {
-                pokestopDisplay = result.pokestop_display;
-                incidentExpireTimestamp = result.incident_expire_timestamp;
-                gruntType = result.grunt_type;
-            } else {
-                pokestopDisplay = null;
-                incidentExpireTimestamp = null;
-                gruntType = null;
-            }
-            */
 
             let arScanEligible = null;
             if (config.db.scanner.arScanColumn) {
@@ -787,6 +742,72 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 //grunt_type: gruntType,
                 sponsor_id: result.sponsor_id,
                 ar_scan_eligible: arScanEligible,
+            });
+        }
+    }
+
+    return pokestops;
+};
+
+const getInvasions = async (minLat, maxLat, minLon, maxLon, updated = 0, showInvasions = true, invasionFilterExclude = [], areaRestrictions = []) => {
+    let excludedInvasions = [];
+    if (showInvasions && invasionFilterExclude) {
+        for (let i = 0; i < invasionFilterExclude.length; i++) {
+            const filter = invasionFilterExclude[i];
+            if (showInvasions && filter.includes('i')) {
+                const id = parseInt(filter.replace('i', ''));
+                excludedInvasions.push(id);
+            }
+        }
+    }
+
+    let args = [minLat, maxLat, minLon, maxLon, updated];
+    let excludeInvasionSQL = '';
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
+
+    if (showInvasions) {
+        if (excludedInvasions.length === 0) {
+            excludeInvasionSQL = 'AND (expiration > UNIX_TIMESTAMP())';
+        } else {
+            let sqlExcludeCreate = 'AND (expiration > UNIX_TIMESTAMP() AND incident.character NOT IN (';
+            for (let i = 0; i < excludedInvasions.length; i++) {
+                if (i === excludedInvasions.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
+                args.push(excludedInvasions[i]);
+            }
+            excludeInvasionSQL = sqlExcludeCreate;
+        }
+    }
+
+    let sql = `
+    SELECT incident.id, lat, lon, name, url, enabled, start, expiration, pokestop_id,
+        incident.character, display_type, style, incident.updated
+    FROM incident INNER JOIN pokestop ON pokestop.id = incident.pokestop_id
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND incident.updated > ?
+        ${excludeInvasionSQL} ${areaRestrictionsSQL}
+    `;
+    const results = await dbSelection('incident').query(sql, args);
+    let pokestops = [];
+    if (results && results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+            pokestops.push({
+                id: result.id,
+                lat: result.lat,
+                lon: result.lon,
+                name: result.name,
+                url: result.url,
+                enabled: result.enabled,
+                pokestopId: result.pokestopId,
+                start: result.start,
+                expiration: result.expiration,
+                displayType: result.display_type,
+                style: result.style,
+                character: result.character,
+                updated: result.updated,
             });
         }
     }
@@ -1591,6 +1612,7 @@ module.exports = {
     getPokemon,
     getGyms,
     getPokestops,
+    getInvasions,
     getSpawnpoints,
     getDevices,
     getS2Cells,
