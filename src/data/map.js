@@ -145,6 +145,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 }
             }
             if (showPVP && interestedLevelCaps.length > 0) {
+                // TODO: Filter pvp rankings
+                /*
                 const { minCpGreat, minCpUltra } = config.map.pvp;
                 const filterLeagueStats = (result, target, minCp) => {
                     let last;
@@ -179,8 +181,6 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                         }
                     }
                 };
-                /*
-                TODO: Filter pvp rankings
                 if (result.pvp_rankings_great_league) {
                     filterLeagueStats(result.pvp_rankings_great_league, filtered.pvp_rankings_great_league = [], minCpGreat);
                 }
@@ -584,9 +584,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
         excludeTypeSQL += ')';
 
-        // TODO: Bandaid
-        //excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = NULL OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = 0)';
-        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL ';
+        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') IS NULL OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = 0)';
         if (excludedPokemon.length !== 0) {
             excludePokemonSQL += 'AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
@@ -606,8 +604,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 args.push(parseInt(form));
             }
         }
-        //excludePokemonSQL += ')))';
-        excludePokemonSQL += '))';
+        excludePokemonSQL += ')))';
 
         if (excludedEvolutions.length === 0) {
             excludeEvolutionSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 12 AND json_extract(json_extract(quest_rewards, "$[*].info.pokemon_id"), "$[0]") IS NOT NULL)';
@@ -707,7 +704,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
     `;
-    //        (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
     const results = await dbSelection('pokestop').query(sql, args);
     let pokestops = [];
     if (results && results.length > 0) {
