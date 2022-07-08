@@ -885,19 +885,21 @@ const getData = async (perms, filter) => {
         const invasionData = [];
 
         // Grunt Type
-        for (let i = 1; i <= 50; i++) {
-            (i >= 41 && i <= 44 ? invasionLeaderData : invasionData).push({
+        for (const i of Object.entries(masterfile.invasions)) {
+            // Skip unset, Jesse, James, & extra grunts
+            if (['0', '45', '46', '53', '54'].includes(i[0])) { continue; }
+            (i[0] >= 41 && i[0] <= 44 ? invasionLeaderData : invasionData).push({
                 'id': {
-                    'formatted': utils.zeroPad(i, 3),
-                    'sort': i
+                    'formatted': utils.zeroPad(i[0], 3),
+                    'sort': i[0]
                 },
-                'name': i18n.__('grunt_' + i),
+                'name': i18n.__('grunt_' + i[0]),
                 'image': {
                     type: 'img',
-                    path: `/grunt/${i}.png`
+                    path: `/grunt/${i[0]}.png`
                 },
-                'filter': generateShowHideButtons(i, 'invasion-grunt'),
-                'size': generateSizeButtons(i, 'invasion-grunt'),
+                'filter': generateShowHideButtons(i[0], 'invasion-grunt'),
+                'size': generateSizeButtons(i[0], 'invasion-grunt'),
                 'type': gruntTypeString
             });
         }

@@ -2119,9 +2119,9 @@ function loadData () {
 
     const invasionFilterExclude = [];
     if (showInvasions) {
-        for (let i = 1; i <= 50; i++) {
-            if (invasionFilter['i' + i].show === false) {
-                invasionFilterExclude.push('i' + i);
+        for (const i of Object.entries(masterfile.invasions)) {
+            if (invasionFilter['i' + i[0]].show === false) {
+                invasionFilterExclude.push('i' + i[0]);
             }
         }
     }
@@ -7985,8 +7985,8 @@ function registerFilterButtonCallbacks() {
     // Invasion filter buttons
     $('#reset-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
-        for (let i = 1; i <= 50; i++) {
-            defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
+        for (const i of Object.entries(masterfile.invasions)) {
+            defaultInvasionFilter['i' + i[0]] = { show: true, size: 'normal' };
         }
 
         store('invasion_filter', JSON.stringify(defaultInvasionFilter));
@@ -7997,8 +7997,8 @@ function registerFilterButtonCallbacks() {
 
     $('#disable-all-invasion-filter').on('click', function (event) {
         const defaultInvasionFilter = {};
-        for (let i = 1; i <= 50; i++) {
-            defaultInvasionFilter['i' + i] = { show: false, size: invasionFilterNew['i' + i].size };
+        for (const i of Object.entries(masterfile.invasions)) {
+            defaultInvasionFilter['i' + i[0]] = { show: false, size: invasionFilterNew['i' + i[0]].size };
         }
 
         store('invasion_filter', JSON.stringify(defaultInvasionFilter));
