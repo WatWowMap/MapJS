@@ -15,6 +15,7 @@ const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
 const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
+const lastSeen = config.db.scanner.lastSeenColumn ? ', last_seen' : '';
 
 const dbSelection = (category) => {
     let dbSelection;
@@ -842,7 +843,7 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     const sql = `
-    SELECT id, lat, lon, updated, despawn_sec
+    SELECT id, lat, lon, updated, despawn_sec ${lastSeen}
     FROM spawnpoint
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${excludeTimerSQL} ${areaRestrictionsSQL}
     `;
@@ -853,12 +854,17 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            let lastSeen = 0;
+            if (config.db.scanner.lastSeenColumn) {
+                lastSeen = result.last_seen;
+            }
             spawnpoints.push({
                 id: result.id,
                 lat: result.lat,
                 lon: result.lon,
                 updated: result.updated,
-                despawn_second: result.despawn_sec
+                despawn_second: result.despawn_sec,
+                last_seen: lastSeen,
             });
         }
     }

@@ -4552,6 +4552,18 @@ function getSpawnpointMarker (spawnpoint, ts) {
     if (hasTimer) {
         const timer = Math.round(spawnpoint.despawn_second / 60);
         content += `<br><b>${i18n('popup_despawn_timer')}:</b> ${timer} ${i18n('popup_minutes')}`;
+        if (spawnpoint.last_seen) {
+            // TODO: spawnpoint.last_seen x hours/minutes ago
+            const lastSeenDate = new Date(spawnpoint.last_seen * 1000);
+            const todayMidnight = new Date();
+            todayMidnight.setHours(0, 0, 0, 0);
+            // Check if last seen date is greater than today at midnight. If spawnpoint
+            // was seen today omit the date string and only show time.
+            const date = todayMidnight < lastSeenDate
+                ? lastSeenDate.toLocaleTimeString(dateTimeLocale)
+                : lastSeenDate.toLocaleString(dateTimeLocale);
+            content += `<br><b>${i18n('popup_last_seen')}:</b> ${date}`;
+        }
     }
     const circle = L.circle([spawnpoint.lat, spawnpoint.lon], {
         color: hasTimer ? 'green' : 'red',

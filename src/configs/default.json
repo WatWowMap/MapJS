@@ -109,6 +109,7 @@
           "charset": "utf8mb4",
           "sessionTable": "sessions",
           "arScanColumn": false,
+          "lastSeenColumn": false,
           "useFor": []
       },
       "manualdb": {
