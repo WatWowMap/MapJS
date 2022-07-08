@@ -348,8 +348,12 @@ const getData = async (perms, filter) => {
         (permShowInvasions && showInvasions)
     ) {
         data['pokestops'] = await map.getPokestops(minLat, maxLat, minLon, maxLon, lastUpdate,
-            permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures, permShowInvasions && showInvasions,
-            questFilterExclude, pokestopFilterExclude, invasionFilterExclude, permAreaRestrictions);
+            permShowPokestops && showPokestops, permShowQuests && showQuests, permShowLures,
+            questFilterExclude, pokestopFilterExclude, permAreaRestrictions);
+    }
+    if (permShowInvasions && showInvasions) {
+        data['invasions'] = await map.getInvasions(minLat, maxLat, minLon, maxLon, lastUpdate,
+            permShowInvasions && showInvasions, invasionFilterExclude, permAreaRestrictions);
     }
     if (permShowPokemon && showPokemon) {
         data['pokemon'] = await map.getPokemon(minLat, maxLat, minLon, maxLon, permShowPVP, permShowIV, lastUpdate,
@@ -520,7 +524,7 @@ const getData = async (perms, filter) => {
         const raidData = [];
 
         //Level
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= 8; i++) {
             const raidLevel = i18n.__('filter_raid_level_' + i);
             raidData.push({
                 'id': {

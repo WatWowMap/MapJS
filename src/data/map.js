@@ -15,6 +15,7 @@ const dbManual = new MySQLConnector(config.db.manualdb);
 
 const masterfile = require('../../static/data/masterfile.json');
 const arScanEligible = config.db.scanner.arScanColumn ? ', ar_scan_eligible' : '';
+const lastSeen = config.db.scanner.lastSeenColumn ? ', last_seen' : '';
 
 const dbSelection = (category) => {
     let dbSelection;
@@ -121,8 +122,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username,
-            pvp_rankings_great_league, pvp_rankings_ultra_league
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username, pvp
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?
     ${onlyVerifiedTimersSQL} ${areaRestrictionsSQL}`;
@@ -146,6 +146,8 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 }
             }
             if (showPVP && interestedLevelCaps.length > 0) {
+                // TODO: Filter pvp rankings
+                /*
                 const { minCpGreat, minCpUltra } = config.map.pvp;
                 const filterLeagueStats = (result, target, minCp) => {
                     let last;
@@ -186,6 +188,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 if (result.pvp_rankings_ultra_league) {
                     filterLeagueStats(result.pvp_rankings_ultra_league, filtered.pvp_rankings_ultra_league = [], minCpUltra);
                 }
+                */
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
             if (pokemonFilter === undefined) {
@@ -360,7 +363,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     if (excludedAvailableSlots.length === 0) {
         excludeAvailableSlotsSQL = '';
     } else {
-        let sqlExcludeCreate = 'AND (availble_slots NOT IN (';
+        let sqlExcludeCreate = 'AND (available_slots NOT IN (';
         for (let i = 0; i < excludedAvailableSlots.length; i++) {
             if (i === excludedAvailableSlots.length - 1) {
                 sqlExcludeCreate += '?))';
@@ -392,7 +395,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
 
     let sql = `
     SELECT id, lat, lon, name, url, guarding_pokemon_id, last_modified_timestamp, team_id, raid_end_timestamp,
-            raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, availble_slots, updated,
+            raid_spawn_timestamp, raid_battle_timestamp, raid_pokemon_id, enabled, available_slots, updated,
             raid_level, ex_raid_eligible, in_battle, raid_pokemon_move_1, raid_pokemon_move_2, raid_pokemon_form,
             raid_pokemon_cp, raid_pokemon_gender, raid_is_exclusive, cell_id, total_cp, sponsor_id,
             raid_pokemon_evolution, raid_pokemon_costume${arScanEligible}
@@ -456,7 +459,7 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
                 raid_battle_timestamp: raidBattleTimestamp,
                 raid_pokemon_id: raidPokemonId,
                 raid_level: result.raid_level,
-                availble_slots: result.availble_slots,
+                available_slots: result.available_slots,
                 updated: result.updated,
                 ex_raid_eligible: result.ex_raid_eligible,
                 in_battle: permGymDetails ? result.in_battle : false,
@@ -478,14 +481,13 @@ const getGyms = async (minLat, maxLat, minLon, maxLon, updated = 0, showRaids = 
     return gyms;
 };
 
-const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, showInvasions = false, questFilterExclude = null, pokestopFilterExclude = null, invasionFilterExclude = null, areaRestrictions = []) => {
+const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPokestops = true, showQuests = false, showLures = false, questFilterExclude = null, pokestopFilterExclude = null, areaRestrictions = []) => {
     let excludedTypes = []; //int
     let excludedPokemon = []; //int
     const excludedForms = [];
     let excludedEvolutions = [];
     let excludedItems = []; //int
     let excludedLures = []; //int
-    let excludedInvasions = [];
     let excludeNormal = false;
     let excludeAllButAr = false;
     let minimumCandyCount = 0;
@@ -533,16 +535,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
     }
 
-    if (showInvasions && invasionFilterExclude) {
-        for (let i = 0; i < invasionFilterExclude.length; i++) {
-            const filter = invasionFilterExclude[i];
-            if (showInvasions && filter.includes('i')) {
-                const id = parseInt(filter.replace('i', ''));
-                excludedInvasions.push(id);
-            }
-        }
-    }
-
     let args = [minLat, maxLat, minLon, maxLon, updated];
     let excludeTypeSQL = '';
     let excludePokemonSQL = '';
@@ -582,7 +574,7 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
         excludeTypeSQL += ')';
 
-        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = NULL OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = 0)';
+        excludePokemonSQL = 'OR (quest_reward_type IS NOT NULL AND quest_reward_type = 7 AND quest_pokemon_id IS NOT NULL AND ((json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') IS NULL OR json_extract(json_extract(quest_rewards, \'$[*].info.form_id\'), \'$[0]\') = 0)';
         if (excludedPokemon.length !== 0) {
             excludePokemonSQL += 'AND quest_pokemon_id NOT IN (';
             for (let i = 0; i < excludedPokemon.length; i++) {
@@ -674,28 +666,11 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
         }
     }
 
-    if (showInvasions) {
-        if (excludedInvasions.length === 0) {
-            excludeInvasionSQL = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP())';
-        } else {
-            let sqlExcludeCreate = 'OR (incident_expire_timestamp > UNIX_TIMESTAMP() AND grunt_type NOT IN (';
-            for (let i = 0; i < excludedInvasions.length; i++) {
-                if (i === excludedInvasions.length - 1) {
-                    sqlExcludeCreate += '?))';
-                } else {
-                    sqlExcludeCreate += '?, ';
-                }
-                args.push(excludedInvasions[i]);
-            }
-            excludeInvasionSQL = sqlExcludeCreate;
-        }
-    }
-
     let sql = `
     SELECT id, lat, lon, name, url, enabled, lure_expire_timestamp, last_modified_timestamp, updated,
             quest_type, quest_timestamp, quest_target, CAST(quest_conditions AS CHAR) AS quest_conditions,
-            CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id, pokestop_display,
-            incident_expire_timestamp, grunt_type, sponsor_id${arScanEligible}
+            CAST(quest_rewards AS CHAR) AS quest_rewards, quest_template, cell_id, lure_id,
+            sponsor_id${arScanEligible}
     FROM pokestop
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? AND deleted = false AND
         (false ${excludeTypeSQL} ${excludePokemonSQL} ${excludeEvolutionSQL} ${excludeItemSQL} ${excludePokestopSQL} ${excludeInvasionSQL}) ${excludeAllButArSQL} ${areaRestrictionsSQL}
@@ -739,18 +714,6 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
             } else {
                 lureId = null;
             }
-            let pokestopDisplay;
-            let incidentExpireTimestamp;
-            let gruntType;
-            if (showInvasions) {
-                pokestopDisplay = result.pokestop_display;
-                incidentExpireTimestamp = result.incident_expire_timestamp;
-                gruntType = result.grunt_type;
-            } else {
-                pokestopDisplay = null;
-                incidentExpireTimestamp = null;
-                gruntType = null;
-            }
 
             let arScanEligible = null;
             if (config.db.scanner.arScanColumn) {
@@ -775,11 +738,77 @@ const getPokestops = async (minLat, maxLat, minLon, maxLon, updated = 0, showPok
                 quest_template: questTemplate,
                 cell_id: result.cell_id,
                 lure_id: lureId,
-                pokestop_display: pokestopDisplay,
-                incident_expire_timestamp: incidentExpireTimestamp,
-                grunt_type: gruntType,
+                //pokestop_display: pokestopDisplay,
+                //incident_expire_timestamp: incidentExpireTimestamp,
+                //grunt_type: gruntType,
                 sponsor_id: result.sponsor_id,
                 ar_scan_eligible: arScanEligible,
+            });
+        }
+    }
+
+    return pokestops;
+};
+
+const getInvasions = async (minLat, maxLat, minLon, maxLon, updated = 0, showInvasions = true, invasionFilterExclude = [], areaRestrictions = []) => {
+    let excludedInvasions = [];
+    if (showInvasions && invasionFilterExclude) {
+        for (let i = 0; i < invasionFilterExclude.length; i++) {
+            const filter = invasionFilterExclude[i];
+            if (showInvasions && filter.includes('i')) {
+                const id = parseInt(filter.replace('i', ''));
+                excludedInvasions.push(id);
+            }
+        }
+    }
+
+    let args = [minLat, maxLat, minLon, maxLon, updated];
+    let excludeInvasionSQL = '';
+    let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
+
+    if (showInvasions) {
+        if (excludedInvasions.length === 0) {
+            excludeInvasionSQL = 'AND (expiration > UNIX_TIMESTAMP())';
+        } else {
+            let sqlExcludeCreate = 'AND (expiration > UNIX_TIMESTAMP() AND incident.character NOT IN (';
+            for (let i = 0; i < excludedInvasions.length; i++) {
+                if (i === excludedInvasions.length - 1) {
+                    sqlExcludeCreate += '?))';
+                } else {
+                    sqlExcludeCreate += '?, ';
+                }
+                args.push(excludedInvasions[i]);
+            }
+            excludeInvasionSQL = sqlExcludeCreate;
+        }
+    }
+
+    let sql = `
+    SELECT incident.id, lat, lon, name, url, enabled, start, expiration, pokestop_id,
+        incident.character, display_type, style, incident.updated
+    FROM incident INNER JOIN pokestop ON pokestop.id = incident.pokestop_id
+    WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND incident.updated > ?
+        ${excludeInvasionSQL} ${areaRestrictionsSQL}
+    `;
+    const results = await dbSelection('incident').query(sql, args);
+    let pokestops = [];
+    if (results && results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+            pokestops.push({
+                id: result.id,
+                lat: result.lat,
+                lon: result.lon,
+                name: result.name,
+                url: result.url,
+                enabled: result.enabled,
+                pokestopId: result.pokestopId,
+                start: result.start,
+                expiration: result.expiration,
+                displayType: result.display_type,
+                style: result.style,
+                character: result.character,
+                updated: result.updated,
             });
         }
     }
@@ -814,7 +843,7 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     let areaRestrictionsSQL = getAreaRestrictionSql(areaRestrictions);
 
     const sql = `
-    SELECT id, lat, lon, updated, despawn_sec
+    SELECT id, lat, lon, updated, despawn_sec ${lastSeen}
     FROM spawnpoint
     WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ? ${excludeTimerSQL} ${areaRestrictionsSQL}
     `;
@@ -825,12 +854,17 @@ const getSpawnpoints = async (minLat, maxLat, minLon, maxLon, updated, spawnpoin
     if (results && results.length > 0) {
         for (let i = 0; i < results.length; i++) {
             const result = results[i];
+            let lastSeen = 0;
+            if (config.db.scanner.lastSeenColumn) {
+                lastSeen = result.last_seen;
+            }
             spawnpoints.push({
                 id: result.id,
                 lat: result.lat,
                 lon: result.lon,
                 updated: result.updated,
-                despawn_second: result.despawn_sec
+                despawn_second: result.despawn_sec,
+                last_seen: lastSeen,
             });
         }
     }
@@ -1584,6 +1618,7 @@ module.exports = {
     getPokemon,
     getGyms,
     getPokestops,
+    getInvasions,
     getSpawnpoints,
     getDevices,
     getS2Cells,

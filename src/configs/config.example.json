@@ -41,7 +41,8 @@
             "database": "rdmdb",
             "charset": "utf8mb4",
             "sessionTable": "sessions",
-            "arScanColumn": true
+            "arScanColumn": true,
+            "lastSeenColumn": true
         },
         "manualdb": {
             "host": "127.0.0.1",
