@@ -3044,7 +3044,7 @@ const getPvpRanks = (league, pokemon) => {
       if (showPokemonName) {
         content += `<td>${pokemonName}</td>`
       } else {
-        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}.png" alt="${pokemonName}" title="${pokemonName}" height="20">`
+        const img = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(ranking.pokemon, ranking.form, ranking.evolution, pokemon.gender, pokemon.costume)}" alt="${pokemonName}" title="${pokemonName}" height="20">`
         if (ranking.evolution) {
           if (showExperimentalStats && masterfile.pokemon[ranking.pokemon].temp_evolutions[ranking.evolution].unreleased) {
             content += `<td>*${img}</td>`
@@ -3282,7 +3282,7 @@ const getPokemonPopupContent = (pokemon) => {
         <h6><b>${getName(pokemon)} ${getGenderIcon(pokemon.gender)} ${getWeatherIcon(pokemon)}</b></h6>
       </div>
       <div class="pokemon-thumbnail-grid${typeof pokemon.atk_iv === 'number' ? '-iv' : ''}">
-        <img class="pokemon-thumbnail" src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">
+        <img class="pokemon-thumbnail" src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}">
         <div class="row text-nowrap" style="margin-left:auto; margin-right:auto;">
           <div class="col">
             ${popupDetails.pokemon.types ? getTypes(pokemon) : ''}
@@ -3548,7 +3548,7 @@ const getPossibleInvasionRewards = pokestop => {
   const makeShadowPokemon = pokemonId => {
     return `
       <div class="invasion-reward">
-        <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(pokemonId)}.png"/>
+        <img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(pokemonId)}"/>
         <img class="invasion-reward-shadow" src="/img/misc/shadow.png"/>
       </div>`;
   }
@@ -3625,7 +3625,7 @@ function getGymPopupContent (gym) {
             '<div class="col-4">' + // START 1ST COL
                 '<div class="row pokemon-popup-image-holder">';
         if (hasRaidBoss) {
-            content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}.png">`;
+            content += `<img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIcon}">`;
         } else {
             content += `<img src="/img/egg/${gym.raid_level}.png">`;
         }
@@ -4274,7 +4274,7 @@ function getNestMarker (nest, geojson, ts) {
                 iconAnchor: [40 / 2, anchorY],
                 popupAnchor: [0, -8 - anchorY],
                 className: 'nest-marker',
-                html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}.png"/></div>`,
+                html: `<div class="marker-image-holder">${typesIcon}<br><img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(nest.pokemon_id)}"/></div>`,
                 //shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                 //shadowSize:  [48, 48]
             });
@@ -4328,7 +4328,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
         iconAnchor: [size / 2, size / 2],
         popupAnchor: [0, size * -.6],
         className: 'pokemon-marker',
-        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}.png" style="` + 
+        html: `<div class="marker-image-holder"><img src="${availableIconStyles[selectedIconStyle].path}/${pokemonIdString}" style="` + 
         (
             showPokemonGlow !== false && glowColor !== ''
             ? `filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});-webkit-filter:drop-shadow(0 0 10px ${glowColor})drop-shadow(0 0 10px ${glowColor});`
@@ -4418,7 +4418,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             //iconUrl = `${availableIconStyles[selectedIconStyle].path}/item/-3.png`;
             iconUrl = '/img/item/-3.png';
             if (info && info.pokemon_id) {
-                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png" style="bottom: 15px;"/>`;
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}" style="bottom: 15px;"/>`;
             }
             if (info && info.amount > 1) {
                 iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
@@ -4438,7 +4438,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
                 rewardString += '-' + info.form_id;
             }
             // TODO: evolution https://github.com/versx/DataParser/issues/10
-            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}.png`;
+            iconUrl = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id, info.form_id, 0, info.gender_id, info.costume_id, info.shiny)}`;
         } else if (id === 8) {
             // Pokecoin
             rewardString = 'i-6';
@@ -4455,7 +4455,7 @@ function getPokestopMarkerIcon (pokestop, ts) {
             rewardString = 'i-8';
             iconUrl = '/img/item/-8.png';
             if (info && info.pokemon_id) {
-                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}.png" style="bottom: 15px;"/>`;
+                iconHtml = `<img src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(info.pokemon_id)}" style="bottom: 15px;"/>`;
             }
             if (info && info.amount > 1) {
                 iconHtml += `<div class="amount-holder"><div>${info.amount}</div></div>`;
@@ -4606,7 +4606,7 @@ function getGymMarkerIcon (gym, ts) {
         if (gym.raid_pokemon_id !== 0 && gym.raid_pokemon_id !== null) {
             // Raid Boss
             raidSize = getIconSize('raid', gym.raid_pokemon_id, gym.raid_pokemon_form)
-            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}.png`;
+            raidIcon = `${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(gym.raid_pokemon_id, gym.raid_pokemon_form, gym.raid_pokemon_evolution, gym.raid_pokemon_gender, gym.raid_pokemon_costume)}`;
         } else {
             // Egg
             raidSize = getIconSize('raid', raidLevel)
@@ -6146,17 +6146,17 @@ function getSize (size) {
 }
 
 function getPokemonIcon(pokemonId, form = 0, evolution = 0, gender = 0, costume = 0, shiny = false) {
-    const evolutionSuffixes = evolution ? ['-e' + evolution, ''] : [''];
-    const formSuffixes = form ? ['-f' + form, ''] : [''];
-    const costumeSuffixes = costume ? ['-c' + costume, ''] : [''];
-    const genderSuffixes = gender ? ['-g' + gender, ''] : [''];
-    const shinySuffixes = shiny ? ['-shiny', ''] : [''];
+    const evolutionSuffixes = evolution ? ['_e' + evolution, ''] : [''];
+    const formSuffixes = form ? ['_f' + form, ''] : [''];
+    const costumeSuffixes = costume ? ['_c' + costume, ''] : [''];
+    const genderSuffixes = gender ? ['_g' + gender, ''] : [''];
+    const shinySuffixes = shiny ? ['_s', ''] : [''];
     for (const evolutionSuffix of evolutionSuffixes) {
     for (const formSuffix of formSuffixes) {
     for (const costumeSuffix of costumeSuffixes) {
     for (const genderSuffix of genderSuffixes) {
     for (const shinySuffix of shinySuffixes) {
-        const result = `${pokemonId}${evolutionSuffix}${formSuffix}${costumeSuffix}${genderSuffix}${shinySuffix}`;
+        const result = `${pokemonId}${evolutionSuffix}${formSuffix}${costumeSuffix}${genderSuffix}${shinySuffix}.png`;
         if (availableForms.has(result)) return result;
     }
     }
@@ -6342,7 +6342,7 @@ function populateImage (row, type, set, meta) {
         case 'img':
             return `<div class="filter-image-holder"><img class="lazy_load" data-src="/img/${input.path}"/></div>`;
         case 'pokemon':
-            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(input.pokemonId, input.form)}.png"/></div>`;
+            return `<div class="filter-image-holder"><img class="lazy_load" data-src="${availableIconStyles[selectedIconStyle].path}/${getPokemonIcon(input.pokemonId, input.form)}"/></div>`;
         default:
             return input;
     }
