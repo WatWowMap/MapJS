@@ -980,12 +980,12 @@ function loadStorage () {
     }
 
     const invasionFilterValue = retrieve('invasion_filter');
-    const invasions = masterfile.invasions;
-    console.log('invasions:', invasions);
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
         for (const i of Object.entries(masterfile.invasions)) {
-            defaultInvasionFilter['i' + i[0]] = { show: true, size: 'normal' };
+            if (defaultInvasionFilter['i' + i[0]] === undefined) {
+                defaultInvasionFilter['i' + i[0]] = { show: true, size: 'normal' };
+            }
         }
 
         store('invasion_filter', JSON.stringify(defaultInvasionFilter));
