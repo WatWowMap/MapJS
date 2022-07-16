@@ -980,23 +980,21 @@ function loadStorage () {
     }
 
     const invasionFilterValue = retrieve('invasion_filter');
+    const invasions = masterfile.invasions;
+    console.log('invasions:', invasions);
     if (invasionFilterValue === null) {
         const defaultInvasionFilter = {};
-        let i;
-        for (i = 1; i <= 50; i++) {
-            if (defaultInvasionFilter['i' + i] === undefined) {
-                defaultInvasionFilter['i' + i] = { show: true, size: 'normal' };
-            }
+        for (const i of Object.entries(masterfile.invasions)) {
+            defaultInvasionFilter['i' + i[0]] = { show: true, size: 'normal' };
         }
 
         store('invasion_filter', JSON.stringify(defaultInvasionFilter));
         invasionFilter = defaultInvasionFilter;
     } else {
         invasionFilter = JSON.parse(invasionFilterValue);
-        let i;
-        for (i = 1; i <= 50; i++) {
-            if (invasionFilter['i' + i] === undefined) {
-                invasionFilter['i' + i] = { show: true, size: 'normal' };
+        for (const i of Object.entries(masterfile.invasions)) {
+            if (invasionFilter['i' + i[0]] === undefined) {
+                invasionFilter['i' + i[0]] = { show: true, size: 'normal' };
             }
         }
     }
