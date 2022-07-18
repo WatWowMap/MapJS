@@ -1,7 +1,8 @@
 const fs = require('fs');
 const axios = require('axios');
 
-module.exports.generate = async function generate() {
+//module.exports.generate = async function generate() {
+(async () => {
     try {
         const { data } = await axios.get('https://raw.githubusercontent.com/WatWowMap/Masterfile-Generator/master/master-latest.json');
 
@@ -15,4 +16,5 @@ module.exports.generate = async function generate() {
     } catch (e) {
         console.warn('Unable to generate new masterfile, using existing.');
     }
-};
+//};
+})();

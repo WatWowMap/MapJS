@@ -155,16 +155,19 @@
         },
     "icons": {
         "Default": {
-            "path": "https://mygod.github.io/pokicons/v2"
-        },
-        "Local Example": {
-            "path": "/img/pokemon"
+            "path": "https://raw.githubusercontent.com/WatWowMap/wwm-uicons/main/pokemon/"
         },
         "Home": {
-            "path": "https://raw.githubusercontent.com/Mygod/PkmnHomeIcons/icons/icons"
+            "path": "https://raw.githubusercontent.com/nileplumb/PkmnHomeIcons/master/UICONS/pokemon/"
         },
         "Shuffle": {
-            "path": "https://raw.githubusercontent.com/Mygod/pokedave_shuffle_icons_-ICONS-/master"
+            "path": "https://raw.githubusercontent.com/nileplumb/PkmnShuffleMap/master/UICONS/pokemon/"
+        },
+        "Half Shiny": {
+            "path": "https://raw.githubusercontent.com/jms412/PkmnShuffleMap/master/UICONS_Half_Shiny_Sparkles_256/pokemon/"
+        },
+        "Local Example": {
+            "path": "/img/pokemon/"
         }
     }
 }
