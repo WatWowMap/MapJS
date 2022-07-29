@@ -39,7 +39,6 @@
       "maxZoom": 18,
       "pvp": {
           "useName": true,
-          "maxRank": 100,
           "onlyShopTop5": false,
           "megaStats": true,
           "experimentalStats": false,

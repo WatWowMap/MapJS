@@ -2742,7 +2742,7 @@ function getPokemonIndex (pokemon) {
             const rankings = pokemon.pvp[key];
             $.each(rankings, function (index, ranking) {
                 const limits = pvpLimits[key];
-                if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= configPvp.maxRank && ranking.cp >= limits.minCp && ranking.cp <= limits.maxCp) {
+                if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= limits.maxRank && ranking.cp >= limits.minCp && ranking.cp <= limits.maxCp) {
                     bestRank = ranking.rank;
                 }
             });
@@ -2988,8 +2988,8 @@ function updateMapTimers () {
     });
 }
 
-const hasRelevantLeagueStats = (leagueStats) => {
-    const maxRank = configPvp.maxRank;
+const hasRelevantLeagueStats = (league, leagueStats) => {
+    const maxRank = configPvp[league].maxRank;
     return leagueStats && leagueStats.some(entry => entry.rank <= maxRank);
 }
 
@@ -3021,7 +3021,7 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>${i18n('popup_lvl')}</b></td>
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
-  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
+  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp[league].maxRank;
   const pvpRankings = pokemon.pvp[league];
   for (const ranking of pvpRankings) {
     if (ranking.rank <= maxRankingToUse) {
@@ -3239,7 +3239,7 @@ const getPokemonPopupContent = (pokemon) => {
         for (const league of keys) {
             if (pokemon.pvp && pokemon.pvp[league] !== undefined && pokemon.pvp[league] !== null) {
                 const rankings = pokemon.pvp[league];
-                if (hasRelevantLeagueStats(rankings)) {
+                if (hasRelevantLeagueStats(league, rankings)) {
                     content += getPvpRanks(league, pokemon);
                 }
             }
