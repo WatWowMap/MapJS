@@ -2989,7 +2989,7 @@ function updateMapTimers () {
 }
 
 const hasRelevantLeagueStats = (league, leagueStats) => {
-    const maxRank = configPvp[league].maxRank;
+    const maxRank = configPvp.limits[league].maxRank;
     return leagueStats && leagueStats.some(entry => entry.rank <= maxRank);
 }
 
@@ -3021,7 +3021,7 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>${i18n('popup_lvl')}</b></td>
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
-  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp[league].maxRank;
+  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.limits[league].maxRank;
   const pvpRankings = pokemon.pvp[league];
   for (const ranking of pvpRankings) {
     if (ranking.rank <= maxRankingToUse) {
