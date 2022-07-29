@@ -4671,9 +4671,22 @@ function getDeviceMarker (device, ts) {
         marker._popup.setContent(getDevicePopupContent(device));
         const data = JSON.parse(device.data);
         const route = data.area;
-        if (device.type === 'circle_pokemon') {
+        const circleTypes = [
+            'circle_pokemon',
+            'circle_smart_pokemon',
+            'circle_raid',
+        ];
+        const geofenceTypes = [
+            'auto_quest',
+            'bootstrap',
+            'smart_raid',
+            'dynamic_pokemon',
+            'find_tth',
+            'pokemon_iv',
+        ];
+        if (circleTypes.includes(device.type)) {
             polyline = L.polyline(route, {color: devicePathColor}).addTo(map);
-        } else if (device.type == 'pokemon_iv' || 'auto_quest') {
+        } else if (geofenceTypes.includes(device.type)) {
             polyline = L.polyline(route, {color: devicePathColor, fill: true, fillColor: devicePathColor}).addTo(map);
         }
     });

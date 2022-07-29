@@ -122,7 +122,7 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
     const sql = `
     SELECT id, pokemon_id, lat, lon, spawn_id, expire_timestamp, atk_iv, def_iv, sta_iv, move_1, move_2,
             gender, form, cp, level, weather, costume, weight, size, display_pokemon_id, pokestop_id, updated,
-            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username, pvp
+            first_seen_timestamp, changed, cell_id, expire_timestamp_verified, shiny, username
     FROM pokemon
     WHERE expire_timestamp >= UNIX_TIMESTAMP() AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND updated > ?
     ${onlyVerifiedTimersSQL} ${areaRestrictionsSQL}`;
@@ -898,11 +898,31 @@ const getDevices = async (deviceFilterExclude = null) => {
         excludeDeviceSQL = 'AND (last_seen >= UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE)) AND (last_seen < UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE))';
     }
 
+    /*
     const sql = `
     SELECT uuid, instance_name, last_host, last_seen, account_username, last_lat, last_lon, type, data
     FROM device
     INNER JOIN instance
     ON device.instance_name = instance.name ${excludeDeviceSQL}
+    `;
+    */
+    const sql = `
+SELECT 
+    uuid,
+    instance_name,
+    last_host,
+    last_seen,
+    account_username,
+    last_lat,
+    last_lon,
+    instance.type,
+    geofence.data
+FROM
+    device
+        INNER JOIN
+    instance ON device.instance_name = instance.name
+        INNER JOIN
+    geofence ON instance.geofences LIKE CONCAT('%', geofence.name, '%')
     `;
     const results = await dbSelection('device').query(sql);
     let devices = [];
@@ -918,7 +938,7 @@ const getDevices = async (deviceFilterExclude = null) => {
                 last_lat: result.last_lat,
                 last_lon: result.last_lon,
                 type: result.type,
-                data: result.data
+                data: result.data,
             });
         }
     }
