@@ -44,7 +44,7 @@
           "experimentalStats": false,
           "l40stats": true,
           "l41stats": false,
-          "l50stats": false,
+          "l50stats": true,
           "l51stats": false,
           "limits": {
               "little": {
