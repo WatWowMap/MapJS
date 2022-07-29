@@ -41,14 +41,29 @@
           "useName": true,
           "maxRank": 100,
           "onlyShopTop5": false,
-          "minCpGreat": 1400,
-          "minCpUltra": 2400,
           "megaStats": true,
           "experimentalStats": false,
           "l40stats": true,
           "l41stats": false,
           "l50stats": false,
-          "l51stats": false
+          "l51stats": false,
+          "limits": {
+              "little": {
+                  "minCp": 400,
+                  "maxCp": 500,
+                  "maxRank": 100
+              },
+              "great": {
+                "minCp": 1400,
+                "maxCp": 1500,
+                "maxRank": 100
+              },
+              "ultra": {
+                "minCp": 2350,
+                "maxCp": 2500,
+                "maxRank": 100
+              }
+          }
       },
       "devicePathColor": "red",
       "nestPolygons": true,
