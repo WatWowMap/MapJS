@@ -4308,7 +4308,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
     const size = getIconSize('pokemon', pokemon.pokemon_id, pokemon.form, pokemon.weight);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
-    const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
+    const bestRank = getPokemonBestRank(pokemon.pvp);
     const bestRankIcon = bestRank === 3
         ? 'third'
         : bestRank === 2
