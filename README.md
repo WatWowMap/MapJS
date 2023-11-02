@@ -6,6 +6,8 @@
 [![GitHub Contributors](https://img.shields.io/github/contributors/WatWowMap/MapJS.svg)](https://github.com/WatWowMap/MapJS/graphs/contributors/)
 [![Discord](https://img.shields.io/discord/552003258000998401.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/zZ9h9Xa)  
 
+## This project is soon to be archived, please use [ReactMap](https://github.com/WatWowMap/ReactMap) as a direct drop-in replacement.  
+
 # MapJS
 
 NodeJS Map clone replacement for [RealDeviceMap](https://github.com/realdevicemap/realdevicemap)
