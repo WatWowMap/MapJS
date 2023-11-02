@@ -146,12 +146,9 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                 }
             }
             if (showPVP && interestedLevelCaps.length > 0) {
-                // TODO: Filter pvp rankings
-                /*
-                const { minCpGreat, minCpUltra } = config.map.pvp;
-                const filterLeagueStats = (result, target, minCp) => {
+                const filterLeagueStats = (league, result, target, minCp) => {
                     let last;
-                    for (const entry of JSON.parse(result)) {
+                    for (const entry of result) {
                         if (minCp && entry.cp < minCp || entry.cap !== undefined && (entry.capped
                             ? interestedLevelCaps[interestedLevelCaps.length - 1] < entry.cap
                             : !interestedLevelCaps.includes(entry.cap))) {
@@ -177,18 +174,20 @@ const getPokemon = async (minLat, maxLat, minLon, maxLon, showPVP, showIV, updat
                                 last.capped = true;
                             }
                         } else {
-                            target.push(entry);
+                            target[league].push(entry);
                             last = entry;
                         }
                     }
                 };
-                if (result.pvp_rankings_great_league) {
-                    filterLeagueStats(result.pvp_rankings_great_league, filtered.pvp_rankings_great_league = [], minCpGreat);
+                if (result.pvp && result.atk_iv) {
+                    const pvpRankings = JSON.parse(result.pvp);
+                    const keys = Object.keys(pvpRankings);
+                    for (const league of keys) {
+                        const rankings = pvpRankings[league];
+                        const limits = config.map.pvp.limits[league];
+                        filterLeagueStats(league, rankings, filtered.pvp = { [league]: [] }, limits.minCp);
+                    }
                 }
-                if (result.pvp_rankings_ultra_league) {
-                    filterLeagueStats(result.pvp_rankings_ultra_league, filtered.pvp_rankings_ultra_league = [], minCpUltra);
-                }
-                */
             }
             let pokemonFilter = result.form === 0 ? pokemonLookup[result.pokemon_id] : formLookup[result.form];
             if (pokemonFilter === undefined) {
@@ -1413,7 +1412,7 @@ const getPolygon = (s2cellId) => {
 // need to keep consistency with client-side implementation checkIVFilterValid
 const jsifyIvFilter = (filter) => {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!,]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!,]|([ADSL]?|CP|[GU]L|LC)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let result = '';
     let expectClause = true;    // expect a clause or '('
     let stack = 0;
@@ -1433,15 +1432,17 @@ const jsifyIvFilter = (filter) => {
                     case 'S': column = 'sta_iv'; break;
                     case 'L': column = 'level';  break;
                     case 'CP': column = 'cp';    break;
-                    case 'GL': column = 'pvp_rankings_great_league'; break;
-                    case 'UL': column = 'pvp_rankings_ultra_league'; break;
+                    case 'LC': column = 'little'; break;
+                    case 'GL': column = 'great'; break;
+                    case 'UL': column = 'ultra'; break;
                 }
                 let upper = lower;
                 if (match[4] !== undefined) {
                     upper = parseFloat(match[4]);
                 }
-                if (column.endsWith('_league')) {
-                    result += `((pokemon['${column}'] || []).some(x => x.rank >= ${lower} && x.rank <= ${upper}))`;
+                const leagues = Object.keys(config.map.pvp.limits);
+                if (leagues.includes(column)) {
+                    result += `(pokemon.pvp && pokemon.pvp['${column}'] && (pokemon.pvp['${column}'] || []).some(x => x.rank >= ${lower} && x.rank <= ${upper}))`;
                 } else {
                     result += `(pokemon['${column}'] !== null && pokemon['${column}'] >= ${lower} && pokemon['${column}'] <= ${upper})`;
                 }

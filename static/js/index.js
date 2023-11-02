@@ -2725,6 +2725,7 @@ function loadScanAreaPolygons () {
 // MARK: - Filters
 
 function getPokemonIndex (pokemon) {
+    const pvpLimits = configPvp.limits;
     const id = pokemon.form === 0 ? pokemon.pokemon_id : `${pokemon.pokemon_id}-${pokemon.form}`;
     if (pokemonFilter[id] === undefined) {
         // TODO: console.log('Pokemon index undefined:', id);
@@ -2734,18 +2735,18 @@ function getPokemonIndex (pokemon) {
     if (pokemon.atk_iv === 15 && pokemon.def_iv === 15 && pokemon.sta_iv === 15) {
         return 9;
     }
-    if (pokemon.pvp_rankings_great_league !== null && pokemon.pvp_rankings_ultra_league !== null) {
+    if (pokemon.pvp && pokemon.pvp !== null) {
         let bestRank = 4;
-        $.each(pokemon.pvp_rankings_great_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= configPvp.maxRank && ranking.cp >= configPvp.minCpGreat && ranking.cp <= 1500) {
-                bestRank = ranking.rank;
-            }
-        });
-        $.each(pokemon.pvp_rankings_ultra_league, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= configPvp.maxRank && ranking.cp >= configPvp.minCpUltra && ranking.cp <= 2500) {
-                bestRank = ranking.rank;
-            }
-        });
+        const keys = Object.keys(pokemon.pvp);
+        for (const key of keys) {
+            const rankings = pokemon.pvp[key];
+            $.each(rankings, function (index, ranking) {
+                const limits = pvpLimits[key];
+                if (ranking.rank !== null && ranking.rank < bestRank && ranking.rank <= limits.maxRank && ranking.cp >= limits.minCp && ranking.cp <= limits.maxCp) {
+                    bestRank = ranking.rank;
+                }
+            });
+        }
         if (bestRank === 1) {
             return 7;
         } else if (bestRank === 2) {
@@ -2987,24 +2988,23 @@ function updateMapTimers () {
     });
 }
 
-const hasRelevantLeagueStats = (leagueStats) => {
-    const maxRank = configPvp.maxRank;
+const hasRelevantLeagueStats = (league, leagueStats) => {
+    const maxRank = configPvp.limits[league].maxRank;
     return leagueStats && leagueStats.some(entry => entry.rank <= maxRank);
 }
 
-const getPokemonBestRank = (greatLeague, ultraLeague) => {
-    if ((greatLeague !== null) || (ultraLeague !== null)) {
+const getPokemonBestRank = (pvp) => {
+    if (pvp && pvp !== null) {
         let bestRank = 4;
-        $.each(greatLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank) {
-                bestRank = ranking.rank;
-            }
-        });
-        $.each(ultraLeague, function (index, ranking) {
-            if (ranking.rank !== null && ranking.rank < bestRank) {
-                bestRank = ranking.rank;
-            }
-        });
+        const keys = Object.keys(pvp);
+        for (const key of keys) {
+            const rankings = pvp[key];
+            $.each(rankings, function (index, ranking) {
+                if (ranking.rank !== null && ranking.rank < bestRank) {
+                    bestRank = ranking.rank;
+                }
+            });
+        }
         if (bestRank <= 3) {
             return bestRank;
         }
@@ -3013,7 +3013,6 @@ const getPokemonBestRank = (greatLeague, ultraLeague) => {
 }
 
 const getPvpRanks = (league, pokemon) => {
-  const getLeague = `pvp_rankings_${league}_league`
   let content = `
         <tr>
           <td><img src="/img/misc/${league}.png" height="20"></td>
@@ -3022,8 +3021,9 @@ const getPvpRanks = (league, pokemon) => {
           <td><b>${i18n('popup_lvl')}</b></td>
           ${showPvpPercent ? '<td><b>%</td>' : ''}
         </tr>`;
-  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.maxRank;
-  for (const [i, ranking] of Object.entries(pokemon[getLeague])) {
+  let maxRankingToUse = showOnlyRank5Pvp ? 5 : configPvp.limits[league].maxRank;
+  const pvpRankings = pokemon.pvp[league];
+  for (const ranking of pvpRankings) {
     if (ranking.rank <= maxRankingToUse) {
       content += `<tr>`
       let pokemonName = ``;
@@ -3070,8 +3070,8 @@ const getPvpRanks = (league, pokemon) => {
       if (showPvpPercent && ranking.percentage !== null) {
         content += `<td>${Math.floor(ranking.percentage*100)}</td>`;
       }
+      content += `</tr>`;
     }
-    content += `</tr>`;
   }
   return content.includes('#') ? content : '';
 }
@@ -3234,11 +3234,16 @@ const getPokemonPopupContent = (pokemon) => {
       let content = `
       <div class="pokemon-pvp-stats">
         <table class="table-pvp">`;
-    if (pokemon.pvp_rankings_great_league !== undefined && pokemon.pvp_rankings_great_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_great_league, true)) {
-      content += getPvpRanks('great', pokemon);
-    }
-    if (pokemon.pvp_rankings_ultra_league !== undefined && pokemon.pvp_rankings_ultra_league !== null && hasRelevantLeagueStats(pokemon.pvp_rankings_ultra_league, false)) {
-      content += getPvpRanks('ultra', pokemon);
+    if (pokemon.pvp) {
+        const keys = Object.keys(pokemon.pvp);
+        for (const league of keys) {
+            if (pokemon.pvp && pokemon.pvp[league] !== undefined && pokemon.pvp[league] !== null) {
+                const rankings = pokemon.pvp[league];
+                if (hasRelevantLeagueStats(league, rankings)) {
+                    content += getPvpRanks(league, pokemon);
+                }
+            }
+        }
     }
     content += `</table>`
     if (content.includes('*')) {
@@ -4303,7 +4308,7 @@ function getPokemonMarkerIcon (pokemon, ts) {
     const size = getIconSize('pokemon', pokemon.pokemon_id, pokemon.form, pokemon.weight);
     const pokemonIdString = getPokemonIcon(pokemon.pokemon_id, pokemon.form, 0, pokemon.gender, pokemon.costume);
     const iv = calcIV(pokemon.atk_iv, pokemon.def_iv, pokemon.sta_iv);
-    const bestRank = getPokemonBestRank(pokemon.pvp_rankings_great_league, pokemon.pvp_rankings_ultra_league);
+    const bestRank = getPokemonBestRank(pokemon.pvp);
     const bestRankIcon = bestRank === 3
         ? 'third'
         : bestRank === 2
@@ -6070,7 +6075,7 @@ function manageGlobalStardustCountPopup (id, filter) {
 
 function checkIVFilterValid (filter) {
     const input = filter.toUpperCase();
-    let tokenizer = /\s*([()|&!,]|([ADSL]?|CP|[GU]L)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
+    let tokenizer = /\s*([()|&!,]|([ADSL]?|CP|[GU]L|LC)\s*([0-9]+(?:\.[0-9]*)?)(?:\s*-\s*([0-9]+(?:\.[0-9]*)?))?)/g;
     let expectClause = true;
     let stack = 0;
     let lastIndex = 0;
